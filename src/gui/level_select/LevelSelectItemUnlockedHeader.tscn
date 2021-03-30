@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://addons/scaffold/src/gui/level_select/LevelSelectItemUnlockedHeader.gd" type="Script" id=1]
-[ext_resource path="res://addons/scaffold/assets/fonts/main_font_m.tres" type="DynamicFont" id=2]
-[ext_resource path="res://addons/scaffold/assets/images/gui/left_caret_normal.png" type="Texture" id=3]
-[ext_resource path="res://addons/scaffold/src/gui/ScaffoldTextureRect.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/godot_scaffold/src/gui/level_select/LevelSelectItemUnlockedHeader.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_scaffold/assets/fonts/main_font_m.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/godot_scaffold/assets/images/gui/left_caret_normal.png" type="Texture" id=3]
+[ext_resource path="res://addons/godot_scaffold/src/gui/ScaffoldTextureRect.tscn" type="PackedScene" id=4]
 
 [node name="LevelSelectItemUnlockedHeader" type="Button"]
 margin_right = 320.0

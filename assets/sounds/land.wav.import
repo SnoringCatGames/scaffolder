@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/land.wav-0efc9d2524db030227898be576160700.sample"
+path="res://.import/land.wav-427a232a08daa3a80dca3f5b3dc0e8c6.sample"
 
 [deps]
 
-source_file="res://addons/scaffold/assets/sounds/land.wav"
-dest_files=[ "res://.import/land.wav-0efc9d2524db030227898be576160700.sample" ]
+source_file="res://addons/godot_scaffold/assets/sounds/land.wav"
+dest_files=[ "res://.import/land.wav-427a232a08daa3a80dca3f5b3dc0e8c6.sample" ]
 
 [params]
 

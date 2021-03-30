@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ScaffoldCheckBox.png-8e894f6a2509ccfd1eb0be71ef6ea0b2.stex"
+path="res://.import/ScaffoldCheckBox.png-62e8725a0630857e526b88317ff92faf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffold/assets/images/editor_icons/ScaffoldCheckBox.png"
-dest_files=[ "res://.import/ScaffoldCheckBox.png-8e894f6a2509ccfd1eb0be71ef6ea0b2.stex" ]
+source_file="res://addons/godot_scaffold/assets/images/editor_icons/ScaffoldCheckBox.png"
+dest_files=[ "res://.import/ScaffoldCheckBox.png-62e8725a0630857e526b88317ff92faf.stex" ]
 
 [params]
 

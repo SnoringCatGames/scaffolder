@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/walk.wav-83d5799a52414864671d0e74d9ceee82.sample"
+path="res://.import/walk.wav-f32b9925d09a1b88246e695de5c400cd.sample"
 
 [deps]
 
-source_file="res://addons/scaffold/assets/sounds/walk.wav"
-dest_files=[ "res://.import/walk.wav-83d5799a52414864671d0e74d9ceee82.sample" ]
+source_file="res://addons/godot_scaffold/assets/sounds/walk.wav"
+dest_files=[ "res://.import/walk.wav-f32b9925d09a1b88246e695de5c400cd.sample" ]
 
 [params]
 

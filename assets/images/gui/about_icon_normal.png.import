@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/about_icon_normal.png-56111c36cf7cb4b7d7c739a43e68b871.stex"
+path="res://.import/about_icon_normal.png-bb397b486720c840f5d619160aaf168a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffold/assets/images/gui/about_icon_normal.png"
-dest_files=[ "res://.import/about_icon_normal.png-56111c36cf7cb4b7d7c739a43e68b871.stex" ]
+source_file="res://addons/godot_scaffold/assets/images/gui/about_icon_normal.png"
+dest_files=[ "res://.import/about_icon_normal.png-bb397b486720c840f5d619160aaf168a.stex" ]
 
 [params]
 

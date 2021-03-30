@@ -1,18 +1,18 @@
 tool
-class_name LabeledControlList, "res://addons/scaffold/assets/images/editor_icons/LabeledControlList.png"
+class_name LabeledControlList, "res://addons/godot_scaffold/assets/images/editor_icons/LabeledControlList.png"
 extends VBoxContainer
 
 signal item_changed(item)
 
 const ABOUT_ICON_NORMAL := \
-        preload("res://addons/scaffold/assets/images/gui/about_icon_normal.png")
+        preload("res://addons/godot_scaffold/assets/images/gui/about_icon_normal.png")
 const ABOUT_ICON_HOVER := \
-        preload("res://addons/scaffold/assets/images/gui/about_icon_hover.png")
+        preload("res://addons/godot_scaffold/assets/images/gui/about_icon_hover.png")
 const ABOUT_ICON_ACTIVE := \
-        preload("res://addons/scaffold/assets/images/gui/about_icon_active.png")
+        preload("res://addons/godot_scaffold/assets/images/gui/about_icon_active.png")
 
 const SCAFFOLD_CHECK_BOX_SCENE_PATH := \
-        "res://addons/scaffold/src/gui/ScaffoldCheckBox.tscn"
+        "res://addons/godot_scaffold/src/gui/ScaffoldCheckBox.tscn"
 
 const ENABLED_ALPHA := 1.0
 const DISABLED_ALPHA := 0.3

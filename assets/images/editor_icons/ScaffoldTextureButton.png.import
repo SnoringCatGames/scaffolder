@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ScaffoldTextureButton.png-4180817cb73c10ad7f6bce569c21e284.stex"
+path="res://.import/ScaffoldTextureButton.png-8300cec28b32cb75e9cb23a794ab2678.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffold/assets/images/editor_icons/ScaffoldTextureButton.png"
-dest_files=[ "res://.import/ScaffoldTextureButton.png-4180817cb73c10ad7f6bce569c21e284.stex" ]
+source_file="res://addons/godot_scaffold/assets/images/editor_icons/ScaffoldTextureButton.png"
+dest_files=[ "res://.import/ScaffoldTextureButton.png-8300cec28b32cb75e9cb23a794ab2678.stex" ]
 
 [params]
 

@@ -3,7 +3,7 @@ class_name LevelSelectScreen
 extends Screen
 
 const LEVEL_SELECT_ITEM_RESOURCE_PATH := \
-        "res://addons/scaffold/src/gui/level_select/LevelSelectItem.tscn"
+        "res://addons/godot_scaffold/src/gui/level_select/LevelSelectItem.tscn"
 
 const SCROLL_TWEEN_DURATION_SEC := 0.3
 

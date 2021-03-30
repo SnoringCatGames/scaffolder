@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://addons/scaffold/src/gui/level_select/LevelSelectItem.gd" type="Script" id=1]
-[ext_resource path="res://addons/scaffold/src/gui/AccordionPanel.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/scaffold/src/gui/level_select/LevelSelectItemLockedHeader.tscn" type="PackedScene" id=4]
-[ext_resource path="res://addons/scaffold/src/gui/level_select/LevelSelectItemBody.tscn" type="PackedScene" id=5]
-[ext_resource path="res://addons/scaffold/src/gui/level_select/LevelSelectItemUnlockedHeader.tscn" type="PackedScene" id=8]
+[ext_resource path="res://addons/godot_scaffold/src/gui/level_select/LevelSelectItem.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_scaffold/src/gui/AccordionPanel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/godot_scaffold/src/gui/level_select/LevelSelectItemLockedHeader.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/godot_scaffold/src/gui/level_select/LevelSelectItemBody.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/godot_scaffold/src/gui/level_select/LevelSelectItemUnlockedHeader.tscn" type="PackedScene" id=8]
 
 [node name="LevelSelectItem" type="VBoxContainer"]
 rect_min_size = Vector2( 400, 56 )

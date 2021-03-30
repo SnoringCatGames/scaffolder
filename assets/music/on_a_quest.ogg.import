@@ -2,12 +2,12 @@
 
 importer="ogg_vorbis"
 type="AudioStreamOGGVorbis"
-path="res://.import/on_a_quest.ogg-4373591f3ed5c5c780994e8297b8a5e7.oggstr"
+path="res://.import/on_a_quest.ogg-d3106652ad9883de63cd92afb1ef72fb.oggstr"
 
 [deps]
 
-source_file="res://addons/scaffold/assets/music/on_a_quest.ogg"
-dest_files=[ "res://.import/on_a_quest.ogg-4373591f3ed5c5c780994e8297b8a5e7.oggstr" ]
+source_file="res://addons/godot_scaffold/assets/music/on_a_quest.ogg"
+dest_files=[ "res://.import/on_a_quest.ogg-d3106652ad9883de63cd92afb1ef72fb.oggstr" ]
 
 [params]
 

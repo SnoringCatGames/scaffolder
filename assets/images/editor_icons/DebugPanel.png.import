@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/DebugPanel.png-2811e895685ef0e00660ec30ddb59d3f.stex"
+path="res://.import/DebugPanel.png-73002036be4612fec6c4e5f14a093973.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffold/assets/images/editor_icons/DebugPanel.png"
-dest_files=[ "res://.import/DebugPanel.png-2811e895685ef0e00660ec30ddb59d3f.stex" ]
+source_file="res://addons/godot_scaffold/assets/images/editor_icons/DebugPanel.png"
+dest_files=[ "res://.import/DebugPanel.png-73002036be4612fec6c4e5f14a093973.stex" ]
 
 [params]
 

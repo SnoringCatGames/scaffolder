@@ -1,5 +1,5 @@
 tool
-class_name ScaffoldTextureRect, "res://addons/scaffold/assets/images/editor_icons/ScaffoldTextureRect.png"
+class_name ScaffoldTextureRect, "res://addons/godot_scaffold/assets/images/editor_icons/ScaffoldTextureRect.png"
 extends Control
 
 export var texture: Texture setget \
