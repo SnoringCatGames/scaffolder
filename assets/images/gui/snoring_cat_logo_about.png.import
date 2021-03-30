@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/snoring_cat_logo_about.png-a5f1d4e59198272852b5a495e0471621.stex"
+path="res://.import/snoring_cat_logo_about.png-8fbd6062d6965d1a23bdd2eadeea96a4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffold/assets/images/gui/snoring_cat_logo_about.png"
-dest_files=[ "res://.import/snoring_cat_logo_about.png-a5f1d4e59198272852b5a495e0471621.stex" ]
+source_file="res://addons/godot_scaffold/assets/images/gui/snoring_cat_logo_about.png"
+dest_files=[ "res://.import/snoring_cat_logo_about.png-8fbd6062d6965d1a23bdd2eadeea96a4.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ScaffoldTextureRect.png-66533c0fe7dddf217dcabe5cba041f91.stex"
+path="res://.import/ScaffoldTextureRect.png-b990623a162547d0388321deb108c652.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffold/assets/images/editor_icons/ScaffoldTextureRect.png"
-dest_files=[ "res://.import/ScaffoldTextureRect.png-66533c0fe7dddf217dcabe5cba041f91.stex" ]
+source_file="res://addons/godot_scaffold/assets/images/editor_icons/ScaffoldTextureRect.png"
+dest_files=[ "res://.import/ScaffoldTextureRect.png-b990623a162547d0388321deb108c652.stex" ]
 
 [params]
 

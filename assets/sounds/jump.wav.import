@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/jump.wav-e1318a1248f6064d6c4b44d6684ee8eb.sample"
+path="res://.import/jump.wav-a41cc572ed5083ff7b8c9eee4d1043a5.sample"
 
 [deps]
 
-source_file="res://addons/scaffold/assets/sounds/jump.wav"
-dest_files=[ "res://.import/jump.wav-e1318a1248f6064d6c4b44d6684ee8eb.sample" ]
+source_file="res://addons/godot_scaffold/assets/sounds/jump.wav"
+dest_files=[ "res://.import/jump.wav-a41cc572ed5083ff7b8c9eee4d1043a5.sample" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pause_icon_hover_large.png-7fa85a3303c4ca6d6376492a1be63e1c.stex"
+path="res://.import/pause_icon_hover_large.png-2ed87ce79a277b2887de246a907d498a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffold/assets/images/gui/pause_icon_hover_large.png"
-dest_files=[ "res://.import/pause_icon_hover_large.png-7fa85a3303c4ca6d6376492a1be63e1c.stex" ]
+source_file="res://addons/godot_scaffold/assets/images/gui/pause_icon_hover_large.png"
+dest_files=[ "res://.import/pause_icon_hover_large.png-2ed87ce79a277b2887de246a907d498a.stex" ]
 
 [params]
 

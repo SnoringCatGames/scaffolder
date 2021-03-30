@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/transition_out.png-ede39920f966c4c2dacefc7ad6215779.stex"
+path="res://.import/transition_out.png-18612cea33056b208067fd1f3eff926b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffold/assets/images/transition_out.png"
-dest_files=[ "res://.import/transition_out.png-ede39920f966c4c2dacefc7ad6215779.stex" ]
+source_file="res://addons/godot_scaffold/assets/images/transition_out.png"
+dest_files=[ "res://.import/transition_out.png-18612cea33056b208067fd1f3eff926b.stex" ]
 
 [params]
 

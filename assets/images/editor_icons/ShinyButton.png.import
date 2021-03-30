@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ShinyButton.png-72bf0278d3350ed9f32df32489121be5.stex"
+path="res://.import/ShinyButton.png-54ee8d65b61196ced59e662c46f9f47c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffold/assets/images/editor_icons/ShinyButton.png"
-dest_files=[ "res://.import/ShinyButton.png-72bf0278d3350ed9f32df32489121be5.stex" ]
+source_file="res://addons/godot_scaffold/assets/images/editor_icons/ShinyButton.png"
+dest_files=[ "res://.import/ShinyButton.png-54ee8d65b61196ced59e662c46f9f47c.stex" ]
 
 [params]
 

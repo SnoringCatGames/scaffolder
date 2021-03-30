@@ -1,14 +1,14 @@
 tool
-class_name AccordionPanel, "res://addons/scaffold/assets/images/editor_icons/AccordionPanel.png"
+class_name AccordionPanel, "res://addons/godot_scaffold/assets/images/editor_icons/AccordionPanel.png"
 extends Control
 
 signal toggled
 signal caret_rotated
 
 const CARET_LEFT_NORMAL: Texture = \
-        preload("res://addons/scaffold/assets/images/gui/left_caret_normal.png")
+        preload("res://addons/godot_scaffold/assets/images/gui/left_caret_normal.png")
 const SCAFFOLD_TEXTURE_RECT_SCENE_PATH := \
-        "res://addons/scaffold/src/gui/ScaffoldTextureRect.tscn"
+        "res://addons/godot_scaffold/src/gui/ScaffoldTextureRect.tscn"
 
 const CARET_SIZE_DEFAULT := Vector2(23.0, 32.0)
 const CARET_SCALE := Vector2(0.5, 0.5)

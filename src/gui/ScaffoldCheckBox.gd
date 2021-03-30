@@ -1,5 +1,5 @@
 tool
-class_name ScaffoldCheckBox, "res://addons/scaffold/assets/images/editor_icons/ScaffoldCheckBox.png"
+class_name ScaffoldCheckBox, "res://addons/godot_scaffold/assets/images/editor_icons/ScaffoldCheckBox.png"
 extends Control
 
 signal pressed

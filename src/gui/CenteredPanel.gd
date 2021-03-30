@@ -1,5 +1,5 @@
 tool
-class_name CenteredPanel, "res://addons/scaffold/assets/images/editor_icons/CenteredPanel.png"
+class_name CenteredPanel, "res://addons/godot_scaffold/assets/images/editor_icons/CenteredPanel.png"
 extends PanelContainer
 
 export var stretches_horizontally := false \

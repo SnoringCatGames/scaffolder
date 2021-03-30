@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/achievement.wav-ded879cfc1a722ae5fed563c39cc94c5.sample"
+path="res://.import/achievement.wav-c42e68d9bc54a2cadef76f254144cd63.sample"
 
 [deps]
 
-source_file="res://addons/scaffold/assets/sounds/achievement.wav"
-dest_files=[ "res://.import/achievement.wav-ded879cfc1a722ae5fed563c39cc94c5.sample" ]
+source_file="res://addons/godot_scaffold/assets/sounds/achievement.wav"
+dest_files=[ "res://.import/achievement.wav-c42e68d9bc54a2cadef76f254144cd63.sample" ]
 
 [params]
 

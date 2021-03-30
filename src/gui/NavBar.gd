@@ -1,5 +1,5 @@
 tool
-class_name NavBar, "res://addons/scaffold/assets/images/editor_icons/NavBar.png"
+class_name NavBar, "res://addons/godot_scaffold/assets/images/editor_icons/NavBar.png"
 extends PanelContainer
 
 export var text := "" setget _set_text

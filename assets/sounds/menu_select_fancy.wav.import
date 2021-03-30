@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/menu_select_fancy.wav-7bfcf5a5d34c3e2b6f185a2ef623b773.sample"
+path="res://.import/menu_select_fancy.wav-d39e77624c0b16ed27c1fd573d103383.sample"
 
 [deps]
 
-source_file="res://addons/scaffold/assets/sounds/menu_select_fancy.wav"
-dest_files=[ "res://.import/menu_select_fancy.wav-7bfcf5a5d34c3e2b6f185a2ef623b773.sample" ]
+source_file="res://addons/godot_scaffold/assets/sounds/menu_select_fancy.wav"
+dest_files=[ "res://.import/menu_select_fancy.wav-d39e77624c0b16ed27c1fd573d103383.sample" ]
 
 [params]
 

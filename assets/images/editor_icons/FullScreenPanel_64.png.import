@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FullScreenPanel_64.png-182e6ea07eca378419f48dd77334fa14.stex"
+path="res://.import/FullScreenPanel_64.png-277498176f81d7697321c686190b2620.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffold/assets/images/editor_icons/FullScreenPanel_64.png"
-dest_files=[ "res://.import/FullScreenPanel_64.png-182e6ea07eca378419f48dd77334fa14.stex" ]
+source_file="res://addons/godot_scaffold/assets/images/editor_icons/FullScreenPanel_64.png"
+dest_files=[ "res://.import/FullScreenPanel_64.png-277498176f81d7697321c686190b2620.stex" ]
 
 [params]
 

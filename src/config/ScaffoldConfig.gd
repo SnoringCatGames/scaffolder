@@ -10,7 +10,7 @@ const IS_MUSIC_ENABLED_SETTINGS_KEY := "is_music_enabled"
 const IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY := "is_sound_effects_enabled"
 
 const DEBUG_PANEL_RESOURCE_PATH := \
-        "res://addons/scaffold/src/gui/DebugPanel.tscn"
+        "res://addons/godot_scaffold/src/gui/DebugPanel.tscn"
 
 const MIN_GUI_SCALE := 0.2
 
@@ -93,9 +93,9 @@ var developer_splash_screen_duration_sec := 1.0
 var main_menu_image_scene_path: String
 
 var fade_in_transition_texture := \
-        preload("res://addons/scaffold/assets/images/transition_in.png")
+        preload("res://addons/godot_scaffold/assets/images/transition_in.png")
 var fade_out_transition_texture := \
-        preload("res://addons/scaffold/assets/images/transition_out.png")
+        preload("res://addons/godot_scaffold/assets/images/transition_out.png")
 
 var google_analytics_id: String
 var terms_and_conditions_url: String
@@ -114,12 +114,12 @@ var display_resize_throttle_interval_sec := 0.1
 var recent_gesture_events_for_debugging_buffer_size := 1000
 
 var checkbox_icon_path_prefix := \
-        "res://addons/scaffold/assets/images/gui/checkbox_"
+        "res://addons/godot_scaffold/assets/images/gui/checkbox_"
 var default_checkbox_icon_size := 32
 var checkbox_icon_sizes := [16, 32, 64, 128]
 
 var tree_arrow_icon_path_prefix := \
-        "res://addons/scaffold/assets/images/gui/tree_arrow_"
+        "res://addons/godot_scaffold/assets/images/gui/tree_arrow_"
 var default_tree_arrow_icon_size := 16
 var tree_arrow_icon_sizes := [8, 16, 32, 64]
 
