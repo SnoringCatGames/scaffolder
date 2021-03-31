@@ -101,7 +101,8 @@ func register_music( \
         _inflated_music_config[config.name] = config
     
     _pitch_shift_effect = AudioEffectPitchShift.new()
-    AudioServer.add_bus_effect(bus_index, _pitch_shift_effect)
+    # TODO: Consider adding this back once it works in HTML.
+#    AudioServer.add_bus_effect(bus_index, _pitch_shift_effect)
     
     _update_volume()
 
