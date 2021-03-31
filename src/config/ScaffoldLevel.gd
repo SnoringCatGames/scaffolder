@@ -2,6 +2,7 @@ class_name ScaffoldLevel
 extends Node2D
 
 var _id: String
+var _is_restarting := false
 var level_start_time := INF
 var score := 0.0
 
@@ -15,6 +16,10 @@ func _ready() -> void:
             self, \
             "_on_resized")
     _on_resized()
+
+func _exit_tree() -> void:
+    if _is_restarting:
+        Gs.nav.screens["game"].start_level(_id)
 
 func _on_resized() -> void:
     pass
@@ -31,24 +36,24 @@ func start() -> void:
             "start", \
             Gs.level_config.get_level_version_string(_id))
 
-func _exit_tree() -> void:
+func _destroy() -> void:
     Gs.level = null
+    queue_free()
 
 func quit(immediately := true) -> void:
     Gs.audio.stop_music()
     _record_level_results()
     if immediately:
 #        _on_level_quit_sound_finished()
-        queue_free()
+        _destroy()
     else:
         Gs.audio.get_sound_player(Gs.level_end_sound) \
                 .connect("finished", self, "_on_level_quit_sound_finished")
         Gs.audio.play_sound(Gs.level_end_sound)
 
 func restart() -> void:
-    var level_id := _id
+    _is_restarting = true
     quit(true)
-    Gs.nav.screens["game"].start_level(level_id)
 
 func _record_level_results() -> void:
     var game_over_screen = Gs.nav.screens["game_over"]
@@ -102,7 +107,7 @@ func _on_level_quit_sound_finished() -> void:
             is_rate_app_screen_next else \
             "game_over"
     Gs.nav.open(next_screen, true)
-    queue_free()
+    _destroy()
 
 func _get_music_name() -> String:
     return "on_a_quest"
