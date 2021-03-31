@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://addons/godot_scaffold/src/gui/CenteredPanel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot_scaffold/src/gui/NavBar.tscn" type="PackedScene" id=2]
@@ -15,56 +15,53 @@ script = ExtResource( 3 )
 
 [node name="FullScreenPanel" parent="." instance=ExtResource( 4 )]
 margin_right = 960.0
-margin_bottom = 1156.0
+margin_bottom = 960.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
-margin_right = 960.0
-margin_bottom = 1156.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 967.0
+margin_bottom = 1177.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="NavBar" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 2 )]
 margin_right = 960.0
-margin_bottom = 192.0
+margin_bottom = 206.0
 text = "Paused"
-shows_back = true
-shows_about = false
 shows_settings = true
-shows_logo = false
 
 [node name="CenteredPanel" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 196.0
+margin_top = 210.0
 margin_right = 960.0
-margin_bottom = 1156.0
-rect_min_size = Vector2( 960, 960 )
-stretches_horizontally = false
+margin_bottom = 1170.0
 stretches_vertically = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel"]
-margin_right = 960.0
-margin_bottom = 960.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 953.0
+margin_bottom = 953.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
-margin_right = 960.0
-margin_bottom = 960.0
+margin_right = 946.0
+margin_bottom = 946.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 320.0
-margin_top = 370.0
-margin_right = 640.0
-margin_bottom = 590.0
+margin_left = 313.0
+margin_top = 363.0
+margin_right = 633.0
+margin_bottom = 583.0
 rect_min_size = Vector2( 320, 0 )
 custom_constants/separation = 0
 
 [node name="LabeledControlList" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 9 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 320.0
 padding_horizontal = 6.0
 
@@ -86,15 +83,12 @@ size_flags_vertical = 4
 custom_constants/separation = 16
 
 [node name="ResumeButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 10 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 128.0
 margin_bottom = 88.0
 rect_min_size = Vector2( 128, 88 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 5 )
-texture_scale = null
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer"]
 margin_top = 104.0
@@ -103,19 +97,14 @@ margin_bottom = 160.0
 custom_constants/separation = 16
 
 [node name="ExitLevelButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 56.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 56, 56 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 6 )
-texture_scale = null
 
 [node name="RestartButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 72.0
 margin_right = 128.0
 margin_bottom = 56.0
@@ -123,7 +112,6 @@ rect_min_size = Vector2( 56, 56 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 7 )
-texture_scale = null
 
 [node name="Spacer3" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_left = 160.0
@@ -133,6 +121,7 @@ margin_bottom = 220.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
+
 [connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/ExitLevelButton" to="." method="_on_ExitLevelButton_pressed"]
 [connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]

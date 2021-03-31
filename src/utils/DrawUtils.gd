@@ -13,7 +13,7 @@ const INSTRUCTION_INDICATOR_STROKE_WIDTH := 1.0
 const STRIKE_THROUGH_ANGLE := -PI / 3.0
 
 func _init() -> void:
-    print("Draw_utils._init")
+    Gs.utils.print("DrawUtils._init")
 
 static func draw_dashed_line( \
         canvas: CanvasItem, \

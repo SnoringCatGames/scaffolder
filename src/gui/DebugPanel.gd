@@ -7,12 +7,11 @@ var is_ready := false
 var text := ""
 
 func _enter_tree() -> void:
+    _log_device_settings()
+    _log_utils_print_queue()
     $PanelContainer.theme = Gs.theme
-    
     position.y = max(CORNER_OFFSET.y, Gs.utils.get_safe_area_margin_top())
     position.x = max(CORNER_OFFSET.x, Gs.utils.get_safe_area_margin_left())
-    
-    _log_device_settings()
 
 func _ready() -> void:
     is_ready = true
@@ -97,6 +96,11 @@ func _log_device_settings() -> void:
                 Gs.utils.get_safe_area_margin_left(),
                 Gs.utils.get_safe_area_margin_right(),
             ])
+
+func _log_utils_print_queue() -> void:
+    for entry in Gs.utils._print_queue:
+        add_message(entry)
+    Gs.utils._print_queue.clear()
 
 func _on_PanelContainer_gui_input(event: InputEvent) -> void:
     var is_mouse_down: bool = \

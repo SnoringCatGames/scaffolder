@@ -4,7 +4,7 @@ extends Node
 const HEADERS := ["Content-Type: application/json"]
 
 func _init() -> void:
-    print("CloudLog._init")
+    Gs.utils.print("CloudLog._init")
 
 func record_recent_gestures() -> void:
     assert(Gs.is_gesture_logging_supported)

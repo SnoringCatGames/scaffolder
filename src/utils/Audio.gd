@@ -32,7 +32,7 @@ var is_sound_effects_enabled := true setget \
         _set_is_sound_effects_enabled,_get_is_sound_effects_enabled
 
 func _init() -> void:
-    print("Audio._init")
+    Gs.utils.print("Audio._init")
 
 func _enter_tree() -> void:
     _fade_out_tween = Tween.new()

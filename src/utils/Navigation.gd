@@ -33,7 +33,7 @@ var active_screen_stack := []
 var fade_transition: FadeTransition
 
 func _init() -> void:
-    print("Navigation._init")
+    Gs.utils.print("Navigation._init")
 
 func _ready() -> void:
     fade_transition.connect( \
@@ -108,7 +108,7 @@ func open( \
     var previous_name := \
             get_active_screen_name() if \
             !active_screen_stack.empty() else \
-            "-"
+            "_"
     Gs.utils.print("Nav.open: %s=>%s" % [
         previous_name,
         screen_name,
@@ -129,7 +129,7 @@ func close_current_screen(includes_fade := false) -> void:
     var next_name = \
             active_screen_stack[previous_index - 1].screen_name if \
             previous_index > 0 else \
-            "-"
+            "_"
     Gs.utils.print("Nav.close_current_screen: %s=>%s" % [
         previous_name,
         next_name,

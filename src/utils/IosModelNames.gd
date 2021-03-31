@@ -179,9 +179,6 @@ const DEVICE_MODEL_NUMBER_TO_READABLE_NAME := {
     "Watch5,4": "Apple Watch Series 5 44mm case (GPS+Cellular)",
 }
 
-func _init() -> void:
-    print("IosModelNames._init")
-
 static func get_model_name() -> String:
     assert(OS.get_name() == "iOS")
     var os_model_name := OS.get_model_name()
