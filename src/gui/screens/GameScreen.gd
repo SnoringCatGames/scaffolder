@@ -6,8 +6,6 @@ const LAYER_NAME := "game_screen"
 const AUTO_ADAPTS_GUI_SCALE := true
 const INCLUDES_STANDARD_HIERARCHY := false
 
-var level: ScaffoldLevel
-
 func _init().( \
         NAME, \
         LAYER_NAME, \
@@ -27,13 +25,13 @@ func move_canvas_layer_to_game_viewport(name: String) -> void:
     $PanelContainer/ViewportContainer/Viewport.add_child(layer)
 
 func _process(_delta_sec: float) -> void:
-    if !is_instance_valid(level):
+    if !is_instance_valid(Gs.level):
         return
     
     # Transform the annotation layer to follow the camera within the
     # game-screen viewport.
     Gs.canvas_layers.layers.annotation.transform = \
-            level.get_canvas_transform()
+            Gs.level.get_canvas_transform()
 
 func _on_resized() -> void:
     ._on_resized()
@@ -63,23 +61,14 @@ func _fix_viewport_dimensions_hack() -> void:
     call_deferred("set_visible", true)
 
 func start_level(level_id: String) -> void:
-    if is_instance_valid(level):
+    if is_instance_valid(Gs.level):
         return
     
-    level = Gs.utils.add_scene( \
-            $PanelContainer/ViewportContainer/Viewport, \
+    Gs.level = Gs.utils.add_scene( \
+            null, \
             Gs.level_config.get_level_config(level_id).scene_path, \
-            true, \
+            false, \
             true)
-    level.start()
-
-func quit_level() -> void:
-    assert(level != null)
-    level.quit()
-    level = null
-
-func restart_level() -> void:
-    assert(is_instance_valid(level))
-    var level_id := level.level_id
-    quit_level()
-    start_level(level_id)
+    Gs.level.id = level_id
+    $PanelContainer/ViewportContainer/Viewport.add_child(Gs.level)
+    Gs.level.start()

@@ -1,11 +1,12 @@
 class_name ScaffoldLevel
 extends Node2D
 
-var level_id: String
+var _id: String
 var level_start_time := INF
 var score := 0.0
 
-var has_level_started: bool setget ,_get_has_level_started
+var id: String setget _set_id,_get_id
+var is_started: bool setget ,_get_is_started
 var level_play_time: float setget ,_get_level_play_time
 
 func _ready() -> void:
@@ -23,27 +24,35 @@ func start() -> void:
     Gs.audio.play_music(_get_music_name())
     level_start_time = Gs.time.elapsed_play_time_actual_sec
     Gs.save_state.set_level_total_plays( \
-            level_id, \
-            Gs.save_state.get_level_total_plays(level_id) + 1)
+            _id, \
+            Gs.save_state.get_level_total_plays(_id) + 1)
     Gs.analytics.event( \
             "level", \
             "start", \
-            Gs.level_config.get_level_version_string(level_id))
+            Gs.level_config.get_level_version_string(_id))
 
 func _exit_tree() -> void:
     Gs.level = null
 
-func quit() -> void:
+func quit(immediately := true) -> void:
     Gs.audio.stop_music()
-    Gs.audio.get_sound_player(Gs.level_end_sound) \
-            .connect("finished", self, "_on_level_quit_sound_finished")
-    Gs.audio.play_sound(Gs.level_end_sound)
     _record_level_results()
-    queue_free()
+    if immediately:
+#        _on_level_quit_sound_finished()
+        queue_free()
+    else:
+        Gs.audio.get_sound_player(Gs.level_end_sound) \
+                .connect("finished", self, "_on_level_quit_sound_finished")
+        Gs.audio.play_sound(Gs.level_end_sound)
+
+func restart() -> void:
+    var level_id := _id
+    quit(true)
+    Gs.nav.screens["game"].start_level(level_id)
 
 func _record_level_results() -> void:
     var game_over_screen = Gs.nav.screens["game_over"]
-    game_over_screen.level_id = level_id
+    game_over_screen.level_id = _id
     game_over_screen.time = Gs.utils.get_time_string_from_seconds( \
             Gs.time.elapsed_play_time_actual_sec - \
             level_start_time)
@@ -52,23 +61,23 @@ func _record_level_results() -> void:
         Gs.analytics.event( \
                 "score", \
                 "v" + Gs.score_version, \
-                Gs.level_config.get_level_version_string(level_id), \
+                Gs.level_config.get_level_version_string(_id), \
                 int(score))
         
-        var previous_high_score: int = Gs.save_state.get_level_high_score(level_id)
+        var previous_high_score: int = Gs.save_state.get_level_high_score(_id)
         if score > previous_high_score:
             Gs.save_state.set_level_high_score( \
-                    level_id, \
+                    _id, \
                     int(score))
             game_over_screen.reached_new_high_score = true
         
-        var all_scores: Array = Gs.save_state.get_level_all_scores(level_id)
+        var all_scores: Array = Gs.save_state.get_level_all_scores(_id)
         all_scores.push_back(score)
-        Gs.save_state.set_level_all_scores(level_id, all_scores)
+        Gs.save_state.set_level_all_scores(_id, all_scores)
         
         game_over_screen.score = str(int(score))
         game_over_screen.high_score = \
-                str(Gs.save_state.get_level_high_score(level_id))
+                str(Gs.save_state.get_level_high_score(_id))
     
     var old_unlocked_levels: Array = Gs.level_config.get_old_unlocked_levels()
     var new_unlocked_levels: Array = Gs.level_config.get_new_unlocked_levels()
@@ -93,7 +102,7 @@ func _on_level_quit_sound_finished() -> void:
             is_rate_app_screen_next else \
             "game_over"
     Gs.nav.open(next_screen, true)
-    Gs.nav.screens["game"].quit_level()
+    queue_free()
 
 func _get_music_name() -> String:
     return "on_a_quest"
@@ -104,10 +113,16 @@ func _get_is_rate_app_screen_next() -> bool:
             "is not implemented")
     return false
 
-func _get_has_level_started() -> bool:
+func _get_is_started() -> bool:
     return level_start_time != INF
 
 func _get_level_play_time() -> float:
     return Gs.time.elapsed_play_time_actual_sec - level_start_time if \
-            _get_has_level_started() else \
+            _get_is_started() else \
             0.0
+
+func _set_id(value: String) -> void:
+    _id = value
+
+func _get_id() -> String:
+    return _id

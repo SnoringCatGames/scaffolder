@@ -7,22 +7,32 @@ var _ios_model_names
 var _ios_resolutions
 var _focus_releaser: Control
 
+var _print_queue := []
+
 func _init() -> void:
-    self.print("Utils._init")
+    add_to_print_queue("Utils._init")
     
     _ios_model_names = IosModelNames.new()
+    add_to_print_queue("IosModelNames._init")
     _ios_resolutions = IosResolutions.new()
+    add_to_print_queue("IosResolutions._init")
     
     _focus_releaser = Button.new()
     _focus_releaser.modulate.a = 0.0
     _focus_releaser.visible = false
     add_child(_focus_releaser)
 
+func add_to_print_queue(message: String) -> void:
+    _print_queue.push_back(message)
+
 func print(message: String) -> void:
     if is_instance_valid(Gs.debug_panel):
         Gs.debug_panel.add_message(message)
     else:
-        print("Utils.print (DebugPanel not ready yet): " + message)
+        add_to_print_queue(message)
+    
+    if Gs.also_prints_to_stdout:
+        print(message)
 
 func get_is_paused() -> bool:
     return get_tree().paused
@@ -386,7 +396,9 @@ func get_datetime_string() -> String:
         datetime.second,
     ]
 
-func get_time_string_from_seconds(time_sec: float) -> String:
+static func get_time_string_from_seconds( \
+        time_sec: float, \
+        includes_ms := false) -> String:
     var time_str := ""
     
     # Hours.
@@ -406,10 +418,19 @@ func get_time_string_from_seconds(time_sec: float) -> String:
     ]
     
     # Seconds.
+    var seconds := int(time_sec)
     time_str = "%s%02d" % [
         time_str,
-        time_sec,
+        seconds,
     ]
+    
+    if includes_ms:
+        # Milliseconds.
+        var milliseconds := int(fmod((time_sec - seconds) * 1000.0, 1000.0))
+        time_str = "%s.%03d" % [
+            time_str,
+            milliseconds,
+        ]
     
     return time_str
 

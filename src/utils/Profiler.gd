@@ -18,7 +18,7 @@ var _timings := {}
 var _counts := {}
 
 func _init() -> void:
-    print("Profiler._init")
+    Gs.utils.print("Profiler._init")
     init_thread(DEFAULT_THREAD_ID)
 
 func init_thread(thread_id: String) -> void:

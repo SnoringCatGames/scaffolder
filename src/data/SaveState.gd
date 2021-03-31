@@ -17,7 +17,7 @@ const SCORE_VERSION_KEY := "score_v"
 var config: ConfigFile
 
 func _init() -> void:
-    print("SaveSate._init")
+    Gs.utils.print("SaveSate._init")
     _load_config()
 
 func _load_config() -> void:

@@ -18,7 +18,7 @@ var are_levels_scene_based: bool
 var _level_configs_by_number := {}
 
 func _init(are_levels_scene_based: bool) -> void:
-    print("ScaffoldLevelConfig._init")
+    Gs.utils.print("ScaffoldLevelConfig._init")
     self.are_levels_scene_based = are_levels_scene_based
 
 func _ready() -> void:

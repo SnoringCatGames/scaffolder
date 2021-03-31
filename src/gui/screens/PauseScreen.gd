@@ -54,7 +54,7 @@ func _get_focused_button() -> ShinyButton:
 func _on_ExitLevelButton_pressed() -> void:
     Gs.utils.give_button_press_feedback()
     Gs.nav.close_current_screen()
-    Gs.level.quit()
+    Gs.level.quit(false)
 
 func _on_ResumeButton_pressed() -> void:
     Gs.utils.give_button_press_feedback()
@@ -62,8 +62,8 @@ func _on_ResumeButton_pressed() -> void:
 
 func _on_RestartButton_pressed() -> void:
     Gs.utils.give_button_press_feedback()
-    Gs.nav.screens["game"].restart_level()
     Gs.nav.close_current_screen(true)
+    Gs.level.restart()
 
 func _on_SendRecentGestureEventsForDebugging_pressed() -> void:
     Gs.cloud_log.record_recent_gestures()

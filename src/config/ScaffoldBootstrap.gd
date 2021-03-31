@@ -4,7 +4,7 @@ extends Node
 var _throttled_size_changed: FuncRef
 
 func _init() -> void:
-    print("ScaffoldBootstrap._init")
+    Gs.utils.print("ScaffoldBootstrap._init")
     name = "ScaffoldBootstrap"
 
 func on_app_ready( \

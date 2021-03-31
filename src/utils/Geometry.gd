@@ -14,7 +14,7 @@ const FLOAT_EPSILON := 0.00001
 const COLLISION_BETWEEN_CELLS_DISTANCE_THRESHOLD := 0.5
 
 func _init() -> void:
-    print("Geometry._init")
+    Gs.utils.print("Geometry._init")
 
 # Calculates the minimum squared distance between a line segment and a point.
 static func get_distance_squared_from_point_to_segment( \

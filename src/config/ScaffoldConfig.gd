@@ -1,3 +1,5 @@
+# FIXME: ----------------------------------------
+class_name ScaffoldConfig
 extends Node
 
 # ---
@@ -21,6 +23,7 @@ var playtest: bool
 var test := false
 var is_profiler_enabled: bool
 var are_all_levels_unlocked := false
+var also_prints_to_stdout: bool
 
 var debug_window_size: Vector2
 
@@ -157,7 +160,7 @@ var nav: ScaffoldNavigation
 var save_state: SaveState
 var analytics: Analytics
 var cloud_log: CloudLog
-var utils: Utils
+var utils := Utils.new()
 var time: Time
 var profiler: Profiler
 var geometry: ScaffoldGeometry
@@ -176,11 +179,12 @@ var active_overlays := []
 # ---
 
 func _init() -> void:
-    print("ScaffoldConfig._init")
+    self.utils.add_to_print_queue("ScaffoldConfig._init")
 
 func register_app_manifest(manifest: Dictionary) -> void:
     self.debug = manifest.debug
     self.playtest = manifest.playtest
+    self.also_prints_to_stdout = manifest.also_prints_to_stdout
     self.is_profiler_enabled = manifest.is_profiler_enabled
     self.debug_window_size = manifest.debug_window_size
     self.uses_threads = manifest.uses_threads
@@ -330,9 +334,11 @@ func register_app_manifest(manifest: Dictionary) -> void:
     add_child(self.cloud_log)
     if manifest.has("utils"):
         assert(manifest.utils is Utils)
-        self.utils = manifest.utils
-    else:
-        self.utils = Utils.new()
+        var utils = manifest.utils
+        utils.concat(self.utils._print_queue, utils._print_queue)
+        utils._print_queue = self.utils._print_queue
+        self.utils._print_queue.clear()
+        self.utils = utils
     add_child(self.utils)
     if manifest.has("time"):
         assert(manifest.time is Time)
