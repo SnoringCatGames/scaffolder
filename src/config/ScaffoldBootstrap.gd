@@ -14,7 +14,8 @@ func on_app_ready( \
     Gs.load_state()
     Gs.styles.configure_theme()
     
-    main.add_child(self)
+    if main != self:
+        main.add_child(self)
     
     Gs.camera_controller = CameraController.new()
     main.add_child(Gs.camera_controller)
