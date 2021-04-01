@@ -3,7 +3,7 @@ extends Node2D
 
 const CORNER_OFFSET := Vector2(0.0, 0.0)
 
-var is_ready := false
+var _is_ready := false
 var text := ""
 
 func _enter_tree() -> void:
@@ -14,7 +14,7 @@ func _enter_tree() -> void:
     position.x = max(CORNER_OFFSET.x, Gs.utils.get_safe_area_margin_left())
 
 func _ready() -> void:
-    is_ready = true
+    _is_ready = true
     Gs.time.set_timeout(funcref(self, "_delayed_init"), 0.8)
     Gs.utils.connect( \
             "display_resized", \
@@ -33,7 +33,7 @@ func _delayed_init() -> void:
 
 func add_message(message: String) -> void:
     text += "> " + message + "\n"
-    if is_ready:
+    if _is_ready:
         $PanelContainer/ScrollContainer/Label.text = text
         Gs.time.set_timeout(funcref(self, "_scroll_to_bottom"), 0.2)
 
