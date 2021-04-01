@@ -8,14 +8,19 @@ const DEFAULT_THREAD_ID := ""
 # Dictionary<String, Stopwatch>
 var _stopwatches := {}
 
-# A mapping from thread ID, to SurfacerProfilerMetric, to a list of duration values, in
+# A mapping from thread ID, to metric ID, to a list of duration values, in
 # milliseconds.
-# Dictionary<String, Dictionary<SurfacerProfilerMetric, Array<float>>>
+# Dictionary<String, Dictionary<String, Array<float>>>
 var _timings := {}
 
-# A mapping from thread ID, to SurfacerProfilerMetric, to a count.
-# Dictionary<String, Dictionary<SurfacerProfilerMetric, int>>
+# A mapping from thread ID, to metric ID, to a count.
+# Dictionary<String, Dictionary<String, int>>
 var _counts := {}
+
+# This can be useful if you want to list metrics in a report even if they
+# weren't actually used.
+# Array<String>
+var _preregistered_metric_keys := []
 
 func _init() -> void:
     Gs.utils.print("Profiler._init")
@@ -27,14 +32,14 @@ func init_thread(thread_id: String) -> void:
     _counts[thread_id] = {}
 
 func start( \
-        metric: int, \
+        metric: String, \
         thread_id := DEFAULT_THREAD_ID) -> void:
     if !Gs.is_profiler_enabled:
         return
     _stopwatches[thread_id].start(metric)
 
 func stop( \
-        metric: int, \
+        metric: String, \
         thread_id := DEFAULT_THREAD_ID, \
         records := true, \
         additional_timings_storage = null) -> float:
@@ -57,7 +62,7 @@ func stop( \
     return duration
 
 func stop_with_optional_metadata( \
-        metric: int, \
+        metric: String, \
         thread_id := DEFAULT_THREAD_ID, \
         records_profile_or_metadata_container = null) -> float:
     if records_profile_or_metadata_container != null:
@@ -78,7 +83,7 @@ func stop_with_optional_metadata( \
                 thread_id)
 
 func increment_count( \
-        metric: int, \
+        metric: String, \
         thread_id := DEFAULT_THREAD_ID, \
         metadata_container = null) -> int:
     var counts_for_thread: Dictionary = _counts[thread_id]
@@ -95,7 +100,7 @@ func increment_count( \
     return counts_for_thread[metric]
 
 func get_timing( \
-        metric: int, \
+        metric: String, \
         metadata_container = null) -> float:
     assert(Gs.is_profiler_enabled)
     if metadata_container != null:
@@ -109,7 +114,7 @@ func get_timing( \
         return list[0]
 
 func get_timing_list( \
-        metric: int, \
+        metric: String, \
         metadata_container = null) -> Array:
     assert(Gs.is_profiler_enabled)
     if metadata_container != null:
@@ -127,7 +132,7 @@ func get_timing_list( \
         return timings
 
 func get_mean( \
-        metric: int, \
+        metric: String, \
         metadata_container = null) -> float:
     assert(Gs.is_profiler_enabled)
     var count := get_count( \
@@ -141,7 +146,7 @@ func get_mean( \
                 metadata_container) / count
 
 func get_min( \
-        metric: int, \
+        metric: String, \
         metadata_container = null) -> float:
     assert(Gs.is_profiler_enabled)
     if get_count( \
@@ -154,7 +159,7 @@ func get_min( \
                 metadata_container).min()
 
 func get_max( \
-        metric: int, \
+        metric: String, \
         metadata_container = null) -> float:
     assert(Gs.is_profiler_enabled)
     if get_count( \
@@ -167,7 +172,7 @@ func get_max( \
                 metadata_container).max()
 
 func get_sum( \
-        metric: int, \
+        metric: String, \
         metadata_container = null) -> float:
     assert(Gs.is_profiler_enabled)
     var sum := 0.0
@@ -178,7 +183,7 @@ func get_sum( \
     return sum
 
 func get_count( \
-        metric: int, \
+        metric: String, \
         metadata_container = null) -> int:
     assert(Gs.is_profiler_enabled)
     
@@ -207,7 +212,7 @@ func get_count( \
             return get_timing_list(metric).size()
 
 func is_timing( \
-        metric: int, \
+        metric: String, \
         metadata_container = null) -> bool:
     if metadata_container != null:
         return metadata_container.timings.has(metric)
@@ -218,7 +223,7 @@ func is_timing( \
         return false
 
 func is_count( \
-        metric: int, \
+        metric: String, \
         metadata_container = null) -> bool:
     if metadata_container != null:
         return metadata_container.counts.has(metric)
@@ -227,3 +232,14 @@ func is_count( \
             if _counts[thread_id].has(metric):
                 return true
         return false
+
+func get_active_metric_keys() -> Array:
+    var keys := _timings.keys()
+    Gs.utils.concat(keys, _counts.keys())
+    return keys
+
+func preregister_metric_keys(metric_keys: Array) -> void:
+    Gs.utils.concat(_preregistered_metric_keys, metric_keys)
+
+func get_preregistered_metric_keys() -> Array:
+    return _preregistered_metric_keys
