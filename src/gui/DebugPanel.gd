@@ -2,9 +2,11 @@ class_name DebugPanel, "res://addons/godot_scaffold/assets/images/editor_icons/D
 extends Node2D
 
 const CORNER_OFFSET := Vector2(0.0, 0.0)
+const MESSAGE_COUNT_LIMIT := 500
 
 var _is_ready := false
 var text := ""
+var _message_count := 0
 
 func _enter_tree() -> void:
     _log_device_settings()
@@ -22,6 +24,13 @@ func _ready() -> void:
             "_on_resized")
     _on_resized()
 
+func _process(_delta: float) -> void:
+    $PanelContainer/Time.text = Gs.utils.get_time_string_from_seconds( \
+            Gs.time.elapsed_app_time_actual_sec, \
+            true, \
+            false, \
+            false) + " "
+
 func _on_resized() -> void:
     var viewport_size := get_viewport().size
     $PanelContainer/ScrollContainer.rect_min_size = viewport_size
@@ -33,9 +42,17 @@ func _delayed_init() -> void:
 
 func add_message(message: String) -> void:
     text += "> " + message + "\n"
+    _message_count += 1
+    _remove_surplus_message()
     if _is_ready:
         $PanelContainer/ScrollContainer/Label.text = text
         Gs.time.set_timeout(funcref(self, "_scroll_to_bottom"), 0.2)
+
+func _remove_surplus_message() -> void:
+    # Remove the oldest message.
+    if _message_count > MESSAGE_COUNT_LIMIT:
+        var index := text.find("\n> ")
+        text = text.substr(index + 1)
 
 func _scroll_to_bottom() -> void:
     $PanelContainer/ScrollContainer.scroll_vertical = \
