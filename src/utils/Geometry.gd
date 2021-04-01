@@ -1063,7 +1063,7 @@ static func get_collision_tile_map_coord( \
         if !error_message.empty():
             Gs.utils.error(print_message)
         else:
-            print(print_message)
+            Gs.utils.print(print_message)
 
 static func do_shapes_match( \
         a: Shape2D, \
