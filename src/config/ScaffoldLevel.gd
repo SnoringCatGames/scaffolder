@@ -1,6 +1,8 @@
 class_name ScaffoldLevel
 extends Node2D
 
+var min_controls_display_time := 0.5
+
 var _id: String
 var _is_restarting := false
 var level_start_time := INF
@@ -20,6 +22,17 @@ func _ready() -> void:
 func _exit_tree() -> void:
     if _is_restarting:
         Gs.nav.screens["game"].start_level(_id)
+
+func _input(event: InputEvent) -> void:
+    if _get_level_play_time() > min_controls_display_time and \
+            (event is InputEventMouseButton or \
+                    event is InputEventScreenTouch or \
+                    event is InputEventKey) and \
+            _get_is_started():
+        _on_initial_input()
+
+func _on_initial_input() -> void:
+    pass
 
 func _on_resized() -> void:
     pass
