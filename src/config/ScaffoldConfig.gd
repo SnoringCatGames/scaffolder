@@ -1,4 +1,3 @@
-# FIXME: ----------------------------------------
 class_name ScaffoldConfig
 extends Node
 
@@ -27,6 +26,7 @@ var also_prints_to_stdout: bool
 
 var debug_window_size: Vector2
 
+# Should match Project Settings > Physics > 2d > Thread Model
 var uses_threads: bool
 var thread_count: int
 
@@ -416,6 +416,8 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.is_app_configured = true
     
     _record_original_font_sizes()
+    
+    _validate_project_config()
 
 func add_gui_to_scale( \
         gui, \
@@ -463,3 +465,39 @@ func _get_is_debug_panel_shown() -> bool:
 func _record_original_font_sizes() -> void:
     for key in fonts:
         original_font_sizes[key] = fonts[key].size
+
+func _validate_project_config() -> void:
+    assert(ProjectSettings.get_setting("display/window/size/width") == \
+            default_game_area_size.x)
+    assert(ProjectSettings.get_setting("display/window/size/height") == \
+            default_game_area_size.y)
+    
+    assert(geometry.are_colors_equal_with_epsilon( \
+            ProjectSettings.get_setting("application/boot_splash/bg_color"), \
+            colors.background_color, \
+            0.0001))
+    assert(geometry.are_colors_equal_with_epsilon( \
+            ProjectSettings.get_setting( \
+                    "rendering/environment/default_clear_color"), \
+            colors.background_color, \
+            0.0001))
+    
+    var window_stretch_mode_disabled := "disabled"
+    assert(ProjectSettings.get_setting("display/window/stretch/mode") == \
+            window_stretch_mode_disabled)
+    var window_stretch_aspect_expanded := "expand"
+    assert(ProjectSettings.get_setting("display/window/stretch/aspect") == \
+            window_stretch_aspect_expanded)
+    
+    var physics_2d_thread_model_single_unsafe := 0
+    var physics_2d_thread_model_multi_threaded := 2
+    assert(!uses_threads or \
+            ProjectSettings.get_setting("physics/2d/thread_model") == \
+            physics_2d_thread_model_multi_threaded)
+    
+    assert(ProjectSettings.get_setting( \
+                    "input_devices/pointing/emulate_touch_from_mouse") == \
+            true)
+    assert(ProjectSettings.get_setting( \
+                    "input_devices/pointing/emulate_mouse_from_touch") == \
+            true)

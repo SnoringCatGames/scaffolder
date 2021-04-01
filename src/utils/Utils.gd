@@ -177,6 +177,9 @@ func add_scene( \
         is_attached := true, \
         is_visible := true) -> Node:
     var scene := load(resource_path)
+    if scene == null:
+        Gs.utils.error("Invalid scene path: " + resource_path)
+    
     var node: Node = scene.instance()
     if node is CanvasItem:
         node.visible = is_visible
