@@ -9,6 +9,8 @@ const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := false
 const INCLUDES_CENTER_CONTAINER := true
 
+var go_icon_scale_multiplier := 1.0
+
 var level_id: String
 var score: String
 var high_score: String
@@ -27,6 +29,13 @@ func _init().( \
     pass
 
 func _ready() -> void:
+    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer/SelectLevelButton \
+            .texture = Gs.go_icon
+    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer/SelectLevelButton \
+            .texture_scale = Vector2(Gs.go_icon_scale, Gs.go_icon_scale) * \
+                    go_icon_scale_multiplier
     _update_stats()
 
 func _on_activated() -> void:

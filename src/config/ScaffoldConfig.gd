@@ -84,6 +84,8 @@ var special_thanks_text: String
 
 var app_logo: Texture
 var app_logo_scale: float
+var go_icon: Texture
+var go_icon_scale: float
 var developer_name: String
 var developer_url: String
 
@@ -235,6 +237,8 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.special_thanks_text = manifest.special_thanks_text.strip_edges()
     self.app_logo = manifest.app_logo
     self.app_logo_scale = manifest.app_logo_scale
+    self.go_icon = manifest.go_icon
+    self.go_icon_scale = manifest.go_icon_scale
     self.developer_name = manifest.developer_name
     self.developer_url = manifest.developer_url
     
@@ -489,11 +493,12 @@ func _validate_project_config() -> void:
     assert(ProjectSettings.get_setting("display/window/stretch/aspect") == \
             window_stretch_aspect_expanded)
     
-    var physics_2d_thread_model_single_unsafe := 0
-    var physics_2d_thread_model_multi_threaded := 2
-    assert(!uses_threads or \
-            ProjectSettings.get_setting("physics/2d/thread_model") == \
-            physics_2d_thread_model_multi_threaded)
+    # TODO: Figure out if this actually matters...
+#    var physics_2d_thread_model_single_unsafe := 0
+#    var physics_2d_thread_model_multi_threaded := 2
+#    assert(!uses_threads or \
+#            ProjectSettings.get_setting("physics/2d/thread_model") == \
+#            physics_2d_thread_model_multi_threaded)
     
     assert(ProjectSettings.get_setting( \
                     "input_devices/pointing/emulate_touch_from_mouse") == \

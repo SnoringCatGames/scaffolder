@@ -8,6 +8,8 @@ const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := true
 const INCLUDES_CENTER_CONTAINER := true
 
+var go_icon_scale_multiplier := 1.0
+
 var projected_image: Control
 
 func _init().( \
@@ -31,6 +33,13 @@ func _ready() -> void:
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/Title.texture = \
             Gs.app_logo
+    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/StartGameButton.texture = \
+            Gs.go_icon
+    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/StartGameButton.texture_scale = \
+            Vector2(Gs.go_icon_scale, Gs.go_icon_scale) * \
+            go_icon_scale_multiplier
     
     _on_resized()
 
