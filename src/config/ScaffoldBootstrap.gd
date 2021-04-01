@@ -64,6 +64,11 @@ func _process(_delta_sec: float) -> void:
         if Input.is_action_just_pressed("screenshot"):
             Gs.utils.take_screenshot()
 
+func _notification(notification: int) -> void:
+    if notification == MainLoop.NOTIFICATION_WM_FOCUS_OUT and \
+            Gs.nav.get_active_screen_name() == "game":
+        Gs.level.pause()
+
 func _on_resized() -> void:
     _throttled_size_changed.call_func()
 

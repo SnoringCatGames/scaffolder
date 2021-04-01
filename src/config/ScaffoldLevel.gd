@@ -55,6 +55,9 @@ func restart() -> void:
     _is_restarting = true
     quit(true)
 
+func pause() -> void:
+    Gs.nav.open("pause")
+
 func _record_level_results() -> void:
     var game_over_screen = Gs.nav.screens["game_over"]
     game_over_screen.level_id = _id
