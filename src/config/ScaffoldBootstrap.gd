@@ -10,6 +10,7 @@ func _init() -> void:
 func on_app_ready( \
         app_manifest: Dictionary, \
         main: Node) -> void:
+    Gs.amend_app_manifest(app_manifest)
     Gs.register_app_manifest(app_manifest)
     Gs.load_state()
     Gs.styles.configure_theme()

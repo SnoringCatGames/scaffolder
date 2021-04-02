@@ -38,8 +38,8 @@ func _ready() -> void:
                     go_icon_scale_multiplier
     _update_stats()
 
-func _on_activated() -> void:
-    ._on_activated()
+func _on_activated(previous_screen_name: String) -> void:
+    ._on_activated(previous_screen_name)
     Gs.audio.play_music(Gs.game_over_music)
     _update_stats()
 

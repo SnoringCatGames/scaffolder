@@ -110,14 +110,14 @@ func _unhandled_key_input(event: InputEventKey) -> void:
             Gs.nav.get_active_screen() == self:
         Gs.nav.close_current_screen()
 
-func _on_activated() -> void:
+func _on_activated(previous_screen_name: String) -> void:
     _give_button_focus(_get_focused_button())
     if includes_standard_hierarchy:
         Gs.utils.set_mouse_filter_recursively( \
                 scroll_container, \
                 Control.MOUSE_FILTER_PASS)
 
-func _on_deactivated() -> void:
+func _on_deactivated(next_screen_name: String) -> void:
     pass
 
 func _on_resized() -> void:

@@ -77,4 +77,21 @@ func _on_AboutButton_pressed():
 
 func _on_SettingsButton_pressed():
     Gs.utils.give_button_press_feedback()
-    Gs.nav.open("settings")
+    if Gs.level != null and \
+            Gs.must_restart_level_to_change_settings:
+        var description := \
+                "The level must be restarted in order to change settings." + \
+                "\n\nAre you sure you want to restart the level?"
+        Gs.nav.open( \
+                "notification", \
+                false, \
+                {
+                    header_text = "Reset level?",
+                    is_back_button_shown = true,
+                    body_text = description,
+                    close_button_text = "Yes",
+                    body_alignment = BoxContainer.ALIGN_BEGIN,
+                    next_screen = "settings",
+                })
+    else:
+        Gs.nav.open("settings")
