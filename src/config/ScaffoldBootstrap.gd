@@ -44,11 +44,6 @@ func on_app_ready( \
     
     Gs.nav.create_screens()
     
-    if Gs.utils.get_is_browser():
-        JavaScript.eval("window.onAppReady()")
-    
-    Gs.nav.splash()
-    
     _throttled_size_changed = Gs.time.throttle( \
             funcref(self, "_on_throttled_size_changed"), \
             Gs.display_resize_throttle_interval_sec)
@@ -56,8 +51,12 @@ func on_app_ready( \
             "size_changed", \
             self, \
             "_on_resized")
-    _on_resized()
     call_deferred("_on_resized")
+    
+    if Gs.utils.get_is_browser():
+        JavaScript.eval("window.onAppReady()")
+    
+    Gs.nav.splash()
 
 func _process(_delta_sec: float) -> void:
     if Gs.debug or Gs.playtest:
