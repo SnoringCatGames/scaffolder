@@ -300,6 +300,9 @@ func _on_fade_complete() -> void:
         fade_transition.visible = false
 
 func splash() -> void:
+    call_deferred("_splash_helper")
+
+func _splash_helper() -> void:
     open("godot_splash")
     Gs.audio.play_sound(Gs.godot_splash_sound)
     yield(get_tree() \
