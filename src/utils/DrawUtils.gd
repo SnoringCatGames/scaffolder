@@ -184,7 +184,8 @@ static func draw_position_along_surface( \
         target_point_color: Color, \
         t_color: Color, \
         target_point_radius := 4.0, \
-        t_length := 16.0, \
+        t_length_in_surface := 8.0, \
+        t_length_out_of_surface := 8.0, \
         t_width := 4.0, \
         t_value_drawn := true, \
         target_point_drawn := false, \
@@ -198,9 +199,9 @@ static func draw_position_along_surface( \
                             position.surface)
         var normal := position.surface.normal
         var start := position.target_projection_onto_surface + \
-                normal * t_length / 2.0
+                normal * t_length_out_of_surface
         var end := position.target_projection_onto_surface - \
-                normal * t_length / 2.0
+                normal * t_length_in_surface
         canvas.draw_line( \
                 start, \
                 end, \
