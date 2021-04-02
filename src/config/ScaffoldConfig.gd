@@ -49,6 +49,8 @@ var aspect_ratio_min: float
 
 var uses_level_scores: bool
 
+var must_restart_level_to_change_settings: bool
+
 var screen_filename_exclusions: Array
 var screen_path_inclusions: Array
 var settings_main_item_class_exclusions: Array
@@ -183,6 +185,9 @@ var active_overlays := []
 func _init() -> void:
     self.utils.add_to_print_queue("ScaffoldConfig._init")
 
+func amend_app_manifest(manifest: Dictionary) -> void:
+    pass
+
 func register_app_manifest(manifest: Dictionary) -> void:
     self.debug = manifest.debug
     self.playtest = manifest.playtest
@@ -202,6 +207,8 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.aspect_ratio_max = manifest.aspect_ratio_max
     self.aspect_ratio_min = manifest.aspect_ratio_min
     self.uses_level_scores = manifest.uses_level_scores
+    self.must_restart_level_to_change_settings = \
+            manifest.must_restart_level_to_change_settings
     self.screen_filename_exclusions = manifest.screen_filename_exclusions
     self.screen_path_inclusions = manifest.screen_path_inclusions
     self.settings_main_item_class_exclusions = \
@@ -476,10 +483,10 @@ func _validate_project_config() -> void:
     assert(ProjectSettings.get_setting("display/window/size/height") == \
             default_game_area_size.y)
     
-    assert(geometry.are_colors_equal_with_epsilon( \
-            ProjectSettings.get_setting("application/boot_splash/bg_color"), \
-            colors.background_color, \
-            0.0001))
+#    assert(geometry.are_colors_equal_with_epsilon( \
+#            ProjectSettings.get_setting("application/boot_splash/bg_color"), \
+#            colors.background_color, \
+#            0.0001))
     assert(geometry.are_colors_equal_with_epsilon( \
             ProjectSettings.get_setting( \
                     "rendering/environment/default_clear_color"), \

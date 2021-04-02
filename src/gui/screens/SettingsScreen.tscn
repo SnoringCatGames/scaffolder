@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/godot_scaffold/src/gui/screens/SettingsScreen.gd" type="Script" id=1]
 [ext_resource path="res://addons/godot_scaffold/src/gui/CenteredPanel.tscn" type="PackedScene" id=2]
@@ -15,41 +15,45 @@ margin_right = 960.0
 margin_bottom = 960.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
-margin_right = 960.0
-margin_bottom = 1156.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 967.0
+margin_bottom = 1177.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="NavBar" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 3 )]
 margin_right = 960.0
-margin_bottom = 192.0
+margin_bottom = 206.0
 text = "Settings"
 
 [node name="CenteredPanel" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 196.0
+margin_top = 210.0
 margin_right = 960.0
-margin_bottom = 1156.0
+margin_bottom = 1170.0
 stretches_vertically = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel"]
-margin_right = 960.0
-margin_bottom = 960.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 953.0
+margin_bottom = 953.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
-margin_right = 960.0
-margin_bottom = 960.0
+margin_right = 946.0
+margin_bottom = 946.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 240.0
-margin_top = 450.0
-margin_right = 720.0
-margin_bottom = 510.0
+margin_left = 233.0
+margin_top = 443.0
+margin_right = 713.0
+margin_bottom = 503.0
 rect_min_size = Vector2( 480, 0 )
 custom_constants/separation = 0
 

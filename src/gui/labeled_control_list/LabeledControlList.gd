@@ -13,6 +13,8 @@ const ABOUT_ICON_ACTIVE := \
 
 const SCAFFOLD_CHECK_BOX_SCENE_PATH := \
         "res://addons/godot_scaffold/src/gui/ScaffoldCheckBox.tscn"
+const SCAFFOLD_TEXTURE_BUTTON_SCENE_PATH := \
+        "res://addons/godot_scaffold/src/gui/ScaffoldTextureButton.tscn"
 
 const ENABLED_ALPHA := 1.0
 const DISABLED_ALPHA := 0.3
@@ -76,10 +78,20 @@ func _update_children() -> void:
         hbox.add_child(label)
         
         if item.description != "":
-            var description_button = TextureButton.new()
+            var description_button: ScaffoldTextureButton = \
+                    Gs.utils.add_scene( \
+                            hbox, 
+                            SCAFFOLD_TEXTURE_BUTTON_SCENE_PATH, \
+                            true, \
+                            true)
             description_button.texture_normal = ABOUT_ICON_NORMAL
             description_button.texture_hover = ABOUT_ICON_HOVER
             description_button.texture_pressed = ABOUT_ICON_ACTIVE
+            description_button.rect_min_size = \
+                    ABOUT_ICON_NORMAL.get_size() * Gs.gui_scale
+            description_button.texture_scale = \
+                    Vector2(Gs.gui_scale, Gs.gui_scale)
+            description_button.expands_texture = false
             description_button.connect( \
                     "pressed", \
                     self, \
@@ -91,12 +103,11 @@ func _update_children() -> void:
             description_button.size_flags_horizontal = \
                     Control.SIZE_SHRINK_CENTER
             description_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-            hbox.add_child(description_button)
             
             var spacer3 := Control.new()
             spacer3.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
             spacer3.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-            spacer3.rect_min_size.x = padding_horizontal * 2.0
+            spacer3.rect_min_size.x = padding_horizontal * 2.0 * Gs.gui_scale
             hbox.add_child(spacer3)
         
         var control := _create_control(item, index, !item.enabled)

@@ -41,6 +41,11 @@ func _on_resized() -> void:
     #       update its dimensions correctly.
     Gs.time.set_timeout(funcref(self, "_update_viewport_region_helper"), 1.0)
 
+func _on_activated(previous_screen_name: String) -> void:
+    ._on_activated(previous_screen_name)
+    if is_instance_valid(Gs.level):
+        Gs.level.on_unpause()
+
 func _update_viewport_region_helper() -> void:
     var viewport_size := get_viewport().size
     var game_area_position := \

@@ -20,6 +20,9 @@ export var texture_click_mask: Texture setget \
 export var texture_scale := Vector2.ONE setget \
         _set_texture_scale,_get_texture_scale
 
+export var expands_texture := true setget \
+        _set_expands_texture,_get_expands_texture
+
 var _is_ready := false
 
 func _ready() -> void:
@@ -31,6 +34,7 @@ func _ready() -> void:
     _set_texture_focused(texture_focused)
     _set_texture_click_mask(texture_click_mask)
     _set_texture_scale(texture_scale)
+    _set_expands_texture(expands_texture)
     update_gui_scale(1.0)
 
 func update_gui_scale(gui_scale: float) -> bool:
@@ -105,6 +109,14 @@ func _set_texture_scale(value: Vector2) -> void:
 
 func _get_texture_scale() -> Vector2:
     return texture_scale
+
+func _set_expands_texture(value: bool) -> void:
+    expands_texture = value
+    if _is_ready:
+        $TextureButton.expand = expands_texture
+
+func _get_expands_texture() -> bool:
+    return expands_texture
 
 func _on_TextureButton_pressed() -> void:
     emit_signal("pressed")

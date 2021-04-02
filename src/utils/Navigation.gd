@@ -169,9 +169,11 @@ func _set_screen_is_open( \
                 index > 0 else \
                 null
     
-    var is_paused: bool = \
-            next_screen != null and \
-            next_screen.screen_name != "game"
+    var next_screen_name := \
+            next_screen.screen_name if \
+            next_screen != null else \
+            "_"
+    var is_paused: bool = next_screen_name != "game"
     var is_first_screen := is_open and active_screen_stack.empty()
     
     var next_screen_was_already_shown := false
@@ -264,7 +266,7 @@ func _set_screen_is_open( \
                 ])
     
     if previous_screen != null:
-        previous_screen._on_deactivated()
+        previous_screen._on_deactivated(next_screen_name)
         previous_screen.pause_mode = Node.PAUSE_MODE_STOP
     
     if next_screen != null:
@@ -285,6 +287,10 @@ func _on_screen_slide_completed( \
         next_screen: Screen, \
         tween: Tween) -> void:
     tween.queue_free()
+    var previous_screen_name := \
+            previous_screen.screen_name if \
+            previous_screen != null else \
+            "_"
     
     if previous_screen != null:
         previous_screen.visible = false
@@ -293,7 +299,7 @@ func _on_screen_slide_completed( \
         next_screen.visible = true
         next_screen.position = Vector2.ZERO
         next_screen.pause_mode = Node.PAUSE_MODE_PROCESS
-        next_screen._on_activated()
+        next_screen._on_activated(previous_screen_name)
 
 func _on_fade_complete() -> void:
     if !fade_transition.is_transitioning:

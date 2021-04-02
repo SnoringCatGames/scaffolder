@@ -30,8 +30,8 @@ func _init().( \
         ) -> void:
     pass
 
-func _on_activated() -> void:
-    ._on_activated()
+func _on_activated(previous_screen_name: String) -> void:
+    ._on_activated(previous_screen_name)
     _update()
 
 func _ready() -> void:

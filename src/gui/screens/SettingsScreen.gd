@@ -19,14 +19,21 @@ func _init().( \
         ) -> void:
     pass
 
-func _on_activated() -> void:
-    ._on_activated()
+func _on_activated(previous_screen_name: String) -> void:
+    ._on_activated(previous_screen_name)
     $FullScreenPanel/VBoxContainer/CenteredPanel/ \
             ScrollContainer/CenterContainer/VBoxContainer/MainList.items = \
             _get_main_items()
     $FullScreenPanel/VBoxContainer/CenteredPanel/ \
             ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/ \
             VBoxContainer/DetailsList.items = _get_details_items()
+
+func _on_deactivated(next_screen_name: String) -> void:
+    ._on_deactivated(next_screen_name)
+    if Gs.level != null and \
+            next_screen_name == "pause" and \
+            Gs.must_restart_level_to_change_settings:
+        Gs.level.restart()
 
 func _get_main_items() -> Array:
     var item_classes := \
