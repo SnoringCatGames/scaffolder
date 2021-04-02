@@ -1,7 +1,7 @@
 class_name Audio
 extends Node
 
-const MUSIC_CROSS_FADE_DURATION_SEC := 2.0
+const MUSIC_CROSS_FADE_DURATION_SEC := 0.2
 const SILENT_VOLUME_DB := -80.0
 
 const GLOBAL_AUDIO_VOLUME_OFFSET_DB := -10.0
@@ -237,8 +237,7 @@ func _on_cross_fade_music_finished( \
         previous_music_player.stop()
     if current_music_player != null:
         var loud_volume := \
-                current_music_player.volume_db + \
-                        GLOBAL_AUDIO_VOLUME_OFFSET_DB if \
+                current_music_player.volume_db if \
                 is_music_enabled else \
                 SILENT_VOLUME_DB
         current_music_player.volume_db = loud_volume
