@@ -638,23 +638,25 @@ static func get_collision_tile_map_coord( \
         is_touching_ceiling: bool, \
         is_touching_left_wall: bool, \
         is_touching_right_wall: bool) -> void:
-    var half_cell_size = tile_map.cell_size / 2.0
-    var used_rect = tile_map.get_used_rect()
-    var position_relative_to_tile_map = \
-            position_world_coord - used_rect.position * tile_map.cell_size
+    var half_cell_size := tile_map.cell_size / 2.0
+    var used_rect := tile_map.get_used_rect()
+    var tile_map_top_left_position_world_coord := \
+            tile_map.position - used_rect.position * tile_map.cell_size
+    var position_relative_to_tile_map := \
+            position_world_coord - tile_map_top_left_position_world_coord
     
-    var cell_width_mod = abs(fmod( \
+    var cell_width_mod := abs(fmod( \
             position_relative_to_tile_map.x, \
             tile_map.cell_size.x))
-    var cell_height_mod = abs(fmod( \
+    var cell_height_mod := abs(fmod( \
             position_relative_to_tile_map.y, \
             tile_map.cell_size.y))
     
-    var is_between_cells_horizontally = \
+    var is_between_cells_horizontally := \
             cell_width_mod < COLLISION_BETWEEN_CELLS_DISTANCE_THRESHOLD or \
             tile_map.cell_size.x - cell_width_mod < \
                     COLLISION_BETWEEN_CELLS_DISTANCE_THRESHOLD
-    var is_between_cells_vertically = \
+    var is_between_cells_vertically := \
             cell_height_mod < COLLISION_BETWEEN_CELLS_DISTANCE_THRESHOLD or \
             tile_map.cell_size.y - cell_height_mod < \
                     COLLISION_BETWEEN_CELLS_DISTANCE_THRESHOLD
