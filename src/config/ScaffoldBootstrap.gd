@@ -72,6 +72,8 @@ func _initialize_framework() -> void:
             "_on_resized")
     call_deferred("_on_resized")
     
+    _log_device_settings()
+    
     call_deferred("_on_app_ready")
 
 func _on_app_ready() -> void:
@@ -229,3 +231,58 @@ func _set_window_debug_size_and_position() -> void:
             OS.window_borderless = true
         else:
             OS.window_size = Gs.debug_window_size
+
+func _log_device_settings() -> void:
+    var utils_model_name: String = Gs.utils.get_model_name()
+    var utils_screen_scale: float = Gs.utils.get_screen_scale()
+    var ios_resolution: String = \
+            Gs.utils._get_ios_screen_ppi() if \
+            Gs.utils.get_is_ios_device() else \
+            "N/A"
+    Gs.logger.print( \
+            ("Device settings:" + \
+            "\n    OS.get_name()=%s" + \
+            "\n    OS.get_model_name()=%s" + \
+            "\n    Gs.utils.get_model_name()=%s" + \
+            "\n    get_viewport().size=(%4d,%4d)" + \
+            "\n    OS.window_size=%s" + \
+            "\n    OS.get_real_window_size()=%s" + \
+            "\n    OS.get_screen_size()=%s" + \
+            "\n    Gs.utils.get_screen_scale()=%s" + \
+            "\n    OS.get_screen_scale()=%s" + \
+            "\n    Gs.utils.get_screen_ppi()=%s" + \
+            "\n    Gs.utils.get_viewport_ppi()=%s" + \
+            "\n    OS.get_screen_dpi()=%s" + \
+            "\n    IosResolutions.get_screen_ppi()=%s" + \
+            "\n    Gs.utils.get_viewport_size_inches()=%s" + \
+            "\n    Gs.utils.get_viewport_diagonal_inches()=%s" + \
+            "\n    Gs.utils.get_viewport_safe_area()=%s" + \
+            "\n    OS.get_window_safe_area()=%s" + \
+            "\n    Gs.utils.get_safe_area_margin_top()=%s" + \
+            "\n    Gs.utils.get_safe_area_margin_bottom()=%s" + \
+            "\n    Gs.utils.get_safe_area_margin_left()=%s" + \
+            "\n    Gs.utils.get_safe_area_margin_right()=%s" + \
+            "") % [
+                OS.get_name(),
+                OS.get_model_name(),
+                utils_model_name,
+                get_viewport().size.x,
+                get_viewport().size.y,
+                OS.window_size,
+                OS.get_real_window_size(),
+                OS.get_screen_size(),
+                utils_screen_scale,
+                OS.get_screen_scale(),
+                Gs.utils.get_screen_ppi(),
+                Gs.utils.get_viewport_ppi(),
+                OS.get_screen_dpi(),
+                ios_resolution,
+                Gs.utils.get_viewport_size_inches(),
+                Gs.utils.get_viewport_diagonal_inches(),
+                Gs.utils.get_viewport_safe_area(),
+                OS.get_window_safe_area(),
+                Gs.utils.get_safe_area_margin_top(),
+                Gs.utils.get_safe_area_margin_bottom(),
+                Gs.utils.get_safe_area_margin_left(),
+                Gs.utils.get_safe_area_margin_right(),
+            ])

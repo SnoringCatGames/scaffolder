@@ -1,10 +1,10 @@
-class_name CloudLog
+class_name GestureReporter
 extends Node
 
 const HEADERS := ["Content-Type: application/json"]
 
 func _init() -> void:
-    Gs.logger.print("CloudLog._init")
+    Gs.logger.print("GestureReporter._init")
 
 func record_recent_gestures() -> void:
     assert(Gs.is_gesture_logging_supported)
@@ -24,7 +24,7 @@ func record_recent_gestures() -> void:
     }
     var body_str := JSON.print(body_object)
     
-    Gs.logger.print("CloudLog.record_recent_gestures: %s" % url)
+    Gs.logger.print("GestureReporter.record_recent_gestures: %s" % url)
     
     if !Gs.agreed_to_terms or \
             !Gs.is_data_tracked:
@@ -50,7 +50,8 @@ func record_recent_gestures() -> void:
     
     if status != OK:
         Gs.logger.error( \
-                "CloudLog.record_recent_gestures failed: status=%d" % status, \
+                "GestureReporter.record_recent_gestures failed: " + \
+                "status=%d" % status, \
                 false)
 
 func _on_record_recent_gestures_request_completed( \
@@ -60,7 +61,7 @@ func _on_record_recent_gestures_request_completed( \
         body: PoolByteArray, \
         request: HTTPRequest) -> void:
     Gs.logger.print( \
-            ("CloudLog._on_record_recent_gestures_request_completed: " + \
+            ("GestureReporter._on_record_recent_gestures_request_completed: " + \
             "result=%d, code=%d") % \
             [result, response_code])
     if result != HTTPRequest.RESULT_SUCCESS or \

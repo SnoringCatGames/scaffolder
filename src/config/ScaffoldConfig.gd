@@ -171,7 +171,7 @@ var styles: ScaffoldStyles
 var nav: ScaffoldNavigation
 var save_state: SaveState
 var analytics: Analytics
-var cloud_log: CloudLog
+var gesture_reporter: GestureReporter
 var logger: ScaffoldLog
 var utils: Utils
 var time: Time
@@ -381,12 +381,12 @@ func initialize() -> void:
     else:
         self.analytics = Analytics.new()
     add_child(self.analytics)
-    if manifest.has("cloud_log_class"):
-        self.cloud_log = manifest.cloud_log_class.new()
-        assert(self.cloud_log is CloudLog)
+    if manifest.has("gesture_reporter_class"):
+        self.gesture_reporter = manifest.gesture_reporter_class.new()
+        assert(self.gesture_reporter is GestureReporter)
     else:
-        self.cloud_log = CloudLog.new()
-    add_child(self.cloud_log)
+        self.gesture_reporter = GestureReporter.new()
+    add_child(self.gesture_reporter)
     if manifest.has("utils_class"):
         self.utils = manifest.utils_class.new()
         assert(self.utils is Utils)
