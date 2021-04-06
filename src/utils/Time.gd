@@ -37,7 +37,7 @@ var elapsed_play_time_modified_sec: float \
         setget ,_get_elapsed_play_time_modified_sec
 
 func _init() -> void:
-    Gs.utils.print("Time._init")
+    Gs.logger.print("Time._init")
     
     pause_mode = Node.PAUSE_MODE_PROCESS
 
@@ -154,7 +154,7 @@ class _Timeout extends Reference:
                 callback.call_func(arguments[0], arguments[1], arguments[2], \
                         arguments[3], arguments[4])
             _:
-                Gs.utils.error()
+                Gs.logger.error()
 
 func set_interval( \
         callback: FuncRef, \
@@ -212,7 +212,7 @@ class _Interval extends Reference:
                 callback.call_func(arguments[0], arguments[1], arguments[2], \
                         arguments[3], arguments[4])
             _:
-                Gs.utils.error()
+                Gs.logger.error()
 
 func throttle( \
         callback: FuncRef, \

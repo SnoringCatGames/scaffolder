@@ -16,12 +16,12 @@ func _init( \
     pass
 
 func on_pressed(pressed: bool) -> void:
-    Gs.utils.error( \
+    Gs.logger.error( \
             "Abstract CheckboxLabeledControlItem.on_pressed " + \
             "is not implemented")
 
 func get_is_pressed() -> bool:
-    Gs.utils.error( \
+    Gs.logger.error( \
             "Abstract CheckboxLabeledControlItem.get_is_pressed " + \
             "is not implemented")
     return false

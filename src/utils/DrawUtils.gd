@@ -13,7 +13,7 @@ const INSTRUCTION_INDICATOR_STROKE_WIDTH := 1.0
 const STRIKE_THROUGH_ANGLE := -PI / 3.0
 
 func _init() -> void:
-    Gs.utils.print("DrawUtils._init")
+    Gs.logger.print("DrawUtils._init")
 
 static func draw_dashed_line( \
         canvas: CanvasItem, \
@@ -332,7 +332,7 @@ static func draw_instruction_indicator( \
         "move_right":
             end_offset_from_mid = Vector2(half_length, 0.0)
         _:
-            Gs.utils.error("Invalid input_key: %s" % input_key)
+            Gs.logger.error("Invalid input_key: %s" % input_key)
     
     var start := position - end_offset_from_mid
     var end := position + end_offset_from_mid
@@ -496,7 +496,7 @@ static func draw_shape_outline( \
                 color, \
                 thickness)
     else:
-        Gs.utils.error( \
+        Gs.logger.error( \
                 "Invalid Shape2D provided for draw_shape: %s. The " + \
                 "supported shapes are: CircleShape2D, CapsuleShape2D, " + \
                 "RectangleShape2D." % shape)

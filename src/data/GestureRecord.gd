@@ -19,7 +19,7 @@ func _record_new_gesture_event(event: InputEvent) -> void:
     elif event is InputEventScreenDrag:
         gesture_name = "dr"
     else:
-        Gs.utils.error()
+        Gs.logger.error()
         return
     var gesture_event := GestureEventForDebugging.new( \
             event.position, \

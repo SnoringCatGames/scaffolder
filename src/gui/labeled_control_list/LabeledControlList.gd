@@ -189,7 +189,7 @@ func _create_control( \
             item.control = dropdown
             return dropdown
         _:
-            Gs.utils.error()
+            Gs.logger.error()
             return null
 
 func _on_control_pressed(_index: int) -> void:
@@ -231,7 +231,7 @@ func find_index(label: String) -> int:
     for index in range(items.size()):
         if items[index].label == label:
             return index
-    Gs.utils.error()
+    Gs.logger.error()
     return -1
 
 func find_item(label: String) -> Dictionary:
@@ -248,7 +248,7 @@ func _update_item(item: LabeledControlItem) -> void:
         LabeledControlItem.DROPDOWN:
             item.selected_index = item.get_selected_index()
         _:
-            Gs.utils.error()
+            Gs.logger.error()
 
 func _set_items(value: Array) -> void:
     items = value

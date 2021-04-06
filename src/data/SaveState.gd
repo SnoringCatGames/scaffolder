@@ -12,12 +12,13 @@ const VERSIONS_SECTION_KEY := "versions"
 
 const NEW_UNLOCKED_LEVELS_KEY := "new_unlocked_levels"
 const GAVE_FEEDBACK_KEY := "gave_feedback"
+const DATA_AGREEMENT_VERSION_KEY := "data_agreement_v"
 const SCORE_VERSION_KEY := "score_v"
 
 var config: ConfigFile
 
 func _init() -> void:
-    Gs.utils.print("SaveSate._init")
+    Gs.logger.print("SaveSate._init")
     _load_config()
 
 func _load_config() -> void:
@@ -25,12 +26,12 @@ func _load_config() -> void:
     var status := config.load(CONFIG_FILE_PATH)
     if status != OK and \
             status != ERR_FILE_NOT_FOUND:
-        Gs.utils.error("An error occurred loading game state: %s" % status)
+        Gs.logger.error("An error occurred loading game state: %s" % status)
 
 func _save_config() -> void:
     var status := config.save(CONFIG_FILE_PATH)
     if status != OK:
-        Gs.utils.error("An error occurred saving game state: %s" % status)
+        Gs.logger.error("An error occurred saving game state: %s" % status)
 
 func set_setting( \
         setting_key: String, \
@@ -95,6 +96,19 @@ func get_gave_feedback() -> bool:
             MISCELLANEOUS_SECTION_KEY, \
             GAVE_FEEDBACK_KEY, \
             false) as bool
+
+func set_data_agreement_version(version: String) -> void:
+    config.set_value( \
+            VERSIONS_SECTION_KEY, \
+            DATA_AGREEMENT_VERSION_KEY, \
+            version)
+    _save_config()
+
+func get_data_agreement_version() -> String:
+    return _get_value( \
+            VERSIONS_SECTION_KEY, \
+            DATA_AGREEMENT_VERSION_KEY, \
+            "") as String
 
 func set_score_version(version: String) -> void:
     config.set_value( \

@@ -51,4 +51,4 @@ func _on_KeepPlayingButton_pressed():
 func _on_SendFeedbackButton_pressed() -> void:
     Gs.utils.give_button_press_feedback()
     Gs.nav.open(NEXT_SCREEN_TYPE)
-    OS.shell_open(Gs.utils.get_support_url())
+    OS.shell_open(Gs.get_support_url_with_params())

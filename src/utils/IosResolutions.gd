@@ -253,6 +253,9 @@ const IPOD_SUFFIX_AND_PPIS = [
     },
 ]
 
+func _init() -> void:
+    Gs.logger.print("IosResolutions._init")
+
 func get_screen_ppi(ios_model_names: IosModelNames) -> int:
     assert(Gs.utils.get_is_ios_device())
     
@@ -269,7 +272,7 @@ func get_screen_ppi(ios_model_names: IosModelNames) -> int:
     elif is_ipod:
         suffix_and_ppis = IPOD_SUFFIX_AND_PPIS
     else:
-        Gs.utils.error()
+        Gs.logger.error()
     
     var ppi := DEFAULT_PPI
     for suffix_and_ppi in suffix_and_ppis:

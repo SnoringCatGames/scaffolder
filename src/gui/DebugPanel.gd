@@ -10,7 +10,7 @@ var _message_count := 0
 
 func _enter_tree() -> void:
     _log_device_settings()
-    _log_utils_print_queue()
+    _log_print_queue()
     $PanelContainer.theme = Gs.theme
     position.y = max(CORNER_OFFSET.y, Gs.utils.get_safe_area_margin_top())
     position.x = max(CORNER_OFFSET.x, Gs.utils.get_safe_area_margin_left())
@@ -30,6 +30,8 @@ func _process(_delta: float) -> void:
             true, \
             false, \
             false) + " "
+    # FIXME: --------------------------------
+    $PanelContainer/ScrollContainer/Label.text = ""
 
 func _on_resized() -> void:
     var viewport_size := get_viewport().size
@@ -41,6 +43,8 @@ func _delayed_init() -> void:
     Gs.time.set_timeout(funcref(self, "_scroll_to_bottom"), 0.2)
 
 func add_message(message: String) -> void:
+    # FIXME: --------------------------------
+    return
     text += "> " + message + "\n"
     _message_count += 1
     _remove_surplus_message()
@@ -114,10 +118,10 @@ func _log_device_settings() -> void:
                 Gs.utils.get_safe_area_margin_right(),
             ])
 
-func _log_utils_print_queue() -> void:
-    for entry in Gs.utils._print_queue:
+func _log_print_queue() -> void:
+    for entry in Gs.logger._print_queue:
         add_message(entry)
-    Gs.utils._print_queue.clear()
+    Gs.logger._print_queue.clear()
 
 func _on_PanelContainer_gui_input(event: InputEvent) -> void:
     var is_mouse_down: bool = \

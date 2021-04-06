@@ -32,7 +32,7 @@ const _DEFAULT_LAYERS_CONFIG := [
 var layers := {}
 
 func _init() -> void:
-    Gs.utils.print("CanvasLayers._init")
+    Gs.logger.print("CanvasLayers._init")
     name = "CanvasLayers"
 
 func _enter_tree() -> void:

@@ -22,6 +22,6 @@ func _init( \
     self.description = description
 
 func get_is_enabled() -> bool:
-    Gs.utils.error( \
+    Gs.logger.error( \
             "Abstract LabeledControlItem.get_is_enabled is not implemented")
     return false

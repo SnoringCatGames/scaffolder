@@ -33,13 +33,9 @@ var active_screen_stack := []
 var fade_transition: FadeTransition
 
 func _init() -> void:
-    Gs.utils.print("Navigation._init")
+    Gs.logger.print("Navigation._init")
 
 func _ready() -> void:
-    fade_transition.connect( \
-            "fade_complete", \
-            self, \
-            "_on_fade_complete")
     get_tree().set_auto_accept_quit(false)
     Gs.analytics.connect( \
             "session_end", \
@@ -73,9 +69,9 @@ func _create_screen(path: String) -> void:
             path, \
             false, \
             false)
-    Gs.canvas_layers.layers[screen.layer_name].add_child(screen)
     screen.pause_mode = Node.PAUSE_MODE_STOP
     screens[screen.screen_name] = screen
+    Gs.canvas_layers.layers[screen.layer_name].add_child(screen)
 
 func create_screens() -> void:
     var default := []
@@ -100,6 +96,10 @@ func create_screens() -> void:
             true, \
             false)
     fade_transition.duration = SCREEN_FADE_DURATION_SEC
+    fade_transition.connect( \
+            "fade_complete", \
+            self, \
+            "_on_fade_complete")
 
 func open( \
         screen_name: String, \
@@ -109,7 +109,7 @@ func open( \
             get_active_screen_name() if \
             !active_screen_stack.empty() else \
             "_"
-    Gs.utils.print("Nav.open: %s=>%s" % [
+    Gs.logger.print("Nav.open: %s=>%s" % [
         previous_name,
         screen_name,
     ])
@@ -130,7 +130,7 @@ func close_current_screen(includes_fade := false) -> void:
             active_screen_stack[previous_index - 1].screen_name if \
             previous_index > 0 else \
             "_"
-    Gs.utils.print("Nav.close_current_screen: %s=>%s" % [
+    Gs.logger.print("Nav.close_current_screen: %s=>%s" % [
         previous_name,
         next_name,
     ])

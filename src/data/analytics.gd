@@ -1,3 +1,16 @@
+# This class depends on the proprietary third-party Google Analytics service.
+# 
+# -   Fortunately, Google Analytics is at least free to use.
+# -   To get started with Google Analytics, read this doc:
+#     https://support.google.com/analytics/answer/1008015?hl=en
+# -   To learn more about the "Measurement Protocol" API that this class uses
+#     to send event info, read this doc:
+#     https://developers.google.com/analytics/devguides/collection/protocol/v1
+# -   To learn more about the "Reporting API" you could use to run arbitrary
+#     queries on your recorded analytics, read this doc:
+#     https://developers.google.com/analytics/devguides/reporting/core/v4
+#     -   Alternatively, you could just use Google's convenient web client:
+#         http://analytics.google.com/
 class_name Analytics
 extends Node
 
@@ -17,7 +30,7 @@ const GOOGLE_ANALYTICS_COLLECT_URL := GOOGLE_ANALYTICS_DOMAIN + "/collect"
 const GOOGLE_ANALYTICS_BATCH_URL := GOOGLE_ANALYTICS_DOMAIN + "/batch"
 const HEADERS := []
 
-const CLIENT_ID_SAVE_KEY := "cliend_id"
+const CLIENT_ID_SAVE_KEY := "client_id"
 
 var client_id: String
 var _has_session_started := false
@@ -26,7 +39,7 @@ var _last_ping_time_sec := -INF
 var _retry_queue := []
 
 func _init() -> void:
-    Gs.utils.print("Analytics._init")
+    Gs.logger.print("Analytics._init")
 
 func _process(_delta_sec: float) -> void:
     if _has_session_started and \
@@ -106,6 +119,7 @@ func _ping( \
 
 func _enter_tree() -> void:
     client_id = _get_client_id()
+    Gs.logger.print("Analytics client ID: " + client_id)
 
 func _get_client_id() -> String:
     var id = Gs.save_state.get_setting(CLIENT_ID_SAVE_KEY)
@@ -167,9 +181,9 @@ func _trigger_collect( \
         payload: String, \
         details: String, \
         is_session_end := false) -> void:
-    Gs.utils.print("Analytics._trigger_collect: " + details)
+    Gs.logger.print("Analytics._trigger_collect: " + details)
     if VERBOSE:
-        Gs.utils.print("  Payload (readable):\n    " + \
+        Gs.logger.print("  Payload (readable):\n    " + \
                 payload.replace("&", "\n    &"))
     
     if Gs.debug:
@@ -205,7 +219,7 @@ func _trigger_collect( \
             body)
     
     if status != OK:
-        Gs.utils.error( \
+        Gs.logger.error( \
                 "Analytics._trigger_collect failed: status=%d, url=%s" % \
                         [status, url], \
                 false)
@@ -220,11 +234,11 @@ func _on_collect_request_completed( \
         url: String, \
         is_session_end: bool) -> void:
     if VERBOSE:
-        Gs.utils.print( \
+        Gs.logger.print( \
                 "Analytics._on_collect_request_completed: result=%d, code=%d" % \
                 [result, response_code])
-        Gs.utils.print("  Body:\n    " + body.get_string_from_utf8())
-        Gs.utils.print("  Headers:\n    " + Gs.utils.join(headers, ",\n    "))
+        Gs.logger.print("  Body:\n    " + body.get_string_from_utf8())
+        Gs.logger.print("  Headers:\n    " + Gs.utils.join(headers, ",\n    "))
     
     request.queue_free()
     
@@ -245,11 +259,11 @@ func _on_collect_request_completed( \
             (response_code >= 500 and response_code < 600):
         # Probably a temporary failure! Try again later.
         if Gs.debug:
-            Gs.utils.print("Analytics._on_collect_request_completed: " + \
+            Gs.logger.print("Analytics._on_collect_request_completed: " + \
                     "Queuing entry for re-attempt")
         _retry_queue.push_back(entry)
     else:
-        Gs.utils.error( \
+        Gs.logger.error( \
                 "Analytics._on_collect_request_completed failed: " + \
                 "result=%d, code=%d, url=%s, body=%s" % [
                     result, 
@@ -287,9 +301,9 @@ func _trigger_batch(batch: Array) -> void:
         payload += entry_payload
     
     if VERBOSE:
-        Gs.utils.print("Analytics._trigger_batch")
-        Gs.utils.print("  Payload:\n    " + payload)
-        Gs.utils.print("  Payload (readable):\n    " + \
+        Gs.logger.print("Analytics._trigger_batch")
+        Gs.logger.print("  Payload:\n    " + payload)
+        Gs.logger.print("  Payload (readable):\n    " + \
                 payload.replace("&", "\n    &"))
     
     var url := GOOGLE_ANALYTICS_BATCH_URL
@@ -312,7 +326,7 @@ func _trigger_batch(batch: Array) -> void:
             body)
     
     if status != OK:
-        Gs.utils.error( \
+        Gs.logger.error( \
                 "Analytics._trigger_batch failed: status=%d, url=%s" % \
                         [status, url], \
                 false)
@@ -326,11 +340,11 @@ func _on_batch_request_completed( \
         request: HTTPRequest, \
         url: String) -> void:
     if VERBOSE:
-        Gs.utils.print( \
+        Gs.logger.print( \
                 "Analytics._on_batch_request_completed: result=%d, code=%d" % \
                 [result, response_code])
-        Gs.utils.print("  Body:\n    " + body.get_string_from_utf8())
-        Gs.utils.print("  Headers:\n    " + Gs.utils.join(headers, ",\n    "))
+        Gs.logger.print("  Body:\n    " + body.get_string_from_utf8())
+        Gs.logger.print("  Headers:\n    " + Gs.utils.join(headers, ",\n    "))
     
     request.queue_free()
     
@@ -349,12 +363,12 @@ func _on_batch_request_completed( \
             (response_code >= 500 and response_code < 600):
         # Probably a temporary failure! Try again later.
         if Gs.debug:
-            Gs.utils.print("Analytics._on_batch_request_completed: " + \
+            Gs.logger.print("Analytics._on_batch_request_completed: " + \
                     "Queuing batch for re-attempt")
         for entry in batch:
             _retry_queue.push_back(entry)
     else:
-        Gs.utils.error( \
+        Gs.logger.error( \
                 "Analytics._on_batch_request_completed failed: " + \
                 "result=%d, code=%d, url=%s, body=%s" % [
                     result, 

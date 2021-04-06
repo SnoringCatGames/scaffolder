@@ -7,32 +7,16 @@ var _ios_model_names
 var _ios_resolutions
 var _focus_releaser: Control
 
-var _print_queue := []
-
 func _init() -> void:
-    add_to_print_queue("Utils._init")
+    Gs.logger.print("Utils._init")
     
     _ios_model_names = IosModelNames.new()
-    add_to_print_queue("IosModelNames._init")
     _ios_resolutions = IosResolutions.new()
-    add_to_print_queue("IosResolutions._init")
     
     _focus_releaser = Button.new()
     _focus_releaser.modulate.a = 0.0
     _focus_releaser.visible = false
     add_child(_focus_releaser)
-
-func add_to_print_queue(message: String) -> void:
-    _print_queue.push_back(message)
-
-func print(message: String) -> void:
-    if is_instance_valid(Gs.debug_panel):
-        Gs.debug_panel.add_message(message)
-    else:
-        add_to_print_queue(message)
-    
-    if Gs.also_prints_to_stdout:
-        print(message)
 
 func get_is_paused() -> bool:
     return get_tree().paused
@@ -42,25 +26,6 @@ func pause() -> void:
 
 func unpause() -> void:
     get_tree().paused = false
-
-func error( \
-        message := "An error occurred", \
-        should_assert := true) -> void:
-    push_error("ERROR: %s" % message)
-    Gs.utils.print("**ERROR**: %s" % message)
-    if should_assert:
-         assert(false)
-
-static func static_error( \
-        message := "An error occurred", \
-        should_assert := true) -> void:
-    push_error("ERROR: %s" % message)
-    if should_assert:
-         assert(false)
-
-func warning(message := "An warning occurred") -> void:
-    push_warning("WARNING: %s" % message)
-    Gs.utils.print("**WARNING**: %s" % message)
 
 # TODO: Replace this with any built-in feature whenever it exists
 #       (https://github.com/godotengine/godot/issues/4715).
@@ -101,6 +66,18 @@ static func concat( \
     for i in range(other_size):
         result[old_result_size + i] = other[i]
 
+static func join( \
+        array, \
+        delimiter := ",") -> String:
+    assert(array is Array or array is PoolStringArray)
+    var count: int = array.size()
+    var result := ""
+    for index in range(array.size() - 1):
+        result += array[index] + delimiter
+    if count > 0:
+        result += array[count - 1]
+    return result
+
 static func array_to_set(array: Array) -> Dictionary:
     var set := {}
     for element in array:
@@ -131,6 +108,14 @@ static func get_children_by_type( \
                     type, \
                     recursive)
     return result
+
+static func get_child_by_type( \
+        parent: Node, \
+        type, \
+        recursive := false) -> Node:
+    var children := get_children_by_type(parent, type, recursive)
+    assert(children.size() == 1)
+    return children[0]
 
 static func get_which_wall_collided_for_body(body: KinematicBody2D) -> int:
     if body.is_on_wall():
@@ -178,7 +163,7 @@ func add_scene( \
         is_visible := true) -> Node:
     var scene := load(resource_path)
     if scene == null:
-        Gs.utils.error("Invalid scene path: " + resource_path)
+        Gs.logger.error("Invalid scene path: " + resource_path)
     
     var node: Node = scene.instance()
     if node is CanvasItem:
@@ -236,7 +221,7 @@ static func ease_name_to_param(name: String) -> float:
         "ease_in_out_weak":
             return -1.8
         _:
-            static_error()
+            ScaffoldLog.static_error()
             return INF
 
 static func ease_by_name( \
@@ -347,7 +332,7 @@ static func mix( \
     elif values[0] is Vector3:
         weighted_average = Vector3.ZERO
     else:
-        static_error()
+        ScaffoldLog.static_error()
     
     for i in range(count):
         var value = values[i]
@@ -388,9 +373,9 @@ static func mix_colors( \
     
     return Color.from_hsv(h, s, v, 1.0)
 
-func get_datetime_string() -> String:
+static func get_datetime_string() -> String:
     var datetime := OS.get_datetime()
-    return "%s-%s-%s-%s-%s-%s" % [
+    return "%s-%s-%s_%s.%s.%s" % [
         datetime.year,
         datetime.month,
         datetime.day,
@@ -448,7 +433,7 @@ func take_screenshot() -> void:
     if !directory.dir_exists("user://screenshots"):
         var status := directory.open("user://")
         if status != OK:
-            error()
+            Gs.logger.error()
             return
         directory.make_dir("screenshots")
     
@@ -457,7 +442,7 @@ func take_screenshot() -> void:
     var path := "user://screenshots/screenshot-%s.png" % get_datetime_string()
     var status := image.save_png(path)
     if status != OK:
-        error()
+        Gs.logger.error()
 
 func clear_directory( \
         path: String, \
@@ -466,7 +451,7 @@ func clear_directory( \
     var directory := Directory.new()
     var status := directory.open(path)
     if status != OK:
-        error()
+        Gs.logger.error()
         return
     
     # Delete children.
@@ -482,14 +467,28 @@ func clear_directory( \
         else:
             status = directory.remove(file_name)
             if status != OK:
-                error("Failed to delete file", false)
+                Gs.logger.error("Failed to delete file", false)
         file_name = directory.get_next()
     
     # Delete directory.
     if also_deletes_directory:
         status = directory.remove(path)
         if status != OK:
-            error("Failed to delete directory", false)
+            Gs.logger.error("Failed to delete directory", false)
+
+static func get_last_x_lines_from_file( \
+        path: String, \
+        x: int) -> Array:
+    var file := File.new()
+    var status := file.open(path, File.READ)
+    if status != OK:
+        push_error("Unable to open file: " + path)
+        return []
+    var buffer := CircularBuffer.new(x)
+    while !file.eof_reached():
+        buffer.push(file.get_line())
+    file.close()
+    return buffer.get_items()
 
 func set_mouse_filter_recursively( \
         node: Node, \
@@ -504,7 +503,7 @@ func set_mouse_filter_recursively( \
 func _scale_gui_for_current_screen_size(gui) -> void:
     if !is_instance_valid(gui) or \
             !Gs.guis_to_scale.has(gui):
-        Gs.utils.error()
+        Gs.logger.error()
         return
     
     var old_gui_scale: float = Gs.guis_to_scale[gui]
@@ -599,16 +598,6 @@ func get_node_vscroll_position( \
     var max_vscroll_position := scroll_container.get_v_scrollbar().max_value
     return vscroll_position
 
-func get_support_url() -> String:
-    var params := "?source=" + OS.get_name()
-    params += "&app=inner-tube-climber"
-    return Gs.support_url_base + params
-
-func get_log_gestures_url() -> String:
-    var params := "?source=" + OS.get_name()
-    params += "&app=inner-tube-climber"
-    return Gs.log_gestures_url + params
-
 func does_control_have_focus_recursively(control: Control) -> bool:
     var focused_control := _focus_releaser.get_focus_owner()
     while focused_control != null:
@@ -659,7 +648,7 @@ func create_stylebox_flat_scalable(config) -> StyleBoxFlatScalable:
     elif config is StyleBox:
         return _create_stylebox_flat_scalable_from_stylebox(config)
     else:
-        Gs.utils.error()
+        Gs.logger.error()
         return null
 
 func _create_stylebox_flat_scalable_from_config( \

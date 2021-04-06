@@ -132,7 +132,7 @@ func _get_music_name() -> String:
     return "on_a_quest"
 
 func _get_is_rate_app_screen_next() -> bool:
-    Gs.utils.error( \
+    Gs.logger.error( \
             "Abstract ScaffoldLevel._get_is_rate_app_screen_next " + \
             "is not implemented")
     return false

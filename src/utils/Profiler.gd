@@ -23,7 +23,7 @@ var _counts := {}
 var _preregistered_metric_keys := []
 
 func _init() -> void:
-    Gs.utils.print("Profiler._init")
+    Gs.logger.print("Profiler._init")
     init_thread(DEFAULT_THREAD_ID)
 
 func init_thread(thread_id: String) -> void:
