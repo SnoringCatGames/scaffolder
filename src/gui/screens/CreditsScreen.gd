@@ -58,10 +58,14 @@ func _ready() -> void:
             PrivacyPolicyLink.visible = Gs.is_data_tracked
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer/ \
-            DataDeletionButton.visible = Gs.is_data_tracked
+            DataDeletionButton.visible = \
+                    Gs.is_data_tracked and \
+                    Gs.is_data_deletion_button_shown
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer/ \
-            DataDeletionButtonPadding.visible = Gs.is_data_tracked
+            DataDeletionButtonPadding.visible = \
+                    Gs.is_data_tracked and \
+                    Gs.is_data_deletion_button_shown
     
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer2/ \
@@ -94,7 +98,7 @@ func _on_TermsAndConditionsLink_pressed():
 
 func _on_SupportLink_pressed():
     Gs.utils.give_button_press_feedback()
-    OS.shell_open(Gs.utils.get_support_url())
+    OS.shell_open(Gs.get_support_url_with_params())
 
 func _on_DataDeletionButton_pressed():
     Gs.utils.give_button_press_feedback()

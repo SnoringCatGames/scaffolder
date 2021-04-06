@@ -17,12 +17,14 @@ const MIN_GUI_SCALE := 0.2
 
 # --- Static configuration state ---
 
+var manifest: Dictionary
+
 var debug: bool
 var playtest: bool
 var test := false
 var is_profiler_enabled: bool
 var are_all_levels_unlocked := false
-var also_prints_to_stdout: bool
+var also_prints_to_stdout := true
 
 var debug_window_size: Vector2
 
@@ -31,11 +33,13 @@ var uses_threads: bool
 var thread_count: int
 
 var is_mobile_supported: bool
+var is_data_deletion_button_shown: bool
 
 var app_name: String
 var app_id: String
 var app_version: String
 var score_version: String
+var data_agreement_version: String
 
 var theme: Theme
 
@@ -104,13 +108,16 @@ var fade_in_transition_texture := \
 var fade_out_transition_texture := \
         preload("res://addons/godot_scaffold/assets/images/transition_out.png")
 
+# Must start with "UA-".
 var google_analytics_id: String
 var terms_and_conditions_url: String
 var privacy_policy_url: String
 var android_app_store_url: String
 var ios_app_store_url: String
-var support_url_base: String
+var support_url: String
+var error_logs_url: String
 var log_gestures_url: String
+var app_id_query_param: String
 
 var default_camera_zoom := 1.0
 
@@ -135,6 +142,7 @@ var tree_arrow_icon_sizes := [8, 16, 32, 64]
 var is_special_thanks_shown: bool
 var is_third_party_licenses_shown: bool
 var is_data_tracked: bool
+var are_error_logs_captured: bool
 var is_rate_app_shown: bool
 var is_support_shown: bool
 var is_gesture_logging_supported: bool
@@ -164,7 +172,8 @@ var nav: ScaffoldNavigation
 var save_state: SaveState
 var analytics: Analytics
 var cloud_log: CloudLog
-var utils := Utils.new()
+var logger: ScaffoldLog
+var utils: Utils
 var time: Time
 var profiler: Profiler
 var geometry: ScaffoldGeometry
@@ -182,13 +191,16 @@ var active_overlays := []
 
 # ---
 
-func _init() -> void:
-    self.utils.add_to_print_queue("ScaffoldConfig._init")
+func _enter_tree() -> void:
+    self.logger = ScaffoldLog.new()
+    add_child(self.logger)
+    self.logger.print("ScaffoldConfig._enter_tree")
 
 func amend_app_manifest(manifest: Dictionary) -> void:
     pass
 
 func register_app_manifest(manifest: Dictionary) -> void:
+    self.manifest = manifest
     self.debug = manifest.debug
     self.playtest = manifest.playtest
     self.also_prints_to_stdout = manifest.also_prints_to_stdout
@@ -197,6 +209,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.uses_threads = manifest.uses_threads
     self.thread_count = manifest.thread_count
     self.is_mobile_supported = manifest.is_mobile_supported
+    self.is_data_deletion_button_shown = manifest.is_data_deletion_button_shown
     self.app_name = manifest.app_name
     self.app_id = manifest.app_id
     self.app_version = manifest.app_version
@@ -279,6 +292,8 @@ func register_app_manifest(manifest: Dictionary) -> void:
         self.fade_out_transition_texture = manifest.fade_out_transition_texture
     if manifest.has("google_analytics_id"):
         self.google_analytics_id = manifest.google_analytics_id
+    if manifest.has("data_agreement_version"):
+        self.data_agreement_version = manifest.data_agreement_version
     if manifest.has("terms_and_conditions_url"):
         self.terms_and_conditions_url = manifest.terms_and_conditions_url
     if manifest.has("privacy_policy_url"):
@@ -287,8 +302,10 @@ func register_app_manifest(manifest: Dictionary) -> void:
         self.android_app_store_url = manifest.android_app_store_url
     if manifest.has("ios_app_store_url"):
         self.ios_app_store_url = manifest.ios_app_store_url
-    if manifest.has("support_url_base"):
-        self.support_url_base = manifest.support_url_base
+    if manifest.has("support_url"):
+        self.support_url = manifest.support_url
+    if manifest.has("error_logs_url"):
+        self.error_logs_url = manifest.error_logs_url
     if manifest.has("log_gestures_url"):
         self.log_gestures_url = manifest.log_gestures_url
     if manifest.has("input_vibrate_duration_sec"):
@@ -301,83 +318,114 @@ func register_app_manifest(manifest: Dictionary) -> void:
         self.recent_gesture_events_for_debugging_buffer_size = \
                 manifest.recent_gesture_events_for_debugging_buffer_size
     
-    if manifest.has("audio"):
-        assert(manifest.audio is Audio)
-        self.audio = manifest.audio
+    assert(manifest.level_config_class != null)
+    assert(self.google_analytics_id.empty() == \
+            self.privacy_policy_url.empty() and \
+            self.privacy_policy_url.empty() == \
+            self.terms_and_conditions_url.empty())
+    assert((self.developer_splash == null) == \
+            self.developer_splash_sound.empty())
+    
+    self.is_special_thanks_shown = !self.special_thanks_text.empty()
+    self.is_third_party_licenses_shown = !self.third_party_license_text.empty()
+    self.is_data_tracked = \
+            !self.privacy_policy_url.empty() and \
+            !self.terms_and_conditions_url.empty() and \
+            !self.google_analytics_id.empty()
+    self.are_error_logs_captured = \
+            self.is_data_tracked and \
+            !self.error_logs_url.empty()
+    self.is_rate_app_shown = \
+            !self.android_app_store_url.empty() and \
+            !self.ios_app_store_url.empty()
+    self.is_support_shown = \
+            !self.support_url.empty() and \
+            !self.app_id_query_param.empty()
+    self.is_gesture_logging_supported = \
+            !self.log_gestures_url.empty() and \
+            !self.app_id_query_param.empty()
+    self.is_developer_logo_shown = manifest.has("developer_logo")
+    self.is_developer_splash_shown = \
+            manifest.has("developer_splash") and \
+            manifest.has("developer_splash_sound")
+    self.is_main_menu_image_shown = manifest.has("main_menu_image_scene_path")
+
+func initialize() -> void:
+    if manifest.has("audio_class"):
+        self.audio = manifest.audio_class.new()
+        assert(self.audio is Audio)
     else:
         self.audio = Audio.new()
     add_child(self.audio)
-    if manifest.has("colors"):
-        assert(manifest.colors is ScaffoldColors)
-        self.colors = manifest.colors
+    if manifest.has("colors_class"):
+        self.colors = manifest.colors_class.new()
+        assert(self.colors is ScaffoldColors)
     else:
         self.colors = ScaffoldColors.new()
     add_child(self.colors)
-    if manifest.has("styles"):
-        assert(manifest.styles is ScaffoldStyles)
-        self.styles = manifest.styles
+    if manifest.has("styles_class"):
+        self.styles = manifest.styles_class.new()
+        assert(self.styles is ScaffoldStyles)
     else:
         self.styles = ScaffoldStyles.new()
     add_child(self.styles)
-    if manifest.has("nav"):
-        assert(manifest.nav is ScaffoldNavigation)
-        self.nav = manifest.nav
-    else:
-        self.nav = ScaffoldNavigation.new()
-    add_child(self.nav)
-    if manifest.has("save_state"):
-        assert(manifest.save_state is SaveState)
-        self.save_state = manifest.save_state
+    if manifest.has("save_state_class"):
+        self.save_state = manifest.save_state_class.new()
+        assert(self.save_state is SaveState)
     else:
         self.save_state = SaveState.new()
     add_child(self.save_state)
-    if manifest.has("analytics"):
-        assert(manifest.analytics is Analytics)
-        self.analytics = manifest.analytics
+    if manifest.has("analytics_class"):
+        self.analytics = manifest.analytics_class.new()
+        assert(self.analytics is Analytics)
     else:
         self.analytics = Analytics.new()
     add_child(self.analytics)
-    if manifest.has("cloud_log"):
-        assert(manifest.cloud_log is CloudLog)
-        self.cloud_log = manifest.cloud_log
+    if manifest.has("cloud_log_class"):
+        self.cloud_log = manifest.cloud_log_class.new()
+        assert(self.cloud_log is CloudLog)
     else:
         self.cloud_log = CloudLog.new()
     add_child(self.cloud_log)
-    if manifest.has("utils"):
-        assert(manifest.utils is Utils)
-        var utils = manifest.utils
-        utils.concat(self.utils._print_queue, utils._print_queue)
-        utils._print_queue = self.utils._print_queue
-        self.utils._print_queue.clear()
-        self.utils = utils
+    if manifest.has("utils_class"):
+        self.utils = manifest.utils_class.new()
+        assert(self.utils is Utils)
+    else:
+        self.utils = Utils.new()
     add_child(self.utils)
-    if manifest.has("time"):
-        assert(manifest.time is Time)
-        self.time = manifest.time
+    if manifest.has("time_class"):
+        self.time = manifest.time_class.new()
+        assert(self.time is Time)
     else:
         self.time = Time.new()
     add_child(self.time)
-    if manifest.has("profiler"):
-        assert(manifest.profiler is Profiler)
-        self.profiler = manifest.profiler
+    if manifest.has("profiler_class"):
+        self.profiler = manifest.profiler_class.new()
+        assert(self.profiler is Profiler)
     else:
         self.profiler = Profiler.new()
     add_child(self.profiler)
-    if manifest.has("geometry"):
-        assert(manifest.geometry is ScaffoldGeometry)
-        self.geometry = manifest.geometry
+    if manifest.has("geometry_class"):
+        self.geometry = manifest.geometry_class.new()
+        assert(self.geometry is ScaffoldGeometry)
     else:
         self.geometry = ScaffoldGeometry.new()
     add_child(self.geometry)
-    if manifest.has("draw_utils"):
-        assert(manifest.draw_utils is DrawUtils)
-        self.draw_utils = manifest.draw_utils
+    if manifest.has("draw_utils_class"):
+        self.draw_utils = manifest.draw_utils_class.new()
+        assert(self.draw_utils is DrawUtils)
     else:
         self.draw_utils = DrawUtils.new()
     add_child(self.draw_utils)
-    if manifest.has("level_input"):
-        assert(manifest.level_input is LevelInput)
-        self.level_input = manifest.level_input
+    if manifest.has("nav_class"):
+        self.nav = manifest.nav_class.new()
+        assert(self.nav is ScaffoldNavigation)
+    else:
+        self.nav = ScaffoldNavigation.new()
+    add_child(self.nav)
+    if manifest.has("level_input_class"):
+        self.level_input = manifest.level_input_class.new()
+        assert(self.level_input is LevelInput)
     else:
         self.level_input = LevelInput.new()
     add_child(self.level_input)
@@ -400,30 +448,6 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.colors.register_colors(manifest.colors_manifest)
     self.styles.register_styles(manifest.styles_manifest)
     
-    assert(self.google_analytics_id.empty() == \
-            self.privacy_policy_url.empty() and \
-            self.privacy_policy_url.empty() == \
-            self.terms_and_conditions_url.empty())
-    assert((self.developer_splash == null) == \
-            self.developer_splash_sound.empty())
-    
-    self.is_special_thanks_shown = !self.special_thanks_text.empty()
-    self.is_third_party_licenses_shown = !self.third_party_license_text.empty()
-    self.is_data_tracked = \
-            !self.privacy_policy_url.empty() and \
-            !self.terms_and_conditions_url.empty() and \
-            !self.google_analytics_id.empty()
-    self.is_rate_app_shown = \
-            !self.android_app_store_url.empty() and \
-            !self.ios_app_store_url.empty()
-    self.is_support_shown = !self.support_url_base.empty()
-    self.is_gesture_logging_supported = !self.log_gestures_url.empty()
-    self.is_developer_logo_shown = manifest.has("developer_logo")
-    self.is_developer_splash_shown = \
-            manifest.has("developer_splash") and \
-            manifest.has("developer_splash_sound")
-    self.is_main_menu_image_shown = manifest.has("main_menu_image_scene_path")
-    
     self.is_app_configured = true
     
     _record_original_font_sizes()
@@ -440,6 +464,7 @@ func remove_gui_to_scale(gui) -> void:
     guis_to_scale.erase(gui)
 
 func load_state() -> void:
+    _clear_old_data_agreement_version()
     agreed_to_terms = Gs.save_state.get_setting( \
             AGREED_TO_TERMS_SETTINGS_KEY, \
             false)
@@ -459,11 +484,16 @@ func load_state() -> void:
             IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY, \
             true)
 
-func set_agreed_to_terms() -> void:
-    agreed_to_terms = true
+func _clear_old_data_agreement_version() -> void:
+    if Gs.data_agreement_version != Gs.save_state.get_data_agreement_version():
+        Gs.save_state.set_data_agreement_version(Gs.data_agreement_version)
+        set_agreed_to_terms(false)
+
+func set_agreed_to_terms(value := true) -> void:
+    agreed_to_terms = value
     Gs.save_state.set_setting( \
             Gs.AGREED_TO_TERMS_SETTINGS_KEY, \
-            true)
+            value)
 
 func _set_is_debug_panel_shown(is_visible: bool) -> void:
     is_debug_panel_shown = is_visible
@@ -478,6 +508,9 @@ func _record_original_font_sizes() -> void:
         original_font_sizes[key] = fonts[key].size
 
 func _validate_project_config() -> void:
+    assert(ProjectSettings.get_setting( \
+            "logging/file_logging/enable_file_logging") == true)
+    
     assert(ProjectSettings.get_setting("display/window/size/width") == \
             default_game_area_size.x)
     assert(ProjectSettings.get_setting("display/window/size/height") == \
@@ -513,3 +546,13 @@ func _validate_project_config() -> void:
     assert(ProjectSettings.get_setting( \
                     "input_devices/pointing/emulate_mouse_from_touch") == \
             true)
+
+func get_support_url_with_params() -> String:
+    var params := "?source=" + OS.get_name()
+    params += "&app=" + app_id_query_param
+    return Gs.support_url + params
+
+func get_log_gestures_url_with_params() -> String:
+    var params := "?source=" + OS.get_name()
+    params += "&app=" + app_id_query_param
+    return Gs.logger_gestures_url + params

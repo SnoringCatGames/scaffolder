@@ -14,7 +14,7 @@ const FLOAT_EPSILON := 0.00001
 const COLLISION_BETWEEN_CELLS_DISTANCE_THRESHOLD := 0.5
 
 func _init() -> void:
-    Gs.utils.print("Geometry._init")
+    Gs.logger.print("Geometry._init")
 
 # Calculates the minimum squared distance between a line segment and a point.
 static func get_distance_squared_from_point_to_segment( \
@@ -1063,9 +1063,9 @@ static func get_collision_tile_map_coord( \
                 tile_coord, \
             ]
         if !error_message.empty():
-            Gs.utils.error(print_message)
+            Gs.logger.error(print_message)
         else:
-            Gs.utils.print(print_message)
+            Gs.logger.print(print_message)
 
 static func do_shapes_match( \
         a: Shape2D, \
@@ -1081,7 +1081,7 @@ static func do_shapes_match( \
         return b is RectangleShape2D and \
                 a.extents == b.extents
     else:
-        Gs.utils.error( \
+        Gs.logger.error( \
                 "Invalid Shape2D provided for do_shapes_match: %s. The " + \
                 "supported shapes are: CircleShape2D, CapsuleShape2D, " + \
                 "RectangleShape2D." % a)
@@ -1109,7 +1109,7 @@ static func calculate_half_width_height( \
     elif shape is RectangleShape2D:
         half_width_height = shape.extents
     else:
-        Gs.utils.error( \
+        Gs.logger.error( \
                 "Invalid Shape2D provided to calculate_half_width_height: " + \
                 "%s. The upported shapes are: CircleShape2D, " + \
                 "CapsuleShape2D, RectangleShape2D." % shape)

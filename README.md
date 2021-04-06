@@ -21,6 +21,8 @@ Some of these are just my personal preference, some are important for the framew
 -   Application > Boot Splash:
     -   Image
     -   Bg Color: Must match `Gs.screen_background_color`
+-   Logging > File Logging:
+    -   Enable File Logging: true
 -   Rendering > Quality:
     -   Use Pixel Snap: true
     -   Framebuffer Allocation: 2D Without Sampling
@@ -39,7 +41,7 @@ Some of these are just my personal preference, some are important for the framew
 -   Layer Names:
     -   Name these!
 
-### `Gs`
+### `Gs` AutoLoad and app setup
 
 All of the Godot Scaffold functionality is globally accessible through the `Gs` AutoLoad.
 
@@ -49,6 +51,27 @@ All of the Godot Scaffold functionality is globally accessible through the `Gs` 
 -   Configure the Godot Scaffold framework by calling `ScaffoldBootstrap.on_app_ready` at the start of your Main Scene.
 
 > **NOTE:** `Gs` stands for "Godot Scaffold", in case that's helful to know!
+
+#### DO NOT INSTANTIATE ANYTHING UNTIL AFTER GODOT SCAFFOLD IS READY
+
+> NOTE: This is important for the automatic crash reporting system to work correctly. If you don't care about crash reporting, then yolo, do whatever you want!
+
+##### About app crashes...
+
+It is very common for an application to work fine on your dev machine, but then fail on someone else's device. And most often, this failure will occur during app initialization.
+
+Pretty much the only way to debug these errors is to upload and look at the console logs. These logs hopefully contain some interesting error messages or, at the very least, help you to understand roughly when/where in the application runtime the error occurred.
+
+Unfortunately, since these errors so often occur during app initialization, you must try to handle them _before_ the rest of your app is initialized. This means that you need to be _very_ careful with any AutoLoads you register and with anything you do in your "Main Scene", since any logic in these places will likely run, and could crash the app, before we have a chance to report any previous crashes.
+
+##### Guidelines for how you initialize app state 
+
+Here are some guidelines to minimize app crashes before we can report any previous crashes:
+-   Include as few AutoLoads as possible.
+-   Do as little in your "Main Scene" as possible.
+-   Do not call `.new()` on anything from any of your AutoLoads or your "Main Scene", until after you know `SurfacerConfig` is ready. You can use `call_deferred()` for this.
+
+#### Overriding `ScaffoldConfig` defaults
 
 If you want to override or extend any Godot Scaffold functionality, you should be able to configure a replacement for the corresponding object. But make sure that your replacement `extends` the underlying Godot Scaffold class!
 
@@ -64,9 +87,13 @@ class MyCustomUtils extends ScaffoldUtils:
     ...
 ```
 
-> TODO: Enumerate and describe each ScaffoldConfig property.
+#### `ScaffoldConfig` properties
 
-### Handling viewport scaling
+> TODO: Enumerate and describe each `ScaffoldConfig` property.
+
+## Features
+
+### Viewport scaling
 
 This framework handles viewport scaling directly. You will need to turn off Godot's built-in viewport scaling (`Display > Window > Stretch > Mode = disabled`).
 
@@ -101,6 +128,30 @@ This provides limited flexibility in how far the camera is zoomed. That is, you 
     -   I then set the image position in this way: `TextureRect.rect_position = -TextureRect.rect_size/2`.
     -   This wrapper pattern also works well when I need to scale the image.
 -   In general, whenever possible, I find it helpful to use a VBoxContainer or HBoxContainer as a parent, and to have children use the shrink-center size flag for both horizontal and vertical directions along with a min-size.
+
+### Analytics
+
+This feature depends on the proprietary third-party **[Google Analytics](https://analytics.google.com/analytics/web/#/)** service.
+
+-   Fortunately, Google Analytics is at least free to use.
+-   To get started with Google Analytics, [read this doc](https://support.google.com/analytics/answer/1008015?hl=en).
+-   To learn more about the "Measurement Protocol" API that this class uses to send event info, [read this doc](https://developers.google.com/analytics/devguides/collection/protocol/v1).
+-   To learn more about the "Reporting API" you could use to run arbitrary queries on your recorded analytics, [read this doc](https://developers.google.com/analytics/devguides/reporting/core/v4).
+    -   Alternatively, you could just use [Google's convenient web client](http://analytics.google.com/).
+
+#### "Privacy Policy" and "Terms and Conditions" documents
+
+If you intend to record any sort of user data (including app-usage analytics or crash logs), you should create a "Privacy Policy" document and a "Terms and Conditions" document. These are often legally required when recording any sort of app-usage data. Fortunately, there are a lot of tools out there to help you easily generate these documents. You could then easily host these as view-only [Google Docs](https://docs.google.com/).
+
+Here are two such generator tools that might be useful, and at least have free-trial options:
+-   [Termly's privacy policy generator](https://termly.io/products/privacy-policy-generator/?ftseo)
+-   [Nishant's terms and conditions generator](https://app-privacy-policy-generator.nisrulz.com/)
+
+> _**DISCLAIMER:** I'm not a lawyer, so don't interpret anything from this framework as legal advice, and make sure you understand which laws you need to obey._
+
+### Automatic error/crash reporting
+
+This feature depends on the proprietary third-party **[Google Cloud Storage](https://cloud.google.com/storage)** service.
 
 ## Licenses
 

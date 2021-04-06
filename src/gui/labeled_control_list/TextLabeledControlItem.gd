@@ -19,6 +19,6 @@ func get_is_enabled() -> bool:
     return true
 
 func get_text() -> String:
-    Gs.utils.error( \
+    Gs.logger.error( \
             "Abstract TextLabeledControlItem.get_text is not implemented")
     return ""

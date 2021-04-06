@@ -1,17 +1,35 @@
 class_name ScaffoldBootstrap
 extends Node
 
+var app_manifest: Dictionary
+var main: Node
+
 var _throttled_size_changed: FuncRef
 
 func _init() -> void:
-    Gs.utils.print("ScaffoldBootstrap._init")
     name = "ScaffoldBootstrap"
 
-func on_app_ready( \
+func run( \
         app_manifest: Dictionary, \
         main: Node) -> void:
+    Gs.logger.print("ScaffoldBootstrap.run")
+    self.main = main
+    self.app_manifest = app_manifest
+    call_deferred("_amend_app_manifest")
+    call_deferred("_register_app_manifest")
+
+func _amend_app_manifest() -> void:
     Gs.amend_app_manifest(app_manifest)
+
+func _register_app_manifest() -> void:
     Gs.register_app_manifest(app_manifest)
+    if _report_any_previous_crash():
+        return
+    else:
+        call_deferred("_initialize_framework")
+
+func _initialize_framework() -> void:
+    Gs.initialize()
     Gs.load_state()
     Gs.styles.configure_theme()
     
@@ -54,10 +72,22 @@ func on_app_ready( \
             "_on_resized")
     call_deferred("_on_resized")
     
+    call_deferred("_on_app_ready")
+
+func _on_app_ready() -> void:
     if Gs.utils.get_is_browser():
         JavaScript.eval("window.onAppReady()")
     
     Gs.nav.splash()
+
+func _report_any_previous_crash() -> bool:
+    var crash_reporter := CrashReporter.new()
+    crash_reporter.connect( \
+            "upload_finished", \
+            self, \
+            "_initialize_framework")
+    add_child(crash_reporter)
+    return crash_reporter.report_any_previous_crash()
 
 func _process(_delta_sec: float) -> void:
     if Gs.debug or Gs.playtest:

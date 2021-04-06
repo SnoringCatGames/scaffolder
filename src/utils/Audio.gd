@@ -32,7 +32,7 @@ var is_sound_effects_enabled := true setget \
         _set_is_sound_effects_enabled,_get_is_sound_effects_enabled
 
 func _init() -> void:
-    Gs.utils.print("Audio._init")
+    Gs.logger.print("Audio._init")
 
 func _enter_tree() -> void:
     _fade_out_tween = Tween.new()
@@ -161,7 +161,7 @@ func _cross_fade_music( \
     if previous_music_player != null and \
             previous_music_player != current_music_player and \
             previous_music_player.playing:
-        Gs.utils.error( \
+        Gs.logger.error( \
                 "Previous music still playing when trying to play new music.")
         previous_music_player.stop()
     

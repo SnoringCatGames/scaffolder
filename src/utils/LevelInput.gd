@@ -6,7 +6,7 @@ var _focused_control: Control
 var _an_active_overlay_has_focus := false
 
 func _init() -> void:
-    Gs.utils.print("LevelInput._init")
+    Gs.logger.print("LevelInput._init")
     _control = Control.new()
     add_child(_control)
 
