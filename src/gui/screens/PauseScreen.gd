@@ -66,4 +66,4 @@ func _on_RestartButton_pressed() -> void:
     Gs.level.restart()
 
 func _on_SendRecentGestureEventsForDebugging_pressed() -> void:
-    Gs.cloud_log.record_recent_gestures()
+    Gs.gesture_reporter.record_recent_gestures()

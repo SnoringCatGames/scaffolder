@@ -9,7 +9,6 @@ var text := ""
 var _message_count := 0
 
 func _enter_tree() -> void:
-    _log_device_settings()
     _log_print_queue()
     $PanelContainer.theme = Gs.theme
     position.y = max(CORNER_OFFSET.y, Gs.utils.get_safe_area_margin_top())
@@ -30,8 +29,6 @@ func _process(_delta: float) -> void:
             true, \
             false, \
             false) + " "
-    # FIXME: --------------------------------
-    $PanelContainer/ScrollContainer/Label.text = ""
 
 func _on_resized() -> void:
     var viewport_size := get_viewport().size
@@ -43,8 +40,6 @@ func _delayed_init() -> void:
     Gs.time.set_timeout(funcref(self, "_scroll_to_bottom"), 0.2)
 
 func add_message(message: String) -> void:
-    # FIXME: --------------------------------
-    return
     text += "> " + message + "\n"
     _message_count += 1
     _remove_surplus_message()
@@ -61,62 +56,6 @@ func _remove_surplus_message() -> void:
 func _scroll_to_bottom() -> void:
     $PanelContainer/ScrollContainer.scroll_vertical = \
             $PanelContainer/ScrollContainer.get_v_scrollbar().max_value
-
-func _log_device_settings() -> void:
-    var utils_model_name: String = Gs.utils.get_model_name()
-    var utils_screen_scale: float = Gs.utils.get_screen_scale()
-    var ios_resolution: String = \
-            Gs.utils._get_ios_screen_ppi() if \
-            Gs.utils.get_is_ios_device() else \
-            "N/A"
-    add_message("** Welcome to the debug panel! **")
-    add_message( \
-            ("Device settings:" + \
-            "\n    OS.get_name()=%s" + \
-            "\n    OS.get_model_name()=%s" + \
-            "\n    Gs.utils.get_model_name()=%s" + \
-            "\n    get_viewport().size=(%4d,%4d)" + \
-            "\n    OS.window_size=%s" + \
-            "\n    OS.get_real_window_size()=%s" + \
-            "\n    OS.get_screen_size()=%s" + \
-            "\n    Gs.utils.get_screen_scale()=%s" + \
-            "\n    OS.get_screen_scale()=%s" + \
-            "\n    Gs.utils.get_screen_ppi()=%s" + \
-            "\n    Gs.utils.get_viewport_ppi()=%s" + \
-            "\n    OS.get_screen_dpi()=%s" + \
-            "\n    IosResolutions.get_screen_ppi()=%s" + \
-            "\n    Gs.utils.get_viewport_size_inches()=%s" + \
-            "\n    Gs.utils.get_viewport_diagonal_inches()=%s" + \
-            "\n    Gs.utils.get_viewport_safe_area()=%s" + \
-            "\n    OS.get_window_safe_area()=%s" + \
-            "\n    Gs.utils.get_safe_area_margin_top()=%s" + \
-            "\n    Gs.utils.get_safe_area_margin_bottom()=%s" + \
-            "\n    Gs.utils.get_safe_area_margin_left()=%s" + \
-            "\n    Gs.utils.get_safe_area_margin_right()=%s" + \
-            "") % [
-                OS.get_name(),
-                OS.get_model_name(),
-                utils_model_name,
-                get_viewport().size.x,
-                get_viewport().size.y,
-                OS.window_size,
-                OS.get_real_window_size(),
-                OS.get_screen_size(),
-                utils_screen_scale,
-                OS.get_screen_scale(),
-                Gs.utils.get_screen_ppi(),
-                Gs.utils.get_viewport_ppi(),
-                OS.get_screen_dpi(),
-                ios_resolution,
-                Gs.utils.get_viewport_size_inches(),
-                Gs.utils.get_viewport_diagonal_inches(),
-                Gs.utils.get_viewport_safe_area(),
-                OS.get_window_safe_area(),
-                Gs.utils.get_safe_area_margin_top(),
-                Gs.utils.get_safe_area_margin_bottom(),
-                Gs.utils.get_safe_area_margin_left(),
-                Gs.utils.get_safe_area_margin_right(),
-            ])
 
 func _log_print_queue() -> void:
     for entry in Gs.logger._print_queue:
