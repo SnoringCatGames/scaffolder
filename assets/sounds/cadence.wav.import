@@ -6,7 +6,7 @@ path="res://.import/cadence.wav-6f1f791e8adadb1dcabfe1f987067fe2.sample"
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/sounds/cadence.wav"
+source_file="res://addons/scaffolder/assets/sounds/cadence.wav"
 dest_files=[ "res://.import/cadence.wav-6f1f791e8adadb1dcabfe1f987067fe2.sample" ]
 
 [params]

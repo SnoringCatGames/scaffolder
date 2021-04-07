@@ -6,7 +6,7 @@ path="res://.import/jump.wav-a41cc572ed5083ff7b8c9eee4d1043a5.sample"
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/sounds/jump.wav"
+source_file="res://addons/scaffolder/assets/sounds/jump.wav"
 dest_files=[ "res://.import/jump.wav-a41cc572ed5083ff7b8c9eee4d1043a5.sample" ]
 
 [params]

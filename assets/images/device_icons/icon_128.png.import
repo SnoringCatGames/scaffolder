@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/device_icons/icon_128.png"
+source_file="res://addons/scaffolder/assets/images/device_icons/icon_128.png"
 dest_files=[ "res://.import/icon_128.png-43a010b11d252845cfe0d5ca022d5ad5.stex" ]
 
 [params]

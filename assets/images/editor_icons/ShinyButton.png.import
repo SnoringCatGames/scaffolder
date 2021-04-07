@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/editor_icons/ShinyButton.png"
+source_file="res://addons/scaffolder/assets/images/editor_icons/ShinyButton.png"
 dest_files=[ "res://.import/ShinyButton.png-54ee8d65b61196ced59e662c46f9f47c.stex" ]
 
 [params]

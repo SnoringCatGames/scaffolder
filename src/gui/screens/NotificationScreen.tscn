@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://addons/godot_scaffold/src/gui/CenteredPanel.tscn" type="PackedScene" id=1]
-[ext_resource path="res://addons/godot_scaffold/src/gui/ShinyButton.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/godot_scaffold/src/gui/FullScreenPanel.tscn" type="PackedScene" id=3]
-[ext_resource path="res://addons/godot_scaffold/src/gui/screens/NotificationScreen.gd" type="Script" id=4]
-[ext_resource path="res://addons/godot_scaffold/assets/fonts/main_font_s.tres" type="DynamicFont" id=5]
-[ext_resource path="res://addons/godot_scaffold/src/gui/NavBar.tscn" type="PackedScene" id=12]
+[ext_resource path="res://addons/scaffolder/src/gui/CenteredPanel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/ShinyButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/scaffolder/src/gui/FullScreenPanel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scaffolder/src/gui/screens/NotificationScreen.gd" type="Script" id=4]
+[ext_resource path="res://addons/scaffolder/assets/fonts/main_font_s.tres" type="DynamicFont" id=5]
+[ext_resource path="res://addons/scaffolder/src/gui/NavBar.tscn" type="PackedScene" id=12]
 
 
 

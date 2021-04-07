@@ -6,7 +6,7 @@ path="res://.import/fall.wav-c09306f192d2b7340dc78b88971b39f2.sample"
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/sounds/fall.wav"
+source_file="res://addons/scaffolder/assets/sounds/fall.wav"
 dest_files=[ "res://.import/fall.wav-c09306f192d2b7340dc78b88971b39f2.sample" ]
 
 [params]

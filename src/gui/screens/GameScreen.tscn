@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://addons/godot_scaffold/src/gui/screens/GameScreen.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/screens/GameScreen.gd" type="Script" id=1]
 
 [node name="GameScreen" type="Node2D"]
 script = ExtResource( 1 )

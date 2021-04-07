@@ -1,9 +1,9 @@
 tool
-class_name ShinyButton, "res://addons/godot_scaffold/assets/images/editor_icons/ShinyButton.png"
+class_name ShinyButton, "res://addons/scaffolder/assets/images/editor_icons/ShinyButton.png"
 extends Button
 
 const SHINE_TEXTURE := \
-        preload("res://addons/godot_scaffold/assets/images/gui/shine_line.png")
+        preload("res://addons/scaffolder/assets/images/gui/shine_line.png")
 const SHINE_DURATION_SEC := 0.35
 const SHINE_INTERVAL_SEC := 3.5
 const COLOR_PULSE_DURATION_SEC := 1.2

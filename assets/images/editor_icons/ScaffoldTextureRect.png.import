@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/editor_icons/ScaffoldTextureRect.png"
+source_file="res://addons/scaffolder/assets/images/editor_icons/ScaffoldTextureRect.png"
 dest_files=[ "res://.import/ScaffoldTextureRect.png-b990623a162547d0388321deb108c652.stex" ]
 
 [params]

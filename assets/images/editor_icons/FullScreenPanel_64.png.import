@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/editor_icons/FullScreenPanel_64.png"
+source_file="res://addons/scaffolder/assets/images/editor_icons/FullScreenPanel_64.png"
 dest_files=[ "res://.import/FullScreenPanel_64.png-277498176f81d7697321c686190b2620.stex" ]
 
 [params]

@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/editor_icons/CenteredPanel.png"
+source_file="res://addons/scaffolder/assets/images/editor_icons/CenteredPanel.png"
 dest_files=[ "res://.import/CenteredPanel.png-ccae96bbb7e482959fc406cd2fed0cc2.stex" ]
 
 [params]

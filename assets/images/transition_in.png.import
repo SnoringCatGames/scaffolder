@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/transition_in.png"
+source_file="res://addons/scaffolder/assets/images/transition_in.png"
 dest_files=[ "res://.import/transition_in.png-87187d6570e09aee64ef6a1a7487a3f3.stex" ]
 
 [params]

@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/gui/go_icon_normal.png"
+source_file="res://addons/scaffolder/assets/images/gui/go_icon_normal.png"
 dest_files=[ "res://.import/go_icon_normal.png-318cf4fef7e88421dcf24a79a15cbd77.stex" ]
 
 [params]

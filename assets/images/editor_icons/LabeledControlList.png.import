@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/editor_icons/LabeledControlList.png"
+source_file="res://addons/scaffolder/assets/images/editor_icons/LabeledControlList.png"
 dest_files=[ "res://.import/LabeledControlList.png-470bb5788c659d938cfba24b32eeaa8e.stex" ]
 
 [params]

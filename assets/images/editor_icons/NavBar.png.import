@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/editor_icons/NavBar.png"
+source_file="res://addons/scaffolder/assets/images/editor_icons/NavBar.png"
 dest_files=[ "res://.import/NavBar.png-2072c314eefcf828a565632c69204493.stex" ]
 
 [params]

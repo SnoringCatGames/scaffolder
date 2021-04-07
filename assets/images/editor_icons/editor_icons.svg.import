@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/editor_icons/editor_icons.svg"
+source_file="res://addons/scaffolder/assets/images/editor_icons/editor_icons.svg"
 dest_files=[ "res://.import/editor_icons.svg-7c52d7bd4aa527e750afed2cd23778a6.stex" ]
 
 [params]

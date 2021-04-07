@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/black_pixel.png"
+source_file="res://addons/scaffolder/assets/images/black_pixel.png"
 dest_files=[ "res://.import/black_pixel.png-5899a3141af7493b02541c823e54976e.stex" ]
 
 [params]

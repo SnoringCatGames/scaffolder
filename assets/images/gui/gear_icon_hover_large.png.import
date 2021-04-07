@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/gui/gear_icon_hover_large.png"
+source_file="res://addons/scaffolder/assets/images/gui/gear_icon_hover_large.png"
 dest_files=[ "res://.import/gear_icon_hover_large.png-d07147ca38dd30701af5c98fa621a6ea.stex" ]
 
 [params]
