@@ -24,6 +24,7 @@ var playtest: bool
 var test := false
 var is_profiler_enabled: bool
 var are_all_levels_unlocked := false
+var is_splash_skipped := false
 var also_prints_to_stdout := true
 
 var debug_window_size: Vector2
@@ -55,7 +56,7 @@ var uses_level_scores: bool
 
 var must_restart_level_to_change_settings: bool
 
-var screen_filename_exclusions: Array
+var screen_path_exclusions: Array
 var screen_path_inclusions: Array
 var settings_main_item_class_exclusions: Array
 var settings_main_item_class_inclusions: Array
@@ -198,7 +199,32 @@ func _enter_tree() -> void:
     self.logger.print("ScaffolderConfig._enter_tree")
 
 func amend_app_manifest(manifest: Dictionary) -> void:
-    pass
+    if !manifest.has("screen_path_exclusions"):
+        manifest.screen_path_exclusions = []
+    if !manifest.has("screen_path_inclusions"):
+        manifest.screen_path_inclusions = []
+    
+    if !manifest.has("settings_main_item_class_exclusions"):
+        manifest.settings_main_item_class_exclusions = []
+    if !manifest.has("settings_main_item_class_inclusions"):
+        manifest.settings_main_item_class_inclusions = []
+    if !manifest.has("settings_details_item_class_exclusions"):
+        manifest.settings_details_item_class_exclusions = []
+    if !manifest.has("settings_details_item_class_inclusions"):
+        manifest.settings_details_item_class_inclusions = []
+    
+    if !manifest.has("pause_item_class_exclusions"):
+        manifest.pause_item_class_exclusions = []
+    if !manifest.has("pause_item_class_inclusions"):
+        manifest.pause_item_class_inclusions = []
+    if !manifest.has("game_over_item_class_exclusions"):
+        manifest.game_over_item_class_exclusions = []
+    if !manifest.has("game_over_item_class_inclusions"):
+        manifest.game_over_item_class_inclusions = []
+    if !manifest.has("level_select_item_class_exclusions"):
+        manifest.level_select_item_class_exclusions = []
+    if !manifest.has("level_select_item_class_inclusions"):
+        manifest.level_select_item_class_inclusions = []
 
 func register_app_manifest(manifest: Dictionary) -> void:
     self.manifest = manifest
@@ -223,7 +249,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.uses_level_scores = manifest.uses_level_scores
     self.must_restart_level_to_change_settings = \
             manifest.must_restart_level_to_change_settings
-    self.screen_filename_exclusions = manifest.screen_filename_exclusions
+    self.screen_path_exclusions = manifest.screen_path_exclusions
     self.screen_path_inclusions = manifest.screen_path_inclusions
     self.settings_main_item_class_exclusions = \
             manifest.settings_main_item_class_exclusions
@@ -267,6 +293,8 @@ func register_app_manifest(manifest: Dictionary) -> void:
         self.test = manifest.test
     if manifest.has("are_all_levels_unlocked"):
         self.are_all_levels_unlocked = manifest.are_all_levels_unlocked
+    if manifest.has("is_splash_skipped"):
+        self.is_splash_skipped = manifest.is_splash_skipped
     if manifest.has("developer_logo"):
         self.developer_logo = manifest.developer_logo
     if manifest.has("developer_splash"):

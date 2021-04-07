@@ -33,9 +33,6 @@ func _init().( \
 func _on_activated(previous_screen_name: String) -> void:
     ._on_activated(previous_screen_name)
     _update()
-    
-    # FIXME: --------------------------------------
-    Gs.logger.print("ERROR: foo")
 
 func _ready() -> void:
     for level_id in Gs.level_config.get_level_ids():
