@@ -83,13 +83,13 @@ func _on_app_ready() -> void:
     Gs.nav.splash()
 
 func _report_any_previous_crash() -> bool:
-    var crash_reporter := CrashReporter.new()
-    crash_reporter.connect( \
+    Gs.initialize_crash_reporter()
+    Gs.crash_reporter.connect( \
             "upload_finished", \
             self, \
             "_initialize_framework")
-    add_child(crash_reporter)
-    return crash_reporter.report_any_previous_crash()
+    add_child(Gs.crash_reporter)
+    return Gs.crash_reporter.report_any_previous_crash()
 
 func _process(_delta_sec: float) -> void:
     if Gs.debug or Gs.playtest:

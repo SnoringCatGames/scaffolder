@@ -95,7 +95,7 @@ func _get_most_recent_log_file_name() -> String:
 func _upload_crash_log( \
         text: String, \
         file_name: String) -> void:
-    var url := Gs.error_logs_url + "?uploadType=media&name=" + file_name
+    var url: String = Gs.error_logs_url + "?uploadType=media&name=" + file_name
     
     Gs.logger.print("CrashReporter._upload_crash_log: %s" % url)
     
@@ -140,3 +140,4 @@ func _on_upload_crash_log_completed( \
     emit_signal("upload_finished")
     request.queue_free()
     self.queue_free()
+    Gs.crash_reporter = null

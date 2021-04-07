@@ -43,7 +43,7 @@ Some of these are just my personal preference, some are important for the framew
 
 ### `Gs` AutoLoad and app setup
 
-All of the Scaffolder functionality is globally accessible through the `Gs` AutoLoad.
+All of the Scaffolder functionality is globally accessible through properties on the `Gs` AutoLoad.
 
 -   Define `Gs` as an AutoLoad (in Project Settings).
     -   It should point to the path `res://addons/scaffolder/src/ScaffoldConfig.gd`.
@@ -151,7 +151,35 @@ Here are two such generator tools that might be useful, and at least have free-t
 
 ### Automatic error/crash reporting
 
-This feature depends on the proprietary third-party **[Google Cloud Storage](https://cloud.google.com/storage)** service.
+This feature currently depends on the proprietary third-party **[Google Cloud Storage](https://cloud.google.com/storage)** service. But you could easily override it to upload logs somewhere else.
+
+### Screen layout and navigation
+
+-   You can control transitions through `Gs.nav`.
+-   It is easy to include custom screens and exclude default screens.
+-   Here are some of the default screns included:
+    -   Main menu
+    -   Credits
+    -   Settings
+        -   Configurable to display checkboxes, dropdowns, or plain text for whatever settings you might want to support.
+    -   Level select
+    -   Game/level
+    -   Pause
+    -   Notification
+        -   Configurable to display custom text and buttons as needed.
+    -   Game over
+
+### Lots of useful utility functions
+
+It might just be easiest to scroll through some of the following files to see what sorts of functions are included:
+-   [`Audio`](./src/utils/Audio.gd)
+-   [`CameraShake`](./src/utils/CameraShake.gd)
+-   [`DrawUtils`](./src/utils/DrawUtils.gd)
+-   [`Geometry`](./src/utils/Geometry.gd)
+-   [`Profiler`](./src/utils/Profiler.gd)
+-   [`SaveState`](./src/data/SaveState.gd)
+-   [`Time`](./src/utils/Time.gd)
+-   [`Utils`](./src/utils/Utils.gd)
 
 ## Licenses
 

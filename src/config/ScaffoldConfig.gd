@@ -165,6 +165,7 @@ var game_area_region: Rect2
 var gui_scale := 1.0
 var current_checkbox_icon_size := default_checkbox_icon_size
 var current_tree_arrow_icon_size := default_checkbox_icon_size
+var crash_reporter: CrashReporter
 var audio: Audio
 var colors: ScaffoldColors
 var styles: ScaffoldStyles
@@ -349,6 +350,14 @@ func register_app_manifest(manifest: Dictionary) -> void:
             manifest.has("developer_splash") and \
             manifest.has("developer_splash_sound")
     self.is_main_menu_image_shown = manifest.has("main_menu_image_scene_path")
+
+func initialize_crash_reporter() -> CrashReporter:
+    if manifest.has("crash_reporter_class"):
+        self.crash_reporter = manifest.crash_reporter_class.new()
+        assert(self.crash_reporter is CrashReporter)
+    else:
+        self.crash_reporter = CrashReporter.new()
+    return self.crash_reporter
 
 func initialize() -> void:
     if manifest.has("audio_class"):
