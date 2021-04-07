@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/gui/left_caret_active.png"
+source_file="res://addons/scaffolder/assets/images/gui/left_caret_active.png"
 dest_files=[ "res://.import/left_caret_active.png-776edf0ad7145c9744e86d105dcde959.stex" ]
 
 [params]

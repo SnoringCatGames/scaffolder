@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/circle_gradient_modified_1024.png"
+source_file="res://addons/scaffolder/assets/images/circle_gradient_modified_1024.png"
 dest_files=[ "res://.import/circle_gradient_modified_1024.png-d3c0f9092a3ab7ea96cb86b5c4e169d6.stex" ]
 
 [params]

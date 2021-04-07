@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/gui/tree_arrow_closed_64.png"
+source_file="res://addons/scaffolder/assets/images/gui/tree_arrow_closed_64.png"
 dest_files=[ "res://.import/tree_arrow_closed_64.png-127b03a37cc2995daff8ba9553ae8c05.stex" ]
 
 [params]

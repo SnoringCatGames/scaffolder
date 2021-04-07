@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://addons/godot_scaffold/src/gui/ScaffoldTextureRect.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/ScaffoldTextureRect.gd" type="Script" id=1]
 
 [node name="ScaffoldTextureRect" type="Control"]
 script = ExtResource( 1 )

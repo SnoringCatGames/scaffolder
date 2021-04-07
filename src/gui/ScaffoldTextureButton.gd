@@ -1,5 +1,5 @@
 tool
-class_name ScaffoldTextureButton, "res://addons/godot_scaffold/assets/images/editor_icons/ScaffoldTextureButton.png"
+class_name ScaffoldTextureButton, "res://addons/scaffolder/assets/images/editor_icons/ScaffoldTextureButton.png"
 extends Control
 
 signal pressed

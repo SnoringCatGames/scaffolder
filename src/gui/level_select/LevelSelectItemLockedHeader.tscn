@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://addons/godot_scaffold/src/gui/level_select/LevelSelectItemLockedHeader.gd" type="Script" id=1]
-[ext_resource path="res://addons/godot_scaffold/src/gui/level_select/LockAnimation.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/godot_scaffold/assets/fonts/main_font_s.tres" type="DynamicFont" id=3]
+[ext_resource path="res://addons/scaffolder/src/gui/level_select/LevelSelectItemLockedHeader.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/level_select/LockAnimation.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/scaffolder/assets/fonts/main_font_s.tres" type="DynamicFont" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.65098, 0.65098, 0.65098, 0.443137 )

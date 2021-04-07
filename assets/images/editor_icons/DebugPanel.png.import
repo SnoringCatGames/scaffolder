@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/editor_icons/DebugPanel.png"
+source_file="res://addons/scaffolder/assets/images/editor_icons/DebugPanel.png"
 dest_files=[ "res://.import/DebugPanel.png-73002036be4612fec6c4e5f14a093973.stex" ]
 
 [params]

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://addons/godot_scaffold/src/gui/screens/LevelSelectScreen.gd" type="Script" id=1]
-[ext_resource path="res://addons/godot_scaffold/src/gui/FullScreenPanel.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/godot_scaffold/src/gui/NavBar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://addons/godot_scaffold/src/gui/CenteredPanel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/scaffolder/src/gui/screens/LevelSelectScreen.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/FullScreenPanel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/scaffolder/src/gui/NavBar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scaffolder/src/gui/CenteredPanel.tscn" type="PackedScene" id=4]
 
 [node name="LevelSelectScreen" type="Node2D"]
 script = ExtResource( 1 )

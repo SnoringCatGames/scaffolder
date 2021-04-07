@@ -1,5 +1,5 @@
 tool
-class_name FullScreenPanel, "res://addons/godot_scaffold/assets/images/editor_icons/FullScreenPanel.png"
+class_name FullScreenPanel, "res://addons/scaffolder/assets/images/editor_icons/FullScreenPanel.png"
 extends PanelContainer
 
 func _init() -> void:

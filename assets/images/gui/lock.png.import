@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/gui/lock.png"
+source_file="res://addons/scaffolder/assets/images/gui/lock.png"
 dest_files=[ "res://.import/lock.png-fca4eb05803cfffac836c9c6e7cc94e4.stex" ]
 
 [params]

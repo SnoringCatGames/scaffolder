@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/gui/pause_normal.png"
+source_file="res://addons/scaffolder/assets/images/gui/pause_normal.png"
 dest_files=[ "res://.import/pause_normal.png-3f713057b9f794de7b1576c94a78f3cf.stex" ]
 
 [params]

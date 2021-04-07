@@ -6,11 +6,11 @@ const SILENT_VOLUME_DB := -80.0
 
 const GLOBAL_AUDIO_VOLUME_OFFSET_DB := -10.0
 
-const _DEFAULT_SOUNDS_PATH_PREFIX := "res://addons/godot_scaffold/assets/sounds/"
+const _DEFAULT_SOUNDS_PATH_PREFIX := "res://addons/scaffolder/assets/sounds/"
 const _DEFAULT_SOUND_FILE_SUFFIX := ".wav"
 const _DEFAULT_SOUNDS_BUS_INDEX := 1
 
-const _DEFAULT_MUSIC_PATH_PREFIX := "res://addons/godot_scaffold/assets/music/"
+const _DEFAULT_MUSIC_PATH_PREFIX := "res://addons/scaffolder/assets/music/"
 const _DEFAULT_MUSIC_FILE_SUFFIX := ".ogg"
 const _DEFAULT_MUSIC_BUS_INDEX := 2
 

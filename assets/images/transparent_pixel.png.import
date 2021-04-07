@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/transparent_pixel.png"
+source_file="res://addons/scaffolder/assets/images/transparent_pixel.png"
 dest_files=[ "res://.import/transparent_pixel.png-9053d430f03cb86bf6b0e5efe66b8529.stex" ]
 
 [params]

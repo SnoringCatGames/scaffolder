@@ -6,7 +6,7 @@ path="res://.import/menu_select_fancy.wav-d39e77624c0b16ed27c1fd573d103383.sampl
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/sounds/menu_select_fancy.wav"
+source_file="res://addons/scaffolder/assets/sounds/menu_select_fancy.wav"
 dest_files=[ "res://.import/menu_select_fancy.wav-d39e77624c0b16ed27c1fd573d103383.sample" ]
 
 [params]

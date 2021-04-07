@@ -6,7 +6,7 @@ path="res://.import/on_a_quest.ogg-d3106652ad9883de63cd92afb1ef72fb.oggstr"
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/music/on_a_quest.ogg"
+source_file="res://addons/scaffolder/assets/music/on_a_quest.ogg"
 dest_files=[ "res://.import/on_a_quest.ogg-d3106652ad9883de63cd92afb1ef72fb.oggstr" ]
 
 [params]

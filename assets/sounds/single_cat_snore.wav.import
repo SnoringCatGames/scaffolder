@@ -6,7 +6,7 @@ path="res://.import/single_cat_snore.wav-f0bc91e7560d6b52df17c92c4e2771ee.sample
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/sounds/single_cat_snore.wav"
+source_file="res://addons/scaffolder/assets/sounds/single_cat_snore.wav"
 dest_files=[ "res://.import/single_cat_snore.wav-f0bc91e7560d6b52df17c92c4e2771ee.sample" ]
 
 [params]

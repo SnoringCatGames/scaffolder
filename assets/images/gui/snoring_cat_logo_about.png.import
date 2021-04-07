@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/gui/snoring_cat_logo_about.png"
+source_file="res://addons/scaffolder/assets/images/gui/snoring_cat_logo_about.png"
 dest_files=[ "res://.import/snoring_cat_logo_about.png-8fbd6062d6965d1a23bdd2eadeea96a4.stex" ]
 
 [params]

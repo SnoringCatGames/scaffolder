@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://addons/godot_scaffold/src/gui/AccordionPanel.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/AccordionPanel.gd" type="Script" id=1]
 
 [node name="AccordionPanel" type="Control"]
 margin_left = -0.314972

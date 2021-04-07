@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/editor_icons/ScaffoldCheckBox.png"
+source_file="res://addons/scaffolder/assets/images/editor_icons/ScaffoldCheckBox.png"
 dest_files=[ "res://.import/ScaffoldCheckBox.png-62e8725a0630857e526b88317ff92faf.stex" ]
 
 [params]

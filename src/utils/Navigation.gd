@@ -1,7 +1,7 @@
 class_name ScaffoldNavigation
 extends Node
 
-const _DEFAULT_SCREEN_PATH_PREFIX := "res://addons/godot_scaffold/src/gui/screens/"
+const _DEFAULT_SCREEN_PATH_PREFIX := "res://addons/scaffolder/src/gui/screens/"
 const _DEFAULT_SCREEN_FILENAMES := [
     "ConfirmDataDeletionScreen.tscn",
     "CreditsScreen.tscn",

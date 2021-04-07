@@ -6,7 +6,7 @@ path="res://.import/lock_high.wav-1c5bb161e89bb8262523e213380d5e20.sample"
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/sounds/lock_high.wav"
+source_file="res://addons/scaffolder/assets/sounds/lock_high.wav"
 dest_files=[ "res://.import/lock_high.wav-1c5bb161e89bb8262523e213380d5e20.sample" ]
 
 [params]

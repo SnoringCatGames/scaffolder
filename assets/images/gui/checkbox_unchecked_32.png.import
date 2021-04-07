@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/gui/checkbox_unchecked_32.png"
+source_file="res://addons/scaffolder/assets/images/gui/checkbox_unchecked_32.png"
 dest_files=[ "res://.import/checkbox_unchecked_32.png-4067221e57e8f32b05af7e1ea14c9c31.stex" ]
 
 [params]

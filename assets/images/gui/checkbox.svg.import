@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/images/gui/checkbox.svg"
+source_file="res://addons/scaffolder/assets/images/gui/checkbox.svg"
 dest_files=[ "res://.import/checkbox.svg-f138349f01022e8cdc629effbb004b4f.stex" ]
 
 [params]

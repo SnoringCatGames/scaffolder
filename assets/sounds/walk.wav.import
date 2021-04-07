@@ -6,7 +6,7 @@ path="res://.import/walk.wav-f32b9925d09a1b88246e695de5c400cd.sample"
 
 [deps]
 
-source_file="res://addons/godot_scaffold/assets/sounds/walk.wav"
+source_file="res://addons/scaffolder/assets/sounds/walk.wav"
 dest_files=[ "res://.import/walk.wav-f32b9925d09a1b88246e695de5c400cd.sample" ]
 
 [params]
