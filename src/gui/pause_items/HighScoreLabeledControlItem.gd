@@ -12,7 +12,7 @@ func _init(level_or_id).( \
         ) -> void:
     self.level_id = \
             level_or_id.id if \
-            level_or_id is ScaffoldLevel else \
+            level_or_id is ScaffolderLevel else \
             (level_or_id if \
             level_or_id is String else \
             "")

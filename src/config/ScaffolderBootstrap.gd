@@ -1,4 +1,4 @@
-class_name ScaffoldBootstrap
+class_name ScaffolderBootstrap
 extends Node
 
 var app_manifest: Dictionary
@@ -7,12 +7,12 @@ var main: Node
 var _throttled_size_changed: FuncRef
 
 func _init() -> void:
-    name = "ScaffoldBootstrap"
+    name = "ScaffolderBootstrap"
 
 func run( \
         app_manifest: Dictionary, \
         main: Node) -> void:
-    Gs.logger.print("ScaffoldBootstrap.run")
+    Gs.logger.print("ScaffolderBootstrap.run")
     self.main = main
     self.app_manifest = app_manifest
     call_deferred("_amend_app_manifest")

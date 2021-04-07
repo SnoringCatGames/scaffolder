@@ -186,11 +186,19 @@ It might just be easiest to scroll through some of the following files to see wh
 -   [`Time`](./src/utils/Time.gd)
 -   [`Utils`](./src/utils/Utils.gd)
 
+### A widget library
+
+For example:
+-   [`AccordionPanel`](./src/gui/AccordionPanel.gd)
+-   [`LabeledControlList`](./src/gui/labeled_control_list/LabeledControlList.gd)
+-   [`ShinyButton`](./src/gui/ShinyButton.gd)
+-   [`NavBar`](./src/gui/NavBar.gd)
+
 ## Licenses
 
 -   All code is published under the [MIT license](LICENSE).
 -   All art assets (files under `assets/images/`, `assets/music/`, and `assets/sounds/`) are published under the [CC0 1.0 Universal license](https://creativecommons.org/publicdomain/zero/1.0/deed.en).
--   This project depends on various pieces of third-party code that are licensed separately. [Here is a list of these third-party licenses](./src/scaffold_third_party_licenses.gd).
+-   This project depends on various pieces of third-party code that are licensed separately. [Here is a list of these third-party licenses](./src/config/ScaffolderThirdPartyLicenses.gd).
 
 <p align="center">
   <img src="assets/images/device_icons/icon_64.png"

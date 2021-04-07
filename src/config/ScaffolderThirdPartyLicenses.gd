@@ -1,4 +1,4 @@
-class_name ScaffoldThirdPartyLicenses
+class_name ScaffolderThirdPartyLicenses
 extends Node
 
 const TEXT := """

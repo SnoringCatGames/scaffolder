@@ -1,4 +1,4 @@
-class_name ScaffoldStyles
+class_name ScaffolderStyles
 extends Node
 
 var button_corner_radius: int

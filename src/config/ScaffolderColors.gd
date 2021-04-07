@@ -1,4 +1,4 @@
-class_name ScaffoldColors
+class_name ScaffolderColors
 extends Node
 
 # --- Configured colors ---

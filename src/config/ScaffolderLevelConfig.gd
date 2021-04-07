@@ -1,4 +1,4 @@
-class_name ScaffoldLevelConfig
+class_name ScaffolderLevelConfig
 extends Node
 
 # NOTE: Level config Dictionaries must have the following properties:
