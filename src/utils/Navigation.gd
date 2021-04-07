@@ -1,6 +1,8 @@
 class_name ScaffoldNavigation
 extends Node
 
+signal splash_finished
+
 const _DEFAULT_SCREEN_PATH_PREFIX := "res://addons/scaffolder/src/gui/screens/"
 const _DEFAULT_SCREEN_FILENAMES := [
     "ConfirmDataDeletionScreen.tscn",
@@ -77,14 +79,11 @@ func create_screens() -> void:
     var default := []
     for filename in _DEFAULT_SCREEN_FILENAMES:
         default.push_back(_DEFAULT_SCREEN_PATH_PREFIX + filename)
-    var exclusions := []
-    for filename in Gs.screen_filename_exclusions:
-        exclusions.push_back(_DEFAULT_SCREEN_PATH_PREFIX + filename)
     
     var screen_paths: Array = \
             Gs.utils.get_collection_from_exclusions_and_inclusions( \
                     default, \
-                    exclusions, \
+                    Gs.screen_path_exclusions, \
                     Gs.screen_path_inclusions)
                     
     for path in screen_paths:
@@ -264,6 +263,13 @@ func _set_screen_is_open( \
                         next_screen, \
                         screen_slide_tween, \
                 ])
+    else:
+        _on_screen_slide_completed( \
+                null, \
+                "", \
+                previous_screen, \
+                next_screen, \
+                null)
     
     if previous_screen != null:
         previous_screen._on_deactivated(next_screen_name)
@@ -286,7 +292,9 @@ func _on_screen_slide_completed( \
         previous_screen: Screen, \
         next_screen: Screen, \
         tween: Tween) -> void:
-    tween.queue_free()
+    if is_instance_valid(tween):
+        tween.queue_free()
+    
     var previous_screen_name := \
             previous_screen.screen_name if \
             previous_screen != null else \
@@ -322,11 +330,4 @@ func _splash_helper() -> void:
                 .create_timer(Gs.developer_splash_screen_duration_sec), \
                 "timeout")
     
-    var next_screen_name := \
-        "main_menu" if \
-        Gs.agreed_to_terms or \
-        !Gs.is_data_tracked else \
-        "data_agreement"
-    open(next_screen_name)
-    # Start playing the default music for the menu screen.
-    Gs.audio.play_music(Gs.main_menu_music, true)
+    emit_signal("splash_finished")

@@ -80,7 +80,23 @@ func _on_app_ready() -> void:
     if Gs.utils.get_is_browser():
         JavaScript.eval("window.onAppReady()")
     
-    Gs.nav.splash()
+    if !Gs.is_splash_skipped:
+        Gs.nav.connect("splash_finished", self, "_on_splash_finished")
+        Gs.nav.splash()
+    else:
+        _on_splash_finished()
+
+func _on_splash_finished() -> void:
+    Gs.nav.disconnect("splash_finished", self, "_on_splash_finished")
+    
+    # Start playing the default music for the menu screen.
+    Gs.audio.play_music(Gs.main_menu_music, true)
+    var post_splash_screen := \
+            "main_menu" if \
+            Gs.agreed_to_terms or \
+            !Gs.is_data_tracked else \
+            "data_agreement"
+    Gs.nav.open(post_splash_screen)
 
 func _report_any_previous_crash() -> bool:
     Gs.initialize_crash_reporter()
