@@ -7,7 +7,7 @@ signal caret_rotated
 
 const CARET_LEFT_NORMAL: Texture = \
         preload("res://addons/scaffolder/assets/images/gui/left_caret_normal.png")
-const SCAFFOLD_TEXTURE_RECT_SCENE_PATH := \
+const SCAFFOLDER_TEXTURE_RECT_SCENE_PATH := \
         "res://addons/scaffolder/src/gui/ScaffoldTextureRect.tscn"
 
 const CARET_SIZE_DEFAULT := Vector2(23.0, 32.0)
@@ -165,7 +165,7 @@ func _create_header() -> void:
     
     _caret = Gs.utils.add_scene( \
             null, \
-            SCAFFOLD_TEXTURE_RECT_SCENE_PATH, \
+            SCAFFOLDER_TEXTURE_RECT_SCENE_PATH, \
             false, \
             true)
     _caret.size_flags_horizontal = Control.SIZE_SHRINK_CENTER

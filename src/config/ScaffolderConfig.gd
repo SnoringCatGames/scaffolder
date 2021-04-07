@@ -1,4 +1,4 @@
-class_name ScaffoldConfig
+class_name ScaffolderConfig
 extends Node
 
 # ---
@@ -167,8 +167,8 @@ var current_checkbox_icon_size := default_checkbox_icon_size
 var current_tree_arrow_icon_size := default_checkbox_icon_size
 var crash_reporter: CrashReporter
 var audio: Audio
-var colors: ScaffoldColors
-var styles: ScaffoldStyles
+var colors: ScaffolderColors
+var styles: ScaffolderStyles
 var nav: ScaffoldNavigation
 var save_state: SaveState
 var analytics: Analytics
@@ -180,12 +180,12 @@ var profiler: Profiler
 var geometry: ScaffoldGeometry
 var draw_utils: DrawUtils
 var level_input: LevelInput
-var level_config: ScaffoldLevelConfig
+var level_config: ScaffolderLevelConfig
 var canvas_layers: CanvasLayers
 var camera_controller: CameraController
 var debug_panel: DebugPanel
 var gesture_record: GestureRecord
-var level: ScaffoldLevel
+var level: ScaffolderLevel
 
 var guis_to_scale := {}
 var active_overlays := []
@@ -195,7 +195,7 @@ var active_overlays := []
 func _enter_tree() -> void:
     self.logger = ScaffoldLog.new()
     add_child(self.logger)
-    self.logger.print("ScaffoldConfig._enter_tree")
+    self.logger.print("ScaffolderConfig._enter_tree")
 
 func amend_app_manifest(manifest: Dictionary) -> void:
     pass
@@ -368,15 +368,15 @@ func initialize() -> void:
     add_child(self.audio)
     if manifest.has("colors_class"):
         self.colors = manifest.colors_class.new()
-        assert(self.colors is ScaffoldColors)
+        assert(self.colors is ScaffolderColors)
     else:
-        self.colors = ScaffoldColors.new()
+        self.colors = ScaffolderColors.new()
     add_child(self.colors)
     if manifest.has("styles_class"):
         self.styles = manifest.styles_class.new()
-        assert(self.styles is ScaffoldStyles)
+        assert(self.styles is ScaffolderStyles)
     else:
-        self.styles = ScaffoldStyles.new()
+        self.styles = ScaffolderStyles.new()
     add_child(self.styles)
     if manifest.has("save_state_class"):
         self.save_state = manifest.save_state_class.new()

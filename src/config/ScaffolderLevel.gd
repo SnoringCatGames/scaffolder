@@ -1,4 +1,4 @@
-class_name ScaffoldLevel
+class_name ScaffolderLevel
 extends Node2D
 
 var min_controls_display_time := 0.5
