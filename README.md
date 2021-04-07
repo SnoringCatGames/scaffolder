@@ -1,5 +1,10 @@
 # Scaffolder
 
+<p align="center">
+  <img src="assets/images/device_icons/icon_64.png"
+       alt="The Scaffolder icon, showing construction scaffolding">
+</p>
+
 > _**[Example app](https://github.com/snoringcatgames/squirrel-away)**_
 
 This is an opinionated framework that provides a bunch of general-purpose application scaffolding and utility functionality for Godot games.
@@ -188,6 +193,6 @@ It might just be easiest to scroll through some of the following files to see wh
 -   This project depends on various pieces of third-party code that are licensed separately. [Here is a list of these third-party licenses](./src/scaffold_third_party_licenses.gd).
 
 <p align="center">
-  <img src="assets/images/spinning_gear_icon.gif"
-       alt="An animated icon consisting of spinning gear, a game controller, and a pixelated jumping character">
+  <img src="assets/images/device_icons/icon_64.png"
+       alt="The Scaffolder icon, showing construction scaffolding">
 </p>
