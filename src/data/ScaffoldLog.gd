@@ -40,8 +40,8 @@ func _print_front_matter() -> void:
             "**THIS SHOULD BE THE FIRST LINE PRINTED FROM GDSCRIPT IN " + \
             "THE APP**")
     self.print( \
-            "If not, then you should refactor how you're using the Godot " + \
-            "Scaffold framework, so that your custom classes are " + \
+            "If not, then you should refactor how you're using the " + \
+            "Scaffolder framework, so that your custom classes are " + \
             "instantiated/run later.")
     self.print("")
     self.print(get_datetime_string())

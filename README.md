@@ -1,4 +1,4 @@
-# Godot Scaffold
+# Scaffolder
 
 > _**[Example app](https://github.com/snoringcatgames/squirrel-away)**_
 
@@ -43,16 +43,16 @@ Some of these are just my personal preference, some are important for the framew
 
 ### `Gs` AutoLoad and app setup
 
-All of the Godot Scaffold functionality is globally accessible through the `Gs` AutoLoad.
+All of the Scaffolder functionality is globally accessible through the `Gs` AutoLoad.
 
 -   Define `Gs` as an AutoLoad (in Project Settings).
     -   It should point to the path `res://addons/scaffolder/src/ScaffoldConfig.gd`.
     -   It should be the first AutoLoad in the list.
--   Configure the Godot Scaffold framework by calling `ScaffoldBootstrap.on_app_ready` at the start of your Main Scene.
+-   Configure the Scaffolder framework by calling `ScaffoldBootstrap.on_app_ready` at the start of your Main Scene.
 
-> **NOTE:** `Gs` stands for "Godot Scaffold", in case that's helful to know!
+> **NOTE:** `Gs` stands for "Scaffolder", in case that's helful to know!
 
-#### DO NOT INSTANTIATE ANYTHING UNTIL AFTER GODOT SCAFFOLD IS READY
+#### DO NOT INSTANTIATE ANYTHING UNTIL AFTER Scaffolder IS READY
 
 > NOTE: This is important for the automatic crash reporting system to work correctly. If you don't care about crash reporting, then yolo, do whatever you want!
 
@@ -73,9 +73,9 @@ Here are some guidelines to minimize app crashes before we can report any previo
 
 #### Overriding `ScaffoldConfig` defaults
 
-If you want to override or extend any Godot Scaffold functionality, you should be able to configure a replacement for the corresponding object. But make sure that your replacement `extends` the underlying Godot Scaffold class!
+If you want to override or extend any Scaffolder functionality, you should be able to configure a replacement for the corresponding object. But make sure that your replacement `extends` the underlying Scaffolder class!
 
-Here's an example of overriding some Godot Scaffold functionality:
+Here's an example of overriding some Scaffolder functionality:
 ```
 var my_app_manifest := {
     ...

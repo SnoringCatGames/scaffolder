@@ -98,7 +98,8 @@ func _process(_delta_sec: float) -> void:
 
 func _notification(notification: int) -> void:
     if notification == MainLoop.NOTIFICATION_WM_FOCUS_OUT and \
-            Gs.nav.get_active_screen_name() == "game":
+            is_instance_valid(Gs.nav) and \
+            is_instance_valid(Gs.level):
         Gs.level.pause()
 
 func _on_resized() -> void:
