@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/cadence.wav-6f1f791e8adadb1dcabfe1f987067fe2.sample"
+path="res://.import/cadence.wav-dccc9118ee8cf95013dc24ca1b3c4c83.sample"
 
 [deps]
 
 source_file="res://addons/scaffolder/assets/sounds/cadence.wav"
-dest_files=[ "res://.import/cadence.wav-6f1f791e8adadb1dcabfe1f987067fe2.sample" ]
+dest_files=[ "res://.import/cadence.wav-dccc9118ee8cf95013dc24ca1b3c4c83.sample" ]
 
 [params]
 

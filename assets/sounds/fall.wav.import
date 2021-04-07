@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/fall.wav-c09306f192d2b7340dc78b88971b39f2.sample"
+path="res://.import/fall.wav-5bec4f48a8bf60e708a3d94177130f35.sample"
 
 [deps]
 
 source_file="res://addons/scaffolder/assets/sounds/fall.wav"
-dest_files=[ "res://.import/fall.wav-c09306f192d2b7340dc78b88971b39f2.sample" ]
+dest_files=[ "res://.import/fall.wav-5bec4f48a8bf60e708a3d94177130f35.sample" ]
 
 [params]
 

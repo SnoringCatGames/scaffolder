@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/land.wav-427a232a08daa3a80dca3f5b3dc0e8c6.sample"
+path="res://.import/land.wav-c3518573ce888d6cf5432245a23bfb1d.sample"
 
 [deps]
 
 source_file="res://addons/scaffolder/assets/sounds/land.wav"
-dest_files=[ "res://.import/land.wav-427a232a08daa3a80dca3f5b3dc0e8c6.sample" ]
+dest_files=[ "res://.import/land.wav-c3518573ce888d6cf5432245a23bfb1d.sample" ]
 
 [params]
 

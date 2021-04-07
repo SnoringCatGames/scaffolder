@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/lock_high.wav-1c5bb161e89bb8262523e213380d5e20.sample"
+path="res://.import/lock_high.wav-a613735fccbd192f371005824987f2ab.sample"
 
 [deps]
 
 source_file="res://addons/scaffolder/assets/sounds/lock_high.wav"
-dest_files=[ "res://.import/lock_high.wav-1c5bb161e89bb8262523e213380d5e20.sample" ]
+dest_files=[ "res://.import/lock_high.wav-a613735fccbd192f371005824987f2ab.sample" ]
 
 [params]
 

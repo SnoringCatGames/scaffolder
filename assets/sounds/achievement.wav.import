@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/achievement.wav-c42e68d9bc54a2cadef76f254144cd63.sample"
+path="res://.import/achievement.wav-42389def9e02bea6d7f400674c44f838.sample"
 
 [deps]
 
 source_file="res://addons/scaffolder/assets/sounds/achievement.wav"
-dest_files=[ "res://.import/achievement.wav-c42e68d9bc54a2cadef76f254144cd63.sample" ]
+dest_files=[ "res://.import/achievement.wav-42389def9e02bea6d7f400674c44f838.sample" ]
 
 [params]
 

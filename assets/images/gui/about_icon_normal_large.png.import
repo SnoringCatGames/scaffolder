@@ -2,7 +2,7 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/about_icon_normal_large.png-7de3c0ddc9d734f86aefa7b36af54371.stex"
+path="res://.import/about_icon_normal_large.png-a01433d1f6234dc0d7c704f27ac6f16f.stex"
 metadata={
 "vram_texture": false
 }
@@ -10,7 +10,7 @@ metadata={
 [deps]
 
 source_file="res://addons/scaffolder/assets/images/gui/about_icon_normal_large.png"
-dest_files=[ "res://.import/about_icon_normal_large.png-7de3c0ddc9d734f86aefa7b36af54371.stex" ]
+dest_files=[ "res://.import/about_icon_normal_large.png-a01433d1f6234dc0d7c704f27ac6f16f.stex" ]
 
 [params]
 

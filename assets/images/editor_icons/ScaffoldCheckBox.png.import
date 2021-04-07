@@ -2,7 +2,7 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ScaffoldCheckBox.png-62e8725a0630857e526b88317ff92faf.stex"
+path="res://.import/ScaffoldCheckBox.png-07ee32dfbe610affaac9b7c529958365.stex"
 metadata={
 "vram_texture": false
 }
@@ -10,7 +10,7 @@ metadata={
 [deps]
 
 source_file="res://addons/scaffolder/assets/images/editor_icons/ScaffoldCheckBox.png"
-dest_files=[ "res://.import/ScaffoldCheckBox.png-62e8725a0630857e526b88317ff92faf.stex" ]
+dest_files=[ "res://.import/ScaffoldCheckBox.png-07ee32dfbe610affaac9b7c529958365.stex" ]
 
 [params]
 

@@ -2,12 +2,12 @@
 
 importer="ogg_vorbis"
 type="AudioStreamOGGVorbis"
-path="res://.import/on_a_quest.ogg-d3106652ad9883de63cd92afb1ef72fb.oggstr"
+path="res://.import/on_a_quest.ogg-9bc9017a0838c05cf30501082c75740f.oggstr"
 
 [deps]
 
 source_file="res://addons/scaffolder/assets/music/on_a_quest.ogg"
-dest_files=[ "res://.import/on_a_quest.ogg-d3106652ad9883de63cd92afb1ef72fb.oggstr" ]
+dest_files=[ "res://.import/on_a_quest.ogg-9bc9017a0838c05cf30501082c75740f.oggstr" ]
 
 [params]
 

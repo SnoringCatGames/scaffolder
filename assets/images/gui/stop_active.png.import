@@ -2,7 +2,7 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stop_active.png-1849f53eb5c182104ddd7c143a922abf.stex"
+path="res://.import/stop_active.png-c2044dba6e87f3e17546af3a06ba290a.stex"
 metadata={
 "vram_texture": false
 }
@@ -10,7 +10,7 @@ metadata={
 [deps]
 
 source_file="res://addons/scaffolder/assets/images/gui/stop_active.png"
-dest_files=[ "res://.import/stop_active.png-1849f53eb5c182104ddd7c143a922abf.stex" ]
+dest_files=[ "res://.import/stop_active.png-c2044dba6e87f3e17546af3a06ba290a.stex" ]
 
 [params]
 
