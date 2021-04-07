@@ -2,7 +2,7 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pause_icon_hover_large.png-2ed87ce79a277b2887de246a907d498a.stex"
+path="res://.import/pause_icon_hover_large.png-df62989710a374593c80a7b0ceab3175.stex"
 metadata={
 "vram_texture": false
 }
@@ -10,7 +10,7 @@ metadata={
 [deps]
 
 source_file="res://addons/scaffolder/assets/images/gui/pause_icon_hover_large.png"
-dest_files=[ "res://.import/pause_icon_hover_large.png-2ed87ce79a277b2887de246a907d498a.stex" ]
+dest_files=[ "res://.import/pause_icon_hover_large.png-df62989710a374593c80a7b0ceab3175.stex" ]
 
 [params]
 

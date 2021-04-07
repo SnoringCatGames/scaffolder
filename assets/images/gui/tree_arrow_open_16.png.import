@@ -2,7 +2,7 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tree_arrow_open_16.png-52ce04057b0218f1faa4f707c07914c0.stex"
+path="res://.import/tree_arrow_open_16.png-d8f8acb81cebbb6aefeb294babbfe930.stex"
 metadata={
 "vram_texture": false
 }
@@ -10,7 +10,7 @@ metadata={
 [deps]
 
 source_file="res://addons/scaffolder/assets/images/gui/tree_arrow_open_16.png"
-dest_files=[ "res://.import/tree_arrow_open_16.png-52ce04057b0218f1faa4f707c07914c0.stex" ]
+dest_files=[ "res://.import/tree_arrow_open_16.png-d8f8acb81cebbb6aefeb294babbfe930.stex" ]
 
 [params]
 

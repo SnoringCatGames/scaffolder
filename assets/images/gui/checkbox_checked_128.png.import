@@ -2,7 +2,7 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/checkbox_checked_128.png-4971730df26b3e6c7e894d21cdebe340.stex"
+path="res://.import/checkbox_checked_128.png-d158b0f43c691ed147da47246586d1cc.stex"
 metadata={
 "vram_texture": false
 }
@@ -10,7 +10,7 @@ metadata={
 [deps]
 
 source_file="res://addons/scaffolder/assets/images/gui/checkbox_checked_128.png"
-dest_files=[ "res://.import/checkbox_checked_128.png-4971730df26b3e6c7e894d21cdebe340.stex" ]
+dest_files=[ "res://.import/checkbox_checked_128.png-d158b0f43c691ed147da47246586d1cc.stex" ]
 
 [params]
 

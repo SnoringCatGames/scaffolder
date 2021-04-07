@@ -2,7 +2,7 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/NavBar.png-2072c314eefcf828a565632c69204493.stex"
+path="res://.import/NavBar.png-4edf6c1f848c6eb95443e99f2116318a.stex"
 metadata={
 "vram_texture": false
 }
@@ -10,7 +10,7 @@ metadata={
 [deps]
 
 source_file="res://addons/scaffolder/assets/images/editor_icons/NavBar.png"
-dest_files=[ "res://.import/NavBar.png-2072c314eefcf828a565632c69204493.stex" ]
+dest_files=[ "res://.import/NavBar.png-4edf6c1f848c6eb95443e99f2116318a.stex" ]
 
 [params]
 

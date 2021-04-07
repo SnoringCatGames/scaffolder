@@ -2,7 +2,7 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/circle_gradient_modified_1024.png-d3c0f9092a3ab7ea96cb86b5c4e169d6.stex"
+path="res://.import/circle_gradient_modified_1024.png-c3f08023e3c582ef0ed059ade114d253.stex"
 metadata={
 "vram_texture": false
 }
@@ -10,7 +10,7 @@ metadata={
 [deps]
 
 source_file="res://addons/scaffolder/assets/images/circle_gradient_modified_1024.png"
-dest_files=[ "res://.import/circle_gradient_modified_1024.png-d3c0f9092a3ab7ea96cb86b5c4e169d6.stex" ]
+dest_files=[ "res://.import/circle_gradient_modified_1024.png-c3f08023e3c582ef0ed059ade114d253.stex" ]
 
 [params]
 

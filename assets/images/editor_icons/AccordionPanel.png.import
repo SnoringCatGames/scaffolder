@@ -2,7 +2,7 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/AccordionPanel.png-777d6f30a766736f71af177dba737838.stex"
+path="res://.import/AccordionPanel.png-0f18572043c3c652573dccaaf7078463.stex"
 metadata={
 "vram_texture": false
 }
@@ -10,7 +10,7 @@ metadata={
 [deps]
 
 source_file="res://addons/scaffolder/assets/images/editor_icons/AccordionPanel.png"
-dest_files=[ "res://.import/AccordionPanel.png-777d6f30a766736f71af177dba737838.stex" ]
+dest_files=[ "res://.import/AccordionPanel.png-0f18572043c3c652573dccaaf7078463.stex" ]
 
 [params]
 

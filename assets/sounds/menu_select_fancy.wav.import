@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/menu_select_fancy.wav-d39e77624c0b16ed27c1fd573d103383.sample"
+path="res://.import/menu_select_fancy.wav-3bf8502afde94ed55229df213b2a4f62.sample"
 
 [deps]
 
 source_file="res://addons/scaffolder/assets/sounds/menu_select_fancy.wav"
-dest_files=[ "res://.import/menu_select_fancy.wav-d39e77624c0b16ed27c1fd573d103383.sample" ]
+dest_files=[ "res://.import/menu_select_fancy.wav-3bf8502afde94ed55229df213b2a4f62.sample" ]
 
 [params]
 

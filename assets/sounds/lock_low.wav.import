@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/lock_low.wav-4e28d100eac3e6dfc40ed8a3d3b756bc.sample"
+path="res://.import/lock_low.wav-fd7f7c615ead50bc5e1108d7d8343bc5.sample"
 
 [deps]
 
 source_file="res://addons/scaffolder/assets/sounds/lock_low.wav"
-dest_files=[ "res://.import/lock_low.wav-4e28d100eac3e6dfc40ed8a3d3b756bc.sample" ]
+dest_files=[ "res://.import/lock_low.wav-fd7f7c615ead50bc5e1108d7d8343bc5.sample" ]
 
 [params]
 

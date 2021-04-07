@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/jump.wav-a41cc572ed5083ff7b8c9eee4d1043a5.sample"
+path="res://.import/jump.wav-102db6a05b9e7d8984da61e787cca5fb.sample"
 
 [deps]
 
 source_file="res://addons/scaffolder/assets/sounds/jump.wav"
-dest_files=[ "res://.import/jump.wav-a41cc572ed5083ff7b8c9eee4d1043a5.sample" ]
+dest_files=[ "res://.import/jump.wav-102db6a05b9e7d8984da61e787cca5fb.sample" ]
 
 [params]
 

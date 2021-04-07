@@ -2,7 +2,7 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gear_icon_active.png-6bb46e07262abf3898a72705f15b2eac.stex"
+path="res://.import/gear_icon_active.png-4b031887d1905e0c497c714d098b44d2.stex"
 metadata={
 "vram_texture": false
 }
@@ -10,7 +10,7 @@ metadata={
 [deps]
 
 source_file="res://addons/scaffolder/assets/images/gui/gear_icon_active.png"
-dest_files=[ "res://.import/gear_icon_active.png-6bb46e07262abf3898a72705f15b2eac.stex" ]
+dest_files=[ "res://.import/gear_icon_active.png-4b031887d1905e0c497c714d098b44d2.stex" ]
 
 [params]
 

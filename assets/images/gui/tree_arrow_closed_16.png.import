@@ -2,7 +2,7 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tree_arrow_closed_16.png-2adfbbcee434a4cd8dd8e5543a64b2e3.stex"
+path="res://.import/tree_arrow_closed_16.png-b2a29e19f216d415d67b0ffb1ebe5d82.stex"
 metadata={
 "vram_texture": false
 }
@@ -10,7 +10,7 @@ metadata={
 [deps]
 
 source_file="res://addons/scaffolder/assets/images/gui/tree_arrow_closed_16.png"
-dest_files=[ "res://.import/tree_arrow_closed_16.png-2adfbbcee434a4cd8dd8e5543a64b2e3.stex" ]
+dest_files=[ "res://.import/tree_arrow_closed_16.png-b2a29e19f216d415d67b0ffb1ebe5d82.stex" ]
 
 [params]
 
