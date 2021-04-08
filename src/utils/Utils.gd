@@ -739,3 +739,186 @@ func _create_stylebox_flat_scalable_from_stylebox( \
     
     new.ready()
     return new
+
+# FIXME: --------------------------------------- Remove: Attempt 1.
+
+## JSON encoding with custom syntax for vector values.
+#func to_jsonish_string(value) -> String:
+#    if value is Vector2:
+#        return "v2(%s,%s)" % [str(value.x), str(value.y)]
+#    elif value is Vector3:
+#        return "v3(%s,%s,%s)" % [str(value.x), str(value.y), str(value.z)]
+#    elif value is Color:
+#        return "c(%s,%s,%s,%s)" % \
+#                [str(value.r), str(value.g), str(value.b), str(value.a)]
+#    elif value is Rect2:
+#        return "r(%s,%s,%s,%s)" % \
+#                [str(value.x), str(value.y), str(value.width), \
+#                str(value.height)]
+#    elif value is Dictionary:
+#        return _dictionary_to_jsonish_string(value)
+#    elif value is Array or \
+#            value is PoolColorArray or \
+#            value is PoolVector2Array or \
+#            value is PoolVector3Array:
+#        return _array_to_jsonish_string(value)
+#    else:
+#        return JSON.print(value)
+#
+#func _dictionary_to_jsonish_string(dictionary: Dictionary) -> String:
+#    var keys := dictionary.keys()
+#    var count: int = keys.size()
+#    var result := "{"
+#    for index in range(keys.size() - 1):
+#        var key: String = keys[index]
+#        result += key + ":" + to_jsonish_string(dictionary[key]) + ","
+#    if count > 0:
+#        var key: String = keys[count - 1]
+#        result += key + ":" + to_jsonish_string(dictionary[key])
+#    result += "}"
+#    return result
+#
+#func _array_to_jsonish_string(array) -> String:
+#    var count: int = array.size()
+#    var result := "["
+#    for index in range(array.size() - 1):
+#        result += to_jsonish_string(array[index]) + ","
+#    if count > 0:
+#        result += to_jsonish_string(array[count - 1])
+#    result += "]"
+#    return result
+#
+## JSON decoding with custom syntax for vector values.
+## -   Requires the given String to contain no extra whitespace.
+#func from_jsonish_string(string: String):
+#    var first_letter := string[0]
+#    if first_letter == "v":
+#        if string[1] == "2":
+#            var comma_index := string.find(",")
+#            var x := int(string.substr(3, comma_index - 3))
+#            var y := int(string.substr(comma_index + 1, \
+#                    string.length() - 1 - comma_index))
+#            return Vector2(x, y)
+#        elif string[1] == "3":
+#            var comma_index_1 := string.find(",")
+#            var comma_index_2 := string.find(",", comma_index_1 + 1)
+#            var x := int(string.substr(3, comma_index_1 - 3))
+#            var y := int(string.substr(comma_index_1 + 1, comma_index_2))
+#            var z := int(string.substr(comma_index_2 + 1, \
+#                    string.length() - 1 - comma_index_2))
+#            return Vector3(x, y, z)
+#        else:
+#            Gs.utils.error("Invalid JSONish string: " + string)
+#    elif first_letter == "c":
+#            var comma_index_1 := string.find(",")
+#            var comma_index_2 := string.find(",", comma_index_1 + 1)
+#            var comma_index_3 := string.find(",", comma_index_2 + 1)
+#            var r := int(string.substr(2, comma_index_1 - 2))
+#            var g := int(string.substr(comma_index_1 + 1, comma_index_2))
+#            var b := int(string.substr(comma_index_2 + 1, comma_index_3))
+#            var a := int(string.substr(comma_index_3 + 1, \
+#                    string.length() - 1 - comma_index_3))
+#            return Color(r, g, b, a)
+#    elif first_letter == "r":
+#            var comma_index_1 := string.find(",")
+#            var comma_index_2 := string.find(",", comma_index_1 + 1)
+#            var comma_index_3 := string.find(",", comma_index_2 + 1)
+#            var x := int(string.substr(2, comma_index_1 - 2))
+#            var y := int(string.substr(comma_index_1 + 1, comma_index_2))
+#            var w := int(string.substr(comma_index_2 + 1, comma_index_3))
+#            var h := int(string.substr(comma_index_3 + 1, \
+#                    string.length() - 1 - comma_index_3))
+#            return Rect2(x, y, w, h)
+#    elif first_letter == "{":
+#        pass
+#    elif first_letter == "[":
+#        pass
+#    else:
+#        var json_result := JSON.parse(string)
+#        if json_result.error != OK:
+#            Gs.utils.error("Invalid JSONish string: " + string)
+#        return json_result.result
+
+# JSON encoding with custom syntax for vector values.
+func to_json_object(value):
+    match typeof(value):
+        TYPE_STRING, \
+        TYPE_BOOL, \
+        TYPE_INT, \
+        TYPE_REAL:
+            return value
+        TYPE_VECTOR2:
+            return {
+                "x": value.x,
+                "y": value.y,
+            }
+        TYPE_VECTOR3:
+            return {
+                "x": value.x,
+                "y": value.y,
+                "z": value.z,
+            }
+        TYPE_COLOR:
+            return {
+                "r": value.r,
+                "g": value.g,
+                "b": value.b,
+                "a": value.a,
+            }
+        TYPE_RECT2:
+            return {
+                "x": value.position.x,
+                "y": value.position.y,
+                "w": value.size.x,
+                "h": value.size.y,
+            }
+        TYPE_ARRAY:
+            value = value.duplicate()
+            for index in range(value.size()):
+                value[index] = to_json_object(value[index])
+            return value
+        TYPE_DICTIONARY:
+            value = value.duplicate()
+            for key in value:
+                value[key] = to_json_object(value[key])
+            return value
+        _:
+            Gs.utils.error("Unsupported data type for JSON: " + value)
+
+# JSON decoding with custom syntax for vector values.
+func from_json_object(json):
+    match typeof(json):
+        TYPE_ARRAY:
+            json = json.duplicate()
+            for i in range(json.size()):
+                json[i] = from_json_object(json[i])
+            return json
+        TYPE_DICTIONARY:
+            if json.size() == 2 and \
+                    json.has("x") and \
+                    json.has("y"):
+                return Vector2(json.x, json.y)
+            elif json.size() == 3 and \
+                    json.has("x") and \
+                    json.has("y") and \
+                    json.has("z"):
+                return Vector3(json.x, json.y, json.z)
+            elif json.size() == 4 and \
+                    json.has("r") and \
+                    json.has("g") and \
+                    json.has("b") and \
+                    json.has("a"):
+                return Color(json.r, json.g, json.b, json.a)
+            elif json.size() == 4 and \
+                    json.has("x") and \
+                    json.has("y") and \
+                    json.has("w") and \
+                    json.has("h"):
+                return Rect2(json.x, json.y, json.w, json.h)
+            else:
+                json = json.duplicate()
+                for key in json:
+                    json[key] = from_json_object(json[key])
+                return json
+        _:
+            return json
