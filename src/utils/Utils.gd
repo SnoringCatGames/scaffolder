@@ -244,6 +244,14 @@ static func get_is_windows_device() -> bool:
 static func get_is_mac_device() -> bool:
     return OS.get_name() == "OSX"
 
+static func get_is_linux_device() -> bool:
+    return OS.get_name() == "X11"
+
+static func get_is_pc_device() -> bool:
+    return get_is_windows_device() or \
+            get_is_mac_device() or \
+            get_is_linux_device()
+
 static func get_is_mobile_device() -> bool:
     return get_is_android_device() or get_is_ios_device()
 
@@ -429,13 +437,8 @@ static func get_time_string_from_seconds( \
     return time_str
 
 func take_screenshot() -> void:
-    var directory := Directory.new()
-    if !directory.dir_exists("user://screenshots"):
-        var status := directory.open("user://")
-        if status != OK:
-            Gs.logger.error()
-            return
-        directory.make_dir("screenshots")
+    if !ensure_directory_exists("user://screenshots"):
+        return
     
     var image := get_viewport().get_texture().get_data()
     image.flip_y()
@@ -443,6 +446,14 @@ func take_screenshot() -> void:
     var status := image.save_png(path)
     if status != OK:
         Gs.logger.error()
+
+func ensure_directory_exists(path: String) -> bool:
+    var directory := Directory.new()
+    var status := directory.make_dir_recursive(path)
+    if status != OK:
+        Gs.logger.error("make_dir_recursive failed: " + str(status))
+        return false
+    return true
 
 func clear_directory( \
         path: String, \
