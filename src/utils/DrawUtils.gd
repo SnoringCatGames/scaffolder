@@ -64,7 +64,7 @@ static func draw_dashed_polyline( \
         antialiased: bool = false) -> void:
     var from: Vector2
     var to: Vector2
-    for i in range(vertices.size() - 1):
+    for i in vertices.size() - 1:
         from = vertices[i]
         to = vertices[i + 1]
         draw_dashed_line( \
@@ -163,7 +163,7 @@ static func draw_surface( \
     
     # "Surfaces" can single vertices in the degenerate case.
     if vertices.size() > 1:
-        for i in range(SURFACE_DEPTH_DIVISIONS_COUNT):
+        for i in SURFACE_DEPTH_DIVISIONS_COUNT:
             translation = surface_depth_division_offset * i
             polyline = Gs.utils.translate_polyline(vertices, translation)
             progress = i / (SURFACE_DEPTH_DIVISIONS_COUNT - 1.0)
@@ -568,7 +568,7 @@ static func compute_arc_points(
     points.resize(vertex_count)
     var vertex: Vector2
     
-    for i in range(sector_count + 1):
+    for i in sector_count + 1:
         points[i] = Vector2(cos(theta), sin(theta)) * radius + center
         theta += delta_theta
     
@@ -640,7 +640,7 @@ static func draw_capsule_outline( \
     vertices.resize(vertex_count)
     var vertex: Vector2
     
-    for i in range(sector_count + 1):
+    for i in sector_count + 1:
         vertices[i] = Vector2(cos(theta), sin(theta)) * radius + end_center
         theta += delta_theta
     
