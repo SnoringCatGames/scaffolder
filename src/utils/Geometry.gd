@@ -448,6 +448,19 @@ static func are_points_equal_with_epsilon( \
     return -epsilon < x_diff and x_diff < epsilon and \
             -epsilon < y_diff and y_diff < epsilon
 
+static func are_rects_equal_with_epsilon( \
+        a: Rect2, \
+        b: Rect2, \
+        epsilon := FLOAT_EPSILON) -> bool:
+    var x_diff = b.position.x - a.position.x
+    var y_diff = b.position.y - a.position.y
+    var w_diff = b.size.x - a.size.x
+    var h_diff = b.size.y - a.size.y
+    return -epsilon < x_diff and x_diff < epsilon and \
+            -epsilon < y_diff and y_diff < epsilon and \
+            -epsilon < w_diff and w_diff < epsilon and \
+            -epsilon < h_diff and h_diff < epsilon
+
 static func are_colors_equal_with_epsilon( \
         a: Color, \
         b: Color, \
