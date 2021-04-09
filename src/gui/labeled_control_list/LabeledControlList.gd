@@ -45,7 +45,7 @@ func _update_children() -> void:
     for child in get_children():
         child.queue_free()
     
-    for index in range(items.size()):
+    for index in items.size():
         var item: LabeledControlItem = items[index]
         
         var row := PanelContainer.new()
@@ -228,7 +228,7 @@ func _on_description_button_pressed( \
             })
 
 func find_index(label: String) -> int:
-    for index in range(items.size()):
+    for index in items.size():
         if items[index].label == label:
             return index
     Gs.logger.error()

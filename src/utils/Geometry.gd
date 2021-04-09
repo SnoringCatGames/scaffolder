@@ -201,7 +201,7 @@ static func get_intersection_of_segment_and_polyline( \
             return vertices[0]
     else:
         var intersection: Vector2
-        for i in range(vertices.size() - 1):
+        for i in vertices.size() - 1:
             intersection = get_intersection_of_segments( \
                     segment_a, \
                     segment_b, \
@@ -369,7 +369,7 @@ static func do_segment_and_polygon_intersect( \
     var n: float
     var d: float
     
-    for i in range(count - 1):
+    for i in count - 1:
         polygon_segment = polygon[i + 1] - polygon[i]
         p_to_a = segment_a - polygon[i]
         n = polygon_segment.x * p_to_a.y - polygon_segment.y * p_to_a.x
@@ -405,7 +405,7 @@ static func do_polyline_and_triangle_intersect( \
         triangle_c: Vector2) -> bool:
     var segment_a: Vector2
     var segment_b: Vector2
-    for i in range(vertices.size() - 1):
+    for i in vertices.size() - 1:
         segment_a = vertices[i]
         segment_b = vertices[i + 1]
         if do_segment_and_triangle_intersect( \
@@ -422,7 +422,7 @@ static func do_polyline_and_polygon_intersect( \
         polygon: Array) -> bool:
     var segment_a: Vector2
     var segment_b: Vector2
-    for i in range(vertices.size() - 1):
+    for i in vertices.size() - 1:
         segment_a = vertices[i]
         segment_b = vertices[i + 1]
         if do_segment_and_polygon_intersect( \
@@ -519,7 +519,7 @@ static func is_polygon_clockwise(vertices: Array) -> bool:
     var v1: Vector2 = vertices[vertex_count - 1]
     var v2: Vector2 = vertices[0]
     sum += (v2.x - v1.x) * (v2.y + v1.y)
-    for i in range(vertex_count - 1):
+    for i in vertex_count - 1:
         v1 = vertices[i]
         v2 = vertices[i + 1]
         sum += (v2.x - v1.x) * (v2.y + v1.y)

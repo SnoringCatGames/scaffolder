@@ -37,7 +37,7 @@ static func subarray( \
         length = array.size() - start
     var result := []
     result.resize(length)
-    for i in range(length):
+    for i in length:
         result[i] = array[start + i]
     return result
 
@@ -51,7 +51,7 @@ static func sub_pool_vector2_array( \
         length = array.size() - start
     var result := PoolVector2Array()
     result.resize(length)
-    for i in range(length):
+    for i in length:
         result[i] = array[start + i]
     return result
 
@@ -63,7 +63,7 @@ static func concat( \
     var old_result_size := result.size()
     var other_size := other.size()
     result.resize(old_result_size + other_size)
-    for i in range(other_size):
+    for i in other_size:
         result[old_result_size + i] = other[i]
 
 static func join( \
@@ -72,7 +72,7 @@ static func join( \
     assert(array is Array or array is PoolStringArray)
     var count: int = array.size()
     var result := ""
-    for index in range(array.size() - 1):
+    for index in array.size() - 1:
         result += array[index] + delimiter
     if count > 0:
         result += array[count - 1]
@@ -90,7 +90,7 @@ static func translate_polyline( \
         -> PoolVector2Array:
     var result := PoolVector2Array()
     result.resize(vertices.size())
-    for i in range(vertices.size()):
+    for i in vertices.size():
         result[i] = vertices[i] + translation
     return result
 
@@ -119,7 +119,7 @@ static func get_child_by_type( \
 
 static func get_which_wall_collided_for_body(body: KinematicBody2D) -> int:
     if body.is_on_wall():
-        for i in range(body.get_slide_count()):
+        for i in body.get_slide_count():
             var collision := body.get_slide_collision(i)
             var side := get_which_surface_side_collided(collision)
             if side == SurfaceSide.LEFT_WALL or side == SurfaceSide.RIGHT_WALL:
@@ -149,7 +149,7 @@ static func get_floor_friction_multiplier(body: KinematicBody2D) -> float:
 static func _get_floor_collision( \
         body: KinematicBody2D) -> KinematicCollision2D:
     if body.is_on_floor():
-        for i in range(body.get_slide_count()):
+        for i in body.get_slide_count():
             var collision := body.get_slide_collision(i)
             if abs(collision.normal.angle_to(Gs.geometry.UP)) <= \
                     Gs.geometry.FLOOR_MAX_ANGLE:
@@ -342,7 +342,7 @@ static func mix( \
     else:
         ScaffoldLog.static_error()
     
-    for i in range(count):
+    for i in count:
         var value = values[i]
         var weight: float = weights[i]
         var normalized_weight := \
@@ -368,7 +368,7 @@ static func mix_colors( \
     var h := 0.0
     var s := 0.0
     var v := 0.0
-    for i in range(count):
+    for i in count:
         var color: Color = colors[i]
         var weight: float = weights[i]
         var normalized_weight := \
@@ -740,105 +740,6 @@ func _create_stylebox_flat_scalable_from_stylebox( \
     new.ready()
     return new
 
-# FIXME: --------------------------------------- Remove: Attempt 1.
-
-## JSON encoding with custom syntax for vector values.
-#func to_jsonish_string(value) -> String:
-#    if value is Vector2:
-#        return "v2(%s,%s)" % [str(value.x), str(value.y)]
-#    elif value is Vector3:
-#        return "v3(%s,%s,%s)" % [str(value.x), str(value.y), str(value.z)]
-#    elif value is Color:
-#        return "c(%s,%s,%s,%s)" % \
-#                [str(value.r), str(value.g), str(value.b), str(value.a)]
-#    elif value is Rect2:
-#        return "r(%s,%s,%s,%s)" % \
-#                [str(value.x), str(value.y), str(value.width), \
-#                str(value.height)]
-#    elif value is Dictionary:
-#        return _dictionary_to_jsonish_string(value)
-#    elif value is Array or \
-#            value is PoolColorArray or \
-#            value is PoolVector2Array or \
-#            value is PoolVector3Array:
-#        return _array_to_jsonish_string(value)
-#    else:
-#        return JSON.print(value)
-#
-#func _dictionary_to_jsonish_string(dictionary: Dictionary) -> String:
-#    var keys := dictionary.keys()
-#    var count: int = keys.size()
-#    var result := "{"
-#    for index in range(keys.size() - 1):
-#        var key: String = keys[index]
-#        result += key + ":" + to_jsonish_string(dictionary[key]) + ","
-#    if count > 0:
-#        var key: String = keys[count - 1]
-#        result += key + ":" + to_jsonish_string(dictionary[key])
-#    result += "}"
-#    return result
-#
-#func _array_to_jsonish_string(array) -> String:
-#    var count: int = array.size()
-#    var result := "["
-#    for index in range(array.size() - 1):
-#        result += to_jsonish_string(array[index]) + ","
-#    if count > 0:
-#        result += to_jsonish_string(array[count - 1])
-#    result += "]"
-#    return result
-#
-## JSON decoding with custom syntax for vector values.
-## -   Requires the given String to contain no extra whitespace.
-#func from_jsonish_string(string: String):
-#    var first_letter := string[0]
-#    if first_letter == "v":
-#        if string[1] == "2":
-#            var comma_index := string.find(",")
-#            var x := int(string.substr(3, comma_index - 3))
-#            var y := int(string.substr(comma_index + 1, \
-#                    string.length() - 1 - comma_index))
-#            return Vector2(x, y)
-#        elif string[1] == "3":
-#            var comma_index_1 := string.find(",")
-#            var comma_index_2 := string.find(",", comma_index_1 + 1)
-#            var x := int(string.substr(3, comma_index_1 - 3))
-#            var y := int(string.substr(comma_index_1 + 1, comma_index_2))
-#            var z := int(string.substr(comma_index_2 + 1, \
-#                    string.length() - 1 - comma_index_2))
-#            return Vector3(x, y, z)
-#        else:
-#            Gs.utils.error("Invalid JSONish string: " + string)
-#    elif first_letter == "c":
-#            var comma_index_1 := string.find(",")
-#            var comma_index_2 := string.find(",", comma_index_1 + 1)
-#            var comma_index_3 := string.find(",", comma_index_2 + 1)
-#            var r := int(string.substr(2, comma_index_1 - 2))
-#            var g := int(string.substr(comma_index_1 + 1, comma_index_2))
-#            var b := int(string.substr(comma_index_2 + 1, comma_index_3))
-#            var a := int(string.substr(comma_index_3 + 1, \
-#                    string.length() - 1 - comma_index_3))
-#            return Color(r, g, b, a)
-#    elif first_letter == "r":
-#            var comma_index_1 := string.find(",")
-#            var comma_index_2 := string.find(",", comma_index_1 + 1)
-#            var comma_index_3 := string.find(",", comma_index_2 + 1)
-#            var x := int(string.substr(2, comma_index_1 - 2))
-#            var y := int(string.substr(comma_index_1 + 1, comma_index_2))
-#            var w := int(string.substr(comma_index_2 + 1, comma_index_3))
-#            var h := int(string.substr(comma_index_3 + 1, \
-#                    string.length() - 1 - comma_index_3))
-#            return Rect2(x, y, w, h)
-#    elif first_letter == "{":
-#        pass
-#    elif first_letter == "[":
-#        pass
-#    else:
-#        var json_result := JSON.parse(string)
-#        if json_result.error != OK:
-#            Gs.utils.error("Invalid JSONish string: " + string)
-#        return json_result.result
-
 # JSON encoding with custom syntax for vector values.
 func to_json_object(value):
     match typeof(value):
@@ -874,7 +775,18 @@ func to_json_object(value):
             }
         TYPE_ARRAY:
             value = value.duplicate()
-            for index in range(value.size()):
+            for index in value.size():
+                value[index] = to_json_object(value[index])
+            return value
+        TYPE_RAW_ARRAY, \
+        TYPE_INT_ARRAY, \
+        TYPE_REAL_ARRAY, \
+        TYPE_STRING_ARRAY, \
+        TYPE_VECTOR2_ARRAY, \
+        TYPE_VECTOR3_ARRAY, \
+        TYPE_COLOR_ARRAY:
+            value = Array(value)
+            for index in value.size():
                 value[index] = to_json_object(value[index])
             return value
         TYPE_DICTIONARY:
@@ -890,7 +802,7 @@ func from_json_object(json):
     match typeof(json):
         TYPE_ARRAY:
             json = json.duplicate()
-            for i in range(json.size()):
+            for i in json.size():
                 json[i] = from_json_object(json[i])
             return json
         TYPE_DICTIONARY:
