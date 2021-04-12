@@ -834,3 +834,8 @@ func from_json_object(json):
                 return json
         _:
             return json
+
+func get_instance_id_or_not(object: Object) -> int:
+    return object.get_instance_id() if \
+            object != null else \
+            -1
