@@ -1,5 +1,5 @@
 tool
-class_name ScaffoldCheckBox, "res://addons/scaffolder/assets/images/editor_icons/ScaffoldCheckBox.png"
+class_name ScaffolderCheckBox, "res://addons/scaffolder/assets/images/editor_icons/ScaffolderCheckBox.png"
 extends Control
 
 signal pressed

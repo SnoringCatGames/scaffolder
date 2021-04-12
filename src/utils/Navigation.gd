@@ -1,4 +1,4 @@
-class_name ScaffoldNavigation
+class_name ScaffolderNavigation
 extends Node
 
 signal splash_finished
@@ -50,19 +50,21 @@ func _notification(notification: int) -> void:
         # Handle the Android back button to navigate within the app instead of
         # quitting the app.
         if get_active_screen_name() == "main_menu":
-            Gs.analytics.end_session()
-            Gs.time.set_timeout( \
-                    funcref(self, "_on_session_end"), \
-                    SESSION_END_TIMEOUT_SEC)
+            close_app()
         else:
             call_deferred("close_current_screen")
     elif notification == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-        Gs.analytics.end_session()
-        Gs.time.set_timeout( \
-                funcref(self, "_on_session_end"), \
-                SESSION_END_TIMEOUT_SEC)
+        close_app()
+
+func close_app() -> void:
+    Gs.analytics.end_session()
+    Gs.time.set_timeout( \
+            funcref(self, "_on_session_end"), \
+            SESSION_END_TIMEOUT_SEC)
 
 func _on_session_end() -> void:
+    if Gs.were_screenshots_taken:
+        Gs.utils.open_screenshot_folder()
     get_tree().quit()
 
 func _create_screen(path: String) -> void:

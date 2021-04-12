@@ -157,6 +157,8 @@ var original_font_sizes: Dictionary
 var is_app_configured := false
 var is_app_initialized := false
 var is_initial_screen_size_set := false
+var were_screenshots_taken := false
+
 var agreed_to_terms: bool
 var is_giving_haptic_feedback: bool
 var is_debug_panel_shown: bool setget \
@@ -171,15 +173,15 @@ var crash_reporter: CrashReporter
 var audio: Audio
 var colors: ScaffolderColors
 var styles: ScaffolderStyles
-var nav: ScaffoldNavigation
+var nav: ScaffolderNavigation
 var save_state: SaveState
 var analytics: Analytics
 var gesture_reporter: GestureReporter
-var logger: ScaffoldLog
+var logger: ScaffolderLog
 var utils: Utils
 var time: Time
 var profiler: Profiler
-var geometry: ScaffoldGeometry
+var geometry: ScaffolderGeometry
 var draw_utils: DrawUtils
 var level_input: LevelInput
 var level_config: ScaffolderLevelConfig
@@ -195,7 +197,7 @@ var active_overlays := []
 # ---
 
 func _enter_tree() -> void:
-    self.logger = ScaffoldLog.new()
+    self.logger = ScaffolderLog.new()
     add_child(self.logger)
     self.logger.print("ScaffolderConfig._enter_tree")
 
@@ -445,9 +447,9 @@ func initialize() -> void:
     add_child(self.profiler)
     if manifest.has("geometry_class"):
         self.geometry = manifest.geometry_class.new()
-        assert(self.geometry is ScaffoldGeometry)
+        assert(self.geometry is ScaffolderGeometry)
     else:
-        self.geometry = ScaffoldGeometry.new()
+        self.geometry = ScaffolderGeometry.new()
     add_child(self.geometry)
     if manifest.has("draw_utils_class"):
         self.draw_utils = manifest.draw_utils_class.new()
@@ -457,9 +459,9 @@ func initialize() -> void:
     add_child(self.draw_utils)
     if manifest.has("nav_class"):
         self.nav = manifest.nav_class.new()
-        assert(self.nav is ScaffoldNavigation)
+        assert(self.nav is ScaffolderNavigation)
     else:
-        self.nav = ScaffoldNavigation.new()
+        self.nav = ScaffolderNavigation.new()
     add_child(self.nav)
     if manifest.has("level_input_class"):
         self.level_input = manifest.level_input_class.new()

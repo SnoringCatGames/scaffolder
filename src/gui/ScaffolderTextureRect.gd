@@ -1,5 +1,5 @@
 tool
-class_name ScaffoldTextureRect, "res://addons/scaffolder/assets/images/editor_icons/ScaffoldTextureRect.png"
+class_name ScaffolderTextureRect, "res://addons/scaffolder/assets/images/editor_icons/ScaffolderTextureRect.png"
 extends Control
 
 export var texture: Texture setget \
@@ -20,7 +20,7 @@ func update_gui_scale(gui_scale: float) -> bool:
     _update_gui_scale_deferred(gui_scale)
     # TODO: Fix the underlying dependency, instead of this double-call hack.
     #       (To repro the problem: run, open CreditsScreen, logo and publisher
-    #        ScaffoldTextureRects are mis-aligned.)
+    #        ScaffolderTextureRects are mis-aligned.)
     call_deferred("_update_gui_scale_deferred", 1.0)
     return true
 

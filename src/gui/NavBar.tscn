@@ -11,8 +11,8 @@
 [ext_resource path="res://addons/scaffolder/assets/images/gui/gear_icon_hover_large.png" type="Texture" id=9]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/gear_icon_active_large.png" type="Texture" id=10]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/about_icon_hover_large.png" type="Texture" id=11]
-[ext_resource path="res://addons/scaffolder/src/gui/ScaffoldTextureButton.tscn" type="PackedScene" id=13]
-[ext_resource path="res://addons/scaffolder/src/gui/ScaffoldTextureRect.tscn" type="PackedScene" id=14]
+[ext_resource path="res://addons/scaffolder/src/gui/ScaffolderTextureButton.tscn" type="PackedScene" id=13]
+[ext_resource path="res://addons/scaffolder/src/gui/ScaffolderTextureRect.tscn" type="PackedScene" id=14]
 
 [node name="NavBar" type="PanelContainer"]
 size_flags_horizontal = 3

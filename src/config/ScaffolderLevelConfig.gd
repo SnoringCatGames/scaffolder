@@ -18,7 +18,7 @@ var are_levels_scene_based: bool
 var _level_configs_by_number := {}
 
 func _init(are_levels_scene_based: bool) -> void:
-    Gs.logger.print("ScaffoldLevelConfig._init")
+    Gs.logger.print("ScaffolderLevelConfig._init")
     self.are_levels_scene_based = are_levels_scene_based
 
 func _ready() -> void:
@@ -57,12 +57,12 @@ func _sanitize_level_configs() -> void:
 
 func get_level_config(level_id: String) -> Dictionary:
     Gs.logger.error( \
-            "Abstract ScaffoldLevelConfig.get_level_config is not implemented")
+            "Abstract ScaffolderLevelConfig.get_level_config is not implemented")
     return {}
 
 func get_level_ids() -> Array:
     Gs.logger.error( \
-            "Abstract ScaffoldLevelConfig.get_level_ids is not implemented")
+            "Abstract ScaffolderLevelConfig.get_level_ids is not implemented")
     return []
 
 func get_level_version_string(level_id: String) -> String:
@@ -104,7 +104,7 @@ func _check_if_level_meets_unlock_conditions(level_id: String) -> bool:
 
 func get_unlock_hint(level_id: String) -> String:
     Gs.logger.error( \
-            "Abstract ScaffoldLevelConfig.get_unlock_hint is not implemented")
+            "Abstract ScaffolderLevelConfig.get_unlock_hint is not implemented")
     return "Not yet unlocked" if \
             !Gs.save_state.get_level_is_unlocked(level_id) else \
             ""
@@ -124,6 +124,6 @@ func get_next_level_to_unlock() -> String:
 
 func get_suggested_next_level() -> String:
     Gs.logger.error( \
-            "Abstract ScaffoldLevelConfig.get_suggested_next_level " + \
+            "Abstract ScaffolderLevelConfig.get_suggested_next_level " + \
             "is not implemented")
     return _level_configs_by_number[1].id

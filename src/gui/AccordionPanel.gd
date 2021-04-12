@@ -8,7 +8,7 @@ signal caret_rotated
 const CARET_LEFT_NORMAL: Texture = \
         preload("res://addons/scaffolder/assets/images/gui/left_caret_normal.png")
 const SCAFFOLDER_TEXTURE_RECT_SCENE_PATH := \
-        "res://addons/scaffolder/src/gui/ScaffoldTextureRect.tscn"
+        "res://addons/scaffolder/src/gui/ScaffolderTextureRect.tscn"
 
 const CARET_SIZE_DEFAULT := Vector2(23.0, 32.0)
 const CARET_SCALE := Vector2(0.5, 0.5)
@@ -43,7 +43,7 @@ var _header: Button
 var _header_hbox: HBoxContainer
 var _header_label: Label
 var _projected_control: Control
-var _caret: ScaffoldTextureRect
+var _caret: ScaffolderTextureRect
 var _is_open_tween: Tween
 
 var _header_normal_stylebox: StyleBoxFlatScalable

@@ -1,4 +1,4 @@
-class_name ScaffoldGeometry
+class_name ScaffolderGeometry
 extends Node
 
 const UP := Vector2.UP

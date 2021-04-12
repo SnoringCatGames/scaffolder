@@ -9,7 +9,7 @@
 [ext_resource path="res://addons/scaffolder/assets/fonts/main_font_s.tres" type="DynamicFont" id=9]
 [ext_resource path="res://addons/scaffolder/src/gui/AccordionPanel.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/scaffolder/assets/fonts/main_font_m_bold.tres" type="DynamicFont" id=11]
-[ext_resource path="res://addons/scaffolder/src/gui/ScaffoldTextureRect.tscn" type="PackedScene" id=12]
+[ext_resource path="res://addons/scaffolder/src/gui/ScaffolderTextureRect.tscn" type="PackedScene" id=12]
 
 [node name="CreditsScreen" type="Node2D"]
 script = ExtResource( 3 )
