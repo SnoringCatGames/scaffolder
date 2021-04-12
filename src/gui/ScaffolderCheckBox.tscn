@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/gui/ScaffoldCheckBox.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/ScaffolderCheckBox.gd" type="Script" id=1]
 
-[node name="ScaffoldCheckBox" type="Control"]
+[node name="ScaffolderCheckBox" type="Control"]
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource( 1 )

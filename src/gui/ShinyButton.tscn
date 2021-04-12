@@ -3,7 +3,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/ShinyButton.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/shine_line.png" type="Texture" id=2]
 [ext_resource path="res://addons/scaffolder/assets/fonts/main_font_m.tres" type="DynamicFont" id=4]
-[ext_resource path="res://addons/scaffolder/src/gui/ScaffoldTextureRect.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/scaffolder/src/gui/ScaffolderTextureRect.tscn" type="PackedScene" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -67,7 +67,7 @@ size_flags_vertical = 3
 position = Vector2( -352, 164 )
 texture = ExtResource( 2 )
 
-[node name="ScaffoldTextureRect" parent="MarginContainer" instance=ExtResource( 5 )]
+[node name="ScaffolderTextureRect" parent="MarginContainer" instance=ExtResource( 5 )]
 margin_left = 352.0
 margin_top = 164.0
 margin_right = 352.0

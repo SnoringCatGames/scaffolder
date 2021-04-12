@@ -221,7 +221,7 @@ static func ease_name_to_param(name: String) -> float:
         "ease_in_out_weak":
             return -1.8
         _:
-            ScaffoldLog.static_error()
+            ScaffolderLog.static_error()
             return INF
 
 static func ease_by_name( \
@@ -340,7 +340,7 @@ static func mix( \
     elif values[0] is Vector3:
         weighted_average = Vector3.ZERO
     else:
-        ScaffoldLog.static_error()
+        ScaffolderLog.static_error()
     
     for i in count:
         var value = values[i]
@@ -446,6 +446,11 @@ func take_screenshot() -> void:
     var status := image.save_png(path)
     if status != OK:
         Gs.logger.error()
+
+func open_screenshot_folder() -> void:
+    var path := OS.get_user_data_dir() + "/screenshots"
+    Gs.logger.print("Opening screenshot folder: " + path)
+    OS.shell_open(path)
 
 func ensure_directory_exists(path: String) -> bool:
     var directory := Directory.new()

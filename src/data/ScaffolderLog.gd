@@ -1,11 +1,11 @@
-class_name ScaffoldLog
+class_name ScaffolderLog
 extends Node
 
 var _print_queue := []
 
 func _enter_tree() -> void:
     _print_front_matter()
-    self.print("ScaffoldLog._enter_tree")
+    self.print("ScaffolderLog._enter_tree")
 
 func print(message: String) -> void:
     if is_instance_valid(Gs.debug_panel):

@@ -51,9 +51,9 @@ Some of these are just my personal preference, some are important for the framew
 All of the Scaffolder functionality is globally accessible through properties on the `Gs` AutoLoad.
 
 -   Define `Gs` as an AutoLoad (in Project Settings).
-    -   It should point to the path `res://addons/scaffolder/src/ScaffoldConfig.gd`.
+    -   It should point to the path `res://addons/scaffolder/src/ScaffolderConfig.gd`.
     -   It should be the first AutoLoad in the list.
--   Configure the Scaffolder framework by calling `ScaffoldBootstrap.on_app_ready` at the start of your Main Scene.
+-   Configure the Scaffolder framework by calling `ScaffolderBootstrap.on_app_ready` at the start of your Main Scene.
 
 > **NOTE:** `Gs` stands for "Scaffolder", in case that's helful to know!
 
@@ -76,7 +76,7 @@ Here are some guidelines to minimize app crashes before we can report any previo
 -   Do as little in your "Main Scene" as possible.
 -   Do not call `.new()` on anything from any of your AutoLoads or your "Main Scene", until after you know `SurfacerConfig` is ready. You can use `call_deferred()` for this.
 
-#### Overriding `ScaffoldConfig` defaults
+#### Overriding `ScaffolderConfig` defaults
 
 If you want to override or extend any Scaffolder functionality, you should be able to configure a replacement for the corresponding object. But make sure that your replacement `extends` the underlying Scaffolder class!
 
@@ -86,15 +86,15 @@ var my_app_manifest := {
     ...
     utils = MyCustomUtils.new(),
 }
-ScaffoldBootstrap.new().on_app_ready(my_app_manifest, self)
+ScaffolderBootstrap.new().on_app_ready(my_app_manifest, self)
 
-class MyCustomUtils extends ScaffoldUtils:
+class MyCustomUtils extends ScaffolderUtils:
     ...
 ```
 
-#### `ScaffoldConfig` properties
+#### `ScaffolderConfig` properties
 
-> TODO: Enumerate and describe each `ScaffoldConfig` property.
+> TODO: Enumerate and describe each `ScaffolderConfig` property.
 
 ## Features
 

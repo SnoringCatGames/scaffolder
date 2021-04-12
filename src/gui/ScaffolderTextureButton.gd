@@ -1,5 +1,5 @@
 tool
-class_name ScaffoldTextureButton, "res://addons/scaffolder/assets/images/editor_icons/ScaffoldTextureButton.png"
+class_name ScaffolderTextureButton, "res://addons/scaffolder/assets/images/editor_icons/ScaffolderTextureButton.png"
 extends Control
 
 signal pressed

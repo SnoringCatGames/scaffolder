@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/CenteredPanel.tscn" type="PackedScene" id=1]
-[ext_resource path="res://addons/scaffolder/src/gui/ScaffoldTextureRect.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/scaffolder/src/gui/ScaffolderTextureRect.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/FullScreenPanel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/MainMenuScreen.gd" type="Script" id=4]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/go_icon_normal_large.png" type="Texture" id=5]
@@ -12,8 +12,8 @@
 script = ExtResource( 4 )
 
 [node name="FullScreenPanel" parent="." instance=ExtResource( 3 )]
-margin_right = 974.0
-margin_bottom = 1184.0
+margin_right = 960.0
+margin_bottom = 960.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
 margin_left = 7.0

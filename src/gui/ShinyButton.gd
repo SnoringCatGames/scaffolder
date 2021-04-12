@@ -55,7 +55,7 @@ func update_gui_scale(gui_scale: float) -> bool:
     rect_size *= gui_scale
     rect_position *= gui_scale
     $MarginContainer/ShineLineWrapper/ShineLine.scale *= gui_scale
-    $MarginContainer/ScaffoldTextureRect.update_gui_scale(gui_scale)
+    $MarginContainer/ScaffolderTextureRect.update_gui_scale(gui_scale)
     update()
     
     return true
@@ -82,8 +82,8 @@ func _deferred_update() -> void:
     $MarginContainer/BottomButton.text = text
     $MarginContainer/ShineLineWrapper/ShineLine.position = \
             Vector2(shine_start_x, shine_base_position.y)
-    $MarginContainer/ScaffoldTextureRect.texture = texture
-    $MarginContainer/ScaffoldTextureRect.texture_scale = texture_scale
+    $MarginContainer/ScaffolderTextureRect.texture = texture
+    $MarginContainer/ScaffolderTextureRect.texture_scale = texture_scale
     var font: Font = \
             Gs.fonts.main_xl if \
             is_font_xl else \

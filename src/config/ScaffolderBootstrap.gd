@@ -114,6 +114,7 @@ func _report_any_previous_crash() -> bool:
 func _process(_delta_sec: float) -> void:
     if Gs.debug or Gs.playtest:
         if Input.is_action_just_pressed("screenshot"):
+            Gs.were_screenshots_taken = true
             Gs.utils.take_screenshot()
 
 func _notification(notification: int) -> void:

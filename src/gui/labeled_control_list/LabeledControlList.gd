@@ -12,9 +12,9 @@ const ABOUT_ICON_ACTIVE := \
         preload("res://addons/scaffolder/assets/images/gui/about_icon_active.png")
 
 const SCAFFOLDER_CHECK_BOX_SCENE_PATH := \
-        "res://addons/scaffolder/src/gui/ScaffoldCheckBox.tscn"
+        "res://addons/scaffolder/src/gui/ScaffolderCheckBox.tscn"
 const SCAFFOLDER_TEXTURE_BUTTON_SCENE_PATH := \
-        "res://addons/scaffolder/src/gui/ScaffoldTextureButton.tscn"
+        "res://addons/scaffolder/src/gui/ScaffolderTextureButton.tscn"
 
 const ENABLED_ALPHA := 1.0
 const DISABLED_ALPHA := 0.3
@@ -78,7 +78,7 @@ func _update_children() -> void:
         hbox.add_child(label)
         
         if item.description != "":
-            var description_button: ScaffoldTextureButton = \
+            var description_button: ScaffolderTextureButton = \
                     Gs.utils.add_scene( \
                             hbox, 
                             SCAFFOLDER_TEXTURE_BUTTON_SCENE_PATH, \
@@ -144,7 +144,7 @@ func _create_control( \
             item.control = label
             return label
         LabeledControlItem.CHECKBOX:
-            var checkbox: ScaffoldCheckBox = Gs.utils.add_scene( \
+            var checkbox: ScaffolderCheckBox = Gs.utils.add_scene( \
                     null, \
                     SCAFFOLDER_CHECK_BOX_SCENE_PATH, \
                     false, \
