@@ -69,11 +69,11 @@ func start_level(level_id: String) -> void:
     if is_instance_valid(Gs.level):
         return
     
-    Gs.level = Gs.utils.add_scene( \
+    var level := Gs.utils.add_scene( \
             null, \
             Gs.level_config.get_level_config(level_id).scene_path, \
             false, \
             true)
-    Gs.level.id = level_id
-    $PanelContainer/ViewportContainer/Viewport.add_child(Gs.level)
-    Gs.level.start()
+    level.id = level_id
+    $PanelContainer/ViewportContainer/Viewport.add_child(level)
+    level.start()

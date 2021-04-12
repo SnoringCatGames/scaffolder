@@ -4,6 +4,7 @@ extends Node
 var app_manifest: Dictionary
 var main: Node
 
+var _throttled_size_change_count := 0
 var _throttled_size_changed: FuncRef
 
 func _init() -> void:
@@ -55,7 +56,7 @@ func _initialize_framework() -> void:
         Gs.canvas_layers.layers.top \
                 .add_child(Gs.gesture_record)
     
-    Gs.is_app_ready = true
+    Gs.is_app_initialized = true
     
     _set_window_debug_size_and_position()
     
@@ -74,9 +75,12 @@ func _initialize_framework() -> void:
     
     _log_device_settings()
     
-    call_deferred("_on_app_ready")
+    call_deferred("_on_app_initialized")
 
-func _on_app_ready() -> void:
+func _on_app_initialized() -> void:
+    pass
+
+func _on_initial_screen_size_set() -> void:
     if Gs.utils.get_is_browser():
         JavaScript.eval("window.onAppReady()")
     
@@ -133,6 +137,11 @@ func _on_throttled_size_changed() -> void:
     #        Screen hasn't shrunk back to the correct size.)
     _scale_guis()
     Gs.utils.emit_signal("display_resized")
+    
+    _throttled_size_change_count += 1
+    if !_throttled_size_change_count == 2:
+        Gs.is_initial_screen_size_set = true
+        call_deferred("_on_initial_screen_size_set")
 
 func _update_font_sizes() -> void:
     for key in Gs.fonts:

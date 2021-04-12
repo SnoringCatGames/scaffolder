@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/screens/GameScreen.gd" type="Script" id=1]
 
@@ -14,8 +14,10 @@ __meta__ = {
 }
 
 [node name="ViewportContainer" type="ViewportContainer" parent="PanelContainer"]
-margin_right = 480.0
-margin_bottom = 480.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 487.0
+margin_bottom = 487.0
 rect_clip_content = true
 mouse_filter = 2
 size_flags_horizontal = 4

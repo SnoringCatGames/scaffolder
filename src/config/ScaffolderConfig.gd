@@ -155,7 +155,8 @@ var original_font_sizes: Dictionary
 # --- Global state ---
 
 var is_app_configured := false
-var is_app_ready := false
+var is_app_initialized := false
+var is_initial_screen_size_set := false
 var agreed_to_terms: bool
 var is_giving_haptic_feedback: bool
 var is_debug_panel_shown: bool setget \
