@@ -1,7 +1,7 @@
 # Scaffolder
 
 <p align="center">
-  <img src="assets/images/device_icons/icon_64.png"
+  <img src="assets/images/device_icons/icon_128.png"
        alt="The Scaffolder icon, showing construction scaffolding">
 </p>
 
@@ -201,6 +201,6 @@ For example:
 -   This project depends on various pieces of third-party code that are licensed separately. [Here is a list of these third-party licenses](./src/config/ScaffolderThirdPartyLicenses.gd).
 
 <p align="center">
-  <img src="assets/images/device_icons/icon_64.png"
+  <img src="assets/images/device_icons/icon_128.png"
        alt="The Scaffolder icon, showing construction scaffolding">
 </p>

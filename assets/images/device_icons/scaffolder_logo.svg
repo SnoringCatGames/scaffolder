@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="surfacer-logo.svg">
+   sodipodi:docname="scaffolder_logo.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,16 +25,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568543"
-     inkscape:cx="129.20285"
+     inkscape:zoom="2.8284272"
+     inkscape:cx="163.49031"
      inkscape:cy="-32.097932"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="3840"
-     inkscape:window-height="2035"
-     inkscape:window-x="3827"
-     inkscape:window-y="-13"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1"
      units="px" />
   <metadata
@@ -45,7 +45,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -327,9 +327,10 @@
     </g>
     <g
        id="g6058-7"
-       transform="translate(73.245213,-0.79510947)"
-       inkscape:export-xdpi="768"
-       inkscape:export-ydpi="768">
+       transform="translate(91.172682,-16.022781)"
+       inkscape:export-xdpi="192.00002"
+       inkscape:export-ydpi="192.00002"
+       inkscape:export-filename="C:\Users\lsl\surfacer_icon_128.png">
       <rect
          y="299.31671"
          x="8.7838134e-07"
@@ -388,9 +389,10 @@
     </g>
     <g
        id="g6047-9"
-       transform="translate(73.245213,-1.4317234)"
-       inkscape:export-xdpi="768"
-       inkscape:export-ydpi="768">
+       transform="translate(72.122681,2.5906829)"
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192"
+       inkscape:export-filename="C:\Users\lsl\scaffolder_icon_128.png">
       <rect
          y="280.70325"
          x="1.0327774e-06"
