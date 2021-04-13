@@ -745,6 +745,11 @@ func _create_stylebox_flat_scalable_from_stylebox( \
     new.ready()
     return new
 
+func get_instance_id_or_not(object: Object) -> int:
+    return object.get_instance_id() if \
+            object != null else \
+            -1
+
 # JSON encoding with custom syntax for vector values.
 func to_json_object(value):
     match typeof(value):
@@ -840,7 +845,84 @@ func from_json_object(json):
         _:
             return json
 
-func get_instance_id_or_not(object: Object) -> int:
-    return object.get_instance_id() if \
-            object != null else \
-            -1
+func encode_vector2(value: Vector2) -> String:
+    return "%f,%f" % [value.x, value.y]
+
+func decode_vector2(value: String) -> Vector2:
+    var comma_index := value.find(",")
+    return Vector2( \
+            float(value.substr(0, comma_index - 1)), \
+            float(value.substr(comma_index + 1)))
+
+func encode_vector3(value: Vector3) -> String:
+    return "%f,%f,%f" % [value.x, value.y, value.z]
+
+func decode_vector3(value: String) -> Vector3:
+    var comma_index_1 := value.find(",")
+    var comma_index_2 := value.find(",", comma_index_1 + 1)
+    return Vector3( \
+            float(value.substr(0, comma_index_1 - 1)), \
+            float(value.substr(comma_index_1 + 1, \
+                    comma_index_2 - comma_index_1 - 1)), \
+            float(value.substr(comma_index_2 + 1)))
+
+func encode_rect2(value: Rect2) -> String:
+    return "%f,%f,%f,%f" % [
+        value.position.x,
+        value.position.y,
+        value.size.x,
+        value.size.y,
+    ]
+
+func decode_rect2(value: String) -> Rect2:
+    var comma_index_1 := value.find(",")
+    var comma_index_2 := value.find(",", comma_index_1 + 1)
+    var comma_index_3 := value.find(",", comma_index_2 + 1)
+    return Rect2( \
+            float(value.substr(0, comma_index_1 - 1)), \
+            float(value.substr(comma_index_1 + 1, \
+                    comma_index_2 - comma_index_1 - 1)), \
+            float(value.substr(comma_index_2 + 1, \
+                    comma_index_3 - comma_index_2 - 1)), \
+            float(value.substr(comma_index_3 + 1)))
+
+func encode_color(value: Color) -> String:
+    return "%f,%f,%f,%f" % [
+        value.r,
+        value.g,
+        value.b,
+        value.a,
+    ]
+
+func decode_color(value: String) -> Color:
+    var comma_index_1 := value.find(",")
+    var comma_index_2 := value.find(",", comma_index_1 + 1)
+    var comma_index_3 := value.find(",", comma_index_2 + 1)
+    if comma_index_3 >= 0:
+        return Color( \
+                float(value.substr(0, comma_index_1 - 1)), \
+                float(value.substr(comma_index_1 + 1, \
+                        comma_index_2 - comma_index_1 - 1)), \
+                float(value.substr(comma_index_2 + 1, \
+                        comma_index_3 - comma_index_2 - 1)), \
+                float(value.substr(comma_index_3 + 1)))
+    else:
+        return Color( \
+                float(value.substr(0, comma_index_1 - 1)), \
+                float(value.substr(comma_index_1 + 1, \
+                        comma_index_2 - comma_index_1 - 1)), \
+                float(value.substr(comma_index_2 + 1)))
+
+func encode_vector2_array(value) -> Array:
+    var result := []
+    result.resize(value.size())
+    for i in value.size():
+        result[i] = encode_vector2(value[i])
+    return result
+
+func decode_vector2_array(value: Array) -> Array:
+    var result := []
+    result.resize(value.size())
+    for i in value.size():
+        result[i] = decode_vector2(value[i])
+    return result
