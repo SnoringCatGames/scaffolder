@@ -325,11 +325,11 @@ static func draw_instruction_indicator( \
     var half_length := length / 2.0
     var end_offset_from_mid: Vector2
     match input_key:
-        "jump":
+        "j":
             end_offset_from_mid = Vector2(0.0, -half_length)
-        "move_left":
+        "ml":
             end_offset_from_mid = Vector2(-half_length, 0.0)
-        "move_right":
+        "mr":
             end_offset_from_mid = Vector2(half_length, 0.0)
         _:
             Gs.logger.error("Invalid input_key: %s" % input_key)
