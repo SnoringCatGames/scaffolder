@@ -153,6 +153,12 @@ class _Timeout extends Reference:
             5:
                 callback.call_func(arguments[0], arguments[1], arguments[2], \
                         arguments[3], arguments[4])
+            6:
+                callback.call_func(arguments[0], arguments[1], arguments[2], \
+                        arguments[3], arguments[4], arguments[5])
+            7:
+                callback.call_func(arguments[0], arguments[1], arguments[2], \
+                        arguments[3], arguments[4], arguments[5], arguments[6])
             _:
                 Gs.logger.error()
 
@@ -211,6 +217,12 @@ class _Interval extends Reference:
             5:
                 callback.call_func(arguments[0], arguments[1], arguments[2], \
                         arguments[3], arguments[4])
+            6:
+                callback.call_func(arguments[0], arguments[1], arguments[2], \
+                        arguments[3], arguments[4], arguments[5])
+            7:
+                callback.call_func(arguments[0], arguments[1], arguments[2], \
+                        arguments[3], arguments[4], arguments[5], arguments[6])
             _:
                 Gs.logger.error()
 
