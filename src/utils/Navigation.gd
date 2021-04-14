@@ -238,8 +238,7 @@ func _set_screen_is_open(
         var slide_duration := SCREEN_SLIDE_DURATION_SEC
         var slide_delay := 0.0
         if includes_fade:
-            fade_transition.visible = true
-            fade_transition.fade()
+            fade()
             slide_duration = SCREEN_SLIDE_DURATION_SEC / 2.0
             slide_delay = (SCREEN_FADE_DURATION_SEC - slide_duration) / 2.0
         
@@ -310,6 +309,10 @@ func _on_screen_slide_completed(
         next_screen.position = Vector2.ZERO
         next_screen.pause_mode = Node.PAUSE_MODE_PROCESS
         next_screen._on_activated(previous_screen_name)
+
+func fade() -> void:
+    fade_transition.visible = true
+    fade_transition.fade()
 
 func _on_fade_complete() -> void:
     if !fade_transition.is_transitioning:

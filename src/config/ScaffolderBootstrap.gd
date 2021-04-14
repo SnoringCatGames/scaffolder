@@ -247,13 +247,14 @@ func _set_window_debug_size_and_position() -> void:
     if Gs.debug and \
             (Gs.utils.get_is_windows_device() or \
             Gs.utils.get_is_mac_device()):
+        # Show the game window on the other window, rather than over-top the
+        # editor.
+        if OS.get_screen_count() > 1:
+            OS.current_screen = \
+                    (OS.current_screen + 1) % OS.get_screen_count()
+        
         # Useful for getting screenshots at specific resolutions.
         if Gs.debug_window_size == Vector2.INF:
-            if OS.get_screen_count() > 1:
-                # Show the game window on the other window, rather than
-                # over-top the editor.
-                OS.current_screen = \
-                        (OS.current_screen + 1) % OS.get_screen_count()
             OS.window_fullscreen = true
             OS.window_borderless = true
         else:

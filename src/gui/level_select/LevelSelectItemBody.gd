@@ -37,5 +37,5 @@ func get_button() -> ShinyButton:
 
 func _on_PlayButton_pressed():
     Gs.utils.give_button_press_feedback(true)
-    Gs.nav.open("game", true)
+    Gs.nav.open("game")
     Gs.nav.screens["game"].start_level(level_id)
