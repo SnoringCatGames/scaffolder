@@ -23,7 +23,7 @@ func _get_default_item_classes() -> Array:
 
 func _get_items() -> Array:
     var item_classes := \
-            Gs.utils.get_collection_from_exclusions_and_inclusions( \
+            Gs.utils.get_collection_from_exclusions_and_inclusions(
                     _get_default_item_classes(),
                     Gs.level_select_item_class_exclusions,
                     Gs.level_select_item_class_inclusions)

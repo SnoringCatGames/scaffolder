@@ -5,11 +5,11 @@ var TYPE := LabeledControlItem.TEXT
 
 var text: String
 
-func _init( \
+func _init(
         label: String,
         text: String,
         description := "" \
-        ).( \
+        ).(
         TYPE,
         label,
         description \

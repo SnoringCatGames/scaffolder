@@ -12,7 +12,7 @@ func _init() -> void:
     add_font_override("font", Gs.fonts.main_m)
 
 func _ready() -> void:
-    Gs.utils.connect( \
+    Gs.utils.connect(
             "display_resized",
             self,
             "_on_resized")

@@ -6,7 +6,7 @@ const DESCRIPTION := ""
 
 var level_id: String
 
-func _init(level_id: String).( \
+func _init(level_id: String).(
         LABEL,
         DESCRIPTION \
         ) -> void:

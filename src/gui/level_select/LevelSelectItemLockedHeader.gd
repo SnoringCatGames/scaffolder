@@ -90,15 +90,15 @@ func unlock() -> void:
     visible = true
     modulate.a = LOCKED_OPACITY
     
-    Gs.time.set_timeout( \
+    Gs.time.set_timeout(
             funcref($LockAnimation, "unlock"),
             LOCK_LOW_PART_DELAY_SEC)
     
-    Gs.time.set_timeout( \
+    Gs.time.set_timeout(
             funcref(Gs.audio, "play_sound"),
             LOCK_LOW_PART_DELAY_SEC,
             ["lock_low"])
-    Gs.time.set_timeout( \
+    Gs.time.set_timeout(
             funcref(Gs.audio, "play_sound"),
             LOCK_LOW_PART_DELAY_SEC + LOCK_HIGH_PART_DELAY_SEC,
             ["lock_high"])
@@ -106,7 +106,7 @@ func unlock() -> void:
 func pulse_unlock_hint() -> void:
     hint_tween.stop_all()
     var fade_in_duration_sec := 0.3
-    hint_tween.interpolate_property( \
+    hint_tween.interpolate_property(
             $HeaderWrapper/LockedWrapper/HintWrapper,
             "modulate:a",
             0.0,
@@ -114,7 +114,7 @@ func pulse_unlock_hint() -> void:
             fade_in_duration_sec,
             Tween.TRANS_QUAD,
             Tween.EASE_IN_OUT)
-    hint_tween.interpolate_property( \
+    hint_tween.interpolate_property(
             $HeaderWrapper/LockedWrapper/HintWrapper,
             "modulate:a",
             1.0,

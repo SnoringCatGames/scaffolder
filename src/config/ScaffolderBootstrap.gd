@@ -10,7 +10,7 @@ var _throttled_size_changed: FuncRef
 func _init() -> void:
     name = "ScaffolderBootstrap"
 
-func run( \
+func run(
         app_manifest: Dictionary,
         main: Node) -> void:
     Gs.logger.print("ScaffolderBootstrap.run")
@@ -43,7 +43,7 @@ func _initialize_framework() -> void:
     Gs.canvas_layers = CanvasLayers.new()
     main.add_child(Gs.canvas_layers)
     
-    Gs.debug_panel = Gs.utils.add_scene( \
+    Gs.debug_panel = Gs.utils.add_scene(
             Gs.canvas_layers.layers.top,
             Gs.DEBUG_PANEL_RESOURCE_PATH,
             true,
@@ -64,10 +64,10 @@ func _initialize_framework() -> void:
     
     Gs.nav.create_screens()
     
-    _throttled_size_changed = Gs.time.throttle( \
+    _throttled_size_changed = Gs.time.throttle(
             funcref(self, "_on_throttled_size_changed"),
             Gs.display_resize_throttle_interval_sec)
-    get_viewport().connect( \
+    get_viewport().connect(
             "size_changed",
             self,
             "_on_resized")
@@ -104,7 +104,7 @@ func _on_splash_finished() -> void:
 
 func _report_any_previous_crash() -> bool:
     Gs.initialize_crash_reporter()
-    Gs.crash_reporter.connect( \
+    Gs.crash_reporter.connect(
             "upload_finished",
             self,
             "_initialize_framework")
@@ -193,7 +193,7 @@ func _update_tree_arrow_size() -> void:
     
     Gs.theme.set_icon("arrow", "Tree", open_icon)
     Gs.theme.set_icon("arrow_collapsed", "Tree", closed_icon)
-    Gs.theme.set_constant( \
+    Gs.theme.set_constant(
             "item_margin", "Tree", Gs.current_tree_arrow_icon_size)
 
 func _update_game_area_region_and_gui_scale() -> void:
@@ -207,18 +207,18 @@ func _update_game_area_region_and_gui_scale() -> void:
         game_area_position = Vector2.ZERO
     if aspect_ratio < Gs.aspect_ratio_min:
         # Show vertical margin around game area.
-        game_area_size = Vector2( \
+        game_area_size = Vector2(
                 viewport_size.x,
                 viewport_size.x / Gs.aspect_ratio_min)
-        game_area_position = Vector2( \
+        game_area_position = Vector2(
                 0.0,
                 (viewport_size.y - game_area_size.y) * 0.5)
     elif aspect_ratio > Gs.aspect_ratio_max:
         # Show horizontal margin around game area.
-        game_area_size = Vector2( \
+        game_area_size = Vector2(
                 viewport_size.y * Gs.aspect_ratio_max,
                 viewport_size.y)
-        game_area_position = Vector2( \
+        game_area_position = Vector2(
                 (viewport_size.x - game_area_size.x) * 0.5,
                 0.0)
     else:
@@ -266,7 +266,7 @@ func _log_device_settings() -> void:
             Gs.utils._get_ios_screen_ppi() if \
             Gs.utils.get_is_ios_device() else \
             "N/A"
-    Gs.logger.print( \
+    Gs.logger.print(
             ("Device settings:" + \
             "\n    OS.get_name()=%s" + \
             "\n    OS.get_model_name()=%s" + \

@@ -10,7 +10,7 @@ const INCLUDES_CENTER_CONTAINER := true
 
 const NEXT_SCREEN_TYPE := "main_menu"
 
-func _init().( \
+func _init().(
         NAME,
         LAYER_NAME,
         AUTO_ADAPTS_GUI_SCALE,

@@ -16,7 +16,7 @@ var _default_item_classes := [
     TimeLabeledControlItem,
 ]
 
-func _init().( \
+func _init().(
         NAME,
         LAYER_NAME,
         AUTO_ADAPTS_GUI_SCALE,
@@ -37,7 +37,7 @@ func _on_activated(previous_screen_name: String) -> void:
 
 func _get_items() -> Array:
     var item_classes := \
-            Gs.utils.get_collection_from_exclusions_and_inclusions( \
+            Gs.utils.get_collection_from_exclusions_and_inclusions(
                     _default_item_classes,
                     Gs.pause_item_class_exclusions,
                     Gs.pause_item_class_inclusions)

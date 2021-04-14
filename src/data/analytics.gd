@@ -61,12 +61,12 @@ func screen(name: String) -> void:
     var details := "&cd=%s" % [
         name.http_escape(),
     ]
-    var payload := _get_payload( \
+    var payload := _get_payload(
             "screenview",
             details)
     _trigger_collect(payload, details)
 
-func event( \
+func event(
         category: String,
         action: String,
         label: String,
@@ -74,7 +74,7 @@ func event( \
         non_interaction := false,
         extra_details = null,
         is_session_end := false) -> void:
-    var details := ( \
+    var details := (
         "&ec=%s" + \
         "&ea=%s" + \
         "&el=%s" \
@@ -89,26 +89,26 @@ func event( \
         details += "&ni=1"
     if extra_details != null:
         details += extra_details
-    var payload := _get_payload( \
+    var payload := _get_payload(
             "event",
             details)
-    _trigger_collect( \
+    _trigger_collect(
             payload,
             details,
             is_session_end)
 
 func _log_device_info() -> void:
-    event( \
+    event(
             "device",
             OS.get_name(),
             Gs.utils.get_model_name(),
             int(Gs.utils.get_viewport_diagonal_inches() * 1000),
             true)
 
-func _ping( \
+func _ping(
         extra_details = null,
         is_session_end := false) -> void:
-    event( \
+    event(
             "ping",
             "ping",
             "ping",
@@ -125,19 +125,19 @@ func _get_client_id() -> String:
     var id = Gs.save_state.get_setting(CLIENT_ID_SAVE_KEY)
     if id == null:
         id = str(UUID.new())
-        Gs.save_state.set_setting( \
+        Gs.save_state.set_setting(
                 CLIENT_ID_SAVE_KEY,
                 id)
     return id
 
-func _get_payload( \
+func _get_payload(
         hit_type: String,
         details: String) -> String:
     var viewport_size := get_viewport().size
     var viewport_size_str := str(viewport_size.x) + "x" + str(viewport_size.y)
     # See the Google Analytics Measurement Protocol Parameter Reference here:
     # https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
-    return ( \
+    return (
         # Google Analytics version
         "v=1" + \
         # Our app's tracking ID
@@ -177,7 +177,7 @@ func _get_payload( \
         str(randi()),
     ]
 
-func _trigger_collect( \
+func _trigger_collect(
         payload: String,
         details: String,
         is_session_end := false) -> void:
@@ -204,14 +204,14 @@ func _trigger_collect( \
     
     var request := HTTPRequest.new()
     request.use_threads = true
-    request.connect( \
+    request.connect(
             "request_completed",
             self,
             "_on_collect_request_completed",
             [entry, request, url, is_session_end])
     add_child(request)
     
-    var status: int = request.request( \
+    var status: int = request.request(
             url,
             HEADERS,
             true,
@@ -219,12 +219,12 @@ func _trigger_collect( \
             body)
     
     if status != OK:
-        Gs.logger.error( \
+        Gs.logger.error(
                 "Analytics._trigger_collect failed: status=%d, url=%s" % \
                         [status, url],
                 false)
 
-func _on_collect_request_completed( \
+func _on_collect_request_completed(
         result: int,
         response_code: int,
         headers: PoolStringArray,
@@ -234,7 +234,7 @@ func _on_collect_request_completed( \
         url: String,
         is_session_end: bool) -> void:
     if VERBOSE:
-        Gs.logger.print( \
+        Gs.logger.print(
                 "Analytics._on_collect_request_completed: result=%d, code=%d" % \
                 [result, response_code])
         Gs.logger.print("  Body:\n    " + body.get_string_from_utf8())
@@ -263,7 +263,7 @@ func _on_collect_request_completed( \
                     "Queuing entry for re-attempt")
         _retry_queue.push_back(entry)
     else:
-        Gs.logger.error( \
+        Gs.logger.error(
                 "Analytics._on_collect_request_completed failed: " + \
                 "result=%d, code=%d, url=%s, body=%s" % [
                     result, 
@@ -311,14 +311,14 @@ func _trigger_batch(batch: Array) -> void:
     
     var request := HTTPRequest.new()
     request.use_threads = true
-    request.connect( \
+    request.connect(
             "request_completed",
             self,
             "_on_batch_request_completed",
             [batch, request, url])
     add_child(request)
     
-    var status: int = request.request( \
+    var status: int = request.request(
             url,
             HEADERS,
             true,
@@ -326,12 +326,12 @@ func _trigger_batch(batch: Array) -> void:
             body)
     
     if status != OK:
-        Gs.logger.error( \
+        Gs.logger.error(
                 "Analytics._trigger_batch failed: status=%d, url=%s" % \
                         [status, url],
                 false)
 
-func _on_batch_request_completed( \
+func _on_batch_request_completed(
         result: int,
         response_code: int,
         headers: PoolStringArray,
@@ -340,7 +340,7 @@ func _on_batch_request_completed( \
         request: HTTPRequest,
         url: String) -> void:
     if VERBOSE:
-        Gs.logger.print( \
+        Gs.logger.print(
                 "Analytics._on_batch_request_completed: result=%d, code=%d" % \
                 [result, response_code])
         Gs.logger.print("  Body:\n    " + body.get_string_from_utf8())
@@ -368,7 +368,7 @@ func _on_batch_request_completed( \
         for entry in batch:
             _retry_queue.push_back(entry)
     else:
-        Gs.logger.error( \
+        Gs.logger.error(
                 "Analytics._on_batch_request_completed failed: " + \
                 "result=%d, code=%d, url=%s, body=%s" % [
                     result, 

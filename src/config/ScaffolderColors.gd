@@ -97,54 +97,54 @@ func register_colors(manifest: Dictionary) -> void:
 
 func _derive_colors() -> void:
     Gs.colors.button_normal_color = Gs.colors.button_color
-    Gs.colors.button_disabled_color = _derive_color_from_hsva_delta( \
+    Gs.colors.button_disabled_color = _derive_color_from_hsva_delta(
             Gs.colors.button_color, Gs.colors.button_disabled_hsv_delta)
-    Gs.colors.button_focused_color = _derive_color_from_hsva_delta( \
+    Gs.colors.button_focused_color = _derive_color_from_hsva_delta(
             Gs.colors.button_color, Gs.colors.button_focused_hsv_delta)
-    Gs.colors.button_hover_color = _derive_color_from_hsva_delta( \
+    Gs.colors.button_hover_color = _derive_color_from_hsva_delta(
             Gs.colors.button_color, Gs.colors.button_hover_hsv_delta)
-    Gs.colors.button_pressed_color = _derive_color_from_hsva_delta( \
+    Gs.colors.button_pressed_color = _derive_color_from_hsva_delta(
             Gs.colors.button_color, Gs.colors.button_pressed_hsv_delta)
     
     Gs.colors.dropdown_normal_color = Gs.colors.dropdown_color
-    Gs.colors.dropdown_disabled_color = _derive_color_from_hsva_delta( \
+    Gs.colors.dropdown_disabled_color = _derive_color_from_hsva_delta(
             Gs.colors.dropdown_color, Gs.colors.dropdown_disabled_hsv_delta)
-    Gs.colors.dropdown_focused_color = _derive_color_from_hsva_delta( \
+    Gs.colors.dropdown_focused_color = _derive_color_from_hsva_delta(
             Gs.colors.dropdown_color, Gs.colors.dropdown_focused_hsv_delta)
-    Gs.colors.dropdown_hover_color = _derive_color_from_hsva_delta( \
+    Gs.colors.dropdown_hover_color = _derive_color_from_hsva_delta(
             Gs.colors.dropdown_color, Gs.colors.dropdown_hover_hsv_delta)
-    Gs.colors.dropdown_pressed_color = _derive_color_from_hsva_delta( \
+    Gs.colors.dropdown_pressed_color = _derive_color_from_hsva_delta(
             Gs.colors.dropdown_color, Gs.colors.dropdown_pressed_hsv_delta)
     
-    Gs.colors.popup_background_color = _derive_color_from_hsva_delta( \
+    Gs.colors.popup_background_color = _derive_color_from_hsva_delta(
             Gs.colors.background_color, Gs.colors.popup_background_hsv_delta)
     
     Gs.colors.zebra_stripe_even_row_color = \
-            _derive_color_from_hsva_delta( \
+            _derive_color_from_hsva_delta(
                     Gs.colors.background_color,
                     Gs.colors.zebra_stripe_even_row_color_hsv_delta)
     
     Gs.colors.scroll_bar_background_color = \
-            _derive_color_from_hsva_delta( \
+            _derive_color_from_hsva_delta(
                     Gs.colors.background_color,
                     Gs.colors.scroll_bar_background_hsv_delta)
     Gs.colors.scroll_bar_grabber_normal_color = \
-            _derive_color_from_hsva_delta( \
+            _derive_color_from_hsva_delta(
                     Gs.colors.button_color,
                     Gs.colors.scroll_bar_grabber_normal_hsv_delta)
     Gs.colors.scroll_bar_grabber_hover_color = \
-            _derive_color_from_hsva_delta( \
+            _derive_color_from_hsva_delta(
                     Gs.colors.scroll_bar_grabber_normal_color,
                     Gs.colors.scroll_bar_grabber_hover_hsv_delta)
     Gs.colors.scroll_bar_grabber_pressed_color = \
-            _derive_color_from_hsva_delta( \
+            _derive_color_from_hsva_delta(
                     Gs.colors.scroll_bar_grabber_normal_color,
                     Gs.colors.scroll_bar_grabber_pressed_hsv_delta)
 
-func _derive_color_from_hsva_delta( \
+func _derive_color_from_hsva_delta(
         base_color: Color,
         delta_hsva: Dictionary) -> Color:
-    return Color.from_hsv( \
+    return Color.from_hsv(
             base_color.h + delta_hsva.h,
             base_color.s + delta_hsva.s,
             base_color.v + delta_hsva.v,

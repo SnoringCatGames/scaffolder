@@ -39,7 +39,7 @@ func _enter_tree() -> void:
     for config in _DEFAULT_LAYERS_CONFIG:
         create_layer(config.name, config.z_index, config.pause_mode)
 
-func create_layer( \
+func create_layer(
         name: String,
         z_index: int,
         pause_mode: int) -> CanvasLayer:

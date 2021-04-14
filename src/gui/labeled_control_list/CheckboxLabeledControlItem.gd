@@ -5,10 +5,10 @@ var TYPE := LabeledControlItem.CHECKBOX
 
 var pressed := false
 
-func _init( \
+func _init(
         label: String,
         description: String \
-        ).( \
+        ).(
         TYPE,
         label,
         description \
@@ -16,12 +16,12 @@ func _init( \
     pass
 
 func on_pressed(pressed: bool) -> void:
-    Gs.logger.error( \
+    Gs.logger.error(
             "Abstract CheckboxLabeledControlItem.on_pressed " + \
             "is not implemented")
 
 func get_is_pressed() -> bool:
-    Gs.logger.error( \
+    Gs.logger.error(
             "Abstract CheckboxLabeledControlItem.get_is_pressed " + \
             "is not implemented")
     return false

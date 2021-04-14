@@ -10,7 +10,7 @@ const DESCRIPTION := \
         "The debug panel is shown as a transparent overlay covering the " + \
         "entire screen."
 
-func _init(__ = null).( \
+func _init(__ = null).(
         LABEL,
         DESCRIPTION \
         ) -> void:
@@ -18,7 +18,7 @@ func _init(__ = null).( \
 
 func on_pressed(pressed: bool) -> void:
     Gs.is_debug_panel_shown = pressed
-    Gs.save_state.set_setting( \
+    Gs.save_state.set_setting(
             Gs.IS_DEBUG_PANEL_SHOWN_SETTINGS_KEY,
             Gs.is_debug_panel_shown)
 

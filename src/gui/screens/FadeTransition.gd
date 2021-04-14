@@ -12,7 +12,7 @@ func _enter_tree() -> void:
     add_child(tween)
 
 func _ready() -> void:
-    Gs.utils.connect( \
+    Gs.utils.connect(
             "display_resized",
             self,
             "_on_resized")
@@ -35,7 +35,7 @@ func _fade_out() -> void:
         tween.disconnect("tween_completed", self, "_on_tween_complete")
     tween.connect("tween_completed", self, "_fade_in")
     _set_mask(Gs.fade_out_transition_texture)
-    tween.interpolate_method( \
+    tween.interpolate_method(
             self,
             "_set_cutoff",
             1.0,
@@ -45,7 +45,7 @@ func _fade_out() -> void:
             Tween.EASE_IN)
     tween.start()
 
-func _fade_in( \
+func _fade_in(
         _object: Object,
         _key: NodePath) -> void:
     tween.stop_all()
@@ -55,7 +55,7 @@ func _fade_in( \
         tween.disconnect("tween_completed", self, "_on_tween_complete")
     tween.connect("tween_completed", self, "_on_tween_complete")
     _set_mask(Gs.fade_in_transition_texture)
-    tween.interpolate_method( \
+    tween.interpolate_method(
             self,
             "_set_cutoff",
             0.0,
@@ -66,16 +66,16 @@ func _fade_in( \
     tween.start()
 
 func _set_mask(value: Texture) -> void:
-    material.set_shader_param( \
+    material.set_shader_param(
             "mask",
             value)
 
 func _set_cutoff(value: float) -> void:
-    material.set_shader_param( \
+    material.set_shader_param(
             "cutoff",
             value)
 
-func _on_tween_complete( \
+func _on_tween_complete(
         _object: Object,
         _key: NodePath) -> void:
     is_transitioning = false

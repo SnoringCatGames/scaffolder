@@ -29,7 +29,7 @@ func unpause() -> void:
 
 # TODO: Replace this with any built-in feature whenever it exists
 #       (https://github.com/godotengine/godot/issues/4715).
-static func subarray( \
+static func subarray(
         array: Array,
         start: int,
         length := -1) -> Array:
@@ -43,7 +43,7 @@ static func subarray( \
 
 # TODO: Replace this with any built-in feature whenever it exists
 #       (https://github.com/godotengine/godot/issues/4715).
-static func sub_pool_vector2_array( \
+static func sub_pool_vector2_array(
         array: PoolVector2Array,
         start: int,
         length := -1) -> PoolVector2Array:
@@ -57,7 +57,7 @@ static func sub_pool_vector2_array( \
 
 # TODO: Replace this with any built-in feature whenever it exists
 #       (https://github.com/godotengine/godot/issues/4715).
-static func concat( \
+static func concat(
         result: Array,
         other: Array) -> void:
     var old_result_size := result.size()
@@ -66,7 +66,7 @@ static func concat( \
     for i in other_size:
         result[old_result_size + i] = other[i]
 
-static func join( \
+static func join(
         array,
         delimiter := ",") -> String:
     assert(array is Array or array is PoolStringArray)
@@ -84,7 +84,7 @@ static func array_to_set(array: Array) -> Dictionary:
         set[element] = element
     return set
 
-static func translate_polyline( \
+static func translate_polyline(
         vertices: PoolVector2Array,
         translation: Vector2) \
         -> PoolVector2Array:
@@ -94,7 +94,7 @@ static func translate_polyline( \
         result[i] = vertices[i] + translation
     return result
 
-static func get_children_by_type( \
+static func get_children_by_type(
         parent: Node,
         type,
         recursive := false) -> Array:
@@ -103,13 +103,13 @@ static func get_children_by_type( \
         if child is type:
             result.push_back(child)
         if recursive:
-            get_children_by_type( \
+            get_children_by_type(
                     child,
                     type,
                     recursive)
     return result
 
-static func get_child_by_type( \
+static func get_child_by_type(
         parent: Node,
         type,
         recursive := false) -> Node:
@@ -126,7 +126,7 @@ static func get_which_wall_collided_for_body(body: KinematicBody2D) -> int:
                 return side
     return SurfaceSide.NONE
 
-static func get_which_surface_side_collided( \
+static func get_which_surface_side_collided(
         collision: KinematicCollision2D) -> int:
     if abs(collision.normal.angle_to(Gs.geometry.UP)) <= \
             Gs.geometry.FLOOR_MAX_ANGLE:
@@ -146,7 +146,7 @@ static func get_floor_friction_multiplier(body: KinematicBody2D) -> float:
         return collision.collider.collision_friction
     return 0.0
 
-static func _get_floor_collision( \
+static func _get_floor_collision(
         body: KinematicBody2D) -> KinematicCollision2D:
     if body.is_on_floor():
         for i in body.get_slide_count():
@@ -156,7 +156,7 @@ static func _get_floor_collision( \
                 return collision
     return null
 
-func add_scene( \
+func add_scene(
         parent: Node,
         resource_path: String,
         is_attached := true,
@@ -188,7 +188,7 @@ func add_overlay_to_current_scene(node: Node) -> void:
 
 func vibrate() -> void:
     if Gs.is_giving_haptic_feedback:
-        Input.vibrate_handheld( \
+        Input.vibrate_handheld(
                 Gs.input_vibrate_duration_sec * 1000)
 
 func give_button_press_feedback(is_fancy := false) -> void:
@@ -224,7 +224,7 @@ static func ease_name_to_param(name: String) -> float:
             ScaffolderLog.static_error()
             return INF
 
-static func ease_by_name( \
+static func ease_by_name(
         progress: float,
         ease_name: String) -> float:
     return ease(progress, ease_name_to_param(ease_name))
@@ -301,7 +301,7 @@ func get_viewport_diagonal_inches() -> float:
 
 func get_viewport_safe_area() -> Rect2:
     var os_safe_area := OS.get_window_safe_area()
-    return Rect2( \
+    return Rect2(
             os_safe_area.position / get_screen_scale(),
             os_safe_area.size / get_screen_scale())
 
@@ -320,7 +320,7 @@ func get_safe_area_margin_right() -> float:
 static func floor_vector(v: Vector2) -> Vector2:
     return Vector2(floor(v.x), floor(v.y))
 
-static func mix( \
+static func mix(
         values: Array,
         weights: Array):
     assert(values.size() == weights.size())
@@ -353,7 +353,7 @@ static func mix( \
     
     return weighted_average
 
-static func mix_colors( \
+static func mix_colors(
         colors: Array,
         weights: Array) -> Color:
     assert(colors.size() == weights.size())
@@ -392,7 +392,7 @@ static func get_datetime_string() -> String:
         datetime.second,
     ]
 
-static func get_time_string_from_seconds( \
+static func get_time_string_from_seconds(
         time_sec: float,
         includes_ms := false,
         includes_empty_hours := true,
@@ -460,7 +460,7 @@ func ensure_directory_exists(path: String) -> bool:
         return false
     return true
 
-func clear_directory( \
+func clear_directory(
         path: String,
         also_deletes_directory := false) -> void:
     # Open directory.
@@ -492,7 +492,7 @@ func clear_directory( \
         if status != OK:
             Gs.logger.error("Failed to delete directory", false)
 
-static func get_last_x_lines_from_file( \
+static func get_last_x_lines_from_file(
         path: String,
         x: int) -> Array:
     var file := File.new()
@@ -506,7 +506,7 @@ static func get_last_x_lines_from_file( \
     file.close()
     return buffer.get_items()
 
-func set_mouse_filter_recursively( \
+func set_mouse_filter_recursively(
         node: Node,
         mouse_filter: int) -> void:
     for child in node.get_children():
@@ -528,11 +528,11 @@ func _scale_gui_for_current_screen_size(gui) -> void:
     if old_gui_scale != new_gui_scale:
         var relative_scale := new_gui_scale / old_gui_scale
         Gs.guis_to_scale[gui] = new_gui_scale
-        Gs.utils._scale_gui_recursively( \
+        Gs.utils._scale_gui_recursively(
                 gui,
                 relative_scale)
 
-func _scale_gui_recursively( \
+func _scale_gui_recursively(
         gui,
         gui_scale: float) -> void:
     var snap_epsilon := 0.001
@@ -586,10 +586,10 @@ func _scale_gui_recursively( \
         control.rect_size = next_rect_size
     
 #    control.rect_position /= gui_scale
-#    control.rect_position = Gs.geometry.snap_vector2_to_integers( \
+#    control.rect_position = Gs.geometry.snap_vector2_to_integers(
 #            control.rect_position, snap_epsilon)
 #    control.rect_pivot_offset *= gui_scale
-#    control.rect_pivot_offset = Gs.geometry.snap_vector2_to_integers( \
+#    control.rect_pivot_offset = Gs.geometry.snap_vector2_to_integers(
 #            control.rect_pivot_offset, snap_epsilon)
     
     for child in control.get_children():
@@ -601,7 +601,7 @@ func _scale_gui_recursively( \
     if explicitly_updates_rect_size:
         control.rect_size = next_rect_size
 
-func get_node_vscroll_position( \
+func get_node_vscroll_position(
         scroll_container: ScrollContainer,
         control: Control) -> int:
     var scroll_container_global_position := \
@@ -628,7 +628,7 @@ func release_focus(control = null) -> void:
         _focus_releaser.grab_focus()
         _focus_releaser.release_focus()
 
-static func get_collection_from_exclusions_and_inclusions( \
+static func get_collection_from_exclusions_and_inclusions(
         default: Array,
         exclusions: Array,
         inclusions: Array) -> Array:
@@ -667,11 +667,11 @@ func create_stylebox_flat_scalable(config) -> StyleBoxFlatScalable:
         Gs.logger.error()
         return null
 
-func _create_stylebox_flat_scalable_from_config( \
+func _create_stylebox_flat_scalable_from_config(
         config: Dictionary) -> StyleBoxFlatScalable:
     var stylebox: StyleBoxFlatScalable
     if config.has("stylebox"):
-        stylebox = _create_stylebox_flat_scalable_from_stylebox( \
+        stylebox = _create_stylebox_flat_scalable_from_stylebox(
                 config.stylebox)
     else:
         stylebox = StyleBoxFlatScalable.new()
@@ -709,7 +709,7 @@ func _create_stylebox_flat_scalable_from_config( \
     stylebox.ready()
     return stylebox
 
-func _create_stylebox_flat_scalable_from_stylebox( \
+func _create_stylebox_flat_scalable_from_stylebox(
         old: StyleBox) -> StyleBoxFlatScalable:
     var new := StyleBoxFlatScalable.new()
     
@@ -850,7 +850,7 @@ func encode_vector2(value: Vector2) -> String:
 
 func decode_vector2(value: String) -> Vector2:
     var comma_index := value.find(",")
-    return Vector2( \
+    return Vector2(
             float(value.substr(0, comma_index - 1)),
             float(value.substr(comma_index + 1)))
 
@@ -860,7 +860,7 @@ func encode_vector3(value: Vector3) -> String:
 func decode_vector3(value: String) -> Vector3:
     var comma_index_1 := value.find(",")
     var comma_index_2 := value.find(",", comma_index_1 + 1)
-    return Vector3( \
+    return Vector3(
             float(value.substr(0, comma_index_1 - 1)),
             float(value.substr(comma_index_1 + 1,
                     comma_index_2 - comma_index_1 - 1)),
@@ -878,7 +878,7 @@ func decode_rect2(value: String) -> Rect2:
     var comma_index_1 := value.find(",")
     var comma_index_2 := value.find(",", comma_index_1 + 1)
     var comma_index_3 := value.find(",", comma_index_2 + 1)
-    return Rect2( \
+    return Rect2(
             float(value.substr(0, comma_index_1 - 1)),
             float(value.substr(comma_index_1 + 1,
                     comma_index_2 - comma_index_1 - 1)),
@@ -899,7 +899,7 @@ func decode_color(value: String) -> Color:
     var comma_index_2 := value.find(",", comma_index_1 + 1)
     var comma_index_3 := value.find(",", comma_index_2 + 1)
     if comma_index_3 >= 0:
-        return Color( \
+        return Color(
                 float(value.substr(0, comma_index_1 - 1)),
                 float(value.substr(comma_index_1 + 1,
                         comma_index_2 - comma_index_1 - 1)),
@@ -907,7 +907,7 @@ func decode_color(value: String) -> Color:
                         comma_index_3 - comma_index_2 - 1)),
                 float(value.substr(comma_index_3 + 1)))
     else:
-        return Color( \
+        return Color(
                 float(value.substr(0, comma_index_1 - 1)),
                 float(value.substr(comma_index_1 + 1,
                         comma_index_2 - comma_index_1 - 1)),

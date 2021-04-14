@@ -43,14 +43,14 @@ func init_children() -> void:
     add_stylebox_override("hover", hover_stylebox)
     add_stylebox_override("pressed", pressed_stylebox)
     
-    Gs.utils.set_mouse_filter_recursively( \
+    Gs.utils.set_mouse_filter_recursively(
             self,
             Control.MOUSE_FILTER_IGNORE)
 
 func update_size(header_size: Vector2) -> void:
     rect_min_size = header_size
     
-    $HBoxContainer.add_constant_override( \
+    $HBoxContainer.add_constant_override(
             "separation",
             PADDING.x * Gs.gui_scale)
     $HBoxContainer.rect_min_size = header_size

@@ -13,7 +13,7 @@ var type: int
 var description: String
 var enabled := true
 
-func _init( \
+func _init(
         type: int,
         label: String,
         description: String) -> void:
@@ -22,6 +22,6 @@ func _init( \
     self.description = description
 
 func get_is_enabled() -> bool:
-    Gs.logger.error( \
+    Gs.logger.error(
             "Abstract LabeledControlItem.get_is_enabled is not implemented")
     return false

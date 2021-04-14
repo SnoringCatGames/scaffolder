@@ -58,7 +58,7 @@ var items := [null]
 var maintain_min: bool
 var last_power_of_two := 0
 
-func _init( \
+func _init(
         items := [],
         set_maintain_min := true) -> void:
     # Determines whether the smallest or largest value is maintained at the top.
@@ -105,7 +105,7 @@ func get_root_priority():
 
 func get_item_priority(index: int):
     if index + 1 > current_size or index < 0:
-        print( \
+        print(
                 str(OS.get_ticks_msec()) + \
                 ": PRIORITY QUEUE (" + \
                 str(get_instance_id()) + \
@@ -118,7 +118,7 @@ func get_item_priority(index: int):
 
 func get_item_value(index: int):
     if index + 1 > current_size or index < 0:
-        print( \
+        print(
                 str(OS.get_ticks_msec()) + \
                 ": PRIORITY QUEUE (" + \
                 str(get_instance_id()) + \
@@ -143,7 +143,7 @@ func get_size() -> int:
 func insert(priority, value) -> bool:
     # Check validity of input.
     if typeof(priority) != TYPE_INT and typeof(priority) != TYPE_REAL:
-        print( \
+        print(
                 str(OS.get_ticks_msec()) + \
                 ": PRIORITY QUEUE (" + \
                 str(get_instance_id()) + \
@@ -174,7 +174,7 @@ func insert(priority, value) -> bool:
 # - Percolate down while heap-order not satisfied.
 func remove_root(return_array := false):
     if is_empty:
-        print( \
+        print(
                 str(OS.get_ticks_msec()) + \
                 ": PRIORITY QUEUE (" + \
                 str(get_instance_id()) + \
@@ -206,7 +206,7 @@ func remove_root(return_array := false):
 # - Priority must be higher than the one at root.
 func remove(index: int):
     if index + 1 > current_size or index < 0:
-        print( \
+        print(
                 str(OS.get_ticks_msec()) + \
                 ": PRIORITY QUEUE (" + \
                 str(get_instance_id()) + \
@@ -230,7 +230,7 @@ func remove(index: int):
 # Put items of both queues into a new list.
 # 
 # Create new queue with those items and return that queue.
-func merge_with( \
+func merge_with(
         priority_queue: PriorityQueue,
         set_maintain_min = true) -> PriorityQueue:
     var list: = []
@@ -336,7 +336,7 @@ func _percolate_up(hole) -> void:
 func _change_priority(index: int, new_priority) -> bool:
     if index < 0 or index + 1 > current_size:
         # Invalid index for array. Abort.
-        print( \
+        print(
                 str(OS.get_ticks_msec()) + \
                 ": PRIORITY QUEUE (" + \
                 str(get_instance_id()) + \
@@ -347,7 +347,7 @@ func _change_priority(index: int, new_priority) -> bool:
     
     if typeof(new_priority) != TYPE_INT and typeof(new_priority) != TYPE_REAL:
         # Invalid priority parameter. Abort.
-        print( \
+        print(
                 str(OS.get_ticks_msec()) + \
                 ": PRIORITY QUEUE (" + \
                 str(get_instance_id()) + \

@@ -56,12 +56,12 @@ func _sanitize_level_configs() -> void:
         number += 1
 
 func get_level_config(level_id: String) -> Dictionary:
-    Gs.logger.error( \
+    Gs.logger.error(
             "Abstract ScaffolderLevelConfig.get_level_config is not implemented")
     return {}
 
 func get_level_ids() -> Array:
-    Gs.logger.error( \
+    Gs.logger.error(
             "Abstract ScaffolderLevelConfig.get_level_ids is not implemented")
     return []
 
@@ -103,7 +103,7 @@ func _check_if_level_meets_unlock_conditions(level_id: String) -> bool:
     return get_unlock_hint(level_id) == ""
 
 func get_unlock_hint(level_id: String) -> String:
-    Gs.logger.error( \
+    Gs.logger.error(
             "Abstract ScaffolderLevelConfig.get_unlock_hint is not implemented")
     return "Not yet unlocked" if \
             !Gs.save_state.get_level_is_unlocked(level_id) else \
@@ -123,7 +123,7 @@ func get_next_level_to_unlock() -> String:
         return _level_configs_by_number[locked_level_numbers.front()].id
 
 func get_suggested_next_level() -> String:
-    Gs.logger.error( \
+    Gs.logger.error(
             "Abstract ScaffolderLevelConfig.get_suggested_next_level " + \
             "is not implemented")
     return _level_configs_by_number[1].id

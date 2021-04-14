@@ -6,7 +6,7 @@ const LAYER_NAME := "game_screen"
 const AUTO_ADAPTS_GUI_SCALE := true
 const INCLUDES_STANDARD_HIERARCHY := false
 
-func _init().( \
+func _init().(
         NAME,
         LAYER_NAME,
         AUTO_ADAPTS_GUI_SCALE,
@@ -69,7 +69,7 @@ func start_level(level_id: String) -> void:
     if is_instance_valid(Gs.level):
         return
     
-    var level := Gs.utils.add_scene( \
+    var level := Gs.utils.add_scene(
             null,
             Gs.level_config.get_level_config(level_id).scene_path,
             false,
