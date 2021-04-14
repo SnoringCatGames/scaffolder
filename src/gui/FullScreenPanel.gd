@@ -10,7 +10,7 @@ func _enter_tree() -> void:
     if Engine.editor_hint:
         rect_size = Vector2(960, 960)
     else:
-        Gs.utils.connect( \
+        Gs.utils.connect(
                 "display_resized",
                 self,
                 "_on_resized")

@@ -21,7 +21,7 @@ func _record_new_gesture_event(event: InputEvent) -> void:
     else:
         Gs.logger.error()
         return
-    var gesture_event := GestureEventForDebugging.new( \
+    var gesture_event := GestureEventForDebugging.new(
             event.position,
             gesture_name,
             Gs.time.elapsed_play_time_actual_sec)
@@ -35,7 +35,7 @@ class GestureEventForDebugging extends Reference:
     var name: String
     var time_sec: float
     
-    func _init( \
+    func _init(
             position: Vector2,
             name: String,
             time_sec: float) -> void:

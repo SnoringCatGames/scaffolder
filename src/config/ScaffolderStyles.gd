@@ -32,29 +32,29 @@ func register_styles(manifest: Dictionary) -> void:
     self.scroll_grabber_corner_detail = manifest.scroll_grabber_corner_detail
 
 func configure_theme() -> void:
-    _configure_theme_color( \
+    _configure_theme_color(
             "font_color", "Label", Gs.colors.font_color)
-    _configure_theme_color( \
+    _configure_theme_color(
             "font_color", "Button", Gs.colors.font_color)
-    _configure_theme_color( \
+    _configure_theme_color(
             "font_color", "CheckBox", Gs.colors.font_color)
-    _configure_theme_color( \
+    _configure_theme_color(
             "font_color", "ItemList", Gs.colors.font_color)
-    _configure_theme_color( \
+    _configure_theme_color(
             "font_color", "OptionButton", Gs.colors.font_color)
-    _configure_theme_color( \
+    _configure_theme_color(
             "font_color", "PopupMenu", Gs.colors.font_color)
-    _configure_theme_color( \
+    _configure_theme_color(
             "font_color", "Tree", Gs.colors.font_color)
     
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "disabled", "Button", {
                 bg_color = Gs.colors.button_disabled_color,
                 corner_radius = Gs.styles.button_corner_radius,
                 corner_detail = Gs.styles.button_corner_detail,
                 shadow_size = round(Gs.styles.button_shadow_size * 0.0),
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "focused", "Button", {
                 bg_color = Gs.colors.button_focused_color,
                 corner_radius = Gs.styles.button_corner_radius,
@@ -62,7 +62,7 @@ func configure_theme() -> void:
                 shadow_size = round(Gs.styles.button_shadow_size * 1.5),
                 shadow_color = Color.from_hsv(0, 0, 0, 0.5),
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "hover", "Button", {
                 bg_color = Gs.colors.button_hover_color,
                 corner_radius = Gs.styles.button_corner_radius,
@@ -70,14 +70,14 @@ func configure_theme() -> void:
                 shadow_size = round(Gs.styles.button_shadow_size * 1.5),
                 shadow_color = Color.from_hsv(0, 0, 0, 0.5),
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "normal", "Button", {
                 bg_color = Gs.colors.button_normal_color,
                 corner_radius = Gs.styles.button_corner_radius,
                 corner_detail = Gs.styles.button_corner_detail,
                 shadow_size = Gs.styles.button_shadow_size,
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "pressed", "Button", {
                 bg_color = Gs.colors.button_pressed_color,
                 corner_radius = Gs.styles.button_corner_radius,
@@ -85,95 +85,95 @@ func configure_theme() -> void:
                 shadow_size = round(Gs.styles.button_shadow_size * 0.2),
             })
     
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "disabled", "OptionButton", {
                 bg_color = Gs.colors.dropdown_disabled_color,
                 corner_radius = Gs.styles.dropdown_corner_radius,
                 corner_detail = Gs.styles.dropdown_corner_detail,
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "focused", "OptionButton", {
                 bg_color = Gs.colors.dropdown_focused_color,
                 corner_radius = Gs.styles.dropdown_corner_radius,
                 corner_detail = Gs.styles.dropdown_corner_detail,
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "hover", "OptionButton", {
                 bg_color = Gs.colors.dropdown_hover_color,
                 corner_radius = Gs.styles.dropdown_corner_radius,
                 corner_detail = Gs.styles.dropdown_corner_detail,
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "normal", "OptionButton", {
                 bg_color = Gs.colors.dropdown_normal_color,
                 corner_radius = Gs.styles.dropdown_corner_radius,
                 corner_detail = Gs.styles.dropdown_corner_detail,
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "pressed", "OptionButton", {
                 bg_color = Gs.colors.dropdown_pressed_color,
                 corner_radius = Gs.styles.dropdown_corner_radius,
                 corner_detail = Gs.styles.dropdown_corner_detail,
             })
     
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "panel", "PopupMenu", Gs.colors.popup_background_color)
     
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "scroll", "HScrollBar", {
                 bg_color = Gs.colors.scroll_bar_background_color,
                 corner_radius = Gs.styles.scroll_corner_radius,
                 corner_detail = Gs.styles.scroll_corner_detail,
                 content_margin = Gs.styles.scroll_content_margin,
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "grabber", "HScrollBar", {
                 bg_color = Gs.colors.scroll_bar_grabber_normal_color,
                 corner_radius = Gs.styles.scroll_grabber_corner_radius,
                 corner_detail = Gs.styles.scroll_grabber_corner_detail,
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "grabber_highlight", "HScrollBar", {
                 bg_color = Gs.colors.scroll_bar_grabber_hover_color,
                 corner_radius = Gs.styles.scroll_grabber_corner_radius,
                 corner_detail = Gs.styles.scroll_grabber_corner_detail,
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "grabber_pressed", "HScrollBar", {
                 bg_color = Gs.colors.scroll_bar_grabber_pressed_color,
                 corner_radius = Gs.styles.scroll_grabber_corner_radius,
                 corner_detail = Gs.styles.scroll_grabber_corner_detail,
             })
     
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "scroll", "VScrollBar", {
                 bg_color = Gs.colors.scroll_bar_background_color,
                 corner_radius = Gs.styles.scroll_corner_radius,
                 corner_detail = Gs.styles.scroll_corner_detail,
                 content_margin = Gs.styles.scroll_content_margin,
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "grabber", "VScrollBar", {
                 bg_color = Gs.colors.scroll_bar_grabber_normal_color,
                 corner_radius = Gs.styles.scroll_grabber_corner_radius,
                 corner_detail = Gs.styles.scroll_grabber_corner_detail,
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "grabber_highlight", "VScrollBar", {
                 bg_color = Gs.colors.scroll_bar_grabber_hover_color,
                 corner_radius = Gs.styles.scroll_grabber_corner_radius,
                 corner_detail = Gs.styles.scroll_grabber_corner_detail,
             })
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "grabber_pressed", "VScrollBar", {
                 bg_color = Gs.colors.scroll_bar_grabber_pressed_color,
                 corner_radius = Gs.styles.scroll_grabber_corner_radius,
                 corner_detail = Gs.styles.scroll_grabber_corner_detail,
             })
     
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "panel", "Panel", Gs.colors.background_color)
-    _configure_theme_stylebox( \
+    _configure_theme_stylebox(
             "panel", "PanelContainer", Gs.colors.background_color)
     
     _configure_theme_stylebox_empty("disabled", "CheckBox")
@@ -186,14 +186,14 @@ func configure_theme() -> void:
     if Gs.theme.default_font == null:
         Gs.theme.default_font = Gs.fonts.main_m
 
-func _configure_theme_color( \
+func _configure_theme_color(
         name: String,
         type: String,
         color: Color) -> void:
     if !Gs.theme.has_color(name, type):
         Gs.theme.set_color(name, type, color)
 
-func _configure_theme_stylebox( \
+func _configure_theme_stylebox(
         name: String,
         type: String,
         config) -> void:
@@ -207,7 +207,7 @@ func _configure_theme_stylebox( \
                 Gs.utils.create_stylebox_flat_scalable(old)
         Gs.theme.set_stylebox(name, type, new)
 
-func _configure_theme_stylebox_empty( \
+func _configure_theme_stylebox_empty(
         name: String,
         type: String) -> void:
     if !Gs.theme.has_stylebox(name, type):

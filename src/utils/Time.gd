@@ -103,11 +103,11 @@ func _get_elapsed_play_time_actual_sec() -> float:
 func _get_elapsed_play_time_modified_sec() -> float:
     return _play_time.elapsed_time_modified_sec
 
-func set_timeout( \
+func set_timeout(
         callback: FuncRef,
         delay_sec: float,
         arguments := []) -> int:
-    var timeout := _Timeout.new( \
+    var timeout := _Timeout.new(
             callback,
             _elapsed_latest_time_sec + delay_sec,
             arguments)
@@ -123,7 +123,7 @@ class _Timeout extends Reference:
     var arguments: Array
     var id: int
     
-    func _init( \
+    func _init(
             callback: FuncRef,
             time_sec: float,
             arguments: Array) -> void:
@@ -162,11 +162,11 @@ class _Timeout extends Reference:
             _:
                 Gs.logger.error()
 
-func set_interval( \
+func set_interval(
         callback: FuncRef,
         interval_sec: float,
         arguments := []) -> int:
-    var interval := _Interval.new( \
+    var interval := _Interval.new(
             callback,
             interval_sec,
             arguments)
@@ -183,7 +183,7 @@ class _Interval extends Reference:
     var id: int
     var next_trigger_time_sec: float
     
-    func _init( \
+    func _init(
             callback: FuncRef,
             interval_sec: float,
             arguments: Array) -> void:
@@ -226,15 +226,15 @@ class _Interval extends Reference:
             _:
                 Gs.logger.error()
 
-func throttle( \
+func throttle(
         callback: FuncRef,
         interval_sec: float,
         invokes_at_end := true) -> FuncRef:
-    var throttler := _Throttler.new( \
+    var throttler := _Throttler.new(
             callback,
             interval_sec,
             invokes_at_end)
-    var throttled_callback := funcref( \
+    var throttled_callback := funcref(
             throttler,
             "on_call")
     _throttled_callbacks[throttled_callback] = throttler
@@ -258,7 +258,7 @@ class _Throttler extends Reference:
     var _last_call_time_sec := -INF
     var _is_callback_scheduled := false
     
-    func _init( \
+    func _init(
             callback: FuncRef,
             interval_sec: float,
             invokes_at_end: bool) -> void:
@@ -274,7 +274,7 @@ class _Throttler extends Reference:
             if current_call_time_sec > next_call_time_sec:
                 _trigger_callback()
             elif _invokes_at_end:
-                _last_timeout_id = Gs.time.set_timeout( \
+                _last_timeout_id = Gs.time.set_timeout(
                         _trigger_callback_callback,
                         next_call_time_sec - current_call_time_sec)
                 _is_callback_scheduled = true

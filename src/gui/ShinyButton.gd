@@ -41,7 +41,7 @@ func _ready() -> void:
     button_style_pressed = \
             $MarginContainer/BottomButton.get_stylebox("pressed")
     
-    Gs.utils.connect( \
+    Gs.utils.connect(
             "display_resized", self, "update")
     update()
 
@@ -88,7 +88,7 @@ func _deferred_update() -> void:
             Gs.fonts.main_xl if \
             is_font_xl else \
             Gs.fonts.main_m
-    $MarginContainer/BottomButton.add_font_override( \
+    $MarginContainer/BottomButton.add_font_override(
             "font",
             font)
     
@@ -97,24 +97,24 @@ func _deferred_update() -> void:
     
     color_pulse_tween.stop_all()
     Gs.time.clear_interval(color_pulse_interval_id)
-    $MarginContainer/BottomButton.add_stylebox_override( \
+    $MarginContainer/BottomButton.add_stylebox_override(
             "normal",
             button_style_normal)
     
     if is_shiny:
         _trigger_shine()
-        shine_interval_id = Gs.time.set_interval( \
+        shine_interval_id = Gs.time.set_interval(
                 funcref(self, "_trigger_shine"),
                 SHINE_INTERVAL_SEC)
     
     if includes_color_pulse:
         _trigger_color_pulse()
-        color_pulse_interval_id = Gs.time.set_interval( \
+        color_pulse_interval_id = Gs.time.set_interval(
                 funcref(self, "_trigger_color_pulse"),
                 COLOR_PULSE_INTERVAL_SEC)
 
 func _trigger_shine() -> void:
-    shine_tween.interpolate_property( \
+    shine_tween.interpolate_property(
             $MarginContainer/ShineLineWrapper/ShineLine,
             "position:x",
             shine_start_x,
@@ -141,7 +141,7 @@ func _trigger_color_pulse() -> void:
     $MarginContainer/BottomButton \
             .add_stylebox_override("normal", button_style_pulse)
     
-    color_pulse_tween.interpolate_property( \
+    color_pulse_tween.interpolate_property(
             button_style_pulse,
             "bg_color",
             color_original,
@@ -149,7 +149,7 @@ func _trigger_color_pulse() -> void:
             pulse_half_duration,
             Tween.TRANS_SINE,
             Tween.EASE_IN_OUT)
-    color_pulse_tween.interpolate_property( \
+    color_pulse_tween.interpolate_property(
             button_style_pulse,
             "bg_color",
             color_pulse,

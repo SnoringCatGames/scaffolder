@@ -94,7 +94,7 @@ func animate_to_zoom(zoom: float) -> void:
             zoom_tween.is_active() else \
             _get_zoom()
     zoom_tween.stop(self)
-    zoom_tween.interpolate_property( \
+    zoom_tween.interpolate_property(
             self,
             "zoom",
             start_zoom,

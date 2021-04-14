@@ -10,7 +10,7 @@ const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := true
 const INCLUDES_CENTER_CONTAINER := true
 
-func _init().( \
+func _init().(
         NAME,
         LAYER_NAME,
         AUTO_ADAPTS_GUI_SCALE,

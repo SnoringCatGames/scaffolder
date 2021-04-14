@@ -4,7 +4,7 @@ extends TextLabeledControlItem
 const LABEL := "Current score:"
 const DESCRIPTION := ""
 
-func _init(__ = null).( \
+func _init(__ = null).(
         LABEL,
         DESCRIPTION \
         ) -> void:

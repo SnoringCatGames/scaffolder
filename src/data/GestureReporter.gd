@@ -34,14 +34,14 @@ func record_recent_gestures() -> void:
     
     var request := HTTPRequest.new()
     request.use_threads = true
-    request.connect( \
+    request.connect(
             "request_completed",
             self,
             "_on_record_recent_gestures_request_completed",
             [request])
     add_child(request)
     
-    var status: int = request.request( \
+    var status: int = request.request(
             url,
             HEADERS,
             true,
@@ -49,18 +49,18 @@ func record_recent_gestures() -> void:
             body_str)
     
     if status != OK:
-        Gs.logger.error( \
+        Gs.logger.error(
                 "GestureReporter.record_recent_gestures failed: " + \
                 "status=%d" % status,
                 false)
 
-func _on_record_recent_gestures_request_completed( \
+func _on_record_recent_gestures_request_completed(
         result: int,
         response_code: int,
         headers: PoolStringArray,
         body: PoolByteArray,
         request: HTTPRequest) -> void:
-    Gs.logger.print( \
+    Gs.logger.print(
             ("GestureReporter._on_record_recent_gestures_request_completed: " + \
             "result=%d, code=%d") % \
             [result, response_code])
@@ -68,6 +68,6 @@ func _on_record_recent_gestures_request_completed( \
             response_code < 200 or \
             response_code >= 300:
         Gs.logger.print("  Body:\n    " + body.get_string_from_utf8())
-        Gs.logger.print( \
+        Gs.logger.print(
                 "  Headers:\n    " + Gs.utils.join(headers, ",\n    "))
     request.queue_free()

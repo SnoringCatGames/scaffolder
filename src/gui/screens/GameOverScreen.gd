@@ -18,7 +18,7 @@ var time: String
 var reached_new_high_score: bool
 var new_unlocked_levels: Array
 
-func _init().( \
+func _init().(
         NAME,
         LAYER_NAME,
         AUTO_ADAPTS_GUI_SCALE,
@@ -78,7 +78,7 @@ func _get_default_item_classes() -> Array:
 
 func _get_items() -> Array:
     var item_classes := \
-            Gs.utils.get_collection_from_exclusions_and_inclusions( \
+            Gs.utils.get_collection_from_exclusions_and_inclusions(
                     _get_default_item_classes(),
                     Gs.game_over_item_class_exclusions,
                     Gs.game_over_item_class_inclusions)

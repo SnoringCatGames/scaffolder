@@ -16,7 +16,7 @@ func print(message: String) -> void:
     if Gs.also_prints_to_stdout:
         print(message)
 
-func error( \
+func error(
         message := "An error occurred",
         should_assert := true) -> void:
     push_error("ERROR: %s" % message)
@@ -24,7 +24,7 @@ func error( \
     if should_assert:
          assert(false)
 
-static func static_error( \
+static func static_error(
         message := "An error occurred",
         should_assert := true) -> void:
     push_error("ERROR: %s" % message)
@@ -36,10 +36,10 @@ func warning(message := "An warning occurred") -> void:
     self.print("**WARNING**: %s" % message)
 
 func _print_front_matter() -> void:
-    self.print( \
+    self.print(
             "**THIS SHOULD BE THE FIRST LINE PRINTED FROM GDSCRIPT IN " + \
             "THE APP**")
-    self.print( \
+    self.print(
             "If not, then you should refactor how you're using the " + \
             "Scaffolder framework, so that your custom classes are " + \
             "instantiated/run later.")

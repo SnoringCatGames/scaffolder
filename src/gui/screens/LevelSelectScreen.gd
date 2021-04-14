@@ -20,7 +20,7 @@ var expanded_item: LevelSelectItem
 var _scroll_target: LevelSelectItem
 var _new_unlocked_item: LevelSelectItem
 
-func _init().( \
+func _init().(
         NAME,
         LAYER_NAME,
         AUTO_ADAPTS_GUI_SCALE,
@@ -36,7 +36,7 @@ func _on_activated(previous_screen_name: String) -> void:
 
 func _ready() -> void:
     for level_id in Gs.level_config.get_level_ids():
-        var item: LevelSelectItem = Gs.utils.add_scene( \
+        var item: LevelSelectItem = Gs.utils.add_scene(
                 $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer \
                         /CenterContainer/VBoxContainer/LevelSelectItems,
                 LEVEL_SELECT_ITEM_RESOURCE_PATH,
@@ -78,7 +78,7 @@ func _deferred_update() -> void:
         if is_closing_accordion_first:
             _on_item_pressed(previous_open_item)
         
-        _scroll_to_item_to_unlock( \
+        _scroll_to_item_to_unlock(
                 _new_unlocked_item,
                 is_closing_accordion_first)
 
@@ -93,7 +93,7 @@ func _calculate_new_unlocked_item() -> void:
                 _new_unlocked_item = item
         assert(_new_unlocked_item != null)
 
-func _scroll_to_item_to_unlock( \
+func _scroll_to_item_to_unlock(
         item: LevelSelectItem,
         include_delay_for_accordion_scroll: bool) -> void:
     var scroll_tween := Tween.new()
@@ -103,7 +103,7 @@ func _scroll_to_item_to_unlock( \
             AccordionPanel.SCROLL_TWEEN_DURATION_SEC if \
             include_delay_for_accordion_scroll else \
             0.0
-    scroll_tween.interpolate_method( \
+    scroll_tween.interpolate_method(
             self,
             "_interpolate_scroll",
             0.0,
@@ -112,7 +112,7 @@ func _scroll_to_item_to_unlock( \
             Tween.TRANS_QUAD,
             Tween.EASE_IN_OUT,
             delay)
-    scroll_tween.connect( \
+    scroll_tween.connect(
             "tween_all_completed",
             self,
             "_on_unlock_scroll_finished",
@@ -121,14 +121,14 @@ func _scroll_to_item_to_unlock( \
 
 func _interpolate_scroll(scroll_ratio: float) -> void:
     var scroll_start := scroll_container.get_v_scrollbar().min_value
-    var scroll_end: int = Gs.utils.get_node_vscroll_position( \
+    var scroll_end: int = Gs.utils.get_node_vscroll_position(
             scroll_container, _scroll_target)
-    scroll_container.scroll_vertical = lerp( \
+    scroll_container.scroll_vertical = lerp(
             scroll_start,
             scroll_end,
             scroll_ratio)
 
-func _on_unlock_scroll_finished( \
+func _on_unlock_scroll_finished(
         item: LevelSelectItem,
         scroll_tween: Tween) -> void:
     scroll_tween.queue_free()

@@ -13,7 +13,7 @@ var is_started: bool setget ,_get_is_started
 var level_play_time: float setget ,_get_level_play_time
 
 func _ready() -> void:
-    Gs.utils.connect( \
+    Gs.utils.connect(
             "display_resized",
             self,
             "_on_resized")
@@ -41,10 +41,10 @@ func start() -> void:
     Gs.level = self
     Gs.audio.play_music(_get_music_name())
     level_start_time = Gs.time.elapsed_play_time_actual_sec
-    Gs.save_state.set_level_total_plays( \
+    Gs.save_state.set_level_total_plays(
             _id,
             Gs.save_state.get_level_total_plays(_id) + 1)
-    Gs.analytics.event( \
+    Gs.analytics.event(
             "level",
             "start",
             Gs.level_config.get_level_version_string(_id))
@@ -77,12 +77,12 @@ func on_unpause() -> void:
 func _record_level_results() -> void:
     var game_over_screen = Gs.nav.screens["game_over"]
     game_over_screen.level_id = _id
-    game_over_screen.time = Gs.utils.get_time_string_from_seconds( \
+    game_over_screen.time = Gs.utils.get_time_string_from_seconds(
             Gs.time.elapsed_play_time_actual_sec - \
             level_start_time)
     
     if Gs.uses_level_scores:
-        Gs.analytics.event( \
+        Gs.analytics.event(
                 "score",
                 "v" + Gs.score_version,
                 Gs.level_config.get_level_version_string(_id),
@@ -90,7 +90,7 @@ func _record_level_results() -> void:
         
         var previous_high_score: int = Gs.save_state.get_level_high_score(_id)
         if score > previous_high_score:
-            Gs.save_state.set_level_high_score( \
+            Gs.save_state.set_level_high_score(
                     _id,
                     int(score))
             game_over_screen.reached_new_high_score = true
@@ -108,7 +108,7 @@ func _record_level_results() -> void:
     Gs.save_state.set_new_unlocked_levels(new_unlocked_levels)
     for other_level_id in new_unlocked_levels:
         Gs.save_state.set_level_is_unlocked(other_level_id, true)
-        Gs.analytics.event( \
+        Gs.analytics.event(
                 "level",
                 "unlocked",
                 Gs.level_config.get_level_version_string(other_level_id),
@@ -132,7 +132,7 @@ func _get_music_name() -> String:
     return "on_a_quest"
 
 func _get_is_rate_app_screen_next() -> bool:
-    Gs.logger.error( \
+    Gs.logger.error(
             "Abstract ScaffolderLevel._get_is_rate_app_screen_next " + \
             "is not implemented")
     return false

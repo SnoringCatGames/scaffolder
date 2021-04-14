@@ -5,10 +5,10 @@ var TYPE := LabeledControlItem.TEXT
 
 var text: String
 
-func _init( \
+func _init(
         label: String,
         description: String \
-        ).( \
+        ).(
         TYPE,
         label,
         description \
@@ -19,6 +19,6 @@ func get_is_enabled() -> bool:
     return true
 
 func get_text() -> String:
-    Gs.logger.error( \
+    Gs.logger.error(
             "Abstract TextLabeledControlItem.get_text is not implemented")
     return ""

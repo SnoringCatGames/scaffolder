@@ -54,7 +54,7 @@ var _start_scroll_vertical: int
 
 func _enter_tree() -> void:
     _is_open_tween = Tween.new()
-    _is_open_tween.connect( \
+    _is_open_tween.connect(
             "tween_all_completed",
             self,
             "_on_is_open_tween_completed")
@@ -93,7 +93,7 @@ func update_gui_scale_deferred(gui_scale: float) -> void:
     
     if is_instance_valid(_header):
         if includes_header:
-            _header_hbox.add_constant_override( \
+            _header_hbox.add_constant_override(
                     "separation",
                     padding.x * Gs.gui_scale)
             
@@ -102,9 +102,9 @@ func update_gui_scale_deferred(gui_scale: float) -> void:
             var texture_height := \
                     CARET_SIZE_DEFAULT.y * CARET_SCALE.y * Gs.gui_scale
             var label_height := _header_label.rect_size.y
-            var header_height := max( \
+            var header_height := max(
                     header_min_height * Gs.gui_scale,
-                    max( \
+                    max(
                             label_height,
                             texture_height)) + \
                     padding.y * 2.0 * Gs.gui_scale
@@ -163,7 +163,7 @@ func _create_header() -> void:
     spacer1.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
     spacer1.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     
-    _caret = Gs.utils.add_scene( \
+    _caret = Gs.utils.add_scene(
             null,
             SCAFFOLDER_TEXTURE_RECT_SCENE_PATH,
             false,
@@ -262,7 +262,7 @@ func _trigger_open_change(is_tweening: bool) -> void:
             caret_rotation_start = CARET_ROTATION_OPEN
             caret_rotation_end = CARET_ROTATION_CLOSED
         
-        _is_open_tween.interpolate_method( \
+        _is_open_tween.interpolate_method(
                 self,
                 "_interpolate_height",
                 height_ratio_start,
@@ -270,7 +270,7 @@ func _trigger_open_change(is_tweening: bool) -> void:
                 HEIGHT_TWEEN_DURATION_SEC,
                 Tween.TRANS_QUAD,
                 Tween.EASE_IN_OUT)
-        _is_open_tween.interpolate_method( \
+        _is_open_tween.interpolate_method(
                 self,
                 "_interpolate_caret_rotation",
                 caret_rotation_start,
@@ -282,7 +282,7 @@ func _trigger_open_change(is_tweening: bool) -> void:
             var scroll_container: ScrollContainer = \
                     Gs.nav.get_active_screen().scroll_container
             _start_scroll_vertical = scroll_container.scroll_vertical
-            _is_open_tween.interpolate_method( \
+            _is_open_tween.interpolate_method(
                     self,
                     "_interpolate_scroll",
                     0.0,
@@ -348,11 +348,11 @@ func _interpolate_scroll(open_ratio: float) -> void:
 #    if is_scrolling_upward:
 #        end_scroll_vertical = max_scroll_vertical_to_show_accordion_top
 #    else:
-#        end_scroll_vertical = min( \
+#        end_scroll_vertical = min(
 #                min_scroll_vertical_to_show_accordion_bottom,
 #                max_scroll_vertical_to_show_accordion_top)
     
-    scroll_container.scroll_vertical = lerp( \
+    scroll_container.scroll_vertical = lerp(
             _start_scroll_vertical,
             end_scroll_vertical,
             open_ratio)
@@ -361,7 +361,7 @@ func _on_is_open_tween_started() -> void:
     _projected_control.visible = true
     rect_clip_content = true
 
-func _on_is_open_tween_completed( \
+func _on_is_open_tween_completed(
         _object = null,
         _key = null) -> void:
     var open_ratio := 1.0 if is_open else 0.0
