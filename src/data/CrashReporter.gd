@@ -67,7 +67,7 @@ func report_any_previous_crash() -> bool:
     
     # We didn't find any indication of a crash.
     Gs.logger.print(
-            "CrashReporter: There did not seem to be an error in the " + \
+            "CrashReporter: There did not seem to be an error in the " +
             "previous session")
     return false
 
@@ -128,7 +128,7 @@ func _on_upload_crash_log_completed(
         body: PoolByteArray,
         request: HTTPRequest) -> void:
     Gs.logger.print(
-            ("CrashReporter._on_upload_crash_log_completed: " + \
+            ("CrashReporter._on_upload_crash_log_completed: " +
             "result=%d, code=%d") % \
             [result, response_code])
     if result != HTTPRequest.RESULT_SUCCESS or \

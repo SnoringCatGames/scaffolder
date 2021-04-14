@@ -75,9 +75,9 @@ func event(
         extra_details = null,
         is_session_end := false) -> void:
     var details := (
-        "&ec=%s" + \
-        "&ea=%s" + \
-        "&el=%s" \
+        "&ec=%s" +
+        "&ea=%s" +
+        "&el=%s"
     ) % [
         category.http_escape(),
         action.http_escape(),
@@ -139,29 +139,29 @@ func _get_payload(
     # https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
     return (
         # Google Analytics version
-        "v=1" + \
+        "v=1" +
         # Our app's tracking ID
-        "&tid=%s" + \
+        "&tid=%s" +
         # Anonymous client ID
-        "&cid=%s" + \
+        "&cid=%s" +
         # Hit type
-        "&t=%s" + \
+        "&t=%s" +
         # Parameters for the given hit type
-        "%s" + \
+        "%s" +
         # Viewport size
-        "&vp=%s" + \
+        "&vp=%s" +
         # User language
-        "&ul=%s" + \
+        "&ul=%s" +
         # Application name
-        "&an=%s" + \
+        "&an=%s" +
         # Application ID
-        "&aid=%s" + \
+        "&aid=%s" +
         # Application Version 
-        "&av=%s" + \
+        "&av=%s" +
         # Anonymize IP
-        "&aip=1" + \
+        "&aip=1" +
         # Data source
-        "&ds=app" + \
+        "&ds=app" +
         # Cache buster
         "&z=%s"
     ) % [
@@ -259,12 +259,12 @@ func _on_collect_request_completed(
             (response_code >= 500 and response_code < 600):
         # Probably a temporary failure! Try again later.
         if Gs.debug:
-            Gs.logger.print("Analytics._on_collect_request_completed: " + \
+            Gs.logger.print("Analytics._on_collect_request_completed: " +
                     "Queuing entry for re-attempt")
         _retry_queue.push_back(entry)
     else:
         Gs.logger.error(
-                "Analytics._on_collect_request_completed failed: " + \
+                "Analytics._on_collect_request_completed failed: " +
                 "result=%d, code=%d, url=%s, body=%s" % [
                     result, 
                     response_code, 
@@ -363,14 +363,14 @@ func _on_batch_request_completed(
             (response_code >= 500 and response_code < 600):
         # Probably a temporary failure! Try again later.
         if Gs.debug:
-            Gs.logger.print("Analytics._on_batch_request_completed: " + \
+            Gs.logger.print("Analytics._on_batch_request_completed: " +
                     "Queuing batch for re-attempt")
         for entry in batch:
             _retry_queue.push_back(entry)
     else:
         Gs.logger.error(
-                "Analytics._on_batch_request_completed failed: " + \
-                "result=%d, code=%d, url=%s, body=%s" % [
+                ("Analytics._on_batch_request_completed failed: " +
+                "result=%d, code=%d, url=%s, body=%s") % [
                     result, 
                     response_code, 
                     url, 

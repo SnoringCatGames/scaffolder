@@ -497,8 +497,8 @@ static func draw_shape_outline(
                 thickness)
     else:
         Gs.logger.error(
-                "Invalid Shape2D provided for draw_shape: %s. The " + \
-                "supported shapes are: CircleShape2D, CapsuleShape2D, " + \
+                "Invalid Shape2D provided for draw_shape: %s. The " +
+                "supported shapes are: CircleShape2D, CapsuleShape2D, " +
                 "RectangleShape2D." % shape)
 
 static func draw_circle_outline(

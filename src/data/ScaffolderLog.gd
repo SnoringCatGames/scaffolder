@@ -37,18 +37,18 @@ func warning(message := "An warning occurred") -> void:
 
 func _print_front_matter() -> void:
     self.print(
-            "**THIS SHOULD BE THE FIRST LINE PRINTED FROM GDSCRIPT IN " + \
+            "**THIS SHOULD BE THE FIRST LINE PRINTED FROM GDSCRIPT IN " +
             "THE APP**")
     self.print(
-            "If not, then you should refactor how you're using the " + \
-            "Scaffolder framework, so that your custom classes are " + \
+            "If not, then you should refactor how you're using the " +
+            "Scaffolder framework, so that your custom classes are " +
             "instantiated/run later.")
     self.print("")
     self.print(get_datetime_string())
     self.print((
-        "%s " + \
-        "%s " + \
-        "(%4d,%4d) " + \
+        "%s " +
+        "%s " +
+        "(%4d,%4d) " +
         ""
     ) % [
         OS.get_name(),

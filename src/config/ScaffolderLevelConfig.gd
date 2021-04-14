@@ -124,6 +124,6 @@ func get_next_level_to_unlock() -> String:
 
 func get_suggested_next_level() -> String:
     Gs.logger.error(
-            "Abstract ScaffolderLevelConfig.get_suggested_next_level " + \
+            "Abstract ScaffolderLevelConfig.get_suggested_next_level " +
             "is not implemented")
     return _level_configs_by_number[1].id
