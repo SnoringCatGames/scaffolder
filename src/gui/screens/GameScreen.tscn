@@ -15,10 +15,10 @@ __meta__ = {
 }
 
 [node name="ViewportContainer" type="ViewportContainer" parent="PanelContainer"]
-margin_left = 254.0
-margin_top = 254.0
-margin_right = 734.0
-margin_bottom = 734.0
+margin_left = 247.0
+margin_top = 247.0
+margin_right = 727.0
+margin_bottom = 727.0
 rect_clip_content = true
 mouse_filter = 2
 size_flags_horizontal = 4
@@ -39,14 +39,14 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 981.0
-margin_bottom = 981.0
+margin_right = 967.0
+margin_bottom = 967.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/LoadProgressPanel"]
-margin_left = 327.0
-margin_top = 435.0
-margin_right = 647.0
-margin_bottom = 539.0
+margin_left = 320.0
+margin_top = 428.0
+margin_right = 640.0
+margin_bottom = 532.0
 rect_min_size = Vector2( 320, 0 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
