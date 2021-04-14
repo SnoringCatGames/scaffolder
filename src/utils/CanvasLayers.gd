@@ -40,8 +40,8 @@ func _enter_tree() -> void:
         create_layer(config.name, config.z_index, config.pause_mode)
 
 func create_layer( \
-        name: String, \
-        z_index: int, \
+        name: String,
+        z_index: int,
         pause_mode: int) -> CanvasLayer:
     var canvas_layer := CanvasLayer.new()
     canvas_layer.name = name

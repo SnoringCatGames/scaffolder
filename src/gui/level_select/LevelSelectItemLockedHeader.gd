@@ -91,37 +91,37 @@ func unlock() -> void:
     modulate.a = LOCKED_OPACITY
     
     Gs.time.set_timeout( \
-            funcref($LockAnimation, "unlock"), \
+            funcref($LockAnimation, "unlock"),
             LOCK_LOW_PART_DELAY_SEC)
     
     Gs.time.set_timeout( \
-            funcref(Gs.audio, "play_sound"), \
-            LOCK_LOW_PART_DELAY_SEC, \
+            funcref(Gs.audio, "play_sound"),
+            LOCK_LOW_PART_DELAY_SEC,
             ["lock_low"])
     Gs.time.set_timeout( \
-            funcref(Gs.audio, "play_sound"), \
-            LOCK_LOW_PART_DELAY_SEC + LOCK_HIGH_PART_DELAY_SEC, \
+            funcref(Gs.audio, "play_sound"),
+            LOCK_LOW_PART_DELAY_SEC + LOCK_HIGH_PART_DELAY_SEC,
             ["lock_high"])
 
 func pulse_unlock_hint() -> void:
     hint_tween.stop_all()
     var fade_in_duration_sec := 0.3
     hint_tween.interpolate_property( \
-            $HeaderWrapper/LockedWrapper/HintWrapper, \
-            "modulate:a", \
-            0.0, \
-            1.0, \
-            fade_in_duration_sec, \
-            Tween.TRANS_QUAD, \
+            $HeaderWrapper/LockedWrapper/HintWrapper,
+            "modulate:a",
+            0.0,
+            1.0,
+            fade_in_duration_sec,
+            Tween.TRANS_QUAD,
             Tween.EASE_IN_OUT)
     hint_tween.interpolate_property( \
-            $HeaderWrapper/LockedWrapper/HintWrapper, \
-            "modulate:a", \
-            1.0, \
-            0.0, \
-            fade_in_duration_sec, \
-            Tween.TRANS_QUAD, \
-            Tween.EASE_IN_OUT, \
+            $HeaderWrapper/LockedWrapper/HintWrapper,
+            "modulate:a",
+            1.0,
+            0.0,
+            fade_in_duration_sec,
+            Tween.TRANS_QUAD,
+            Tween.EASE_IN_OUT,
             HINT_PULSE_DURATION_SEC - fade_in_duration_sec)
     hint_tween.start()
 

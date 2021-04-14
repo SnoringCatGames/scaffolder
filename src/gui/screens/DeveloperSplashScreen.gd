@@ -12,11 +12,11 @@ const INCLUDES_CENTER_CONTAINER := false
 const SPLASH_IMAGE_SIZE_DEFAULT := Vector2(900, 835)
 
 func _init().( \
-        NAME, \
-        LAYER_NAME, \
-        AUTO_ADAPTS_GUI_SCALE, \
-        INCLUDES_STANDARD_HIERARCHY, \
-        INCLUDES_NAV_BAR, \
+        NAME,
+        LAYER_NAME,
+        AUTO_ADAPTS_GUI_SCALE,
+        INCLUDES_STANDARD_HIERARCHY,
+        INCLUDES_NAV_BAR,
         INCLUDES_CENTER_CONTAINER \
         ) -> void:
     pass

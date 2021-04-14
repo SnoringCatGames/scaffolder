@@ -62,17 +62,17 @@ func screen(name: String) -> void:
         name.http_escape(),
     ]
     var payload := _get_payload( \
-            "screenview", \
+            "screenview",
             details)
     _trigger_collect(payload, details)
 
 func event( \
-        category: String, \
-        action: String, \
-        label: String, \
-        value: int = -1, \
-        non_interaction := false, \
-        extra_details = null, \
+        category: String,
+        action: String,
+        label: String,
+        value: int = -1,
+        non_interaction := false,
+        extra_details = null,
         is_session_end := false) -> void:
     var details := ( \
         "&ec=%s" + \
@@ -90,31 +90,31 @@ func event( \
     if extra_details != null:
         details += extra_details
     var payload := _get_payload( \
-            "event", \
+            "event",
             details)
     _trigger_collect( \
-            payload, \
-            details, \
+            payload,
+            details,
             is_session_end)
 
 func _log_device_info() -> void:
     event( \
-            "device", \
-            OS.get_name(), \
-            Gs.utils.get_model_name(), \
-            int(Gs.utils.get_viewport_diagonal_inches() * 1000), \
+            "device",
+            OS.get_name(),
+            Gs.utils.get_model_name(),
+            int(Gs.utils.get_viewport_diagonal_inches() * 1000),
             true)
 
 func _ping( \
-        extra_details = null, \
+        extra_details = null,
         is_session_end := false) -> void:
     event( \
-            "ping", \
-            "ping", \
-            "ping", \
-            Gs.time.elapsed_app_time_actual_sec, \
-            true, \
-            extra_details, \
+            "ping",
+            "ping",
+            "ping",
+            Gs.time.elapsed_app_time_actual_sec,
+            true,
+            extra_details,
             is_session_end)
 
 func _enter_tree() -> void:
@@ -126,12 +126,12 @@ func _get_client_id() -> String:
     if id == null:
         id = str(UUID.new())
         Gs.save_state.set_setting( \
-                CLIENT_ID_SAVE_KEY, \
+                CLIENT_ID_SAVE_KEY,
                 id)
     return id
 
 func _get_payload( \
-        hit_type: String, \
+        hit_type: String,
         details: String) -> String:
     var viewport_size := get_viewport().size
     var viewport_size_str := str(viewport_size.x) + "x" + str(viewport_size.y)
@@ -178,8 +178,8 @@ func _get_payload( \
     ]
 
 func _trigger_collect( \
-        payload: String, \
-        details: String, \
+        payload: String,
+        details: String,
         is_session_end := false) -> void:
     Gs.logger.print("Analytics._trigger_collect: " + details)
     if VERBOSE:
@@ -205,33 +205,33 @@ func _trigger_collect( \
     var request := HTTPRequest.new()
     request.use_threads = true
     request.connect( \
-            "request_completed", \
-            self, \
-            "_on_collect_request_completed", \
+            "request_completed",
+            self,
+            "_on_collect_request_completed",
             [entry, request, url, is_session_end])
     add_child(request)
     
     var status: int = request.request( \
-            url, \
-            HEADERS, \
-            true, \
-            HTTPClient.METHOD_POST, \
+            url,
+            HEADERS,
+            true,
+            HTTPClient.METHOD_POST,
             body)
     
     if status != OK:
         Gs.logger.error( \
                 "Analytics._trigger_collect failed: status=%d, url=%s" % \
-                        [status, url], \
+                        [status, url],
                 false)
 
 func _on_collect_request_completed( \
-        result: int, \
-        response_code: int, \
-        headers: PoolStringArray, \
-        body: PoolByteArray, \
-        entry: _AnalyticsEntry, \
-        request: HTTPRequest, \
-        url: String, \
+        result: int,
+        response_code: int,
+        headers: PoolStringArray,
+        body: PoolByteArray,
+        entry: _AnalyticsEntry,
+        request: HTTPRequest,
+        url: String,
         is_session_end: bool) -> void:
     if VERBOSE:
         Gs.logger.print( \
@@ -270,7 +270,7 @@ func _on_collect_request_completed( \
                     response_code, 
                     url, 
                     body.get_string_from_utf8(),
-                ], \
+                ],
                 false)
 
 func _retry_queued_entries() -> void:
@@ -312,32 +312,32 @@ func _trigger_batch(batch: Array) -> void:
     var request := HTTPRequest.new()
     request.use_threads = true
     request.connect( \
-            "request_completed", \
-            self, \
-            "_on_batch_request_completed", \
+            "request_completed",
+            self,
+            "_on_batch_request_completed",
             [batch, request, url])
     add_child(request)
     
     var status: int = request.request( \
-            url, \
-            HEADERS, \
-            true, \
-            HTTPClient.METHOD_POST, \
+            url,
+            HEADERS,
+            true,
+            HTTPClient.METHOD_POST,
             body)
     
     if status != OK:
         Gs.logger.error( \
                 "Analytics._trigger_batch failed: status=%d, url=%s" % \
-                        [status, url], \
+                        [status, url],
                 false)
 
 func _on_batch_request_completed( \
-        result: int, \
-        response_code: int, \
-        headers: PoolStringArray, \
-        body: PoolByteArray, \
-        batch: Array, \
-        request: HTTPRequest, \
+        result: int,
+        response_code: int,
+        headers: PoolStringArray,
+        body: PoolByteArray,
+        batch: Array,
+        request: HTTPRequest,
         url: String) -> void:
     if VERBOSE:
         Gs.logger.print( \
@@ -375,7 +375,7 @@ func _on_batch_request_completed( \
                     response_code, 
                     url, 
                     body.get_string_from_utf8(),
-                ], \
+                ],
                 false)
 
 class _AnalyticsEntry extends Reference:

@@ -13,8 +13,8 @@ func _init() -> void:
 
 func _ready() -> void:
     Gs.utils.connect( \
-            "display_resized", \
-            self, \
+            "display_resized",
+            self,
             "_on_resized")
     _on_resized()
 

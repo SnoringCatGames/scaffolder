@@ -11,7 +11,7 @@ func _init() -> void:
     name = "ScaffolderBootstrap"
 
 func run( \
-        app_manifest: Dictionary, \
+        app_manifest: Dictionary,
         main: Node) -> void:
     Gs.logger.print("ScaffolderBootstrap.run")
     self.main = main
@@ -44,9 +44,9 @@ func _initialize_framework() -> void:
     main.add_child(Gs.canvas_layers)
     
     Gs.debug_panel = Gs.utils.add_scene( \
-            Gs.canvas_layers.layers.top, \
-            Gs.DEBUG_PANEL_RESOURCE_PATH, \
-            true, \
+            Gs.canvas_layers.layers.top,
+            Gs.DEBUG_PANEL_RESOURCE_PATH,
+            true,
             true)
     Gs.debug_panel.z_index = 1000
     Gs.debug_panel.visible = Gs.is_debug_panel_shown
@@ -65,11 +65,11 @@ func _initialize_framework() -> void:
     Gs.nav.create_screens()
     
     _throttled_size_changed = Gs.time.throttle( \
-            funcref(self, "_on_throttled_size_changed"), \
+            funcref(self, "_on_throttled_size_changed"),
             Gs.display_resize_throttle_interval_sec)
     get_viewport().connect( \
-            "size_changed", \
-            self, \
+            "size_changed",
+            self,
             "_on_resized")
     call_deferred("_on_resized")
     
@@ -105,8 +105,8 @@ func _on_splash_finished() -> void:
 func _report_any_previous_crash() -> bool:
     Gs.initialize_crash_reporter()
     Gs.crash_reporter.connect( \
-            "upload_finished", \
-            self, \
+            "upload_finished",
+            self,
             "_initialize_framework")
     add_child(Gs.crash_reporter)
     return Gs.crash_reporter.report_any_previous_crash()
@@ -208,18 +208,18 @@ func _update_game_area_region_and_gui_scale() -> void:
     if aspect_ratio < Gs.aspect_ratio_min:
         # Show vertical margin around game area.
         game_area_size = Vector2( \
-                viewport_size.x, \
+                viewport_size.x,
                 viewport_size.x / Gs.aspect_ratio_min)
         game_area_position = Vector2( \
-                0.0, \
+                0.0,
                 (viewport_size.y - game_area_size.y) * 0.5)
     elif aspect_ratio > Gs.aspect_ratio_max:
         # Show horizontal margin around game area.
         game_area_size = Vector2( \
-                viewport_size.y * Gs.aspect_ratio_max, \
+                viewport_size.y * Gs.aspect_ratio_max,
                 viewport_size.y)
         game_area_position = Vector2( \
-                (viewport_size.x - game_area_size.x) * 0.5, \
+                (viewport_size.x - game_area_size.x) * 0.5,
                 0.0)
     else:
         # Show no margins around game area.

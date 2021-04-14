@@ -475,14 +475,14 @@ func initialize() -> void:
     add_child(self.level_config)
     
     self.audio.register_sounds( \
-            manifest.sounds_manifest, \
-            manifest.default_sounds_path_prefix, \
-            manifest.default_sounds_file_suffix, \
+            manifest.sounds_manifest,
+            manifest.default_sounds_path_prefix,
+            manifest.default_sounds_file_suffix,
             manifest.default_sounds_bus_index)
     self.audio.register_music( \
-            manifest.music_manifest, \
-            manifest.default_music_path_prefix, \
-            manifest.default_music_file_suffix, \
+            manifest.music_manifest,
+            manifest.default_music_path_prefix,
+            manifest.default_music_file_suffix,
             manifest.default_music_bus_index)
     
     self.colors.register_colors(manifest.colors_manifest)
@@ -495,7 +495,7 @@ func initialize() -> void:
     _validate_project_config()
 
 func add_gui_to_scale( \
-        gui, \
+        gui,
         default_gui_scale: float) -> void:
     guis_to_scale[gui] = default_gui_scale
     Gs.utils._scale_gui_for_current_screen_size(gui)
@@ -506,22 +506,22 @@ func remove_gui_to_scale(gui) -> void:
 func load_state() -> void:
     _clear_old_data_agreement_version()
     agreed_to_terms = Gs.save_state.get_setting( \
-            AGREED_TO_TERMS_SETTINGS_KEY, \
+            AGREED_TO_TERMS_SETTINGS_KEY,
             false)
     is_giving_haptic_feedback = Gs.save_state.get_setting( \
-            IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY, \
+            IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY,
             Gs.utils.get_is_android_device())
     is_debug_panel_shown = Gs.save_state.get_setting( \
-            IS_DEBUG_PANEL_SHOWN_SETTINGS_KEY, \
+            IS_DEBUG_PANEL_SHOWN_SETTINGS_KEY,
             false)
     is_debug_time_shown = Gs.save_state.get_setting( \
-            IS_DEBUG_TIME_SHOWN_SETTINGS_KEY, \
+            IS_DEBUG_TIME_SHOWN_SETTINGS_KEY,
             false)
     Gs.audio.is_music_enabled = Gs.save_state.get_setting( \
-            IS_MUSIC_ENABLED_SETTINGS_KEY, \
+            IS_MUSIC_ENABLED_SETTINGS_KEY,
             true)
     Gs.audio.is_sound_effects_enabled = Gs.save_state.get_setting( \
-            IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY, \
+            IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY,
             true)
 
 func _clear_old_data_agreement_version() -> void:
@@ -532,7 +532,7 @@ func _clear_old_data_agreement_version() -> void:
 func set_agreed_to_terms(value := true) -> void:
     agreed_to_terms = value
     Gs.save_state.set_setting( \
-            Gs.AGREED_TO_TERMS_SETTINGS_KEY, \
+            Gs.AGREED_TO_TERMS_SETTINGS_KEY,
             value)
 
 func _set_is_debug_panel_shown(is_visible: bool) -> void:
@@ -557,13 +557,13 @@ func _validate_project_config() -> void:
             default_game_area_size.y)
     
 #    assert(geometry.are_colors_equal_with_epsilon( \
-#            ProjectSettings.get_setting("application/boot_splash/bg_color"), \
-#            colors.background_color, \
+#            ProjectSettings.get_setting("application/boot_splash/bg_color"),
+#            colors.background_color,
 #            0.0001))
     assert(geometry.are_colors_equal_with_epsilon( \
             ProjectSettings.get_setting( \
-                    "rendering/environment/default_clear_color"), \
-            colors.background_color, \
+                    "rendering/environment/default_clear_color"),
+            colors.background_color,
             0.0001))
     
     var window_stretch_mode_disabled := "disabled"

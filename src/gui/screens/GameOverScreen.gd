@@ -19,11 +19,11 @@ var reached_new_high_score: bool
 var new_unlocked_levels: Array
 
 func _init().( \
-        NAME, \
-        LAYER_NAME, \
-        AUTO_ADAPTS_GUI_SCALE, \
-        INCLUDES_STANDARD_HIERARCHY, \
-        INCLUDES_NAV_BAR, \
+        NAME,
+        LAYER_NAME,
+        AUTO_ADAPTS_GUI_SCALE,
+        INCLUDES_STANDARD_HIERARCHY,
+        INCLUDES_NAV_BAR,
         INCLUDES_CENTER_CONTAINER \
         ) -> void:
     pass
@@ -79,8 +79,8 @@ func _get_default_item_classes() -> Array:
 func _get_items() -> Array:
     var item_classes := \
             Gs.utils.get_collection_from_exclusions_and_inclusions( \
-                    _get_default_item_classes(), \
-                    Gs.game_over_item_class_exclusions, \
+                    _get_default_item_classes(),
+                    Gs.game_over_item_class_exclusions,
                     Gs.game_over_item_class_inclusions)
     var items := []
     for item_class in item_classes:

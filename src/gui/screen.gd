@@ -21,11 +21,11 @@ var _focused_button: ShinyButton
 var params: Dictionary
 
 func _init( \
-        screen_name: String, \
-        layer_name: String, \
-        auto_adapts_gui_scale: bool, \
-        includes_standard_hierarchy: bool, \
-        includes_nav_bar := true, \
+        screen_name: String,
+        layer_name: String,
+        auto_adapts_gui_scale: bool,
+        includes_standard_hierarchy: bool,
+        includes_nav_bar := true,
         includes_center_container := true) -> void:
     self.screen_name = screen_name
     self.layer_name = layer_name
@@ -37,8 +37,8 @@ func _init( \
 func _ready() -> void:
     _validate_node_hierarchy()
     Gs.utils.connect( \
-            "display_resized", \
-            self, \
+            "display_resized",
+            self,
             "_on_resized")
     _on_resized()
 
@@ -60,7 +60,7 @@ func _validate_node_hierarchy() -> void:
     
     if auto_adapts_gui_scale:
         Gs.add_gui_to_scale( \
-                outer_panel_container, \
+                outer_panel_container,
                 default_gui_scale)
     
     if includes_standard_hierarchy:
@@ -93,7 +93,7 @@ func _validate_node_hierarchy() -> void:
             assert(inner_vbox != null)
         
         Gs.utils.set_mouse_filter_recursively( \
-                scroll_container, \
+                scroll_container,
                 Control.MOUSE_FILTER_PASS)
 
 func _unhandled_key_input(event: InputEventKey) -> void:
@@ -114,7 +114,7 @@ func _on_activated(previous_screen_name: String) -> void:
     _give_button_focus(_get_focused_button())
     if includes_standard_hierarchy:
         Gs.utils.set_mouse_filter_recursively( \
-                scroll_container, \
+                scroll_container,
                 Control.MOUSE_FILTER_PASS)
 
 func _on_deactivated(next_screen_name: String) -> void:

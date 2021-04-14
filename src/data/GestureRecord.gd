@@ -22,8 +22,8 @@ func _record_new_gesture_event(event: InputEvent) -> void:
         Gs.logger.error()
         return
     var gesture_event := GestureEventForDebugging.new( \
-            event.position, \
-            gesture_name, \
+            event.position,
+            gesture_name,
             Gs.time.elapsed_play_time_actual_sec)
     recent_gesture_events_for_debugging.push_front(gesture_event)
     while recent_gesture_events_for_debugging.size() > \
@@ -36,8 +36,8 @@ class GestureEventForDebugging extends Reference:
     var time_sec: float
     
     func _init( \
-            position: Vector2, \
-            name: String, \
+            position: Vector2,
+            name: String,
             time_sec: float) -> void:
         self.position = position
         self.name = name

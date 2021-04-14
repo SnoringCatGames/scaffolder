@@ -14,7 +14,7 @@ func _enter_tree() -> void:
             "font_color", Gs.colors.header_font_color)
     
     $MarginContainer.set( \
-            "custom_constants/margin_top", \
+            "custom_constants/margin_top",
             Gs.utils.get_safe_area_margin_top())
     $MarginContainer/BackButton.rect_position.x += \
             Gs.utils.get_safe_area_margin_left()
@@ -83,8 +83,8 @@ func _on_SettingsButton_pressed():
                 "The level must be restarted in order to change settings." + \
                 "\n\nAre you sure you want to restart the level?"
         Gs.nav.open( \
-                "notification", \
-                false, \
+                "notification",
+                false,
                 {
                     header_text = "Reset level?",
                     is_back_button_shown = true,

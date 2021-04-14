@@ -40,8 +40,8 @@ func _init() -> void:
 func _ready() -> void:
     get_tree().set_auto_accept_quit(false)
     Gs.analytics.connect( \
-            "session_end", \
-            self, \
+            "session_end",
+            self,
             "_on_session_end")
     Gs.analytics.start_session()
 
@@ -59,7 +59,7 @@ func _notification(notification: int) -> void:
 func close_app() -> void:
     Gs.analytics.end_session()
     Gs.time.set_timeout( \
-            funcref(self, "_on_session_end"), \
+            funcref(self, "_on_session_end"),
             SESSION_END_TIMEOUT_SEC)
 
 func _on_session_end() -> void:
@@ -69,9 +69,9 @@ func _on_session_end() -> void:
 
 func _create_screen(path: String) -> void:
     var screen: Screen = Gs.utils.add_scene( \
-            null, \
-            path, \
-            false, \
+            null,
+            path,
+            false,
             false)
     screen.pause_mode = Node.PAUSE_MODE_STOP
     screens[screen.screen_name] = screen
@@ -84,27 +84,27 @@ func create_screens() -> void:
     
     var screen_paths: Array = \
             Gs.utils.get_collection_from_exclusions_and_inclusions( \
-                    default, \
-                    Gs.screen_path_exclusions, \
+                    default,
+                    Gs.screen_path_exclusions,
                     Gs.screen_path_inclusions)
                     
     for path in screen_paths:
         _create_screen(path)
     
     fade_transition = Gs.utils.add_scene( \
-            Gs.canvas_layers.layers.top, \
-            FADE_TRANSITION_PATH, \
-            true, \
+            Gs.canvas_layers.layers.top,
+            FADE_TRANSITION_PATH,
+            true,
             false)
     fade_transition.duration = SCREEN_FADE_DURATION_SEC
     fade_transition.connect( \
-            "fade_complete", \
-            self, \
+            "fade_complete",
+            self,
             "_on_fade_complete")
 
 func open( \
-        screen_name: String, \
-        includes_fade := false, \
+        screen_name: String,
+        includes_fade := false,
         params = null) -> void:
     var previous_name := \
             get_active_screen_name() if \
@@ -116,9 +116,9 @@ func open( \
     ])
     
     _set_screen_is_open( \
-            screen_name, \
-            true, \
-            includes_fade, \
+            screen_name,
+            true,
+            includes_fade,
             params)
 
 func close_current_screen(includes_fade := false) -> void:
@@ -137,9 +137,9 @@ func close_current_screen(includes_fade := false) -> void:
     ])
     
     _set_screen_is_open( \
-            previous_name, \
-            false, \
-            includes_fade, \
+            previous_name,
+            false,
+            includes_fade,
             null)
 
 func get_active_screen() -> Screen:
@@ -149,9 +149,9 @@ func get_active_screen_name() -> String:
     return get_active_screen().screen_name
 
 func _set_screen_is_open( \
-        screen_name: String, \
-        is_open: bool, \
-        includes_fade := false, \
+        screen_name: String,
+        is_open: bool,
+        includes_fade := false,
         params = null) -> void:
     var next_screen: Screen
     var previous_screen: Screen
@@ -210,12 +210,12 @@ func _set_screen_is_open( \
         if screen_name == "game":
             start_position = Vector2.ZERO
             end_position = Vector2( \
-                    -get_viewport().size.x, \
+                    -get_viewport().size.x,
                     0.0)
             tween_screen = previous_screen
         elif next_screen_was_already_shown:
             start_position = Vector2( \
-                    get_viewport().size.x, \
+                    get_viewport().size.x,
                     0.0)
             end_position = Vector2.ZERO
             tween_screen = next_screen
@@ -224,14 +224,14 @@ func _set_screen_is_open( \
             previous_screen.z_index = swap_z_index
         elif is_open:
             start_position = Vector2( \
-                    get_viewport().size.x, \
+                    get_viewport().size.x,
                     0.0)
             end_position = Vector2.ZERO
             tween_screen = next_screen
         else:
             start_position = Vector2.ZERO
             end_position = Vector2( \
-                    get_viewport().size.x, \
+                    get_viewport().size.x,
                     0.0)
             tween_screen = previous_screen
         
@@ -247,30 +247,30 @@ func _set_screen_is_open( \
         add_child(screen_slide_tween)
         tween_screen.position = start_position
         screen_slide_tween.interpolate_property( \
-                tween_screen, \
-                "position", \
-                start_position, \
-                end_position, \
-                SCREEN_SLIDE_DURATION_SEC, \
-                Tween.TRANS_QUAD, \
-                Tween.EASE_IN_OUT, \
+                tween_screen,
+                "position",
+                start_position,
+                end_position,
+                SCREEN_SLIDE_DURATION_SEC,
+                Tween.TRANS_QUAD,
+                Tween.EASE_IN_OUT,
                 slide_delay)
         screen_slide_tween.start()
         screen_slide_tween.connect( \
-                "tween_completed", \
-                self, \
-                "_on_screen_slide_completed", \
-                [ \
-                        previous_screen, \
-                        next_screen, \
-                        screen_slide_tween, \
+                "tween_completed",
+                self,
+                "_on_screen_slide_completed",
+                [
+                        previous_screen,
+                        next_screen,
+                        screen_slide_tween,
                 ])
     else:
         _on_screen_slide_completed( \
-                null, \
-                "", \
-                previous_screen, \
-                next_screen, \
+                null,
+                "",
+                previous_screen,
+                next_screen,
                 null)
     
     if previous_screen != null:
@@ -289,10 +289,10 @@ func _set_screen_is_open( \
         Gs.analytics.screen(next_screen.screen_name)
 
 func _on_screen_slide_completed( \
-        _object: Object, \
-        _key: NodePath, \
-        previous_screen: Screen, \
-        next_screen: Screen, \
+        _object: Object,
+        _key: NodePath,
+        previous_screen: Screen,
+        next_screen: Screen,
         tween: Tween) -> void:
     if is_instance_valid(tween):
         tween.queue_free()
@@ -322,14 +322,14 @@ func _splash_helper() -> void:
     open("godot_splash")
     Gs.audio.play_sound(Gs.godot_splash_sound)
     yield(get_tree() \
-            .create_timer(Gs.godot_splash_screen_duration_sec), \
+            .create_timer(Gs.godot_splash_screen_duration_sec),
             "timeout")
     
     if Gs.is_developer_splash_shown:
         open("developer_splash")
         Gs.audio.play_sound(Gs.developer_splash_sound)
         yield(get_tree() \
-                .create_timer(Gs.developer_splash_screen_duration_sec), \
+                .create_timer(Gs.developer_splash_screen_duration_sec),
                 "timeout")
     
     emit_signal("splash_finished")

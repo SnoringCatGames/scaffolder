@@ -5,7 +5,7 @@ const LABEL := "Haptic feedback"
 const DESCRIPTION := ""
 
 func _init(__ = null).( \
-        LABEL, \
+        LABEL,
         DESCRIPTION \
         ) -> void:
     pass
@@ -13,7 +13,7 @@ func _init(__ = null).( \
 func on_pressed(pressed: bool) -> void:
     Gs.is_giving_haptic_feedback = pressed
     Gs.save_state.set_setting( \
-            Gs.IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY, \
+            Gs.IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY,
             Gs.is_giving_haptic_feedback)
 
 func get_is_pressed() -> bool:

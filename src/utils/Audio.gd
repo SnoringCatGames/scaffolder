@@ -40,14 +40,14 @@ func _enter_tree() -> void:
     _fade_in_tween = Tween.new()
     add_child(_fade_in_tween)
     _fade_in_tween.connect( \
-            "tween_completed", \
-            self, \
+            "tween_completed",
+            self,
             "_on_cross_fade_music_finished")
 
 func register_sounds( \
-        manifest: Array, \
-        path_prefix = _DEFAULT_SOUNDS_PATH_PREFIX, \
-        file_suffix = _DEFAULT_SOUND_FILE_SUFFIX, \
+        manifest: Array,
+        path_prefix = _DEFAULT_SOUNDS_PATH_PREFIX,
+        file_suffix = _DEFAULT_SOUND_FILE_SUFFIX,
         bus_index = _DEFAULT_SOUNDS_BUS_INDEX) -> void:
     AudioServer.add_bus(bus_index)
     var bus_name := AudioServer.get_bus_name(bus_index)
@@ -74,9 +74,9 @@ func register_sounds( \
     _update_volume()
 
 func register_music( \
-        manifest: Array, \
-        path_prefix = _DEFAULT_MUSIC_PATH_PREFIX, \
-        file_suffix = _DEFAULT_MUSIC_FILE_SUFFIX, \
+        manifest: Array,
+        path_prefix = _DEFAULT_MUSIC_PATH_PREFIX,
+        file_suffix = _DEFAULT_MUSIC_FILE_SUFFIX,
         bus_index = _DEFAULT_MUSIC_BUS_INDEX) -> void:
     AudioServer.add_bus(bus_index)
     var bus_name := AudioServer.get_bus_name(bus_index)
@@ -107,7 +107,7 @@ func register_music( \
     _update_volume()
 
 func play_sound( \
-        sound_name: String, \
+        sound_name: String,
         deferred := false) -> void:
     if deferred:
         call_deferred("_play_sound_deferred", sound_name)
@@ -115,13 +115,13 @@ func play_sound( \
         _play_sound_deferred(sound_name)
 
 func play_music( \
-        music_name: String, \
-        transitions_immediately := false, \
+        music_name: String,
+        transitions_immediately := false,
         deferred := false) -> void:
     if deferred:
         call_deferred( \
-                "_cross_fade_music", \
-                music_name, \
+                "_cross_fade_music",
+                music_name,
                 transitions_immediately)
     else:
         _cross_fade_music(music_name, transitions_immediately)
@@ -149,7 +149,7 @@ func _get_current_music_player() -> AudioStreamPlayer:
             null
 
 func _cross_fade_music( \
-        music_name: String, \
+        music_name: String,
         transitions_immediately := false) -> void:
     _on_cross_fade_music_finished()
     
@@ -194,12 +194,12 @@ func _cross_fade_music( \
                 is_music_enabled else \
                 SILENT_VOLUME_DB
         _fade_out_tween.interpolate_property( \
-                previous_music_player, \
-                "volume_db", \
-                previous_loud_volume, \
-                SILENT_VOLUME_DB, \
-                transition_duration_sec, \
-                Tween.TRANS_QUAD, \
+                previous_music_player,
+                "volume_db",
+                previous_loud_volume,
+                SILENT_VOLUME_DB,
+                transition_duration_sec,
+                Tween.TRANS_QUAD,
                 Tween.EASE_IN)
         _fade_out_tween.start()
     
@@ -213,17 +213,17 @@ func _cross_fade_music( \
             is_music_enabled else \
             SILENT_VOLUME_DB
     _fade_in_tween.interpolate_property( \
-            current_music_player, \
-            "volume_db", \
-            SILENT_VOLUME_DB, \
-            current_loud_volume, \
-            transition_duration_sec, \
-            Tween.TRANS_QUAD, \
+            current_music_player,
+            "volume_db",
+            SILENT_VOLUME_DB,
+            current_loud_volume,
+            transition_duration_sec,
+            Tween.TRANS_QUAD,
             Tween.EASE_OUT)
     _fade_in_tween.start()
 
 func _on_cross_fade_music_finished( \
-        _object = null, \
+        _object = null,
         _key = null) -> void:
     _fade_out_tween.stop_all()
     _fade_in_tween.stop_all()

@@ -95,12 +95,12 @@ func animate_to_zoom(zoom: float) -> void:
             _get_zoom()
     zoom_tween.stop(self)
     zoom_tween.interpolate_property( \
-            self, \
-            "zoom", \
-            start_zoom, \
-            zoom, \
-            ZOOM_ANIMATION_DURATION_SEC, \
-            Tween.TRANS_QUAD, \
+            self,
+            "zoom",
+            start_zoom,
+            zoom,
+            ZOOM_ANIMATION_DURATION_SEC,
+            Tween.TRANS_QUAD,
             Tween.EASE_IN_OUT)
     zoom_tween.start()
 

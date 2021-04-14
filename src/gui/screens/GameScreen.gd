@@ -7,9 +7,9 @@ const AUTO_ADAPTS_GUI_SCALE := true
 const INCLUDES_STANDARD_HIERARCHY := false
 
 func _init().( \
-        NAME, \
-        LAYER_NAME, \
-        AUTO_ADAPTS_GUI_SCALE, \
+        NAME,
+        LAYER_NAME,
+        AUTO_ADAPTS_GUI_SCALE,
         INCLUDES_STANDARD_HIERARCHY \
         ) -> void:
     pass
@@ -70,9 +70,9 @@ func start_level(level_id: String) -> void:
         return
     
     var level := Gs.utils.add_scene( \
-            null, \
-            Gs.level_config.get_level_config(level_id).scene_path, \
-            false, \
+            null,
+            Gs.level_config.get_level_config(level_id).scene_path,
+            false,
             true)
     level.id = level_id
     $PanelContainer/ViewportContainer/Viewport.add_child(level)

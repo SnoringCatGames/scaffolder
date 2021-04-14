@@ -89,7 +89,7 @@ func _deferred_update() -> void:
             is_font_xl else \
             Gs.fonts.main_m
     $MarginContainer/BottomButton.add_font_override( \
-            "font", \
+            "font",
             font)
     
     shine_tween.stop_all()
@@ -98,29 +98,29 @@ func _deferred_update() -> void:
     color_pulse_tween.stop_all()
     Gs.time.clear_interval(color_pulse_interval_id)
     $MarginContainer/BottomButton.add_stylebox_override( \
-            "normal", \
+            "normal",
             button_style_normal)
     
     if is_shiny:
         _trigger_shine()
         shine_interval_id = Gs.time.set_interval( \
-                funcref(self, "_trigger_shine"), \
+                funcref(self, "_trigger_shine"),
                 SHINE_INTERVAL_SEC)
     
     if includes_color_pulse:
         _trigger_color_pulse()
         color_pulse_interval_id = Gs.time.set_interval( \
-                funcref(self, "_trigger_color_pulse"), \
+                funcref(self, "_trigger_color_pulse"),
                 COLOR_PULSE_INTERVAL_SEC)
 
 func _trigger_shine() -> void:
     shine_tween.interpolate_property( \
-            $MarginContainer/ShineLineWrapper/ShineLine, \
-            "position:x", \
-            shine_start_x, \
-            shine_end_x, \
-            SHINE_DURATION_SEC, \
-            Tween.TRANS_LINEAR, \
+            $MarginContainer/ShineLineWrapper/ShineLine,
+            "position:x",
+            shine_start_x,
+            shine_end_x,
+            SHINE_DURATION_SEC,
+            Tween.TRANS_LINEAR,
             Tween.EASE_IN_OUT)
     shine_tween.start()
 
@@ -142,21 +142,21 @@ func _trigger_color_pulse() -> void:
             .add_stylebox_override("normal", button_style_pulse)
     
     color_pulse_tween.interpolate_property( \
-            button_style_pulse, \
-            "bg_color", \
-            color_original, \
-            color_pulse, \
-            pulse_half_duration, \
-            Tween.TRANS_SINE, \
+            button_style_pulse,
+            "bg_color",
+            color_original,
+            color_pulse,
+            pulse_half_duration,
+            Tween.TRANS_SINE,
             Tween.EASE_IN_OUT)
     color_pulse_tween.interpolate_property( \
-            button_style_pulse, \
-            "bg_color", \
-            color_pulse, \
-            color_original, \
-            pulse_half_duration, \
-            Tween.TRANS_SINE, \
-            Tween.EASE_IN_OUT, \
+            button_style_pulse,
+            "bg_color",
+            color_pulse,
+            color_original,
+            pulse_half_duration,
+            Tween.TRANS_SINE,
+            Tween.EASE_IN_OUT,
             pulse_half_duration)
     color_pulse_tween.start()
 
