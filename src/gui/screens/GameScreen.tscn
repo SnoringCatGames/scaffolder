@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/screens/GameScreen.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/CenteredPanel.tscn" type="PackedScene" id=3]
 
 [node name="GameScreen" type="Node2D"]
 script = ExtResource( 1 )
@@ -14,10 +15,10 @@ __meta__ = {
 }
 
 [node name="ViewportContainer" type="ViewportContainer" parent="PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 487.0
-margin_bottom = 487.0
+margin_left = 254.0
+margin_top = 254.0
+margin_right = 734.0
+margin_bottom = 734.0
 rect_clip_content = true
 mouse_filter = 2
 size_flags_horizontal = 4
@@ -32,3 +33,56 @@ size = Vector2( 480, 480 )
 handle_input_locally = false
 usage = 0
 render_target_update_mode = 3
+
+[node name="LoadProgressPanel" parent="PanelContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 981.0
+margin_bottom = 981.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/LoadProgressPanel"]
+margin_left = 327.0
+margin_top = 435.0
+margin_right = 647.0
+margin_bottom = 539.0
+rect_min_size = Vector2( 320, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_constants/separation = 16
+
+[node name="Label1" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
+margin_left = 73.0
+margin_right = 246.0
+margin_bottom = 14.0
+size_flags_horizontal = 4
+text = "Calculating platform graphs"
+align = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
+margin_top = 30.0
+margin_right = 320.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 320, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
+margin_left = 160.0
+margin_top = 60.0
+margin_right = 160.0
+margin_bottom = 74.0
+size_flags_horizontal = 4
+align = 1
+
+[node name="Label3" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
+margin_left = 160.0
+margin_top = 90.0
+margin_right = 160.0
+margin_bottom = 104.0
+size_flags_horizontal = 4
+align = 1

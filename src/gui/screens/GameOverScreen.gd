@@ -99,5 +99,5 @@ func _on_HomeButton_pressed():
 
 func _on_RetryButton_pressed():
     Gs.utils.give_button_press_feedback(true)
-    Gs.nav.open("game", true)
+    Gs.nav.open("game")
     Gs.nav.screens["game"].start_level(level_id)
