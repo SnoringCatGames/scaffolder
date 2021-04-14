@@ -17,6 +17,20 @@ func _init().(
 func _enter_tree() -> void:
     move_canvas_layer_to_game_viewport("annotation")
     
+    var loading_image_wrapper := \
+            $PanelContainer/LoadProgressPanel/VBoxContainer/LoadingImageWrapper
+    
+    loading_image_wrapper.visible = Gs.is_loading_image_shown
+    
+    if Gs.is_loading_image_shown:
+        var loading_image := Gs.utils.add_scene(
+                loading_image_wrapper,
+                Gs.loading_image_scene_path,
+                true,
+                true, \
+                0)
+        loading_image.set_base_scale(0.5)
+    
     _on_resized()
 
 func move_canvas_layer_to_game_viewport(name: String) -> void:
@@ -82,7 +96,6 @@ func start_level(level_id: String) -> void:
             true)
     level.id = level_id
     $PanelContainer/ViewportContainer/Viewport.add_child(level)
-    level.start()
     level.graph_parser.connect(
             "calculation_started",
             self,
@@ -99,6 +112,7 @@ func start_level(level_id: String) -> void:
             "parse_finished",
             self,
             "_on_graph_parse_finished")
+    level.start()
 
 func _on_calculation_started() -> void:
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label1.text = \
@@ -154,7 +168,8 @@ func _on_graph_parse_finished() -> void:
             self,
             "_on_graph_parse_finished")
     
-    Gs.utils.give_button_press_feedback()
+    if !Gs.level.graph_parser.is_loaded_from_file:
+        Gs.utils.give_button_press_feedback()
     Gs.nav.fade()
     Gs.time.set_timeout( \
             funcref(self, "_close_load_screen"), \
