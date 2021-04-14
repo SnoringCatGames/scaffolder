@@ -19,11 +19,11 @@ func _init(
 
 func on_selected(selected_index: int, selected_text: String) -> void:
     Gs.logger.error(
-            "Abstract DropdownLabeledControlItem.on_selected " + \
+            "Abstract DropdownLabeledControlItem.on_selected " +
             "is not implemented")
 
 func get_selected_index() -> bool:
     Gs.logger.error(
-            "Abstract DropdownLabeledControlItem.get_selected_index " + \
+            "Abstract DropdownLabeledControlItem.get_selected_index " +
             "is not implemented")
     return false

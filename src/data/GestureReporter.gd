@@ -50,8 +50,8 @@ func record_recent_gestures() -> void:
     
     if status != OK:
         Gs.logger.error(
-                "GestureReporter.record_recent_gestures failed: " + \
-                "status=%d" % status,
+                ("GestureReporter.record_recent_gestures failed: " +
+                "status=%d") % status,
                 false)
 
 func _on_record_recent_gestures_request_completed(
@@ -61,7 +61,7 @@ func _on_record_recent_gestures_request_completed(
         body: PoolByteArray,
         request: HTTPRequest) -> void:
     Gs.logger.print(
-            ("GestureReporter._on_record_recent_gestures_request_completed: " + \
+            ("GestureReporter._on_record_recent_gestures_request_completed: " +
             "result=%d, code=%d") % \
             [result, response_code])
     if result != HTTPRequest.RESULT_SUCCESS or \

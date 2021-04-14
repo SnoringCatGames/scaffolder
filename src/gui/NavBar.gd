@@ -79,9 +79,9 @@ func _on_SettingsButton_pressed():
     Gs.utils.give_button_press_feedback()
     if Gs.level != null and \
             Gs.must_restart_level_to_change_settings:
-        var description := \
-                "The level must be restarted in order to change settings." + \
-                "\n\nAre you sure you want to restart the level?"
+        var description := (
+                "The level must be restarted in order to change settings." +
+                "\n\nAre you sure you want to restart the level?")
         Gs.nav.open(
                 "notification",
                 false,

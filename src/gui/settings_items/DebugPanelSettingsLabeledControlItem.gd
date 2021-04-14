@@ -2,13 +2,13 @@ class_name DebugPanelSettingsLabeledControlItem
 extends CheckboxLabeledControlItem
 
 const LABEL := "Debug panel"
-const DESCRIPTION := \
-        "The debug panel displays information about various application " + \
-        "events as they occur. " + \
-        "These events are helpful for debugging, and normal users won't " + \
-        "care. " + \
-        "The debug panel is shown as a transparent overlay covering the " + \
-        "entire screen."
+const DESCRIPTION := (
+        "The debug panel displays information about various application " +
+        "events as they occur. " +
+        "These events are helpful for debugging, and normal users won't " +
+        "care. " +
+        "The debug panel is shown as a transparent overlay covering the " +
+        "entire screen.")
 
 func _init(__ = null).(
         LABEL,

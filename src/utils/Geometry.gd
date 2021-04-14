@@ -729,10 +729,10 @@ static func get_collision_tile_map_coord(
                     tile_coord = bottom_left_cell_coord
                     surface_side = SurfaceSide.FLOOR
                 else:
-                    warning_message = \
-                            "Horizontally/vertically between cells, " + \
-                            "touching floor and left-wall, and no tile in " + \
-                            "lower-left cell"
+                    warning_message = (
+                            "Horizontally/vertically between cells, " +
+                            "touching floor and left-wall, and no tile in " +
+                            "lower-left cell")
                     if is_there_a_tile_at_bottom_right:
                         tile_coord = bottom_right_cell_coord
                         surface_side = SurfaceSide.FLOOR
@@ -750,18 +750,18 @@ static func get_collision_tile_map_coord(
                         surface_side = SurfaceSide.CEILING
                     else:
                         # This should never happen.
-                        error_message = \
-                                "Horizontally/vertically between cells " + \
-                                "and no tiles in any surrounding cells"
+                        error_message = (
+                                "Horizontally/vertically between cells " +
+                                "and no tiles in any surrounding cells")
             elif is_touching_right_wall:
                 if is_there_a_tile_at_bottom_right:
                     tile_coord = bottom_right_cell_coord
                     surface_side = SurfaceSide.FLOOR
                 else:
-                    warning_message = \
-                            "Horizontally/vertically between cells, " + \
-                            "touching floor and right-wall, and no tile in " + \
-                            "lower-right cell"
+                    warning_message = (
+                            "Horizontally/vertically between cells, " +
+                            "touching floor and right-wall, and no tile in " +
+                            "lower-right cell")
                     if is_there_a_tile_at_bottom_left:
                         tile_coord = bottom_left_cell_coord
                         surface_side = SurfaceSide.FLOOR
@@ -779,9 +779,9 @@ static func get_collision_tile_map_coord(
                         surface_side = SurfaceSide.CEILING
                     else:
                         # This should never happen.
-                        error_message = \
-                                "Horizontally/vertically between cells " + \
-                                "and no tiles in any surrounding cells"
+                        error_message = (
+                                "Horizontally/vertically between cells " +
+                                "and no tiles in any surrounding cells")
             elif is_there_a_tile_at_bottom_left:
                 tile_coord = bottom_left_cell_coord
                 surface_side = SurfaceSide.FLOOR
@@ -802,9 +802,9 @@ static func get_collision_tile_map_coord(
                 surface_side = SurfaceSide.CEILING
             else:
                 # This should never happen.
-                error_message = \
-                        "Horizontally/vertically between cells and no " + \
-                        "tiles in any surrounding cells"
+                error_message = (
+                        "Horizontally/vertically between cells and no " +
+                        "tiles in any surrounding cells")
             
         elif is_touching_ceiling:
             if is_touching_left_wall:
@@ -812,10 +812,10 @@ static func get_collision_tile_map_coord(
                     tile_coord = top_left_cell_coord
                     surface_side = SurfaceSide.CEILING
                 else:
-                    warning_message = \
-                            "Horizontally/vertically between cells, " + \
-                            "touching ceiling and left-wall, and no tile " + \
-                            "in upper-left cell"
+                    warning_message = (
+                            "Horizontally/vertically between cells, " +
+                            "touching ceiling and left-wall, and no tile " +
+                            "in upper-left cell")
                     if is_there_a_tile_at_top_right:
                         tile_coord = top_right_cell_coord
                         surface_side = SurfaceSide.CEILING
@@ -833,18 +833,18 @@ static func get_collision_tile_map_coord(
                         surface_side = SurfaceSide.FLOOR
                     else:
                         # This should never happen.
-                        error_message = \
-                                "Horizontally/vertically between cells " + \
-                                "and no tiles in any surrounding cells"
+                        error_message = (
+                                "Horizontally/vertically between cells " +
+                                "and no tiles in any surrounding cells")
             elif is_touching_right_wall:
                 if is_there_a_tile_at_top_right:
                     tile_coord = top_right_cell_coord
                     surface_side = SurfaceSide.CEILING
                 else:
-                    warning_message = \
-                            "Horizontally/vertically between cells, " + \
-                            "touching ceiling and right-wall, and no tile " + \
-                            "in upper-right cell"
+                    warning_message = (
+                            "Horizontally/vertically between cells, " +
+                            "touching ceiling and right-wall, and no tile " +
+                            "in upper-right cell")
                     if is_there_a_tile_at_top_left:
                         tile_coord = top_left_cell_coord
                         surface_side = SurfaceSide.CEILING
@@ -862,9 +862,9 @@ static func get_collision_tile_map_coord(
                         surface_side = SurfaceSide.FLOOR
                     else:
                         # This should never happen.
-                        error_message = \
-                                "Horizontally/vertically between cells " + \
-                                "and no tiles in any surrounding cells"
+                        error_message = (
+                                "Horizontally/vertically between cells " +
+                                "and no tiles in any surrounding cells")
             elif is_there_a_tile_at_top_left:
                 tile_coord = top_left_cell_coord
                 surface_side = SurfaceSide.CEILING
@@ -885,9 +885,9 @@ static func get_collision_tile_map_coord(
                 surface_side = SurfaceSide.FLOOR
             else:
                 # This should never happen.
-                error_message = \
-                        "Horizontally/vertically between cells and no " + \
-                        "tiles in any surrounding cells"
+                error_message = (
+                        "Horizontally/vertically between cells and no " +
+                        "tiles in any surrounding cells")
             
         elif is_touching_left_wall:
             if is_there_a_tile_at_top_left:
@@ -898,9 +898,9 @@ static func get_collision_tile_map_coord(
                 surface_side = SurfaceSide.LEFT_WALL
             else:
                 # This should never happen.
-                error_message = \
-                        "Horizontally/vertically between cells, touching " + \
-                        "left-wall, and no tile in either left cell"
+                error_message = (
+                        "Horizontally/vertically between cells, touching " +
+                        "left-wall, and no tile in either left cell")
             
         elif is_touching_right_wall:
             if is_there_a_tile_at_top_right:
@@ -911,15 +911,15 @@ static func get_collision_tile_map_coord(
                 surface_side = SurfaceSide.RIGHT_WALL
             else:
                 # This should never happen.
-                error_message = \
-                        "Horizontally/vertically between cells, touching " + \
-                        "left-wall, and no tile in either right cell"
+                error_message = (
+                        "Horizontally/vertically between cells, touching " +
+                        "left-wall, and no tile in either right cell")
             
         else:
             # This should never happen.
-            error_message = \
-                    "Somehow colliding, but not touching any floor/" + \
-                    "ceiling/wall (horizontally/vertically between cells)"
+            error_message = (
+                    "Somehow colliding, but not touching any floor/" +
+                    "ceiling/wall (horizontally/vertically between cells)")
         
     elif is_between_cells_vertically:
         top_cell_coord = world_to_tile_map(
@@ -944,9 +944,9 @@ static func get_collision_tile_map_coord(
                 surface_side = SurfaceSide.CEILING
             else:
                 # This should never happen.
-                error_message = \
-                        "Vertically between cells, touching floor, and no " + \
-                        "tile in lower or upper cell"
+                error_message = (
+                        "Vertically between cells, touching floor, and no " +
+                        "tile in lower or upper cell")
         elif is_touching_ceiling:
             if is_there_a_tile_at_top:
                 tile_coord = top_cell_coord
@@ -959,14 +959,14 @@ static func get_collision_tile_map_coord(
                 surface_side = SurfaceSide.FLOOR
             else:
                 # This should never happen.
-                error_message = \
-                        "Vertically between cells, touching ceiling, and " + \
-                        "no tile in upper or lower cell"
+                error_message = (
+                        "Vertically between cells, touching ceiling, and " +
+                        "no tile in upper or lower cell")
         else:
             # This should never happen.
-            error_message = \
-                    "Somehow colliding, but not touching any floor/" + \
-                    "ceiling (vertically between cells)"
+            error_message = (
+                    "Somehow colliding, but not touching any floor/" +
+                    "ceiling (vertically between cells)")
         
     elif is_between_cells_horizontally:
         left_cell_coord = world_to_tile_map(
@@ -984,22 +984,22 @@ static func get_collision_tile_map_coord(
                 tile_coord = left_cell_coord
                 surface_side = SurfaceSide.LEFT_WALL
             else:
-                error_message = \
-                        "Horizontally between cells, touching left-wall, " + \
-                        "and no tile in left cell"
+                error_message = (
+                        "Horizontally between cells, touching left-wall, " +
+                        "and no tile in left cell")
         elif is_touching_right_wall:
             if is_there_a_tile_at_right:
                 tile_coord = right_cell_coord
                 surface_side = SurfaceSide.RIGHT_WALL
             else:
-                error_message = \
-                        "Horizontally between cells, touching right-wall, " + \
-                        "and no tile in right cell"
+                error_message = (
+                        "Horizontally between cells, touching right-wall, " +
+                        "and no tile in right cell")
         else:
             # This should never happen.
-            error_message = \
-                    "Somehow colliding, but not touching any wall " + \
-                    "(horizontally between cells)"
+            error_message = (
+                    "Somehow colliding, but not touching any wall " +
+                    "(horizontally between cells)")
         
     else:
         tile_coord = world_to_tile_map(
@@ -1024,11 +1024,11 @@ static func get_collision_tile_map_coord(
             second_statement = warning_message
         else:
             first_statement = "WARNING: UNUSUAL COLLISION TILEMAP STATE"
-            second_statement = \
-                    "Godot's underlying collision engine presumably " + \
-                    "calculated an incorrect (opposite direction) result " + \
-                    "for is_on_floor/is_on_ceiling. This usually happens " + \
-                    "when the player is sliding along a corner."
+            second_statement = (
+                    "Godot's underlying collision engine presumably " +
+                    "calculated an incorrect (opposite direction) result " +
+                    "for is_on_floor/is_on_ceiling. This usually happens " +
+                    "when the player is sliding along a corner.")
         var print_message := """%s: 
             %s; 
             is_godot_floor_ceiling_detection_correct=%s 
@@ -1095,8 +1095,8 @@ static func do_shapes_match(
                 a.extents == b.extents
     else:
         Gs.logger.error(
-                "Invalid Shape2D provided for do_shapes_match: %s. The " + \
-                "supported shapes are: CircleShape2D, CapsuleShape2D, " + \
+                "Invalid Shape2D provided for do_shapes_match: %s. The " +
+                "supported shapes are: CircleShape2D, CapsuleShape2D, " +
                 "RectangleShape2D." % a)
         return false
 
@@ -1123,8 +1123,8 @@ static func calculate_half_width_height(
         half_width_height = shape.extents
     else:
         Gs.logger.error(
-                "Invalid Shape2D provided to calculate_half_width_height: " + \
-                "%s. The upported shapes are: CircleShape2D, " + \
+                "Invalid Shape2D provided to calculate_half_width_height: " +
+                "%s. The upported shapes are: CircleShape2D, " +
                 "CapsuleShape2D, RectangleShape2D." % shape)
     
     if is_rotated_90_degrees:
