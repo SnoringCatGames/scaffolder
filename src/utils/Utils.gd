@@ -160,7 +160,8 @@ func add_scene(
         parent: Node,
         resource_path: String,
         is_attached := true,
-        is_visible := true) -> Node:
+        is_visible := true, \
+        child_index := -1) -> Node:
     var scene := load(resource_path)
     if scene == null:
         Gs.logger.error("Invalid scene path: " + resource_path)
@@ -170,6 +171,9 @@ func add_scene(
         node.visible = is_visible
     if is_attached:
         parent.add_child(node)
+    
+    if child_index >= 0:
+        parent.move_child(node, child_index)
     
     var name := resource_path
     if name.find_last("/") >= 0:

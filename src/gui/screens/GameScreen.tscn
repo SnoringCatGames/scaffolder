@@ -44,26 +44,41 @@ margin_bottom = 967.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/LoadProgressPanel"]
 margin_left = 320.0
-margin_top = 428.0
+margin_top = 412.0
 margin_right = 640.0
-margin_bottom = 532.0
+margin_bottom = 548.0
 rect_min_size = Vector2( 320, 0 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 16
 
+[node name="LoadingImageWrapper" type="VBoxContainer" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
+margin_left = 160.0
+margin_right = 160.0
+margin_bottom = 16.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_constants/separation = 0
+
+[node name="Spacer" type="Control" parent="PanelContainer/LoadProgressPanel/VBoxContainer/LoadingImageWrapper"]
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 16 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
 [node name="Label1" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
 margin_left = 73.0
+margin_top = 32.0
 margin_right = 246.0
-margin_bottom = 14.0
+margin_bottom = 46.0
 size_flags_horizontal = 4
 text = "Calculating platform graphs"
 align = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
-margin_top = 30.0
+margin_top = 62.0
 margin_right = 320.0
-margin_bottom = 44.0
+margin_bottom = 76.0
 rect_min_size = Vector2( 320, 0 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -73,16 +88,16 @@ __meta__ = {
 
 [node name="Label2" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
 margin_left = 160.0
-margin_top = 60.0
+margin_top = 92.0
 margin_right = 160.0
-margin_bottom = 74.0
+margin_bottom = 106.0
 size_flags_horizontal = 4
 align = 1
 
 [node name="Label3" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
 margin_left = 160.0
-margin_top = 90.0
+margin_top = 122.0
 margin_right = 160.0
-margin_bottom = 104.0
+margin_bottom = 136.0
 size_flags_horizontal = 4
 align = 1
