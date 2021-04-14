@@ -81,8 +81,8 @@ func _update_children() -> void:
             var description_button: ScaffolderTextureButton = \
                     Gs.utils.add_scene( \
                             hbox, 
-                            SCAFFOLDER_TEXTURE_BUTTON_SCENE_PATH, \
-                            true, \
+                            SCAFFOLDER_TEXTURE_BUTTON_SCENE_PATH,
+                            true,
                             true)
             description_button.texture_normal = ABOUT_ICON_NORMAL
             description_button.texture_hover = ABOUT_ICON_HOVER
@@ -93,9 +93,9 @@ func _update_children() -> void:
                     Vector2(Gs.gui_scale, Gs.gui_scale)
             description_button.expands_texture = false
             description_button.connect( \
-                    "pressed", \
-                    self, \
-                    "_on_description_button_pressed", \
+                    "pressed",
+                    self,
+                    "_on_description_button_pressed",
                     [
                         item.label,
                         item.description
@@ -122,15 +122,15 @@ func _update_children() -> void:
         hbox.add_child(spacer2)
     
     Gs.utils.set_mouse_filter_recursively( \
-            self, \
+            self,
             Control.MOUSE_FILTER_PASS)
     
     if font != null:
         _set_font_recursively(font, self)
 
 func _create_control( \
-        item: LabeledControlItem, \
-        index: int, \
+        item: LabeledControlItem,
+        index: int,
         disabled: bool) -> Control:
     var alpha := \
             DISABLED_ALPHA if \
@@ -145,9 +145,9 @@ func _create_control( \
             return label
         LabeledControlItem.CHECKBOX:
             var checkbox: ScaffolderCheckBox = Gs.utils.add_scene( \
-                    null, \
-                    SCAFFOLDER_CHECK_BOX_SCENE_PATH, \
-                    false, \
+                    null,
+                    SCAFFOLDER_CHECK_BOX_SCENE_PATH,
+                    false,
                     true)
             checkbox.pressed = item.pressed
             checkbox.disabled = disabled
@@ -157,14 +157,14 @@ func _create_control( \
             checkbox.rect_min_size.x = \
                     Gs.default_checkbox_icon_size * Gs.gui_scale
             checkbox.connect( \
-                    "pressed", \
-                    self, \
-                    "_on_control_pressed", \
+                    "pressed",
+                    self,
+                    "_on_control_pressed",
                     [index])
             checkbox.connect( \
-                    "pressed", \
-                    self, \
-                    "_on_checkbox_pressed", \
+                    "pressed",
+                    self,
+                    "_on_checkbox_pressed",
                     [index])
 #            var checkbox_inner: CheckBox = checkbox.get_node("CheckBox")
 #            checkbox_inner.
@@ -177,14 +177,14 @@ func _create_control( \
             dropdown.select(item.selected_index)
             dropdown.disabled = disabled
             dropdown.connect( \
-                    "pressed", \
-                    self, \
-                    "_on_control_pressed", \
+                    "pressed",
+                    self,
+                    "_on_control_pressed",
                     [index])
             dropdown.connect( \
-                    "item_selected", \
-                    self, \
-                    "_on_dropdown_item_selected", \
+                    "item_selected",
+                    self,
+                    "_on_dropdown_item_selected",
                     [index])
             item.control = dropdown
             return dropdown
@@ -202,23 +202,23 @@ func _on_checkbox_pressed(checkbox_index: int) -> void:
     emit_signal("item_changed", item)
 
 func _on_dropdown_item_selected( \
-        _option_index: int, \
+        _option_index: int,
         dropdown_index: int) -> void:
     Gs.utils.give_button_press_feedback()
     var item: DropdownLabeledControlItem = items[dropdown_index]
     item.selected_index = item.control.selected
     item.on_selected( \
-            item.selected_index, \
+            item.selected_index,
             item.options[item.selected_index])
     emit_signal("item_changed", item)
 
 func _on_description_button_pressed( \
-        label: String, \
+        label: String,
         description: String) -> void:
     Gs.utils.give_button_press_feedback()
     Gs.nav.open( \
-            "notification", \
-            false, \
+            "notification",
+            false,
             {
                 header_text = label,
                 is_back_button_shown = true,
@@ -291,7 +291,7 @@ func _get_font() -> Font:
     return font
 
 static func _set_font_recursively( \
-        font: Font, \
+        font: Font,
         control: Node) -> void:
     if !(control is Control):
         return

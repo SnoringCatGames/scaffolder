@@ -14,8 +14,8 @@ var level_play_time: float setget ,_get_level_play_time
 
 func _ready() -> void:
     Gs.utils.connect( \
-            "display_resized", \
-            self, \
+            "display_resized",
+            self,
             "_on_resized")
     _on_resized()
 
@@ -42,11 +42,11 @@ func start() -> void:
     Gs.audio.play_music(_get_music_name())
     level_start_time = Gs.time.elapsed_play_time_actual_sec
     Gs.save_state.set_level_total_plays( \
-            _id, \
+            _id,
             Gs.save_state.get_level_total_plays(_id) + 1)
     Gs.analytics.event( \
-            "level", \
-            "start", \
+            "level",
+            "start",
             Gs.level_config.get_level_version_string(_id))
 
 func _destroy() -> void:
@@ -83,15 +83,15 @@ func _record_level_results() -> void:
     
     if Gs.uses_level_scores:
         Gs.analytics.event( \
-                "score", \
-                "v" + Gs.score_version, \
-                Gs.level_config.get_level_version_string(_id), \
+                "score",
+                "v" + Gs.score_version,
+                Gs.level_config.get_level_version_string(_id),
                 int(score))
         
         var previous_high_score: int = Gs.save_state.get_level_high_score(_id)
         if score > previous_high_score:
             Gs.save_state.set_level_high_score( \
-                    _id, \
+                    _id,
                     int(score))
             game_over_screen.reached_new_high_score = true
         
@@ -109,9 +109,9 @@ func _record_level_results() -> void:
     for other_level_id in new_unlocked_levels:
         Gs.save_state.set_level_is_unlocked(other_level_id, true)
         Gs.analytics.event( \
-                "level", \
-                "unlocked", \
-                Gs.level_config.get_level_version_string(other_level_id), \
+                "level",
+                "unlocked",
+                Gs.level_config.get_level_version_string(other_level_id),
                 Gs.level_config.get_level_config(other_level_id).number)
     game_over_screen.new_unlocked_levels = new_unlocked_levels
 

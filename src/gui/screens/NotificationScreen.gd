@@ -9,11 +9,11 @@ const INCLUDES_NAV_BAR := true
 const INCLUDES_CENTER_CONTAINER := true
 
 func _init().( \
-        NAME, \
-        LAYER_NAME, \
-        AUTO_ADAPTS_GUI_SCALE, \
-        INCLUDES_STANDARD_HIERARCHY, \
-        INCLUDES_NAV_BAR, \
+        NAME,
+        LAYER_NAME,
+        AUTO_ADAPTS_GUI_SCALE,
+        INCLUDES_STANDARD_HIERARCHY,
+        INCLUDES_NAV_BAR,
         INCLUDES_CENTER_CONTAINER \
         ) -> void:
     pass
@@ -67,8 +67,8 @@ func _on_CloseButton_pressed():
     if params.has("next_screen"):
         Gs.nav.close_current_screen()
         Gs.time.set_timeout( \
-                funcref(Gs.nav, "open"), \
-                Gs.nav.SCREEN_SLIDE_DURATION_SEC / 2.0, \
+                funcref(Gs.nav, "open"),
+                Gs.nav.SCREEN_SLIDE_DURATION_SEC / 2.0,
                 [params["next_screen"]])
     else:
         Gs.nav.close_current_screen()

@@ -17,7 +17,7 @@ func print(message: String) -> void:
         print(message)
 
 func error( \
-        message := "An error occurred", \
+        message := "An error occurred",
         should_assert := true) -> void:
     push_error("ERROR: %s" % message)
     self.print("**ERROR**: %s" % message)
@@ -25,7 +25,7 @@ func error( \
          assert(false)
 
 static func static_error( \
-        message := "An error occurred", \
+        message := "An error occurred",
         should_assert := true) -> void:
     push_error("ERROR: %s" % message)
     if should_assert:

@@ -36,7 +36,7 @@ func report_any_previous_crash() -> bool:
     
     var log_file_path := LOGS_DIRECTORY_PATH + "/" + log_file_name
     var lines := Utils.get_last_x_lines_from_file( \
-            log_file_path, \
+            log_file_path,
             ERROR_LOG_REPORTING_MAX_LINE_COUNT)
     if lines.empty():
         Gs.logger.error( \
@@ -93,7 +93,7 @@ func _get_most_recent_log_file_name() -> String:
     return most_recent_file_name
 
 func _upload_crash_log( \
-        text: String, \
+        text: String,
         file_name: String) -> void:
     var url: String = Gs.error_logs_url + "?uploadType=media&name=" + file_name
     
@@ -104,17 +104,17 @@ func _upload_crash_log( \
     # reporting could recur while this upload is in progress.
     request.use_threads = false
     request.connect( \
-            "request_completed", \
-            self, \
-            "_on_upload_crash_log_completed", \
+            "request_completed",
+            self,
+            "_on_upload_crash_log_completed",
             [request])
     add_child(request)
     
     var status: int = request.request( \
-            url, \
-            HEADERS, \
-            true, \
-            HTTPClient.METHOD_POST, \
+            url,
+            HEADERS,
+            true,
+            HTTPClient.METHOD_POST,
             text)
     
     if status != OK:
@@ -122,10 +122,10 @@ func _upload_crash_log( \
                 "CrashReporter._upload_crash_log failed: status=%d" % status)
 
 func _on_upload_crash_log_completed( \
-        result: int, \
-        response_code: int, \
-        headers: PoolStringArray, \
-        body: PoolByteArray, \
+        result: int,
+        response_code: int,
+        headers: PoolStringArray,
+        body: PoolByteArray,
         request: HTTPRequest) -> void:
     Gs.logger.print( \
             ("CrashReporter._on_upload_crash_log_completed: " + \

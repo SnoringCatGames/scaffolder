@@ -7,7 +7,7 @@ const DESCRIPTION := ""
 var level_id: String
 
 func _init(level_or_id).( \
-        LABEL, \
+        LABEL,
         DESCRIPTION \
         ) -> void:
     self.level_id = \

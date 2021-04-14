@@ -121,33 +121,33 @@ func _derive_colors() -> void:
     
     Gs.colors.zebra_stripe_even_row_color = \
             _derive_color_from_hsva_delta( \
-                    Gs.colors.background_color, \
+                    Gs.colors.background_color,
                     Gs.colors.zebra_stripe_even_row_color_hsv_delta)
     
     Gs.colors.scroll_bar_background_color = \
             _derive_color_from_hsva_delta( \
-                    Gs.colors.background_color, \
+                    Gs.colors.background_color,
                     Gs.colors.scroll_bar_background_hsv_delta)
     Gs.colors.scroll_bar_grabber_normal_color = \
             _derive_color_from_hsva_delta( \
-                    Gs.colors.button_color, \
+                    Gs.colors.button_color,
                     Gs.colors.scroll_bar_grabber_normal_hsv_delta)
     Gs.colors.scroll_bar_grabber_hover_color = \
             _derive_color_from_hsva_delta( \
-                    Gs.colors.scroll_bar_grabber_normal_color, \
+                    Gs.colors.scroll_bar_grabber_normal_color,
                     Gs.colors.scroll_bar_grabber_hover_hsv_delta)
     Gs.colors.scroll_bar_grabber_pressed_color = \
             _derive_color_from_hsva_delta( \
-                    Gs.colors.scroll_bar_grabber_normal_color, \
+                    Gs.colors.scroll_bar_grabber_normal_color,
                     Gs.colors.scroll_bar_grabber_pressed_hsv_delta)
 
 func _derive_color_from_hsva_delta( \
-        base_color: Color, \
+        base_color: Color,
         delta_hsva: Dictionary) -> Color:
     return Color.from_hsv( \
-            base_color.h + delta_hsva.h, \
-            base_color.s + delta_hsva.s, \
-            base_color.v + delta_hsva.v, \
+            base_color.h + delta_hsva.h,
+            base_color.s + delta_hsva.s,
+            base_color.v + delta_hsva.v,
             base_color.a + delta_hsva.a if \
                     delta_hsva.has("a") else \
                     base_color.a)

@@ -17,11 +17,11 @@ var _default_item_classes := [
 ]
 
 func _init().( \
-        NAME, \
-        LAYER_NAME, \
-        AUTO_ADAPTS_GUI_SCALE, \
-        INCLUDES_STANDARD_HIERARCHY, \
-        INCLUDES_NAV_BAR, \
+        NAME,
+        LAYER_NAME,
+        AUTO_ADAPTS_GUI_SCALE,
+        INCLUDES_STANDARD_HIERARCHY,
+        INCLUDES_NAV_BAR,
         INCLUDES_CENTER_CONTAINER \
         ) -> void:
     pass
@@ -38,8 +38,8 @@ func _on_activated(previous_screen_name: String) -> void:
 func _get_items() -> Array:
     var item_classes := \
             Gs.utils.get_collection_from_exclusions_and_inclusions( \
-                    _default_item_classes, \
-                    Gs.pause_item_class_exclusions, \
+                    _default_item_classes,
+                    Gs.pause_item_class_exclusions,
                     Gs.pause_item_class_inclusions)
     var items := []
     for item_class in item_classes:

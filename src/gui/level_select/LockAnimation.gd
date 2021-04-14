@@ -7,8 +7,8 @@ const UNLOCK_DURATION_SEC := 0.8
 
 func _ready() -> void:
     $Control/Node2D/AnimationPlayer.connect( \
-            "animation_finished", \
-            self, \
+            "animation_finished",
+            self,
             "_on_lock_animation_finished")
 
 func update_gui_scale(gui_scale: float) -> bool:

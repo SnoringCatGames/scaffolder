@@ -11,8 +11,8 @@ func _enter_tree() -> void:
         rect_size = Vector2(960, 960)
     else:
         Gs.utils.connect( \
-                "display_resized", \
-                self, \
+                "display_resized",
+                self,
                 "_on_resized")
         _on_resized()
 

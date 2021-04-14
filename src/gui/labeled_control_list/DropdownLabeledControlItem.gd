@@ -8,11 +8,11 @@ var options: Array
 var selected_index := -1
 
 func _init( \
-        label: String, \
+        label: String,
         description: String \
         ).( \
-        TYPE, \
-        label, \
+        TYPE,
+        label,
         description \
         ) -> void:
     pass

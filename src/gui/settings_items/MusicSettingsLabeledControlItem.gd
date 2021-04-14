@@ -5,7 +5,7 @@ const LABEL := "Music"
 const DESCRIPTION := ""
 
 func _init(__ = null).( \
-        LABEL, \
+        LABEL,
         DESCRIPTION \
         ) -> void:
     pass
@@ -13,7 +13,7 @@ func _init(__ = null).( \
 func on_pressed(pressed: bool) -> void:
     Gs.audio.is_music_enabled = pressed
     Gs.save_state.set_setting( \
-            Gs.IS_MUSIC_ENABLED_SETTINGS_KEY, \
+            Gs.IS_MUSIC_ENABLED_SETTINGS_KEY,
             Gs.audio.is_music_enabled)
 
 func get_is_pressed() -> bool:

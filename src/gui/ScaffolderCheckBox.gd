@@ -20,7 +20,7 @@ func _ready() -> void:
 
 func update_gui_scale(gui_scale: float) -> bool:
     $CheckBox.rect_size = Vector2( \
-            Gs.current_checkbox_icon_size, \
+            Gs.current_checkbox_icon_size,
             Gs.current_checkbox_icon_size)
     var check_box_scale := _get_icon_scale()
     $CheckBox.rect_scale = Vector2(check_box_scale, check_box_scale)

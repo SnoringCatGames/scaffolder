@@ -5,7 +5,7 @@ const LABEL := "Time:"
 const DESCRIPTION := ""
 
 func _init(__ = null).( \
-        LABEL, \
+        LABEL,
         DESCRIPTION \
         ) -> void:
     pass

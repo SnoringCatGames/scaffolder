@@ -6,11 +6,11 @@ var TYPE := LabeledControlItem.CHECKBOX
 var pressed := false
 
 func _init( \
-        label: String, \
+        label: String,
         description: String \
         ).( \
-        TYPE, \
-        label, \
+        TYPE,
+        label,
         description \
         ) -> void:
     pass

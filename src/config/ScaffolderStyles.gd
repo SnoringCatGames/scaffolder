@@ -187,15 +187,15 @@ func configure_theme() -> void:
         Gs.theme.default_font = Gs.fonts.main_m
 
 func _configure_theme_color( \
-        name: String, \
-        type: String, \
+        name: String,
+        type: String,
         color: Color) -> void:
     if !Gs.theme.has_color(name, type):
         Gs.theme.set_color(name, type, color)
 
 func _configure_theme_stylebox( \
-        name: String, \
-        type: String, \
+        name: String,
+        type: String,
         config) -> void:
     if !Gs.theme.has_stylebox(name, type):
         var stylebox: StyleBoxFlatScalable = \
@@ -208,7 +208,7 @@ func _configure_theme_stylebox( \
         Gs.theme.set_stylebox(name, type, new)
 
 func _configure_theme_stylebox_empty( \
-        name: String, \
+        name: String,
         type: String) -> void:
     if !Gs.theme.has_stylebox(name, type):
         var stylebox := StyleBoxEmpty.new()

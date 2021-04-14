@@ -13,11 +13,11 @@ var go_icon_scale_multiplier := 1.0
 var projected_image: Control
 
 func _init().( \
-        NAME, \
-        LAYER_NAME, \
-        AUTO_ADAPTS_GUI_SCALE, \
-        INCLUDES_STANDARD_HIERARCHY, \
-        INCLUDES_NAV_BAR, \
+        NAME,
+        LAYER_NAME,
+        AUTO_ADAPTS_GUI_SCALE,
+        INCLUDES_STANDARD_HIERARCHY,
+        INCLUDES_NAV_BAR,
         INCLUDES_CENTER_CONTAINER \
         ) -> void:
     pass
@@ -26,9 +26,9 @@ func _ready() -> void:
     if Gs.is_main_menu_image_shown:
         projected_image = Gs.utils.add_scene( \
                 $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-                        CenterContainer/VBoxContainer/MainMenuImageContainer, \
-                Gs.main_menu_image_scene_path, \
-                true, \
+                        CenterContainer/VBoxContainer/MainMenuImageContainer,
+                Gs.main_menu_image_scene_path,
+                true,
                 true)
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/Title.texture = \

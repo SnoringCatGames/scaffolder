@@ -14,8 +14,8 @@ var description: String
 var enabled := true
 
 func _init( \
-        type: int, \
-        label: String, \
+        type: int,
+        label: String,
         description: String) -> void:
     self.type = type
     self.label = label

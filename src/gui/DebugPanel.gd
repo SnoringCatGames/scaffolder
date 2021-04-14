@@ -18,16 +18,16 @@ func _ready() -> void:
     _is_ready = true
     Gs.time.set_timeout(funcref(self, "_delayed_init"), 0.8)
     Gs.utils.connect( \
-            "display_resized", \
-            self, \
+            "display_resized",
+            self,
             "_on_resized")
     _on_resized()
 
 func _process(_delta: float) -> void:
     $PanelContainer/Time.text = Gs.utils.get_time_string_from_seconds( \
-            Gs.time.elapsed_app_time_actual_sec, \
-            true, \
-            false, \
+            Gs.time.elapsed_app_time_actual_sec,
+            true,
+            false,
             false) + " "
 
 func _on_resized() -> void:

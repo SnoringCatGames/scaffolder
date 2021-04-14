@@ -47,7 +47,7 @@ func update_gui_scale(gui_scale: float) -> bool:
     rect_size = rect_min_size
     
     var header_size := Vector2( \
-            rect_min_size.x, \
+            rect_min_size.x,
             HEADER_HEIGHT * Gs.gui_scale)
     $HeaderWrapper.rect_min_size = header_size
     $HeaderWrapper.rect_size = header_size
@@ -127,25 +127,25 @@ func _on_LevelSelectItemLockedHeader_unlock_finished() -> void:
     var fade_tween := Tween.new()
     locked_header.add_child(fade_tween)
     fade_tween.connect( \
-            "tween_all_completed", \
-            self, \
-            "_on_unlock_fade_finished", \
+            "tween_all_completed",
+            self,
+            "_on_unlock_fade_finished",
             [fade_tween])
     fade_tween.interpolate_property( \
-            locked_header, \
-            "modulate:a", \
-            LevelSelectItemLockedHeader.LOCKED_OPACITY, \
-            0.0, \
-            FADE_TWEEN_DURATION_SEC, \
-            Tween.TRANS_QUAD, \
+            locked_header,
+            "modulate:a",
+            LevelSelectItemLockedHeader.LOCKED_OPACITY,
+            0.0,
+            FADE_TWEEN_DURATION_SEC,
+            Tween.TRANS_QUAD,
             Tween.EASE_IN_OUT)
     fade_tween.interpolate_property( \
-            unlocked_header, \
-            "modulate:a", \
-            0.0, \
-            1.0, \
-            FADE_TWEEN_DURATION_SEC, \
-            Tween.TRANS_QUAD, \
+            unlocked_header,
+            "modulate:a",
+            0.0,
+            1.0,
+            FADE_TWEEN_DURATION_SEC,
+            Tween.TRANS_QUAD,
             Tween.EASE_IN_OUT)
     fade_tween.start()
     Gs.time.set_timeout(funcref(Gs.audio, "play_sound"), 0.3, ["achievement"])

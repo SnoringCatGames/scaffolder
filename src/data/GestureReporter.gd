@@ -35,30 +35,30 @@ func record_recent_gestures() -> void:
     var request := HTTPRequest.new()
     request.use_threads = true
     request.connect( \
-            "request_completed", \
-            self, \
-            "_on_record_recent_gestures_request_completed", \
+            "request_completed",
+            self,
+            "_on_record_recent_gestures_request_completed",
             [request])
     add_child(request)
     
     var status: int = request.request( \
-            url, \
-            HEADERS, \
-            true, \
-            HTTPClient.METHOD_POST, \
+            url,
+            HEADERS,
+            true,
+            HTTPClient.METHOD_POST,
             body_str)
     
     if status != OK:
         Gs.logger.error( \
                 "GestureReporter.record_recent_gestures failed: " + \
-                "status=%d" % status, \
+                "status=%d" % status,
                 false)
 
 func _on_record_recent_gestures_request_completed( \
-        result: int, \
-        response_code: int, \
-        headers: PoolStringArray, \
-        body: PoolByteArray, \
+        result: int,
+        response_code: int,
+        headers: PoolStringArray,
+        body: PoolByteArray,
         request: HTTPRequest) -> void:
     Gs.logger.print( \
             ("GestureReporter._on_record_recent_gestures_request_completed: " + \

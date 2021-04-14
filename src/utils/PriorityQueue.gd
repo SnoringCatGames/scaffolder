@@ -59,7 +59,7 @@ var maintain_min: bool
 var last_power_of_two := 0
 
 func _init( \
-        items := [], \
+        items := [],
         set_maintain_min := true) -> void:
     # Determines whether the smallest or largest value is maintained at the top.
     maintain_min = set_maintain_min
@@ -231,7 +231,7 @@ func remove(index: int):
 # 
 # Create new queue with those items and return that queue.
 func merge_with( \
-        priority_queue: PriorityQueue, \
+        priority_queue: PriorityQueue,
         set_maintain_min = true) -> PriorityQueue:
     var list: = []
     var own_queue: = _get_queue()

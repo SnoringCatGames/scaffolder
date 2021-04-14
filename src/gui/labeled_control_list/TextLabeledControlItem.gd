@@ -6,11 +6,11 @@ var TYPE := LabeledControlItem.TEXT
 var text: String
 
 func _init( \
-        label: String, \
+        label: String,
         description: String \
         ).( \
-        TYPE, \
-        label, \
+        TYPE,
+        label,
         description \
         ) -> void:
     pass
