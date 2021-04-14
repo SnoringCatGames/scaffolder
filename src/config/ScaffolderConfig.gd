@@ -158,7 +158,6 @@ var original_font_sizes: Dictionary
 
 var is_app_configured := false
 var is_app_initialized := false
-var is_initial_screen_size_set := false
 var were_screenshots_taken := false
 
 var agreed_to_terms: bool

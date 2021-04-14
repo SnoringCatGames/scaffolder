@@ -34,9 +34,9 @@ size_flags_vertical = 4
 
 [node name="LevelNumber" type="Label" parent="HBoxContainer"]
 margin_left = 16.0
-margin_top = 7.0
+margin_top = 10.0
 margin_right = 46.0
-margin_bottom = 49.0
+margin_bottom = 46.0
 rect_min_size = Vector2( 30, 0 )
 custom_fonts/font = ExtResource( 2 )
 align = 2
@@ -44,17 +44,15 @@ valign = 1
 
 [node name="LevelName" type="Label" parent="HBoxContainer"]
 margin_left = 62.0
-margin_top = 7.0
+margin_top = 10.0
 margin_right = 357.0
-margin_bottom = 49.0
+margin_bottom = 46.0
 rect_clip_content = true
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
 valign = 1
 
 [node name="Caret" parent="HBoxContainer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 372.0
 margin_top = 20.0
 margin_right = 383.5
@@ -72,5 +70,3 @@ margin_right = 400.0
 margin_bottom = 28.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-
-[connection signal="pressed" from="." to="." method="_on_LevelSelectItemUnlockedHeader_pressed"]

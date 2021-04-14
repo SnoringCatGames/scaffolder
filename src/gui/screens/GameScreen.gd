@@ -70,14 +70,14 @@ func _update_viewport_region_helper() -> void:
     $PanelContainer/ViewportContainer/Viewport.size = \
             Gs.game_area_region.size
     
-    call_deferred("_fix_viewport_dimensions_hack")
-    Gs.time.set_timeout(funcref(self, "_fix_viewport_dimensions_hack"), 0.4)
+    _fix_viewport_dimensions_hack()
 
 func _fix_viewport_dimensions_hack() -> void:
-    # TODO: This hack seems to be needed in order for the viewport to actually
-    #       update its dimensions correctly.
-    self.visible = false
-    call_deferred("set_visible", true)
+    if visible:
+        # TODO: This hack seems to be needed in order for the viewport to
+        #       actually update its dimensions correctly.
+        visible = false
+        Gs.time.set_timeout(funcref(self, "set_visible"), 0.4, [true])
 
 func start_level(level_id: String) -> void:
     if is_instance_valid(Gs.level):

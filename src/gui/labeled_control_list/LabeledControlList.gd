@@ -25,7 +25,7 @@ var even_row_color := Gs.colors.zebra_stripe_even_row_color setget \
         _set_even_row_color,_get_even_row_color
 
 export var font: Font setget _set_font,_get_font
-export var row_height := 40.0 setget _set_row_height,_get_row_height
+export var row_height := 0.0 setget _set_row_height,_get_row_height
 export var padding_horizontal := 8.0 setget \
         _set_padding_horizontal,_get_padding_horizontal
 
@@ -57,7 +57,7 @@ func _update_children() -> void:
         add_child(row)
         
         var hbox := HBoxContainer.new()
-        hbox.rect_min_size.y = row_height
+        hbox.rect_min_size.y = row_height * Gs.gui_scale
         hbox.add_constant_override("separation", 0)
         row.add_child(hbox)
         
