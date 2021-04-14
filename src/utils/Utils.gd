@@ -397,6 +397,7 @@ static func get_time_string_from_seconds(
         includes_ms := false,
         includes_empty_hours := true,
         includes_empty_minutes := true) -> String:
+    var is_undefined := is_inf(time_sec)
     var time_str := ""
     
     # Hours.
@@ -404,35 +405,48 @@ static func get_time_string_from_seconds(
     time_sec = fmod(time_sec, 3600.0)
     if hours != 0 or \
             includes_empty_hours:
-        time_str = "%s%02d:" % [
-            time_str,
-            hours,
-        ]
+        if !is_undefined:
+            time_str = "%s%02d:" % [
+                time_str,
+                hours,
+            ]
+        else:
+            time_str = "--:"
     
     # Minutes.
     var minutes := int(time_sec / 60.0)
     time_sec = fmod(time_sec, 60.0)
     if minutes != 0 or \
             includes_empty_minutes:
-        time_str = "%s%02d:" % [
-            time_str,
-            minutes,
-        ]
+        if !is_undefined:
+            time_str = "%s%02d:" % [
+                time_str,
+                minutes,
+            ]
+        else:
+            time_str += "--:"
     
     # Seconds.
     var seconds := int(time_sec)
-    time_str = "%s%02d" % [
-        time_str,
-        seconds,
-    ]
+    if !is_undefined:
+        time_str = "%s%02d" % [
+            time_str,
+            seconds,
+        ]
+    else:
+        time_str += "--"
     
     if includes_ms:
         # Milliseconds.
-        var milliseconds := int(fmod((time_sec - seconds) * 1000.0, 1000.0))
-        time_str = "%s.%03d" % [
-            time_str,
-            milliseconds,
-        ]
+        var milliseconds := \
+                int(fmod((time_sec - seconds) * 1000.0, 1000.0))
+        if !is_undefined:
+            time_str = "%s.%03d" % [
+                time_str,
+                milliseconds,
+            ]
+        else:
+            time_str += ".---"
     
     return time_str
 

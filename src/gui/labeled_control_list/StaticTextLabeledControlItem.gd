@@ -21,3 +21,6 @@ func get_is_enabled() -> bool:
 
 func get_text() -> String:
     return text
+
+func update_control() -> void:
+    control.text = text

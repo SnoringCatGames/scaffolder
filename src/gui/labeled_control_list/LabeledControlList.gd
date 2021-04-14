@@ -110,10 +110,13 @@ func _update_children() -> void:
             spacer3.rect_min_size.x = padding_horizontal * 2.0 * Gs.gui_scale
             hbox.add_child(spacer3)
         
-        var control := _create_control(item, index, !item.enabled)
-        control.size_flags_horizontal = Control.SIZE_SHRINK_END
-        control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-        hbox.add_child(control)
+        if item.type != LabeledControlItem.HEADER:
+            var control := _create_control(item, index, !item.enabled)
+            control.size_flags_horizontal = Control.SIZE_SHRINK_END
+            control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+            hbox.add_child(control)
+        else:
+            label.align = Label.ALIGN_CENTER
         
         var spacer2 := Control.new()
         spacer2.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
@@ -137,6 +140,8 @@ func _create_control(
             disabled else \
             ENABLED_ALPHA
     match item.type:
+        LabeledControlItem.HEADER:
+            return null
         LabeledControlItem.TEXT:
             var label := Label.new()
             label.text = item.text
@@ -241,6 +246,8 @@ func _update_item(item: LabeledControlItem) -> void:
     item.enabled = item.get_is_enabled()
     
     match item.type:
+        LabeledControlItem.HEADER:
+            pass
         LabeledControlItem.TEXT:
             item.text = item.get_text()
         LabeledControlItem.CHECKBOX:

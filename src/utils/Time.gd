@@ -13,7 +13,8 @@ var physics_framerate_multiplier := 1.0 setget \
 # TODO: Verify that all render-frame _process calls in the scene tree happen
 #       without interleaving with any _physics_process calls from other nodes
 #       in the scene tree.
-var _elapsed_latest_time_sec: float
+var _start_real_time_sec: float
+var _elapsed_real_time_sec: float
 var _elapsed_physics_time_sec: float
 var _elapsed_render_time_sec: float
 
@@ -48,11 +49,13 @@ func _enter_tree() -> void:
 func _ready() -> void:
     _elapsed_physics_time_sec = 0.0
     _elapsed_render_time_sec = 0.0
-    _elapsed_latest_time_sec = 0.0
+    _elapsed_real_time_sec = 0.0
+    _start_real_time_sec = OS.get_ticks_usec() / 1000000.0
 
 func _process(delta_sec: float) -> void:
     _elapsed_render_time_sec += delta_sec
-    _elapsed_latest_time_sec = _elapsed_render_time_sec
+    _elapsed_real_time_sec = \
+            OS.get_ticks_usec() / 1000000.0 - _start_real_time_sec
     
     _handle_timeouts()
     _handle_intervals()
@@ -60,7 +63,7 @@ func _process(delta_sec: float) -> void:
 func _handle_timeouts() -> void:
     var expired_timeout_id := -1
     for id in _timeouts:
-        if _elapsed_latest_time_sec >= _timeouts[id].time_sec:
+        if _elapsed_real_time_sec >= _timeouts[id].time_sec:
             expired_timeout_id = id
             break
     
@@ -71,7 +74,7 @@ func _handle_timeouts() -> void:
 func _handle_intervals() -> void:
     var expired_interval_id := -1
     for id in _intervals:
-        if _elapsed_latest_time_sec >= _intervals[id].next_trigger_time_sec:
+        if _elapsed_real_time_sec >= _intervals[id].next_trigger_time_sec:
             expired_interval_id = id
             break
     
@@ -80,7 +83,8 @@ func _handle_intervals() -> void:
 
 func _physics_process(delta_sec: float) -> void:
     _elapsed_physics_time_sec += delta_sec
-    _elapsed_latest_time_sec = _elapsed_physics_time_sec
+    _elapsed_real_time_sec = \
+            OS.get_ticks_usec() / 1000000.0 - _start_real_time_sec
 
 func _set_physics_framerate_multiplier(value: float) -> void:
     physics_framerate_multiplier = value
@@ -92,10 +96,10 @@ func _get_physics_framerate_multiplier() -> float:
             _ADDITIONAL_FRAMERATE_MULTIPLIER_FOR_DEBUGGING
 
 func _get_elapsed_app_time_actual_sec() -> float:
-    return _elapsed_latest_time_sec
+    return _elapsed_real_time_sec
 
 func _get_elapsed_app_time_modified_sec() -> float:
-    return _elapsed_latest_time_sec * _get_physics_framerate_multiplier()
+    return _elapsed_real_time_sec * _get_physics_framerate_multiplier()
 
 func _get_elapsed_play_time_actual_sec() -> float:
     return _play_time.elapsed_time_actual_sec
@@ -109,7 +113,7 @@ func set_timeout(
         arguments := []) -> int:
     var timeout := _Timeout.new(
             callback,
-            _elapsed_latest_time_sec + delay_sec,
+            _elapsed_real_time_sec + delay_sec,
             arguments)
     _timeouts[timeout.id] = timeout
     return timeout.id
@@ -191,7 +195,7 @@ class _Interval extends Reference:
         self.interval_sec = interval_sec
         self.arguments = arguments
         self.next_trigger_time_sec = \
-                Gs.time._elapsed_latest_time_sec + interval_sec
+                Gs.time._elapsed_real_time_sec + interval_sec
         
         Gs.time._last_timeout_id += 1
         self.id = Gs.time._last_timeout_id
@@ -201,7 +205,7 @@ class _Interval extends Reference:
             return
         
         next_trigger_time_sec = \
-                Gs.time._elapsed_latest_time_sec + interval_sec
+                Gs.time._elapsed_real_time_sec + interval_sec
         match arguments.size():
             0:
                 callback.call_func()
@@ -293,7 +297,8 @@ class _Throttler extends Reference:
 class _PlayTime extends Node:
     var physics_framerate_multiplier := 1.0
     
-    var _elapsed_latest_time_sec: float
+    var _start_real_time_sec: float
+    var _elapsed_real_time_sec: float
     var _elapsed_physics_time_sec: float
     var _elapsed_render_time_sec: float
     
@@ -308,18 +313,21 @@ class _PlayTime extends Node:
     func _ready() -> void:
         _elapsed_physics_time_sec = 0.0
         _elapsed_render_time_sec = 0.0
-        _elapsed_latest_time_sec = 0.0
+        _elapsed_real_time_sec = 0.0
+        _start_real_time_sec = OS.get_ticks_usec() / 1000000.0
     
     func _process(delta_sec: float) -> void:
         _elapsed_render_time_sec += delta_sec
-        _elapsed_latest_time_sec = _elapsed_render_time_sec
+        _elapsed_real_time_sec = \
+                OS.get_ticks_usec() / 1000000.0 - _start_real_time_sec
     
     func _physics_process(delta_sec: float) -> void:
         _elapsed_physics_time_sec += delta_sec
-        _elapsed_latest_time_sec = _elapsed_physics_time_sec
+        _elapsed_real_time_sec = \
+                OS.get_ticks_usec() / 1000000.0 - _start_real_time_sec
     
     func _get_elapsed_time_actual_sec() -> float:
-        return _elapsed_latest_time_sec
+        return _elapsed_real_time_sec
     
     func _get_elapsed_time_modified_sec() -> float:
-        return _elapsed_latest_time_sec * physics_framerate_multiplier
+        return _elapsed_real_time_sec * physics_framerate_multiplier

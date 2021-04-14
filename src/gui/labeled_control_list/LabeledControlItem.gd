@@ -5,6 +5,7 @@ enum {
     TEXT,
     CHECKBOX,
     DROPDOWN,
+    HEADER,
 }
 
 var control: Control
