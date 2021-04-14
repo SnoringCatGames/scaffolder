@@ -58,11 +58,7 @@ func _initialize_framework() -> void:
     
     Gs.is_app_initialized = true
     
-    _set_window_debug_size_and_position()
-    
     get_tree().root.set_pause_mode(Node.PAUSE_MODE_PROCESS)
-    
-    Gs.nav.create_screens()
     
     _throttled_size_changed = Gs.time.throttle(
             funcref(self, "_on_throttled_size_changed"),
@@ -71,16 +67,12 @@ func _initialize_framework() -> void:
             "size_changed",
             self,
             "_on_resized")
-    call_deferred("_on_resized")
+    
+    _set_window_debug_size_and_position()
     
     _log_device_settings()
-    
-    call_deferred("_on_app_initialized")
 
 func _on_app_initialized() -> void:
-    pass
-
-func _on_initial_screen_size_set() -> void:
     if Gs.utils.get_is_browser():
         JavaScript.eval("window.onAppReady()")
     
@@ -91,7 +83,8 @@ func _on_initial_screen_size_set() -> void:
         _on_splash_finished()
 
 func _on_splash_finished() -> void:
-    Gs.nav.disconnect("splash_finished", self, "_on_splash_finished")
+    if Gs.nav.is_connected("splash_finished", self, "_on_splash_finished"):
+        Gs.nav.disconnect("splash_finished", self, "_on_splash_finished")
     
     # Start playing the default music for the menu screen.
     Gs.audio.play_music(Gs.main_menu_music, true)
@@ -140,9 +133,9 @@ func _on_throttled_size_changed() -> void:
     Gs.utils.emit_signal("display_resized")
     
     _throttled_size_change_count += 1
-    if !_throttled_size_change_count == 2:
-        Gs.is_initial_screen_size_set = true
-        call_deferred("_on_initial_screen_size_set")
+    if _throttled_size_change_count == 1:
+        Gs.nav.create_screens()
+        call_deferred("_on_app_initialized")
 
 func _update_font_sizes() -> void:
     for key in Gs.fonts:
@@ -259,6 +252,8 @@ func _set_window_debug_size_and_position() -> void:
             OS.window_borderless = true
         else:
             OS.window_size = Gs.debug_window_size
+    
+    _on_resized()
 
 func _log_device_settings() -> void:
     var utils_model_name: String = Gs.utils.get_model_name()
