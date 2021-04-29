@@ -185,6 +185,12 @@ func configure_theme() -> void:
     
     if Gs.theme.default_font == null:
         Gs.theme.default_font = Gs.fonts.main_m
+    
+    Gs.theme.set_font("font", "TooltipLabel", Gs.fonts.main_xs)
+    _configure_theme_color( \
+            "font_color", "TooltipLabel", Gs.colors.tooltip_color)
+    _configure_theme_stylebox( \
+            "panel", "TooltipPanel", Gs.colors.tooltip_bg_color)
 
 func _configure_theme_color(
         name: String,
