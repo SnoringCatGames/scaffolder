@@ -17,6 +17,9 @@ var shiny_button_highlight_color: Color
 
 var dropdown_color: Color
 
+var tooltip_color: Color
+var tooltip_bg_color: Color
+
 var button_disabled_hsv_delta: Dictionary
 var button_focused_hsv_delta: Dictionary
 var button_hover_hsv_delta: Dictionary
@@ -68,6 +71,8 @@ func register_colors(manifest: Dictionary) -> void:
     self.button_color = manifest.button_color
     self.shiny_button_highlight_color = manifest.shiny_button_highlight_color
     self.dropdown_color = manifest.dropdown_color
+    self.tooltip_color = manifest.tooltip_color
+    self.tooltip_bg_color = manifest.tooltip_bg_color
     
     self.button_disabled_hsv_delta = manifest.button_disabled_hsv_delta
     self.button_focused_hsv_delta = manifest.button_focused_hsv_delta
