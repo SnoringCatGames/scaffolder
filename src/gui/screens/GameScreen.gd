@@ -94,6 +94,8 @@ func start_level(level_id: String) -> void:
             Gs.level_config.get_level_config(level_id).scene_path,
             false,
             true)
+    if Surfacer.debug_params.has("limit_parsing"):
+        level.script = DebugLevel
     level.id = level_id
     $PanelContainer/ViewportContainer/Viewport.add_child(level)
     level.graph_parser.connect(
