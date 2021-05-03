@@ -16,6 +16,7 @@ var unlocked_header: LevelSelectItemUnlockedHeader
 var accordion: AccordionPanel
 var body: LevelSelectItemBody
 
+var is_unlocked := false
 var is_new_unlocked_item := false
 
 func _ready() -> void:
@@ -66,7 +67,7 @@ func update() -> void:
     unlocked_header.level_id = level_id
     body.level_id = level_id
     
-    var is_unlocked: bool = \
+    is_unlocked = \
             Gs.save_state.get_level_is_unlocked(level_id) and \
             !is_new_unlocked_item
     
