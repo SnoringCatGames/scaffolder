@@ -78,9 +78,19 @@ func _deferred_update() -> void:
         if is_closing_accordion_first:
             _on_item_pressed(previous_open_item)
         
-        _scroll_to_item_to_unlock(
+        _scroll_to_item(
                 _new_unlocked_item,
                 is_closing_accordion_first)
+
+func _process(_delta_sec: float) -> void:
+    var item_to_expand: LevelSelectItem
+    if Input.is_action_just_pressed("ui_up"):
+        item_to_expand = _get_previous_item_to_expand()
+    elif Input.is_action_just_pressed("ui_down"):
+        item_to_expand = _get_next_item_to_expand()
+    if item_to_expand != null:
+        Gs.utils.give_button_press_feedback()
+        _on_item_pressed(item_to_expand)
 
 func _calculate_new_unlocked_item() -> void:
     var new_unlocked_levels: Array = Gs.save_state.get_new_unlocked_levels()
@@ -93,7 +103,31 @@ func _calculate_new_unlocked_item() -> void:
                 _new_unlocked_item = item
         assert(_new_unlocked_item != null)
 
-func _scroll_to_item_to_unlock(
+func _get_previous_item_to_expand() -> LevelSelectItem:
+    var index := level_items.find(expanded_item) - 1
+    
+    while index >= 0 and \
+            !level_items[index].is_unlocked:
+        index -= 1
+    
+    if index >= 0:
+        return level_items[index]
+    else:
+        return null
+
+func _get_next_item_to_expand() -> LevelSelectItem:
+    var index := level_items.find(expanded_item) + 1
+    
+    while index < level_items.size() and \
+            !level_items[index].is_unlocked:
+        index += 1
+    
+    if index < level_items.size():
+        return level_items[index]
+    else:
+        return null
+
+func _scroll_to_item(
         item: LevelSelectItem,
         include_delay_for_accordion_scroll: bool) -> void:
     var scroll_tween := Tween.new()
@@ -115,7 +149,7 @@ func _scroll_to_item_to_unlock(
     scroll_tween.connect(
             "tween_all_completed",
             self,
-            "_on_unlock_scroll_finished",
+            "_on_scroll_finished",
             [item, scroll_tween])
     scroll_tween.start()
 
@@ -128,7 +162,7 @@ func _interpolate_scroll(scroll_ratio: float) -> void:
             scroll_end,
             scroll_ratio)
 
-func _on_unlock_scroll_finished(
+func _on_scroll_finished(
         item: LevelSelectItem,
         scroll_tween: Tween) -> void:
     scroll_tween.queue_free()
