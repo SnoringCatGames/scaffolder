@@ -364,8 +364,6 @@ func _on_is_open_tween_started() -> void:
 func _on_is_open_tween_completed(
         _object = null,
         _key = null) -> void:
-    # FIXME: ---------------------
-    Gs.logger.print("_on_is_open_tween_completed")
     var open_ratio := 1.0 if is_open else 0.0
     _interpolate_height(open_ratio)
     _projected_control.visible = is_open

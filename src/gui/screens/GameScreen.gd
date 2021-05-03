@@ -136,7 +136,9 @@ func _on_graph_parse_progress(
             float(player_count) * \
             100.0
     
-    var player_name: String = Surfacer.player_params.keys()[player_index]
+    
+    var player_name: String = Gs.level_config.get_level_config(Gs.level.id) \
+            .player_names[player_index]
     var label_1 := "Player %s (%s of %s)" % [
         player_name,
         player_index + 1,

@@ -33,16 +33,7 @@ func _sanitize_level_configs() -> void:
     var priorities := []
     for level_id in get_level_ids():
         var config := get_level_config(level_id)
-        assert(config.has("name") and config.name is String)
-        assert(config.has("version") and config.version is String)
-        assert(config.has("priority") and config.priority is int)
-        assert(are_levels_scene_based and \
-                config.has("scene_path") and \
-                config.scene_path is String and \
-                !config.has("script_class") or \
-                !are_levels_scene_based and \
-                config.has("script_class") and \
-                !config.has("scene_path"))
+        _sanitize_level_config(config)
         config.id = level_id
         level_configs_by_priority[config.priority] = config
         priorities.push_back(config.priority)
@@ -54,6 +45,18 @@ func _sanitize_level_configs() -> void:
         config.number = number
         _level_configs_by_number[number] = config
         number += 1
+
+func _sanitize_level_config(config: Dictionary) -> void:
+    assert(config.has("name") and config.name is String)
+    assert(config.has("version") and config.version is String)
+    assert(config.has("priority") and config.priority is int)
+    assert(are_levels_scene_based and \
+            config.has("scene_path") and \
+            config.scene_path is String and \
+            !config.has("script_class") or \
+            !are_levels_scene_based and \
+            config.has("script_class") and \
+            !config.has("scene_path"))
 
 func get_level_config(level_id: String) -> Dictionary:
     Gs.logger.error(
