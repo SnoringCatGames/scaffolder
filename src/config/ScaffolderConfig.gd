@@ -121,6 +121,7 @@ var error_logs_url: String
 var log_gestures_url: String
 var app_id_query_param: String
 
+var camera_smoothing_speed: float
 var default_camera_zoom := 1.0
 
 var input_vibrate_duration_sec := 0.01
@@ -343,6 +344,10 @@ func register_app_manifest(manifest: Dictionary) -> void:
         self.error_logs_url = manifest.error_logs_url
     if manifest.has("log_gestures_url"):
         self.log_gestures_url = manifest.log_gestures_url
+    if manifest.has("default_camera_zoom"):
+        self.default_camera_zoom = manifest.default_camera_zoom
+    if manifest.has("camera_smoothing_speed"):
+        self.camera_smoothing_speed = manifest.camera_smoothing_speed
     if manifest.has("input_vibrate_duration_sec"):
         self.input_vibrate_duration_sec = \
                 manifest.input_vibrate_duration_sec
