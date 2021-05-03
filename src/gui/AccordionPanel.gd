@@ -55,7 +55,7 @@ var _start_scroll_vertical: int
 func _enter_tree() -> void:
     _is_open_tween = Tween.new()
     _is_open_tween.connect(
-            "tween_all_completed",
+            "tween_completed",
             self,
             "_on_is_open_tween_completed")
     add_child(_is_open_tween)
@@ -364,6 +364,8 @@ func _on_is_open_tween_started() -> void:
 func _on_is_open_tween_completed(
         _object = null,
         _key = null) -> void:
+    # FIXME: ---------------------
+    Gs.logger.print("_on_is_open_tween_completed")
     var open_ratio := 1.0 if is_open else 0.0
     _interpolate_height(open_ratio)
     _projected_control.visible = is_open

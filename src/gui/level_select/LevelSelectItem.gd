@@ -128,7 +128,7 @@ func _on_LevelSelectItemLockedHeader_unlock_finished() -> void:
     var fade_tween := Tween.new()
     locked_header.add_child(fade_tween)
     fade_tween.connect(
-            "tween_all_completed",
+            "tween_completed",
             self,
             "_on_unlock_fade_finished",
             [fade_tween])

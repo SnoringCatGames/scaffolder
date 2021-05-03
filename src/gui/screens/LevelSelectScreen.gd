@@ -147,7 +147,7 @@ func _scroll_to_item(
             Tween.EASE_IN_OUT,
             delay)
     scroll_tween.connect(
-            "tween_all_completed",
+            "tween_completed",
             self,
             "_on_scroll_finished",
             [item, scroll_tween])
