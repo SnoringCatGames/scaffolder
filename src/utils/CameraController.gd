@@ -43,7 +43,8 @@ func _process(_delta_sec: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
     # Mouse wheel events are never considered pressed by Godot--rather they are
     # only ever considered to have just happened.
-    if event is InputEventMouseButton and \
+    if Gs.is_user_interaction_enabled and \
+            event is InputEventMouseButton and \
             is_instance_valid(_current_camera):
         if event.button_index == BUTTON_WHEEL_UP:
             _current_camera.zoom -= _current_camera.zoom * ZOOM_STEP_RATIO
@@ -85,7 +86,9 @@ func _get_zoom() -> float:
     assert(_current_camera.zoom.x == _current_camera.zoom.y)
     return _current_camera.zoom.x
 
-func animate_to_zoom(zoom: float) -> void:
+func animate_to_zoom(
+        zoom: float,
+        duration := ZOOM_ANIMATION_DURATION_SEC) -> void:
     if _get_zoom() == zoom:
         return
     
@@ -99,7 +102,7 @@ func animate_to_zoom(zoom: float) -> void:
             "zoom",
             start_zoom,
             zoom,
-            ZOOM_ANIMATION_DURATION_SEC,
+            duration,
             Tween.TRANS_QUAD,
             Tween.EASE_IN_OUT)
     zoom_tween.start()

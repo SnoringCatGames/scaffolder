@@ -944,3 +944,11 @@ func decode_vector2_array(value: Array) -> Array:
     for i in value.size():
         result[i] = decode_vector2(value[i])
     return result
+
+func get_all_nodes_in_group(group_name: String) -> Array:
+    return get_tree().get_nodes_in_group(group_name)
+
+func get_node_in_group(group_name: String) -> Node:
+    var nodes := get_tree().get_nodes_in_group(group_name)
+    assert(nodes.size() == 1)
+    return nodes[0]
