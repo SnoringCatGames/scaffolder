@@ -5,12 +5,12 @@ var min_controls_display_time := 0.5
 
 var _id: String
 var _is_restarting := false
-var level_start_time := INF
+var level_start_time_actual := INF
 var score := 0.0
 
 var id: String setget _set_id,_get_id
 var is_started: bool setget ,_get_is_started
-var level_play_time: float setget ,_get_level_play_time
+var level_play_time_actual: float setget ,_get_level_play_time_actual
 
 func _ready() -> void:
     Gs.utils.connect(
@@ -25,7 +25,7 @@ func _exit_tree() -> void:
 
 func _input(event: InputEvent) -> void:
     if Gs.is_user_interaction_enabled and \
-            _get_level_play_time() > min_controls_display_time and \
+            _get_level_play_time_actual() > min_controls_display_time and \
             (event is InputEventMouseButton or \
                     event is InputEventScreenTouch or \
                     event is InputEventKey) and \
@@ -43,7 +43,7 @@ func _load() -> void:
 
 func _start() -> void:
     Gs.audio.play_music(_get_music_name())
-    level_start_time = Gs.time.elapsed_play_time_actual_sec
+    level_start_time_actual = Gs.time.elapsed_play_time_actual_sec
     Gs.save_state.set_level_total_plays(
             _id,
             Gs.save_state.get_level_total_plays(_id) + 1)
@@ -82,7 +82,7 @@ func _record_level_results() -> void:
     game_over_screen.level_id = _id
     game_over_screen.time = Gs.utils.get_time_string_from_seconds(
             Gs.time.elapsed_play_time_actual_sec - \
-            level_start_time)
+            level_start_time_actual)
     
     if Gs.uses_level_scores:
         Gs.analytics.event(
@@ -141,10 +141,10 @@ func _get_is_rate_app_screen_next() -> bool:
     return false
 
 func _get_is_started() -> bool:
-    return level_start_time != INF
+    return level_start_time_actual != INF
 
-func _get_level_play_time() -> float:
-    return Gs.time.elapsed_play_time_actual_sec - level_start_time if \
+func _get_level_play_time_actual() -> float:
+    return Gs.time.elapsed_play_time_actual_sec - level_start_time_actual if \
             _get_is_started() else \
             0.0
 
