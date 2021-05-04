@@ -3,7 +3,8 @@ extends Node
 
 const _ADDITIONAL_FRAMERATE_MULTIPLIER_FOR_DEBUGGING := 0.3
 
-const PHYSICS_TIME_STEP_SEC := 1 / 60.0
+const PHYSICS_FPS := 60.0
+const PHYSICS_TIME_STEP_SEC := 1.0 / PHYSICS_FPS
 
 var _play_time: _PlayTime
 

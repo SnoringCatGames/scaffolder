@@ -597,6 +597,9 @@ func _validate_project_config() -> void:
     assert(ProjectSettings.get_setting(
                     "input_devices/pointing/emulate_mouse_from_touch") == \
             true)
+    
+    assert(ProjectSettings.get_setting("physics/common/physics_fps") == \
+            Time.PHYSICS_FPS)
 
 func get_support_url_with_params() -> String:
     var params := "?source=" + OS.get_name()
