@@ -24,7 +24,8 @@ func _exit_tree() -> void:
         Gs.nav.screens["game"].start_level(_id)
 
 func _input(event: InputEvent) -> void:
-    if _get_level_play_time() > min_controls_display_time and \
+    if Gs.is_user_interaction_enabled and \
+            _get_level_play_time() > min_controls_display_time and \
             (event is InputEventMouseButton or \
                     event is InputEventScreenTouch or \
                     event is InputEventKey) and \
@@ -32,13 +33,15 @@ func _input(event: InputEvent) -> void:
         _on_initial_input()
 
 func _on_initial_input() -> void:
-    pass
+    Gs.logger.print("ScaffolderLevel._on_initial_input")
 
 func _on_resized() -> void:
     pass
 
-func start() -> void:
+func _load() -> void:
     Gs.level = self
+
+func _start() -> void:
     Gs.audio.play_music(_get_music_name())
     level_start_time = Gs.time.elapsed_play_time_actual_sec
     Gs.save_state.set_level_total_plays(

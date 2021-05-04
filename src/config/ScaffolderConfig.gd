@@ -167,6 +167,8 @@ var is_debug_panel_shown: bool setget \
         _set_is_debug_panel_shown, _get_is_debug_panel_shown
 var is_debug_time_shown: bool
 
+var is_user_interaction_enabled := true
+
 var game_area_region: Rect2
 var gui_scale := 1.0
 var current_checkbox_icon_size := default_checkbox_icon_size

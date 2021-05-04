@@ -114,7 +114,7 @@ func start_level(level_id: String) -> void:
             "parse_finished",
             self,
             "_on_graph_parse_finished")
-    level.start()
+    level._load()
 
 func _on_calculation_started() -> void:
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label1.text = \
@@ -182,4 +182,4 @@ func _on_graph_parse_finished() -> void:
 func _close_load_screen() -> void:
     $PanelContainer/LoadProgressPanel.visible = false
     if is_instance_valid(Gs.level):
-        Gs.level._on_loaded()
+        Gs.level._start()

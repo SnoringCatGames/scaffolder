@@ -22,24 +22,25 @@ func _process(_delta_sec: float) -> void:
         _an_active_overlay_has_focus = false
 
 func is_action_pressed(name: String) -> bool:
-    return get_level_has_focus() and \
+    return _get_is_level_ready_for_input() and \
             Input.is_action_pressed(name)
 
 func is_action_released(name: String) -> bool:
-    return get_level_has_focus() and \
+    return _get_is_level_ready_for_input() and \
             Input.is_action_released(name)
 
 func is_action_just_pressed(name: String) -> bool:
-    return get_level_has_focus() and \
+    return _get_is_level_ready_for_input() and \
             Input.is_action_just_pressed(name)
 
 func is_action_just_released(name: String) -> bool:
-    return get_level_has_focus() and \
+    return _get_is_level_ready_for_input() and \
             Input.is_action_just_released(name)
 
 func is_key_pressed(code: int) -> bool:
-    return get_level_has_focus() and \
+    return _get_is_level_ready_for_input() and \
             Input.is_key_pressed(code)
 
-func get_level_has_focus() -> bool:
-    return !_an_active_overlay_has_focus
+func _get_is_level_ready_for_input() -> bool:
+    return Gs.is_user_interaction_enabled and \
+            !_an_active_overlay_has_focus
