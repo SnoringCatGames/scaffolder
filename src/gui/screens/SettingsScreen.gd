@@ -67,6 +67,8 @@ func _get_default_main_items() -> Array:
     return defaults
 
 func _get_default_details_items() -> Array:
-    return [
-        DebugPanelSettingsLabeledControlItem,
-    ]
+    var items := []
+    if Gs.does_app_contain_welcome_panel:
+        items.push_back(WelcomePanelSettingsLabeledControlItem)
+    items.push_back(DebugPanelSettingsLabeledControlItem)
+    return items
