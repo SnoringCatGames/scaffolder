@@ -211,6 +211,41 @@ static func get_intersection_of_segment_and_polyline(
                 return intersection
     return Vector2.INF
 
+# -   If the two don't intersect, this returns a Vector2 with values of
+#     INFINITY.
+# -   If there are two intersections, this returns the closent point to
+#     segment_a.
+static func get_intersection_of_segment_and_circle(
+        segment_a: Vector2,
+        segment_b: Vector2,
+        center: Vector2,
+        radius: float) -> Vector2:
+    var d := segment_b - segment_a
+    var f := segment_a - center
+    var a := d.dot(d);
+    var b := 2.0 * f.dot(d);
+    var c := f.dot(f) - radius * radius;
+    var discriminant := b * b - 4.0 * a * c
+    
+    if discriminant < 0:
+        # The colinear line of the segment does not intersect the circle.
+        return Vector2.INF
+        
+    else:
+        var discriminant_sqrt := sqrt(discriminant)
+        
+        # t1 represents the intersection closer to segment_a.
+        var t1 := (-b - discriminant_sqrt) / 2.0 / a
+        var t2 := (-b + discriminant_sqrt) / 2.0 / a
+        
+        if t1 >= 0 and t1 <= 1:
+            return segment_a + t1 * d
+        if t2 >= 0 and t2 <= 1:
+            return segment_a + t2 * d
+        
+        # The colinear line intersects the circle, but the segment does not.
+        return Vector2.INF
+
 # Calculates where the alially-aligned surface-side-normal that goes through
 # the given point would intersect with the surface.
 static func project_point_onto_surface(
