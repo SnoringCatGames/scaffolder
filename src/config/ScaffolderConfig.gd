@@ -10,6 +10,8 @@ const IS_DEBUG_TIME_SHOWN_SETTINGS_KEY := "is_debug_time_shown"
 const IS_MUSIC_ENABLED_SETTINGS_KEY := "is_music_enabled"
 const IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY := "is_sound_effects_enabled"
 
+const WELCOME_PANEL_RESOURCE_PATH := \
+        "res://addons/scaffolder/src/gui/WelcomePanel.tscn"
 const DEBUG_PANEL_RESOURCE_PATH := \
         "res://addons/scaffolder/src/gui/DebugPanel.tscn"
 
@@ -104,6 +106,7 @@ var developer_splash_screen_duration_sec := 1.0
 
 var main_menu_image_scene_path: String
 var loading_image_scene_path: String
+var welcome_panel_resource_path: String
 
 var fade_in_transition_texture := \
         preload("res://addons/scaffolder/assets/images/transition_in.png")
@@ -153,6 +156,7 @@ var is_developer_logo_shown: bool
 var is_developer_splash_shown: bool
 var is_main_menu_image_shown: bool
 var is_loading_image_shown: bool
+var is_welcome_panel_shown: bool
 var original_font_sizes: Dictionary
 
 # --- Global state ---
@@ -191,6 +195,7 @@ var level_input: LevelInput
 var level_config: ScaffolderLevelConfig
 var canvas_layers: CanvasLayers
 var camera_controller: CameraController
+var welcome_panel: WelcomePanel
 var debug_panel: DebugPanel
 var gesture_record: GestureRecord
 var level: ScaffolderLevel
@@ -324,6 +329,8 @@ func register_app_manifest(manifest: Dictionary) -> void:
         self.main_menu_image_scene_path = manifest.main_menu_image_scene_path
     if manifest.has("loading_image_scene_path"):
         self.loading_image_scene_path = manifest.loading_image_scene_path
+    if manifest.has("welcome_panel_resource_path"):
+        self.welcome_panel_resource_path = manifest.welcome_panel_resource_path
     if manifest.has("fade_in_transition_texture"):
         self.fade_in_transition_texture = manifest.fade_in_transition_texture
     if manifest.has("fade_out_transition_texture"):
@@ -392,6 +399,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
             manifest.has("developer_splash_sound")
     self.is_main_menu_image_shown = manifest.has("main_menu_image_scene_path")
     self.is_loading_image_shown = manifest.has("loading_image_scene_path")
+    self.is_welcome_panel_shown = welcome_panel_resource_path != ""
 
 func initialize_crash_reporter() -> CrashReporter:
     if manifest.has("crash_reporter_class"):

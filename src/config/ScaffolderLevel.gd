@@ -19,25 +19,6 @@ func _ready() -> void:
             "_on_resized")
     _on_resized()
 
-func _exit_tree() -> void:
-    if _is_restarting:
-        Gs.nav.screens["game"].start_level(_id)
-
-func _input(event: InputEvent) -> void:
-    if Gs.is_user_interaction_enabled and \
-            _get_level_play_time_actual() > min_controls_display_time and \
-            (event is InputEventMouseButton or \
-                    event is InputEventScreenTouch or \
-                    event is InputEventKey) and \
-            _get_is_started():
-        _on_initial_input()
-
-func _on_initial_input() -> void:
-    Gs.logger.print("ScaffolderLevel._on_initial_input")
-
-func _on_resized() -> void:
-    pass
-
 func _load() -> void:
     Gs.level = self
 
@@ -52,7 +33,12 @@ func _start() -> void:
             "start",
             Gs.level_config.get_level_version_string(_id))
 
+func _exit_tree() -> void:
+    if _is_restarting:
+        Gs.nav.screens["game"].start_level(_id)
+
 func _destroy() -> void:
+    _hide_welcome_panel()
     Gs.level = null
     queue_free()
 
@@ -71,11 +57,42 @@ func restart() -> void:
     _is_restarting = true
     quit(true)
 
+func _input(event: InputEvent) -> void:
+    if Gs.is_user_interaction_enabled and \
+            _get_level_play_time_actual() > min_controls_display_time and \
+            (event is InputEventMouseButton or \
+                    event is InputEventScreenTouch or \
+                    event is InputEventKey) and \
+            _get_is_started():
+        _on_initial_input()
+
+func _on_initial_input() -> void:
+    Gs.logger.print("ScaffolderLevel._on_initial_input")
+    # Close the welcome panel on any mouse or key click event.
+    if is_instance_valid(Gs.welcome_panel):
+        _hide_welcome_panel()
+
+func _on_resized() -> void:
+    pass
+
 func pause() -> void:
     Gs.nav.open("pause")
 
 func on_unpause() -> void:
     pass
+
+func _show_welcome_panel() -> void:
+    if !Gs.is_welcome_panel_shown:
+        return
+    assert(Gs.welcome_panel == null)
+    Gs.welcome_panel = Gs.utils.add_scene(
+            Gs.canvas_layers.layers.hud,
+            Gs.welcome_panel_resource_path)
+
+func _hide_welcome_panel() -> void:
+    if is_instance_valid(Gs.welcome_panel):
+        Gs.welcome_panel.queue_free()
+        Gs.welcome_panel = null
 
 func _record_level_results() -> void:
     var game_over_screen = Gs.nav.screens["game_over"]
