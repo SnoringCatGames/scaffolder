@@ -110,7 +110,7 @@ func open(
             get_active_screen_name() if \
             !active_screen_stack.empty() else \
             "_"
-    Gs.logger.print("Nav.open: %s=>%s" % [
+    Gs.logger.print("Nav.open: %s => %s" % [
         previous_name,
         screen_name,
     ])
@@ -131,7 +131,7 @@ func close_current_screen(includes_fade := false) -> void:
             active_screen_stack[previous_index - 1].screen_name if \
             previous_index > 0 else \
             "_"
-    Gs.logger.print("Nav.close_current_screen: %s=>%s" % [
+    Gs.logger.print("Nav.close_current_screen: %s => %s" % [
         previous_name,
         next_name,
     ])
