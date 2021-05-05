@@ -12,7 +12,7 @@ var controls_items := [
 ]
 
 const DEFAULT_GUI_SCALE := 1.0
-const _FADE_IN_DURATION := 0.3
+const _FADE_IN_DURATION := 0.2
 
 var post_tween_opacity: float
 
