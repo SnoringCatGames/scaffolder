@@ -9,13 +9,14 @@ const PHYSICS_TIME_STEP_SEC := 1.0 / PHYSICS_FPS
 var _play_time: _PlayTime
 
 var physics_framerate_multiplier := 1.0 setget \
-        _set_physics_framerate_multiplier,_get_physics_framerate_multiplier
+        _set_physics_framerate_multiplier
 
 # TODO: Verify that all render-frame _process calls in the scene tree happen
 #       without interleaving with any _physics_process calls from other nodes
 #       in the scene tree.
 var _start_real_time_sec: float
 var _elapsed_real_time_sec: float
+var _elapsed_modified_time_sec: float
 var _elapsed_physics_time_sec: float
 var _elapsed_render_time_sec: float
 
@@ -51,12 +52,12 @@ func _ready() -> void:
     _elapsed_physics_time_sec = 0.0
     _elapsed_render_time_sec = 0.0
     _elapsed_real_time_sec = 0.0
+    _elapsed_modified_time_sec = 0.0
     _start_real_time_sec = OS.get_ticks_usec() / 1000000.0
 
 func _process(delta_sec: float) -> void:
     _elapsed_render_time_sec += delta_sec
-    _elapsed_real_time_sec = \
-            OS.get_ticks_usec() / 1000000.0 - _start_real_time_sec
+    _update_real_and_modified_time()
     
     _handle_timeouts()
     _handle_intervals()
@@ -84,28 +85,34 @@ func _handle_intervals() -> void:
 
 func _physics_process(delta_sec: float) -> void:
     _elapsed_physics_time_sec += delta_sec
-    _elapsed_real_time_sec = \
+    _update_real_and_modified_time()
+
+func _update_real_and_modified_time() -> void:
+    var next_elapsed_real_time_sec := \
             OS.get_ticks_usec() / 1000000.0 - _start_real_time_sec
+    var delta_real_time_sec := \
+            next_elapsed_real_time_sec - _elapsed_real_time_sec
+    _elapsed_real_time_sec = next_elapsed_real_time_sec
+    _elapsed_modified_time_sec += \
+            delta_real_time_sec * \
+            physics_framerate_multiplier * \
+            _ADDITIONAL_FRAMERATE_MULTIPLIER_FOR_DEBUGGING
 
 func _set_physics_framerate_multiplier(value: float) -> void:
     physics_framerate_multiplier = value
     _play_time.physics_framerate_multiplier = value
 
-func _get_physics_framerate_multiplier() -> float:
-    return physics_framerate_multiplier * \
-            _ADDITIONAL_FRAMERATE_MULTIPLIER_FOR_DEBUGGING
-
 func _get_elapsed_app_time_actual_sec() -> float:
     return _elapsed_real_time_sec
 
 func _get_elapsed_app_time_modified_sec() -> float:
-    return _elapsed_real_time_sec * _get_physics_framerate_multiplier()
+    return _elapsed_modified_time_sec
 
 func _get_elapsed_play_time_actual_sec() -> float:
-    return _play_time.elapsed_time_actual_sec
+    return _play_time._elapsed_real_time_sec
 
 func _get_elapsed_play_time_modified_sec() -> float:
-    return _play_time.elapsed_time_modified_sec
+    return _play_time._elapsed_modified_time_sec
 
 func set_timeout(
         callback: FuncRef,
@@ -299,13 +306,9 @@ class _PlayTime extends Node:
     
     var _start_real_time_sec: float
     var _elapsed_real_time_sec: float
+    var _elapsed_modified_time_sec: float
     var _elapsed_physics_time_sec: float
     var _elapsed_render_time_sec: float
-    
-    var elapsed_time_actual_sec: float \
-            setget ,_get_elapsed_time_actual_sec
-    var elapsed_time_modified_sec: float \
-            setget ,_get_elapsed_time_modified_sec
     
     func _init() -> void:
         pause_mode = Node.PAUSE_MODE_STOP
@@ -314,24 +317,25 @@ class _PlayTime extends Node:
         _elapsed_physics_time_sec = 0.0
         _elapsed_render_time_sec = 0.0
         _elapsed_real_time_sec = 0.0
+        _elapsed_modified_time_sec = 0.0
         _start_real_time_sec = OS.get_ticks_usec() / 1000000.0
     
     func _process(delta_sec: float) -> void:
         _elapsed_render_time_sec += delta_sec
-        _elapsed_real_time_sec = \
-                OS.get_ticks_usec() / 1000000.0 - _start_real_time_sec
+        _update_real_and_modified_time()
     
     func _physics_process(delta_sec: float) -> void:
         _elapsed_physics_time_sec += delta_sec
-        _elapsed_real_time_sec = \
-                OS.get_ticks_usec() / 1000000.0 - _start_real_time_sec
+        _update_real_and_modified_time()
     
-    func _get_physics_framerate_multiplier() -> float:
-        return physics_framerate_multiplier * \
+    func _update_real_and_modified_time() -> void:
+        var next_elapsed_real_time_sec := \
+                OS.get_ticks_usec() / 1000000.0 - _start_real_time_sec
+        var delta_real_time_sec := \
+                next_elapsed_real_time_sec - _elapsed_real_time_sec
+        _elapsed_real_time_sec = next_elapsed_real_time_sec
+        _elapsed_modified_time_sec += \
+                delta_real_time_sec * \
+                physics_framerate_multiplier * \
                 _ADDITIONAL_FRAMERATE_MULTIPLIER_FOR_DEBUGGING
     
-    func _get_elapsed_time_actual_sec() -> float:
-        return _elapsed_real_time_sec
-    
-    func _get_elapsed_time_modified_sec() -> float:
-        return _elapsed_real_time_sec * _get_physics_framerate_multiplier()

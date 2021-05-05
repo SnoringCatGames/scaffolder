@@ -5,6 +5,7 @@ var min_controls_display_time := 0.5
 
 var _id: String
 var _is_restarting := false
+var _has_initial_input_happened := false
 var level_start_time_actual := INF
 var score := 0.0
 
@@ -58,7 +59,8 @@ func restart() -> void:
     quit(true)
 
 func _input(event: InputEvent) -> void:
-    if Gs.is_user_interaction_enabled and \
+    if !_has_initial_input_happened and \
+            Gs.is_user_interaction_enabled and \
             _get_level_play_time_actual() > min_controls_display_time and \
             (event is InputEventMouseButton or \
                     event is InputEventScreenTouch or \
@@ -68,6 +70,7 @@ func _input(event: InputEvent) -> void:
 
 func _on_initial_input() -> void:
     Gs.logger.print("ScaffolderLevel._on_initial_input")
+    _has_initial_input_happened = true
     # Close the welcome panel on any mouse or key click event.
     if is_instance_valid(Gs.welcome_panel):
         _hide_welcome_panel()
