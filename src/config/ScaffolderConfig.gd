@@ -6,6 +6,7 @@ extends Node
 const AGREED_TO_TERMS_SETTINGS_KEY := "agreed_to_terms"
 const IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY := "is_giving_haptic_feedback"
 const IS_DEBUG_PANEL_SHOWN_SETTINGS_KEY := "is_debug_panel_shown"
+const IS_WELCOME_PANEL_SHOWN_SETTINGS_KEY := "is_welcome_panel_shown"
 const IS_DEBUG_TIME_SHOWN_SETTINGS_KEY := "is_debug_time_shown"
 const IS_MUSIC_ENABLED_SETTINGS_KEY := "is_music_enabled"
 const IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY := "is_sound_effects_enabled"
@@ -156,6 +157,7 @@ var is_developer_logo_shown: bool
 var is_developer_splash_shown: bool
 var is_main_menu_image_shown: bool
 var is_loading_image_shown: bool
+var does_app_contain_welcome_panel: bool
 var is_welcome_panel_shown: bool
 var original_font_sizes: Dictionary
 
@@ -399,7 +401,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
             manifest.has("developer_splash_sound")
     self.is_main_menu_image_shown = manifest.has("main_menu_image_scene_path")
     self.is_loading_image_shown = manifest.has("loading_image_scene_path")
-    self.is_welcome_panel_shown = welcome_panel_resource_path != ""
+    self.does_app_contain_welcome_panel = welcome_panel_resource_path != ""
 
 func initialize_crash_reporter() -> CrashReporter:
     if manifest.has("crash_reporter_class"):
@@ -533,6 +535,9 @@ func load_state() -> void:
     is_debug_panel_shown = Gs.save_state.get_setting(
             IS_DEBUG_PANEL_SHOWN_SETTINGS_KEY,
             false)
+    is_welcome_panel_shown = Gs.save_state.get_setting(
+            IS_WELCOME_PANEL_SHOWN_SETTINGS_KEY,
+            true)
     is_debug_time_shown = Gs.save_state.get_setting(
             IS_DEBUG_TIME_SHOWN_SETTINGS_KEY,
             false)
