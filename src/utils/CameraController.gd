@@ -81,10 +81,7 @@ func _set_zoom(zoom_factor: float) -> void:
     update_zoom()
 
 func _get_zoom() -> float:
-    if !is_instance_valid(_current_camera):
-        return 1.0
-    assert(_current_camera.zoom.x == _current_camera.zoom.y)
-    return _current_camera.zoom.x
+    return zoom_factor
 
 func animate_to_zoom(
         zoom: float,
