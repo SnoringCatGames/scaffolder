@@ -21,7 +21,7 @@ func _process(delta_sec: float) -> void:
     if strength > 0.0:
         # This should end up calling _update_shake exactly once with a strength
         # of zero, which is important for resetting the camera.
-        strength = max(strength - decay * delta_sec, 0)
+        strength = max(strength - decay * Gs.time.modify_delta(delta_sec), 0)
         _update_shake()
 
 func _update_shake() -> void:

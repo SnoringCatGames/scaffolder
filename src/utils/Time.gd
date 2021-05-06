@@ -93,10 +93,7 @@ func _update_real_and_modified_time() -> void:
     var delta_real_time_sec := \
             next_elapsed_real_time_sec - _elapsed_real_time_sec
     _elapsed_real_time_sec = next_elapsed_real_time_sec
-    _elapsed_modified_time_sec += \
-            delta_real_time_sec * \
-            physics_framerate_multiplier * \
-            _ADDITIONAL_FRAMERATE_MULTIPLIER_FOR_DEBUGGING
+    _elapsed_modified_time_sec += modify_delta(delta_real_time_sec)
 
 func _set_physics_framerate_multiplier(value: float) -> void:
     physics_framerate_multiplier = value
@@ -113,6 +110,13 @@ func _get_elapsed_play_time_actual_sec() -> float:
 
 func _get_elapsed_play_time_modified_sec() -> float:
     return _play_time._elapsed_modified_time_sec
+
+func modify_delta(duration: float) -> float:
+    return duration * get_combined_multiplier()
+
+func get_combined_multiplier() -> float:
+    return physics_framerate_multiplier * \
+            _ADDITIONAL_FRAMERATE_MULTIPLIER_FOR_DEBUGGING
 
 func set_timeout(
         callback: FuncRef,
