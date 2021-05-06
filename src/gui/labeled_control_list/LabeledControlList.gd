@@ -21,7 +21,7 @@ const DISABLED_ALPHA := 0.3
 
 # Array<LabeledControlItem>
 var items := [] setget _set_items,_get_items
-var even_row_color := Gs.colors.zebra_stripe_even_row_color setget \
+var even_row_color := Gs.colors.zebra_stripe_even_row setget \
         _set_even_row_color,_get_even_row_color
 
 export var font: Font setget _set_font,_get_font

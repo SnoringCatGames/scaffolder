@@ -52,7 +52,7 @@ func _validate_node_hierarchy() -> void:
     assert(outer_panel_container is PanelContainer)
     outer_panel_container.theme = Gs.theme
     stylebox = Gs.utils.create_stylebox_flat_scalable({
-        bg_color = Gs.colors.background_color,
+        bg_color = Gs.colors.background,
         shadow_size = 8,
         shadow_offset = Vector2(-4.0, 4.0),
     })

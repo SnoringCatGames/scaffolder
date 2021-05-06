@@ -49,7 +49,7 @@ func _ready() -> void:
     
     Gs.add_gui_to_scale(self, DEFAULT_GUI_SCALE)
     
-    var faded_color: Color = Gs.colors.zebra_stripe_even_row_color
+    var faded_color: Color = Gs.colors.zebra_stripe_even_row
     faded_color.a *= 0.3
     
     $PanelContainer/LabeledControlList.even_row_color = faded_color

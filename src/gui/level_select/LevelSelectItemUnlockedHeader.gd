@@ -24,17 +24,17 @@ func init_children() -> void:
             AccordionPanel.CARET_ROTATION_CLOSED
     
     normal_stylebox = Gs.utils.create_stylebox_flat_scalable({
-        bg_color = Gs.colors.dropdown_normal_color,
+        bg_color = Gs.colors.dropdown_normal,
         corner_radius = Gs.styles.dropdown_corner_radius,
         corner_detail = Gs.styles.dropdown_corner_detail,
     })
     hover_stylebox = Gs.utils.create_stylebox_flat_scalable({
-        bg_color = Gs.colors.dropdown_hover_color,
+        bg_color = Gs.colors.dropdown_hover,
         corner_radius = Gs.styles.dropdown_corner_radius,
         corner_detail = Gs.styles.dropdown_corner_detail,
     })
     pressed_stylebox = Gs.utils.create_stylebox_flat_scalable({
-        bg_color = Gs.colors.dropdown_pressed_color,
+        bg_color = Gs.colors.dropdown_pressed,
         corner_radius = Gs.styles.dropdown_corner_radius,
         corner_detail = Gs.styles.dropdown_corner_detail,
     })
