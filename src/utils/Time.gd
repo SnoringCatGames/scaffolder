@@ -8,8 +8,7 @@ const PHYSICS_TIME_STEP_SEC := 1.0 / PHYSICS_FPS
 
 var _play_time: _PlayTime
 
-var physics_framerate_multiplier := 1.0 setget \
-        _set_physics_framerate_multiplier
+var framerate_multiplier := 1.0 setget _set_framerate_multiplier
 
 # TODO: Verify that all render-frame _process calls in the scene tree happen
 #       without interleaving with any _physics_process calls from other nodes
@@ -95,9 +94,9 @@ func _update_real_and_modified_time() -> void:
     _elapsed_real_time_sec = next_elapsed_real_time_sec
     _elapsed_modified_time_sec += modify_delta(delta_real_time_sec)
 
-func _set_physics_framerate_multiplier(value: float) -> void:
-    physics_framerate_multiplier = value
-    _play_time.physics_framerate_multiplier = value
+func _set_framerate_multiplier(value: float) -> void:
+    framerate_multiplier = value
+    _play_time.framerate_multiplier = value
 
 func _get_elapsed_app_time_actual_sec() -> float:
     return _elapsed_real_time_sec
@@ -106,16 +105,16 @@ func _get_elapsed_app_time_modified_sec() -> float:
     return _elapsed_modified_time_sec
 
 func _get_elapsed_play_time_actual_sec() -> float:
-    return _play_time._elapsed_real_time_sec
+    return _play_time._elapsed_latest_time_sec
 
 func _get_elapsed_play_time_modified_sec() -> float:
-    return _play_time._elapsed_modified_time_sec
+    return _play_time._elapsed_latest_modified_time_sec
 
 func modify_delta(duration: float) -> float:
     return duration * get_combined_multiplier()
 
 func get_combined_multiplier() -> float:
-    return physics_framerate_multiplier * \
+    return framerate_multiplier * \
             _ADDITIONAL_FRAMERATE_MULTIPLIER_FOR_DEBUGGING
 
 func set_timeout(
@@ -306,40 +305,44 @@ class _Throttler extends Reference:
 
 # Keeps track of the current total elapsed time of _unpaused_ gameplay.
 class _PlayTime extends Node:
-    var physics_framerate_multiplier := 1.0
+    var framerate_multiplier := 1.0
     
-    var _start_real_time_sec: float
-    var _elapsed_real_time_sec: float
-    var _elapsed_modified_time_sec: float
+    var _elapsed_latest_time_sec: float
     var _elapsed_physics_time_sec: float
     var _elapsed_render_time_sec: float
+    
+    var _elapsed_latest_modified_time_sec: float
+    var _elapsed_physics_modified_time_sec: float
+    var _elapsed_render_modified_time_sec: float
     
     func _init() -> void:
         pause_mode = Node.PAUSE_MODE_STOP
     
     func _ready() -> void:
+        _elapsed_latest_time_sec = 0.0
         _elapsed_physics_time_sec = 0.0
         _elapsed_render_time_sec = 0.0
-        _elapsed_real_time_sec = 0.0
-        _elapsed_modified_time_sec = 0.0
-        _start_real_time_sec = OS.get_ticks_usec() / 1000000.0
+        
+        _elapsed_latest_modified_time_sec = 0.0
+        _elapsed_physics_modified_time_sec = 0.0
+        _elapsed_render_modified_time_sec = 0.0
     
     func _process(delta_sec: float) -> void:
         _elapsed_render_time_sec += delta_sec
-        _update_real_and_modified_time()
+        _elapsed_latest_time_sec = _elapsed_render_time_sec
+        
+        _elapsed_render_modified_time_sec += \
+                delta_sec * \
+                framerate_multiplier * \
+                _ADDITIONAL_FRAMERATE_MULTIPLIER_FOR_DEBUGGING
+        _elapsed_latest_modified_time_sec = _elapsed_render_modified_time_sec
     
     func _physics_process(delta_sec: float) -> void:
         _elapsed_physics_time_sec += delta_sec
-        _update_real_and_modified_time()
-    
-    func _update_real_and_modified_time() -> void:
-        var next_elapsed_real_time_sec := \
-                OS.get_ticks_usec() / 1000000.0 - _start_real_time_sec
-        var delta_real_time_sec := \
-                next_elapsed_real_time_sec - _elapsed_real_time_sec
-        _elapsed_real_time_sec = next_elapsed_real_time_sec
-        _elapsed_modified_time_sec += \
-                delta_real_time_sec * \
-                physics_framerate_multiplier * \
+        _elapsed_latest_time_sec = _elapsed_physics_time_sec
+        
+        _elapsed_physics_modified_time_sec += \
+                delta_sec * \
+                framerate_multiplier * \
                 _ADDITIONAL_FRAMERATE_MULTIPLIER_FOR_DEBUGGING
-    
+        _elapsed_latest_modified_time_sec = _elapsed_physics_modified_time_sec
