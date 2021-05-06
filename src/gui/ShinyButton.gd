@@ -72,7 +72,7 @@ func _deferred_update() -> void:
     if is_instance_valid(button_style_pulse):
         button_style_pulse.destroy()
     button_style_pulse = Gs.utils.create_stylebox_flat_scalable({
-        bg_color = Gs.colors.button_normal_color,
+        bg_color = Gs.colors.button_normal,
         corner_radius = Gs.styles.button_corner_radius,
         corner_detail = Gs.styles.button_corner_detail,
         shadow_size = Gs.styles.button_shadow_size,
@@ -133,8 +133,8 @@ func _trigger_color_pulse() -> void:
     var color_original: Color = \
             button_style_normal.bg_color if \
             button_style_normal is StyleBoxFlat else \
-            Gs.colors.button_normal_color
-    var color_pulse: Color = Gs.colors.shiny_button_highlight_color
+            Gs.colors.button_normal
+    var color_pulse: Color = Gs.colors.shiny_button_highlight
     var pulse_half_duration := COLOR_PULSE_DURATION_SEC / 2.0
     
     button_style_pulse.bg_color = color_original

@@ -582,12 +582,12 @@ func _validate_project_config() -> void:
     
 #    assert(geometry.are_colors_equal_with_epsilon(
 #            ProjectSettings.get_setting("application/boot_splash/bg_color"),
-#            colors.background_color,
+#            colors.background,
 #            0.0001))
     assert(geometry.are_colors_equal_with_epsilon(
             ProjectSettings.get_setting(
                     "rendering/environment/default_clear_color"),
-            colors.background_color,
+            colors.background,
             0.0001))
     
     var window_stretch_mode_disabled := "disabled"
