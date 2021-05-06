@@ -1,7 +1,7 @@
 class_name CameraController
 extends Node2D
 
-const ZOOM_STEP_RATIO := Vector2(0.05, 0.05)
+const ZOOM_FACTOR_STEP_RATIO := 0.05
 const PAN_STEP := 8.0
 
 const ZOOM_ANIMATION_DURATION_SEC := 0.3
@@ -9,11 +9,9 @@ const ZOOM_ANIMATION_DURATION_SEC := 0.3
 var _current_camera: Camera2D
 
 var offset: Vector2 setget _set_offset, _get_offset
-var zoom: float setget _set_zoom, _get_zoom
+var zoom_factor := 1.0 setget _set_zoom_factor
 
 var zoom_tween: Tween
-var tween_zoom: float
-var zoom_factor := 1.0
 
 func _init() -> void:
     name = "CameraController"
@@ -26,9 +24,9 @@ func _process(_delta_sec: float) -> void:
     if is_instance_valid(_current_camera):
         # Handle zooming.
         if Gs.level_input.is_action_pressed("zoom_in"):
-            _current_camera.zoom -= _current_camera.zoom * ZOOM_STEP_RATIO
+            _set_zoom_factor(zoom_factor * (1 - ZOOM_FACTOR_STEP_RATIO))
         elif Gs.level_input.is_action_pressed("zoom_out"):
-            _current_camera.zoom += _current_camera.zoom * ZOOM_STEP_RATIO
+            _set_zoom_factor(zoom_factor * (1 + ZOOM_FACTOR_STEP_RATIO))
     
         # Handle Panning.
         if Gs.level_input.is_action_pressed("pan_up"):
@@ -47,14 +45,17 @@ func _unhandled_input(event: InputEvent) -> void:
             event is InputEventMouseButton and \
             is_instance_valid(_current_camera):
         if event.button_index == BUTTON_WHEEL_UP:
-            _current_camera.zoom -= _current_camera.zoom * ZOOM_STEP_RATIO
+            _set_zoom_factor(zoom_factor * (1 - ZOOM_FACTOR_STEP_RATIO))
         if event.button_index == BUTTON_WHEEL_DOWN:
-            _current_camera.zoom += _current_camera.zoom * ZOOM_STEP_RATIO
+            _set_zoom_factor(zoom_factor * (1 + ZOOM_FACTOR_STEP_RATIO))
+
+func _on_resized() -> void:
+    _update_zoom()
 
 func set_current_camera(camera: Camera2D) -> void:
     camera.make_current()
     _current_camera = camera
-    _set_zoom(zoom_factor)
+    _set_zoom_factor(zoom_factor)
 
 func get_current_camera() -> Camera2D:
     return _current_camera
@@ -74,41 +75,34 @@ func get_position() -> Vector2:
         return Vector2.ZERO
     return _current_camera.get_camera_screen_center()
 
-func _set_zoom(zoom_factor: float) -> void:
-    self.zoom_factor = zoom_factor
-    if !is_instance_valid(_current_camera):
-        return
-    update_zoom()
+func get_derived_zoom() -> float:
+    return zoom_factor * \
+            Gs.default_camera_zoom / \
+            Gs.gui_scale
 
-func _get_zoom() -> float:
-    return zoom_factor
+func _set_zoom_factor(value: float) -> void:
+    zoom_factor = value
+    _update_zoom()
 
-func animate_to_zoom(
-        zoom: float,
+func animate_to_zoom_factor(
+        zoom_factor: float,
         duration := ZOOM_ANIMATION_DURATION_SEC) -> void:
-    if _get_zoom() == zoom:
+    if self.zoom_factor == zoom_factor:
         return
     
-    var start_zoom := \
-            tween_zoom if \
-            zoom_tween.is_active() else \
-            _get_zoom()
     zoom_tween.stop(self)
     zoom_tween.interpolate_property(
             self,
-            "zoom",
-            start_zoom,
-            zoom,
+            "zoom_factor",
+            self.zoom_factor,
+            zoom_factor,
             duration,
             Tween.TRANS_QUAD,
             Tween.EASE_IN_OUT)
     zoom_tween.start()
 
-func update_zoom() -> void:
+func _update_zoom() -> void:
     if !is_instance_valid(_current_camera):
         return
-    var zoom: float = \
-            zoom_factor * \
-            Gs.default_camera_zoom / \
-            Gs.gui_scale
+    var zoom := get_derived_zoom()
     _current_camera.zoom = Vector2(zoom, zoom)
