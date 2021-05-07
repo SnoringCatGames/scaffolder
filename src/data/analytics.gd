@@ -43,9 +43,9 @@ func _init() -> void:
 
 func _process(_delta_sec: float) -> void:
     if _has_session_started and \
-            Gs.time.elapsed_app_time_actual_sec - _last_ping_time_sec > \
+            Gs.time.get_app_time_sec() - _last_ping_time_sec > \
                     PING_INTERVAL_SEC:
-        _last_ping_time_sec = Gs.time.elapsed_app_time_actual_sec
+        _last_ping_time_sec = Gs.time.get_app_time_sec()
         _ping()
 
 func start_session() -> void:
@@ -112,7 +112,7 @@ func _ping(
             "ping",
             "ping",
             "ping",
-            Gs.time.elapsed_app_time_actual_sec,
+            Gs.time.get_app_time_sec(),
             true,
             extra_details,
             is_session_end)
@@ -295,7 +295,7 @@ func _trigger_batch(batch: Array) -> void:
     var payload := ""
     for entry in batch:
         var queue_time_ms := \
-                int((Gs.time.elapsed_app_time_actual_sec - entry.time_sec) * 1000)
+                int((Gs.time.get_app_time_sec() - entry.time_sec) * 1000)
         var entry_payload: String = \
                 "qt=%d&%s\n" % [queue_time_ms, entry.payload]
         payload += entry_payload
@@ -384,4 +384,4 @@ class _AnalyticsEntry extends Reference:
     
     func _init(payload: String) -> void:
         self.payload = payload
-        self.time_sec = Gs.time.elapsed_app_time_actual_sec
+        self.time_sec = Gs.time.get_app_time_sec()

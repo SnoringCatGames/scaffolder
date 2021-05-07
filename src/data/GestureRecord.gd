@@ -24,7 +24,7 @@ func _record_new_gesture_event(event: InputEvent) -> void:
     var gesture_event := GestureEventForDebugging.new(
             event.position,
             gesture_name,
-            Gs.time.elapsed_play_time_actual_sec)
+            Gs.time.get_play_time_sec())
     recent_gesture_events_for_debugging.push_front(gesture_event)
     while recent_gesture_events_for_debugging.size() > \
             Gs.recent_gesture_events_for_debugging_buffer_size:
