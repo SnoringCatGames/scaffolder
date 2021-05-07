@@ -169,11 +169,8 @@ func set_timeout(
         delay_sec: float,
         arguments := [],
         time_type := APP_PHYSICS_TIME) -> int:
-    var tracker := _get_time_tracker_for_time_type(time_type)
-    var key := _get_elapsed_time_key_for_time_type(time_type)
     var timeout := _Timeout.new(
-            tracker,
-            key,
+            time_type,
             callback,
             delay_sec,
             arguments)
@@ -188,11 +185,8 @@ func set_interval(
         interval_sec: float,
         arguments := [],
         time_type := APP_PHYSICS_TIME) -> int:
-    var tracker := _get_time_tracker_for_time_type(time_type)
-    var key := _get_elapsed_time_key_for_time_type(time_type)
     var interval := _Interval.new(
-            tracker,
-            key,
+            time_type,
             callback,
             interval_sec,
             arguments)
@@ -295,15 +289,15 @@ class _Timeout extends Reference:
     var id: int
     
     func _init(
-            time_tracker: _TimeTracker,
-            elapsed_time_key: String,
+            time_type: int,
             callback: FuncRef,
-            time_sec: float,
+            delay_sec: float,
             arguments: Array) -> void:
-        self.time_tracker = time_tracker
-        self.elapsed_time_key = elapsed_time_key
+        self.time_tracker = Gs.time._get_time_tracker_for_time_type(time_type)
+        self.elapsed_time_key = \
+                Gs.time._get_elapsed_time_key_for_time_type(time_type)
         self.callback = callback
-        self.time_sec = time_sec
+        self.time_sec = time_tracker.get(elapsed_time_key) + delay_sec
         self.arguments = arguments
         
         Gs.time._last_timeout_id += 1
@@ -351,13 +345,13 @@ class _Interval extends Reference:
     var id: int
     
     func _init(
-            time_tracker: _TimeTracker,
-            elapsed_time_key: String,
+            time_type: int,
             callback: FuncRef,
             interval_sec: float,
             arguments: Array) -> void:
-        self.time_tracker = time_tracker
-        self.elapsed_time_key = elapsed_time_key
+        self.time_tracker = Gs.time._get_time_tracker_for_time_type(time_type)
+        self.elapsed_time_key = \
+                Gs.time._get_elapsed_time_key_for_time_type(time_type)
         self.callback = callback
         self.interval_sec = interval_sec
         self.arguments = arguments
