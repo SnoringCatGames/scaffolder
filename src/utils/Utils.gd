@@ -202,6 +202,9 @@ func give_button_press_feedback(is_fancy := false) -> void:
     else:
         Gs.audio.play_sound("menu_select")
 
+# TODO: Replace this with better built-in EaseType/TransType easing support
+#       when it's ready
+#       (https://github.com/godotengine/godot-proposals/issues/36).
 static func ease_name_to_param(name: String) -> float:
     match name:
         "linear":
