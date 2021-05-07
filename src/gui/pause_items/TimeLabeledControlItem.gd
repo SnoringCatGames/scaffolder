@@ -12,7 +12,7 @@ func _init(__ = null).(
 
 func get_text() -> String:
     return Gs.utils.get_time_string_from_seconds(
-            Gs.time.elapsed_play_time_actual_sec - \
-            Gs.level.level_start_time_actual) if \
+            Gs.time.get_play_time_sec() - \
+            Gs.level.level_start_play_time_unscaled) if \
             is_instance_valid(Gs.level) else \
             "—"
