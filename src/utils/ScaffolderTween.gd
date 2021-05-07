@@ -1,0 +1,193 @@
+class_name ScaffolderTween
+extends Node
+
+signal tween_all_completed
+signal tween_completed(object, key)
+
+var id := -1
+
+var _pending_sub_tweens := []
+var _active_sub_tweens := []
+
+func _init() -> void:
+    self.id = Gs.time.get_next_task_id()
+
+func _process(_delta_sec: float) -> void:
+    step()
+
+func step() -> void:
+    if !is_active():
+        return
+    
+    # End and remove any finished tweens.
+    var finished_sub_tweens := []
+    for sub_tween in _active_sub_tweens:
+        if sub_tween.get_is_finished():
+            finished_sub_tweens.push_back(sub_tween)
+    for sub_tween in finished_sub_tweens:
+        sub_tween.end()
+        stop(sub_tween.object, sub_tween.key)
+        emit_signal("tween_completed", sub_tween.object, sub_tween.key)
+    
+    # Update all in-progress tweens.
+    for sub_tween in _active_sub_tweens:
+        sub_tween.step()
+    
+    if !is_active():
+        emit_signal("tween_all_completed")
+
+func is_active() -> bool:
+    return !_active_sub_tweens.empty()
+
+func start() -> bool:
+    if _active_sub_tweens.empty():
+        return false
+    
+    for sub_tween in _pending_sub_tweens:
+        sub_tween.start()
+        _active_sub_tweens.push_back(sub_tween)
+    _pending_sub_tweens.clear()
+    
+    return true
+
+func stop(object: Object, key := "") -> bool:
+    var matching_index := -1
+    for index in _active_sub_tweens.size():
+        var sub_tween: _SubTween = _active_sub_tweens[index]
+        if sub_tween.object == object and \
+                (key == "" or \
+                sub_tween.key == key):
+            matching_index = index
+            break
+    
+    if matching_index >= 0:
+        _active_sub_tweens.remove(matching_index)
+        return true
+    else:
+        return false
+
+func stop_all() -> bool:
+    if _active_sub_tweens.empty():
+        return false
+    else:
+        _active_sub_tweens.clear()
+        return true
+
+func interpolate_method(
+        object: Object,
+        key: String,
+        initial_val,
+        final_val,
+        duration: float,
+        time_type: int,
+        ease_name: String,
+        delay: float) -> void:
+    _interpolate(
+            object,
+            key,
+            false,
+            initial_val,
+            final_val,
+            duration,
+            time_type,
+            ease_name,
+            delay)
+
+func interpolate_property(
+        object: Object,
+        key: NodePath,
+        initial_val,
+        final_val,
+        duration: float,
+        time_type: int,
+        ease_name: String,
+        delay: float) -> void:
+    _interpolate(
+            object,
+            key,
+            true,
+            initial_val,
+            final_val,
+            duration,
+            time_type,
+            ease_name,
+            delay)
+
+func _interpolate(
+        object: Object,
+        key: NodePath,
+        is_property: bool,
+        initial_val,
+        final_val,
+        duration: float,
+        time_type: int,
+        ease_name: String,
+        delay: float) -> void:
+    _pending_sub_tweens.push_back(_SubTween.new(
+            object,
+            key,
+            is_property,
+            initial_val,
+            final_val,
+            duration,
+            time_type,
+            ease_name,
+            delay))
+
+class _SubTween extends Reference:
+    var object: Object
+    var key: String
+    var is_property: bool
+    var initial_val
+    var final_val
+    var duration: float
+    var time_type: int
+    # TODO: Replace this with better built-in EaseType/TransType easing support
+    #       when it's ready
+    #       (https://github.com/godotengine/godot-proposals/issues/36).
+    var ease_name: String
+    var delay: float
+    
+    var start_time := INF
+    
+    func _init(
+            object: Object,
+            key: String,
+            is_property: bool,
+            initial_val,
+            final_val,
+            duration: float,
+            time_type: int,
+            ease_name: String,
+            delay: float) -> void:
+        assert(duration > 0)
+        self.object = object
+        self.key = key
+        self.is_property = is_property
+        self.initial_val = initial_val
+        self.final_val = final_val
+        self.duration = duration
+        self.time_type = time_type
+        self.ease_name = ease_name
+        self.delay = delay
+    
+    func start() -> void:
+        start_time = Gs.time.get_elapsed_time_sec(time_type)
+    
+    func end() -> void:
+        _update_with_value(final_val)
+    
+    func step() -> void:
+        var current_time: float = Gs.time.get_elapsed_time_sec(time_type)
+        var progress := clamp(
+                (current_time - delay - start_time) / duration,
+                0,
+                1)
+        progress = Gs.utils.ease_by_name(progress, ease_name)
+        _update_with_value(lerp(initial_val, final_val, progress))
+    
+    func _update_with_value(value) -> void:
+        if is_property:
+            object.set(key, value)
+        else:
+            object.call(key, value)
