@@ -22,3 +22,12 @@ func get_text() -> String:
     Gs.logger.error(
             "Abstract TextLabeledControlItem.get_text is not implemented")
     return ""
+
+func _update_control() -> void:
+    text = get_text()
+
+func _create_control() -> Control:
+    var label := Label.new()
+    label.text = text
+    label.modulate.a = _get_alpha()
+    return label

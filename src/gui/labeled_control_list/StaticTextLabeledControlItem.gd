@@ -1,16 +1,11 @@
 class_name StaticTextLabeledControlItem
-extends LabeledControlItem
-
-var TYPE := LabeledControlItem.TEXT
-
-var text: String
+extends TextLabeledControlItem
 
 func _init(
         label: String,
         text: String,
         description := "" \
         ).(
-        TYPE,
         label,
         description \
         ) -> void:
