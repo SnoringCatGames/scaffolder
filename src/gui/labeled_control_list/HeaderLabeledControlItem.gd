@@ -12,3 +12,9 @@ func _init(label: String).(
 
 func get_is_enabled() -> bool:
     return true
+
+func _update_control() -> void:
+    pass
+
+func _create_control() -> Control:
+    return null
