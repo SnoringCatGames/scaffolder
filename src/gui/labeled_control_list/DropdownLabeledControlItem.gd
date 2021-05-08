@@ -30,8 +30,10 @@ func get_selected_index() -> bool:
 
 func _update_control() -> void:
     selected_index = get_selected_index()
+    if is_instance_valid(control):
+        control.select(selected_index)
 
-func _create_control() -> Control:
+func create_control() -> Control:
     var dropdown := OptionButton.new()
     for option in options:
         dropdown.add_item(option)

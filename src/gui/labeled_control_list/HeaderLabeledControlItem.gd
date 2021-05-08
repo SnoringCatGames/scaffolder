@@ -16,5 +16,5 @@ func get_is_enabled() -> bool:
 func _update_control() -> void:
     pass
 
-func _create_control() -> Control:
+func create_control() -> Control:
     return null

@@ -97,8 +97,8 @@ static func translate_polyline(
 static func get_children_by_type(
         parent: Node,
         type,
-        recursive := false) -> Array:
-    var result = []
+        recursive := false,
+        result := []) -> Array:
     for child in parent.get_children():
         if child is type:
             result.push_back(child)
@@ -106,7 +106,8 @@ static func get_children_by_type(
             get_children_by_type(
                     child,
                     type,
-                    recursive)
+                    recursive,
+                    result)
     return result
 
 static func get_child_by_type(
