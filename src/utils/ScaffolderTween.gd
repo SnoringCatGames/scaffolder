@@ -40,7 +40,7 @@ func is_active() -> bool:
     return !_active_sub_tweens.empty()
 
 func start() -> bool:
-    if _active_sub_tweens.empty():
+    if _pending_sub_tweens.empty():
         return false
     
     for sub_tween in _pending_sub_tweens:
@@ -79,9 +79,9 @@ func interpolate_method(
         initial_val,
         final_val,
         duration: float,
-        time_type: int,
         ease_name: String,
-        delay: float) -> void:
+        delay: float,
+        time_type := TimeType.APP_PHYSICS) -> void:
     _interpolate(
             object,
             key,
@@ -89,9 +89,9 @@ func interpolate_method(
             initial_val,
             final_val,
             duration,
-            time_type,
             ease_name,
-            delay)
+            delay,
+            time_type)
 
 func interpolate_property(
         object: Object,
@@ -99,9 +99,9 @@ func interpolate_property(
         initial_val,
         final_val,
         duration: float,
-        time_type: int,
         ease_name: String,
-        delay: float) -> void:
+        delay: float,
+        time_type := TimeType.APP_PHYSICS) -> void:
     _interpolate(
             object,
             key,
@@ -109,9 +109,9 @@ func interpolate_property(
             initial_val,
             final_val,
             duration,
-            time_type,
             ease_name,
-            delay)
+            delay,
+            time_type)
 
 func _interpolate(
         object: Object,
@@ -120,9 +120,9 @@ func _interpolate(
         initial_val,
         final_val,
         duration: float,
-        time_type: int,
         ease_name: String,
-        delay: float) -> void:
+        delay: float,
+        time_type: int) -> void:
     _pending_sub_tweens.push_back(_SubTween.new(
             object,
             key,
@@ -130,9 +130,9 @@ func _interpolate(
             initial_val,
             final_val,
             duration,
-            time_type,
             ease_name,
-            delay))
+            delay,
+            time_type))
 
 class _SubTween extends Reference:
     var object: Object
@@ -141,12 +141,12 @@ class _SubTween extends Reference:
     var initial_val
     var final_val
     var duration: float
-    var time_type: int
     # TODO: Replace this with better built-in EaseType/TransType easing support
     #       when it's ready
     #       (https://github.com/godotengine/godot-proposals/issues/36).
     var ease_name: String
     var delay: float
+    var time_type: int
     
     var start_time := INF
     
@@ -157,9 +157,9 @@ class _SubTween extends Reference:
             initial_val,
             final_val,
             duration: float,
-            time_type: int,
             ease_name: String,
-            delay: float) -> void:
+            delay: float,
+            time_type: int) -> void:
         assert(duration > 0)
         self.object = object
         self.key = key
@@ -167,9 +167,13 @@ class _SubTween extends Reference:
         self.initial_val = initial_val
         self.final_val = final_val
         self.duration = duration
-        self.time_type = time_type
         self.ease_name = ease_name
         self.delay = delay
+        self.time_type = time_type
+    
+    func get_is_finished() -> bool:
+        return Gs.time.get_elapsed_time_sec(time_type) >= \
+                start_time + duration + delay
     
     func start() -> void:
         start_time = Gs.time.get_elapsed_time_sec(time_type)

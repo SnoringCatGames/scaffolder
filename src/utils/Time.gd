@@ -9,67 +9,6 @@ const _DEFAULT_TIME_SCALE := 1.0
 const _DEFAULT_ADDITIONAL_DEBUG_TIME_SCALE := 1.0
 #const _DEFAULT_ADDITIONAL_DEBUG_TIME_SCALE := 0.1
 
-# The different types of time that are tracked.
-# 
-# -   Fixed-interval/physics-based tracking vs clock and render-based tracking:
-#     -   In general, use fixed-interval/physics-based tracking for most cases,
-#         unless you know you need something else.
-#         -   Fixed-interval tracking is deterministic, which means you should
-#             see the same results each time you run the app.
-#     -   "Clock" and "render"-based tracking should represent actual time more
-#         accurately than fixed-interval/physics-based tracking, since the
-#         latter under-counts if a frame actually takes longer than the
-#         expected fixed-interval duration.
-#         -   This is useful if you want to actual track and display real
-#             elapsed time to the user.
-# -   App time vs play time:
-#     -   App time tracks total time elapsed while the app has been running.
-#     -   Play time tracks elapsed **unpaused** time.
-# -   Scaled vs un-scaled time:
-#     -   Scaled time is modified by the combination of the `time_scale` and
-#         `additional_debug_time_scale` properties.
-#         -   The current scale is applied to each individual frame's delta and
-#             this is added to a running total.
-#         -   So this accounts for changes in time scale.
-enum {
-    # -   Elapsed time from deterministic fixed-interval _physics_process calls.
-    # -   Total app run time; not affected by pausing.
-    # -   Not affected by current time_scale or additional_debug_time_scale.
-    APP_PHYSICS_TIME,
-    # -   Elapsed **real-world time**, according to the OS.
-    # -   Total app run time; not affected by pausing.
-    # -   Not affected by current time_scale or additional_debug_time_scale.
-    APP_CLOCK_TIME,
-    # -   Elapsed time from deterministic fixed-interval _physics_process calls.
-    # -   Total app run time; not affected by pausing.
-    # -   **Scaled** according to the current time_scale and
-    #     additional_debug_time_scale.
-    APP_PHYSICS_SCALED_TIME,
-    # -   Elapsed **real-world time**, according to the OS.
-    # -   Total app run time; not affected by pausing.
-    # -   **Scaled** according to the current time_scale and
-    #     additional_debug_time_scale.
-    APP_CLOCK_SCALED_TIME,
-    # -   Elapsed time from deterministic fixed-interval _physics_process calls.
-    # -   Total **un-paused** run time.
-    # -   Not affected by current time_scale or additional_debug_time_scale.
-    PLAY_PHYSICS_TIME,
-    # -   Elapsed time from nondeterministic variable-interval _process calls.
-    # -   Total **un-paused** run time.
-    # -   Not affected by current time_scale or additional_debug_time_scale.
-    PLAY_RENDER_TIME,
-    # -   Elapsed time from deterministic fixed-interval _physics_process calls.
-    # -   Total **un-paused** run time.
-    # -   **Scaled** according to the current time_scale and
-    #     additional_debug_time_scale.
-    PLAY_PHYSICS_SCALED_TIME,
-    # -   Elapsed time from nondeterministic variable-interval _process calls.
-    # -   Total **un-paused** run time.
-    # -   **Scaled** according to the current time_scale and
-    #     additional_debug_time_scale.
-    PLAY_RENDER_SCALED_TIME,
-}
-
 var time_scale := _DEFAULT_TIME_SCALE setget _set_time_scale
 var additional_debug_time_scale := _DEFAULT_ADDITIONAL_DEBUG_TIME_SCALE \
         setget _set_additional_debug_time_scale
@@ -146,16 +85,16 @@ func get_next_task_id() -> int:
     return _last_timeout_id
 
 func get_app_time_sec() -> float:
-    return get_elapsed_time_sec(APP_PHYSICS_TIME)
+    return get_elapsed_time_sec(TimeType.APP_PHYSICS)
 
 func get_clock_time_sec() -> float:
-    return get_elapsed_time_sec(APP_CLOCK_TIME)
+    return get_elapsed_time_sec(TimeType.APP_CLOCK)
 
 func get_play_time_sec() -> float:
-    return get_elapsed_time_sec(PLAY_PHYSICS_TIME)
+    return get_elapsed_time_sec(TimeType.PLAY_PHYSICS)
 
 func get_scaled_play_time_sec() -> float:
-    return get_elapsed_time_sec(PLAY_PHYSICS_SCALED_TIME)
+    return get_elapsed_time_sec(TimeType.PLAY_PHYSICS_SCALED)
 
 func get_elapsed_time_sec(time_type: int) -> float:
     var tracker := _get_time_tracker_for_time_type(time_type)
@@ -164,15 +103,15 @@ func get_elapsed_time_sec(time_type: int) -> float:
 
 func _get_time_tracker_for_time_type(time_type: int) -> _TimeTracker:
     match time_type:
-        APP_PHYSICS_TIME, \
-        APP_CLOCK_TIME, \
-        APP_PHYSICS_SCALED_TIME, \
-        APP_CLOCK_SCALED_TIME:
+        TimeType.APP_PHYSICS, \
+        TimeType.APP_CLOCK, \
+        TimeType.APP_PHYSICS_SCALED, \
+        TimeType.APP_CLOCK_SCALED:
             return _app_time
-        PLAY_PHYSICS_TIME, \
-        PLAY_RENDER_TIME, \
-        PLAY_PHYSICS_SCALED_TIME, \
-        PLAY_RENDER_SCALED_TIME:
+        TimeType.PLAY_PHYSICS, \
+        TimeType.PLAY_RENDER, \
+        TimeType.PLAY_PHYSICS_SCALED, \
+        TimeType.PLAY_RENDER_SCALED:
             return _play_time
         _:
             Gs.utils.error("Unrecognized time_type: %d" % time_type)
@@ -180,19 +119,19 @@ func _get_time_tracker_for_time_type(time_type: int) -> _TimeTracker:
 
 func _get_elapsed_time_key_for_time_type(time_type: int) -> String:
     match time_type:
-        APP_PHYSICS_TIME, \
-        PLAY_PHYSICS_TIME:
+        TimeType.APP_PHYSICS, \
+        TimeType.PLAY_PHYSICS:
             return "elapsed_physics_time_sec"
-        APP_PHYSICS_SCALED_TIME, \
-        PLAY_PHYSICS_SCALED_TIME:
+        TimeType.APP_PHYSICS_SCALED, \
+        TimeType.PLAY_PHYSICS_SCALED:
             return "elapsed_physics_scaled_time_sec"
-        APP_CLOCK_TIME:
+        TimeType.APP_CLOCK:
             return "elapsed_clock_time_sec"
-        APP_CLOCK_SCALED_TIME:
+        TimeType.APP_CLOCK_SCALED:
             return "elapsed_clock_scaled_time_sec"
-        PLAY_RENDER_TIME:
+        TimeType.PLAY_RENDER:
             return "elapsed_render_time_sec"
-        PLAY_RENDER_SCALED_TIME:
+        TimeType.PLAY_RENDER_SCALED:
             return "elapsed_render_scaled_time_sec"
         _:
             Gs.utils.error("Unrecognized time_type: %d" % time_type)
@@ -220,9 +159,9 @@ func tween_method(
         initial_val,
         final_val,
         duration: float,
-        time_type: int,
         ease_name: String,
         delay: float,
+        time_type := TimeType.APP_PHYSICS,
         on_completed_callback: FuncRef = null,
         arguments := []) -> int:
     return _tween(
@@ -232,9 +171,9 @@ func tween_method(
             initial_val,
             final_val,
             duration,
-            time_type,
             ease_name,
             delay,
+            time_type,
             on_completed_callback)
 
 func tween_property(
@@ -243,9 +182,9 @@ func tween_property(
         initial_val,
         final_val,
         duration: float,
-        time_type: int,
         ease_name: String,
         delay: float,
+        time_type := TimeType.APP_PHYSICS,
         on_completed_callback: FuncRef = null,
         arguments := []) -> int:
     return _tween(
@@ -255,9 +194,9 @@ func tween_property(
             initial_val,
             final_val,
             duration,
-            time_type,
             ease_name,
             delay,
+            time_type,
             on_completed_callback)
 
 func _tween(
@@ -267,9 +206,9 @@ func _tween(
         initial_val,
         final_val,
         duration: float,
-        time_type: int,
         ease_name: String,
         delay: float,
+        time_type := TimeType.APP_PHYSICS,
         on_completed_callback: FuncRef = null,
         arguments := []) -> int:
     var tween := ScaffolderTween.new()
@@ -280,9 +219,9 @@ func _tween(
             initial_val,
             final_val,
             duration,
-            time_type,
             ease_name,
-            delay)
+            delay,
+            time_type)
     if on_completed_callback != null:
         tween.connect(
                 "tween_completed",
@@ -307,7 +246,7 @@ func set_timeout(
         callback: FuncRef,
         delay_sec: float,
         arguments := [],
-        time_type := APP_PHYSICS_TIME) -> int:
+        time_type := TimeType.APP_PHYSICS) -> int:
     var timeout := _Timeout.new(
             time_type,
             callback,
@@ -323,7 +262,7 @@ func set_interval(
         callback: FuncRef,
         interval_sec: float,
         arguments := [],
-        time_type := APP_PHYSICS_TIME) -> int:
+        time_type := TimeType.APP_PHYSICS) -> int:
     var interval := _Interval.new(
             time_type,
             callback,
@@ -339,7 +278,7 @@ func throttle(
         callback: FuncRef,
         interval_sec: float,
         invokes_at_end := true,
-        time_type := APP_PHYSICS_TIME) -> FuncRef:
+        time_type := TimeType.APP_PHYSICS) -> FuncRef:
     var throttler := _Throttler.new(
             time_type,
             callback,
