@@ -25,8 +25,10 @@ func get_text() -> String:
 
 func _update_control() -> void:
     text = get_text()
+    if is_instance_valid(control):
+        control.text = text
 
-func _create_control() -> Control:
+func create_control() -> Control:
     var label := Label.new()
     label.text = text
     label.modulate.a = _get_alpha()

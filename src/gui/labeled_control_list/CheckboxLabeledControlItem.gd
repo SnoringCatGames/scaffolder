@@ -31,8 +31,10 @@ func get_is_pressed() -> bool:
 
 func _update_control() -> void:
     pressed = get_is_pressed()
+    if is_instance_valid(control):
+        control.pressed = pressed
 
-func _create_control() -> Control:
+func create_control() -> Control:
     var checkbox: ScaffolderCheckBox = Gs.utils.add_scene(
             null,
             SCAFFOLDER_CHECK_BOX_SCENE_PATH,

@@ -10,6 +10,7 @@ const IS_WELCOME_PANEL_SHOWN_SETTINGS_KEY := "is_welcome_panel_shown"
 const IS_DEBUG_TIME_SHOWN_SETTINGS_KEY := "is_debug_time_shown"
 const IS_MUSIC_ENABLED_SETTINGS_KEY := "is_music_enabled"
 const IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY := "is_sound_effects_enabled"
+const ADDITIONAL_DEBUG_TIME_SCALE_SETTINGS_KEY := "additional_debug_time_scale"
 
 const WELCOME_PANEL_RESOURCE_PATH := \
         "res://addons/scaffolder/src/gui/WelcomePanel.tscn"
@@ -547,6 +548,9 @@ func load_state() -> void:
     Gs.audio.is_sound_effects_enabled = Gs.save_state.get_setting(
             IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY,
             true)
+    Gs.time.additional_debug_time_scale = Gs.save_state.get_setting(
+            ADDITIONAL_DEBUG_TIME_SCALE_SETTINGS_KEY,
+            1.0)
 
 func _clear_old_data_agreement_version() -> void:
     if Gs.data_agreement_version != Gs.save_state.get_data_agreement_version():

@@ -6,38 +6,54 @@ var TYPE := LabeledControlItem.SLIDER
 var value: float
 var min_value: float
 var max_value: float
-var step := 0.0
+var step: float
+var width: float
+var tick_count: int
 
 func _init(
         label: String,
-        description: String \
+        description: String,
+        min_value: float,
+        max_value: float,
+        step := 0.0,
+        width := 64.0,
+        tick_count := 0
         ).(
         TYPE,
         label,
-        description \
+        description
         ) -> void:
-    pass
+    self.min_value = min_value
+    self.max_value = max_value
+    self.step = step
+    self.width = width
+    self.tick_count = tick_count
 
 func on_value_changed(value: float) -> void:
     Gs.logger.error(
             "Abstract SliderLabeledControlItem.on_value_changed " +
             "is not implemented")
 
-func get_value() -> bool:
+func get_value() -> float:
     Gs.logger.error(
             "Abstract SliderLabeledControlItem.get_value " +
             "is not implemented")
-    return false
+    return INF
 
-func update_control() -> void:
+func _update_control() -> void:
     value = get_value()
+    if is_instance_valid(control):
+        control.value = value
 
-func _create_control() -> Control:
-    var slider := Slider.new()
+func create_control() -> Control:
+    var slider := HSlider.new()
+    slider.editable = enabled
+    slider.rect_min_size.x = width
+    slider.step = step
+    slider.tick_count = tick_count
     slider.min_value = min_value
     slider.max_value = max_value
     slider.value = value
-    slider.editable = enabled
     slider.connect(
             "value_changed",
             self,

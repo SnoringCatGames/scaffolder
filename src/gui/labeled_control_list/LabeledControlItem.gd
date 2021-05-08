@@ -47,9 +47,9 @@ func _update_control() -> void:
     Gs.logger.error(
             "Abstract LabeledControlItem._update_control is not implemented")
 
-func _create_control() -> Control:
+func create_control() -> Control:
     Gs.logger.error(
-            "Abstract LabeledControlItem._create_control is not implemented")
+            "Abstract LabeledControlItem.create_control is not implemented")
     return null
 
 func update_item() -> void:
@@ -59,7 +59,8 @@ func update_item() -> void:
 func create_row(
         style: StyleBox,
         height: float,
-        padding_horizontal: float) -> PanelContainer:
+        padding_horizontal: float,
+        includes_description := true) -> PanelContainer:
     var row := PanelContainer.new()
     row.add_stylebox_override("panel", style)
     
@@ -84,7 +85,8 @@ func create_row(
     label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     hbox.add_child(label)
     
-    if self.description != "":
+    if self.description != "" and \
+            includes_description:
         var description_button: ScaffolderTextureButton = \
                 Gs.utils.add_scene(
                         hbox, 
@@ -118,7 +120,7 @@ func create_row(
         hbox.add_child(spacer3)
     
     if self.type != HEADER:
-        var control := _create_control()
+        var control := create_control()
         self.control = control
         control.size_flags_horizontal = Control.SIZE_SHRINK_END
         control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
