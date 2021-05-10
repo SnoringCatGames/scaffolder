@@ -80,6 +80,12 @@ func update() -> void:
     #       but for some reason the height keeps getting enlarged otherwise.
     accordion.height_override = 268.0
 
+func focus() -> void:
+    if is_unlocked:
+        $HeaderWrapper/LevelSelectItemUnlockedHeader.grab_focus()
+    else:
+        $HeaderWrapper/LevelSelectItemLockedHeader.grab_focus()
+
 func toggle() -> void:
     if Gs.nav.get_active_screen_name() == "level_select":
         accordion.toggle()
