@@ -16,6 +16,7 @@ const INCLUDES_CENTER_CONTAINER := true
 
 # Array<LevelSelectItem>
 var level_items := []
+var previous_expanded_item: LevelSelectItem
 var expanded_item: LevelSelectItem
 var _scroll_target: LevelSelectItem
 var _new_unlocked_item: LevelSelectItem
@@ -84,13 +85,23 @@ func _deferred_update() -> void:
 
 func _process(_delta_sec: float) -> void:
     var item_to_expand: LevelSelectItem
+    var is_up_or_down_pressed := false
     if Input.is_action_just_pressed("ui_up"):
+        is_up_or_down_pressed = true
         item_to_expand = _get_previous_item_to_expand()
     elif Input.is_action_just_pressed("ui_down"):
+        is_up_or_down_pressed = true
         item_to_expand = _get_next_item_to_expand()
-    if item_to_expand != null:
-        Gs.utils.give_button_press_feedback()
-        _on_item_pressed(item_to_expand)
+    
+    if is_up_or_down_pressed:
+        if item_to_expand != null:
+            Gs.utils.give_button_press_feedback()
+            item_to_expand.focus()
+            _on_item_pressed(item_to_expand)
+        elif expanded_item != null:
+            expanded_item.focus()
+        elif previous_expanded_item != null:
+            previous_expanded_item.focus()
 
 func _calculate_new_unlocked_item() -> void:
     var new_unlocked_levels: Array = Gs.save_state.get_new_unlocked_levels()
@@ -104,7 +115,11 @@ func _calculate_new_unlocked_item() -> void:
         assert(_new_unlocked_item != null)
 
 func _get_previous_item_to_expand() -> LevelSelectItem:
-    var index := level_items.find(expanded_item) - 1
+    var basis_item := \
+            expanded_item if \
+            expanded_item != null else \
+            previous_expanded_item
+    var index := level_items.find(basis_item) - 1
     
     while index >= 0 and \
             !level_items[index].is_unlocked:
@@ -116,7 +131,11 @@ func _get_previous_item_to_expand() -> LevelSelectItem:
         return null
 
 func _get_next_item_to_expand() -> LevelSelectItem:
-    var index := level_items.find(expanded_item) + 1
+    var basis_item := \
+            expanded_item if \
+            expanded_item != null else \
+            previous_expanded_item
+    var index := level_items.find(basis_item) + 1
     
     while index < level_items.size() and \
             !level_items[index].is_unlocked:
@@ -166,12 +185,13 @@ func _get_focused_button() -> ShinyButton:
 func _on_item_pressed(item: LevelSelectItem) -> void:
     var delay := 0.0
     if !item.is_open:
-        var previous_expanded_item := expanded_item
+        previous_expanded_item = expanded_item
         expanded_item = item
         if previous_expanded_item != null:
             previous_expanded_item.toggle()
             delay = 0.05
     elif expanded_item == item:
+        previous_expanded_item = expanded_item
         expanded_item = null
     Gs.time.set_timeout(funcref(item, "toggle"), delay)
 
