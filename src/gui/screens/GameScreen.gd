@@ -83,6 +83,8 @@ func start_level(level_id: String) -> void:
     if is_instance_valid(Gs.level):
         return
     
+    Gs.save_state.set_last_level_played(level_id)
+    
     $PanelContainer/LoadProgressPanel.visible = true
     $PanelContainer/LoadProgressPanel/VBoxContainer/ProgressBar.value = 0.0
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label1.text = ""
