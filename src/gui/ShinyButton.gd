@@ -28,8 +28,8 @@ var button_style_hover: StyleBox
 var button_style_pressed: StyleBox
 var button_style_pulse: StyleBoxFlat
 
-var shine_tween := Tween.new()
-var color_pulse_tween := Tween.new()
+var shine_tween := ScaffolderTween.new()
+var color_pulse_tween := ScaffolderTween.new()
 
 func _enter_tree() -> void:
     add_child(shine_tween)
@@ -120,8 +120,7 @@ func _trigger_shine() -> void:
             shine_start_x,
             shine_end_x,
             SHINE_DURATION_SEC,
-            Tween.TRANS_LINEAR,
-            Tween.EASE_IN_OUT)
+            "linear")
     shine_tween.start()
 
 func _trigger_color_pulse() -> void:
@@ -147,16 +146,14 @@ func _trigger_color_pulse() -> void:
             color_original,
             color_pulse,
             pulse_half_duration,
-            Tween.TRANS_SINE,
-            Tween.EASE_IN_OUT)
+            "ease_in_out_weak")
     color_pulse_tween.interpolate_property(
             button_style_pulse,
             "bg_color",
             color_pulse,
             color_original,
             pulse_half_duration,
-            Tween.TRANS_SINE,
-            Tween.EASE_IN_OUT,
+            "ease_in_out_weak",
             pulse_half_duration)
     color_pulse_tween.start()
 

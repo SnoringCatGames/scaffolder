@@ -159,8 +159,8 @@ func tween_method(
         initial_val,
         final_val,
         duration: float,
-        ease_name: String,
-        delay: float,
+        ease_name := "ease_in_out",
+        delay := 0.0,
         time_type := TimeType.APP_PHYSICS,
         on_completed_callback: FuncRef = null,
         arguments := []) -> int:
@@ -174,7 +174,8 @@ func tween_method(
             ease_name,
             delay,
             time_type,
-            on_completed_callback)
+            on_completed_callback,
+            arguments)
 
 func tween_property(
         object: Object,
@@ -182,8 +183,8 @@ func tween_property(
         initial_val,
         final_val,
         duration: float,
-        ease_name: String,
-        delay: float,
+        ease_name := "ease_in_out",
+        delay := 0.0,
         time_type := TimeType.APP_PHYSICS,
         on_completed_callback: FuncRef = null,
         arguments := []) -> int:
@@ -197,7 +198,8 @@ func tween_property(
             ease_name,
             delay,
             time_type,
-            on_completed_callback)
+            on_completed_callback,
+            arguments)
 
 func _tween(
         object: Object,
@@ -237,6 +239,8 @@ func _call_tween_completed_callback(
         _key: String,
         on_completed_callback: FuncRef,
         arguments: Array) -> void:
+    arguments.push_front(_key)
+    arguments.push_front(_object)
     on_completed_callback.call_funcv(arguments)
 
 func clear_tween(tween_id: int) -> bool:

@@ -44,7 +44,7 @@ var _header_hbox: HBoxContainer
 var _header_label: Label
 var _projected_control: Control
 var _caret: ScaffolderTextureRect
-var _is_open_tween: Tween
+var _is_open_tween: ScaffolderTween
 
 var _header_normal_stylebox: StyleBoxFlatScalable
 var _header_hover_stylebox: StyleBoxFlatScalable
@@ -53,7 +53,7 @@ var _header_pressed_stylebox: StyleBoxFlatScalable
 var _start_scroll_vertical: int
 
 func _enter_tree() -> void:
-    _is_open_tween = Tween.new()
+    _is_open_tween = ScaffolderTween.new()
     _is_open_tween.connect(
             "tween_completed",
             self,
@@ -268,16 +268,14 @@ func _trigger_open_change(is_tweening: bool) -> void:
                 height_ratio_start,
                 height_ratio_end,
                 HEIGHT_TWEEN_DURATION_SEC,
-                Tween.TRANS_QUAD,
-                Tween.EASE_IN_OUT)
+                "ease_in_out")
         _is_open_tween.interpolate_method(
                 self,
                 "_interpolate_caret_rotation",
                 caret_rotation_start,
                 caret_rotation_end,
                 CARET_ROTATION_TWEEN_DURATION_SEC,
-                Tween.TRANS_QUAD,
-                Tween.EASE_IN_OUT)
+                "ease_in_out")
         if is_open:
             var scroll_container: ScrollContainer = \
                     Gs.nav.get_active_screen().scroll_container
@@ -288,8 +286,7 @@ func _trigger_open_change(is_tweening: bool) -> void:
                     0.0,
                     1.0,
                     SCROLL_TWEEN_DURATION_SEC,
-                    Tween.TRANS_QUAD,
-                    Tween.EASE_IN_OUT)
+                    "ease_in_out")
         _is_open_tween.start()
     else:
         _on_is_open_tween_completed()

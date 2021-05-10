@@ -17,8 +17,8 @@ const _DEFAULT_MUSIC_BUS_INDEX := 2
 var _inflated_sounds_config := {}
 var _inflated_music_config := {}
 
-var _fade_out_tween: Tween
-var _fade_in_tween: Tween
+var _fade_out_tween: ScaffolderTween
+var _fade_in_tween: ScaffolderTween
 
 var _pitch_shift_effect: AudioEffectPitchShift
 
@@ -34,21 +34,20 @@ var is_sound_effects_enabled := true setget \
 func _init() -> void:
     Gs.logger.print("Audio._init")
 
-func _enter_tree() -> void:
-    _fade_out_tween = Tween.new()
-    add_child(_fade_out_tween)
-    _fade_in_tween = Tween.new()
-    add_child(_fade_in_tween)
-    _fade_in_tween.connect(
-            "tween_completed",
-            self,
-            "_on_cross_fade_music_finished")
-
 func register_sounds(
         manifest: Array,
         path_prefix = _DEFAULT_SOUNDS_PATH_PREFIX,
         file_suffix = _DEFAULT_SOUND_FILE_SUFFIX,
         bus_index = _DEFAULT_SOUNDS_BUS_INDEX) -> void:
+    _fade_out_tween = ScaffolderTween.new()
+    add_child(_fade_out_tween)
+    _fade_in_tween = ScaffolderTween.new()
+    add_child(_fade_in_tween)
+    _fade_in_tween.connect(
+            "tween_completed",
+            self,
+            "_on_cross_fade_music_finished")
+    
     AudioServer.add_bus(bus_index)
     var bus_name := AudioServer.get_bus_name(bus_index)
     
@@ -199,8 +198,7 @@ func _cross_fade_music(
                 previous_loud_volume,
                 SILENT_VOLUME_DB,
                 transition_duration_sec,
-                Tween.TRANS_QUAD,
-                Tween.EASE_IN)
+                "ease_in")
         _fade_out_tween.start()
     
     set_playback_speed(current_playback_speed)
@@ -218,8 +216,7 @@ func _cross_fade_music(
             SILENT_VOLUME_DB,
             current_loud_volume,
             transition_duration_sec,
-            Tween.TRANS_QUAD,
-            Tween.EASE_OUT)
+            "ease_out")
     _fade_in_tween.start()
 
 func _on_cross_fade_music_finished(
