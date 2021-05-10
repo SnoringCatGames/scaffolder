@@ -11,13 +11,13 @@ var _current_camera: Camera2D
 var offset: Vector2 setget _set_offset, _get_offset
 var zoom_factor := 1.0 setget _set_zoom_factor
 
-var zoom_tween: Tween
+var zoom_tween: ScaffolderTween
 
 func _init() -> void:
     name = "CameraController"
 
 func _enter_tree() -> void:
-    zoom_tween = Tween.new()
+    zoom_tween = ScaffolderTween.new()
     add_child(zoom_tween)
 
 func _process(_delta_sec: float) -> void:
@@ -90,15 +90,16 @@ func animate_to_zoom_factor(
     if self.zoom_factor == zoom_factor:
         return
     
-    zoom_tween.stop(self)
+    zoom_tween.stop_all()
     zoom_tween.interpolate_property(
             self,
             "zoom_factor",
             self.zoom_factor,
             zoom_factor,
             duration,
-            Tween.TRANS_QUAD,
-            Tween.EASE_IN_OUT)
+            "ease_in_out",
+            0.0,
+            TimeType.PLAY_PHYSICS_SCALED)
     zoom_tween.start()
 
 func _update_zoom() -> void:

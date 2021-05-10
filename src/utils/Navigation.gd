@@ -242,35 +242,24 @@ func _set_screen_is_open(
             slide_duration = SCREEN_SLIDE_DURATION_SEC / 2.0
             slide_delay = (SCREEN_FADE_DURATION_SEC - slide_duration) / 2.0
         
-        var screen_slide_tween := Tween.new()
-        add_child(screen_slide_tween)
         tween_screen.position = start_position
-        screen_slide_tween.interpolate_property(
+        Gs.time.tween_property(
                 tween_screen,
                 "position",
                 start_position,
                 end_position,
                 SCREEN_SLIDE_DURATION_SEC,
-                Tween.TRANS_QUAD,
-                Tween.EASE_IN_OUT,
-                slide_delay)
-        screen_slide_tween.start()
-        screen_slide_tween.connect(
-                "tween_completed",
-                self,
-                "_on_screen_slide_completed",
-                [
-                        previous_screen,
-                        next_screen,
-                        screen_slide_tween,
-                ])
+                "ease_in_out",
+                slide_delay,
+                TimeType.APP_PHYSICS,
+                funcref(self, "_on_screen_slide_completed"),
+                [previous_screen, next_screen])
     else:
         _on_screen_slide_completed(
                 null,
                 "",
                 previous_screen,
-                next_screen,
-                null)
+                next_screen)
     
     if previous_screen != null:
         previous_screen._on_deactivated(next_screen_name)
@@ -291,11 +280,7 @@ func _on_screen_slide_completed(
         _object: Object,
         _key: NodePath,
         previous_screen: Screen,
-        next_screen: Screen,
-        tween: Tween) -> void:
-    if is_instance_valid(tween):
-        tween.queue_free()
-    
+        next_screen: Screen) -> void:
     var previous_screen_name := \
             previous_screen.screen_name if \
             previous_screen != null else \

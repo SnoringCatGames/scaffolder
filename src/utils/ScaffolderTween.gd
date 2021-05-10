@@ -79,8 +79,8 @@ func interpolate_method(
         initial_val,
         final_val,
         duration: float,
-        ease_name: String,
-        delay: float,
+        ease_name := "ease_in_out",
+        delay := 0.0,
         time_type := TimeType.APP_PHYSICS) -> void:
     _interpolate(
             object,
@@ -99,8 +99,8 @@ func interpolate_property(
         initial_val,
         final_val,
         duration: float,
-        ease_name: String,
-        delay: float,
+        ease_name := "ease_in_out",
+        delay := 0.0,
         time_type := TimeType.APP_PHYSICS) -> void:
     _interpolate(
             object,
@@ -183,8 +183,11 @@ class _SubTween extends Reference:
     
     func step() -> void:
         var current_time: float = Gs.time.get_elapsed_time_sec(time_type)
+        var elapsed_time := current_time - start_time
+        if elapsed_time < delay:
+            return
         var progress := clamp(
-                (current_time - delay - start_time) / duration,
+                (elapsed_time - delay) / duration,
                 0,
                 1)
         progress = Gs.utils.ease_by_name(progress, ease_name)
@@ -192,6 +195,6 @@ class _SubTween extends Reference:
     
     func _update_with_value(value) -> void:
         if is_property:
-            object.set(key, value)
+            object.set_indexed(key, value)
         else:
             object.call(key, value)

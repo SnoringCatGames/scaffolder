@@ -3,13 +3,9 @@ extends ColorRect
 
 signal fade_complete
 
-var tween: Tween
+var _tween_id: int
 var duration := 0.3
 var is_transitioning := false
-
-func _enter_tree() -> void:
-    tween = Tween.new()
-    add_child(tween)
 
 func _ready() -> void:
     Gs.utils.connect(
@@ -28,42 +24,34 @@ func fade() -> void:
     _fade_out()
 
 func _fade_out() -> void:
-    tween.stop_all()
-    if tween.is_connected("tween_completed", self, "_fade_in"):
-        tween.disconnect("tween_completed", self, "_fade_in")
-    if tween.is_connected("tween_completed", self, "_on_tween_complete"):
-        tween.disconnect("tween_completed", self, "_on_tween_complete")
-    tween.connect("tween_completed", self, "_fade_in")
+    Gs.time.clear_tween(_tween_id)
     _set_mask(Gs.fade_out_transition_texture)
-    tween.interpolate_method(
+    _tween_id = Gs.time.tween_method(
             self,
             "_set_cutoff",
             1.0,
             0.0,
             duration / 2.0,
-            Tween.TRANS_SINE,
-            Tween.EASE_IN)
-    tween.start()
+            "ease_in_weak",
+            0.0,
+            TimeType.APP_PHYSICS,
+            funcref(self, "_fade_in"))
 
 func _fade_in(
         _object: Object,
         _key: NodePath) -> void:
-    tween.stop_all()
-    if tween.is_connected("tween_completed", self, "_fade_in"):
-        tween.disconnect("tween_completed", self, "_fade_in")
-    if tween.is_connected("tween_completed", self, "_on_tween_complete"):
-        tween.disconnect("tween_completed", self, "_on_tween_complete")
-    tween.connect("tween_completed", self, "_on_tween_complete")
+    Gs.time.clear_tween(_tween_id)
     _set_mask(Gs.fade_in_transition_texture)
-    tween.interpolate_method(
+    _tween_id = Gs.time.tween_method(
             self,
             "_set_cutoff",
             0.0,
             1.0,
             duration / 2.0,
-            Tween.TRANS_SINE,
-            Tween.EASE_OUT)
-    tween.start()
+            "ease_out_weak",
+            0.0,
+            TimeType.APP_PHYSICS,
+            funcref(self, "_on_tween_completed"))
 
 func _set_mask(value: Texture) -> void:
     material.set_shader_param(

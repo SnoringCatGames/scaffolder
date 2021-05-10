@@ -21,28 +21,12 @@ func _init() -> void:
     modulate.a = 0.0
 
 func _enter_tree() -> void:
-    var fade_in_tween := Tween.new()
-    add_child(fade_in_tween)
-    fade_in_tween.connect(
-            "tween_completed",
-            self,
-            "_on_fade_in_finished",
-            [fade_in_tween])
-    fade_in_tween.interpolate_property(
+    Gs.time.tween_property(
             self,
             "modulate:a",
             0.0,
             post_tween_opacity,
-            _FADE_IN_DURATION,
-            Tween.TRANS_QUAD,
-            Tween.EASE_IN_OUT)
-    fade_in_tween.start()
-
-func _on_fade_in_finished(
-        _object: Object,
-        _key: NodePath,
-        tween: Tween) -> void:
-    remove_child(tween)
+            _FADE_IN_DURATION)
 
 func _ready() -> void:
     theme = Gs.theme

@@ -125,7 +125,7 @@ func _on_AccordionPanel_caret_rotated(rotation: float) -> void:
 func _on_LevelSelectItemLockedHeader_unlock_finished() -> void:
     locked_header.visible = true
     unlocked_header.visible = true
-    var fade_tween := Tween.new()
+    var fade_tween := ScaffolderTween.new()
     locked_header.add_child(fade_tween)
     fade_tween.connect(
             "tween_completed",
@@ -138,15 +138,13 @@ func _on_LevelSelectItemLockedHeader_unlock_finished() -> void:
             LevelSelectItemLockedHeader.LOCKED_OPACITY,
             0.0,
             FADE_TWEEN_DURATION_SEC,
-            Tween.TRANS_QUAD,
-            Tween.EASE_IN_OUT)
+            "ease_in_out")
     fade_tween.interpolate_property(
             unlocked_header,
             "modulate:a",
             0.0,
             1.0,
             FADE_TWEEN_DURATION_SEC,
-            Tween.TRANS_QUAD,
-            Tween.EASE_IN_OUT)
+            "ease_in_out")
     fade_tween.start()
     Gs.time.set_timeout(funcref(Gs.audio, "play_sound"), 0.3, ["achievement"])

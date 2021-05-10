@@ -9,7 +9,7 @@ const LOCK_HIGH_PART_DELAY_SEC := 0.15
 const HINT_PULSE_DURATION_SEC := 2.0
 
 var level_id: String
-var hint_tween: Tween
+var hint_tween: ScaffolderTween
 
 var previous_gui_scale: float
 
@@ -17,7 +17,7 @@ var header_stylebox: StyleBoxFlatScalable
 var hint_stylebox: StyleBoxFlatScalable
 
 func _enter_tree() -> void:
-    hint_tween = Tween.new()
+    hint_tween = ScaffolderTween.new()
     $HintWrapper/Hint.add_child(hint_tween)
 
 func _exit_tree() -> void:
@@ -112,16 +112,14 @@ func pulse_unlock_hint() -> void:
             0.0,
             1.0,
             fade_in_duration_sec,
-            Tween.TRANS_QUAD,
-            Tween.EASE_IN_OUT)
+            "ease_in_out")
     hint_tween.interpolate_property(
             $HeaderWrapper/LockedWrapper/HintWrapper,
             "modulate:a",
             1.0,
             0.0,
             fade_in_duration_sec,
-            Tween.TRANS_QUAD,
-            Tween.EASE_IN_OUT,
+            "ease_in_out",
             HINT_PULSE_DURATION_SEC - fade_in_duration_sec)
     hint_tween.start()
 

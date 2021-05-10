@@ -130,28 +130,22 @@ func _get_next_item_to_expand() -> LevelSelectItem:
 func _scroll_to_item(
         item: LevelSelectItem,
         include_delay_for_accordion_scroll: bool) -> void:
-    var scroll_tween := Tween.new()
-    add_child(scroll_tween)
     _scroll_target = item
     var delay := \
             AccordionPanel.SCROLL_TWEEN_DURATION_SEC if \
             include_delay_for_accordion_scroll else \
             0.0
-    scroll_tween.interpolate_method(
+    Gs.time.tween_method(
             self,
             "_interpolate_scroll",
             0.0,
             1.0,
             SCROLL_TWEEN_DURATION_SEC,
-            Tween.TRANS_QUAD,
-            Tween.EASE_IN_OUT,
-            delay)
-    scroll_tween.connect(
-            "tween_completed",
-            self,
-            "_on_scroll_finished",
-            [item, scroll_tween])
-    scroll_tween.start()
+            "ease_in_out",
+            delay,
+            TimeType.APP_PHYSICS,
+            funcref(self, "_on_scroll_finished"),
+            [item])
 
 func _interpolate_scroll(scroll_ratio: float) -> void:
     var scroll_start := scroll_container.get_v_scrollbar().min_value
@@ -162,10 +156,7 @@ func _interpolate_scroll(scroll_ratio: float) -> void:
             scroll_end,
             scroll_ratio)
 
-func _on_scroll_finished(
-        item: LevelSelectItem,
-        scroll_tween: Tween) -> void:
-    scroll_tween.queue_free()
+func _on_scroll_finished(item: LevelSelectItem) -> void:
     item.unlock()
     Gs.save_state.set_new_unlocked_levels([])
 
