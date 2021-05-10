@@ -24,7 +24,7 @@ func _load() -> void:
     Gs.level = self
 
 func _start() -> void:
-    Gs.audio.play_music(_get_music_name())
+    Gs.audio.play_music(get_music_name())
     level_start_play_time_unscaled = Gs.time.get_play_time_sec()
     Gs.save_state.set_level_total_plays(
             _id,
@@ -151,7 +151,7 @@ func _on_level_quit_sound_finished() -> void:
     Gs.nav.open(next_screen, true)
     _destroy()
 
-func _get_music_name() -> String:
+func get_music_name() -> String:
     return "on_a_quest"
 
 func _get_is_rate_app_screen_next() -> bool:
