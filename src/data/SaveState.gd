@@ -10,6 +10,7 @@ const ALL_SCORES_SECTION_KEY := "all_scores"
 const IS_UNLOCKED_SECTION_KEY := "is_unlocked"
 const VERSIONS_SECTION_KEY := "versions"
 
+const LAST_LEVEL_PLAYED_KEY_KEY := "last_level_played"
 const NEW_UNLOCKED_LEVELS_KEY := "new_unlocked_levels"
 const GAVE_FEEDBACK_KEY := "gave_feedback"
 const DATA_AGREEMENT_VERSION_KEY := "data_agreement_v"
@@ -108,6 +109,19 @@ func get_data_agreement_version() -> String:
     return _get_value(
             VERSIONS_SECTION_KEY,
             DATA_AGREEMENT_VERSION_KEY,
+            "") as String
+
+func set_last_level_played(level_id: String) -> void:
+    config.set_value(
+            MISCELLANEOUS_SECTION_KEY,
+            LAST_LEVEL_PLAYED_KEY_KEY,
+            level_id)
+    _save_config()
+
+func get_last_level_played() -> String:
+    return _get_value(
+            MISCELLANEOUS_SECTION_KEY,
+            LAST_LEVEL_PLAYED_KEY_KEY,
             "") as String
 
 func set_score_version(version: String) -> void:
