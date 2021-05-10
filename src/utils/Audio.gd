@@ -117,16 +117,25 @@ func play_music(
         music_name: String,
         transitions_immediately := false,
         deferred := false) -> void:
+    var transition_duration_sec := \
+            0.01 if \
+            transitions_immediately else \
+            MUSIC_CROSS_FADE_DURATION_SEC
     if deferred:
         call_deferred(
-                "_cross_fade_music",
+                "cross_fade_music",
                 music_name,
-                transitions_immediately)
+                transition_duration_sec)
     else:
-        _cross_fade_music(music_name, transitions_immediately)
+        cross_fade_music(music_name, transition_duration_sec)
 
-func stop_music() -> void:
-    _get_current_music_player().stop()
+func stop_music() -> bool:
+    var current_music_player := _get_current_music_player()
+    if current_music_player != null:
+        current_music_player.stop()
+        return true
+    else:
+        return false
 
 func _play_sound_deferred(sound_name: String) -> void:
     _inflated_sounds_config[sound_name].player.play()
@@ -147,15 +156,17 @@ func _get_current_music_player() -> AudioStreamPlayer:
             _current_music_name != "" else \
             null
 
-func _cross_fade_music(
+func cross_fade_music(
         music_name: String,
-        transitions_immediately := false) -> void:
+        transition_duration_sec: float) -> void:
     _on_cross_fade_music_finished()
     
     var previous_music_player := _get_previous_music_player()
     var current_music_player := _get_current_music_player()
     var next_music_player: AudioStreamPlayer = \
-            _inflated_music_config[music_name].player
+            _inflated_music_config[music_name].player if \
+            music_name != "" else \
+            null
     
     if previous_music_player != null and \
             previous_music_player != current_music_player and \
@@ -170,6 +181,7 @@ func _cross_fade_music(
     current_music_player = next_music_player
     
     if previous_music_player == current_music_player and \
+            current_music_player != null and \
             current_music_player.playing:
         if !_fade_in_tween.is_active():
             var loud_volume: float = \
@@ -179,11 +191,6 @@ func _cross_fade_music(
                     SILENT_VOLUME_DB
             current_music_player.volume_db = loud_volume
         return
-    
-    var transition_duration_sec := \
-            0.01 if \
-            transitions_immediately else \
-            MUSIC_CROSS_FADE_DURATION_SEC
     
     if previous_music_player != null and \
             previous_music_player.playing:
@@ -201,23 +208,24 @@ func _cross_fade_music(
                 "ease_in")
         _fade_out_tween.start()
     
-    set_playback_speed(current_playback_speed)
-    current_music_player.volume_db = SILENT_VOLUME_DB
-    current_music_player.play()
-    
-    var current_loud_volume: float = \
-            _inflated_music_config[_current_music_name].volume_db + \
-                    GLOBAL_AUDIO_VOLUME_OFFSET_DB if \
-            is_music_enabled else \
-            SILENT_VOLUME_DB
-    _fade_in_tween.interpolate_property(
-            current_music_player,
-            "volume_db",
-            SILENT_VOLUME_DB,
-            current_loud_volume,
-            transition_duration_sec,
-            "ease_out")
-    _fade_in_tween.start()
+    if current_music_player != null:
+        set_playback_speed(current_playback_speed)
+        current_music_player.volume_db = SILENT_VOLUME_DB
+        current_music_player.play()
+        
+        var current_loud_volume: float = \
+                _inflated_music_config[_current_music_name].volume_db + \
+                        GLOBAL_AUDIO_VOLUME_OFFSET_DB if \
+                is_music_enabled else \
+                SILENT_VOLUME_DB
+        _fade_in_tween.interpolate_property(
+                current_music_player,
+                "volume_db",
+                SILENT_VOLUME_DB,
+                current_loud_volume,
+                transition_duration_sec,
+                "ease_out")
+        _fade_in_tween.start()
 
 func _on_cross_fade_music_finished(
         _object = null,
@@ -241,8 +249,22 @@ func _on_cross_fade_music_finished(
 
 func set_playback_speed(playback_speed: float) -> void:
     current_playback_speed = playback_speed
-    _get_current_music_player().pitch_scale = playback_speed
+    var current_music_player := _get_current_music_player()
+    if current_music_player != null:
+        current_music_player.pitch_scale = playback_speed
     _pitch_shift_effect.pitch_scale = 1.0 / playback_speed
+
+func get_playback_position() -> float:
+    var current_music_player := _get_current_music_player()
+    if current_music_player != null:
+        return current_music_player.get_playback_position()
+    else:
+        return 0.0
+
+func seek(position: float) -> void:
+    var current_music_player := _get_current_music_player()
+    if current_music_player != null:
+        current_music_player.seek(position)
 
 func _set_is_music_enabled(enabled: bool) -> void:
     is_music_enabled = enabled
