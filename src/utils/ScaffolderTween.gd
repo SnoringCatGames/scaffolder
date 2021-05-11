@@ -26,7 +26,7 @@ func step() -> void:
             finished_sub_tweens.push_back(sub_tween)
     for sub_tween in finished_sub_tweens:
         sub_tween.end()
-        stop(sub_tween.object, sub_tween.key)
+        _stop_sub_tween(sub_tween)
         emit_signal("tween_completed", sub_tween.object, sub_tween.key)
     
     # Update all in-progress tweens.
@@ -65,6 +65,9 @@ func stop(object: Object, key := "") -> bool:
         return true
     else:
         return false
+
+func _stop_sub_tween(sub_tween: _SubTween) -> void:
+    _active_sub_tweens.erase(sub_tween)
 
 func stop_all() -> bool:
     if _active_sub_tweens.empty():
@@ -173,13 +176,15 @@ class _SubTween extends Reference:
     
     func get_is_finished() -> bool:
         return Gs.time.get_elapsed_time_sec(time_type) >= \
-                start_time + duration + delay
+                start_time + duration + delay or \
+                !is_instance_valid(object)
     
     func start() -> void:
         start_time = Gs.time.get_elapsed_time_sec(time_type)
     
     func end() -> void:
-        _update_with_value(final_val)
+        if is_instance_valid(object):
+            _update_with_value(final_val)
     
     func step() -> void:
         var current_time: float = Gs.time.get_elapsed_time_sec(time_type)
