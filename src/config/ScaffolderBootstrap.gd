@@ -4,7 +4,6 @@ extends Node
 var app_manifest: Dictionary
 var main: Node
 
-var _throttled_size_change_count := 0
 var _throttled_size_changed: FuncRef
 
 func _init() -> void:
@@ -76,12 +75,34 @@ func _initialize_framework() -> void:
     _set_window_debug_size_and_position()
     
     _log_device_settings()
+    
+    # Create the screens after the first resize event has propogated.
+    Gs.time.set_timeout(
+            funcref(self, "_create_screens"),
+            Gs.display_resize_throttle_interval_sec + 0.01)
 
-func _on_app_initialized() -> void:
-    Gs.logger.print("ScaffolderBootstrap._on_app_initialized")
+func _create_screens() -> void:
+    Gs.nav.create_screens()
+    call_deferred("_on_screens_created")
+
+func _on_screens_created() -> void:
+    Gs.logger.print("ScaffolderBootstrap._on_screens_created")
     
     if Gs.utils.get_is_browser():
         JavaScript.eval("window.onAppReady()")
+        
+        _on_resized()
+        
+        # Initialize the app after a second resize event has propogated. For
+        # some reason, the HTML export seems to need this additional resize.
+        Gs.time.set_timeout(
+                funcref(self, "_on_app_initialized"),
+                Gs.display_resize_throttle_interval_sec + 0.01)
+    else:
+        _on_app_initialized()
+
+func _on_app_initialized() -> void:
+    Gs.logger.print("ScaffolderBootstrap._on_app_initialized")
     
     if !Gs.is_splash_skipped:
         Gs.nav.connect("splash_finished", self, "_on_splash_finished")
@@ -142,11 +163,6 @@ func _on_throttled_size_changed() -> void:
     #        Screen hasn't shrunk back to the correct size.)
     _scale_guis()
     Gs.utils.emit_signal("display_resized")
-    
-    _throttled_size_change_count += 1
-    if _throttled_size_change_count == 2:
-        Gs.nav.create_screens()
-        call_deferred("_on_app_initialized")
 
 func _update_font_sizes() -> void:
     for key in Gs.fonts:
@@ -265,9 +281,6 @@ func _set_window_debug_size_and_position() -> void:
             OS.window_size = Gs.debug_window_size
     
     _on_resized()
-    Gs.time.set_timeout(
-            funcref(self, "_on_resized"), 
-            Gs.display_resize_throttle_interval_sec * 2.0)
 
 func _log_device_settings() -> void:
     var utils_model_name: String = Gs.utils.get_model_name()
