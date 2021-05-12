@@ -25,6 +25,8 @@ func _init() -> void:
     Gs.logger.print("CrashReporter._init")
 
 func report_any_previous_crash() -> bool:
+    Gs.logger.print("CrashReporter.report_any_previous_crash")
+    
     if !Gs.are_error_logs_captured:
         return false
     
