@@ -14,6 +14,7 @@ func run(
         app_manifest: Dictionary,
         main: Node) -> void:
     Gs.logger.print("ScaffolderBootstrap.run")
+    
     self.main = main
     self.app_manifest = app_manifest
     call_deferred("_amend_app_manifest")
@@ -23,6 +24,8 @@ func _amend_app_manifest() -> void:
     Gs.amend_app_manifest(app_manifest)
 
 func _register_app_manifest() -> void:
+    Gs.logger.print("ScaffolderBootstrap._register_app_manifest")
+    
     Gs.register_app_manifest(app_manifest)
     if _report_any_previous_crash():
         return
@@ -30,6 +33,8 @@ func _register_app_manifest() -> void:
         call_deferred("_initialize_framework")
 
 func _initialize_framework() -> void:
+    Gs.logger.print("ScaffolderBootstrap._initialize_framework")
+    
     Gs.initialize()
     Gs.load_state()
     Gs.styles.configure_theme()
@@ -73,6 +78,8 @@ func _initialize_framework() -> void:
     _log_device_settings()
 
 func _on_app_initialized() -> void:
+    Gs.logger.print("ScaffolderBootstrap._on_app_initialized")
+    
     if Gs.utils.get_is_browser():
         JavaScript.eval("window.onAppReady()")
     
@@ -83,6 +90,8 @@ func _on_app_initialized() -> void:
         _on_splash_finished()
 
 func _on_splash_finished() -> void:
+    Gs.logger.print("ScaffolderBootstrap._on_splash_finished")
+    
     if Gs.nav.is_connected("splash_finished", self, "_on_splash_finished"):
         Gs.nav.disconnect("splash_finished", self, "_on_splash_finished")
     
@@ -120,6 +129,8 @@ func _on_resized() -> void:
     _throttled_size_changed.call_func()
 
 func _on_throttled_size_changed() -> void:
+    Gs.logger.print("ScaffolderBootstrap._on_throttled_size_changed")
+    
     _update_game_area_region_and_gui_scale()
     _update_font_sizes()
     _update_checkbox_size()
