@@ -133,7 +133,7 @@ func _on_throttled_size_changed() -> void:
     Gs.utils.emit_signal("display_resized")
     
     _throttled_size_change_count += 1
-    if _throttled_size_change_count == 1:
+    if _throttled_size_change_count == 2:
         Gs.nav.create_screens()
         call_deferred("_on_app_initialized")
 
@@ -254,6 +254,9 @@ func _set_window_debug_size_and_position() -> void:
             OS.window_size = Gs.debug_window_size
     
     _on_resized()
+    Gs.time.set_timeout(
+            funcref(self, "_on_resized"), 
+            Gs.display_resize_throttle_interval_sec * 2.0)
 
 func _log_device_settings() -> void:
     var utils_model_name: String = Gs.utils.get_model_name()
