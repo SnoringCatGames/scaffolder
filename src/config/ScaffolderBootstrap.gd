@@ -13,6 +13,7 @@ func run(
         app_manifest: Dictionary,
         main: Node) -> void:
     Gs.logger.print("ScaffolderBootstrap.run")
+    Gs.logger.print("\nApp version: %s\n" % app_manifest.app_version)
     
     self.main = main
     self.app_manifest = app_manifest
