@@ -708,7 +708,19 @@ static func draw_ice_cream_cone(
             start_angle,
             end_angle,
             sector_arc_length)
+    
+    # These extra points prevent the stroke width from shrinking around the
+    # cone end point.
+    var extra_cone_end_point_1 := \
+            cone_end_point + \
+            (points[points.size() - 1] - cone_end_point) * 0.000001
+    var extra_cone_end_point_2 := \
+            cone_end_point + \
+            (points[0] - cone_end_point) * 0.000001
+    
+    points.push_back(extra_cone_end_point_1)
     points.push_back(cone_end_point)
+    points.push_back(extra_cone_end_point_2)
     points.push_back(points[0])
     
     if is_filled:
