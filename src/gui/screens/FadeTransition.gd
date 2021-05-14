@@ -50,8 +50,7 @@ func _fade_in(
             duration / 2.0,
             "ease_out_weak",
             0.0,
-            TimeType.APP_PHYSICS,
-            funcref(self, "_on_tween_completed"))
+            TimeType.APP_PHYSICS)
 
 func _set_mask(value: Texture) -> void:
     material.set_shader_param(
