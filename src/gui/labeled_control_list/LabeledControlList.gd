@@ -36,7 +36,11 @@ func _update_children() -> void:
                 index % 2 == 0 else \
                 _even_row_style
         var item: LabeledControlItem = items[index]
-        add_child(item.create_row(style, row_height, padding_horizontal))
+        add_child(item.create_row(
+                style,
+                row_height,
+                padding_horizontal,
+                padding_horizontal))
     
     Gs.utils.set_mouse_filter_recursively(
             self,

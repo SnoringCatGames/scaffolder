@@ -26,6 +26,7 @@ var manifest: Dictionary
 var debug: bool
 var playtest: bool
 var test := false
+var pauses_on_focus_out := true
 var is_profiler_enabled: bool
 var are_all_levels_unlocked := false
 var is_splash_skipped := false
@@ -245,6 +246,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.manifest = manifest
     self.debug = manifest.debug
     self.playtest = manifest.playtest
+    self.pauses_on_focus_out = manifest.pauses_on_focus_out
     self.also_prints_to_stdout = manifest.also_prints_to_stdout
     self.is_profiler_enabled = manifest.is_profiler_enabled
     self.debug_window_size = manifest.debug_window_size

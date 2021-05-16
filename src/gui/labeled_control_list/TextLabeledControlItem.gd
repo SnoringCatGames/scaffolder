@@ -7,11 +7,13 @@ var text: String
 
 func _init(
         label: String,
-        description: String \
+        description: String,
+        is_control_on_right_side := true
         ).(
         TYPE,
         label,
-        description \
+        description,
+        is_control_on_right_side
         ) -> void:
     pass
 

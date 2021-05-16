@@ -144,7 +144,8 @@ func _process(_delta_sec: float) -> void:
 func _notification(notification: int) -> void:
     if notification == MainLoop.NOTIFICATION_WM_FOCUS_OUT and \
             is_instance_valid(Gs.nav) and \
-            is_instance_valid(Gs.level):
+            is_instance_valid(Gs.level) and \
+            Gs.pauses_on_focus_out:
         Gs.level.pause()
 
 func _on_resized() -> void:
