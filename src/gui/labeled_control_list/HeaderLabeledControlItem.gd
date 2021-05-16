@@ -6,7 +6,8 @@ var TYPE := LabeledControlItem.HEADER
 func _init(label: String).(
         TYPE,
         label,
-        ""
+        "",
+        true
         ) -> void:
     pass
 

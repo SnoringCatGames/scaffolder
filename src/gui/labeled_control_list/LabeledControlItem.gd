@@ -28,15 +28,18 @@ var control: Control
 var label: String
 var type: int
 var description: String
+var is_control_on_right_side: bool
 var enabled := true
 
 func _init(
         type: int,
         label: String,
-        description: String) -> void:
+        description: String,
+        is_control_on_right_side := true) -> void:
     self.type = type
     self.label = label
     self.description = description
+    self.is_control_on_right_side = is_control_on_right_side
 
 func get_is_enabled() -> bool:
     Gs.logger.error(
@@ -59,7 +62,8 @@ func update_item() -> void:
 func create_row(
         style: StyleBox,
         height: float,
-        padding_horizontal: float,
+        inner_padding_horizontal: float,
+        outer_padding_horizontal: float,
         includes_description := true) -> PanelContainer:
     var row := PanelContainer.new()
     row.add_stylebox_override("panel", style)
@@ -72,7 +76,7 @@ func create_row(
     var spacer1 := Control.new()
     spacer1.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
     spacer1.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-    spacer1.rect_min_size.x = padding_horizontal
+    spacer1.rect_min_size.x = outer_padding_horizontal
     hbox.add_child(spacer1)
     
     var label := Label.new()
@@ -83,16 +87,15 @@ func create_row(
             DISABLED_ALPHA
     label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-    hbox.add_child(label)
     
+    var description_button: ScaffolderTextureButton
     if self.description != "" and \
             includes_description:
-        var description_button: ScaffolderTextureButton = \
-                Gs.utils.add_scene(
-                        hbox, 
-                        SCAFFOLDER_TEXTURE_BUTTON_SCENE_PATH,
-                        true,
-                        true)
+        description_button = Gs.utils.add_scene(
+                hbox, 
+                SCAFFOLDER_TEXTURE_BUTTON_SCENE_PATH,
+                false,
+                true)
         description_button.texture_normal = ABOUT_ICON_NORMAL
         description_button.texture_hover = ABOUT_ICON_HOVER
         description_button.texture_pressed = ABOUT_ICON_ACTIVE
@@ -112,26 +115,38 @@ func create_row(
         description_button.size_flags_horizontal = \
                 Control.SIZE_SHRINK_CENTER
         description_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-        
-        var spacer3 := Control.new()
-        spacer3.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-        spacer3.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-        spacer3.rect_min_size.x = padding_horizontal * 2.0 * Gs.gui_scale
-        hbox.add_child(spacer3)
+    
+    var spacer3 := Control.new()
+    spacer3.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+    spacer3.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+    spacer3.rect_min_size.x = inner_padding_horizontal * 2.0 * Gs.gui_scale
     
     if self.type != HEADER:
         var control := create_control()
-        self.control = control
-        control.size_flags_horizontal = Control.SIZE_SHRINK_END
         control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-        hbox.add_child(control)
+        self.control = control
     else:
         label.align = Label.ALIGN_CENTER
+    
+    if is_control_on_right_side:
+        hbox.add_child(label)
+        if is_instance_valid(description_button):
+            hbox.add_child(description_button)
+        hbox.add_child(spacer3)
+        hbox.add_child(control)
+        control.size_flags_horizontal = Control.SIZE_SHRINK_END
+    else:
+        hbox.add_child(control)
+        control.size_flags_horizontal = 0
+        hbox.add_child(spacer3)
+        hbox.add_child(label)
+        if is_instance_valid(description_button):
+            hbox.add_child(description_button)
     
     var spacer2 := Control.new()
     spacer2.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
     spacer2.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-    spacer2.rect_min_size.x = padding_horizontal
+    spacer2.rect_min_size.x = outer_padding_horizontal
     hbox.add_child(spacer2)
     
     return row

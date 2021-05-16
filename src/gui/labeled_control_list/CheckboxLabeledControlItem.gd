@@ -10,11 +10,13 @@ var pressed := false
 
 func _init(
         label: String,
-        description: String \
+        description: String,
+        is_control_on_right_side := true
         ).(
         TYPE,
         label,
-        description \
+        description,
+        is_control_on_right_side
         ) -> void:
     pass
 
@@ -56,6 +58,13 @@ func create_control() -> Control:
             self,
             "_on_checkbox_pressed")
     return checkbox
+
+func set_check_box_scale(check_box_scale: float) -> void:
+    var control_rect_size := \
+            Gs.current_checkbox_icon_size * check_box_scale * 0.5
+    control.rect_min_size.x = control_rect_size
+    control.rect_size.x = control_rect_size
+    control.scale = check_box_scale
 
 func _on_checkbox_pressed() -> void:
     pressed = !pressed

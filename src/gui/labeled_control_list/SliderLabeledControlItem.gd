@@ -17,11 +17,13 @@ func _init(
         max_value: float,
         step := 0.0,
         width := 64.0,
-        tick_count := 0
+        tick_count := 0,
+        is_control_on_right_side := true
         ).(
         TYPE,
         label,
-        description
+        description,
+        is_control_on_right_side
         ) -> void:
     self.min_value = min_value
     self.max_value = max_value
