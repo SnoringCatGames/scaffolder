@@ -123,6 +123,7 @@ func create_row(
     
     if self.type != HEADER:
         var control := create_control()
+        control.size_flags_horizontal = Control.SIZE_SHRINK_END
         control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
         self.control = control
     else:
@@ -134,10 +135,8 @@ func create_row(
             hbox.add_child(description_button)
         hbox.add_child(spacer3)
         hbox.add_child(control)
-        control.size_flags_horizontal = Control.SIZE_SHRINK_END
     else:
         hbox.add_child(control)
-        control.size_flags_horizontal = 0
         hbox.add_child(spacer3)
         hbox.add_child(label)
         if is_instance_valid(description_button):
