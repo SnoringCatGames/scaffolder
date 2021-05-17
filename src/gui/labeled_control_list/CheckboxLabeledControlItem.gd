@@ -47,8 +47,7 @@ func create_control() -> Control:
     checkbox.modulate.a = _get_alpha()
     checkbox.size_flags_horizontal = 0
     checkbox.size_flags_vertical = 0
-    checkbox.rect_min_size.x = \
-            Gs.default_checkbox_icon_size * Gs.gui_scale
+    checkbox.rect_min_size.x = Gs.default_checkbox_icon_size
     checkbox.connect(
             "pressed",
             self,
@@ -60,11 +59,16 @@ func create_control() -> Control:
     return checkbox
 
 func set_check_box_scale(check_box_scale: float) -> void:
-    var control_rect_size := \
-            Gs.current_checkbox_icon_size * check_box_scale * 0.5
+    var control_rect_size := Gs.current_checkbox_icon_size
+    var control_rect_scale := _get_icon_scale(check_box_scale)
     control.rect_min_size.x = control_rect_size
     control.rect_size.x = control_rect_size
-    control.scale = check_box_scale
+    control.scale = control_rect_scale
+
+func _get_icon_scale(check_box_scale: float) -> float:
+    var target_icon_size := \
+            Gs.default_checkbox_icon_size * Gs.gui_scale * check_box_scale
+    return target_icon_size / Gs.current_checkbox_icon_size
 
 func _on_checkbox_pressed() -> void:
     pressed = !pressed
