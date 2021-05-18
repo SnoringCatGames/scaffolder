@@ -685,7 +685,8 @@ static func get_collision_tile_map_coord(
         is_touching_floor: bool,
         is_touching_ceiling: bool,
         is_touching_left_wall: bool,
-        is_touching_right_wall: bool) -> void:
+        is_touching_right_wall: bool,
+        allows_errors := false) -> void:
     var half_cell_size := tile_map.cell_size / 2.0
     var used_rect := tile_map.get_used_rect()
     var tile_map_top_left_position_world_coord := \
@@ -1045,10 +1046,12 @@ static func get_collision_tile_map_coord(
     result.surface_side = surface_side
     result.is_godot_floor_ceiling_detection_correct = \
             is_godot_floor_ceiling_detection_correct
+    result.error_message = error_message
     
-    if !error_message.empty() or \
+    if !allows_errors and \
+            (!error_message.empty() or \
             !warning_message.empty() or \
-            !is_godot_floor_ceiling_detection_correct:
+            !is_godot_floor_ceiling_detection_correct):
         var first_statement: String
         var second_statement: String
         if !error_message.empty():
@@ -1110,7 +1113,8 @@ static func get_collision_tile_map_coord(
                 is_there_a_tile_at_bottom,
                 tile_coord,
             ]
-        if !error_message.empty():
+        if !error_message.empty() and \
+                !allows_errors:
             Gs.logger.error(print_message)
         else:
             Gs.logger.print(print_message)
