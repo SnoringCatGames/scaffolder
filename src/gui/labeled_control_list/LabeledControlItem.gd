@@ -133,13 +133,13 @@ func create_row(
         if is_instance_valid(description_button):
             hbox.add_child(description_button)
         hbox.add_child(spacer3)
-        hbox.add_child(control)
         if is_instance_valid(control):
             control.size_flags_horizontal = Control.SIZE_SHRINK_END
-    else:
         hbox.add_child(control)
+    else:
         if is_instance_valid(control):
             control.size_flags_horizontal = 0
+        hbox.add_child(control)
         hbox.add_child(spacer3)
         hbox.add_child(label)
         if is_instance_valid(description_button):
