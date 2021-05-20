@@ -84,6 +84,9 @@ func _deferred_update() -> void:
                 is_closing_accordion_first)
 
 func _process(_delta_sec: float) -> void:
+    if Gs.nav.get_active_screen() != self:
+        return
+    
     var item_to_expand: LevelSelectItem
     var is_up_or_down_pressed := false
     if Input.is_action_just_pressed("ui_up"):
