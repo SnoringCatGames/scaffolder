@@ -210,24 +210,34 @@ static func ease_name_to_param(name: String) -> float:
     match name:
         "linear":
             return 1.0
+        
         "ease_in":
             return 2.4
         "ease_in_strong":
             return 4.8
+        "ease_in_very_strong":
+            return 9.6
         "ease_in_weak":
             return 1.6
+        
         "ease_out":
             return 0.4
         "ease_out_strong":
             return 0.2
+        "ease_out_very_strong":
+            return 0.1
         "ease_out_weak":
             return 0.6
+        
         "ease_in_out":
             return -2.4
         "ease_in_out_strong":
             return -4.8
+        "ease_in_out_very_strong":
+            return -9.6
         "ease_in_out_weak":
             return -1.8
+        
         _:
             ScaffolderLog.static_error()
             return INF
