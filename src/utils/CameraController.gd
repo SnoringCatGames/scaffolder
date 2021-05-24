@@ -8,7 +8,7 @@ const ZOOM_ANIMATION_DURATION_SEC := 0.3
 
 var _current_camera: Camera2D
 
-var offset: Vector2 setget _set_offset, _get_offset
+var offset: Vector2 setget _set_offset,_get_offset
 var zoom_factor := 1.0 setget _set_zoom_factor
 
 var zoom_tween: ScaffolderTween
@@ -69,6 +69,17 @@ func _get_offset() -> Vector2:
     if !is_instance_valid(_current_camera):
         return Vector2.ZERO
     return _current_camera.offset
+
+func get_bounds() -> Rect2:
+    if !is_instance_valid(_current_camera):
+        return Rect2()
+    
+    var canvas_transform := get_canvas_transform()
+    var position := \
+            -canvas_transform.get_origin() / canvas_transform.get_scale()
+    var size := get_viewport_rect().size / canvas_transform.get_scale()
+    
+    return Rect2(position, size)
 
 func get_position() -> Vector2:
     if !is_instance_valid(_current_camera):

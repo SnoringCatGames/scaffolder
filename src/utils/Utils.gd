@@ -185,7 +185,7 @@ func add_scene(
     
     return node
 
-static func get_global_touch_position(input_event: InputEvent) -> Vector2:
+static func get_level_touch_position(input_event: InputEvent) -> Vector2:
     return Gs.level.make_input_local(input_event).position
 
 func add_overlay_to_current_scene(node: Node) -> void:
