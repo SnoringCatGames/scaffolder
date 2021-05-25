@@ -59,12 +59,22 @@ static func sub_pool_vector2_array(
 #       (https://github.com/godotengine/godot/issues/4715).
 static func concat(
         result: Array,
-        other: Array) -> void:
+        other: Array,
+        append_to_end := true) -> void:
     var old_result_size := result.size()
     var other_size := other.size()
-    result.resize(old_result_size + other_size)
-    for i in other_size:
-        result[old_result_size + i] = other[i]
+    var new_result_size := old_result_size + other_size
+    result.resize(new_result_size)
+    if append_to_end:
+        for i in other_size:
+            result[old_result_size + i] = other[i]
+    else:
+        # Move old values to the back.
+        for i in old_result_size:
+            result[new_result_size - 1 - i] = result[old_result_size - 1 - i]
+        # Add new values to the front.
+        for i in other_size:
+            result[i] = other[i]
 
 static func join(
         array,
