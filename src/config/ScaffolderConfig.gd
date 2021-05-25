@@ -213,6 +213,9 @@ func _enter_tree() -> void:
     self.logger = ScaffolderLog.new()
     add_child(self.logger)
     self.logger.print("ScaffolderConfig._enter_tree")
+    
+    self.utils = Utils.new()
+    add_child(self.utils)
 
 func amend_app_manifest(manifest: Dictionary) -> void:
     if !manifest.has("screen_path_exclusions"):
@@ -451,12 +454,6 @@ func initialize() -> void:
     else:
         self.gesture_reporter = GestureReporter.new()
     add_child(self.gesture_reporter)
-    if manifest.has("utils_class"):
-        self.utils = manifest.utils_class.new()
-        assert(self.utils is Utils)
-    else:
-        self.utils = Utils.new()
-    add_child(self.utils)
     if manifest.has("time_class"):
         self.time = manifest.time_class.new()
         assert(self.time is Time)
