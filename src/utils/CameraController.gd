@@ -7,6 +7,7 @@ const PAN_STEP := 8.0
 const ZOOM_ANIMATION_DURATION_SEC := 0.3
 
 var _current_camera: Camera2D
+var _current_player
 
 var offset: Vector2 setget _set_offset,_get_offset
 var zoom_factor := 1.0 setget _set_zoom_factor
@@ -52,9 +53,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_resized() -> void:
     _update_zoom()
 
-func set_current_camera(camera: Camera2D) -> void:
+func set_current_camera(
+        camera: Camera2D,
+        player) -> void:
     camera.make_current()
     _current_camera = camera
+    _current_player = player
     _set_zoom_factor(zoom_factor)
 
 func get_current_camera() -> Camera2D:
@@ -74,10 +78,12 @@ func get_bounds() -> Rect2:
     if !is_instance_valid(_current_camera):
         return Rect2()
     
-    var canvas_transform := get_canvas_transform()
+    var canvas_transform := _current_camera.get_canvas_transform()
     var position := \
             -canvas_transform.get_origin() / canvas_transform.get_scale()
-    var size := get_viewport_rect().size / canvas_transform.get_scale()
+    var size := \
+            _current_camera.get_viewport_rect().size / \
+            canvas_transform.get_scale()
     
     return Rect2(position, size)
 
