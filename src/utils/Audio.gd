@@ -1,6 +1,8 @@
 class_name Audio
 extends Node
 
+signal beat(is_downbeat, beat_index, meter)
+
 const MUSIC_CROSS_FADE_DURATION_SEC := 0.2
 const SILENT_VOLUME_DB := -80.0
 
@@ -20,6 +22,9 @@ var _inflated_music_config := {}
 var _fade_out_tween: ScaffolderTween
 var _fade_in_tween: ScaffolderTween
 
+var _on_beat_timeout_id := -1
+var _on_beat_callback := funcref(self, "_on_beat")
+
 var _pitch_shift_effect: AudioEffectPitchShift
 
 var _previous_music_name := ""
@@ -27,9 +32,10 @@ var _current_music_name := ""
 
 var current_playback_speed := 1.0
 
-var is_music_enabled := true setget _set_is_music_enabled,_get_is_music_enabled
+var is_music_enabled := true setget _set_is_music_enabled
 var is_sound_effects_enabled := true setget \
-        _set_is_sound_effects_enabled,_get_is_sound_effects_enabled
+        _set_is_sound_effects_enabled
+var is_tracking_beat := false setget _set_is_tracking_beat
 
 func _init() -> void:
     Gs.logger.print("Audio._init")
@@ -109,11 +115,12 @@ func register_music(
 
 func play_sound(
         sound_name: String,
+        volume_offset := 1.0,
         deferred := false) -> void:
     if deferred:
-        call_deferred("_play_sound_deferred", sound_name)
+        call_deferred("_play_sound_deferred", sound_name, volume_offset)
     else:
-        _play_sound_deferred(sound_name)
+        _play_sound_deferred(sound_name, volume_offset)
 
 func play_music(
         music_name: String,
@@ -132,6 +139,7 @@ func play_music(
         cross_fade_music(music_name, transition_duration_sec)
 
 func stop_music() -> bool:
+    Gs.time.clear_timeout(_on_beat_timeout_id)
     var current_music_player := _get_current_music_player()
     if current_music_player != null:
         current_music_player.stop()
@@ -139,7 +147,16 @@ func stop_music() -> bool:
     else:
         return false
 
-func _play_sound_deferred(sound_name: String) -> void:
+func _play_sound_deferred(
+        sound_name: String, 
+        volume_offset := 1.0) -> void:
+    var sound_config: Dictionary = _inflated_sounds_config[sound_name]
+    sound_config.player.volume_db = \
+            sound_config.volume_db + \
+                    volume_offset + \
+                    GLOBAL_AUDIO_VOLUME_OFFSET_DB if \
+            is_sound_effects_enabled else \
+            SILENT_VOLUME_DB
     _inflated_sounds_config[sound_name].player.play()
 
 func get_sound_player(sound_name: String) -> AudioStreamPlayer:
@@ -161,6 +178,8 @@ func _get_current_music_player() -> AudioStreamPlayer:
 func cross_fade_music(
         music_name: String,
         transition_duration_sec: float) -> void:
+    Gs.time.clear_timeout(_on_beat_timeout_id)
+    
     _on_cross_fade_music_finished()
     
     var previous_music_player := _get_previous_music_player()
@@ -215,6 +234,9 @@ func cross_fade_music(
         current_music_player.volume_db = SILENT_VOLUME_DB
         current_music_player.play()
         
+        if is_tracking_beat:
+            _on_beat(true, 0)
+        
         var current_loud_volume: float = \
                 _inflated_music_config[_current_music_name].volume_db + \
                         GLOBAL_AUDIO_VOLUME_OFFSET_DB if \
@@ -228,6 +250,32 @@ func cross_fade_music(
                 transition_duration_sec,
                 "ease_out")
         _fade_in_tween.start()
+
+func _on_beat(
+        is_downbeat: bool,
+        beat_index: int) -> void:
+    var meter := get_meter()
+    assert(!is_downbeat or \
+            beat_index % meter == 0)
+    _cue_beat()
+    emit_signal("beat", is_downbeat, beat_index, meter)
+
+func _cue_beat() -> void:
+    var meter := get_meter()
+    var beat_duration := 60.0 / get_bpm()
+    var current_music_player := _get_current_music_player()
+    var current_position := current_music_player.get_playback_position()
+    
+    var current_beat_progress := fmod(current_position, beat_duration)
+    var time_to_next_beat := beat_duration - current_beat_progress
+    var next_beat_index := int(current_position / beat_duration) + 1
+    var is_next_downbeat := next_beat_index % meter == 0
+    
+    _on_beat_timeout_id = Gs.time.set_timeout(
+            _on_beat_callback,
+            time_to_next_beat,
+            [is_next_downbeat, next_beat_index],
+            TimeType.APP_PHYSICS_SCALED)
 
 func _on_cross_fade_music_finished(
         _object = null,
@@ -278,19 +326,26 @@ func get_meter() -> int:
             _current_music_name != "" else \
             null
 
-func _set_is_music_enabled(enabled: bool) -> void:
-    is_music_enabled = enabled
+func _set_is_music_enabled(value: bool) -> void:
+    if is_music_enabled == value:
+        return
+    is_music_enabled = value
     _update_volume()
 
-func _get_is_music_enabled() -> bool:
-    return is_music_enabled
-
-func _set_is_sound_effects_enabled(enabled: bool) -> void:
-    is_sound_effects_enabled = enabled
+func _set_is_sound_effects_enabled(value: bool) -> void:
+    if is_sound_effects_enabled == value:
+        return
+    is_sound_effects_enabled = value
     _update_volume()
 
-func _get_is_sound_effects_enabled() -> bool:
-    return is_sound_effects_enabled
+func _set_is_tracking_beat(value: bool) -> void:
+    if is_tracking_beat == value:
+        return
+    is_tracking_beat = value
+    if is_tracking_beat:
+        _cue_beat()
+    else:
+        Gs.time.clear_timeout(_on_beat_timeout_id)
 
 func _update_volume() -> void:
     for config in _inflated_music_config.values():
