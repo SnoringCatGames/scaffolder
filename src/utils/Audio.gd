@@ -83,6 +83,8 @@ func register_music(
     for config in manifest:
         assert(config.has("name"))
         assert(config.has("volume_db"))
+        assert(config.has("bpm"))
+        assert(config.has("meter"))
         var player := AudioStreamPlayer.new()
         var prefix: String = \
                 config.path_prefix if \
@@ -265,6 +267,16 @@ func seek(position: float) -> void:
     var current_music_player := _get_current_music_player()
     if current_music_player != null:
         current_music_player.seek(position)
+
+func get_bpm() -> float:
+    return _inflated_music_config[_current_music_name].bpm if \
+            _current_music_name != "" else \
+            null
+
+func get_meter() -> int:
+    return _inflated_music_config[_current_music_name].meter if \
+            _current_music_name != "" else \
+            null
 
 func _set_is_music_enabled(enabled: bool) -> void:
     is_music_enabled = enabled
