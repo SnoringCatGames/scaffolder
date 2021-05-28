@@ -32,6 +32,10 @@ var _current_music_name := ""
 
 var current_playback_speed := 1.0
 
+var music_playback_position := INF
+var time_to_next_beat := INF
+var next_beat_index := -1
+
 var is_music_enabled := true setget _set_is_music_enabled
 var is_sound_effects_enabled := true setget \
         _set_is_sound_effects_enabled
@@ -39,6 +43,11 @@ var is_tracking_beat := false setget _set_is_tracking_beat
 
 func _init() -> void:
     Gs.logger.print("Audio._init")
+
+func _process(_delta_sec: float) -> void:
+    if is_tracking_beat and \
+            get_is_music_playing():
+        _update_music_playback_state()
 
 func register_sounds(
         manifest: Array,
@@ -139,7 +148,7 @@ func play_music(
         cross_fade_music(music_name, transition_duration_sec)
 
 func stop_music() -> bool:
-    Gs.time.clear_timeout(_on_beat_timeout_id)
+    _clear_music_playback_state()
     var current_music_player := _get_current_music_player()
     if current_music_player != null:
         current_music_player.stop()
@@ -172,7 +181,7 @@ func _get_previous_music_player() -> AudioStreamPlayer:
 
 func _get_current_music_player() -> AudioStreamPlayer:
     return _inflated_music_config[_current_music_name].player if \
-            _current_music_name != "" else \
+            get_is_music_playing() else \
             null
 
 func cross_fade_music(
@@ -260,17 +269,27 @@ func _on_beat(
     _cue_beat()
     emit_signal("beat", is_downbeat, beat_index, meter)
 
-func _cue_beat() -> void:
-    var meter := get_meter()
-    var beat_duration := 60.0 / get_bpm()
+func _clear_music_playback_state() -> void:
+    Gs.time.clear_timeout(_on_beat_timeout_id)
+    _on_beat_timeout_id = -1
+    music_playback_position = INF
+    time_to_next_beat = INF
+    next_beat_index = -1
+
+func _update_music_playback_state() -> void:
+    var beat_duration := get_beat_duration()
+    
     var current_music_player := _get_current_music_player()
-    var current_position := current_music_player.get_playback_position()
+    music_playback_position = current_music_player.get_playback_position()
     
-    var current_beat_progress := fmod(current_position, beat_duration)
-    var time_to_next_beat := beat_duration - current_beat_progress
-    var next_beat_index := int(current_position / beat_duration) + 1
-    var is_next_downbeat := next_beat_index % meter == 0
+    var current_beat_progress := fmod(music_playback_position, beat_duration)
+    time_to_next_beat = beat_duration - current_beat_progress
     
+    next_beat_index = int(music_playback_position / beat_duration) + 1
+
+func _cue_beat() -> void:
+    _update_music_playback_state()
+    var is_next_downbeat := next_beat_index % get_meter() == 0
     _on_beat_timeout_id = Gs.time.set_timeout(
             _on_beat_callback,
             time_to_next_beat,
@@ -318,13 +337,19 @@ func seek(position: float) -> void:
 
 func get_bpm() -> float:
     return _inflated_music_config[_current_music_name].bpm if \
-            _current_music_name != "" else \
-            null
+            get_is_music_playing() else \
+            INF
+
+func get_beat_duration() -> float:
+    return 60.0 / get_bpm()
 
 func get_meter() -> int:
     return _inflated_music_config[_current_music_name].meter if \
-            _current_music_name != "" else \
-            null
+            get_is_music_playing() else \
+            -1
+
+func get_is_music_playing() -> bool:
+    return _current_music_name != ""
 
 func _set_is_music_enabled(value: bool) -> void:
     if is_music_enabled == value:
@@ -342,10 +367,11 @@ func _set_is_tracking_beat(value: bool) -> void:
     if is_tracking_beat == value:
         return
     is_tracking_beat = value
-    if is_tracking_beat:
+    if is_tracking_beat and \
+            get_is_music_playing():
         _cue_beat()
     else:
-        Gs.time.clear_timeout(_on_beat_timeout_id)
+        _clear_music_playback_state()
 
 func _update_volume() -> void:
     for config in _inflated_music_config.values():
