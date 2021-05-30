@@ -114,9 +114,9 @@ func register_music(
         config.player = player
         _inflated_music_config[config.name] = config
     
-    _pitch_shift_effect = AudioEffectPitchShift.new()
-    # TODO: Consider adding this back once it works in HTML.
-#    AudioServer.add_bus_effect(bus_index, _pitch_shift_effect)
+    if Gs.is_music_speed_change_supported:
+        _pitch_shift_effect = AudioEffectPitchShift.new()
+        AudioServer.add_bus_effect(bus_index, _pitch_shift_effect)
     
     _update_volume()
 
@@ -302,6 +302,8 @@ func _on_cross_fade_music_finished(
         current_music_player.volume_db = loud_volume
 
 func set_playback_speed(playback_speed: float) -> void:
+    assert(Gs.is_music_speed_change_supported or \
+            playback_speed == 1.0)
     current_playback_speed = playback_speed
     var current_music_player := _get_current_music_player()
     if current_music_player != null:
@@ -321,7 +323,8 @@ func seek(position: float) -> void:
         current_music_player.seek(position)
 
 func get_bpm() -> float:
-    return _inflated_music_config[_current_music_name].bpm if \
+    return _inflated_music_config[_current_music_name].bpm * \
+                    current_playback_speed if \
             get_is_music_playing() else \
             INF
 
