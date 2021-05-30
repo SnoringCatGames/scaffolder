@@ -41,6 +41,9 @@ var thread_count: int
 var is_mobile_supported: bool
 var is_data_deletion_button_shown: bool
 
+# NOTE: This doesn't currently work in HTML.
+var is_music_speed_change_supported: bool
+
 var app_name: String
 var app_id: String
 var app_version: String
@@ -257,6 +260,8 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.thread_count = manifest.thread_count
     self.is_mobile_supported = manifest.is_mobile_supported
     self.is_data_deletion_button_shown = manifest.is_data_deletion_button_shown
+    self.is_music_speed_change_supported = \
+            manifest.is_music_speed_change_supported
     self.app_name = manifest.app_name
     self.app_id = manifest.app_id
     self.app_version = manifest.app_version
