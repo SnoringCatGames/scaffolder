@@ -304,6 +304,8 @@ func _on_cross_fade_music_finished(
 func set_playback_speed(playback_speed: float) -> void:
     assert(Gs.is_music_speed_change_supported or \
             playback_speed == 1.0)
+    if !Gs.is_music_speed_change_supported:
+        return
     current_playback_speed = playback_speed
     var current_music_player := _get_current_music_player()
     if current_music_player != null:
