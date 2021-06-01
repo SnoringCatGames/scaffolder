@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/pause_menu.wav-f6eadf56d324acfcfb23f705b1df9525.sample"
+
+[deps]
+
+source_file="res://addons/scaffolder/assets/music/pause_menu.wav"
+dest_files=[ "res://.import/pause_menu.wav-f6eadf56d324acfcfb23f705b1df9525.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

@@ -367,6 +367,9 @@ func get_meter() -> int:
             get_is_music_playing() else \
             -1
 
+func get_music_name() -> String:
+    return _current_music_name
+
 func get_is_music_playing() -> bool:
     return _current_music_name != ""
 
