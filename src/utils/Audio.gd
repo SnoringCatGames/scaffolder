@@ -28,7 +28,8 @@ var _pitch_shift_effect: AudioEffectPitchShift
 var _previous_music_name := ""
 var _current_music_name := ""
 
-var current_playback_speed := 1.0
+var playback_speed_multiplier := 1.0
+var scaled_speed := 1.0
 
 var music_playback_position := INF
 var time_to_next_beat := INF
@@ -114,7 +115,9 @@ func register_music(
         config.player = player
         _inflated_music_config[config.name] = config
     
-    if Gs.is_music_speed_change_supported:
+    if Gs.is_music_speed_change_supported or \
+            Gs.is_music_speed_scaled_with_time_scale or \
+            Gs.is_music_speed_scaled_with_additional_debug_time_scale:
         _pitch_shift_effect = AudioEffectPitchShift.new()
         AudioServer.add_bus_effect(bus_index, _pitch_shift_effect)
     
@@ -235,7 +238,7 @@ func cross_fade_music(
         _fade_out_tween.start()
     
     if current_music_player != null:
-        set_playback_speed(current_playback_speed)
+        set_playback_speed(playback_speed_multiplier)
         current_music_player.volume_db = SILENT_VOLUME_DB
         current_music_player.play()
         
@@ -261,16 +264,23 @@ func _clear_music_playback_state() -> void:
     next_beat_index = -1
 
 func _update_music_playback_state() -> void:
-    var beat_duration := get_beat_duration()
+    # Update playback speed to match any change in time scale.
+    var old_scaled_speed := scaled_speed
+    _update_scaled_speed()
+    if scaled_speed != old_scaled_speed:
+        set_playback_speed(playback_speed_multiplier)
+    
+    var beat_duration_unscaled := get_beat_duration_unscaled()
     
     var current_music_player := _get_current_music_player()
     music_playback_position = current_music_player.get_playback_position()
     
-    var current_beat_progress := fmod(music_playback_position, beat_duration)
-    time_to_next_beat = beat_duration - current_beat_progress
+    var current_beat_progress := \
+            fmod(music_playback_position, beat_duration_unscaled)
+    time_to_next_beat = beat_duration_unscaled - current_beat_progress
     
     var previous_beat_index := next_beat_index
-    next_beat_index = int(music_playback_position / beat_duration) + 1
+    next_beat_index = int(music_playback_position / beat_duration_unscaled) + 1
     
     if previous_beat_index != next_beat_index:
         var meter := get_meter()
@@ -301,16 +311,30 @@ func _on_cross_fade_music_finished(
                 SILENT_VOLUME_DB
         current_music_player.volume_db = loud_volume
 
-func set_playback_speed(playback_speed: float) -> void:
+func set_playback_speed(playback_speed_multiplier: float) -> void:
     assert(Gs.is_music_speed_change_supported or \
-            playback_speed == 1.0)
-    if !Gs.is_music_speed_change_supported:
+            Gs.is_music_speed_scaled_with_time_scale or \
+            Gs.is_music_speed_scaled_with_additional_debug_time_scale or \
+            playback_speed_multiplier == 1.0)
+    if !Gs.is_music_speed_change_supported and \
+            !Gs.is_music_speed_scaled_with_time_scale and \
+            !Gs.is_music_speed_scaled_with_additional_debug_time_scale:
         return
-    current_playback_speed = playback_speed
+    self.playback_speed_multiplier = playback_speed_multiplier
+    
+    _update_scaled_speed()
+    
     var current_music_player := _get_current_music_player()
     if current_music_player != null:
-        current_music_player.pitch_scale = playback_speed
-    _pitch_shift_effect.pitch_scale = 1.0 / playback_speed
+        current_music_player.pitch_scale = scaled_speed
+    _pitch_shift_effect.pitch_scale = 1.0 / scaled_speed
+
+func _update_scaled_speed() -> void:
+    scaled_speed = playback_speed_multiplier
+    if Gs.is_music_speed_scaled_with_time_scale:
+        scaled_speed *= Gs.time.time_scale
+    if Gs.is_music_speed_scaled_with_additional_debug_time_scale:
+        scaled_speed *= Gs.time.additional_debug_time_scale
 
 func get_playback_position() -> float:
     var current_music_player := _get_current_music_player()
@@ -324,14 +348,19 @@ func seek(position: float) -> void:
     if current_music_player != null:
         current_music_player.seek(position)
 
-func get_bpm() -> float:
-    return _inflated_music_config[_current_music_name].bpm * \
-                    current_playback_speed if \
+func get_bpm_unscaled() -> float:
+    return _inflated_music_config[_current_music_name].bpm if \
             get_is_music_playing() else \
             INF
 
-func get_beat_duration() -> float:
-    return 60.0 / get_bpm()
+func get_bpm_scaled() -> float:
+    return get_bpm_unscaled() * scaled_speed
+
+func get_beat_duration_unscaled() -> float:
+    return 60.0 / get_bpm_unscaled()
+
+func get_beat_duration_scaled() -> float:
+    return 60.0 / get_bpm_scaled()
 
 func get_meter() -> int:
     return _inflated_music_config[_current_music_name].meter if \
