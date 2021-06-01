@@ -6,6 +6,10 @@ var min_controls_display_time := 0.5
 var _id: String
 var _is_restarting := false
 var _has_initial_input_happened := false
+
+var _pre_pause_music_name := ""
+var _pre_pause_music_position := INF
+
 var level_start_play_time_unscaled := INF
 var score := 0.0
 
@@ -79,10 +83,17 @@ func _on_resized() -> void:
     pass
 
 func pause() -> void:
+    if Gs.pauses_level_music_on_pause:
+        _pre_pause_music_name = Gs.audio.get_music_name()
+        _pre_pause_music_position = Gs.audio.get_playback_position()
+        if Gs.pause_menu_music != "":
+            Gs.audio.play_music(Gs.pause_menu_music)
     Gs.nav.open("pause")
 
 func on_unpause() -> void:
-    pass
+    if Gs.pauses_level_music_on_pause:
+        Gs.audio.play_music(_pre_pause_music_name)
+        Gs.audio.seek(_pre_pause_music_position)
 
 func _show_welcome_panel() -> void:
     if !Gs.is_welcome_panel_shown:
@@ -152,7 +163,7 @@ func _on_level_quit_sound_finished() -> void:
     _destroy()
 
 func get_music_name() -> String:
-    return "on_a_quest"
+    return Gs.default_level_music
 
 func _get_is_rate_app_screen_next() -> bool:
     Gs.logger.error(

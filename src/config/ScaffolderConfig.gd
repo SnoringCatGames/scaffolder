@@ -90,8 +90,11 @@ var default_music_path_prefix: String
 var default_music_file_suffix: String
 var default_music_bus_index: String
 
+var pauses_level_music_on_pause: bool
 var main_menu_music: String
 var game_over_music: String
+var pause_menu_music: String
+var default_level_music: String
 var godot_splash_sound := "achievement"
 var developer_splash_sound: String
 var level_end_sound: String
@@ -303,6 +306,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.default_music_path_prefix = manifest.default_music_path_prefix
     self.default_music_file_suffix = manifest.default_music_file_suffix
     self.default_music_bus_index = manifest.default_music_bus_index
+    self.pauses_level_music_on_pause = manifest.pauses_level_music_on_pause
     self.main_menu_music = manifest.main_menu_music
     self.third_party_license_text = \
             manifest.third_party_license_text.strip_edges()
@@ -326,6 +330,10 @@ func register_app_manifest(manifest: Dictionary) -> void:
         self.developer_splash = manifest.developer_splash
     if manifest.has("game_over_music"):
         self.game_over_music = manifest.game_over_music
+    if manifest.has("pause_menu_music"):
+        self.pause_menu_music = manifest.pause_menu_music
+    if manifest.has("default_level_music"):
+        self.default_level_music = manifest.default_level_music
     if manifest.has("godot_splash_sound"):
         self.godot_splash_sound = manifest.godot_splash_sound
     if manifest.has("developer_splash_sound"):

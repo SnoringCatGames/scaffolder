@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/pause_menu.ogg-74b07b3ad8961fb2cfab0fcf0717f366.oggstr"
+
+[deps]
+
+source_file="res://addons/scaffolder/assets/music/pause_menu.ogg"
+dest_files=[ "res://.import/pause_menu.ogg-74b07b3ad8961fb2cfab0fcf0717f366.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
