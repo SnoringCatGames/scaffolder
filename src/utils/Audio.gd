@@ -125,7 +125,7 @@ func register_music(
 
 func play_sound(
         sound_name: String,
-        volume_offset := 1.0,
+        volume_offset := 0.0,
         deferred := false) -> void:
     if deferred:
         call_deferred("_play_sound_deferred", sound_name, volume_offset)
@@ -159,7 +159,7 @@ func stop_music() -> bool:
 
 func _play_sound_deferred(
         sound_name: String, 
-        volume_offset := 1.0) -> void:
+        volume_offset := 0.0) -> void:
     var sound_config: Dictionary = _inflated_sounds_config[sound_name]
     sound_config.player.volume_db = \
             sound_config.volume_db + \
