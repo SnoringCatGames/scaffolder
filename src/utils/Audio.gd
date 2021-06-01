@@ -39,6 +39,7 @@ var is_music_enabled := true setget _set_is_music_enabled
 var is_sound_effects_enabled := true setget \
         _set_is_sound_effects_enabled
 var is_tracking_beat := false setget _set_is_tracking_beat
+var is_beat_event_emission_paused := false
 
 func _init() -> void:
     Gs.logger.print("Audio._init")
@@ -282,7 +283,8 @@ func _update_music_playback_state() -> void:
     var previous_beat_index := next_beat_index
     next_beat_index = int(music_playback_position / beat_duration_unscaled) + 1
     
-    if previous_beat_index != next_beat_index:
+    if previous_beat_index != next_beat_index and \
+            !is_beat_event_emission_paused:
         var meter := get_meter()
         var is_downbeat := (next_beat_index - 1) % meter == 0
         emit_signal(
