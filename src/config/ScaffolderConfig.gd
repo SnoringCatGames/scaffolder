@@ -42,7 +42,9 @@ var is_mobile_supported: bool
 var is_data_deletion_button_shown: bool
 
 # NOTE: This doesn't currently work in HTML.
-var is_music_speed_change_supported: bool
+var is_music_speed_change_supported := false
+var is_music_speed_scaled_with_time_scale := false
+var is_music_speed_scaled_with_additional_debug_time_scale := true
 
 var app_name: String
 var app_id: String
@@ -260,8 +262,6 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.thread_count = manifest.thread_count
     self.is_mobile_supported = manifest.is_mobile_supported
     self.is_data_deletion_button_shown = manifest.is_data_deletion_button_shown
-    self.is_music_speed_change_supported = \
-            manifest.is_music_speed_change_supported
     self.app_name = manifest.app_name
     self.app_id = manifest.app_id
     self.app_version = manifest.app_version
@@ -379,6 +379,15 @@ func register_app_manifest(manifest: Dictionary) -> void:
     if manifest.has("recent_gesture_events_for_debugging_buffer_size"):
         self.recent_gesture_events_for_debugging_buffer_size = \
                 manifest.recent_gesture_events_for_debugging_buffer_size
+    if manifest.has("is_music_speed_change_supported"):
+        self.is_music_speed_change_supported = \
+                manifest.is_music_speed_change_supported
+    if manifest.has("is_music_speed_scaled_with_time_scale"):
+        self.is_music_speed_scaled_with_time_scale = \
+                manifest.is_music_speed_scaled_with_time_scale
+    if manifest.has("is_music_speed_scaled_with_additional_debug_time_scale"):
+        self.is_music_speed_scaled_with_additional_debug_time_scale = \
+                manifest.is_music_speed_scaled_with_additional_debug_time_scale
     
     assert(manifest.level_config_class != null)
     assert(self.google_analytics_id.empty() == \
