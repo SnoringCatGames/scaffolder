@@ -12,6 +12,10 @@ const INSTRUCTION_INDICATOR_STROKE_WIDTH := 1.0
 
 const STRIKE_THROUGH_ANGLE := -PI / 3.0
 
+const EXCLAMATION_MARK_GAP_LENGTH_TO_WIDTH_RATIO := 0.5
+const EXCLAMATION_MARK_BODY_LOWER_END_WIDTH_RATIO := 0.5
+const EXCLAMATION_MARK_DOT_WIDTH_RATIO := 1.0
+
 func _init() -> void:
     Gs.logger.print("DrawUtils._init")
 
@@ -314,6 +318,64 @@ static func draw_checkmark(
             top_right_point,
             color,
             stroke_width)
+
+static func draw_exclamation_mark(
+        canvas: CanvasItem,
+        center: Vector2,
+        width: float,
+        length: float,
+        color: Color,
+        is_filled: bool,
+        stroke_width: float,
+        sector_arc_length := 4.0) -> void:
+    var half_width := width / 2.0
+    var half_length := length / 2.0
+    
+    var body_top_radius := half_width
+    var body_bottom_radius := \
+            body_top_radius * EXCLAMATION_MARK_BODY_LOWER_END_WIDTH_RATIO
+    var dot_radius := body_top_radius * EXCLAMATION_MARK_DOT_WIDTH_RATIO
+    
+    var gap_length := width * EXCLAMATION_MARK_GAP_LENGTH_TO_WIDTH_RATIO
+    var body_length := length - gap_length - dot_radius * 2.0
+    
+    var body_top_center := \
+            center + Vector2(0.0, -half_length + body_top_radius)
+    var body_bottom_center := \
+            body_top_center + \
+            Vector2(0.0,
+                    body_length - \
+                    body_top_radius - \
+                    body_bottom_radius)
+    var dot_center := \
+            center + Vector2(0.0, half_length - dot_radius)
+    
+    # Draw the dot.
+    if is_filled:
+        canvas.draw_circle(
+                dot_center,
+                dot_radius,
+                color)
+    else:
+        draw_circle_outline(
+                canvas,
+                dot_center,
+                dot_radius,
+                color,
+                stroke_width,
+                sector_arc_length)
+    
+    # Draw the body.
+    draw_smooth_segment_with_two_circular_ends(
+            canvas,
+            body_top_center,
+            body_top_radius,
+            body_bottom_center,
+            body_bottom_radius,
+            color,
+            is_filled,
+            stroke_width,
+            sector_arc_length)
 
 static func draw_instruction_indicator(
         canvas: CanvasItem,
@@ -659,8 +721,8 @@ static func draw_capsule_outline(
             thickness)
 
 # This applies Thales's theorem to find the points of tangency between the line
-# segments from the triangular portion and the circle
-# (https://en.wikipedia.org/wiki/Thales%27s_theorem).
+# segments from the triangular portion and the circle:
+# https://en.wikipedia.org/wiki/Thales%27s_theorem
 static func draw_ice_cream_cone(
         canvas: CanvasItem,
         cone_end_point: Vector2,
@@ -670,17 +732,28 @@ static func draw_ice_cream_cone(
         is_filled: bool,
         border_width := 1.0,
         sector_arc_length := 4.0) -> void:
+    assert(circle_radius >= 0.0)
+    
     var distance_from_cone_end_point_to_circle_center := \
             cone_end_point.distance_to(circle_center)
     
-    # Handle the degenerate case of when the cone-end-point lies within the
-    # circle.
-    if distance_from_cone_end_point_to_circle_center <= circle_radius:
+    if circle_radius <= 0.0:
+        # Degenerate case: A line segment.
+        canvas.draw_line(
+                circle_center,
+                cone_end_point,
+                color,
+                border_width,
+                false)
+        return
+    elif distance_from_cone_end_point_to_circle_center <= circle_radius:
+        # Degenerate case: A circle (the cone-end-point lies within the circle).
         if is_filled:
             canvas.draw_circle(
-                circle_center,
-                circle_radius,
-                color)
+                    circle_center,
+                    circle_radius,
+                    color)
+            return
         else:
             draw_circle_outline(
                     canvas,
@@ -689,7 +762,7 @@ static func draw_ice_cream_cone(
                     color,
                     border_width,
                     sector_arc_length)
-        return
+            return
     
     var angle_from_circle_center_to_point_of_tangency := \
             acos(circle_radius / distance_from_cone_end_point_to_circle_center)
@@ -732,3 +805,134 @@ static func draw_ice_cream_cone(
                 points,
                 color,
                 border_width)
+
+# -   This applies Thales's theorem to find the points of tangency between the
+#     line segments from the triangular portion and the circle:
+#     https://en.wikipedia.org/wiki/Thales%27s_theorem
+# -   Also see:
+#     https://en.wikipedia.org/wiki/Tangent_lines_to_circles#Tangent_lines_to_two_circles
+static func draw_smooth_segment_with_two_circular_ends(
+        canvas: CanvasItem,
+        center_1: Vector2,
+        radius_1: float,
+        center_2: Vector2,
+        radius_2: float,
+        color: Color,
+        is_filled: bool,
+        stroke_width: float,
+        sector_arc_length := 4.0) -> void:
+    assert(radius_1 >= 0.0)
+    assert(radius_2 >= 0.0)
+    
+    var larger_radius: float
+    var larger_center: Vector2
+    var smaller_radius: float
+    var smaller_center: Vector2
+    if radius_1 > radius_2:
+        larger_radius = radius_1
+        larger_center = center_1
+        smaller_radius = radius_2
+        smaller_center = center_2
+    else:
+        larger_radius = radius_2
+        larger_center = center_2
+        smaller_radius = radius_1
+        smaller_center = center_1
+    
+    var distance_between_circle_centers := \
+            smaller_center.distance_to(larger_center)
+    
+    if larger_radius == 0.0:
+        # Degenerate case: A line segment.
+        canvas.draw_line(
+                smaller_center,
+                larger_center,
+                color,
+                stroke_width,
+                false)
+        return
+    elif distance_between_circle_centers + smaller_radius <= larger_radius:
+        # Degenerate case: A circle (the smaller circle lies entirely inside
+        # the larger circle).
+        if is_filled:
+            canvas.draw_circle(
+                    larger_center,
+                    larger_radius,
+                    color)
+            return
+        else:
+            draw_circle_outline(
+                    canvas,
+                    larger_center,
+                    larger_radius,
+                    color,
+                    stroke_width,
+                    sector_arc_length)
+            return
+    elif smaller_radius == 0.0:
+        # Degenerate case: An ice-cream-cone shape, with a cusp at one end.
+        draw_ice_cream_cone(
+                canvas,
+                smaller_center,
+                larger_center,
+                larger_radius,
+                color,
+                is_filled,
+                stroke_width,
+                sector_arc_length)
+        return
+    
+    var angle_between_circle_centers := \
+            smaller_center.angle_to_point(larger_center)
+    var beta := asin(
+            (larger_radius - smaller_radius) / \
+            distance_between_circle_centers)
+    
+    # This angle is identical on either circle.
+    var angle_from_circle_center_to_point_of_outer_tangency := \
+            angle_between_circle_centers - beta
+    
+    var smaller_start_angle := angle_between_circle_centers - beta + PI / 2.0
+    var smaller_end_angle := angle_between_circle_centers + beta - PI / 2.0
+    var larger_start_angle := smaller_end_angle
+    var larger_end_angle := smaller_start_angle
+    if smaller_end_angle > smaller_start_angle:
+        larger_end_angle += 2.0 * PI
+    else:
+        larger_end_angle -= 2.0 * PI
+    
+    var smaller_circle_arc_points := compute_arc_points(
+            smaller_center,
+            smaller_radius,
+            smaller_start_angle,
+            smaller_end_angle,
+            sector_arc_length)
+    var larger_circle_arc_points := compute_arc_points(
+            larger_center,
+            larger_radius,
+            larger_start_angle,
+            larger_end_angle,
+            sector_arc_length)
+    
+    # Combine the points from both arcs.
+    var smaller_arc_count := smaller_circle_arc_points.size()
+    var larger_arc_count := larger_circle_arc_points.size()
+    var points := []
+    points.resize(smaller_arc_count + larger_arc_count + 1)
+    for i in smaller_arc_count:
+        points[i] = smaller_circle_arc_points[i]
+    for i in larger_arc_count:
+        points[smaller_arc_count + i] = larger_circle_arc_points[i]
+    points[points.size() - 1] = smaller_circle_arc_points[0]
+    
+    assert(points.size() > 2)
+    
+    if is_filled:
+        canvas.draw_colored_polygon(
+                points,
+                color)
+    else:
+        canvas.draw_polyline(
+                points,
+                color,
+                stroke_width)
