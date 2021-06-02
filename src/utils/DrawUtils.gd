@@ -19,6 +19,59 @@ const EXCLAMATION_MARK_DOT_WIDTH_RATIO := 1.0
 func _init() -> void:
     Gs.logger.print("DrawUtils._init")
 
+# Godot's CanvasItem.draw_polyline function draws the ends of the polyline with
+# a flat cap that is perpendicular to the adjacent segment.
+# 
+# If you try to use draw_polyline to draw a closed polygon outline by including
+# the same point in the first and last position of the collection, then there
+# will be a small gap between the "adjacent" start and end segments.
+# 
+# We can close this gap by ensuring that the first and last segments are
+# colinear. We can make the first and last segments colinear by introducing
+# additional vertices that are just slightly offset from the original ends.
+static func draw_closed_polyline(
+        canvas: CanvasItem,
+        points: PoolVector2Array,
+        color: Color,
+        stroke_width := 1.0,
+        antialiased := false) -> void:
+    var original_size := points.size()
+    assert(original_size >= 2)
+    
+    if original_size == 2:
+        # Degenerate case: A line segment.
+        canvas.draw_line(
+                points[0],
+                points[1],
+                color,
+                stroke_width,
+                antialiased)
+    
+    points.insert(0, points[0])
+    
+    if points[0] == points[original_size]:
+        # The given points collection already starts and ends with the same
+        # point.
+        points.push_back(points[0])
+    else:
+        # The given points collection starts and ends with a different point.
+        points.resize(original_size + 3)
+        points[original_size] = points[0]
+        points[original_size + 1] = points[0]
+    
+    var new_size := points.size()
+    
+    var tangentish_direction := points[2] - points[1]
+    var offset := tangentish_direction * 0.00001
+    points[1] = points[0] + offset
+    points[new_size - 2] = points[0] - offset
+    
+    canvas.draw_polyline(
+            points,
+            color,
+            stroke_width,
+            antialiased)
+
 static func draw_dashed_line(
         canvas: CanvasItem,
         from: Vector2,
@@ -570,15 +623,26 @@ static func draw_circle_outline(
         color: Color,
         border_width := 1.0,
         sector_arc_length := 4.0) -> void:
-    draw_arc(
-            canvas,
+    var points := compute_arc_points(
             center,
             radius,
             0.0,
             2.0 * PI,
-            color,
-            border_width,
             sector_arc_length)
+    
+    # Even though the points ended and began at the same position, Godot would
+    # render a gap, because the "adjacent" segments aren't colinear, and thus
+    # their end caps don't align. We introduce two vertices, at very slight
+    # offsets, so that we can force the end caps to line up.
+    points.insert(0, points[0])
+    points.push_back(points[0])
+    points[points.size() - 2].y -= 0.0001
+    points[1].y += 0.0001
+    
+    canvas.draw_polyline(
+            points,
+            color,
+            border_width)
 
 static func draw_arc(
         canvas: CanvasItem,
@@ -658,19 +722,17 @@ static func draw_rectangle_outline(
             half_width_height.y
     
     var polyline := PoolVector2Array()
-    polyline.resize(5)
+    polyline.resize(6)
     
-    polyline[0] = center + Vector2(-x_offset, -y_offset)
-    polyline[1] = center + Vector2(x_offset, -y_offset)
-    polyline[2] = center + Vector2(x_offset, y_offset)
-    polyline[3] = center + Vector2(-x_offset, y_offset)
-    polyline[4] = polyline[0]
+    polyline[1] = center + Vector2(-x_offset, -y_offset)
+    polyline[2] = center + Vector2(x_offset, -y_offset)
+    polyline[3] = center + Vector2(x_offset, y_offset)
+    polyline[4] = center + Vector2(-x_offset, y_offset)
     
-    # For some reason, the first and last line segments seem to have off-by-one
-    # errors that would cause the segments to not be exactly horizontal and
-    # vertical, so these offsets fix that.
-    polyline[0] += Vector2(-0.5, 0.5)
-    polyline[4] += Vector2(0.75, 0.0)
+    # By having the polyline start and end in the middle of a segment, we can
+    # ensure the end caps line up and don't show a gap.
+    polyline[5] = lerp(polyline[4], polyline[1], 0.5)
+    polyline[0] = polyline[5]
     
     canvas.draw_polyline(
             polyline,
@@ -698,22 +760,28 @@ static func draw_capsule_outline(
             Vector2(0.0, height / 2.0)
     var end_center := center - capsule_end_offset
     var vertices := PoolVector2Array()
-    var vertex_count := (sector_count + 1) * 2 + 1
+    var vertex_count := (sector_count + 1) * 2 + 2
     vertices.resize(vertex_count)
     var vertex: Vector2
     
     for i in sector_count + 1:
-        vertices[i] = Vector2(cos(theta), sin(theta)) * radius + end_center
+        vertices[i + 1] = Vector2(cos(theta), sin(theta)) * radius + end_center
         theta += delta_theta
     
     end_center = center + capsule_end_offset
     theta -= delta_theta
     
     for i in range(sector_count + 1, (sector_count + 1) * 2):
-        vertices[i] = Vector2(cos(theta), sin(theta)) * radius + end_center
+        vertices[i + 1] = Vector2(cos(theta), sin(theta)) * radius + end_center
         theta += delta_theta
     
-    vertices[vertex_count - 1] = vertices[0]
+    # By having the polyline start and end in the middle of a segment, we can
+    # ensure the end caps line up and don't show a gap.
+    vertices[vertex_count - 1] = lerp(
+            vertices[vertex_count - 2],
+            vertices[1],
+            0.5)
+    vertices[0] = vertices[vertex_count - 1]
     
     canvas.draw_polyline(
             vertices,
@@ -917,15 +985,18 @@ static func draw_smooth_segment_with_two_circular_ends(
     # Combine the points from both arcs.
     var smaller_arc_count := smaller_circle_arc_points.size()
     var larger_arc_count := larger_circle_arc_points.size()
+    assert(smaller_arc_count + larger_arc_count >= 2)
     var points := []
-    points.resize(smaller_arc_count + larger_arc_count + 1)
+    points.resize(smaller_arc_count + larger_arc_count + 2)
     for i in smaller_arc_count:
-        points[i] = smaller_circle_arc_points[i]
+        points[i + 1] = smaller_circle_arc_points[i]
     for i in larger_arc_count:
-        points[smaller_arc_count + i] = larger_circle_arc_points[i]
-    points[points.size() - 1] = smaller_circle_arc_points[0]
+        points[smaller_arc_count + i + 1] = larger_circle_arc_points[i]
     
-    assert(points.size() > 2)
+    # By having the polyline start and end in the middle of a segment, we can
+    # ensure the end caps line up and don't show a gap.
+    points[points.size() - 1] = lerp(points[points.size() - 2], points[1], 0.5)
+    points[0] = points[points.size() - 1]
     
     if is_filled:
         canvas.draw_colored_polygon(
