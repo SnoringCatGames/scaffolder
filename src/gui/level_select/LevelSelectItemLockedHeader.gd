@@ -4,9 +4,9 @@ extends Control
 signal unlock_finished
 
 const LOCKED_OPACITY := 0.6
-const LOCK_LOW_PART_DELAY_SEC := 0.4
-const LOCK_HIGH_PART_DELAY_SEC := 0.15
-const HINT_PULSE_DURATION_SEC := 2.0
+const LOCK_LOW_PART_DELAY := 0.4
+const LOCK_HIGH_PART_DELAY := 0.15
+const HINT_PULSE_DURATION := 2.0
 
 var level_id: String
 var hint_tween: ScaffolderTween
@@ -81,9 +81,9 @@ func update_is_unlocked(is_unlocked: bool) -> void:
 #                0.0 if \
 #                !Gs.save_state.get_new_unlocked_levels().empty() else \
 #                (0.3 + \
-#                LOCK_LOW_PART_DELAY_SEC + \
-#                LockAnimation.UNLOCK_DURATION_SEC + \
-#                FADE_TWEEN_DURATION_SEC)
+#                LOCK_LOW_PART_DELAY + \
+#                LockAnimation.UNLOCK_DURATION + \
+#                FADE_TWEEN_DURATION)
         Gs.time.set_timeout(funcref(self, "pulse_unlock_hint"), delay)
 
 func unlock() -> void:
@@ -92,35 +92,35 @@ func unlock() -> void:
     
     Gs.time.set_timeout(
             funcref($LockAnimation, "unlock"),
-            LOCK_LOW_PART_DELAY_SEC)
+            LOCK_LOW_PART_DELAY)
     
     Gs.time.set_timeout(
             funcref(Gs.audio, "play_sound"),
-            LOCK_LOW_PART_DELAY_SEC,
+            LOCK_LOW_PART_DELAY,
             ["lock_low"])
     Gs.time.set_timeout(
             funcref(Gs.audio, "play_sound"),
-            LOCK_LOW_PART_DELAY_SEC + LOCK_HIGH_PART_DELAY_SEC,
+            LOCK_LOW_PART_DELAY + LOCK_HIGH_PART_DELAY,
             ["lock_high"])
 
 func pulse_unlock_hint() -> void:
     hint_tween.stop_all()
-    var fade_in_duration_sec := 0.3
+    var fade_in_duration := 0.3
     hint_tween.interpolate_property(
             $HeaderWrapper/LockedWrapper/HintWrapper,
             "modulate:a",
             0.0,
             1.0,
-            fade_in_duration_sec,
+            fade_in_duration,
             "ease_in_out")
     hint_tween.interpolate_property(
             $HeaderWrapper/LockedWrapper/HintWrapper,
             "modulate:a",
             1.0,
             0.0,
-            fade_in_duration_sec,
+            fade_in_duration,
             "ease_in_out",
-            HINT_PULSE_DURATION_SEC - fade_in_duration_sec)
+            HINT_PULSE_DURATION - fade_in_duration)
     hint_tween.start()
 
 func _on_LevelSelectItemLockedHeader_gui_input(event: InputEvent) -> void:

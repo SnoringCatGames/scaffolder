@@ -3,7 +3,7 @@ extends Control
 
 signal unlock_finished
 
-const UNLOCK_DURATION_SEC := 0.8
+const UNLOCK_DURATION := 0.8
 
 func _ready() -> void:
     $Control/Node2D/AnimationPlayer.connect(

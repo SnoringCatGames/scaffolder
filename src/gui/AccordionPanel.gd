@@ -15,9 +15,9 @@ const CARET_SCALE := Vector2(0.5, 0.5)
 const CARET_ROTATION_CLOSED := 270.0
 const CARET_ROTATION_OPEN := 90.0
 
-const HEIGHT_TWEEN_DURATION_SEC := 0.2
-const CARET_ROTATION_TWEEN_DURATION_SEC := 0.2
-const SCROLL_TWEEN_DURATION_SEC := 0.3
+const HEIGHT_TWEEN_DURATION := 0.2
+const CARET_ROTATION_TWEEN_DURATION := 0.2
+const SCROLL_TWEEN_DURATION := 0.3
 
 export var is_open := false setget _set_is_open,_get_is_open
 export var includes_header := true setget \
@@ -267,14 +267,14 @@ func _trigger_open_change(is_tweening: bool) -> void:
                 "_interpolate_height",
                 height_ratio_start,
                 height_ratio_end,
-                HEIGHT_TWEEN_DURATION_SEC,
+                HEIGHT_TWEEN_DURATION,
                 "ease_in_out")
         _is_open_tween.interpolate_method(
                 self,
                 "_interpolate_caret_rotation",
                 caret_rotation_start,
                 caret_rotation_end,
-                CARET_ROTATION_TWEEN_DURATION_SEC,
+                CARET_ROTATION_TWEEN_DURATION,
                 "ease_in_out")
         if is_open:
             var scroll_container: ScrollContainer = \
@@ -285,7 +285,7 @@ func _trigger_open_change(is_tweening: bool) -> void:
                     "_interpolate_scroll",
                     0.0,
                     1.0,
-                    SCROLL_TWEEN_DURATION_SEC,
+                    SCROLL_TWEEN_DURATION,
                     "ease_in_out")
         _is_open_tween.start()
     else:

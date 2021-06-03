@@ -6,7 +6,7 @@ signal toggled
 signal pressed
 
 const HEADER_HEIGHT := 56.0
-const FADE_TWEEN_DURATION_SEC := 0.3
+const FADE_TWEEN_DURATION := 0.3
 
 export var level_id := "" setget _set_level_id,_get_level_id
 export var is_open: bool setget _set_is_open,_get_is_open
@@ -23,7 +23,7 @@ func _ready() -> void:
     _init_children()
     call_deferred("update")
 
-func _process(_delta_sec: float) -> void:
+func _process(_delta: float) -> void:
     rect_min_size.y = \
             $HeaderWrapper.rect_min_size.y + \
             $AccordionPanel.rect_min_size.y
@@ -143,14 +143,14 @@ func _on_LevelSelectItemLockedHeader_unlock_finished() -> void:
             "modulate:a",
             LevelSelectItemLockedHeader.LOCKED_OPACITY,
             0.0,
-            FADE_TWEEN_DURATION_SEC,
+            FADE_TWEEN_DURATION,
             "ease_in_out")
     fade_tween.interpolate_property(
             unlocked_header,
             "modulate:a",
             0.0,
             1.0,
-            FADE_TWEEN_DURATION_SEC,
+            FADE_TWEEN_DURATION,
             "ease_in_out")
     fade_tween.start()
     Gs.time.set_timeout(funcref(Gs.audio, "play_sound"), 0.3, ["achievement"])

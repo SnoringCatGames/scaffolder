@@ -23,9 +23,9 @@ const _DEFAULT_SCREEN_FILENAMES := [
 const FADE_TRANSITION_PATH := \
         _DEFAULT_SCREEN_PATH_PREFIX + "FadeTransition.tscn"
 
-const SCREEN_SLIDE_DURATION_SEC := 0.3
-const SCREEN_FADE_DURATION_SEC := 1.2
-const SESSION_END_TIMEOUT_SEC := 2.0
+const SCREEN_SLIDE_DURATION := 0.3
+const SCREEN_FADE_DURATION := 1.2
+const SESSION_END_TIMEOUT := 2.0
 
 # Dictionary<String, Screen>
 var screens := {}
@@ -60,7 +60,7 @@ func close_app() -> void:
     Gs.analytics.end_session()
     Gs.time.set_timeout(
             funcref(self, "_on_session_end"),
-            SESSION_END_TIMEOUT_SEC)
+            SESSION_END_TIMEOUT)
 
 func _on_session_end() -> void:
     if Gs.were_screenshots_taken:
@@ -96,7 +96,7 @@ func create_screens() -> void:
             FADE_TRANSITION_PATH,
             true,
             false)
-    fade_transition.duration = SCREEN_FADE_DURATION_SEC
+    fade_transition.duration = SCREEN_FADE_DURATION
     fade_transition.connect(
             "fade_complete",
             self,
@@ -235,12 +235,12 @@ func _set_screen_is_open(
                     0.0)
             tween_screen = previous_screen
         
-        var slide_duration := SCREEN_SLIDE_DURATION_SEC
+        var slide_duration := SCREEN_SLIDE_DURATION
         var slide_delay := 0.0
         if includes_fade:
             fade()
-            slide_duration = SCREEN_SLIDE_DURATION_SEC / 2.0
-            slide_delay = (SCREEN_FADE_DURATION_SEC - slide_duration) / 2.0
+            slide_duration = SCREEN_SLIDE_DURATION / 2.0
+            slide_delay = (SCREEN_FADE_DURATION - slide_duration) / 2.0
         
         tween_screen.position = start_position
         Gs.time.tween_property(
@@ -248,7 +248,7 @@ func _set_screen_is_open(
                 "position",
                 start_position,
                 end_position,
-                SCREEN_SLIDE_DURATION_SEC,
+                SCREEN_SLIDE_DURATION,
                 "ease_in_out",
                 slide_delay,
                 TimeType.APP_PHYSICS,
@@ -310,14 +310,14 @@ func _splash_helper() -> void:
     open("godot_splash")
     Gs.audio.play_sound(Gs.godot_splash_sound)
     yield(get_tree() \
-            .create_timer(Gs.godot_splash_screen_duration_sec),
+            .create_timer(Gs.godot_splash_screen_duration),
             "timeout")
     
     if Gs.is_developer_splash_shown:
         open("developer_splash")
         Gs.audio.play_sound(Gs.developer_splash_sound)
         yield(get_tree() \
-                .create_timer(Gs.developer_splash_screen_duration_sec),
+                .create_timer(Gs.developer_splash_screen_duration),
                 "timeout")
     
     emit_signal("splash_finished")

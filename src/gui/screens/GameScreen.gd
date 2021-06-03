@@ -38,7 +38,7 @@ func move_canvas_layer_to_game_viewport(name: String) -> void:
     layer.get_parent().remove_child(layer)
     $PanelContainer/ViewportContainer/Viewport.add_child(layer)
 
-func _process(_delta_sec: float) -> void:
+func _process(_delta: float) -> void:
     if !is_instance_valid(Gs.level):
         return
     

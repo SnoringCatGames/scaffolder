@@ -12,7 +12,7 @@ var _active_sub_tweens := []
 func _init() -> void:
     self.id = Gs.time.get_next_task_id()
 
-func _process(_delta_sec: float) -> void:
+func _process(_delta: float) -> void:
     step()
 
 func step() -> void:
@@ -175,19 +175,19 @@ class _SubTween extends Reference:
         self.time_type = time_type
     
     func get_is_finished() -> bool:
-        return Gs.time.get_elapsed_time_sec(time_type) >= \
+        return Gs.time.get_elapsed_time(time_type) >= \
                 start_time + duration + delay or \
                 !is_instance_valid(object)
     
     func start() -> void:
-        start_time = Gs.time.get_elapsed_time_sec(time_type)
+        start_time = Gs.time.get_elapsed_time(time_type)
     
     func end() -> void:
         if is_instance_valid(object):
             _update_with_value(final_val)
     
     func step() -> void:
-        var current_time: float = Gs.time.get_elapsed_time_sec(time_type)
+        var current_time: float = Gs.time.get_elapsed_time(time_type)
         var elapsed_time := current_time - start_time
         if elapsed_time < delay:
             return
