@@ -3,6 +3,14 @@ extends Reference
 
 signal changed
 
+enum {
+    TEXT,
+    CHECKBOX,
+    DROPDOWN,
+    SLIDER,
+    HEADER,
+}
+
 const ABOUT_ICON_NORMAL := \
         preload("res://addons/scaffolder/assets/images/gui/about_icon_normal.png")
 const ABOUT_ICON_HOVER := \
@@ -15,14 +23,6 @@ const SCAFFOLDER_TEXTURE_BUTTON_SCENE_PATH := \
 
 const ENABLED_ALPHA := 1.0
 const DISABLED_ALPHA := 0.3
-
-enum {
-    TEXT,
-    CHECKBOX,
-    DROPDOWN,
-    SLIDER,
-    HEADER,
-}
 
 var control: Control
 var label: String
