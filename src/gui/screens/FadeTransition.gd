@@ -1,7 +1,7 @@
 class_name FadeTransition
 extends ColorRect
 
-signal fade_complete
+signal fade_completed
 
 var _tween_id: int
 var duration := 0.3
@@ -66,4 +66,4 @@ func _on_tween_complete(
         _object: Object,
         _key: NodePath) -> void:
     is_transitioning = false
-    emit_signal("fade_complete")
+    emit_signal("fade_completed")

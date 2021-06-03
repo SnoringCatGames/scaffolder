@@ -40,7 +40,7 @@ func _init() -> void:
 func _ready() -> void:
     get_tree().set_auto_accept_quit(false)
     Gs.analytics.connect(
-            "session_end",
+            "session_ended",
             self,
             "_on_session_end")
     Gs.analytics.start_session()
@@ -98,7 +98,7 @@ func create_screens() -> void:
             false)
     fade_transition.duration = SCREEN_FADE_DURATION
     fade_transition.connect(
-            "fade_complete",
+            "fade_completed",
             self,
             "_on_fade_complete")
 
