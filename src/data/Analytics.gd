@@ -1,3 +1,5 @@
+class_name Analytics
+extends Node
 # This class depends on the proprietary third-party Google Analytics service.
 # 
 # -   Fortunately, Google Analytics is at least free to use.
@@ -11,8 +13,6 @@
 #     https://developers.google.com/analytics/devguides/reporting/core/v4
 #     -   Alternatively, you could just use Google's convenient web client:
 #         http://analytics.google.com/
-class_name Analytics
-extends Node
 
 signal session_ended
 
