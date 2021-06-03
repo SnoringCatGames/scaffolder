@@ -14,7 +14,7 @@
 class_name Analytics
 extends Node
 
-signal session_end
+signal session_ended
 
 const VERBOSE := false
 
@@ -189,7 +189,7 @@ func _trigger_collect(
     if Gs.debug:
         # Skipping Analytics collection in debug environment
         if is_session_end:
-            emit_signal("session_end")
+            emit_signal("session_ended")
         return
     
     var url := GOOGLE_ANALYTICS_COLLECT_URL + "?" + payload
@@ -248,7 +248,7 @@ func _on_collect_request_completed(
         # connection is back.
         _retry_queued_entries()
         if is_session_end:
-            emit_signal("session_end")
+            emit_signal("session_ended")
     elif result == HTTPRequest.RESULT_CANT_CONNECT or \
             result == HTTPRequest.RESULT_CANT_RESOLVE or \
             result == HTTPRequest.RESULT_CONNECTION_ERROR or \

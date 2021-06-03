@@ -109,7 +109,7 @@ func start_level(level_id: String) -> void:
             self,
             "_on_load_started")
     level.graph_parser.connect(
-            "calculation_progress",
+            "calculation_progressed",
             self,
             "_on_graph_parse_progress")
     level.graph_parser.connect(
@@ -166,7 +166,7 @@ func _on_graph_parse_finished() -> void:
             self,
             "_on_load_started")
     Gs.level.graph_parser.disconnect(
-            "calculation_progress",
+            "calculation_progressed",
             self,
             "_on_graph_parse_progress")
     Gs.level.graph_parser.disconnect(
