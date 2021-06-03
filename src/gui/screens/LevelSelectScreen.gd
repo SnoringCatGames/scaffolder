@@ -31,10 +31,6 @@ func _init().(
         ) -> void:
     pass
 
-func _on_activated(previous_screen_name: String) -> void:
-    ._on_activated(previous_screen_name)
-    _update()
-
 func _ready() -> void:
     for level_id in Gs.level_config.get_level_ids():
         var item: LevelSelectItem = Gs.utils.add_scene(
@@ -48,6 +44,10 @@ func _ready() -> void:
         item.is_open = false
         item.connect("pressed", self, "_on_item_pressed", [item])
         item.connect("toggled", self, "_on_item_toggled", [item])
+
+func _on_activated(previous_screen_name: String) -> void:
+    ._on_activated(previous_screen_name)
+    _update()
 
 func _update() -> void:
     _calculate_new_unlocked_item()
