@@ -204,7 +204,7 @@ func add_overlay_to_current_scene(node: Node) -> void:
 func vibrate() -> void:
     if Gs.is_giving_haptic_feedback:
         Input.vibrate_handheld(
-                Gs.input_vibrate_duration_sec * 1000)
+                Gs.input_vibrate_duration * 1000)
 
 func give_button_press_feedback(is_fancy := false) -> void:
     vibrate()
@@ -421,16 +421,16 @@ static func get_datetime_string() -> String:
     ]
 
 static func get_time_string_from_seconds(
-        time_sec: float,
+        time: float,
         includes_ms := false,
         includes_empty_hours := true,
         includes_empty_minutes := true) -> String:
-    var is_undefined := is_inf(time_sec)
+    var is_undefined := is_inf(time)
     var time_str := ""
     
     # Hours.
-    var hours := int(time_sec / 3600.0)
-    time_sec = fmod(time_sec, 3600.0)
+    var hours := int(time / 3600.0)
+    time = fmod(time, 3600.0)
     if hours != 0 or \
             includes_empty_hours:
         if !is_undefined:
@@ -442,8 +442,8 @@ static func get_time_string_from_seconds(
             time_str = "--:"
     
     # Minutes.
-    var minutes := int(time_sec / 60.0)
-    time_sec = fmod(time_sec, 60.0)
+    var minutes := int(time / 60.0)
+    time = fmod(time, 60.0)
     if minutes != 0 or \
             includes_empty_minutes:
         if !is_undefined:
@@ -455,7 +455,7 @@ static func get_time_string_from_seconds(
             time_str += "--:"
     
     # Seconds.
-    var seconds := int(time_sec)
+    var seconds := int(time)
     if !is_undefined:
         time_str = "%s%02d" % [
             time_str,
@@ -467,7 +467,7 @@ static func get_time_string_from_seconds(
     if includes_ms:
         # Milliseconds.
         var milliseconds := \
-                int(fmod((time_sec - seconds) * 1000.0, 1000.0))
+                int(fmod((time - seconds) * 1000.0, 1000.0))
         if !is_undefined:
             time_str = "%s.%03d" % [
                 time_str,

@@ -4,7 +4,7 @@ extends Node
 signal music_changed(music_name)
 signal beat(is_downbeat, beat_index, meter)
 
-const MUSIC_CROSS_FADE_DURATION_SEC := 0.2
+const MUSIC_CROSS_FADE_DURATION := 0.2
 const SILENT_VOLUME_DB := -80.0
 
 const GLOBAL_AUDIO_VOLUME_OFFSET_DB := -10.0
@@ -44,7 +44,7 @@ var is_beat_event_emission_paused := false
 func _init() -> void:
     Gs.logger.print("Audio._init")
 
-func _process(_delta_sec: float) -> void:
+func _process(_delta: float) -> void:
     if is_tracking_beat and \
             get_is_music_playing():
         _update_music_playback_state()
@@ -137,17 +137,17 @@ func play_music(
         music_name: String,
         transitions_immediately := false,
         deferred := false) -> void:
-    var transition_duration_sec := \
+    var transition_duration := \
             0.01 if \
             transitions_immediately else \
-            MUSIC_CROSS_FADE_DURATION_SEC
+            MUSIC_CROSS_FADE_DURATION
     if deferred:
         call_deferred(
                 "cross_fade_music",
                 music_name,
-                transition_duration_sec)
+                transition_duration)
     else:
-        cross_fade_music(music_name, transition_duration_sec)
+        cross_fade_music(music_name, transition_duration)
 
 func stop_music() -> bool:
     _clear_music_playback_state()
@@ -188,7 +188,7 @@ func _get_current_music_player() -> AudioStreamPlayer:
 
 func cross_fade_music(
         music_name: String,
-        transition_duration_sec: float) -> void:
+        transition_duration: float) -> void:
     _on_cross_fade_music_finished()
     
     var previous_music_player := _get_previous_music_player()
@@ -234,7 +234,7 @@ func cross_fade_music(
                 "volume_db",
                 previous_loud_volume,
                 SILENT_VOLUME_DB,
-                transition_duration_sec,
+                transition_duration,
                 "ease_in")
         _fade_out_tween.start()
     
@@ -253,7 +253,7 @@ func cross_fade_music(
                 "volume_db",
                 SILENT_VOLUME_DB,
                 current_loud_volume,
-                transition_duration_sec,
+                transition_duration,
                 "ease_out")
         _fade_in_tween.start()
     

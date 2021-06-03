@@ -67,7 +67,7 @@ func _initialize_framework() -> void:
     
     _throttled_size_changed = Gs.time.throttle(
             funcref(self, "_on_throttled_size_changed"),
-            Gs.display_resize_throttle_interval_sec)
+            Gs.display_resize_throttle_interval)
     get_viewport().connect(
             "size_changed",
             self,
@@ -80,7 +80,7 @@ func _initialize_framework() -> void:
     # Create the screens after the first resize event has propogated.
     Gs.time.set_timeout(
             funcref(self, "_create_screens"),
-            Gs.display_resize_throttle_interval_sec + 0.01)
+            Gs.display_resize_throttle_interval + 0.01)
 
 func _create_screens() -> void:
     Gs.nav.create_screens()
@@ -98,7 +98,7 @@ func _on_screens_created() -> void:
         # some reason, the HTML export seems to need this additional resize.
         Gs.time.set_timeout(
                 funcref(self, "_on_app_initialized"),
-                Gs.display_resize_throttle_interval_sec + 0.01)
+                Gs.display_resize_throttle_interval + 0.01)
     else:
         _on_app_initialized()
 
@@ -135,7 +135,7 @@ func _report_any_previous_crash() -> bool:
     add_child(Gs.crash_reporter)
     return Gs.crash_reporter.report_any_previous_crash()
 
-func _process(_delta_sec: float) -> void:
+func _process(_delta: float) -> void:
     if Gs.debug or Gs.playtest:
         if Input.is_action_just_pressed("screenshot"):
             Gs.were_screenshots_taken = true

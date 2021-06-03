@@ -29,7 +29,7 @@ func _load() -> void:
 
 func _start() -> void:
     Gs.audio.play_music(get_music_name())
-    level_start_play_time_unscaled = Gs.time.get_play_time_sec()
+    level_start_play_time_unscaled = Gs.time.get_play_time()
     Gs.save_state.set_level_total_plays(
             _id,
             Gs.save_state.get_level_total_plays(_id) + 1)
@@ -112,7 +112,7 @@ func _record_level_results() -> void:
     var game_over_screen = Gs.nav.screens["game_over"]
     game_over_screen.level_id = _id
     game_over_screen.time = Gs.utils.get_time_string_from_seconds(
-            Gs.time.get_play_time_sec() - \
+            Gs.time.get_play_time() - \
             level_start_play_time_unscaled)
     
     if Gs.uses_level_scores:
@@ -175,7 +175,7 @@ func _get_is_started() -> bool:
     return level_start_play_time_unscaled != INF
 
 func _get_level_play_time_unscaled() -> float:
-    return Gs.time.get_play_time_sec() - level_start_play_time_unscaled if \
+    return Gs.time.get_play_time() - level_start_play_time_unscaled if \
             _get_is_started() else \
             0.0
 

@@ -4,7 +4,7 @@ extends Node2D
 const ZOOM_FACTOR_STEP_RATIO := 0.05
 const PAN_STEP := 8.0
 
-const ZOOM_ANIMATION_DURATION_SEC := 0.3
+const ZOOM_ANIMATION_DURATION := 0.3
 
 var _current_camera: Camera2D
 var _current_player
@@ -21,7 +21,7 @@ func _enter_tree() -> void:
     zoom_tween = ScaffolderTween.new()
     add_child(zoom_tween)
 
-func _process(_delta_sec: float) -> void:
+func _process(_delta: float) -> void:
     if is_instance_valid(_current_camera):
         # Handle zooming.
         if Gs.level_input.is_action_pressed("zoom_in"):
@@ -103,7 +103,7 @@ func _set_zoom_factor(value: float) -> void:
 
 func animate_to_zoom_factor(
         zoom_factor: float,
-        duration := ZOOM_ANIMATION_DURATION_SEC) -> void:
+        duration := ZOOM_ANIMATION_DURATION) -> void:
     if self.zoom_factor == zoom_factor:
         return
     

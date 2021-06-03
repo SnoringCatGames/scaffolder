@@ -112,8 +112,8 @@ var developer_url: String
 var developer_logo: Texture
 var developer_splash: Texture
 
-var godot_splash_screen_duration_sec := 0.8
-var developer_splash_screen_duration_sec := 1.0
+var godot_splash_screen_duration := 0.8
+var developer_splash_screen_duration := 1.0
 
 var main_menu_image_scene_path: String
 var loading_image_scene_path: String
@@ -138,9 +138,9 @@ var app_id_query_param: String
 var camera_smoothing_speed: float
 var default_camera_zoom := 1.0
 
-var input_vibrate_duration_sec := 0.01
+var input_vibrate_duration := 0.01
 
-var display_resize_throttle_interval_sec := 0.1
+var display_resize_throttle_interval := 0.1
 
 var recent_gesture_events_for_debugging_buffer_size := 1000
 
@@ -340,12 +340,12 @@ func register_app_manifest(manifest: Dictionary) -> void:
         self.developer_splash_sound = manifest.developer_splash_sound
     if manifest.has("level_end_sound"):
         self.level_end_sound = manifest.level_end_sound
-    if manifest.has("godot_splash_screen_duration_sec"):
-        self.godot_splash_screen_duration_sec = \
-                manifest.godot_splash_screen_duration_sec
-    if manifest.has("developer_splash_screen_duration_sec"):
-        self.developer_splash_screen_duration_sec = \
-                manifest.developer_splash_screen_duration_sec
+    if manifest.has("godot_splash_screen_duration"):
+        self.godot_splash_screen_duration = \
+                manifest.godot_splash_screen_duration
+    if manifest.has("developer_splash_screen_duration"):
+        self.developer_splash_screen_duration = \
+                manifest.developer_splash_screen_duration
     if manifest.has("main_menu_image_scene_path"):
         self.main_menu_image_scene_path = manifest.main_menu_image_scene_path
     if manifest.has("loading_image_scene_path"):
@@ -378,12 +378,12 @@ func register_app_manifest(manifest: Dictionary) -> void:
         self.default_camera_zoom = manifest.default_camera_zoom
     if manifest.has("camera_smoothing_speed"):
         self.camera_smoothing_speed = manifest.camera_smoothing_speed
-    if manifest.has("input_vibrate_duration_sec"):
-        self.input_vibrate_duration_sec = \
-                manifest.input_vibrate_duration_sec
-    if manifest.has("display_resize_throttle_interval_sec"):
-        self.display_resize_throttle_interval_sec = \
-                manifest.display_resize_throttle_interval_sec
+    if manifest.has("input_vibrate_duration"):
+        self.input_vibrate_duration = \
+                manifest.input_vibrate_duration
+    if manifest.has("display_resize_throttle_interval"):
+        self.display_resize_throttle_interval = \
+                manifest.display_resize_throttle_interval
     if manifest.has("recent_gesture_events_for_debugging_buffer_size"):
         self.recent_gesture_events_for_debugging_buffer_size = \
                 manifest.recent_gesture_events_for_debugging_buffer_size

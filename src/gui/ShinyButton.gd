@@ -4,10 +4,10 @@ extends Button
 
 const SHINE_TEXTURE := \
         preload("res://addons/scaffolder/assets/images/gui/shine_line.png")
-const SHINE_DURATION_SEC := 0.35
-const SHINE_INTERVAL_SEC := 3.5
-const COLOR_PULSE_DURATION_SEC := 1.2
-const COLOR_PULSE_INTERVAL_SEC := 2.4
+const SHINE_DURATION := 0.35
+const SHINE_INTERVAL := 3.5
+const COLOR_PULSE_DURATION := 1.2
+const COLOR_PULSE_INTERVAL := 2.4
 
 export var texture: Texture setget _set_texture,_get_texture
 export var texture_scale := Vector2(1.0, 1.0) setget \
@@ -105,13 +105,13 @@ func _deferred_update() -> void:
         _trigger_shine()
         shine_interval_id = Gs.time.set_interval(
                 funcref(self, "_trigger_shine"),
-                SHINE_INTERVAL_SEC)
+                SHINE_INTERVAL)
     
     if includes_color_pulse:
         _trigger_color_pulse()
         color_pulse_interval_id = Gs.time.set_interval(
                 funcref(self, "_trigger_color_pulse"),
-                COLOR_PULSE_INTERVAL_SEC)
+                COLOR_PULSE_INTERVAL)
 
 func _trigger_shine() -> void:
     shine_tween.interpolate_property(
@@ -119,7 +119,7 @@ func _trigger_shine() -> void:
             "position:x",
             shine_start_x,
             shine_end_x,
-            SHINE_DURATION_SEC,
+            SHINE_DURATION,
             "linear")
     shine_tween.start()
 
@@ -134,7 +134,7 @@ func _trigger_color_pulse() -> void:
             button_style_normal is StyleBoxFlat else \
             Gs.colors.button_normal
     var color_pulse: Color = Gs.colors.shiny_button_highlight
-    var pulse_half_duration := COLOR_PULSE_DURATION_SEC / 2.0
+    var pulse_half_duration := COLOR_PULSE_DURATION / 2.0
     
     button_style_pulse.bg_color = color_original
     $MarginContainer/BottomButton \

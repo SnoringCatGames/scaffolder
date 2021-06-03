@@ -25,7 +25,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
     $PanelContainer/Time.text = Gs.utils.get_time_string_from_seconds(
-            Gs.time.get_app_time_sec(),
+            Gs.time.get_app_time(),
             true,
             false,
             false) + " "

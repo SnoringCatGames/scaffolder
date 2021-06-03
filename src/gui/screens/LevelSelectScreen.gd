@@ -5,7 +5,7 @@ extends Screen
 const LEVEL_SELECT_ITEM_RESOURCE_PATH := \
         "res://addons/scaffolder/src/gui/level_select/LevelSelectItem.tscn"
 
-const SCROLL_TWEEN_DURATION_SEC := 0.3
+const SCROLL_TWEEN_DURATION := 0.3
 
 const NAME := "level_select"
 const LAYER_NAME := "menu_screen"
@@ -83,7 +83,7 @@ func _deferred_update() -> void:
                 _new_unlocked_item,
                 is_closing_accordion_first)
 
-func _process(_delta_sec: float) -> void:
+func _process(_delta: float) -> void:
     if Gs.nav.get_active_screen() != self:
         return
     
@@ -154,7 +154,7 @@ func _scroll_to_item(
         include_delay_for_accordion_scroll: bool) -> void:
     _scroll_target = item
     var delay := \
-            AccordionPanel.SCROLL_TWEEN_DURATION_SEC if \
+            AccordionPanel.SCROLL_TWEEN_DURATION if \
             include_delay_for_accordion_scroll else \
             0.0
     Gs.time.tween_method(
@@ -162,7 +162,7 @@ func _scroll_to_item(
             "_interpolate_scroll",
             0.0,
             1.0,
-            SCROLL_TWEEN_DURATION_SEC,
+            SCROLL_TWEEN_DURATION,
             "ease_in_out",
             delay,
             TimeType.APP_PHYSICS,

@@ -10,7 +10,7 @@ func _init() -> void:
     _control = Control.new()
     add_child(_control)
 
-func _process(_delta_sec: float) -> void:
+func _process(_delta: float) -> void:
     var next_focused_control := _control.get_focus_owner()
     if _focused_control != next_focused_control:
         _focused_control = next_focused_control

@@ -22,7 +22,7 @@ const UUID := preload("res://addons/crypto_uuid_v4/uuid.gd")
 
 # NOTE: These pings are also used to check for whether there is Internet
 #       connection, so don't increase this too much.
-const PING_INTERVAL_SEC := 60.0
+const PING_INTERVAL := 60.0
 const BATCH_SIZE_LIMIT := 20
 
 const GOOGLE_ANALYTICS_DOMAIN := "https://www.google-analytics.com"
@@ -34,18 +34,18 @@ const CLIENT_ID_SAVE_KEY := "client_id"
 
 var client_id: String
 var _has_session_started := false
-var _last_ping_time_sec := -INF
+var _last_ping_time := -INF
 # Array<_AnalyticsEntry>
 var _retry_queue := []
 
 func _init() -> void:
     Gs.logger.print("Analytics._init")
 
-func _process(_delta_sec: float) -> void:
+func _process(_delta: float) -> void:
     if _has_session_started and \
-            Gs.time.get_app_time_sec() - _last_ping_time_sec > \
-                    PING_INTERVAL_SEC:
-        _last_ping_time_sec = Gs.time.get_app_time_sec()
+            Gs.time.get_app_time() - _last_ping_time > \
+                    PING_INTERVAL:
+        _last_ping_time = Gs.time.get_app_time()
         _ping()
 
 func start_session() -> void:
@@ -112,7 +112,7 @@ func _ping(
             "ping",
             "ping",
             "ping",
-            Gs.time.get_app_time_sec(),
+            Gs.time.get_app_time(),
             true,
             extra_details,
             is_session_end)
@@ -295,7 +295,7 @@ func _trigger_batch(batch: Array) -> void:
     var payload := ""
     for entry in batch:
         var queue_time_ms := \
-                int((Gs.time.get_app_time_sec() - entry.time_sec) * 1000)
+                int((Gs.time.get_app_time() - entry.time) * 1000)
         var entry_payload: String = \
                 "qt=%d&%s\n" % [queue_time_ms, entry.payload]
         payload += entry_payload
@@ -380,8 +380,8 @@ func _on_batch_request_completed(
 
 class _AnalyticsEntry extends Reference:
     var payload: String
-    var time_sec: float
+    var time: float
     
     func _init(payload: String) -> void:
         self.payload = payload
-        self.time_sec = Gs.time.get_app_time_sec()
+        self.time = Gs.time.get_app_time()
