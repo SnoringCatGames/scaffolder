@@ -8,11 +8,13 @@ var _is_ready := false
 var text := ""
 var _message_count := 0
 
+
 func _enter_tree() -> void:
     _log_print_queue()
     $PanelContainer.theme = Gs.theme
     position.y = max(CORNER_OFFSET.y, Gs.utils.get_safe_area_margin_top())
     position.x = max(CORNER_OFFSET.x, Gs.utils.get_safe_area_margin_left())
+
 
 func _ready() -> void:
     _is_ready = true
@@ -23,6 +25,7 @@ func _ready() -> void:
             "_on_resized")
     _on_resized()
 
+
 func _process(_delta: float) -> void:
     $PanelContainer/Time.text = Gs.utils.get_time_string_from_seconds(
             Gs.time.get_app_time(),
@@ -30,14 +33,17 @@ func _process(_delta: float) -> void:
             false,
             false) + " "
 
+
 func _on_resized() -> void:
     var viewport_size := get_viewport().size
     $PanelContainer/ScrollContainer.rect_min_size = viewport_size
     $PanelContainer/ScrollContainer/Label.rect_min_size.x = viewport_size.x
 
+
 func _delayed_init() -> void:
     $PanelContainer/ScrollContainer/Label.text = text
     Gs.time.set_timeout(funcref(self, "_scroll_to_bottom"), 0.2)
+
 
 func add_message(message: String) -> void:
     text += "> " + message + "\n"
@@ -47,20 +53,24 @@ func add_message(message: String) -> void:
         $PanelContainer/ScrollContainer/Label.text = text
         Gs.time.set_timeout(funcref(self, "_scroll_to_bottom"), 0.2)
 
+
 func _remove_surplus_message() -> void:
     # Remove the oldest message.
     if _message_count > MESSAGE_COUNT_LIMIT:
         var index := text.find("\n> ")
         text = text.substr(index + 1)
 
+
 func _scroll_to_bottom() -> void:
     $PanelContainer/ScrollContainer.scroll_vertical = \
             $PanelContainer/ScrollContainer.get_v_scrollbar().max_value
+
 
 func _log_print_queue() -> void:
     for entry in Gs.logger._print_queue:
         add_message(entry)
     Gs.logger._print_queue.clear()
+
 
 func _on_PanelContainer_gui_input(event: InputEvent) -> void:
     var is_mouse_down: bool = \

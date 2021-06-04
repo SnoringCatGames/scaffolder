@@ -8,6 +8,7 @@ const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := true
 const INCLUDES_CENTER_CONTAINER := true
 
+
 func _init().(
         NAME,
         LAYER_NAME,
@@ -18,14 +19,17 @@ func _init().(
         ) -> void:
     pass
 
+
 func _ready() -> void:
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/ClientIdNumber.text = \
             str(Gs.analytics.client_id)
 
+
 func _get_focused_button() -> ShinyButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/CancelButton as ShinyButton
+
 
 func _on_ConfirmButton_pressed():
     Gs.utils.give_button_press_feedback()
@@ -41,9 +45,11 @@ func _on_ConfirmButton_pressed():
     
     quit()
 
+
 func quit() -> void:
     get_tree().quit()
     Gs.nav.open("data_agreement")
+
 
 func _on_CancelButton_pressed():
     Gs.utils.give_button_press_feedback()

@@ -9,6 +9,7 @@ var initial_expand_margin: float
 var initial_shadow_offset: Vector2
 var initial_shadow_size: int
 
+
 func ready() -> void:
     initial_border_width = border_width_top
     initial_content_margin = content_margin_top
@@ -19,8 +20,10 @@ func ready() -> void:
     initial_shadow_size = shadow_size
     Gs.add_gui_to_scale(self, 1.0)
 
+
 func destroy() -> void:
     Gs.remove_gui_to_scale(self)
+
 
 func update_gui_scale(gui_scale: float) -> bool:
     var current_border_width := round(initial_border_width * Gs.gui_scale)

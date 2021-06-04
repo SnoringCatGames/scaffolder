@@ -19,14 +19,17 @@ var body: LevelSelectItemBody
 var is_unlocked := false
 var is_new_unlocked_item := false
 
+
 func _ready() -> void:
     _init_children()
     call_deferred("update")
+
 
 func _process(_delta: float) -> void:
     rect_min_size.y = \
             $HeaderWrapper.rect_min_size.y + \
             $AccordionPanel.rect_min_size.y
+
 
 func _init_children() -> void:
     locked_header = $HeaderWrapper/LevelSelectItemLockedHeader
@@ -41,6 +44,7 @@ func _init_children() -> void:
             $HeaderWrapper.rect_size.y
     
     update_gui_scale(1.0)
+
 
 func update_gui_scale(gui_scale: float) -> bool:
     rect_position.x *= gui_scale
@@ -58,6 +62,7 @@ func update_gui_scale(gui_scale: float) -> bool:
     accordion.update_gui_scale(gui_scale)
     
     return true
+
 
 func update() -> void:
     if level_id == "":
@@ -80,20 +85,24 @@ func update() -> void:
     #       but for some reason the height keeps getting enlarged otherwise.
     accordion.height_override = 268.0
 
+
 func focus() -> void:
     if is_unlocked:
         $HeaderWrapper/LevelSelectItemUnlockedHeader.grab_focus()
     else:
         $HeaderWrapper/LevelSelectItemLockedHeader.grab_focus()
 
+
 func toggle() -> void:
     if Gs.nav.get_active_screen_name() == "level_select":
         accordion.toggle()
+
 
 func unlock() -> void:
     unlocked_header.visible = false
     unlocked_header.modulate.a = 0.0
     unlocked_header.unlock()
+
 
 func _on_unlock_fade_finished(fade_tween: Tween) -> void:
     fade_tween.queue_free()
@@ -101,32 +110,41 @@ func _on_unlock_fade_finished(fade_tween: Tween) -> void:
     unlocked_header.visible = true
     emit_signal("pressed")
 
+
 func _set_level_id(value: String) -> void:
     level_id = value
     update()
 
+
 func _get_level_id() -> String:
     return level_id
+
 
 func _set_is_open(value: bool) -> void:
     accordion.is_open = value
     update()
 
+
 func _get_is_open() -> bool:
     return accordion.is_open
 
+
 func get_button() -> ShinyButton:
     return body.get_button()
+
 
 func _on_LevelSelectItemUnlockedHeader_pressed() -> void:
     Gs.utils.give_button_press_feedback()
     emit_signal("pressed")
 
+
 func _on_AccordionPanel_toggled() -> void:
     emit_signal("toggled")
 
+
 func _on_AccordionPanel_caret_rotated(rotation: float) -> void:
     unlocked_header.update_caret_rotation(rotation)
+
 
 func _on_LevelSelectItemLockedHeader_unlock_finished() -> void:
     locked_header.visible = true

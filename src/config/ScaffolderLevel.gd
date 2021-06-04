@@ -17,6 +17,7 @@ var id: String setget _set_id,_get_id
 var is_started: bool setget ,_get_is_started
 var level_play_time_unscaled: float setget ,_get_level_play_time_unscaled
 
+
 func _ready() -> void:
     Gs.utils.connect(
             "display_resized",
@@ -24,8 +25,10 @@ func _ready() -> void:
             "_on_resized")
     _on_resized()
 
+
 func _load() -> void:
     Gs.level = self
+
 
 func _start() -> void:
     Gs.audio.play_music(get_music_name())
@@ -38,14 +41,17 @@ func _start() -> void:
             "start",
             Gs.level_config.get_level_version_string(_id))
 
+
 func _exit_tree() -> void:
     if _is_restarting:
         Gs.nav.screens["game"].start_level(_id)
+
 
 func _destroy() -> void:
     _hide_welcome_panel()
     Gs.level = null
     queue_free()
+
 
 func quit(immediately := true) -> void:
     Gs.audio.stop_music()
@@ -58,9 +64,11 @@ func quit(immediately := true) -> void:
                 .connect("finished", self, "_on_level_quit_sound_finished")
         Gs.audio.play_sound(Gs.level_end_sound)
 
+
 func restart() -> void:
     _is_restarting = true
     quit(true)
+
 
 func _input(event: InputEvent) -> void:
     if !_has_initial_input_happened and \
@@ -72,6 +80,7 @@ func _input(event: InputEvent) -> void:
             _get_is_started():
         _on_initial_input()
 
+
 func _on_initial_input() -> void:
     Gs.logger.print("ScaffolderLevel._on_initial_input")
     _has_initial_input_happened = true
@@ -79,8 +88,10 @@ func _on_initial_input() -> void:
     if is_instance_valid(Gs.welcome_panel):
         _hide_welcome_panel()
 
+
 func _on_resized() -> void:
     pass
+
 
 func pause() -> void:
     if Gs.pauses_level_music_on_pause:
@@ -90,10 +101,12 @@ func pause() -> void:
             Gs.audio.play_music(Gs.pause_menu_music)
     Gs.nav.open("pause")
 
+
 func on_unpause() -> void:
     if Gs.pauses_level_music_on_pause:
         Gs.audio.play_music(_pre_pause_music_name)
         Gs.audio.seek(_pre_pause_music_position)
+
 
 func _show_welcome_panel() -> void:
     if !Gs.is_welcome_panel_shown:
@@ -103,10 +116,12 @@ func _show_welcome_panel() -> void:
             Gs.canvas_layers.layers.hud,
             Gs.welcome_panel_resource_path)
 
+
 func _hide_welcome_panel() -> void:
     if is_instance_valid(Gs.welcome_panel):
         Gs.welcome_panel.queue_free()
         Gs.welcome_panel = null
+
 
 func _record_level_results() -> void:
     var game_over_screen = Gs.nav.screens["game_over"]
@@ -149,6 +164,7 @@ func _record_level_results() -> void:
                 Gs.level_config.get_level_config(other_level_id).number)
     game_over_screen.new_unlocked_levels = new_unlocked_levels
 
+
 func _on_level_quit_sound_finished() -> void:
     Gs.audio.get_sound_player(Gs.level_end_sound) \
             .disconnect("finished", self, "_on_level_quit_sound_finished")
@@ -162,8 +178,10 @@ func _on_level_quit_sound_finished() -> void:
     Gs.nav.open(next_screen, true)
     _destroy()
 
+
 func get_music_name() -> String:
     return Gs.default_level_music
+
 
 func _get_is_rate_app_screen_next() -> bool:
     Gs.logger.error(
@@ -171,16 +189,20 @@ func _get_is_rate_app_screen_next() -> bool:
             "is not implemented")
     return false
 
+
 func _get_is_started() -> bool:
     return level_start_play_time_unscaled != INF
+
 
 func _get_level_play_time_unscaled() -> float:
     return Gs.time.get_play_time() - level_start_play_time_unscaled if \
             _get_is_started() else \
             0.0
 
+
 func _set_id(value: String) -> void:
     _id = value
+
 
 func _get_id() -> String:
     return _id

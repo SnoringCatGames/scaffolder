@@ -41,13 +41,16 @@ var is_sound_effects_enabled := true setget \
 var is_tracking_beat := false setget _set_is_tracking_beat
 var is_beat_event_emission_paused := false
 
+
 func _init() -> void:
     Gs.logger.print("Audio._init")
+
 
 func _process(_delta: float) -> void:
     if is_tracking_beat and \
             get_is_music_playing():
         _update_music_playback_state()
+
 
 func register_sounds(
         manifest: Array,
@@ -87,6 +90,7 @@ func register_sounds(
     
     _update_volume()
 
+
 func register_music(
         manifest: Array,
         path_prefix = _DEFAULT_MUSIC_PATH_PREFIX,
@@ -124,6 +128,7 @@ func register_music(
     
     _update_volume()
 
+
 func play_sound(
         sound_name: String,
         volume_offset := 0.0,
@@ -132,6 +137,7 @@ func play_sound(
         call_deferred("_play_sound_deferred", sound_name, volume_offset)
     else:
         _play_sound_deferred(sound_name, volume_offset)
+
 
 func play_music(
         music_name: String,
@@ -149,6 +155,7 @@ func play_music(
     else:
         cross_fade_music(music_name, transition_duration)
 
+
 func stop_music() -> bool:
     _clear_music_playback_state()
     var current_music_player := _get_current_music_player()
@@ -157,6 +164,7 @@ func stop_music() -> bool:
         return true
     else:
         return false
+
 
 func _play_sound_deferred(
         sound_name: String, 
@@ -170,21 +178,26 @@ func _play_sound_deferred(
             SILENT_VOLUME_DB
     _inflated_sounds_config[sound_name].player.play()
 
+
 func get_sound_player(sound_name: String) -> AudioStreamPlayer:
     return _inflated_sounds_config[sound_name].player
 
+
 func get_music_player(music_name: String) -> AudioStreamPlayer:
     return _inflated_music_config[music_name].player
+
 
 func _get_previous_music_player() -> AudioStreamPlayer:
     return _inflated_music_config[_previous_music_name].player if \
             _previous_music_name != "" else \
             null
 
+
 func _get_current_music_player() -> AudioStreamPlayer:
     return _inflated_music_config[_current_music_name].player if \
             get_is_music_playing() else \
             null
+
 
 func cross_fade_music(
         music_name: String,
@@ -259,10 +272,12 @@ func cross_fade_music(
     
     emit_signal("music_changed", _current_music_name)
 
+
 func _clear_music_playback_state() -> void:
     music_playback_position = INF
     time_to_next_beat = INF
     next_beat_index = -1
+
 
 func _update_music_playback_state() -> void:
     # Update playback speed to match any change in time scale.
@@ -293,6 +308,7 @@ func _update_music_playback_state() -> void:
                 next_beat_index - 1,
                 meter)
 
+
 func _on_cross_fade_music_finished(
         _object = null,
         _key = null) -> void:
@@ -313,6 +329,7 @@ func _on_cross_fade_music_finished(
                 SILENT_VOLUME_DB
         current_music_player.volume_db = loud_volume
 
+
 func set_playback_speed(playback_speed_multiplier: float) -> void:
     assert(Gs.is_music_speed_change_supported or \
             Gs.is_music_speed_scaled_with_time_scale or \
@@ -331,12 +348,14 @@ func set_playback_speed(playback_speed_multiplier: float) -> void:
         current_music_player.pitch_scale = scaled_speed
     _pitch_shift_effect.pitch_scale = 1.0 / scaled_speed
 
+
 func _update_scaled_speed() -> void:
     scaled_speed = playback_speed_multiplier
     if Gs.is_music_speed_scaled_with_time_scale:
         scaled_speed *= Gs.time.time_scale
     if Gs.is_music_speed_scaled_with_additional_debug_time_scale:
         scaled_speed *= Gs.time.additional_debug_time_scale
+
 
 func get_playback_position() -> float:
     var current_music_player := _get_current_music_player()
@@ -345,35 +364,44 @@ func get_playback_position() -> float:
     else:
         return 0.0
 
+
 func seek(position: float) -> void:
     var current_music_player := _get_current_music_player()
     if current_music_player != null:
         current_music_player.seek(position)
+
 
 func get_bpm_unscaled() -> float:
     return _inflated_music_config[_current_music_name].bpm if \
             get_is_music_playing() else \
             INF
 
+
 func get_bpm_scaled() -> float:
     return get_bpm_unscaled() * scaled_speed
+
 
 func get_beat_duration_unscaled() -> float:
     return 60.0 / get_bpm_unscaled()
 
+
 func get_beat_duration_scaled() -> float:
     return 60.0 / get_bpm_scaled()
+
 
 func get_meter() -> int:
     return _inflated_music_config[_current_music_name].meter if \
             get_is_music_playing() else \
             -1
 
+
 func get_music_name() -> String:
     return _current_music_name
 
+
 func get_is_music_playing() -> bool:
     return _current_music_name != ""
+
 
 func _set_is_music_enabled(value: bool) -> void:
     if is_music_enabled == value:
@@ -381,11 +409,13 @@ func _set_is_music_enabled(value: bool) -> void:
     is_music_enabled = value
     _update_volume()
 
+
 func _set_is_sound_effects_enabled(value: bool) -> void:
     if is_sound_effects_enabled == value:
         return
     is_sound_effects_enabled = value
     _update_volume()
+
 
 func _set_is_tracking_beat(value: bool) -> void:
     if is_tracking_beat == value:
@@ -396,6 +426,7 @@ func _set_is_tracking_beat(value: bool) -> void:
         pass
     else:
         _clear_music_playback_state()
+
 
 func _update_volume() -> void:
     for config in _inflated_music_config.values():

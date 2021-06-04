@@ -6,8 +6,10 @@ var main: Node
 
 var _throttled_size_changed: FuncRef
 
+
 func _init() -> void:
     name = "ScaffolderBootstrap"
+
 
 func run(
         app_manifest: Dictionary,
@@ -20,8 +22,10 @@ func run(
     call_deferred("_amend_app_manifest")
     call_deferred("_register_app_manifest")
 
+
 func _amend_app_manifest() -> void:
     Gs.amend_app_manifest(app_manifest)
+
 
 func _register_app_manifest() -> void:
     Gs.logger.print("ScaffolderBootstrap._register_app_manifest")
@@ -31,6 +35,7 @@ func _register_app_manifest() -> void:
         return
     else:
         call_deferred("_initialize_framework")
+
 
 func _initialize_framework() -> void:
     Gs.logger.print("ScaffolderBootstrap._initialize_framework")
@@ -82,9 +87,11 @@ func _initialize_framework() -> void:
             funcref(self, "_create_screens"),
             Gs.display_resize_throttle_interval + 0.01)
 
+
 func _create_screens() -> void:
     Gs.nav.create_screens()
     call_deferred("_on_screens_created")
+
 
 func _on_screens_created() -> void:
     Gs.logger.print("ScaffolderBootstrap._on_screens_created")
@@ -102,6 +109,7 @@ func _on_screens_created() -> void:
     else:
         _on_app_initialized()
 
+
 func _on_app_initialized() -> void:
     Gs.logger.print("ScaffolderBootstrap._on_app_initialized")
     
@@ -110,6 +118,7 @@ func _on_app_initialized() -> void:
         Gs.nav.splash()
     else:
         _on_splash_finished()
+
 
 func _on_splash_finished() -> void:
     Gs.logger.print("ScaffolderBootstrap._on_splash_finished")
@@ -126,6 +135,7 @@ func _on_splash_finished() -> void:
             "data_agreement"
     Gs.nav.open(post_splash_screen)
 
+
 func _report_any_previous_crash() -> bool:
     Gs.initialize_crash_reporter()
     Gs.crash_reporter.connect(
@@ -135,11 +145,13 @@ func _report_any_previous_crash() -> bool:
     add_child(Gs.crash_reporter)
     return Gs.crash_reporter.report_any_previous_crash()
 
+
 func _process(_delta: float) -> void:
     if Gs.debug or Gs.playtest:
         if Input.is_action_just_pressed("screenshot"):
             Gs.were_screenshots_taken = true
             Gs.utils.take_screenshot()
+
 
 func _notification(notification: int) -> void:
     if notification == MainLoop.NOTIFICATION_WM_FOCUS_OUT and \
@@ -148,8 +160,10 @@ func _notification(notification: int) -> void:
             Gs.pauses_on_focus_out:
         Gs.level.pause()
 
+
 func _on_resized() -> void:
     _throttled_size_changed.call_func()
+
 
 func _on_throttled_size_changed() -> void:
     Gs.logger.print("ScaffolderBootstrap._on_throttled_size_changed")
@@ -166,11 +180,13 @@ func _on_throttled_size_changed() -> void:
     _scale_guis()
     Gs.utils.emit_signal("display_resized")
 
+
 func _update_font_sizes() -> void:
     for key in Gs.fonts:
         Gs.fonts[key].size = \
                 Gs.original_font_sizes[key] * \
                 Gs.gui_scale
+
 
 func _update_checkbox_size() -> void:
     var target_icon_size := Gs.default_checkbox_icon_size * Gs.gui_scale
@@ -193,6 +209,7 @@ func _update_checkbox_size() -> void:
     
     Gs.theme.set_icon("checked", "CheckBox", checked_icon)
     Gs.theme.set_icon("unchecked", "CheckBox", unchecked_icon)
+
 
 func _update_tree_arrow_size() -> void:
     var target_icon_size := Gs.default_tree_arrow_icon_size * Gs.gui_scale
@@ -217,6 +234,7 @@ func _update_tree_arrow_size() -> void:
     Gs.theme.set_icon("arrow_collapsed", "Tree", closed_icon)
     Gs.theme.set_constant(
             "item_margin", "Tree", Gs.current_tree_arrow_icon_size)
+
 
 func _update_game_area_region_and_gui_scale() -> void:
     var viewport_size := get_viewport().size
@@ -261,9 +279,11 @@ func _update_game_area_region_and_gui_scale() -> void:
         Gs.gui_scale = \
                 max(Gs.gui_scale, Gs.MIN_GUI_SCALE)
 
+
 func _scale_guis() -> void:
     for gui in Gs.guis_to_scale:
         Gs.utils._scale_gui_for_current_screen_size(gui)
+
 
 func _set_window_debug_size_and_position() -> void:
     if Gs.debug and \
@@ -283,6 +303,7 @@ func _set_window_debug_size_and_position() -> void:
             OS.window_size = Gs.debug_window_size
     
     _on_resized()
+
 
 func _log_device_settings() -> void:
     var utils_model_name: String = Gs.utils.get_model_name()

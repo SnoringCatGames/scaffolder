@@ -9,11 +9,14 @@ var id := -1
 var _pending_sub_tweens := []
 var _active_sub_tweens := []
 
+
 func _init() -> void:
     self.id = Gs.time.get_next_task_id()
 
+
 func _process(_delta: float) -> void:
     step()
+
 
 func step() -> void:
     if !is_active():
@@ -36,8 +39,10 @@ func step() -> void:
     if !is_active():
         emit_signal("tween_all_completed")
 
+
 func is_active() -> bool:
     return !_active_sub_tweens.empty()
+
 
 func start() -> bool:
     if _pending_sub_tweens.empty():
@@ -49,6 +54,7 @@ func start() -> bool:
     _pending_sub_tweens.clear()
     
     return true
+
 
 func stop(object: Object, key := "") -> bool:
     var matching_index := -1
@@ -66,8 +72,10 @@ func stop(object: Object, key := "") -> bool:
     else:
         return false
 
+
 func _stop_sub_tween(sub_tween: _SubTween) -> void:
     _active_sub_tweens.erase(sub_tween)
+
 
 func stop_all() -> bool:
     if _active_sub_tweens.empty():
@@ -75,6 +83,7 @@ func stop_all() -> bool:
     else:
         _active_sub_tweens.clear()
         return true
+
 
 func interpolate_method(
         object: Object,
@@ -96,6 +105,7 @@ func interpolate_method(
             delay,
             time_type)
 
+
 func interpolate_property(
         object: Object,
         key: NodePath,
@@ -115,6 +125,7 @@ func interpolate_property(
             ease_name,
             delay,
             time_type)
+
 
 func _interpolate(
         object: Object,
@@ -136,6 +147,7 @@ func _interpolate(
             ease_name,
             delay,
             time_type))
+
 
 class _SubTween extends Reference:
     var object: Object

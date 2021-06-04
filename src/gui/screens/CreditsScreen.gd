@@ -10,6 +10,7 @@ const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := true
 const INCLUDES_CENTER_CONTAINER := true
 
+
 func _init().(
         NAME,
         LAYER_NAME,
@@ -19,6 +20,7 @@ func _init().(
         INCLUDES_CENTER_CONTAINER \
         ) -> void:
     pass
+
 
 func _ready() -> void:
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
@@ -76,29 +78,36 @@ func _ready() -> void:
             ThirdPartyLicensesButton.visible = \
             Gs.is_third_party_licenses_shown
 
+
 func _on_third_party_licenses_button_pressed():
     Gs.utils.give_button_press_feedback()
     Gs.nav.open("third_party_licenses")
+
 
 func _on_snoring_cat_games_link_pressed():
     Gs.utils.give_button_press_feedback()
     OS.shell_open(Gs.developer_url)
 
+
 func _on_godot_link_pressed():
     Gs.utils.give_button_press_feedback()
     OS.shell_open(GODOT_URL)
+
 
 func _on_PrivacyPolicyLink_pressed():
     Gs.utils.give_button_press_feedback()
     OS.shell_open(Gs.privacy_policy_url)
 
+
 func _on_TermsAndConditionsLink_pressed():
     Gs.utils.give_button_press_feedback()
     OS.shell_open(Gs.terms_and_conditions_url)
 
+
 func _on_SupportLink_pressed():
     Gs.utils.give_button_press_feedback()
     OS.shell_open(Gs.get_support_url_with_params())
+
 
 func _on_DataDeletionButton_pressed():
     Gs.utils.give_button_press_feedback()

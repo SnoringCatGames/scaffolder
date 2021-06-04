@@ -8,6 +8,7 @@ const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := true
 const INCLUDES_CENTER_CONTAINER := true
 
+
 func _init().(
         NAME,
         LAYER_NAME,
@@ -17,6 +18,7 @@ func _init().(
         INCLUDES_CENTER_CONTAINER \
         ) -> void:
     pass
+
 
 func set_params(params) -> void:
     .set_params(params)
@@ -54,9 +56,11 @@ func set_params(params) -> void:
     else:
         link.visible = false
 
+
 func _get_focused_button() -> ShinyButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/CloseButton as ShinyButton
+
 
 func _on_CloseButton_pressed():
     Gs.utils.give_button_press_feedback()
@@ -72,6 +76,7 @@ func _on_CloseButton_pressed():
                 [params["next_screen"]])
     else:
         Gs.nav.close_current_screen()
+
 
 func _on_NotificationLink_pressed():
     Gs.utils.give_button_press_feedback()

@@ -217,6 +217,7 @@ var active_overlays := []
 
 # ---
 
+
 func _enter_tree() -> void:
     self.logger = ScaffolderLog.new()
     add_child(self.logger)
@@ -224,6 +225,7 @@ func _enter_tree() -> void:
     
     self.utils = Utils.new()
     add_child(self.utils)
+
 
 func amend_app_manifest(manifest: Dictionary) -> void:
     if !manifest.has("screen_path_exclusions"):
@@ -252,6 +254,7 @@ func amend_app_manifest(manifest: Dictionary) -> void:
         manifest.level_select_item_class_exclusions = []
     if !manifest.has("level_select_item_class_inclusions"):
         manifest.level_select_item_class_inclusions = []
+
 
 func register_app_manifest(manifest: Dictionary) -> void:
     self.manifest = manifest
@@ -431,6 +434,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.is_loading_image_shown = manifest.has("loading_image_scene_path")
     self.does_app_contain_welcome_panel = welcome_panel_resource_path != ""
 
+
 func initialize_crash_reporter() -> CrashReporter:
     if manifest.has("crash_reporter_class"):
         self.crash_reporter = manifest.crash_reporter_class.new()
@@ -438,6 +442,7 @@ func initialize_crash_reporter() -> CrashReporter:
     else:
         self.crash_reporter = CrashReporter.new()
     return self.crash_reporter
+
 
 func initialize() -> void:
     if manifest.has("audio_class"):
@@ -537,14 +542,17 @@ func initialize() -> void:
     
     _validate_project_config()
 
+
 func add_gui_to_scale(
         gui,
         default_gui_scale: float) -> void:
     guis_to_scale[gui] = default_gui_scale
     Gs.utils._scale_gui_for_current_screen_size(gui)
 
+
 func remove_gui_to_scale(gui) -> void:
     guis_to_scale.erase(gui)
+
 
 func load_state() -> void:
     _clear_old_data_agreement_version()
@@ -573,10 +581,12 @@ func load_state() -> void:
             ADDITIONAL_DEBUG_TIME_SCALE_SETTINGS_KEY,
             1.0)
 
+
 func _clear_old_data_agreement_version() -> void:
     if Gs.data_agreement_version != Gs.save_state.get_data_agreement_version():
         Gs.save_state.set_data_agreement_version(Gs.data_agreement_version)
         set_agreed_to_terms(false)
+
 
 func set_agreed_to_terms(value := true) -> void:
     agreed_to_terms = value
@@ -584,17 +594,21 @@ func set_agreed_to_terms(value := true) -> void:
             Gs.AGREED_TO_TERMS_SETTINGS_KEY,
             value)
 
+
 func _set_is_debug_panel_shown(is_visible: bool) -> void:
     is_debug_panel_shown = is_visible
     if debug_panel != null:
         debug_panel.visible = is_visible
 
+
 func _get_is_debug_panel_shown() -> bool:
     return is_debug_panel_shown
+
 
 func _record_original_font_sizes() -> void:
     for key in fonts:
         original_font_sizes[key] = fonts[key].size
+
 
 func _validate_project_config() -> void:
     assert(ProjectSettings.get_setting(
@@ -639,10 +653,12 @@ func _validate_project_config() -> void:
     assert(ProjectSettings.get_setting("physics/common/physics_fps") == \
             Time.PHYSICS_FPS)
 
+
 func get_support_url_with_params() -> String:
     var params := "?source=" + OS.get_name()
     params += "&app=" + app_id_query_param
     return Gs.support_url + params
+
 
 func get_log_gestures_url_with_params() -> String:
     var params := "?source=" + OS.get_name()

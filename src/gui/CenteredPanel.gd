@@ -7,9 +7,11 @@ export var stretches_horizontally := false \
 export var stretches_vertically := false \
         setget _set_stretches_vertically,_get_stretches_vertically
 
+
 func _init() -> void:
     theme = Gs.theme
     add_font_override("font", Gs.fonts.main_m)
+
 
 func _ready() -> void:
     Gs.utils.connect(
@@ -17,6 +19,7 @@ func _ready() -> void:
             self,
             "_on_resized")
     _on_resized()
+
 
 func _on_resized() -> void:
     if Engine.editor_hint:
@@ -49,16 +52,20 @@ func _on_resized() -> void:
     else:
         size_flags_vertical = Control.SIZE_SHRINK_CENTER
 
+
 func _set_stretches_horizontally(value: bool) -> void:
     stretches_horizontally = value
     _on_resized()
 
+
 func _get_stretches_horizontally() -> bool:
     return stretches_horizontally
+
 
 func _set_stretches_vertically(value: bool) -> void:
     stretches_vertically = value
     _on_resized()
+
 
 func _get_stretches_vertically() -> bool:
     return stretches_vertically

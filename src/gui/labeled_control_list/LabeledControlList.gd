@@ -17,14 +17,17 @@ var even_row_color := Gs.colors.zebra_stripe_even_row setget \
 var _odd_row_style: StyleBoxEmpty
 var _even_row_style: StyleBoxFlat
 
+
 func _init() -> void:
     _odd_row_style = StyleBoxEmpty.new()
     
     _even_row_style = StyleBoxFlat.new()
     _even_row_style.bg_color = even_row_color
 
+
 func _ready() -> void:
     _update_children()
+
 
 func _update_children() -> void:
     for child in get_children():
@@ -49,6 +52,7 @@ func _update_children() -> void:
     if font != null:
         _set_font_recursively(font, self)
 
+
 func find_index(label: String) -> int:
     for index in items.size():
         if items[index].label == label:
@@ -56,16 +60,20 @@ func find_index(label: String) -> int:
     Gs.logger.error()
     return -1
 
+
 func find_item(label: String) -> Dictionary:
     return items[find_index(label)]
+
 
 func _connect_item_changed_listeners() -> void:
     for item in items:
         item.connect("changed", self, "emit_signal", ["item_changed", item])
 
+
 func _disconnect_item_changed_listeners() -> void:
     for item in items:
         item.disconnect("changed", self, "emit_signal")
+
 
 func _set_items(value: Array) -> void:
     _disconnect_item_changed_listeners()
@@ -75,29 +83,37 @@ func _set_items(value: Array) -> void:
         item.update_item()
     _update_children()
 
+
 func _get_items() -> Array:
     return items
+
 
 func _set_row_height(value: float) -> void:
     row_height = value
     _update_children()
 
+
 func _get_row_height() -> float:
     return row_height
+
 
 func _set_padding_horizontal(value: float) -> void:
     padding_horizontal = value
     _update_children()
 
+
 func _get_padding_horizontal() -> float:
     return padding_horizontal
+
 
 func _set_even_row_color(value: Color) -> void:
     even_row_color = value
     _even_row_style.bg_color = even_row_color
 
+
 func _get_even_row_color() -> Color:
     return even_row_color
+
 
 func _set_font(value: Font) -> void:
     var old_font := font
@@ -106,8 +122,10 @@ func _set_font(value: Font) -> void:
         if font != null:
             _set_font_recursively(font, self)
 
+
 func _get_font() -> Font:
     return font
+
 
 static func _set_font_recursively(
         font: Font,

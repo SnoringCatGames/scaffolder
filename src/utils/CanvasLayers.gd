@@ -31,13 +31,16 @@ const _DEFAULT_LAYERS_CONFIG := [
 
 var layers := {}
 
+
 func _init() -> void:
     Gs.logger.print("CanvasLayers._init")
     name = "CanvasLayers"
 
+
 func _enter_tree() -> void:
     for config in _DEFAULT_LAYERS_CONFIG:
         create_layer(config.name, config.z_index, config.pause_mode)
+
 
 func create_layer(
         name: String,

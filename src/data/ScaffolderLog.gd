@@ -3,9 +3,11 @@ extends Node
 
 var _print_queue := []
 
+
 func _enter_tree() -> void:
     _print_front_matter()
     self.print("ScaffolderLog._enter_tree")
+
 
 func print(message: String) -> void:
     if is_instance_valid(Gs.debug_panel):
@@ -16,6 +18,7 @@ func print(message: String) -> void:
     if Gs.also_prints_to_stdout:
         print(message)
 
+
 func error(
         message := "An error occurred",
         should_assert := true) -> void:
@@ -24,6 +27,7 @@ func error(
     if should_assert:
          assert(false)
 
+
 static func static_error(
         message := "An error occurred",
         should_assert := true) -> void:
@@ -31,9 +35,11 @@ static func static_error(
     if should_assert:
          assert(false)
 
+
 func warning(message := "An warning occurred") -> void:
     push_warning("WARNING: %s" % message)
     self.print("**WARNING**: %s" % message)
+
 
 func _print_front_matter() -> void:
     self.print(
@@ -57,6 +63,7 @@ func _print_front_matter() -> void:
         get_viewport().size.y,
     ])
     self.print("")
+
 
 # NOTE: Keep this in-sync with the duplicate function in Utils.
 static func get_datetime_string() -> String:

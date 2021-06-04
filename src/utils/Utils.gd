@@ -7,6 +7,7 @@ var _ios_model_names
 var _ios_resolutions
 var _focus_releaser: Control
 
+
 func _init() -> void:
     Gs.logger.print("Utils._init")
     
@@ -18,14 +19,18 @@ func _init() -> void:
     _focus_releaser.visible = false
     add_child(_focus_releaser)
 
+
 func get_is_paused() -> bool:
     return get_tree().paused
+
 
 func pause() -> void:
     get_tree().paused = true
 
+
 func unpause() -> void:
     get_tree().paused = false
+
 
 # TODO: Replace this with any built-in feature whenever it exists
 #       (https://github.com/godotengine/godot/issues/4715).
@@ -41,6 +46,7 @@ static func subarray(
         result[i] = array[start + i]
     return result
 
+
 # TODO: Replace this with any built-in feature whenever it exists
 #       (https://github.com/godotengine/godot/issues/4715).
 static func sub_pool_vector2_array(
@@ -54,6 +60,7 @@ static func sub_pool_vector2_array(
     for i in length:
         result[i] = array[start + i]
     return result
+
 
 # TODO: Replace this with any built-in feature whenever it exists
 #       (https://github.com/godotengine/godot/issues/4715).
@@ -76,6 +83,7 @@ static func concat(
         for i in other_size:
             result[i] = other[i]
 
+
 static func join(
         array,
         delimiter := ",") -> String:
@@ -88,11 +96,13 @@ static func join(
         result += array[count - 1]
     return result
 
+
 static func array_to_set(array: Array) -> Dictionary:
     var set := {}
     for element in array:
         set[element] = element
     return set
+
 
 static func translate_polyline(
         vertices: PoolVector2Array,
@@ -103,6 +113,7 @@ static func translate_polyline(
     for i in vertices.size():
         result[i] = vertices[i] + translation
     return result
+
 
 static func get_children_by_type(
         parent: Node,
@@ -120,6 +131,7 @@ static func get_children_by_type(
                     result)
     return result
 
+
 static func get_child_by_type(
         parent: Node,
         type,
@@ -127,6 +139,7 @@ static func get_child_by_type(
     var children := get_children_by_type(parent, type, recursive)
     assert(children.size() == 1)
     return children[0]
+
 
 static func get_which_wall_collided_for_body(body: KinematicBody2D) -> int:
     if body.is_on_wall():
@@ -136,6 +149,7 @@ static func get_which_wall_collided_for_body(body: KinematicBody2D) -> int:
             if side == SurfaceSide.LEFT_WALL or side == SurfaceSide.RIGHT_WALL:
                 return side
     return SurfaceSide.NONE
+
 
 static func get_which_surface_side_collided(
         collision: KinematicCollision2D) -> int:
@@ -150,12 +164,14 @@ static func get_which_surface_side_collided(
     else:
         return SurfaceSide.RIGHT_WALL
 
+
 static func get_floor_friction_multiplier(body: KinematicBody2D) -> float:
     var collision := _get_floor_collision(body)
     # Collision friction is a property of the TileMap node.
     if collision != null and collision.collider.collision_friction != null:
         return collision.collider.collision_friction
     return 0.0
+
 
 static func _get_floor_collision(
         body: KinematicBody2D) -> KinematicCollision2D:
@@ -166,6 +182,7 @@ static func _get_floor_collision(
                     Gs.geometry.FLOOR_MAX_ANGLE:
                 return collision
     return null
+
 
 func add_scene(
         parent: Node,
@@ -195,16 +212,20 @@ func add_scene(
     
     return node
 
+
 static func get_level_touch_position(input_event: InputEvent) -> Vector2:
     return Gs.level.make_input_local(input_event).position
 
+
 func add_overlay_to_current_scene(node: Node) -> void:
     get_tree().get_current_scene().add_child(node)
+
 
 func vibrate() -> void:
     if Gs.is_giving_haptic_feedback:
         Input.vibrate_handheld(
                 Gs.input_vibrate_duration * 1000)
+
 
 func give_button_press_feedback(is_fancy := false) -> void:
     vibrate()
@@ -212,6 +233,7 @@ func give_button_press_feedback(is_fancy := false) -> void:
         Gs.audio.play_sound("menu_select_fancy")
     else:
         Gs.audio.play_sound("menu_select")
+
 
 # TODO: Replace this with better built-in EaseType/TransType easing support
 #       when it's ready
@@ -252,41 +274,52 @@ static func ease_name_to_param(name: String) -> float:
             ScaffolderLog.static_error()
             return INF
 
+
 static func ease_by_name(
         progress: float,
         ease_name: String) -> float:
     return ease(progress, ease_name_to_param(ease_name))
 
+
 static func get_is_android_device() -> bool:
     return OS.get_name() == "Android"
+
 
 static func get_is_ios_device() -> bool:
     return OS.get_name() == "iOS"
 
+
 static func get_is_browser() -> bool:
     return OS.get_name() == "HTML5"
+
 
 static func get_is_windows_device() -> bool:
     return OS.get_name() == "Windows"
 
+
 static func get_is_mac_device() -> bool:
     return OS.get_name() == "OSX"
 
+
 static func get_is_linux_device() -> bool:
     return OS.get_name() == "X11"
+
 
 static func get_is_pc_device() -> bool:
     return get_is_windows_device() or \
             get_is_mac_device() or \
             get_is_linux_device()
 
+
 static func get_is_mobile_device() -> bool:
     return get_is_android_device() or get_is_ios_device()
+
 
 static func get_model_name() -> String:
     return IosModelNames.get_model_name() if \
         get_is_ios_device() else \
         OS.get_model_name()
+
 
 func get_screen_scale() -> float:
     # NOTE: OS.get_screen_scale() is only implemented for MacOS, so it's
@@ -301,6 +334,7 @@ func get_screen_scale() -> float:
     else:
         return 1.0
 
+
 # This does not take into account the screen scale. Node.get_viewport().size
 # likely returns a smaller number than OS.window_size, because of screen scale.
 func get_screen_ppi() -> int:
@@ -309,8 +343,10 @@ func get_screen_ppi() -> int:
     else:
         return OS.get_screen_dpi()
 
+
 func _get_ios_screen_ppi() -> int:
     return _ios_resolutions.get_screen_ppi(_ios_model_names)
+
 
 # This takes into account the screen scale, and should enable accurate
 # conversion of event positions from pixels to inches.
@@ -321,11 +357,14 @@ func _get_ios_screen_ppi() -> int:
 func get_viewport_ppi() -> float:
     return get_screen_ppi() / get_screen_scale()
 
+
 func get_viewport_size_inches() -> Vector2:
     return get_viewport().size / get_viewport_ppi()
 
+
 func get_viewport_diagonal_inches() -> float:
     return get_viewport_size_inches().length()
+
 
 func get_viewport_safe_area() -> Rect2:
     var os_safe_area := OS.get_window_safe_area()
@@ -333,20 +372,26 @@ func get_viewport_safe_area() -> Rect2:
             os_safe_area.position / get_screen_scale(),
             os_safe_area.size / get_screen_scale())
 
+
 func get_safe_area_margin_top() -> float:
     return get_viewport_safe_area().position.y
+
 
 func get_safe_area_margin_bottom() -> float:
     return get_viewport().size.y - get_viewport_safe_area().end.y
 
+
 func get_safe_area_margin_left() -> float:
     return get_viewport_safe_area().position.x
+
 
 func get_safe_area_margin_right() -> float:
     return get_viewport().size.x - OS.get_window_safe_area().end.x
 
+
 static func floor_vector(v: Vector2) -> Vector2:
     return Vector2(floor(v.x), floor(v.y))
+
 
 static func mix(
         values: Array,
@@ -381,6 +426,7 @@ static func mix(
     
     return weighted_average
 
+
 static func mix_colors(
         colors: Array,
         weights: Array) -> Color:
@@ -409,6 +455,7 @@ static func mix_colors(
     
     return Color.from_hsv(h, s, v, 1.0)
 
+
 static func get_datetime_string() -> String:
     var datetime := OS.get_datetime()
     return "%s-%s-%s_%s.%s.%s" % [
@@ -419,6 +466,7 @@ static func get_datetime_string() -> String:
         datetime.minute,
         datetime.second,
     ]
+
 
 static func get_time_string_from_seconds(
         time: float,
@@ -478,6 +526,7 @@ static func get_time_string_from_seconds(
     
     return time_str
 
+
 func take_screenshot() -> void:
     if !ensure_directory_exists("user://screenshots"):
         return
@@ -489,10 +538,12 @@ func take_screenshot() -> void:
     if status != OK:
         Gs.logger.error()
 
+
 func open_screenshot_folder() -> void:
     var path := OS.get_user_data_dir() + "/screenshots"
     Gs.logger.print("Opening screenshot folder: " + path)
     OS.shell_open(path)
+
 
 func ensure_directory_exists(path: String) -> bool:
     var directory := Directory.new()
@@ -501,6 +552,7 @@ func ensure_directory_exists(path: String) -> bool:
         Gs.logger.error("make_dir_recursive failed: " + str(status))
         return false
     return true
+
 
 func clear_directory(
         path: String,
@@ -534,6 +586,7 @@ func clear_directory(
         if status != OK:
             Gs.logger.error("Failed to delete directory", false)
 
+
 static func get_last_x_lines_from_file(
         path: String,
         x: int) -> Array:
@@ -548,6 +601,7 @@ static func get_last_x_lines_from_file(
     file.close()
     return buffer.get_items()
 
+
 func set_mouse_filter_recursively(
         node: Node,
         mouse_filter: int) -> void:
@@ -556,6 +610,7 @@ func set_mouse_filter_recursively(
             if !(child is Button):
                 child.mouse_filter = mouse_filter
         set_mouse_filter_recursively(child, mouse_filter)
+
 
 # Automatically resize the gui to adapt to different screen sizes.
 func _scale_gui_for_current_screen_size(gui) -> void:
@@ -573,6 +628,7 @@ func _scale_gui_for_current_screen_size(gui) -> void:
         Gs.utils._scale_gui_recursively(
                 gui,
                 relative_scale)
+
 
 func _scale_gui_recursively(
         gui,
@@ -643,6 +699,7 @@ func _scale_gui_recursively(
     if explicitly_updates_rect_size:
         control.rect_size = next_rect_size
 
+
 func get_node_vscroll_position(
         scroll_container: ScrollContainer,
         control: Control) -> int:
@@ -656,6 +713,7 @@ func get_node_vscroll_position(
     var max_vscroll_position := scroll_container.get_v_scrollbar().max_value
     return vscroll_position
 
+
 func does_control_have_focus_recursively(control: Control) -> bool:
     var focused_control := _focus_releaser.get_focus_owner()
     while focused_control != null:
@@ -664,11 +722,13 @@ func does_control_have_focus_recursively(control: Control) -> bool:
         focused_control = focused_control.get_parent_control()
     return false
 
+
 func release_focus(control = null) -> void:
     if control == null or \
             does_control_have_focus_recursively(control):
         _focus_releaser.grab_focus()
         _focus_releaser.release_focus()
+
 
 static func get_collection_from_exclusions_and_inclusions(
         default: Array,
@@ -695,6 +755,7 @@ static func get_collection_from_exclusions_and_inclusions(
     
     return collection
 
+
 func create_stylebox_flat_scalable(config) -> StyleBoxFlatScalable:
     if config is Color:
         var stylebox := StyleBoxFlatScalable.new()
@@ -708,6 +769,7 @@ func create_stylebox_flat_scalable(config) -> StyleBoxFlatScalable:
     else:
         Gs.logger.error()
         return null
+
 
 func _create_stylebox_flat_scalable_from_config(
         config: Dictionary) -> StyleBoxFlatScalable:
@@ -751,6 +813,7 @@ func _create_stylebox_flat_scalable_from_config(
     stylebox.ready()
     return stylebox
 
+
 func _create_stylebox_flat_scalable_from_stylebox(
         old: StyleBox) -> StyleBoxFlatScalable:
     var new := StyleBoxFlatScalable.new()
@@ -787,10 +850,12 @@ func _create_stylebox_flat_scalable_from_stylebox(
     new.ready()
     return new
 
+
 func get_instance_id_or_not(object: Object) -> int:
     return object.get_instance_id() if \
             object != null else \
             -1
+
 
 # JSON encoding with custom syntax for vector values.
 func to_json_object(value):
@@ -849,6 +914,7 @@ func to_json_object(value):
         _:
             Gs.utils.error("Unsupported data type for JSON: " + value)
 
+
 # JSON decoding with custom syntax for vector values.
 func from_json_object(json):
     match typeof(json):
@@ -887,8 +953,10 @@ func from_json_object(json):
         _:
             return json
 
+
 func encode_vector2(value: Vector2) -> String:
     return "%f,%f" % [value.x, value.y]
+
 
 func decode_vector2(value: String) -> Vector2:
     var comma_index := value.find(",")
@@ -896,8 +964,10 @@ func decode_vector2(value: String) -> Vector2:
             float(value.substr(0, comma_index - 1)),
             float(value.substr(comma_index + 1)))
 
+
 func encode_vector3(value: Vector3) -> String:
     return "%f,%f,%f" % [value.x, value.y, value.z]
+
 
 func decode_vector3(value: String) -> Vector3:
     var comma_index_1 := value.find(",")
@@ -908,6 +978,7 @@ func decode_vector3(value: String) -> Vector3:
                     comma_index_2 - comma_index_1 - 1)),
             float(value.substr(comma_index_2 + 1)))
 
+
 func encode_rect2(value: Rect2) -> String:
     return "%f,%f,%f,%f" % [
         value.position.x,
@@ -915,6 +986,7 @@ func encode_rect2(value: Rect2) -> String:
         value.size.x,
         value.size.y,
     ]
+
 
 func decode_rect2(value: String) -> Rect2:
     var comma_index_1 := value.find(",")
@@ -928,6 +1000,7 @@ func decode_rect2(value: String) -> Rect2:
                     comma_index_3 - comma_index_2 - 1)),
             float(value.substr(comma_index_3 + 1)))
 
+
 func encode_color(value: Color) -> String:
     return "%f,%f,%f,%f" % [
         value.r,
@@ -935,6 +1008,7 @@ func encode_color(value: Color) -> String:
         value.b,
         value.a,
     ]
+
 
 func decode_color(value: String) -> Color:
     var comma_index_1 := value.find(",")
@@ -955,12 +1029,14 @@ func decode_color(value: String) -> Color:
                         comma_index_2 - comma_index_1 - 1)),
                 float(value.substr(comma_index_2 + 1)))
 
+
 func encode_vector2_array(value) -> Array:
     var result := []
     result.resize(value.size())
     for i in value.size():
         result[i] = encode_vector2(value[i])
     return result
+
 
 func decode_vector2_array(value: Array) -> Array:
     var result := []
@@ -969,8 +1045,10 @@ func decode_vector2_array(value: Array) -> Array:
         result[i] = decode_vector2(value[i])
     return result
 
+
 func get_all_nodes_in_group(group_name: String) -> Array:
     return get_tree().get_nodes_in_group(group_name)
+
 
 func get_node_in_group(group_name: String) -> Node:
     var nodes := get_tree().get_nodes_in_group(group_name)

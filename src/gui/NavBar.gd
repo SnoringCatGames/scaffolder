@@ -9,6 +9,7 @@ export var shows_settings := false setget \
         _set_shows_settings,_get_shows_settings
 export var shows_logo := false setget _set_shows_logo,_get_shows_logo
 
+
 func _enter_tree() -> void:
     $MarginContainer/Header.add_color_override(
             "font_color", Gs.colors.header_font)
@@ -30,50 +31,62 @@ func _enter_tree() -> void:
     $MarginContainer/LogoWrapper/Logo.texture_scale = \
             Vector2(Gs.app_logo_scale, Gs.app_logo_scale)
 
+
 func _set_text(value: String) -> void:
     text = value
     if $MarginContainer/Header != null:
         $MarginContainer/Header.text = text
+
 
 func _set_shows_back(value: bool) -> void:
     shows_back = value
     if $MarginContainer/BackButton != null:
         $MarginContainer/BackButton.visible = shows_back
 
+
 func _get_shows_back() -> bool:
     return shows_back
+
 
 func _set_shows_about(value: bool) -> void:
     shows_about = value
     if $MarginContainer/AboutButton != null:
         $MarginContainer/AboutButton.visible = shows_about
 
+
 func _get_shows_about() -> bool:
     return shows_about
+
 
 func _set_shows_settings(value: bool) -> void:
     shows_settings = value
     if $MarginContainer/SettingsButton != null:
         $MarginContainer/SettingsButton.visible = shows_settings
 
+
 func _get_shows_settings() -> bool:
     return shows_settings
+
 
 func _set_shows_logo(value: bool) -> void:
     shows_logo = value
     if $MarginContainer/LogoWrapper != null:
         $MarginContainer/LogoWrapper.visible = shows_logo
 
+
 func _get_shows_logo() -> bool:
     return shows_logo
+
 
 func _on_BackButton_pressed():
     Gs.utils.give_button_press_feedback()
     Gs.nav.close_current_screen()
 
+
 func _on_AboutButton_pressed():
     Gs.utils.give_button_press_feedback()
     Gs.nav.open("credits")
+
 
 func _on_SettingsButton_pressed():
     Gs.utils.give_button_press_feedback()

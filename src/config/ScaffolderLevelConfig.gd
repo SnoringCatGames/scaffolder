@@ -17,9 +17,11 @@ extends Node
 var are_levels_scene_based: bool
 var _level_configs_by_number := {}
 
+
 func _init(are_levels_scene_based: bool) -> void:
     Gs.logger.print("ScaffolderLevelConfig._init")
     self.are_levels_scene_based = are_levels_scene_based
+
 
 func _ready() -> void:
     _clear_old_version_level_state()
@@ -27,6 +29,7 @@ func _ready() -> void:
     _sanitize_level_configs()
     
     Gs.save_state.set_level_is_unlocked(_level_configs_by_number[1].id, true)
+
 
 func _sanitize_level_configs() -> void:
     var level_configs_by_priority := {}
@@ -46,6 +49,7 @@ func _sanitize_level_configs() -> void:
         _level_configs_by_number[number] = config
         number += 1
 
+
 func _sanitize_level_config(config: Dictionary) -> void:
     assert(config.has("name") and config.name is String)
     assert(config.has("version") and config.version is String)
@@ -58,18 +62,22 @@ func _sanitize_level_config(config: Dictionary) -> void:
             config.has("script_class") and \
             !config.has("scene_path"))
 
+
 func get_level_config(level_id: String) -> Dictionary:
     Gs.logger.error(
             "Abstract ScaffolderLevelConfig.get_level_config is not implemented")
     return {}
+
 
 func get_level_ids() -> Array:
     Gs.logger.error(
             "Abstract ScaffolderLevelConfig.get_level_ids is not implemented")
     return []
 
+
 func get_level_version_string(level_id: String) -> String:
     return level_id + "v" + get_level_config(level_id).version
+
 
 func _clear_old_version_level_state() -> void:
     if Gs.score_version != Gs.save_state.get_score_version():
@@ -82,10 +90,12 @@ func _clear_old_version_level_state() -> void:
             Gs.save_state.erase_level_state(level_id)
             Gs.save_state.set_level_version(level_id, config.version)
 
+
 func _get_number_from_version(version: String) -> int:
     var parts := version.split(".")
     assert(parts.size() == 3)
     return int(parts[0]) * 1000000 + int(parts[1]) * 1000 + int(parts[2])
+
 
 func get_old_unlocked_levels() -> Array:
     var old_unlocked_levels := []
@@ -93,6 +103,7 @@ func get_old_unlocked_levels() -> Array:
         if Gs.save_state.get_level_is_unlocked(level_id):
             old_unlocked_levels.push_back(level_id)
     return old_unlocked_levels
+
 
 func get_new_unlocked_levels() -> Array:
     var new_unlocked_levels := []
@@ -102,8 +113,10 @@ func get_new_unlocked_levels() -> Array:
             new_unlocked_levels.push_back(level_id)
     return new_unlocked_levels
 
+
 func _check_if_level_meets_unlock_conditions(level_id: String) -> bool:
     return get_unlock_hint(level_id) == ""
+
 
 func get_unlock_hint(level_id: String) -> String:
     Gs.logger.error(
@@ -111,6 +124,7 @@ func get_unlock_hint(level_id: String) -> String:
     return "Not yet unlocked" if \
             !Gs.save_state.get_level_is_unlocked(level_id) else \
             ""
+
 
 func get_next_level_to_unlock() -> String:
     var locked_level_numbers := []
@@ -124,6 +138,7 @@ func get_next_level_to_unlock() -> String:
         return ""
     else:
         return _level_configs_by_number[locked_level_numbers.front()].id
+
 
 func get_suggested_next_level() -> String:
     Gs.logger.error(

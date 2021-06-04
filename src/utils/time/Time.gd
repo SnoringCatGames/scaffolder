@@ -26,9 +26,11 @@ var _last_timeout_id := -1
 # Dictionary<FuncRef, _Throttler>
 var _throttled_callbacks := {}
 
+
 func _init() -> void:
     Gs.logger.print("Time._init")
     pause_mode = Node.PAUSE_MODE_PROCESS
+
 
 func _enter_tree() -> void:
     _app_time = _TimeTracker.new()
@@ -39,10 +41,12 @@ func _enter_tree() -> void:
     _play_time.pause_mode = Node.PAUSE_MODE_STOP
     add_child(_play_time)
 
+
 func _process(_delta: float) -> void:
     _handle_tweens()
     _handle_timeouts()
     _handle_intervals()
+
 
 func _handle_tweens() -> void:
     var finished_tween_ids := []
@@ -54,6 +58,7 @@ func _handle_tweens() -> void:
     
     for id in finished_tween_ids:
         _tweens.erase(id)
+
 
 # This only ever triggers one expired timeout within a single frame, which
 # helps to balance load on the CPU.
@@ -68,6 +73,7 @@ func _handle_timeouts() -> void:
         _timeouts[expired_timeout_id].trigger()
         _timeouts.erase(expired_timeout_id)
 
+
 # This only ever triggers one interval within a single frame, which helps to
 # balance load on the CPU.
 func _handle_intervals() -> void:
@@ -80,26 +86,33 @@ func _handle_intervals() -> void:
     if triggered_interval_id >= 0:
         _intervals[triggered_interval_id].trigger()
 
+
 func get_next_task_id() -> int:
     _last_timeout_id += 1
     return _last_timeout_id
 
+
 func get_app_time() -> float:
     return get_elapsed_time(TimeType.APP_PHYSICS)
+
 
 func get_clock_time() -> float:
     return get_elapsed_time(TimeType.APP_CLOCK)
 
+
 func get_play_time() -> float:
     return get_elapsed_time(TimeType.PLAY_PHYSICS)
 
+
 func get_scaled_play_time() -> float:
     return get_elapsed_time(TimeType.PLAY_PHYSICS_SCALED)
+
 
 func get_elapsed_time(time_type: int) -> float:
     var tracker := _get_time_tracker_for_time_type(time_type)
     var key := _get_elapsed_time_key_for_time_type(time_type)
     return tracker.get(key)
+
 
 func _get_time_tracker_for_time_type(time_type: int) -> _TimeTracker:
     match time_type:
@@ -116,6 +129,7 @@ func _get_time_tracker_for_time_type(time_type: int) -> _TimeTracker:
         _:
             Gs.utils.error("Unrecognized time_type: %d" % time_type)
             return null
+
 
 func _get_elapsed_time_key_for_time_type(time_type: int) -> String:
     match time_type:
@@ -137,21 +151,26 @@ func _get_elapsed_time_key_for_time_type(time_type: int) -> String:
             Gs.utils.error("Unrecognized time_type: %d" % time_type)
             return ""
 
+
 func get_combined_scale() -> float:
     return time_scale * additional_debug_time_scale
 
+
 func scale_delta(duration: float) -> float:
     return duration * get_combined_scale()
+
 
 func _set_time_scale(value: float) -> void:
     time_scale = value
     _app_time.time_scale = get_combined_scale()
     _play_time.time_scale = get_combined_scale()
 
+
 func _set_additional_debug_time_scale(value: float) -> void:
     additional_debug_time_scale = value
     _app_time.time_scale = get_combined_scale()
     _play_time.time_scale = get_combined_scale()
+
 
 func tween_method(
         object: Object,
@@ -177,6 +196,7 @@ func tween_method(
             on_completed_callback,
             arguments)
 
+
 func tween_property(
         object: Object,
         key: String,
@@ -200,6 +220,7 @@ func tween_property(
             time_type,
             on_completed_callback,
             arguments)
+
 
 func _tween(
         object: Object,
@@ -234,6 +255,7 @@ func _tween(
     _tweens[tween.id] = tween
     return tween.id
 
+
 func _call_tween_completed_callback(
         _object: Object,
         _key: String,
@@ -243,8 +265,10 @@ func _call_tween_completed_callback(
     arguments.push_front(_object)
     on_completed_callback.call_funcv(arguments)
 
+
 func clear_tween(tween_id: int) -> bool:
     return _tweens.erase(tween_id)
+
 
 func set_timeout(
         callback: FuncRef,
@@ -259,8 +283,10 @@ func set_timeout(
     _timeouts[timeout.id] = timeout
     return timeout.id
 
+
 func clear_timeout(timeout_id: int) -> bool:
     return _timeouts.erase(timeout_id)
+
 
 func set_interval(
         callback: FuncRef,
@@ -275,8 +301,10 @@ func set_interval(
     _intervals[interval.id] = interval
     return interval.id
 
+
 func clear_interval(interval_id: int) -> bool:
     return _intervals.erase(interval_id)
+
 
 func throttle(
         callback: FuncRef,
@@ -294,12 +322,15 @@ func throttle(
     _throttled_callbacks[throttled_callback] = throttler
     return throttled_callback
 
+
 func cancel_pending_throttle(throttled_callback: FuncRef) -> void:
     assert(_throttled_callbacks.has(throttled_callback))
     _throttled_callbacks[throttled_callback].cancel()
 
+
 func erase_throttle(throttled_callback: FuncRef) -> bool:
     return _throttled_callbacks.erase(throttled_callback)
+
 
 # Keeps track of elapsed time.
 class _TimeTracker extends Node:
@@ -339,6 +370,7 @@ class _TimeTracker extends Node:
         elapsed_clock_time = next_elapsed_clock_time
         elapsed_clock_scaled_time += delta_clock_time * time_scale
 
+
 class _Timeout extends Reference:
     var time_tracker
     var elapsed_time_key: String
@@ -368,6 +400,7 @@ class _Timeout extends Reference:
         if !callback.is_valid():
             return
         callback.call_funcv(arguments)
+
 
 class _Interval extends Reference:
     var time_tracker
@@ -403,6 +436,7 @@ class _Interval extends Reference:
         next_trigger_time = \
                 time_tracker.get(elapsed_time_key) + interval
         callback.call_funcv(arguments)
+
 
 class _Throttler extends Reference:
     var time_type: int

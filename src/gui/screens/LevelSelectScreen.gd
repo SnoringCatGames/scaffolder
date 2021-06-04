@@ -21,6 +21,7 @@ var expanded_item: LevelSelectItem
 var _scroll_target: LevelSelectItem
 var _new_unlocked_item: LevelSelectItem
 
+
 func _init().(
         NAME,
         LAYER_NAME,
@@ -30,6 +31,7 @@ func _init().(
         INCLUDES_CENTER_CONTAINER \
         ) -> void:
     pass
+
 
 func _ready() -> void:
     for level_id in Gs.level_config.get_level_ids():
@@ -45,9 +47,11 @@ func _ready() -> void:
         item.connect("pressed", self, "_on_item_pressed", [item])
         item.connect("toggled", self, "_on_item_toggled", [item])
 
+
 func _on_activated(previous_screen_name: String) -> void:
     ._on_activated(previous_screen_name)
     _update()
+
 
 func _update() -> void:
     _calculate_new_unlocked_item()
@@ -55,6 +59,7 @@ func _update() -> void:
         item.is_new_unlocked_item = item == _new_unlocked_item
         item.update()
     call_deferred("_deferred_update")
+
 
 func _deferred_update() -> void:
     var previous_open_item: LevelSelectItem
@@ -83,6 +88,7 @@ func _deferred_update() -> void:
                 _new_unlocked_item,
                 is_closing_accordion_first)
 
+
 func _process(_delta: float) -> void:
     if Gs.nav.get_active_screen() != self:
         return
@@ -106,6 +112,7 @@ func _process(_delta: float) -> void:
         elif previous_expanded_item != null:
             previous_expanded_item.focus()
 
+
 func _calculate_new_unlocked_item() -> void:
     var new_unlocked_levels: Array = Gs.save_state.get_new_unlocked_levels()
     if new_unlocked_levels.empty():
@@ -116,6 +123,7 @@ func _calculate_new_unlocked_item() -> void:
             if item.level_id == last_new_unlocked_level:
                 _new_unlocked_item = item
         assert(_new_unlocked_item != null)
+
 
 func _get_previous_item_to_expand() -> LevelSelectItem:
     var basis_item := \
@@ -133,6 +141,7 @@ func _get_previous_item_to_expand() -> LevelSelectItem:
     else:
         return null
 
+
 func _get_next_item_to_expand() -> LevelSelectItem:
     var basis_item := \
             expanded_item if \
@@ -148,6 +157,7 @@ func _get_next_item_to_expand() -> LevelSelectItem:
         return level_items[index]
     else:
         return null
+
 
 func _scroll_to_item(
         item: LevelSelectItem,
@@ -169,6 +179,7 @@ func _scroll_to_item(
             funcref(self, "_on_scroll_finished"),
             [item])
 
+
 func _interpolate_scroll(scroll_ratio: float) -> void:
     var scroll_start := scroll_container.get_v_scrollbar().min_value
     var scroll_end: int = Gs.utils.get_node_vscroll_position(
@@ -178,12 +189,15 @@ func _interpolate_scroll(scroll_ratio: float) -> void:
             scroll_end,
             scroll_ratio)
 
+
 func _on_scroll_finished(item: LevelSelectItem) -> void:
     item.unlock()
     Gs.save_state.set_new_unlocked_levels([])
 
+
 func _get_focused_button() -> ShinyButton:
     return null
+
 
 func _on_item_pressed(item: LevelSelectItem) -> void:
     var delay := 0.0
@@ -197,6 +211,7 @@ func _on_item_pressed(item: LevelSelectItem) -> void:
         previous_expanded_item = expanded_item
         expanded_item = null
     Gs.time.set_timeout(funcref(item, "toggle"), delay)
+
 
 func _on_item_toggled(item: LevelSelectItem) -> void:
     _give_button_focus(item.get_button())

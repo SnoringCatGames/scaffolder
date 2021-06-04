@@ -253,8 +253,10 @@ const IPOD_SUFFIX_AND_PPIS = [
     },
 ]
 
+
 func _init() -> void:
     Gs.logger.print("IosResolutions._init")
+
 
 func get_screen_ppi(ios_model_names: IosModelNames) -> int:
     assert(Gs.utils.get_is_ios_device())

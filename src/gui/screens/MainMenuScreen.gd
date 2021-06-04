@@ -12,6 +12,7 @@ var go_icon_scale_multiplier := 1.0
 
 var projected_image: Control
 
+
 func _init().(
         NAME,
         LAYER_NAME,
@@ -21,6 +22,7 @@ func _init().(
         INCLUDES_CENTER_CONTAINER \
         ) -> void:
     pass
+
 
 func _ready() -> void:
     if Gs.is_main_menu_image_shown:
@@ -43,9 +45,11 @@ func _ready() -> void:
     
     _on_resized()
 
+
 func _get_focused_button() -> ShinyButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/StartGameButton as ShinyButton
+
 
 func _on_resized() -> void:
     ._on_resized()
@@ -57,6 +61,7 @@ func _on_resized() -> void:
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/Title.visible = \
                     !is_wide_enough_to_put_title_in_nav_bar
+
 
 func _on_StartGameButton_pressed() -> void:
     Gs.utils.give_button_press_feedback()

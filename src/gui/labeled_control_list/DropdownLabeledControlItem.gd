@@ -7,6 +7,7 @@ var TYPE := LabeledControlItem.DROPDOWN
 var options: Array
 var selected_index := -1
 
+
 func _init(
         label: String,
         description: String,
@@ -19,10 +20,12 @@ func _init(
         ) -> void:
     pass
 
+
 func on_selected(selected_index: int, selected_text: String) -> void:
     Gs.logger.error(
             "Abstract DropdownLabeledControlItem.on_selected " +
             "is not implemented")
+
 
 func get_selected_index() -> bool:
     Gs.logger.error(
@@ -30,10 +33,12 @@ func get_selected_index() -> bool:
             "is not implemented")
     return false
 
+
 func _update_control() -> void:
     selected_index = get_selected_index()
     if is_instance_valid(control):
         control.select(selected_index)
+
 
 func create_control() -> Control:
     var dropdown := OptionButton.new()
@@ -50,6 +55,7 @@ func create_control() -> Control:
             self,
             "_on_dropdown_item_selected")
     return dropdown
+
 
 func _on_dropdown_item_selected(_option_index: int) -> void:
     Gs.utils.give_button_press_feedback()

@@ -8,6 +8,7 @@ var TYPE := LabeledControlItem.CHECKBOX
 
 var pressed := false
 
+
 func _init(
         label: String,
         description: String,
@@ -20,10 +21,12 @@ func _init(
         ) -> void:
     pass
 
+
 func on_pressed(pressed: bool) -> void:
     Gs.logger.error(
             "Abstract CheckboxLabeledControlItem.on_pressed " +
             "is not implemented")
+
 
 func get_is_pressed() -> bool:
     Gs.logger.error(
@@ -31,10 +34,12 @@ func get_is_pressed() -> bool:
             "is not implemented")
     return false
 
+
 func _update_control() -> void:
     pressed = get_is_pressed()
     if is_instance_valid(control):
         control.pressed = pressed
+
 
 func create_control() -> Control:
     var checkbox: ScaffolderCheckBox = Gs.utils.add_scene(
@@ -58,6 +63,7 @@ func create_control() -> Control:
             "_on_checkbox_pressed")
     return checkbox
 
+
 func set_check_box_scale(check_box_scale: float) -> void:
     var control_rect_size := Gs.current_checkbox_icon_size
     var control_rect_scale := _get_icon_scale(check_box_scale)
@@ -65,10 +71,12 @@ func set_check_box_scale(check_box_scale: float) -> void:
     control.rect_size.x = control_rect_size
     control.scale = control_rect_scale
 
+
 func _get_icon_scale(check_box_scale: float) -> float:
     var target_icon_size := \
             Gs.default_checkbox_icon_size * Gs.gui_scale * check_box_scale
     return target_icon_size / Gs.current_checkbox_icon_size
+
 
 func _on_checkbox_pressed() -> void:
     pressed = !pressed
