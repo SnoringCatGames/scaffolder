@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/DebugPanel.png-352ef4d5f9bcbd45ed2602a78ba76cee.stex"
+path="res://.import/debug_panel.png-3d0b1047bba33e44231d1d63af011ae8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/editor_icons/DebugPanel.png"
-dest_files=[ "res://.import/DebugPanel.png-352ef4d5f9bcbd45ed2602a78ba76cee.stex" ]
+source_file="res://addons/scaffolder/assets/images/editor_icons/debug_panel.png"
+dest_files=[ "res://.import/debug_panel.png-3d0b1047bba33e44231d1d63af011ae8.stex" ]
 
 [params]
 

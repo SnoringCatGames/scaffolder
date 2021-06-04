@@ -14,9 +14,9 @@ const IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY := "is_sound_effects_enabled"
 const ADDITIONAL_DEBUG_TIME_SCALE_SETTINGS_KEY := "additional_debug_time_scale"
 
 const WELCOME_PANEL_RESOURCE_PATH := \
-        "res://addons/scaffolder/src/gui/WelcomePanel.tscn"
+        "res://addons/scaffolder/src/gui/welcome_panel.tscn"
 const DEBUG_PANEL_RESOURCE_PATH := \
-        "res://addons/scaffolder/src/gui/DebugPanel.tscn"
+        "res://addons/scaffolder/src/gui/debug_panel.tscn"
 
 const MIN_GUI_SCALE := 0.2
 

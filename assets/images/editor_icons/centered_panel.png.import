@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/CenteredPanel.png-a87fc71ab8eed4e9edc2f3997411b41a.stex"
+path="res://.import/centered_panel.png-9b05bced1e05359dcec4888332efbafb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/editor_icons/CenteredPanel.png"
-dest_files=[ "res://.import/CenteredPanel.png-a87fc71ab8eed4e9edc2f3997411b41a.stex" ]
+source_file="res://addons/scaffolder/assets/images/editor_icons/centered_panel.png"
+dest_files=[ "res://.import/centered_panel.png-9b05bced1e05359dcec4888332efbafb.stex" ]
 
 [params]
 

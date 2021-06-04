@@ -51,7 +51,7 @@ Some of these are just my personal preference, some are important for the framew
 All of the Scaffolder functionality is globally accessible through properties on the `Gs` AutoLoad.
 
 -   Define `Gs` as an AutoLoad (in Project Settings).
-    -   It should point to the path `res://addons/scaffolder/src/ScaffolderConfig.gd`.
+    -   It should point to the path `res://addons/scaffolder/src/scaffolder_config.gd`.
     -   It should be the first AutoLoad in the list.
 -   Configure the Scaffolder framework by calling `ScaffolderBootstrap.on_app_ready` at the start of your Main Scene.
 
@@ -177,28 +177,28 @@ This feature currently depends on the proprietary third-party **[Google Cloud St
 ### Lots of useful utility functions
 
 It might just be easiest to scroll through some of the following files to see what sorts of functions are included:
--   [`Audio`](./src/utils/Audio.gd)
--   [`CameraShake`](./src/utils/CameraShake.gd)
--   [`DrawUtils`](./src/utils/DrawUtils.gd)
--   [`Geometry`](./src/utils/Geometry.gd)
--   [`Profiler`](./src/utils/Profiler.gd)
--   [`SaveState`](./src/data/SaveState.gd)
--   [`Time`](./src/utils/Time.gd)
--   [`Utils`](./src/utils/Utils.gd)
+-   [`Audio`](./src/utils/audio.gd)
+-   [`CameraShake`](./src/utils/camera_shake.gd)
+-   [`DrawUtils`](./src/utils/draw_utils.gd)
+-   [`Geometry`](./src/utils/geometry.gd)
+-   [`Profiler`](./src/utils/profiler.gd)
+-   [`SaveState`](./src/data/save_state.gd)
+-   [`Time`](./src/utils/time.gd)
+-   [`Utils`](./src/utils/utils.gd)
 
 ### A widget library
 
 For example:
--   [`AccordionPanel`](./src/gui/AccordionPanel.gd)
--   [`LabeledControlList`](./src/gui/labeled_control_list/LabeledControlList.gd)
--   [`ShinyButton`](./src/gui/ShinyButton.gd)
--   [`NavBar`](./src/gui/NavBar.gd)
+-   [`AccordionPanel`](./src/gui/accordion_panel.gd)
+-   [`LabeledControlList`](./src/gui/labeled_control_list/labeled_control_list.gd)
+-   [`ShinyButton`](./src/gui/shiny_button.gd)
+-   [`NavBar`](./src/gui/nav_bar.gd)
 
 ## Licenses
 
 -   All code is published under the [MIT license](LICENSE).
 -   All art assets (files under `assets/images/`, `assets/music/`, and `assets/sounds/`) are published under the [CC0 1.0 Universal license](https://creativecommons.org/publicdomain/zero/1.0/deed.en).
--   This project depends on various pieces of third-party code that are licensed separately. [Here is a list of these third-party licenses](./src/config/ScaffolderThirdPartyLicenses.gd).
+-   This project depends on various pieces of third-party code that are licensed separately. [Here is a list of these third-party licenses](./src/config/scaffolder_third_party_licenses.gd).
 
 <p align="center">
   <img src="assets/images/device_icons/icon_128.png"

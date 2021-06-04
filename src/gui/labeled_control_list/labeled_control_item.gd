@@ -20,7 +20,7 @@ const ABOUT_ICON_ACTIVE := \
         preload("res://addons/scaffolder/assets/images/gui/about_icon_active.png")
 
 const SCAFFOLDER_TEXTURE_BUTTON_SCENE_PATH := \
-        "res://addons/scaffolder/src/gui/ScaffolderTextureButton.tscn"
+        "res://addons/scaffolder/src/gui/scaffolder_texture_button.tscn"
 
 const ENABLED_ALPHA := 1.0
 const DISABLED_ALPHA := 0.3

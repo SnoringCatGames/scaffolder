@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/gui/ScaffolderCheckBox.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/scaffolder_check_box.gd" type="Script" id=1]
 
 [node name="ScaffolderCheckBox" type="Control"]
 size_flags_horizontal = 4

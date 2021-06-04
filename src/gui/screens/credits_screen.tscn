@@ -1,15 +1,15 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://addons/scaffolder/assets/images/gui/godot_logo_about.png" type="Texture" id=2]
-[ext_resource path="res://addons/scaffolder/src/gui/screens/CreditsScreen.gd" type="Script" id=3]
-[ext_resource path="res://addons/scaffolder/src/gui/NavBar.tscn" type="PackedScene" id=4]
-[ext_resource path="res://addons/scaffolder/src/gui/FullScreenPanel.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/scaffolder/src/gui/screens/credits_screen.gd" type="Script" id=3]
+[ext_resource path="res://addons/scaffolder/src/gui/nav_bar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/scaffolder/src/gui/full_screen_panel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/assets/fonts/main_font_m.tres" type="DynamicFont" id=7]
-[ext_resource path="res://addons/scaffolder/src/gui/CenteredPanel.tscn" type="PackedScene" id=8]
+[ext_resource path="res://addons/scaffolder/src/gui/centered_panel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://addons/scaffolder/assets/fonts/main_font_s.tres" type="DynamicFont" id=9]
-[ext_resource path="res://addons/scaffolder/src/gui/AccordionPanel.tscn" type="PackedScene" id=10]
+[ext_resource path="res://addons/scaffolder/src/gui/accordion_panel.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/scaffolder/assets/fonts/main_font_m_bold.tres" type="DynamicFont" id=11]
-[ext_resource path="res://addons/scaffolder/src/gui/ScaffolderTextureRect.tscn" type="PackedScene" id=12]
+[ext_resource path="res://addons/scaffolder/src/gui/scaffolder_texture_rect.tscn" type="PackedScene" id=12]
 
 [node name="CreditsScreen" type="Node2D"]
 script = ExtResource( 3 )
