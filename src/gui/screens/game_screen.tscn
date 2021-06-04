@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/gui/screens/GameScreen.gd" type="Script" id=1]
-[ext_resource path="res://addons/scaffolder/src/gui/CenteredPanel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scaffolder/src/gui/screens/game_screen.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/centered_panel.tscn" type="PackedScene" id=3]
 
 [node name="GameScreen" type="Node2D"]
 script = ExtResource( 1 )

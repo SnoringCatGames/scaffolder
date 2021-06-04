@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FullScreenPanel_64.png-35cf1bf35c9bb11f8e76a400877c3dfa.stex"
+path="res://.import/full_screen_panel_64.png-e0213d61fc66080e5cead1ec5bc3f14f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/editor_icons/FullScreenPanel_64.png"
-dest_files=[ "res://.import/FullScreenPanel_64.png-35cf1bf35c9bb11f8e76a400877c3dfa.stex" ]
+source_file="res://addons/scaffolder/assets/images/editor_icons/full_screen_panel_64.png"
+dest_files=[ "res://.import/full_screen_panel_64.png-e0213d61fc66080e5cead1ec5bc3f14f.stex" ]
 
 [params]
 

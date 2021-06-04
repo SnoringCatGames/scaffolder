@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/LabeledControlList_64.png-9120fe5b7d1712ed91641f63fa6779c5.stex"
+path="res://.import/labeled_control_list_64.png-78af8ae78a788e963d73ce8cbc0c8bcb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/editor_icons/LabeledControlList_64.png"
-dest_files=[ "res://.import/LabeledControlList_64.png-9120fe5b7d1712ed91641f63fa6779c5.stex" ]
+source_file="res://addons/scaffolder/assets/images/editor_icons/labeled_control_list_64.png"
+dest_files=[ "res://.import/labeled_control_list_64.png-78af8ae78a788e963d73ce8cbc0c8bcb.stex" ]
 
 [params]
 

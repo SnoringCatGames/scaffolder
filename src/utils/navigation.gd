@@ -6,23 +6,23 @@ signal splash_finished
 
 const _DEFAULT_SCREEN_PATH_PREFIX := "res://addons/scaffolder/src/gui/screens/"
 const _DEFAULT_SCREEN_FILENAMES := [
-    "ConfirmDataDeletionScreen.tscn",
-    "CreditsScreen.tscn",
-    "DataAgreementScreen.tscn",
-    "DeveloperSplashScreen.tscn",
-    "GameScreen.tscn",
-    "GameOverScreen.tscn",
-    "GodotSplashScreen.tscn",
-    "LevelSelectScreen.tscn",
-    "MainMenuScreen.tscn",
-    "NotificationScreen.tscn",
-    "PauseScreen.tscn",
-    "RateAppScreen.tscn",
-    "SettingsScreen.tscn",
-    "ThirdPartyLicensesScreen.tscn",
+    "confirm_data_deletion_screen.tscn",
+    "credits_screen.tscn",
+    "data_agreement_screen.tscn",
+    "developer_splash_screen.tscn",
+    "game_screen.tscn",
+    "game_over_screen.tscn",
+    "godot_splash_screen.tscn",
+    "level_select_screen.tscn",
+    "main_menu_screen.tscn",
+    "notification_screen.tscn",
+    "pause_screen.tscn",
+    "rate_app_screen.tscn",
+    "settings_screen.tscn",
+    "third_party_licenses_screen.tscn",
 ]
 const FADE_TRANSITION_PATH := \
-        _DEFAULT_SCREEN_PATH_PREFIX + "FadeTransition.tscn"
+        _DEFAULT_SCREEN_PATH_PREFIX + "fade_transition.tscn"
 
 const SCREEN_SLIDE_DURATION := 0.3
 const SCREEN_FADE_DURATION := 1.2

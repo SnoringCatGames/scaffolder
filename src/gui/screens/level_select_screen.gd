@@ -4,7 +4,7 @@ extends Screen
 
 
 const LEVEL_SELECT_ITEM_RESOURCE_PATH := \
-        "res://addons/scaffolder/src/gui/level_select/LevelSelectItem.tscn"
+        "res://addons/scaffolder/src/gui/level_select/level_select_item.tscn"
 
 const SCROLL_TWEEN_DURATION := 0.3
 

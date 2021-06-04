@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/gui/level_select/LevelSelectItemUnlockedHeader.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/level_select/level_select_item_unlocked_header.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/assets/fonts/main_font_m.tres" type="DynamicFont" id=2]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/left_caret_normal.png" type="Texture" id=3]
-[ext_resource path="res://addons/scaffolder/src/gui/ScaffolderTextureRect.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/scaffolder/src/gui/scaffolder_texture_rect.tscn" type="PackedScene" id=4]
 
 [node name="LevelSelectItemUnlockedHeader" type="Button"]
 margin_right = 320.0

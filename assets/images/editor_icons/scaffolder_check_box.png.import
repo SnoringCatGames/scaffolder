@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ScaffolderCheckBox.png-4f70a7c2dfe14877e67a3136464dfd9c.stex"
+path="res://.import/scaffolder_check_box.png-60ac39667e17a3b62758736f4a4449eb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/editor_icons/ScaffolderCheckBox.png"
-dest_files=[ "res://.import/ScaffolderCheckBox.png-4f70a7c2dfe14877e67a3136464dfd9c.stex" ]
+source_file="res://addons/scaffolder/assets/images/editor_icons/scaffolder_check_box.png"
+dest_files=[ "res://.import/scaffolder_check_box.png-60ac39667e17a3b62758736f4a4449eb.stex" ]
 
 [params]
 
