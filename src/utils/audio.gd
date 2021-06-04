@@ -3,7 +3,6 @@ extends Node
 
 
 signal music_changed(music_name)
-signal beat(is_downbeat, beat_index, meter)
 
 const MUSIC_CROSS_FADE_DURATION := 0.2
 const SILENT_VOLUME_DB := -80.0
@@ -30,27 +29,14 @@ var _previous_music_name := ""
 var _current_music_name := ""
 
 var playback_speed_multiplier := 1.0
-var scaled_speed := 1.0
-
-var music_playback_position := INF
-var time_to_next_beat := INF
-var next_beat_index := -1
 
 var is_music_enabled := true setget _set_is_music_enabled
 var is_sound_effects_enabled := true setget \
         _set_is_sound_effects_enabled
-var is_tracking_beat := false setget _set_is_tracking_beat
-var is_beat_event_emission_paused := false
 
 
 func _init() -> void:
     Gs.logger.print("Audio._init")
-
-
-func _process(_delta: float) -> void:
-    if is_tracking_beat and \
-            get_is_music_playing():
-        _update_music_beat_state()
 
 
 func register_sounds(
@@ -158,10 +144,10 @@ func play_music(
 
 
 func stop_music() -> bool:
-    _clear_music_beat_state()
     var current_music_player := _get_current_music_player()
     if current_music_player != null:
         current_music_player.stop()
+        emit_signal("music_changed", "")
         return true
     else:
         return false
@@ -274,42 +260,6 @@ func cross_fade_music(
     emit_signal("music_changed", _current_music_name)
 
 
-func _clear_music_beat_state() -> void:
-    music_playback_position = INF
-    time_to_next_beat = INF
-    next_beat_index = -1
-
-
-func _update_music_beat_state() -> void:
-    # Update playback speed to match any change in time scale.
-    var old_scaled_speed := scaled_speed
-    _update_scaled_speed()
-    if scaled_speed != old_scaled_speed:
-        set_playback_speed(playback_speed_multiplier)
-    
-    var beat_duration_unscaled := get_beat_duration_unscaled()
-    
-    var current_music_player := _get_current_music_player()
-    music_playback_position = current_music_player.get_playback_position()
-    
-    var current_beat_progress := \
-            fmod(music_playback_position, beat_duration_unscaled)
-    time_to_next_beat = beat_duration_unscaled - current_beat_progress
-    
-    var previous_beat_index := next_beat_index
-    next_beat_index = int(music_playback_position / beat_duration_unscaled) + 1
-    
-    if previous_beat_index != next_beat_index and \
-            !is_beat_event_emission_paused:
-        var meter := get_meter()
-        var is_downbeat := (next_beat_index - 1) % meter == 0
-        emit_signal(
-                "beat",
-                is_downbeat,
-                next_beat_index - 1,
-                meter)
-
-
 func _on_cross_fade_music_finished(
         _object = null,
         _key = null) -> void:
@@ -342,20 +292,20 @@ func set_playback_speed(playback_speed_multiplier: float) -> void:
         return
     self.playback_speed_multiplier = playback_speed_multiplier
     
-    _update_scaled_speed()
-    
+    var scaled_speed := get_scaled_speed()
     var current_music_player := _get_current_music_player()
     if current_music_player != null:
         current_music_player.pitch_scale = scaled_speed
     _pitch_shift_effect.pitch_scale = 1.0 / scaled_speed
 
 
-func _update_scaled_speed() -> void:
-    scaled_speed = playback_speed_multiplier
+func get_scaled_speed() -> float:
+    var scaled_speed := playback_speed_multiplier
     if Gs.is_music_speed_scaled_with_time_scale:
         scaled_speed *= Gs.time.time_scale
     if Gs.is_music_speed_scaled_with_additional_debug_time_scale:
         scaled_speed *= Gs.time.additional_debug_time_scale
+    return scaled_speed
 
 
 func get_playback_position() -> float:
@@ -370,30 +320,6 @@ func seek(position: float) -> void:
     var current_music_player := _get_current_music_player()
     if current_music_player != null:
         current_music_player.seek(position)
-
-
-func get_bpm_unscaled() -> float:
-    return _inflated_music_config[_current_music_name].bpm if \
-            get_is_music_playing() else \
-            INF
-
-
-func get_bpm_scaled() -> float:
-    return get_bpm_unscaled() * scaled_speed
-
-
-func get_beat_duration_unscaled() -> float:
-    return 60.0 / get_bpm_unscaled()
-
-
-func get_beat_duration_scaled() -> float:
-    return 60.0 / get_bpm_scaled()
-
-
-func get_meter() -> int:
-    return _inflated_music_config[_current_music_name].meter if \
-            get_is_music_playing() else \
-            -1
 
 
 func get_music_name() -> String:
@@ -416,17 +342,6 @@ func _set_is_sound_effects_enabled(value: bool) -> void:
         return
     is_sound_effects_enabled = value
     _update_volume()
-
-
-func _set_is_tracking_beat(value: bool) -> void:
-    if is_tracking_beat == value:
-        return
-    is_tracking_beat = value
-    if is_tracking_beat and \
-            get_is_music_playing():
-        pass
-    else:
-        _clear_music_beat_state()
 
 
 func _update_volume() -> void:
