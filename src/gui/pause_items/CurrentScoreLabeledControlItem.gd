@@ -1,6 +1,7 @@
 class_name CurrentScoreLabeledControlItem
 extends TextLabeledControlItem
 
+
 const LABEL := "Current score:"
 const DESCRIPTION := ""
 

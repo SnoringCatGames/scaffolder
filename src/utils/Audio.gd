@@ -1,6 +1,7 @@
 class_name Audio
 extends Node
 
+
 signal music_changed(music_name)
 signal beat(is_downbeat, beat_index, meter)
 

@@ -2,6 +2,7 @@ tool
 class_name SettingsScreen
 extends Screen
 
+
 const NAME := "settings"
 const LAYER_NAME := "menu_screen"
 const AUTO_ADAPTS_GUI_SCALE := true

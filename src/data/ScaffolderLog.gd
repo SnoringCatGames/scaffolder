@@ -1,6 +1,7 @@
 class_name ScaffolderLog
 extends Node
 
+
 var _print_queue := []
 
 

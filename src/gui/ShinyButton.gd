@@ -2,6 +2,7 @@ tool
 class_name ShinyButton, "res://addons/scaffolder/assets/images/editor_icons/ShinyButton.png"
 extends Button
 
+
 const SHINE_TEXTURE := \
         preload("res://addons/scaffolder/assets/images/gui/shine_line.png")
 const SHINE_DURATION := 0.35

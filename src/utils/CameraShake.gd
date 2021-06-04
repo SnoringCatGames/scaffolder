@@ -1,6 +1,7 @@
 class_name CameraShake
 extends Node2D
 
+
 var decay := 0.8
 var max_offset := Vector2(100.0, 50.0)
 var max_roll := 0.1

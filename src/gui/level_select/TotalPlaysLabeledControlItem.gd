@@ -1,6 +1,7 @@
 class_name TotalPlaysLabeledControlItem
 extends TextLabeledControlItem
 
+
 const LABEL := "Total plays:"
 const DESCRIPTION := ""
 

@@ -1,6 +1,7 @@
 class_name LevelSelectItemLockedHeader
 extends Control
 
+
 signal unlock_finished
 
 const LOCKED_OPACITY := 0.6

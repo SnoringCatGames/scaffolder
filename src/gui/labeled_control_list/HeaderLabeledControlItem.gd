@@ -1,6 +1,7 @@
 class_name HeaderLabeledControlItem
 extends LabeledControlItem
 
+
 var TYPE := LabeledControlItem.HEADER
 
 

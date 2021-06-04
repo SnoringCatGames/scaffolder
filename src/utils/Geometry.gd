@@ -1,6 +1,7 @@
 class_name ScaffolderGeometry
 extends Node
 
+
 const UP := Vector2.UP
 const DOWN := Vector2.DOWN
 const LEFT := Vector2.LEFT

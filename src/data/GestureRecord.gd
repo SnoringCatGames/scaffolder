@@ -1,6 +1,7 @@
 class_name GestureRecord
 extends Node2D
 
+
 # Array<GestureEventForDebugging>
 var recent_gesture_events_for_debugging := []
 

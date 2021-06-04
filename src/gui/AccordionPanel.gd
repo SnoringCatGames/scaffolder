@@ -2,6 +2,7 @@ tool
 class_name AccordionPanel, "res://addons/scaffolder/assets/images/editor_icons/AccordionPanel.png"
 extends Control
 
+
 signal toggled
 signal caret_rotated
 

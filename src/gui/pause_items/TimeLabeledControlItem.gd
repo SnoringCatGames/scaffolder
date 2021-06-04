@@ -1,6 +1,7 @@
 class_name TimeLabeledControlItem
 extends TextLabeledControlItem
 
+
 const LABEL := "Time:"
 const DESCRIPTION := ""
 

@@ -1,6 +1,7 @@
 class_name CanvasLayers
 extends Node2D
 
+
 const _DEFAULT_LAYERS_CONFIG := [
     {
         name = "menu_screen",

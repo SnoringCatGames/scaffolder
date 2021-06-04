@@ -1,6 +1,7 @@
 class_name ScaffolderStyles
 extends Node
 
+
 var button_corner_radius: int
 var button_corner_detail: int
 var button_shadow_size: int

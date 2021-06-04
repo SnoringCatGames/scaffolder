@@ -2,6 +2,7 @@ tool
 class_name NavBar, "res://addons/scaffolder/assets/images/editor_icons/NavBar.png"
 extends PanelContainer
 
+
 export var text := "" setget _set_text
 export var shows_back := true setget _set_shows_back,_get_shows_back
 export var shows_about := false setget _set_shows_about,_get_shows_about

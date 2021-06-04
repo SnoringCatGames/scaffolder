@@ -2,6 +2,7 @@ tool
 class_name CenteredPanel, "res://addons/scaffolder/assets/images/editor_icons/CenteredPanel.png"
 extends PanelContainer
 
+
 export var stretches_horizontally := false \
         setget _set_stretches_horizontally,_get_stretches_horizontally
 export var stretches_vertically := false \

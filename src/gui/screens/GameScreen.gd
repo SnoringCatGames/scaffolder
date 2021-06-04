@@ -1,6 +1,7 @@
 class_name GameScreen
 extends Screen
 
+
 const NAME := "game"
 const LAYER_NAME := "game_screen"
 const AUTO_ADAPTS_GUI_SCALE := true

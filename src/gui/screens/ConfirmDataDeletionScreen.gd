@@ -1,6 +1,7 @@
 class_name ConfirmDataDeletionScreen
 extends Screen
 
+
 const NAME := "confirm_data_deletion"
 const LAYER_NAME := "menu_screen"
 const AUTO_ADAPTS_GUI_SCALE := true

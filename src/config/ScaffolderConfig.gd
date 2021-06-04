@@ -1,6 +1,7 @@
 class_name ScaffolderConfig
 extends Node
 
+
 # ---
 
 const AGREED_TO_TERMS_SETTINGS_KEY := "agreed_to_terms"

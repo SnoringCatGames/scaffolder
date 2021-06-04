@@ -1,6 +1,7 @@
 class_name LevelLabeledControlItem
 extends TextLabeledControlItem
 
+
 const LABEL := "Level:"
 const DESCRIPTION := ""
 

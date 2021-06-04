@@ -1,6 +1,7 @@
 class_name Stopwatch
 extends Reference
 
+
 # Dictionary<String, int>
 var _start_times_msec := {}
 

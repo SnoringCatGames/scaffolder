@@ -2,6 +2,7 @@ tool
 class_name ScaffolderTextureRect, "res://addons/scaffolder/assets/images/editor_icons/ScaffolderTextureRect.png"
 extends Control
 
+
 export var texture: Texture setget \
         _set_texture,_get_texture
 

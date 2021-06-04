@@ -1,6 +1,7 @@
 class_name RateAppScreen
 extends Screen
 
+
 const NAME := "rate_app"
 const LAYER_NAME := "menu_screen"
 const AUTO_ADAPTS_GUI_SCALE := true

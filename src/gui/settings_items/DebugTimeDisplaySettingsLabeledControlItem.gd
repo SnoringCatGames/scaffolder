@@ -1,6 +1,7 @@
 class_name DebugTimeDisplaySettingsLabeledControlItem
 extends CheckboxLabeledControlItem
 
+
 const LABEL := "Debug time display"
 const DESCRIPTION := ""
 

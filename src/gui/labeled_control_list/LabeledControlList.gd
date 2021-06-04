@@ -2,6 +2,7 @@ tool
 class_name LabeledControlList, "res://addons/scaffolder/assets/images/editor_icons/LabeledControlList.png"
 extends VBoxContainer
 
+
 signal item_changed(item)
 
 export var font: Font setget _set_font,_get_font

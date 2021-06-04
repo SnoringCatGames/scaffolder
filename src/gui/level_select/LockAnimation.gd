@@ -1,6 +1,7 @@
 class_name LockAnimation
 extends Control
 
+
 signal unlock_finished
 
 const UNLOCK_DURATION := 0.8
