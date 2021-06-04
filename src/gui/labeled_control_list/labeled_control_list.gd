@@ -1,5 +1,5 @@
 tool
-class_name LabeledControlList, "res://addons/scaffolder/assets/images/editor_icons/LabeledControlList.png"
+class_name LabeledControlList, "res://addons/scaffolder/assets/images/editor_icons/labeled_control_list.png"
 extends VBoxContainer
 
 

@@ -1,5 +1,5 @@
 tool
-class_name AccordionPanel, "res://addons/scaffolder/assets/images/editor_icons/AccordionPanel.png"
+class_name AccordionPanel, "res://addons/scaffolder/assets/images/editor_icons/accordion_panel.png"
 extends Control
 
 

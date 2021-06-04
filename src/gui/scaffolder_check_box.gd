@@ -1,5 +1,5 @@
 tool
-class_name ScaffolderCheckBox, "res://addons/scaffolder/assets/images/editor_icons/ScaffolderCheckBox.png"
+class_name ScaffolderCheckBox, "res://addons/scaffolder/assets/images/editor_icons/scaffolder_check_box.png"
 extends Control
 
 

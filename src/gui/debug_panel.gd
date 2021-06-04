@@ -1,4 +1,4 @@
-class_name DebugPanel, "res://addons/scaffolder/assets/images/editor_icons/DebugPanel.png"
+class_name DebugPanel, "res://addons/scaffolder/assets/images/editor_icons/debug_panel.png"
 extends Node2D
 
 

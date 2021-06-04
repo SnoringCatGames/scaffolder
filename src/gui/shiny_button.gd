@@ -1,5 +1,5 @@
 tool
-class_name ShinyButton, "res://addons/scaffolder/assets/images/editor_icons/ShinyButton.png"
+class_name ShinyButton, "res://addons/scaffolder/assets/images/editor_icons/shiny_button.png"
 extends Button
 
 
