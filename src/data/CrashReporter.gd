@@ -21,8 +21,10 @@ const LOG_LAST_MESSAGE_COUNT_TO_CHECK_FOR_ERRORS := 5
 
 const HEADERS := ["Content-Type: text/plain"]
 
+
 func _init() -> void:
     Gs.logger.print("CrashReporter._init")
+
 
 func report_any_previous_crash() -> bool:
     Gs.logger.print("CrashReporter.report_any_previous_crash")
@@ -73,6 +75,7 @@ func report_any_previous_crash() -> bool:
             "previous session")
     return false
 
+
 func _get_most_recent_log_file_name() -> String:
     var directory := Directory.new()
     if !directory.dir_exists(LOGS_DIRECTORY_PATH):
@@ -93,6 +96,7 @@ func _get_most_recent_log_file_name() -> String:
         current_file_name = directory.get_next()
     
     return most_recent_file_name
+
 
 func _upload_crash_log(
         text: String,
@@ -122,6 +126,7 @@ func _upload_crash_log(
     if status != OK:
         Gs.logger.error(
                 "CrashReporter._upload_crash_log failed: status=%d" % status)
+
 
 func _on_upload_crash_log_completed(
         result: int,

@@ -5,6 +5,7 @@ var TYPE := LabeledControlItem.TEXT
 
 var text: String
 
+
 func _init(
         label: String,
         description: String,
@@ -17,18 +18,22 @@ func _init(
         ) -> void:
     pass
 
+
 func get_is_enabled() -> bool:
     return true
+
 
 func get_text() -> String:
     Gs.logger.error(
             "Abstract TextLabeledControlItem.get_text is not implemented")
     return ""
 
+
 func _update_control() -> void:
     text = get_text()
     if is_instance_valid(control):
         control.text = text
+
 
 func create_control() -> Control:
     var label := Label.new()

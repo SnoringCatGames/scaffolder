@@ -9,6 +9,7 @@ const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := true
 const INCLUDES_CENTER_CONTAINER := true
 
+
 func _init().(
         NAME,
         LAYER_NAME,
@@ -19,6 +20,7 @@ func _init().(
         ) -> void:
     pass
 
+
 func _on_activated(previous_screen_name: String) -> void:
     ._on_activated(previous_screen_name)
     $FullScreenPanel/VBoxContainer/CenteredPanel/ \
@@ -28,12 +30,14 @@ func _on_activated(previous_screen_name: String) -> void:
             ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/ \
             VBoxContainer/DetailsList.items = _get_details_items()
 
+
 func _on_deactivated(next_screen_name: String) -> void:
     ._on_deactivated(next_screen_name)
     if Gs.level != null and \
             next_screen_name == "pause" and \
             Gs.must_restart_level_to_change_settings:
         Gs.level.restart()
+
 
 func _get_main_items() -> Array:
     var item_classes := \
@@ -46,6 +50,7 @@ func _get_main_items() -> Array:
         items.push_back(item_class.new())
     return items
 
+
 func _get_details_items() -> Array:
     var item_classes := \
             Gs.utils.get_collection_from_exclusions_and_inclusions(
@@ -57,6 +62,7 @@ func _get_details_items() -> Array:
         items.push_back(item_class.new(Gs.level))
     return items
 
+
 func _get_default_main_items() -> Array:
     var defaults := [
         MusicSettingsLabeledControlItem,
@@ -65,6 +71,7 @@ func _get_default_main_items() -> Array:
     if Gs.is_mobile_supported:
         defaults.push_back(HapticFeedbackSettingsLabeledControlItem)
     return defaults
+
 
 func _get_default_details_items() -> Array:
     var items := []

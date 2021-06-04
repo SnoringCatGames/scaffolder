@@ -7,6 +7,7 @@ var _tween_id: int
 var duration := 0.3
 var is_transitioning := false
 
+
 func _ready() -> void:
     Gs.utils.connect(
             "display_resized",
@@ -16,12 +17,15 @@ func _ready() -> void:
     
     _set_cutoff(0)
 
+
 func _on_resized() -> void:
     rect_size = get_viewport().size
+
 
 func fade() -> void:
     is_transitioning = true
     _fade_out()
+
 
 func _fade_out() -> void:
     Gs.time.clear_tween(_tween_id)
@@ -36,6 +40,7 @@ func _fade_out() -> void:
             0.0,
             TimeType.APP_PHYSICS,
             funcref(self, "_fade_in"))
+
 
 func _fade_in(
         _object: Object,
@@ -52,15 +57,18 @@ func _fade_in(
             0.0,
             TimeType.APP_PHYSICS)
 
+
 func _set_mask(value: Texture) -> void:
     material.set_shader_param(
             "mask",
             value)
 
+
 func _set_cutoff(value: float) -> void:
     material.set_shader_param(
             "cutoff",
             value)
+
 
 func _on_tween_complete(
         _object: Object,

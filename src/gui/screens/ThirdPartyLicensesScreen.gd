@@ -8,6 +8,7 @@ const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := true
 const INCLUDES_CENTER_CONTAINER := false
 
+
 func _init().(
         NAME,
         LAYER_NAME,
@@ -17,6 +18,7 @@ func _init().(
         INCLUDES_CENTER_CONTAINER \
         ) -> void:
     pass
+
 
 func _ready() -> void:
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer \

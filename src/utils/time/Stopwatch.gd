@@ -4,11 +4,13 @@ extends Reference
 # Dictionary<String, int>
 var _start_times_msec := {}
 
+
 func start(metric_key: String) -> void:
     var start_time := OS.get_ticks_usec()
     assert(!_start_times_msec.has(metric_key) or \
             _start_times_msec[metric_key] == -1)
     _start_times_msec[metric_key] = start_time
+
 
 # Returns the elapsed time in milliseconds.
 func stop(metric_key: String) -> float:

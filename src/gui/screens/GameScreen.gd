@@ -6,6 +6,7 @@ const LAYER_NAME := "game_screen"
 const AUTO_ADAPTS_GUI_SCALE := true
 const INCLUDES_STANDARD_HIERARCHY := false
 
+
 func _init().(
         NAME,
         LAYER_NAME,
@@ -13,6 +14,7 @@ func _init().(
         INCLUDES_STANDARD_HIERARCHY \
         ) -> void:
     pass
+
 
 func _enter_tree() -> void:
     move_canvas_layer_to_game_viewport("annotation")
@@ -33,10 +35,12 @@ func _enter_tree() -> void:
     
     _on_resized()
 
+
 func move_canvas_layer_to_game_viewport(name: String) -> void:
     var layer: CanvasLayer = Gs.canvas_layers.layers[name]
     layer.get_parent().remove_child(layer)
     $PanelContainer/ViewportContainer/Viewport.add_child(layer)
+
 
 func _process(_delta: float) -> void:
     if !is_instance_valid(Gs.level):
@@ -47,6 +51,7 @@ func _process(_delta: float) -> void:
     Gs.canvas_layers.layers.annotation.transform = \
             Gs.level.get_canvas_transform()
 
+
 func _on_resized() -> void:
     ._on_resized()
     _update_viewport_region_helper()
@@ -55,10 +60,12 @@ func _on_resized() -> void:
     #       update its dimensions correctly.
     Gs.time.set_timeout(funcref(self, "_update_viewport_region_helper"), 1.0)
 
+
 func _on_activated(previous_screen_name: String) -> void:
     ._on_activated(previous_screen_name)
     if is_instance_valid(Gs.level):
         Gs.level.on_unpause()
+
 
 func _update_viewport_region_helper() -> void:
     var viewport_size := get_viewport().size
@@ -72,12 +79,14 @@ func _update_viewport_region_helper() -> void:
     
     _fix_viewport_dimensions_hack()
 
+
 func _fix_viewport_dimensions_hack() -> void:
     if visible:
         # TODO: This hack seems to be needed in order for the viewport to
         #       actually update its dimensions correctly.
         visible = false
         Gs.time.set_timeout(funcref(self, "set_visible"), 0.4, [true])
+
 
 func start_level(level_id: String) -> void:
     if is_instance_valid(Gs.level):
@@ -118,13 +127,16 @@ func start_level(level_id: String) -> void:
             "_on_graph_parse_finished")
     level._load()
 
+
 func _on_calculation_started() -> void:
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label1.text = \
             "Calculating platform graphs"
 
+
 func _on_load_started() -> void:
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label1.text = \
             "Loading platform graphs"
+
 
 func _on_graph_parse_progress(
         player_index: int,
@@ -156,6 +168,7 @@ func _on_graph_parse_progress(
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label2.text = label_1
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label3.text = label_2
 
+
 func _on_graph_parse_finished() -> void:
     Gs.level.graph_parser.disconnect(
             "calculation_started",
@@ -180,6 +193,7 @@ func _on_graph_parse_finished() -> void:
     Gs.time.set_timeout( \
             funcref(self, "_close_load_screen"), \
             Gs.nav.fade_transition.duration / 2.0)
+
 
 func _close_load_screen() -> void:
     $PanelContainer/LoadProgressPanel.visible = false

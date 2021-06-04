@@ -18,6 +18,7 @@ var time: String
 var reached_new_high_score: bool
 var new_unlocked_levels: Array
 
+
 func _init().(
         NAME,
         LAYER_NAME,
@@ -27,6 +28,7 @@ func _init().(
         INCLUDES_CENTER_CONTAINER \
         ) -> void:
     pass
+
 
 func _ready() -> void:
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
@@ -38,15 +40,18 @@ func _ready() -> void:
                     go_icon_scale_multiplier
     _update_stats()
 
+
 func _on_activated(previous_screen_name: String) -> void:
     ._on_activated(previous_screen_name)
     Gs.audio.play_music(Gs.game_over_music)
     _update_stats()
 
+
 func _get_focused_button() -> ShinyButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer/ \
             SelectLevelButton as ShinyButton
+
 
 func _update_stats() -> void:
     var unlocked_new_level_label := $FullScreenPanel/VBoxContainer/ \
@@ -67,6 +72,7 @@ func _update_stats() -> void:
     
     control_list.items = _get_items()
 
+
 func _get_default_item_classes() -> Array:
     var default_items := []
     default_items.push_back(LevelLabeledControlItem)
@@ -75,6 +81,7 @@ func _get_default_item_classes() -> Array:
         default_items.push_back(HighScoreLabeledControlItem)
     default_items.push_back(GameOverTimeLabeledControlItem)
     return default_items
+
 
 func _get_items() -> Array:
     var item_classes := \
@@ -87,15 +94,18 @@ func _get_items() -> Array:
         items.push_back(item_class.new(level_id))
     return items
 
+
 func _on_SelectLevelButton_pressed():
     Gs.utils.give_button_press_feedback()
     Gs.audio.play_music(Gs.main_menu_music)
     Gs.nav.open("level_select")
 
+
 func _on_HomeButton_pressed():
     Gs.utils.give_button_press_feedback()
     Gs.audio.play_music(Gs.main_menu_music)
     Gs.nav.open("main_menu")
+
 
 func _on_RetryButton_pressed():
     Gs.utils.give_button_press_feedback(true)

@@ -1,6 +1,7 @@
 class_name StaticTextLabeledControlItem
 extends TextLabeledControlItem
 
+
 func _init(
         label: String,
         text: String,
@@ -11,8 +12,10 @@ func _init(
         ) -> void:
     self.text = text
 
+
 func get_is_enabled() -> bool:
     return true
+
 
 func get_text() -> String:
     return text

@@ -34,8 +34,10 @@ var active_screen_stack := []
 
 var fade_transition: FadeTransition
 
+
 func _init() -> void:
     Gs.logger.print("Navigation._init")
+
 
 func _ready() -> void:
     get_tree().set_auto_accept_quit(false)
@@ -44,6 +46,7 @@ func _ready() -> void:
             self,
             "_on_session_end")
     Gs.analytics.start_session()
+
 
 func _notification(notification: int) -> void:
     if notification == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
@@ -56,16 +59,19 @@ func _notification(notification: int) -> void:
     elif notification == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
         close_app()
 
+
 func close_app() -> void:
     Gs.analytics.end_session()
     Gs.time.set_timeout(
             funcref(self, "_on_session_end"),
             SESSION_END_TIMEOUT)
 
+
 func _on_session_end() -> void:
     if Gs.were_screenshots_taken:
         Gs.utils.open_screenshot_folder()
     get_tree().quit()
+
 
 func _create_screen(path: String) -> void:
     var screen: Screen = Gs.utils.add_scene(
@@ -76,6 +82,7 @@ func _create_screen(path: String) -> void:
     screen.pause_mode = Node.PAUSE_MODE_STOP
     screens[screen.screen_name] = screen
     Gs.canvas_layers.layers[screen.layer_name].add_child(screen)
+
 
 func create_screens() -> void:
     var default := []
@@ -102,6 +109,7 @@ func create_screens() -> void:
             self,
             "_on_fade_complete")
 
+
 func open(
         screen_name: String,
         includes_fade := false,
@@ -120,6 +128,7 @@ func open(
             true,
             includes_fade,
             params)
+
 
 func close_current_screen(includes_fade := false) -> void:
     assert(!active_screen_stack.empty())
@@ -142,11 +151,14 @@ func close_current_screen(includes_fade := false) -> void:
             includes_fade,
             null)
 
+
 func get_active_screen() -> Screen:
     return active_screen_stack.back()
 
+
 func get_active_screen_name() -> String:
     return get_active_screen().screen_name
+
 
 func _set_screen_is_open(
         screen_name: String,
@@ -276,6 +288,7 @@ func _set_screen_is_open(
         
         Gs.analytics.screen(next_screen.screen_name)
 
+
 func _on_screen_slide_completed(
         _object: Object,
         _key: NodePath,
@@ -295,16 +308,20 @@ func _on_screen_slide_completed(
         next_screen.pause_mode = Node.PAUSE_MODE_PROCESS
         next_screen._on_activated(previous_screen_name)
 
+
 func fade() -> void:
     fade_transition.visible = true
     fade_transition.fade()
+
 
 func _on_fade_complete() -> void:
     if !fade_transition.is_transitioning:
         fade_transition.visible = false
 
+
 func splash() -> void:
     call_deferred("_splash_helper")
+
 
 func _splash_helper() -> void:
     open("godot_splash")

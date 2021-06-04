@@ -16,15 +16,18 @@ var previous_gui_scale: float
 var header_stylebox: StyleBoxFlatScalable
 var hint_stylebox: StyleBoxFlatScalable
 
+
 func _enter_tree() -> void:
     hint_tween = ScaffolderTween.new()
     $HintWrapper/Hint.add_child(hint_tween)
+
 
 func _exit_tree() -> void:
     if is_instance_valid(header_stylebox):
         header_stylebox.destroy()
     if is_instance_valid(hint_stylebox):
         hint_stylebox.destroy()
+
 
 func init_children() -> void:
     $HintWrapper.modulate.a = 0.0
@@ -44,6 +47,7 @@ func init_children() -> void:
     })
     $HintWrapper.add_stylebox_override("panel", hint_stylebox)
 
+
 func update_size(header_size: Vector2) -> bool:
     rect_min_size = header_size
     
@@ -57,6 +61,7 @@ func update_size(header_size: Vector2) -> bool:
     rect_size = header_size
     
     return true
+
 
 func update_is_unlocked(is_unlocked: bool) -> void:
     var unlock_hint_message: String = \
@@ -86,6 +91,7 @@ func update_is_unlocked(is_unlocked: bool) -> void:
 #                FADE_TWEEN_DURATION)
         Gs.time.set_timeout(funcref(self, "pulse_unlock_hint"), delay)
 
+
 func unlock() -> void:
     visible = true
     modulate.a = LOCKED_OPACITY
@@ -102,6 +108,7 @@ func unlock() -> void:
             funcref(Gs.audio, "play_sound"),
             LOCK_LOW_PART_DELAY + LOCK_HIGH_PART_DELAY,
             ["lock_high"])
+
 
 func pulse_unlock_hint() -> void:
     hint_tween.stop_all()
@@ -123,6 +130,7 @@ func pulse_unlock_hint() -> void:
             HINT_PULSE_DURATION - fade_in_duration)
     hint_tween.start()
 
+
 func _on_LevelSelectItemLockedHeader_gui_input(event: InputEvent) -> void:
     var is_mouse_up: bool = \
             event is InputEventMouseButton and \
@@ -134,6 +142,7 @@ func _on_LevelSelectItemLockedHeader_gui_input(event: InputEvent) -> void:
     
     if is_mouse_up or is_touch_up:
         pulse_unlock_hint()
+
 
 func _on_LockAnimation_unlock_finished() -> void:
     emit_signal("unlock_finished")

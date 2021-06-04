@@ -16,6 +16,7 @@ var scroll_content_margin: int
 var scroll_grabber_corner_radius: int
 var scroll_grabber_corner_detail: int
 
+
 func register_styles(manifest: Dictionary) -> void:
     self.button_corner_radius = manifest.button_corner_radius
     self.button_corner_detail = manifest.button_corner_detail
@@ -30,6 +31,7 @@ func register_styles(manifest: Dictionary) -> void:
     
     self.scroll_grabber_corner_radius = manifest.scroll_grabber_corner_radius
     self.scroll_grabber_corner_detail = manifest.scroll_grabber_corner_detail
+
 
 func configure_theme() -> void:
     _configure_theme_color(
@@ -192,12 +194,14 @@ func configure_theme() -> void:
     _configure_theme_stylebox( \
             "panel", "TooltipPanel", Gs.colors.tooltip_bg)
 
+
 func _configure_theme_color(
         name: String,
         type: String,
         color: Color) -> void:
     if !Gs.theme.has_color(name, type):
         Gs.theme.set_color(name, type, color)
+
 
 func _configure_theme_stylebox(
         name: String,
@@ -212,6 +216,7 @@ func _configure_theme_stylebox(
         var new: StyleBoxFlatScalable = \
                 Gs.utils.create_stylebox_flat_scalable(old)
         Gs.theme.set_stylebox(name, type, new)
+
 
 func _configure_theme_stylebox_empty(
         name: String,

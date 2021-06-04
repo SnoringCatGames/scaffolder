@@ -98,6 +98,7 @@ var scroll_bar_grabber_pressed: Color
 
 # ---
 
+
 func register_colors(manifest: Dictionary) -> void:
     for key in _defaults:
         var value = \
@@ -107,6 +108,7 @@ func register_colors(manifest: Dictionary) -> void:
         self.set(key, value)
     
     _derive_colors()
+
 
 func _derive_colors() -> void:
     Gs.colors.button_normal = Gs.colors.button
@@ -154,6 +156,7 @@ func _derive_colors() -> void:
                     Gs.colors.scroll_bar_grabber_normal,
                     Gs.colors.scroll_bar_grabber_pressed_hsv_delta)
 
+
 func _derive_color_from_hsva_delta(
         base_color: Color,
         delta_hsva: Dictionary) -> Color:
@@ -165,6 +168,7 @@ func _derive_color_from_hsva_delta(
                     delta_hsva.has("a") else \
                     base_color.a)
 
+
 func opacify(base_color_or_name, opacity: float) -> Color:
     var color: Color = \
             base_color_or_name if \
@@ -172,6 +176,7 @@ func opacify(base_color_or_name, opacity: float) -> Color:
             Gs.colors[base_color_or_name]
     color.a = opacity
     return color
+
 
 static func static_opacify(base_color: Color, opacity: float) -> Color:
     base_color.a = opacity

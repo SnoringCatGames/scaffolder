@@ -10,6 +10,7 @@ var step: float
 var width: float
 var tick_count: int
 
+
 func _init(
         label: String,
         description: String,
@@ -31,10 +32,12 @@ func _init(
     self.width = width
     self.tick_count = tick_count
 
+
 func on_value_changed(value: float) -> void:
     Gs.logger.error(
             "Abstract SliderLabeledControlItem.on_value_changed " +
             "is not implemented")
+
 
 func get_value() -> float:
     Gs.logger.error(
@@ -42,10 +45,12 @@ func get_value() -> float:
             "is not implemented")
     return INF
 
+
 func _update_control() -> void:
     value = get_value()
     if is_instance_valid(control):
         control.value = value
+
 
 func create_control() -> Control:
     var slider := HSlider.new()
@@ -61,6 +66,7 @@ func create_control() -> Control:
             self,
             "_on_slider_value_changed")
     return slider
+
 
 func _on_slider_value_changed(_value: float) -> void:
     Gs.utils.give_button_press_feedback()

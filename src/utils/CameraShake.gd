@@ -10,6 +10,7 @@ var strength_exponent := 2.0
 var noise: OpenSimplexNoise
 var noise_y := 0.0
 
+
 func _ready() -> void:
     randomize()
     noise = OpenSimplexNoise.new()
@@ -17,12 +18,14 @@ func _ready() -> void:
     noise.period = 4.0
     noise.octaves = 2.0
 
+
 func _process(delta: float) -> void:
     if strength > 0.0:
         # This should end up calling _update_shake exactly once with a strength
         # of zero, which is important for resetting the camera.
         strength = max(strength - decay * Gs.time.scale_delta(delta), 0)
         _update_shake()
+
 
 func _update_shake() -> void:
     var amount := pow(strength, strength_exponent)
@@ -34,6 +37,7 @@ func _update_shake() -> void:
     position.y = \
             max_offset.y * amount * \
             noise.get_noise_2d(noise.seed * 3.0, noise_y)
+
 
 func shake(strength: float) -> void:
     self.strength = min(self.strength + strength, 1.0)

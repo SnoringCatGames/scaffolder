@@ -9,6 +9,7 @@ var normal_stylebox: StyleBoxFlatScalable
 var hover_stylebox: StyleBoxFlatScalable
 var pressed_stylebox: StyleBoxFlatScalable
 
+
 func _exit_tree() -> void:
     if is_instance_valid(normal_stylebox):
         normal_stylebox.destroy()
@@ -16,6 +17,7 @@ func _exit_tree() -> void:
         hover_stylebox.destroy()
     if is_instance_valid(pressed_stylebox):
         pressed_stylebox.destroy()
+
 
 func init_children() -> void:
     $HBoxContainer/Caret/TextureRect.rect_pivot_offset = \
@@ -47,6 +49,7 @@ func init_children() -> void:
             self,
             Control.MOUSE_FILTER_IGNORE)
 
+
 func update_size(header_size: Vector2) -> void:
     rect_min_size = header_size
     
@@ -61,6 +64,7 @@ func update_size(header_size: Vector2) -> void:
     
     rect_size = header_size
 
+
 func update_is_unlocked(is_unlocked: bool) -> void:
     visible = is_unlocked
     
@@ -68,6 +72,7 @@ func update_is_unlocked(is_unlocked: bool) -> void:
             Gs.level_config.get_level_config(level_id)
     $HBoxContainer/LevelNumber.text = str(config.number) + "."
     $HBoxContainer/LevelName.text = config.name
+
 
 func update_caret_rotation(rotation: float) -> void:
     $HBoxContainer/Caret/TextureRect.rect_rotation = rotation

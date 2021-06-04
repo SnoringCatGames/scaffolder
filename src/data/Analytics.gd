@@ -38,8 +38,10 @@ var _last_ping_time := -INF
 # Array<_AnalyticsEntry>
 var _retry_queue := []
 
+
 func _init() -> void:
     Gs.logger.print("Analytics._init")
+
 
 func _process(_delta: float) -> void:
     if _has_session_started and \
@@ -48,14 +50,17 @@ func _process(_delta: float) -> void:
         _last_ping_time = Gs.time.get_app_time()
         _ping()
 
+
 func start_session() -> void:
     var extra_details := "&sc=start"
     _ping(extra_details)
     _log_device_info()
 
+
 func end_session() -> void:
     var extra_details := "&sc=end"
     _ping(extra_details, true)
+
 
 func screen(name: String) -> void:
     var details := "&cd=%s" % [
@@ -65,6 +70,7 @@ func screen(name: String) -> void:
             "screenview",
             details)
     _trigger_collect(payload, details)
+
 
 func event(
         category: String,
@@ -97,6 +103,7 @@ func event(
             details,
             is_session_end)
 
+
 func _log_device_info() -> void:
     event(
             "device",
@@ -104,6 +111,7 @@ func _log_device_info() -> void:
             Gs.utils.get_model_name(),
             int(Gs.utils.get_viewport_diagonal_inches() * 1000),
             true)
+
 
 func _ping(
         extra_details = null,
@@ -117,9 +125,11 @@ func _ping(
             extra_details,
             is_session_end)
 
+
 func _enter_tree() -> void:
     client_id = _get_client_id()
     Gs.logger.print("Analytics client ID: " + client_id)
+
 
 func _get_client_id() -> String:
     var id = Gs.save_state.get_setting(CLIENT_ID_SAVE_KEY)
@@ -129,6 +139,7 @@ func _get_client_id() -> String:
                 CLIENT_ID_SAVE_KEY,
                 id)
     return id
+
 
 func _get_payload(
         hit_type: String,
@@ -177,6 +188,7 @@ func _get_payload(
         str(randi()),
     ]
 
+
 func _trigger_collect(
         payload: String,
         details: String,
@@ -223,6 +235,7 @@ func _trigger_collect(
                 "Analytics._trigger_collect failed: status=%d, url=%s" % \
                         [status, url],
                 false)
+
 
 func _on_collect_request_completed(
         result: int,
@@ -273,6 +286,7 @@ func _on_collect_request_completed(
                 ],
                 false)
 
+
 func _retry_queued_entries() -> void:
     if _retry_queue.empty():
         return
@@ -289,6 +303,7 @@ func _retry_queued_entries() -> void:
     
     for batch in batches:
         _trigger_batch(batch)
+
 
 func _trigger_batch(batch: Array) -> void:
     # Create the batch payload.
@@ -330,6 +345,7 @@ func _trigger_batch(batch: Array) -> void:
                 "Analytics._trigger_batch failed: status=%d, url=%s" % \
                         [status, url],
                 false)
+
 
 func _on_batch_request_completed(
         result: int,
@@ -377,6 +393,7 @@ func _on_batch_request_completed(
                     body.get_string_from_utf8(),
                 ],
                 false)
+
 
 class _AnalyticsEntry extends Reference:
     var payload: String

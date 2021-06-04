@@ -31,9 +31,11 @@ var button_style_pulse: StyleBoxFlat
 var shine_tween := ScaffolderTween.new()
 var color_pulse_tween := ScaffolderTween.new()
 
+
 func _enter_tree() -> void:
     add_child(shine_tween)
     add_child(color_pulse_tween)
+
 
 func _ready() -> void:
     button_style_normal = $MarginContainer/BottomButton.get_stylebox("normal")
@@ -45,9 +47,11 @@ func _ready() -> void:
             "display_resized", self, "update")
     update()
 
+
 func _exit_tree() -> void:
     if is_instance_valid(button_style_pulse):
         button_style_pulse.destroy()
+
 
 func update_gui_scale(gui_scale: float) -> bool:
     texture_scale *= gui_scale
@@ -60,8 +64,10 @@ func update_gui_scale(gui_scale: float) -> bool:
     
     return true
 
+
 func update() -> void:
     call_deferred("_deferred_update")
+
 
 func _deferred_update() -> void:
     var half_size := rect_size / 2.0
@@ -113,6 +119,7 @@ func _deferred_update() -> void:
                 funcref(self, "_trigger_color_pulse"),
                 COLOR_PULSE_INTERVAL)
 
+
 func _trigger_shine() -> void:
     shine_tween.interpolate_property(
             $MarginContainer/ShineLineWrapper/ShineLine,
@@ -122,6 +129,7 @@ func _trigger_shine() -> void:
             SHINE_DURATION,
             "linear")
     shine_tween.start()
+
 
 func _trigger_color_pulse() -> void:
     # Give priority to normal button state styling.
@@ -157,58 +165,74 @@ func _trigger_color_pulse() -> void:
             pulse_half_duration)
     color_pulse_tween.start()
 
+
 func _set_texture(value: Texture) -> void:
     texture = value
     update()
 
+
 func _get_texture() -> Texture:
     return texture
+
 
 func _set_texture_scale(value: Vector2) -> void:
     texture_scale = value
     update()
 
+
 func _get_texture_scale() -> Vector2:
     return texture_scale
+
 
 func _set_is_shiny(value: bool) -> void:
     is_shiny = value
     update()
 
+
 func _get_is_shiny() -> bool:
     return is_shiny
+
 
 func _set_includes_color_pulse(value: bool) -> void:
     includes_color_pulse = value
     update()
 
+
 func _get_includes_color_pulse() -> bool:
     return includes_color_pulse
+
 
 func _set_is_font_xl(value: bool) -> void:
     is_font_xl = value
     update()
 
+
 func _get_is_font_xl() -> bool:
     return is_font_xl
+
 
 func press() -> void:
     _on_TopButton_pressed()
 
+
 func _on_TopButton_pressed() -> void:
     emit_signal("pressed")
+
 
 func _on_TopButton_mouse_entered() -> void:
     $MarginContainer/BottomButton \
             .add_stylebox_override("normal", button_style_hover)
 
+
 func _on_TopButton_mouse_exited() -> void:
     $MarginContainer/BottomButton \
             .add_stylebox_override("normal", button_style_normal)
 
+
 func _on_TopButton_button_down() -> void:
     $MarginContainer/BottomButton \
             .add_stylebox_override("normal", button_style_pressed)
+
 
 func _on_TopButton_button_up() -> void:
     $MarginContainer/BottomButton \

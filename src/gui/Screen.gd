@@ -20,6 +20,7 @@ var _focused_button: ShinyButton
 
 var params: Dictionary
 
+
 func _init(
         screen_name: String,
         layer_name: String,
@@ -34,6 +35,7 @@ func _init(
     self.includes_nav_bar = includes_nav_bar
     self.includes_center_container = includes_center_container
 
+
 func _ready() -> void:
     _validate_node_hierarchy()
     Gs.utils.connect(
@@ -42,9 +44,11 @@ func _ready() -> void:
             "_on_resized")
     _on_resized()
 
+
 func _exit_tree() -> void:
     if is_instance_valid(stylebox):
         stylebox.destroy()
+
 
 func _validate_node_hierarchy() -> void:
     # Give a shadow to the outer-most panel.
@@ -96,6 +100,7 @@ func _validate_node_hierarchy() -> void:
                 scroll_container,
                 Control.MOUSE_FILTER_PASS)
 
+
 func _unhandled_key_input(event: InputEventKey) -> void:
     if (event.scancode == KEY_SPACE or \
             event.scancode == KEY_ENTER) and \
@@ -110,6 +115,7 @@ func _unhandled_key_input(event: InputEventKey) -> void:
             Gs.nav.get_active_screen() == self:
         Gs.nav.close_current_screen()
 
+
 func _on_activated(previous_screen_name: String) -> void:
     _give_button_focus(_get_focused_button())
     if includes_standard_hierarchy:
@@ -117,20 +123,25 @@ func _on_activated(previous_screen_name: String) -> void:
                 scroll_container,
                 Control.MOUSE_FILTER_PASS)
 
+
 func _on_deactivated(next_screen_name: String) -> void:
     pass
+
 
 func _on_resized() -> void:
     pass
 
+
 func _get_focused_button() -> ShinyButton:
     return null
+
 
 func _scroll_to_top() -> void:
     if includes_standard_hierarchy:
         yield(get_tree(), "idle_frame")
         var scroll_bar := scroll_container.get_v_scrollbar()
         scroll_container.scroll_vertical = scroll_bar.min_value
+
 
 func _give_button_focus(button: ShinyButton) -> void:
     if _focused_button != null:
@@ -140,6 +151,7 @@ func _give_button_focus(button: ShinyButton) -> void:
     if _focused_button != null:
         _focused_button.is_shiny = true
         _focused_button.includes_color_pulse = true
+
 
 func set_params(params) -> void:
     if params == null:

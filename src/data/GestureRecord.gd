@@ -4,13 +4,16 @@ extends Node2D
 # Array<GestureEventForDebugging>
 var recent_gesture_events_for_debugging := []
 
+
 func _init() -> void:
     name = "GestureRecord"
+
 
 func _input(event: InputEvent) -> void:
     if (Gs.debug or Gs.playtest) and \
             (event is InputEventScreenTouch or event is InputEventScreenDrag):
         _record_new_gesture_event(event)
+
 
 func _record_new_gesture_event(event: InputEvent) -> void:
     var gesture_name: String
@@ -29,6 +32,7 @@ func _record_new_gesture_event(event: InputEvent) -> void:
     while recent_gesture_events_for_debugging.size() > \
             Gs.recent_gesture_events_for_debugging_buffer_size:
         recent_gesture_events_for_debugging.pop_back()
+
 
 class GestureEventForDebugging extends Reference:
     var position: Vector2

@@ -16,9 +16,11 @@ const _FADE_IN_DURATION := 0.2
 
 var post_tween_opacity: float
 
+
 func _init() -> void:
     post_tween_opacity = modulate.a
     modulate.a = 0.0
+
 
 func _enter_tree() -> void:
     Gs.time.tween_property(
@@ -27,6 +29,7 @@ func _enter_tree() -> void:
             0.0,
             post_tween_opacity,
             _FADE_IN_DURATION)
+
 
 func _ready() -> void:
     theme = Gs.theme
@@ -40,6 +43,7 @@ func _ready() -> void:
     $PanelContainer/LabeledControlList.items = controls_items
     
     update_gui_scale(1.0)
+
 
 func update_gui_scale(gui_scale: float) -> bool:
     for child in get_children():
@@ -55,6 +59,7 @@ func update_gui_scale(gui_scale: float) -> bool:
     rect_position = (get_viewport().size - rect_size) / 2.0
     
     return true
+
 
 func _exit_tree() -> void:
     Gs.remove_gui_to_scale(self)

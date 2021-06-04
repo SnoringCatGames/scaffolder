@@ -4,11 +4,13 @@ extends CheckboxLabeledControlItem
 const LABEL := "Music"
 const DESCRIPTION := ""
 
+
 func _init(__ = null).(
         LABEL,
         DESCRIPTION \
         ) -> void:
     pass
+
 
 func on_pressed(pressed: bool) -> void:
     Gs.audio.is_music_enabled = pressed
@@ -16,8 +18,10 @@ func on_pressed(pressed: bool) -> void:
             Gs.IS_MUSIC_ENABLED_SETTINGS_KEY,
             Gs.audio.is_music_enabled)
 
+
 func get_is_pressed() -> bool:
     return Gs.audio.is_music_enabled
+
 
 func get_is_enabled() -> bool:
     return true

@@ -16,6 +16,7 @@ var _default_item_classes := [
     TimeLabeledControlItem,
 ]
 
+
 func _init().(
         NAME,
         LAYER_NAME,
@@ -26,6 +27,7 @@ func _init().(
         ) -> void:
     pass
 
+
 func _on_activated(previous_screen_name: String) -> void:
     ._on_activated(previous_screen_name)
     $FullScreenPanel/VBoxContainer/CenteredPanel/ \
@@ -34,6 +36,7 @@ func _on_activated(previous_screen_name: String) -> void:
     _give_button_focus($FullScreenPanel/VBoxContainer/CenteredPanel/ \
             ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/ \
             ResumeButton)
+
 
 func _get_items() -> Array:
     var item_classes := \
@@ -46,24 +49,29 @@ func _get_items() -> Array:
         items.push_back(item_class.new(Gs.level))
     return items
 
+
 func _get_focused_button() -> ShinyButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer/ResumeButton as \
             ShinyButton
+
 
 func _on_ExitLevelButton_pressed() -> void:
     Gs.utils.give_button_press_feedback()
     Gs.nav.close_current_screen()
     Gs.level.quit(false)
 
+
 func _on_ResumeButton_pressed() -> void:
     Gs.utils.give_button_press_feedback()
     Gs.nav.close_current_screen()
+
 
 func _on_RestartButton_pressed() -> void:
     Gs.utils.give_button_press_feedback()
     Gs.nav.close_current_screen(true)
     Gs.level.restart()
+
 
 func _on_SendRecentGestureEventsForDebugging_pressed() -> void:
     Gs.gesture_reporter.record_recent_gestures()

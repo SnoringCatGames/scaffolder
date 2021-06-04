@@ -15,6 +15,7 @@ const INCLUDES_CENTER_CONTAINER := false
 
 const SPLASH_IMAGE_SIZE_DEFAULT := Vector2(900, 835)
 
+
 func _init().(
         NAME,
         LAYER_NAME,
@@ -24,6 +25,7 @@ func _init().(
         INCLUDES_CENTER_CONTAINER \
         ) -> void:
     pass
+
 
 func _enter_tree() -> void:
     if Engine.editor_hint:
@@ -38,6 +40,7 @@ func _enter_tree() -> void:
         $FullScreenPanel/Control/TextureRect.rect_position = position
     else:
         _on_resized()
+
 
 func _on_resized() -> void:
     ._on_resized()

@@ -31,6 +31,7 @@ var description: String
 var is_control_on_right_side: bool
 var enabled := true
 
+
 func _init(
         type: int,
         label: String,
@@ -41,23 +42,28 @@ func _init(
     self.description = description
     self.is_control_on_right_side = is_control_on_right_side
 
+
 func get_is_enabled() -> bool:
     Gs.logger.error(
             "Abstract LabeledControlItem.get_is_enabled is not implemented")
     return false
 
+
 func _update_control() -> void:
     Gs.logger.error(
             "Abstract LabeledControlItem._update_control is not implemented")
+
 
 func create_control() -> Control:
     Gs.logger.error(
             "Abstract LabeledControlItem.create_control is not implemented")
     return null
 
+
 func update_item() -> void:
     enabled = get_is_enabled()
     _update_control()
+
 
 func create_row(
         style: StyleBox,
@@ -153,8 +159,10 @@ func create_row(
     
     return row
 
+
 func _on_control_pressed() -> void:
     Gs.utils.give_button_press_feedback()
+
 
 func _on_description_button_pressed(
         label: String,
@@ -170,6 +178,7 @@ func _on_description_button_pressed(
                 close_button_text = "OK",
                 body_alignment = BoxContainer.ALIGN_BEGIN,
             })
+
 
 func _get_alpha() -> float:
     return ENABLED_ALPHA if \

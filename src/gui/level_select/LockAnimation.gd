@@ -5,11 +5,13 @@ signal unlock_finished
 
 const UNLOCK_DURATION := 0.8
 
+
 func _ready() -> void:
     $Control/Node2D/AnimationPlayer.connect(
             "animation_finished",
             self,
             "_on_lock_animation_finished")
+
 
 func update_gui_scale(gui_scale: float) -> bool:
     rect_position.x *= gui_scale
@@ -20,14 +22,17 @@ func update_gui_scale(gui_scale: float) -> bool:
     $Control/Node2D/Lock.scale *= gui_scale
     return true
 
+
 func play(name: String) -> void:
     assert(name == "Locked" or \
             name == "Unlocked" or \
             name == "Unlock")
     $Control/Node2D/AnimationPlayer.play(name)
 
+
 func unlock() -> void:
     play("Unlock")
+
 
 func _on_lock_animation_finished(name: String) -> void:
     if name == "Unlock":

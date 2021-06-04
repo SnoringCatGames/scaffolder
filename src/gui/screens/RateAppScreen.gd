@@ -10,6 +10,7 @@ const INCLUDES_CENTER_CONTAINER := true
 
 const NEXT_SCREEN_TYPE := "main_menu"
 
+
 func _init().(
         NAME,
         LAYER_NAME,
@@ -20,14 +21,17 @@ func _init().(
         ) -> void:
     pass
 
+
 func _on_activated(previous_screen_name: String) -> void:
     ._on_activated(previous_screen_name)
     assert(Gs.is_rate_app_shown)
+
 
 func _get_focused_button() -> ShinyButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer2/RateAppButton as \
             ShinyButton
+
 
 func _on_RateAppButton_pressed():
     Gs.utils.give_button_press_feedback()
@@ -39,14 +43,17 @@ func _on_RateAppButton_pressed():
             Gs.android_app_store_url
     OS.shell_open(app_store_url)
 
+
 func _on_DontAskAgainButton_pressed():
     Gs.utils.give_button_press_feedback()
     Gs.save_state.set_gave_feedback(true)
     Gs.nav.open(NEXT_SCREEN_TYPE)
 
+
 func _on_KeepPlayingButton_pressed():
     Gs.utils.give_button_press_feedback()
     Gs.nav.open(NEXT_SCREEN_TYPE)
+
 
 func _on_SendFeedbackButton_pressed() -> void:
     Gs.utils.give_button_press_feedback()

@@ -10,11 +10,13 @@ export var texture_scale := Vector2.ONE setget \
 
 var _is_ready := false
 
+
 func _ready() -> void:
     _is_ready = true
     _set_texture(texture)
     _set_texture_scale(texture_scale)
     update_gui_scale(1.0)
+
 
 func update_gui_scale(gui_scale: float) -> bool:
     _update_gui_scale_deferred(gui_scale)
@@ -24,12 +26,14 @@ func update_gui_scale(gui_scale: float) -> bool:
     call_deferred("_update_gui_scale_deferred", 1.0)
     return true
 
+
 func _update_gui_scale_deferred(gui_scale: float) -> void:
     rect_position *= gui_scale
     if texture != null:
         $TextureRect.rect_pivot_offset = texture.get_size() / 2.0
     $TextureRect.rect_scale *= gui_scale
     _update_size_to_match_texture()
+
 
 func _update_size_to_match_texture() -> void:
     if texture == null:
@@ -38,20 +42,24 @@ func _update_size_to_match_texture() -> void:
     rect_min_size = size
     rect_size = size
 
+
 func _set_texture(value: Texture) -> void:
     texture = value
     if _is_ready:
         $TextureRect.texture = value
         _update_size_to_match_texture()
 
+
 func _get_texture() -> Texture:
     return texture
+
 
 func _set_texture_scale(value: Vector2) -> void:
     texture_scale = value
     if _is_ready:
         $TextureRect.rect_scale = texture_scale
         _update_size_to_match_texture()
+
 
 func _get_texture_scale() -> Vector2:
     return texture_scale

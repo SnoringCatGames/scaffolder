@@ -3,8 +3,10 @@ extends Node
 
 const HEADERS := ["Content-Type: application/json"]
 
+
 func _init() -> void:
     Gs.logger.print("GestureReporter._init")
+
 
 func record_recent_gestures() -> void:
     assert(Gs.is_gesture_logging_supported)
@@ -53,6 +55,7 @@ func record_recent_gestures() -> void:
                 ("GestureReporter.record_recent_gestures failed: " +
                 "status=%d") % status,
                 false)
+
 
 func _on_record_recent_gestures_request_completed(
         result: int,
