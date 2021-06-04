@@ -108,14 +108,13 @@ static func get_closest_point_on_polyline_to_point(
             polyline[1])
     var closest_distance_squared := point.distance_squared_to(closest_point)
     
-    var current_point: Vector2
-    var current_distance_squared: float
     for i in range(1, polyline.size() - 1):
-        current_point = get_closest_point_on_segment_to_point(
+        var current_point := get_closest_point_on_segment_to_point(
                 point,
                 polyline[i],
                 polyline[i + 1])
-        current_distance_squared = point.distance_squared_to(current_point)
+        var current_distance_squared := \
+                point.distance_squared_to(current_point)
         if current_distance_squared < closest_distance_squared:
             closest_distance_squared = current_distance_squared
             closest_point = current_point
@@ -131,11 +130,11 @@ static func get_closest_point_on_polyline_to_polyline(
     var closest_point: Vector2
     var closest_distance_squared: float = INF
     
-    var current_point: Vector2
-    var current_distance_squared: float
     for vertex_b in b:
-        current_point = get_closest_point_on_polyline_to_point(vertex_b, a)
-        current_distance_squared = vertex_b.distance_squared_to(current_point)
+        var current_point := \
+                get_closest_point_on_polyline_to_point(vertex_b, a)
+        var current_distance_squared: float = \
+                vertex_b.distance_squared_to(current_point)
         if current_distance_squared < closest_distance_squared:
             closest_distance_squared = current_distance_squared
             closest_point = current_point
@@ -200,9 +199,8 @@ static func get_intersection_of_segment_and_polyline(
                 vertices[0]):
             return vertices[0]
     else:
-        var intersection: Vector2
         for i in vertices.size() - 1:
-            intersection = get_intersection_of_segments(
+            var intersection := get_intersection_of_segments(
                     segment_a,
                     segment_b,
                     vertices[i],
@@ -393,22 +391,15 @@ static func do_segment_and_polygon_intersect(
         polygon: Array) -> bool:
     assert(polygon[0] == polygon[polygon.size() - 1])
     
-    var count = polygon.size()
     var segment_diff := segment_b - segment_a
-    var polygon_segment: Vector2
-    var p_to_a: Vector2
-    
     var t_entering := 0.0
     var t_leaving := 1.0
-    var t: float
-    var n: float
-    var d: float
     
-    for i in count - 1:
-        polygon_segment = polygon[i + 1] - polygon[i]
-        p_to_a = segment_a - polygon[i]
-        n = polygon_segment.x * p_to_a.y - polygon_segment.y * p_to_a.x
-        d = polygon_segment.y * segment_diff.x - \
+    for i in polygon.size() - 1:
+        var polygon_segment: Vector2 = polygon[i + 1] - polygon[i]
+        var p_to_a: Vector2 = segment_a - polygon[i]
+        var n := polygon_segment.x * p_to_a.y - polygon_segment.y * p_to_a.x
+        var d := polygon_segment.y * segment_diff.x - \
                 polygon_segment.x * segment_diff.y
         
         if abs(d) < Gs.geometry.FLOAT_EPSILON:
@@ -416,7 +407,7 @@ static func do_segment_and_polygon_intersect(
                 return false
             else:
                 continue
-        t = n / d
+        var t := n / d
         if d < 0:
             if t > t_entering:
                 t_entering = t
@@ -438,11 +429,9 @@ static func do_polyline_and_triangle_intersect(
         triangle_a: Vector2,
         triangle_b: Vector2,
         triangle_c: Vector2) -> bool:
-    var segment_a: Vector2
-    var segment_b: Vector2
     for i in vertices.size() - 1:
-        segment_a = vertices[i]
-        segment_b = vertices[i + 1]
+        var segment_a := vertices[i]
+        var segment_b := vertices[i + 1]
         if do_segment_and_triangle_intersect(
                 segment_a,
                 segment_b,
@@ -455,11 +444,9 @@ static func do_polyline_and_triangle_intersect(
 static func do_polyline_and_polygon_intersect(
         vertices: PoolVector2Array,
         polygon: Array) -> bool:
-    var segment_a: Vector2
-    var segment_b: Vector2
     for i in vertices.size() - 1:
-        segment_a = vertices[i]
-        segment_b = vertices[i + 1]
+        var segment_a := vertices[i]
+        var segment_b := vertices[i + 1]
         if do_segment_and_polygon_intersect(
                 segment_a,
                 segment_b,

@@ -86,18 +86,15 @@ static func draw_dashed_line(
     var direction_normalized: Vector2 = (to - from).normalized()
     
     var current_length := dash_offset
-    var current_dash_length: float
-    var current_from: Vector2
-    var current_to: Vector2
-    
+
     while current_length < segment_length:
-        current_dash_length = \
+        var current_dash_length := \
                 dash_length if \
                 current_length + dash_length <= segment_length else \
                 segment_length - current_length
         
-        current_from = from + direction_normalized * current_length
-        current_to = from + direction_normalized * \
+        var current_from := from + direction_normalized * current_length
+        var current_to := from + direction_normalized * \
                 (current_length + current_dash_length)
         
         canvas.draw_line(
@@ -119,11 +116,9 @@ static func draw_dashed_polyline(
         dash_offset: float = 0.0,
         width: float = 1.0,
         antialiased: bool = false) -> void:
-    var from: Vector2
-    var to: Vector2
     for i in vertices.size() - 1:
-        from = vertices[i]
-        to = vertices[i + 1]
+        var from := vertices[i]
+        var to := vertices[i + 1]
         draw_dashed_line(
                 canvas,
                 from,
@@ -214,16 +209,13 @@ static func draw_surface(
     var alpha_start := color.a
     var alpha_end := alpha_start * SURFACE_ALPHA_END_RATIO
     
-    var polyline: PoolVector2Array
-    var translation: Vector2
-    var progress: float
-    
     # "Surfaces" can single vertices in the degenerate case.
     if vertices.size() > 1:
         for i in SURFACE_DEPTH_DIVISIONS_COUNT:
-            translation = surface_depth_division_offset * i
-            polyline = Gs.utils.translate_polyline(vertices, translation)
-            progress = i / (SURFACE_DEPTH_DIVISIONS_COUNT - 1.0)
+            var translation: Vector2 = surface_depth_division_offset * i
+            var polyline: PoolVector2Array = \
+                    Gs.utils.translate_polyline(vertices, translation)
+            var progress: float = i / (SURFACE_DEPTH_DIVISIONS_COUNT - 1.0)
             color.a = alpha_start + progress * (alpha_end - alpha_start)
             canvas.draw_polyline(
                     polyline,
@@ -692,7 +684,6 @@ static func compute_arc_points(
     
     var points := PoolVector2Array()
     points.resize(vertex_count)
-    var vertex: Vector2
     
     for i in sector_count + 1:
         points[i] = Vector2(cos(theta), sin(theta)) * radius + center
@@ -762,7 +753,6 @@ static func draw_capsule_outline(
     var vertices := PoolVector2Array()
     var vertex_count := (sector_count + 1) * 2 + 2
     vertices.resize(vertex_count)
-    var vertex: Vector2
     
     for i in sector_count + 1:
         vertices[i + 1] = Vector2(cos(theta), sin(theta)) * radius + end_center
