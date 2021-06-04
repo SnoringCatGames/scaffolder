@@ -50,7 +50,7 @@ func _init() -> void:
 func _process(_delta: float) -> void:
     if is_tracking_beat and \
             get_is_music_playing():
-        _update_music_playback_state()
+        _update_music_beat_state()
 
 
 func register_sounds(
@@ -158,7 +158,7 @@ func play_music(
 
 
 func stop_music() -> bool:
-    _clear_music_playback_state()
+    _clear_music_beat_state()
     var current_music_player := _get_current_music_player()
     if current_music_player != null:
         current_music_player.stop()
@@ -274,13 +274,13 @@ func cross_fade_music(
     emit_signal("music_changed", _current_music_name)
 
 
-func _clear_music_playback_state() -> void:
+func _clear_music_beat_state() -> void:
     music_playback_position = INF
     time_to_next_beat = INF
     next_beat_index = -1
 
 
-func _update_music_playback_state() -> void:
+func _update_music_beat_state() -> void:
     # Update playback speed to match any change in time scale.
     var old_scaled_speed := scaled_speed
     _update_scaled_speed()
@@ -426,7 +426,7 @@ func _set_is_tracking_beat(value: bool) -> void:
             get_is_music_playing():
         pass
     else:
-        _clear_music_playback_state()
+        _clear_music_beat_state()
 
 
 func _update_volume() -> void:
