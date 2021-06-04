@@ -7,7 +7,22 @@
 
 > _**[Example app](https://github.com/snoringcatgames/squirrel-away)**_
 
-This is an opinionated framework that provides a bunch of general-purpose application scaffolding and utility functionality for Godot games.
+_An opinionated framework providing a bunch of general-purpose application scaffolding and utility functionality for games in Godot._
+
+--------
+
+> **NOTE:** _Consider this an alpha release. This framework is still in development and still has some rough edges._
+
+--------
+
+Some features include (see more details below):
+
+-   Configurable UI and camera scaling to adapt to the current viewport.
+-   Optional analytics based on the proprietary third-party Google Analytics service.
+-   Optional automatic crash log reporting based on the proprietary third-party Google Cloud Storage service.
+-   Screen layout and navigation.
+-   Lots of useful utility functions (e.g., Time, Geometry, DrawUtils, Audio).
+-   A widget library (e.g., AccordionPanel, LabeledControlList)
 
 ## Getting set up
 
@@ -97,6 +112,27 @@ class MyCustomUtils extends ScaffolderUtils:
 > TODO: Enumerate and describe each `ScaffolderConfig` property.
 
 ## Features
+
+### Lots of useful utility functions
+
+It might just be easiest to scroll through some of the following files to see what sorts of functions are included:
+-   [`Audio`](./src/utils/audio.gd)
+-   [`CameraShake`](./src/utils/camera_shake.gd)
+-   [`DrawUtils`](./src/utils/draw_utils.gd)
+-   [`Geometry`](./src/utils/geometry.gd)
+-   [`Profiler`](./src/utils/profiler.gd)
+-   [`SaveState`](./src/data/save_state.gd)
+-   [`Time`](./src/utils/time.gd)
+-   [`Utils`](./src/utils/utils.gd)
+
+### 
+
+For example:
+-   [`AccordionPanel`](./src/gui/accordion_panel.gd)
+-   [`LabeledControlList`](./src/gui/labeled_control_list/labeled_control_list.gd)
+-   [`ShinyButton`](./src/gui/shiny_button.gd)
+-   [`NavBar`](./src/gui/nav_bar.gd)
+
 
 ### Viewport scaling
 
