@@ -42,6 +42,7 @@ var thread_count: int
 var is_mobile_supported: bool
 var is_data_deletion_button_shown: bool
 
+var are_beats_tracked_by_default: bool
 # NOTE: This doesn't currently work in HTML.
 var is_music_speed_change_supported := false
 var is_music_speed_scaled_with_time_scale := false
@@ -205,6 +206,8 @@ var profiler: Profiler
 var geometry: ScaffolderGeometry
 var draw_utils: DrawUtils
 var level_input: LevelInput
+var slow_motion: SlowMotionController
+var beats: BeatTracker
 var level_config: ScaffolderLevelConfig
 var canvas_layers: CanvasLayers
 var camera_controller: CameraController
@@ -278,6 +281,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.default_game_area_size = manifest.default_game_area_size
     self.aspect_ratio_max = manifest.aspect_ratio_max
     self.aspect_ratio_min = manifest.aspect_ratio_min
+    self.are_beats_tracked_by_default = manifest.are_beats_tracked_by_default
     self.uses_level_scores = manifest.uses_level_scores
     self.must_restart_level_to_change_settings = \
             manifest.must_restart_level_to_change_settings
@@ -518,6 +522,18 @@ func initialize() -> void:
     else:
         self.level_input = LevelInput.new()
     add_child(self.level_input)
+    if manifest.has("slow_motion_class"):
+        self.slow_motion = manifest.slow_motion_class.new()
+        assert(self.slow_motion is SlowMotionController)
+    else:
+        self.slow_motion = SlowMotionController.new()
+    add_child(self.slow_motion)
+    if manifest.has("beat_tracker_class"):
+        self.beats = manifest.beat_tracker_class.new()
+        assert(self.beats is BeatTracker)
+    else:
+        self.beats = BeatTracker.new()
+    add_child(self.beats)
     
     # This depends on SaveState, and must be instantiated after.
     self.level_config = manifest.level_config_class.new()
