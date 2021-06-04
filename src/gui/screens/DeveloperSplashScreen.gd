@@ -2,6 +2,7 @@ tool
 class_name DeveloperSplashScreen
 extends Screen
 
+
 const NAME := "developer_splash"
 const LAYER_NAME := "menu_screen"
 const AUTO_ADAPTS_GUI_SCALE := true

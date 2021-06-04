@@ -1,6 +1,7 @@
 class_name IosResolutions
 extends Reference
 
+
 # TODO: Our only iOS data point (iPhone XR) has a 10% error in the reported
 #       screen size compared to the actual screen size. But, this is probably
 #       close enough for our current purposes.

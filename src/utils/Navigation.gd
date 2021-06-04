@@ -1,6 +1,7 @@
 class_name ScaffolderNavigation
 extends Node
 
+
 signal splash_finished
 
 const _DEFAULT_SCREEN_PATH_PREFIX := "res://addons/scaffolder/src/gui/screens/"

@@ -1,6 +1,7 @@
 class_name CameraController
 extends Node2D
 
+
 const ZOOM_FACTOR_STEP_RATIO := 0.05
 const PAN_STEP := 8.0
 

@@ -1,6 +1,7 @@
 class_name DataAgreementScreen
 extends Screen
 
+
 const NAME := "data_agreement"
 const LAYER_NAME := "menu_screen"
 const AUTO_ADAPTS_GUI_SCALE := true

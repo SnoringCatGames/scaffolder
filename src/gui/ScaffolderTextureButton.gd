@@ -2,6 +2,7 @@ tool
 class_name ScaffolderTextureButton, "res://addons/scaffolder/assets/images/editor_icons/ScaffolderTextureButton.png"
 extends Control
 
+
 signal pressed
 
 export var texture_normal: Texture setget \

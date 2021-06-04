@@ -1,6 +1,7 @@
 class_name SliderLabeledControlItem
 extends LabeledControlItem
 
+
 var TYPE := LabeledControlItem.SLIDER
 
 var value: float

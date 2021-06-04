@@ -1,6 +1,7 @@
 class_name ScaffolderColors
 extends Node
 
+
 # Alpha values (from 0 to 1).
 const ALPHA_SOLID := 1.0
 const ALPHA_SLIGHTLY_FAINT := 0.7

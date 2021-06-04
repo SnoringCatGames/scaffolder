@@ -1,6 +1,7 @@
 class_name SaveState
 extends Node
 
+
 const CONFIG_FILE_PATH := "user://settings.cfg"
 const SETTINGS_SECTION_KEY := "settings"
 const MISCELLANEOUS_SECTION_KEY := "miscellaneous"

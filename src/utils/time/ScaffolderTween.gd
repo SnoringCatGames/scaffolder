@@ -1,6 +1,7 @@
 class_name ScaffolderTween
 extends Node
 
+
 signal tween_all_completed
 signal tween_completed(object, key)
 

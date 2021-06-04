@@ -1,6 +1,7 @@
 class_name CreditsScreen
 extends Screen
 
+
 const GODOT_URL := "https://godotengine.org"
 
 const NAME := "credits"

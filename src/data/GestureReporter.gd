@@ -1,6 +1,7 @@
 class_name GestureReporter
 extends Node
 
+
 const HEADERS := ["Content-Type: application/json"]
 
 

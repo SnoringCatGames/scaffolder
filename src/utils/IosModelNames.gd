@@ -1,6 +1,7 @@
 class_name IosModelNames
 extends Reference
 
+
 # This table was found here: https://stackoverflow.com/a/11197770/489568
 const DEVICE_MODEL_NUMBER_TO_READABLE_NAME := {
     # Simulator

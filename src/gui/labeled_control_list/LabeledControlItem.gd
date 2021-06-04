@@ -1,6 +1,7 @@
 class_name LabeledControlItem
 extends Reference
 
+
 signal changed
 
 enum {

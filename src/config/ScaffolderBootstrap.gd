@@ -1,6 +1,7 @@
 class_name ScaffolderBootstrap
 extends Node
 
+
 var app_manifest: Dictionary
 var main: Node
 

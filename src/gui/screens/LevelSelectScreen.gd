@@ -2,6 +2,7 @@ tool
 class_name LevelSelectScreen
 extends Screen
 
+
 const LEVEL_SELECT_ITEM_RESOURCE_PATH := \
         "res://addons/scaffolder/src/gui/level_select/LevelSelectItem.tscn"
 

@@ -2,6 +2,7 @@ tool
 class_name ScaffolderCheckBox, "res://addons/scaffolder/assets/images/editor_icons/ScaffolderCheckBox.png"
 extends Control
 
+
 signal pressed
 signal toggled(pressed)
 

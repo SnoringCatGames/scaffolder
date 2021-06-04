@@ -1,6 +1,7 @@
 class_name ScaffolderLevelConfig
 extends Node
 
+
 # NOTE: Level config Dictionaries must have the following properties:
 # -   name: String: Try to keep this short and memorable.
 # -   version: String: Of the form "0.0.1".

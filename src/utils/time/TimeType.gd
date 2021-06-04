@@ -1,5 +1,6 @@
 class_name TimeType
 
+
 # The different types of time that are tracked.
 # 
 # -   Fixed-interval/physics-based tracking vs clock and render-based tracking:

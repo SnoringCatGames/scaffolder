@@ -1,6 +1,7 @@
 class_name ScaffolderThirdPartyLicenses
 extends Node
 
+
 const TEXT := """
 -------------------------------------------------------------------------------
 --- Godot Engine <https://godotengine.org>

@@ -1,6 +1,7 @@
 class_name WelcomePanel
 extends VBoxContainer
 
+
 var controls_items := [
     StaticTextLabeledControlItem.new("*Auto nav*", "click"),
     StaticTextLabeledControlItem.new("Inspect graph", "ctrl + click (x2)"),

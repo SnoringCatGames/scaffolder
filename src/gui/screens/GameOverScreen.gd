@@ -2,6 +2,7 @@ tool
 class_name GameOverScreen
 extends Screen
 
+
 const NAME := "game_over"
 const LAYER_NAME := "menu_screen"
 const AUTO_ADAPTS_GUI_SCALE := true

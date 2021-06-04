@@ -2,6 +2,7 @@ tool
 class_name PauseScreen
 extends Screen
 
+
 const NAME := "pause"
 const LAYER_NAME := "menu_screen"
 const AUTO_ADAPTS_GUI_SCALE := true

@@ -1,6 +1,7 @@
 class_name LevelSelectItemBody
 extends Node
 
+
 var go_icon_scale_multiplier := 0.75
 
 var level_id: String

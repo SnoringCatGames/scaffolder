@@ -1,6 +1,7 @@
 class_name CrashReporter
 extends Node
 
+
 signal upload_finished
 
 const LOGS_DIRECTORY_PATH := "user://logs"

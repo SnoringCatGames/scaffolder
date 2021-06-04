@@ -1,6 +1,7 @@
 class_name NotificationScreen
 extends Screen
 
+
 const NAME := "notification"
 const LAYER_NAME := "menu_screen"
 const AUTO_ADAPTS_GUI_SCALE := true

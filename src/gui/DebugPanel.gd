@@ -1,6 +1,7 @@
 class_name DebugPanel, "res://addons/scaffolder/assets/images/editor_icons/DebugPanel.png"
 extends Node2D
 
+
 const CORNER_OFFSET := Vector2(0.0, 0.0)
 const MESSAGE_COUNT_LIMIT := 500
 

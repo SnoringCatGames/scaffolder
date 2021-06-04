@@ -1,6 +1,7 @@
 class_name HapticFeedbackSettingsLabeledControlItem
 extends CheckboxLabeledControlItem
 
+
 const LABEL := "Haptic feedback"
 const DESCRIPTION := ""
 

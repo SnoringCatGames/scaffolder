@@ -1,6 +1,7 @@
 class_name WelcomePanelSettingsLabeledControlItem
 extends CheckboxLabeledControlItem
 
+
 const LABEL := "Welcome panel"
 const DESCRIPTION := (
         "The 'Welcome panel' is an overlay that is shown when starting a " +

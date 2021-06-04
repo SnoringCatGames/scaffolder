@@ -1,6 +1,7 @@
 class_name StyleBoxFlatScalable
 extends StyleBoxFlat
 
+
 var initial_border_width: int
 var initial_content_margin: float
 var initial_corner_detail: int

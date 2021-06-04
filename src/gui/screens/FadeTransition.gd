@@ -1,6 +1,7 @@
 class_name FadeTransition
 extends ColorRect
 
+
 signal fade_completed
 
 var _tween_id: int

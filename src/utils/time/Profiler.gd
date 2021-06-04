@@ -2,6 +2,7 @@ class_name Profiler
 extends Node
 # Measures and records timings.
 
+
 const DEFAULT_THREAD_ID := ""
 
 # A mapping from thread ID to Stopwatch.

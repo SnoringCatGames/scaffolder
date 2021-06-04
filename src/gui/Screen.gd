@@ -1,6 +1,7 @@
 class_name Screen
 extends Node2D
 
+
 var screen_name: String
 var layer_name: String
 var auto_adapts_gui_scale: bool
