@@ -7,6 +7,8 @@ const LAYER_NAME := "game_screen"
 const AUTO_ADAPTS_GUI_SCALE := true
 const INCLUDES_STANDARD_HIERARCHY := false
 
+var start_time := INF
+
 
 func _init().(
         NAME,
@@ -135,6 +137,7 @@ func _on_calculation_started() -> void:
 
 
 func _on_load_started() -> void:
+    start_time = Gs.time.get_clock_time()
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label1.text = \
             "Loading platform graphs"
 
@@ -160,12 +163,18 @@ func _on_graph_parse_progress(
         player_count,
     ]
     var label_2 := "Out-bound surface %s of %s" % [
-        origin_surface_index,
+        origin_surface_index + 1,
         surface_count,
     ]
     
     $PanelContainer/LoadProgressPanel/VBoxContainer/ProgressBar.value = \
             progress
+    $PanelContainer/LoadProgressPanel/VBoxContainer/Duration.text = \
+            Gs.utils.get_time_string_from_seconds( \
+                    Gs.time.get_clock_time() - start_time, \
+                    false, \
+                    false, \
+                    true)
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label2.text = label_1
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label3.text = label_2
 

@@ -44,9 +44,9 @@ margin_bottom = 967.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/LoadProgressPanel"]
 margin_left = 320.0
-margin_top = 412.0
+margin_top = 397.0
 margin_right = 640.0
-margin_bottom = 548.0
+margin_bottom = 563.0
 rect_min_size = Vector2( 320, 0 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -86,7 +86,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
+[node name="Duration" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
 margin_left = 160.0
 margin_top = 92.0
 margin_right = 160.0
@@ -94,10 +94,18 @@ margin_bottom = 106.0
 size_flags_horizontal = 4
 align = 1
 
-[node name="Label3" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
+[node name="Label4" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
 margin_left = 160.0
 margin_top = 122.0
 margin_right = 160.0
 margin_bottom = 136.0
+size_flags_horizontal = 4
+align = 1
+
+[node name="Label3" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
+margin_left = 160.0
+margin_top = 152.0
+margin_right = 160.0
+margin_bottom = 166.0
 size_flags_horizontal = 4
 align = 1
