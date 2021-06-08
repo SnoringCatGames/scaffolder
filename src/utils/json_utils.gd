@@ -2,8 +2,12 @@ class_name JsonUtils
 extends Node
 
 
+var REGEX_TO_MATCH_TRAILING_ZEROS_AFTER_DECIMAL := RegEx.new()
+
+
 func _init() -> void:
     Gs.logger.print("JsonUtils._init")
+    REGEX_TO_MATCH_TRAILING_ZEROS_AFTER_DECIMAL.compile("\\.0*$")
 
 
 # JSON encoding with custom syntax for vector values.
@@ -105,8 +109,8 @@ func from_json_object(json):
 
 func encode_vector2(value: Vector2) -> String:
     return "%s,%s" % [
-        str(value.x),
-        str(value.y),
+        float_to_string(value.x),
+        float_to_string(value.y),
     ]
 
 
@@ -119,9 +123,9 @@ func decode_vector2(value: String) -> Vector2:
 
 func encode_vector3(value: Vector3) -> String:
     return "%s,%s,%s" % [
-        str(value.x),
-        str(value.y),
-        str(value.z),
+        float_to_string(value.x),
+        float_to_string(value.y),
+        float_to_string(value.z),
     ]
 
 
@@ -137,10 +141,10 @@ func decode_vector3(value: String) -> Vector3:
 
 func encode_rect2(value: Rect2) -> String:
     return "%s,%s,%s,%s" % [
-        str(value.position.x),
-        str(value.position.y),
-        str(value.size.x),
-        str(value.size.y),
+        float_to_string(value.position.x),
+        float_to_string(value.position.y),
+        float_to_string(value.size.x),
+        float_to_string(value.size.y),
     ]
 
 
@@ -159,10 +163,10 @@ func decode_rect2(value: String) -> Rect2:
 
 func encode_color(value: Color) -> String:
     return "%s,%s,%s,%s" % [
-        str(value.r),
-        str(value.g),
-        str(value.b),
-        str(value.a),
+        float_to_string(value.r),
+        float_to_string(value.g),
+        float_to_string(value.b),
+        float_to_string(value.a),
     ]
 
 
@@ -200,3 +204,11 @@ func decode_vector2_array(value: Array) -> Array:
     for i in value.size():
         result[i] = decode_vector2(value[i])
     return result
+
+
+func remove_trailing_zeros_after_decimal(value: String) -> String:
+    return REGEX_TO_MATCH_TRAILING_ZEROS_AFTER_DECIMAL.sub(value, ".")
+
+
+func float_to_string(value: float) -> String:
+    return remove_trailing_zeros_after_decimal("%f" % value)
