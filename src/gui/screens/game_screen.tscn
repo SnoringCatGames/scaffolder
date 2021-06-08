@@ -94,7 +94,7 @@ margin_bottom = 106.0
 size_flags_horizontal = 4
 align = 1
 
-[node name="Label4" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
+[node name="Label2" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
 margin_left = 160.0
 margin_top = 122.0
 margin_right = 160.0

@@ -195,6 +195,7 @@ var crash_reporter: CrashReporter
 var audio: Audio
 var colors: ScaffolderColors
 var styles: ScaffolderStyles
+var json: JsonUtils
 var nav: ScaffolderNavigation
 var save_state: SaveState
 var analytics: Analytics
@@ -468,6 +469,12 @@ func initialize() -> void:
     else:
         self.styles = ScaffolderStyles.new()
     add_child(self.styles)
+    if manifest.has("json_utils_class"):
+        self.json = manifest.json_utils_class.new()
+        assert(self.json is JsonUtils)
+    else:
+        self.json = JsonUtils.new()
+    add_child(self.json)
     if manifest.has("save_state_class"):
         self.save_state = manifest.save_state_class.new()
         assert(self.save_state is SaveState)
