@@ -128,6 +128,7 @@ func start_level(level_id: String) -> void:
             "parse_finished",
             self,
             "_on_graph_parse_finished")
+    start_time = Gs.time.get_clock_time()
     level._load()
 
 
@@ -137,7 +138,6 @@ func _on_calculation_started() -> void:
 
 
 func _on_load_started() -> void:
-    start_time = Gs.time.get_clock_time()
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label1.text = \
             "Loading platform graphs"
 
