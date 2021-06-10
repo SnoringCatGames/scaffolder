@@ -7,7 +7,7 @@ const LAYER_NAME := "game_screen"
 const AUTO_ADAPTS_GUI_SCALE := true
 const INCLUDES_STANDARD_HIERARCHY := false
 
-var start_time := INF
+var graph_load_start_time := INF
 
 
 func _init().(
@@ -128,7 +128,7 @@ func start_level(level_id: String) -> void:
             "parse_finished",
             self,
             "_on_graph_parse_finished")
-    start_time = Gs.time.get_clock_time()
+    graph_load_start_time = Gs.time.get_clock_time()
     level._load()
 
 
@@ -171,7 +171,7 @@ func _on_graph_parse_progress(
             progress
     $PanelContainer/LoadProgressPanel/VBoxContainer/Duration.text = \
             Gs.utils.get_time_string_from_seconds( \
-                    Gs.time.get_clock_time() - start_time, \
+                    Gs.time.get_clock_time() - graph_load_start_time, \
                     false, \
                     false, \
                     true)
@@ -179,6 +179,8 @@ func _on_graph_parse_progress(
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label3.text = label_2
 
 
+# This is called when the graphs are ready, regardless of whether they were
+# calculated-on-demand or loaded from a file.
 func _on_graph_parse_finished() -> void:
     Gs.level.graph_parser.disconnect(
             "calculation_started",
@@ -203,6 +205,12 @@ func _on_graph_parse_finished() -> void:
     Gs.time.set_timeout( \
             funcref(self, "_close_load_screen"), \
             Gs.nav.fade_transition.duration / 2.0)
+    
+    Gs.analytics.event(
+            "graphs",
+            "loaded",
+            Gs.level_config.get_level_version_string(Gs.level.id),
+            Gs.time.get_clock_time() - graph_load_start_time)
 
 
 func _close_load_screen() -> void:

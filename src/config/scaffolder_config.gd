@@ -43,7 +43,6 @@ var is_mobile_supported: bool
 var is_data_deletion_button_shown: bool
 
 var are_beats_tracked_by_default: bool
-# NOTE: This doesn't currently work in HTML.
 var is_music_speed_change_supported := false
 var is_music_speed_scaled_with_time_scale := false
 var is_music_speed_scaled_with_additional_debug_time_scale := true
