@@ -6,6 +6,8 @@
 </p>
 
 > _**[Example app](https://github.com/snoringcatgames/squirrel-away)**_
+> 
+> _**[Godot Asset Library](https://godotengine.org/asset-library/asset/969)**_
 
 _An opinionated framework providing a bunch of general-purpose application scaffolding and utility functionality for games in Godot._
 
