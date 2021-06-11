@@ -30,6 +30,7 @@ func _enter_tree() -> void:
             0.0,
             post_tween_opacity,
             _FADE_IN_DURATION)
+    $Header.text = Gs.app_name
 
 
 func _ready() -> void:
