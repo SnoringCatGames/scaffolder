@@ -18,6 +18,8 @@ var id: String setget _set_id,_get_id
 var is_started: bool setget ,_get_is_started
 var level_play_time_unscaled: float setget ,_get_level_play_time_unscaled
 
+var is_destroyed := false
+
 
 func _ready() -> void:
     Gs.utils.connect(
@@ -51,6 +53,7 @@ func _exit_tree() -> void:
 func _destroy() -> void:
     _hide_welcome_panel()
     Gs.level = null
+    is_destroyed = true
     queue_free()
 
 
