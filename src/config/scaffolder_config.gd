@@ -431,12 +431,20 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.is_gesture_logging_supported = \
             !self.log_gestures_url.empty() and \
             !self.app_id_query_param.empty()
-    self.is_developer_logo_shown = manifest.has("developer_logo")
+    self.is_developer_logo_shown = \
+            manifest.has("developer_logo") and \
+            manifest.developer_logo != null
     self.is_developer_splash_shown = \
             manifest.has("developer_splash") and \
-            manifest.has("developer_splash_sound")
-    self.is_main_menu_image_shown = manifest.has("main_menu_image_scene_path")
-    self.is_loading_image_shown = manifest.has("loading_image_scene_path")
+            manifest.has("developer_splash_sound") and \
+            manifest.developer_splash != null and \
+            manifest.developer_splash_sound != ""
+    self.is_main_menu_image_shown = \
+            manifest.has("main_menu_image_scene_path") and \
+            manifest.main_menu_image_scene_path != ""
+    self.is_loading_image_shown = \
+            manifest.has("loading_image_scene_path") and \
+            manifest.loading_image_scene_path != null
     self.does_app_contain_welcome_panel = welcome_panel_resource_path != ""
 
 
