@@ -2,16 +2,6 @@ class_name WelcomePanel
 extends VBoxContainer
 
 
-var controls_items := [
-    StaticTextLabeledControlItem.new("*Auto nav*", "click"),
-    StaticTextLabeledControlItem.new("Inspect graph", "ctrl + click (x2)"),
-    StaticTextLabeledControlItem.new("Walk/Climb", "arrow key / wasd"),
-    StaticTextLabeledControlItem.new("Jump", "space / x"),
-    StaticTextLabeledControlItem.new("Dash", "z"),
-    StaticTextLabeledControlItem.new("Zoom in/out", "ctrl + =/-"),
-    StaticTextLabeledControlItem.new("Pan", "ctrl + arrow key"),
-]
-
 const DEFAULT_GUI_SCALE := 1.0
 const _FADE_IN_DURATION := 0.2
 
@@ -42,7 +32,7 @@ func _ready() -> void:
     faded_color.a *= 0.3
     
     $PanelContainer/LabeledControlList.even_row_color = faded_color
-    $PanelContainer/LabeledControlList.items = controls_items
+    $PanelContainer/LabeledControlList.items = Gs.welcome_panel_items
     
     update_gui_scale(1.0)
 

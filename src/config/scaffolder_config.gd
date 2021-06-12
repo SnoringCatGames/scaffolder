@@ -20,6 +20,16 @@ const DEBUG_PANEL_RESOURCE_PATH := \
 
 const MIN_GUI_SCALE := 0.2
 
+var _DEFAULT_WELCOME_PANEL_ITEMS := [
+    StaticTextLabeledControlItem.new("*Auto nav*", "click"),
+    StaticTextLabeledControlItem.new("Inspect graph", "ctrl + click (x2)"),
+    StaticTextLabeledControlItem.new("Walk/Climb", "arrow key / wasd"),
+    StaticTextLabeledControlItem.new("Jump", "space / x"),
+    StaticTextLabeledControlItem.new("Dash", "z"),
+    StaticTextLabeledControlItem.new("Zoom in/out", "ctrl + =/-"),
+    StaticTextLabeledControlItem.new("Pan", "ctrl + arrow key"),
+]
+
 # --- Static configuration state ---
 
 var manifest: Dictionary
@@ -83,6 +93,8 @@ var game_over_item_class_exclusions: Array
 var game_over_item_class_inclusions: Array
 var level_select_item_class_exclusions: Array
 var level_select_item_class_inclusions: Array
+
+var welcome_panel_items: Array
 
 var fonts: Dictionary
 
@@ -262,6 +274,8 @@ func amend_app_manifest(manifest: Dictionary) -> void:
         manifest.level_select_item_class_exclusions = []
     if !manifest.has("level_select_item_class_inclusions"):
         manifest.level_select_item_class_inclusions = []
+    if !manifest.has("welcome_panel_items"):
+        manifest.welcome_panel_items = _DEFAULT_WELCOME_PANEL_ITEMS
 
 
 func register_app_manifest(manifest: Dictionary) -> void:
@@ -309,6 +323,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
             manifest.level_select_item_class_exclusions
     self.level_select_item_class_inclusions = \
             manifest.level_select_item_class_inclusions
+    self.welcome_panel_items = manifest.welcome_panel_items
     self.fonts = manifest.fonts
     self.sounds_manifest = manifest.sounds_manifest
     self.default_sounds_path_prefix = manifest.default_sounds_path_prefix
