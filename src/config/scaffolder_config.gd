@@ -47,6 +47,10 @@ var is_music_speed_change_supported := false
 var is_music_speed_scaled_with_time_scale := false
 var is_music_speed_scaled_with_additional_debug_time_scale := true
 
+var is_music_paused_in_slow_motion := true
+var is_tick_tock_played_in_slow_motion := true
+var is_slow_motion_start_stop_sound_effect_played := true
+
 var app_name: String
 var app_id: String
 var app_version: String
@@ -404,6 +408,15 @@ func register_app_manifest(manifest: Dictionary) -> void:
     if manifest.has("is_music_speed_scaled_with_additional_debug_time_scale"):
         self.is_music_speed_scaled_with_additional_debug_time_scale = \
                 manifest.is_music_speed_scaled_with_additional_debug_time_scale
+    if manifest.has("is_music_paused_in_slow_motion"):
+        self.is_music_paused_in_slow_motion = \
+                manifest.is_music_paused_in_slow_motion
+    if manifest.has("is_tick_tock_played_in_slow_motion"):
+        self.is_tick_tock_played_in_slow_motion = \
+                manifest.is_tick_tock_played_in_slow_motion
+    if manifest.has("is_slow_motion_start_stop_sound_effect_played"):
+        self.is_slow_motion_start_stop_sound_effect_played = \
+                manifest.is_slow_motion_start_stop_sound_effect_played
     
     assert(manifest.level_config_class != null)
     assert(self.google_analytics_id.empty() == \

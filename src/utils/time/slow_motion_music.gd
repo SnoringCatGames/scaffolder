@@ -51,14 +51,16 @@ func start(time_scale_duration: float) -> void:
         _music_bpm_unscaled = Gs.beats.get_bpm_unscaled()
         _start_music_name = Gs.audio.get_music_name()
     
-    var slow_motion_music_name: String = \
-            Gs.level.get_slow_motion_music_name() if \
-            is_instance_valid(Gs.level) else \
-            ""
-    Gs.audio.cross_fade_music(slow_motion_music_name, time_scale_duration)
-    Gs.beats.is_beat_event_emission_paused = true
+    if Gs.is_music_paused_in_slow_motion:
+        var slow_motion_music_name: String = \
+                Gs.level.get_slow_motion_music_name() if \
+                is_instance_valid(Gs.level) else \
+                ""
+        Gs.audio.cross_fade_music(slow_motion_music_name, time_scale_duration)
+        Gs.beats.is_beat_event_emission_paused = true
     
-    Gs.audio.play_sound("slow_down")
+    if Gs.is_slow_motion_start_stop_sound_effect_played:
+        Gs.audio.play_sound("slow_down")
     
     if Gs.beats.is_tracking_beat:
         _update_beat_state()
@@ -77,7 +79,8 @@ func stop(time_scale_duration: float) -> void:
             funcref(self, "_on_transition_complete"),
             time_scale_duration)
     
-    Gs.audio.play_sound("speed_up")
+    if Gs.is_slow_motion_start_stop_sound_effect_played:
+        Gs.audio.play_sound("speed_up")
     
     _is_active = false
 
@@ -86,20 +89,21 @@ func _on_transition_complete() -> void:
     _is_transition_complete = true
     
     if !_is_active:
-        # Resume music playback at the correct position given the elapsed
-        # scaled-time during slow-motion mode and the transitions into and out
-        # of slow-motion mode.
-        var music_name: String = \
-                Gs.level.get_music_name() if \
-                is_instance_valid(Gs.level) else \
-                ""
-        Gs.audio.cross_fade_music(music_name, 0.01)
-        var slow_motion_duration_scaled: float = \
-                Gs.time.get_scaled_play_time() - _start_time_scaled
-        var playback_position := \
-                _start_playback_position + slow_motion_duration_scaled
-        Gs.audio.seek(playback_position)
-        Gs.beats.is_beat_event_emission_paused = false
+        if Gs.is_music_paused_in_slow_motion:
+            # Resume music playback at the correct position given the elapsed
+            # scaled-time during slow-motion mode and the transitions into and
+            # out of slow-motion mode.
+            var music_name: String = \
+                    Gs.level.get_music_name() if \
+                    is_instance_valid(Gs.level) else \
+                    ""
+            Gs.audio.cross_fade_music(music_name, 0.01)
+            var slow_motion_duration_scaled: float = \
+                    Gs.time.get_scaled_play_time() - _start_time_scaled
+            var playback_position := \
+                    _start_playback_position + slow_motion_duration_scaled
+            Gs.audio.seek(playback_position)
+            Gs.beats.is_beat_event_emission_paused = false
         
         _start_time_scaled = INF
         _start_playback_position = INF
@@ -156,7 +160,8 @@ func _update_beat_state() -> void:
                     next_music_beat_index - 1,
                     meter)
         
-        if previous_tick_tock_beat_index != next_tick_tock_beat_index:
+        if previous_tick_tock_beat_index != next_tick_tock_beat_index and \
+                Gs.is_tick_tock_played_in_slow_motion:
             var is_downbeat := (next_tick_tock_beat_index - 1) % meter == 0
             _on_tick_tock_beat(is_downbeat, next_tick_tock_beat_index - 1)
             emit_signal(
