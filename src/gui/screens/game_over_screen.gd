@@ -16,7 +16,7 @@ var level_id: String
 var score: String
 var high_score: String
 var time: String
-var reached_new_high_score: bool
+var was_best_playthrough: bool
 var new_unlocked_levels: Array
 
 
@@ -58,18 +58,18 @@ func _update_stats() -> void:
     var unlocked_new_level_label := $FullScreenPanel/VBoxContainer/ \
             CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/ \
             VBoxContainer2/UnlockedNewLevelLabel
-    var high_score_label := $FullScreenPanel/VBoxContainer/CenteredPanel/ \
+    var was_best_playthrough_label := $FullScreenPanel/VBoxContainer/CenteredPanel/ \
             ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/ \
-            HighScoreLabel
+            WasBestPlaythroughLabel
     var control_list := $FullScreenPanel/VBoxContainer/CenteredPanel/ \
             ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/ \
             LabeledControlList
     
     unlocked_new_level_label.visible = !new_unlocked_levels.empty()
     
-    high_score_label.visible = \
+    was_best_playthrough_label.visible = \
             Gs.uses_level_scores and \
-            reached_new_high_score
+            was_best_playthrough
     
     control_list.items = _get_items()
 
