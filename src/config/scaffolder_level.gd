@@ -62,6 +62,7 @@ func quit(immediately := true) -> void:
     _record_level_results()
     if immediately:
 #        _on_level_quit_sound_finished()
+        Gs.nav.open("game_over", true)
         _destroy()
     else:
         Gs.audio.get_sound_player(Gs.level_end_sound) \
@@ -146,7 +147,7 @@ func _record_level_results() -> void:
             Gs.save_state.set_level_high_score(
                     _id,
                     int(score))
-            game_over_screen.reached_new_high_score = true
+            game_over_screen.was_best_playthrough = true
         
         var all_scores: Array = Gs.save_state.get_level_all_scores(_id)
         all_scores.push_back(score)
@@ -156,7 +157,6 @@ func _record_level_results() -> void:
         game_over_screen.high_score = \
                 str(Gs.save_state.get_level_high_score(_id))
     
-    var old_unlocked_levels: Array = Gs.level_config.get_old_unlocked_levels()
     var new_unlocked_levels: Array = Gs.level_config.get_new_unlocked_levels()
     Gs.save_state.set_new_unlocked_levels(new_unlocked_levels)
     for other_level_id in new_unlocked_levels:

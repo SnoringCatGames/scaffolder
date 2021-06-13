@@ -15,8 +15,8 @@
 script = ExtResource( 4 )
 
 [node name="FullScreenPanel" parent="." instance=ExtResource( 3 )]
-margin_right = 974.0
-margin_bottom = 1184.0
+margin_right = 960.0
+margin_bottom = 960.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
 margin_left = 7.0
@@ -92,7 +92,7 @@ custom_colors/font_color = Color( 1, 0.946, 0.46, 1 )
 text = "You unlocked a new level!"
 align = 1
 
-[node name="HighScoreLabel" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
+[node name="WasBestPlaythroughLabel" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
 visible = false
 margin_right = 280.0
 margin_bottom = 28.0
@@ -118,6 +118,7 @@ margin_top = 32.0
 margin_right = 360.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 360, 0 )
+is_open = true
 header_text = "Details"
 is_caret_on_left = false
 padding = Vector2( 16, 8 )
@@ -127,6 +128,8 @@ margin_top = 4.0
 margin_right = 360.0
 margin_bottom = 284.0
 rect_min_size = Vector2( 360, 0 )
+row_height = 0.0
+padding_horizontal = 8.0
 
 [node name="Spacer5" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_left = 180.0
