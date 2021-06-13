@@ -47,6 +47,10 @@ func _get_items() -> Array:
                     Gs.pause_item_class_inclusions)
     var items := []
     for item_class in item_classes:
+        if !Gs.uses_level_scores and \
+                (item_class == CurrentScoreLabeledControlItem or \
+                item_class == HighScoreLabeledControlItem):
+            continue
         items.push_back(item_class.new(Gs.level))
     return items
 
