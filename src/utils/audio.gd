@@ -107,7 +107,7 @@ func register_music(
         config.player = player
         _inflated_music_config[config.name] = config
     
-    if Gs.is_music_speed_change_supported or \
+    if Gs.is_arbitrary_music_speed_change_supported or \
             Gs.is_music_speed_scaled_with_time_scale or \
             Gs.is_music_speed_scaled_with_additional_debug_time_scale:
         _pitch_shift_effect = AudioEffectPitchShift.new()
@@ -282,11 +282,11 @@ func _on_cross_fade_music_finished(
 
 
 func set_playback_speed(playback_speed_multiplier: float) -> void:
-    assert(Gs.is_music_speed_change_supported or \
+    assert(Gs.is_arbitrary_music_speed_change_supported or \
             Gs.is_music_speed_scaled_with_time_scale or \
             Gs.is_music_speed_scaled_with_additional_debug_time_scale or \
             playback_speed_multiplier == 1.0)
-    if !Gs.is_music_speed_change_supported and \
+    if !Gs.is_arbitrary_music_speed_change_supported and \
             !Gs.is_music_speed_scaled_with_time_scale and \
             !Gs.is_music_speed_scaled_with_additional_debug_time_scale:
         return

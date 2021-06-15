@@ -53,7 +53,7 @@ var is_mobile_supported: bool
 var is_data_deletion_button_shown: bool
 
 var are_beats_tracked_by_default: bool
-var is_music_speed_change_supported := false
+var is_arbitrary_music_speed_change_supported := false
 var is_music_speed_scaled_with_time_scale := false
 var is_music_speed_scaled_with_additional_debug_time_scale := true
 
@@ -414,9 +414,9 @@ func register_app_manifest(manifest: Dictionary) -> void:
     if manifest.has("recent_gesture_events_for_debugging_buffer_size"):
         self.recent_gesture_events_for_debugging_buffer_size = \
                 manifest.recent_gesture_events_for_debugging_buffer_size
-    if manifest.has("is_music_speed_change_supported"):
-        self.is_music_speed_change_supported = \
-                manifest.is_music_speed_change_supported
+    if manifest.has("is_arbitrary_music_speed_change_supported"):
+        self.is_arbitrary_music_speed_change_supported = \
+                manifest.is_arbitrary_music_speed_change_supported
     if manifest.has("is_music_speed_scaled_with_time_scale"):
         self.is_music_speed_scaled_with_time_scale = \
                 manifest.is_music_speed_scaled_with_time_scale
