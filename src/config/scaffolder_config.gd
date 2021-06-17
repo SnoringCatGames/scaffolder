@@ -17,6 +17,8 @@ const WELCOME_PANEL_RESOURCE_PATH := \
         "res://addons/scaffolder/src/gui/welcome_panel.tscn"
 const DEBUG_PANEL_RESOURCE_PATH := \
         "res://addons/scaffolder/src/gui/debug_panel.tscn"
+const _DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH := \
+        "res://addons/scaffolder/src/gui/hud/hud_key_value_box_nine_patch_rect.tscn"
 
 const MIN_GUI_SCALE := 0.2
 
@@ -29,6 +31,8 @@ var _DEFAULT_WELCOME_PANEL_ITEMS := [
     StaticTextLabeledControlItem.new("Zoom in/out", "ctrl + =/-"),
     StaticTextLabeledControlItem.new("Pan", "ctrl + arrow key"),
 ]
+
+const HUD_KEY_VALUE_BOX_DEFAULT_SIZE := Vector2(256.0, 48.0)
 
 # --- Static configuration state ---
 
@@ -93,8 +97,9 @@ var game_over_item_class_exclusions: Array
 var game_over_item_class_inclusions: Array
 var level_select_item_class_exclusions: Array
 var level_select_item_class_inclusions: Array
-
 var welcome_panel_items: Array
+var hud_key_value_box_nine_patch_rect_path: String
+var hud_key_value_list_item_manifest: Array
 
 var fonts: Dictionary
 
@@ -171,6 +176,8 @@ var tree_arrow_icon_path_prefix := \
 var default_tree_arrow_icon_size := 16
 var tree_arrow_icon_sizes := [8, 16, 32, 64]
 
+var hud_key_value_box_size := HUD_KEY_VALUE_BOX_DEFAULT_SIZE
+
 # --- Derived configuration ---
 
 var is_special_thanks_shown: bool
@@ -186,6 +193,7 @@ var is_main_menu_image_shown: bool
 var is_loading_image_shown: bool
 var does_app_contain_welcome_panel: bool
 var is_welcome_panel_shown: bool
+var is_hud_key_value_list_shown: bool
 var original_font_sizes: Dictionary
 
 # --- Global state ---
@@ -276,6 +284,11 @@ func amend_app_manifest(manifest: Dictionary) -> void:
         manifest.level_select_item_class_inclusions = []
     if !manifest.has("welcome_panel_items"):
         manifest.welcome_panel_items = _DEFAULT_WELCOME_PANEL_ITEMS
+    if !manifest.has("hud_key_value_list_item_manifest"):
+        manifest.hud_key_value_list_item_manifest = []
+    if !manifest.has("hud_key_value_box_nine_patch_rect_path"):
+        manifest.hud_key_value_box_nine_patch_rect_path = \
+                _DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH
 
 
 func register_app_manifest(manifest: Dictionary) -> void:
@@ -324,6 +337,10 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.level_select_item_class_inclusions = \
             manifest.level_select_item_class_inclusions
     self.welcome_panel_items = manifest.welcome_panel_items
+    self.hud_key_value_list_item_manifest = \
+            manifest.hud_key_value_list_item_manifest
+    self.hud_key_value_box_nine_patch_rect_path = \
+            manifest.hud_key_value_box_nine_patch_rect_path
     self.fonts = manifest.fonts
     self.sounds_manifest = manifest.sounds_manifest
     self.default_sounds_path_prefix = manifest.default_sounds_path_prefix
@@ -401,6 +418,8 @@ func register_app_manifest(manifest: Dictionary) -> void:
         self.error_logs_url = manifest.error_logs_url
     if manifest.has("log_gestures_url"):
         self.log_gestures_url = manifest.log_gestures_url
+    if manifest.has("app_id_query_param"):
+        self.app_id_query_param = manifest.app_id_query_param
     if manifest.has("default_camera_zoom"):
         self.default_camera_zoom = manifest.default_camera_zoom
     if manifest.has("camera_smoothing_speed"):
@@ -414,6 +433,8 @@ func register_app_manifest(manifest: Dictionary) -> void:
     if manifest.has("recent_gesture_events_for_debugging_buffer_size"):
         self.recent_gesture_events_for_debugging_buffer_size = \
                 manifest.recent_gesture_events_for_debugging_buffer_size
+    if manifest.has("hud_key_value_box_size"):
+        self.hud_key_value_box_size = manifest.hud_key_value_box_size
     if manifest.has("is_arbitrary_music_speed_change_supported"):
         self.is_arbitrary_music_speed_change_supported = \
                 manifest.is_arbitrary_music_speed_change_supported
@@ -474,6 +495,8 @@ func register_app_manifest(manifest: Dictionary) -> void:
             manifest.has("loading_image_scene_path") and \
             manifest.loading_image_scene_path != null
     self.does_app_contain_welcome_panel = welcome_panel_resource_path != ""
+    self.is_hud_key_value_list_shown = \
+            !hud_key_value_list_item_manifest.empty()
 
 
 func initialize_crash_reporter() -> CrashReporter:
