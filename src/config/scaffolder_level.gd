@@ -2,6 +2,9 @@ class_name ScaffolderLevel
 extends Node2D
 
 
+const HUD_KEY_VALUE_LIST_RESOURCE_PATH := \
+        "res://addons/scaffolder/src/gui/hud/hud_key_value_list.tscn"
+
 var min_controls_display_time := 0.5
 
 var _id: String
@@ -19,6 +22,8 @@ var is_started: bool setget ,_get_is_started
 var level_play_time_unscaled: float setget ,_get_level_play_time_unscaled
 
 var is_destroyed := false
+
+var hud_key_value_list: HudKeyValueList
 
 
 func _ready() -> void:
@@ -43,6 +48,12 @@ func _start() -> void:
             "level",
             "start",
             Gs.level_config.get_level_version_string(_id))
+    if Gs.is_hud_key_value_list_shown:
+        hud_key_value_list = Gs.utils.add_scene(
+                Gs.canvas_layers.layers.hud,
+                HUD_KEY_VALUE_LIST_RESOURCE_PATH,
+                true,
+                true)
 
 
 func _exit_tree() -> void:
@@ -52,6 +63,8 @@ func _exit_tree() -> void:
 
 func _destroy() -> void:
     _hide_welcome_panel()
+    if is_instance_valid(hud_key_value_list):
+        Gs.canvas_layers.layers.hud.remove_child(hud_key_value_list)
     Gs.level = null
     is_destroyed = true
     queue_free()

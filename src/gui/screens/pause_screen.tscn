@@ -63,6 +63,7 @@ custom_constants/separation = 0
 
 [node name="LabeledControlList" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 9 )]
 margin_right = 320.0
+row_height = 0.0
 padding_horizontal = 6.0
 
 [node name="Spacer2" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
