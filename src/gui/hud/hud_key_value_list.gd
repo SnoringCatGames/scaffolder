@@ -10,7 +10,7 @@ var boxes := []
 
 
 func _ready() -> void:
-    for item_config in Gs.hud_key_value_list_item_manifest:
+    for item_config in Gs.hud_manifest.hud_key_value_list_item_manifest:
         var box: HudKeyValueBox = Gs.utils.add_scene(
                 self,
                 HUD_KEY_VALUE_BOX_RESOURCE_PATH,

@@ -17,10 +17,12 @@ const WELCOME_PANEL_RESOURCE_PATH := \
         "res://addons/scaffolder/src/gui/welcome_panel.tscn"
 const DEBUG_PANEL_RESOURCE_PATH := \
         "res://addons/scaffolder/src/gui/debug_panel.tscn"
-const _DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH := \
+const DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH := \
         "res://addons/scaffolder/src/gui/hud/hud_key_value_box_nine_patch_rect.tscn"
 
 const MIN_GUI_SCALE := 0.2
+
+const HUD_KEY_VALUE_BOX_DEFAULT_SIZE := Vector2(256.0, 48.0)
 
 var _DEFAULT_WELCOME_PANEL_ITEMS := [
     StaticTextLabeledControlItem.new("*Auto nav*", "click"),
@@ -32,7 +34,19 @@ var _DEFAULT_WELCOME_PANEL_ITEMS := [
     StaticTextLabeledControlItem.new("Pan", "ctrl + arrow key"),
 ]
 
-const HUD_KEY_VALUE_BOX_DEFAULT_SIZE := Vector2(256.0, 48.0)
+var _DEFAULT_HUD_MANIFEST := {
+    hud_class = ScaffolderHud,
+    hud_key_value_box_size = HUD_KEY_VALUE_BOX_DEFAULT_SIZE,
+    hud_key_value_box_nine_patch_rect_path = \
+            DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH,
+    hud_key_value_list_item_manifest = [
+        {
+            item_class = TimeLabeledControlItem,
+            settings_enablement_label = "Time",
+            enabled = true,
+        },
+    ],
+}
 
 # --- Static configuration state ---
 
@@ -98,8 +112,8 @@ var game_over_item_class_inclusions: Array
 var level_select_item_class_exclusions: Array
 var level_select_item_class_inclusions: Array
 var welcome_panel_items: Array
-var hud_key_value_box_nine_patch_rect_path: String
-var hud_key_value_list_item_manifest: Array
+
+var hud_manifest: Dictionary
 
 var fonts: Dictionary
 
@@ -176,8 +190,6 @@ var tree_arrow_icon_path_prefix := \
 var default_tree_arrow_icon_size := 16
 var tree_arrow_icon_sizes := [8, 16, 32, 64]
 
-var hud_key_value_box_size := HUD_KEY_VALUE_BOX_DEFAULT_SIZE
-
 # --- Derived configuration ---
 
 var is_special_thanks_shown: bool
@@ -193,7 +205,6 @@ var is_main_menu_image_shown: bool
 var is_loading_image_shown: bool
 var does_app_contain_welcome_panel: bool
 var is_welcome_panel_shown: bool
-var is_hud_key_value_list_shown: bool
 var original_font_sizes: Dictionary
 
 # --- Global state ---
@@ -233,6 +244,7 @@ var level_input: LevelInput
 var slow_motion: SlowMotionController
 var beats: BeatTracker
 var level_config: ScaffolderLevelConfig
+var hud: ScaffolderHud
 var canvas_layers: CanvasLayers
 var camera_controller: CameraController
 var welcome_panel: WelcomePanel
@@ -284,11 +296,8 @@ func amend_app_manifest(manifest: Dictionary) -> void:
         manifest.level_select_item_class_inclusions = []
     if !manifest.has("welcome_panel_items"):
         manifest.welcome_panel_items = _DEFAULT_WELCOME_PANEL_ITEMS
-    if !manifest.has("hud_key_value_list_item_manifest"):
-        manifest.hud_key_value_list_item_manifest = []
-    if !manifest.has("hud_key_value_box_nine_patch_rect_path"):
-        manifest.hud_key_value_box_nine_patch_rect_path = \
-                _DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH
+    if !manifest.has("hud_manifest"):
+        manifest.hud_manifest = _DEFAULT_HUD_MANIFEST
 
 
 func register_app_manifest(manifest: Dictionary) -> void:
@@ -337,10 +346,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.level_select_item_class_inclusions = \
             manifest.level_select_item_class_inclusions
     self.welcome_panel_items = manifest.welcome_panel_items
-    self.hud_key_value_list_item_manifest = \
-            manifest.hud_key_value_list_item_manifest
-    self.hud_key_value_box_nine_patch_rect_path = \
-            manifest.hud_key_value_box_nine_patch_rect_path
+    self.hud_manifest = manifest.hud_manifest
     self.fonts = manifest.fonts
     self.sounds_manifest = manifest.sounds_manifest
     self.default_sounds_path_prefix = manifest.default_sounds_path_prefix
@@ -433,8 +439,6 @@ func register_app_manifest(manifest: Dictionary) -> void:
     if manifest.has("recent_gesture_events_for_debugging_buffer_size"):
         self.recent_gesture_events_for_debugging_buffer_size = \
                 manifest.recent_gesture_events_for_debugging_buffer_size
-    if manifest.has("hud_key_value_box_size"):
-        self.hud_key_value_box_size = manifest.hud_key_value_box_size
     if manifest.has("is_arbitrary_music_speed_change_supported"):
         self.is_arbitrary_music_speed_change_supported = \
                 manifest.is_arbitrary_music_speed_change_supported
@@ -461,6 +465,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
             self.terms_and_conditions_url.empty())
     assert((self.developer_splash == null) == \
             self.developer_splash_sound.empty())
+    
     
     self.is_special_thanks_shown = !self.special_thanks_text.empty()
     self.is_third_party_licenses_shown = !self.third_party_license_text.empty()
@@ -495,8 +500,6 @@ func register_app_manifest(manifest: Dictionary) -> void:
             manifest.has("loading_image_scene_path") and \
             manifest.loading_image_scene_path != null
     self.does_app_contain_welcome_panel = welcome_panel_resource_path != ""
-    self.is_hud_key_value_list_shown = \
-            !hud_key_value_list_item_manifest.empty()
 
 
 func initialize_crash_reporter() -> CrashReporter:
