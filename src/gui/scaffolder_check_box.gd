@@ -41,7 +41,7 @@ func _update_check_box_position() -> void:
 
 
 func _get_icon_scale() -> float:
-    var target_icon_size := \
+    var target_icon_size: float = \
             Gs.default_checkbox_icon_size * Gs.gui_scale * scale
     return target_icon_size / Gs.current_checkbox_icon_size
 

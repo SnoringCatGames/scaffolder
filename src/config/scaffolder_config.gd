@@ -48,6 +48,35 @@ var _DEFAULT_HUD_MANIFEST := {
     ],
 }
 
+var DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST := {
+    groups = {
+        main = {
+            label = "",
+            is_collapsible = false,
+            item_classes = [
+                MusicSettingsLabeledControlItem,
+                SoundEffectsSettingsLabeledControlItem,
+                HapticFeedbackSettingsLabeledControlItem,
+            ],
+        },
+        hud = {
+            label = "HUD",
+            is_collapsible = true,
+            item_classes = [
+            ],
+        },
+        miscellaneous = {
+            label = "Miscellaneous",
+            is_collapsible = true,
+            item_classes = [
+                WelcomePanelSettingsLabeledControlItem,
+                TimeScaleSettingsLabeledControlItem,
+                MetronomeSettingsLabeledControlItem,
+            ],
+        },
+    },
+}
+
 # --- Static configuration state ---
 
 var manifest: Dictionary
@@ -99,12 +128,10 @@ var uses_level_scores: bool
 
 var must_restart_level_to_change_settings: bool
 
+var settings_item_manifest: Dictionary
+
 var screen_path_exclusions: Array
 var screen_path_inclusions: Array
-var settings_main_item_class_exclusions: Array
-var settings_main_item_class_inclusions: Array
-var settings_details_item_class_exclusions: Array
-var settings_details_item_class_inclusions: Array
 var pause_item_class_exclusions: Array
 var pause_item_class_inclusions: Array
 var game_over_item_class_exclusions: Array
@@ -268,20 +295,13 @@ func _enter_tree() -> void:
 
 
 func amend_app_manifest(manifest: Dictionary) -> void:
+    if !manifest.has("settings_item_manifest"):
+        manifest.settings_item_manifest = \
+                DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST
     if !manifest.has("screen_path_exclusions"):
         manifest.screen_path_exclusions = []
     if !manifest.has("screen_path_inclusions"):
         manifest.screen_path_inclusions = []
-    
-    if !manifest.has("settings_main_item_class_exclusions"):
-        manifest.settings_main_item_class_exclusions = []
-    if !manifest.has("settings_main_item_class_inclusions"):
-        manifest.settings_main_item_class_inclusions = []
-    if !manifest.has("settings_details_item_class_exclusions"):
-        manifest.settings_details_item_class_exclusions = []
-    if !manifest.has("settings_details_item_class_inclusions"):
-        manifest.settings_details_item_class_inclusions = []
-    
     if !manifest.has("pause_item_class_exclusions"):
         manifest.pause_item_class_exclusions = []
     if !manifest.has("pause_item_class_inclusions"):
@@ -325,16 +345,9 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.uses_level_scores = manifest.uses_level_scores
     self.must_restart_level_to_change_settings = \
             manifest.must_restart_level_to_change_settings
+    self.settings_item_manifest = manifest.settings_item_manifest
     self.screen_path_exclusions = manifest.screen_path_exclusions
     self.screen_path_inclusions = manifest.screen_path_inclusions
-    self.settings_main_item_class_exclusions = \
-            manifest.settings_main_item_class_exclusions
-    self.settings_main_item_class_inclusions = \
-            manifest.settings_main_item_class_inclusions
-    self.settings_details_item_class_exclusions = \
-            manifest.settings_details_item_class_exclusions
-    self.settings_details_item_class_inclusions = \
-            manifest.settings_details_item_class_inclusions
     self.pause_item_class_exclusions = manifest.pause_item_class_exclusions
     self.pause_item_class_inclusions = manifest.pause_item_class_inclusions
     self.game_over_item_class_exclusions = \

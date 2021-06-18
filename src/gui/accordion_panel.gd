@@ -46,6 +46,8 @@ var _header_label: Label
 var _projected_control: Control
 var _caret: ScaffolderTextureRect
 var _is_open_tween: ScaffolderTween
+var _spacer1: Control
+var _spacer2: Control
 
 var _header_normal_stylebox: StyleBoxFlatScalable
 var _header_hover_stylebox: StyleBoxFlatScalable
@@ -168,9 +170,9 @@ func _create_header() -> void:
     _header_hbox = HBoxContainer.new()
     _header.add_child(_header_hbox)
     
-    var spacer1 := Control.new()
-    spacer1.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-    spacer1.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+    _spacer1 = Control.new()
+    _spacer1.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+    _spacer1.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     
     _caret = Gs.utils.add_scene(
             null,
@@ -180,6 +182,7 @@ func _create_header() -> void:
     _caret.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
     _caret.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     _caret.texture = CARET_LEFT_NORMAL
+    _caret.mouse_filter = MOUSE_FILTER_IGNORE
     var inner_texture_rect := _caret.get_node("TextureRect")
     inner_texture_rect.rect_pivot_offset = CARET_SIZE_DEFAULT / 2.0
     inner_texture_rect.rect_rotation = CARET_ROTATION_CLOSED
@@ -191,29 +194,38 @@ func _create_header() -> void:
     _header_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     _header_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     
-    var spacer2 := Control.new()
-    spacer2.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-    spacer2.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+    _spacer2 = Control.new()
+    _spacer2.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+    _spacer2.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     
-    _header_hbox.add_child(spacer1)
+    _update_header_arrangement()
+    
+    add_child(_header)
+
+
+func _update_header_arrangement() -> void:
+    for child in _header_hbox.get_children():
+        _header_hbox.remove_child(child)
+    
+    _header_hbox.add_child(_spacer1)
     if is_caret_on_left:
         _header_hbox.add_child(_caret)
         _header_hbox.add_child(_header_label)
     else:
         _header_hbox.add_child(_header_label)
         _header_hbox.add_child(_caret)
-    _header_hbox.add_child(spacer2)
-    
-    add_child(_header)
+    _header_hbox.add_child(_spacer2)
 
 
 func _update_children() -> void:
     if !_is_ready:
         return
     
-    if includes_header and \
-            !is_instance_valid(_header):
-        _create_header()
+    if includes_header:
+        if !is_instance_valid(_header):
+            _create_header()
+        else:
+            _update_header_arrangement()
     elif !includes_header and \
             is_instance_valid(_header):
         _header.queue_free()
