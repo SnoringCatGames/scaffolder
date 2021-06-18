@@ -3,7 +3,7 @@ class_name SettingsScreen
 extends Screen
 
 
-const SETTINGS_GROUP_RESOURCE_PATH := "res://addons/scaffolder/src/gui/settings_group.tscn"
+const SETTINGS_GROUP_PATH := "res://addons/scaffolder/src/gui/settings_group.tscn"
 const NAME := "settings"
 const LAYER_NAME := "menu_screen"
 const AUTO_ADAPTS_GUI_SCALE := true
@@ -39,10 +39,10 @@ func _on_deactivated(next_screen_name: String) -> void:
 
 func _instantiate_settings_groups() -> void:
     _clear_groups()
-    for group_name in Gs.settings_item_manifest.groups:
+    for group_name in Gs.gui.settings_item_manifest.groups:
         var group: SettingsGroup = Gs.utils.add_scene(
                 null,
-                SETTINGS_GROUP_RESOURCE_PATH,
+                SETTINGS_GROUP_PATH,
                 false,
                 true)
         group.group_name = group_name

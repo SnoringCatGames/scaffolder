@@ -4,8 +4,8 @@ extends PanelContainer
 
 
 func _init() -> void:
-    theme = Gs.theme
-    add_font_override("font", Gs.fonts.main_m)
+    theme = Gs.gui.theme
+    add_font_override("font", Gs.gui.fonts.main_m)
 
 
 func _enter_tree() -> void:

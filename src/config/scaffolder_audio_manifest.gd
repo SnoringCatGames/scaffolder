@@ -34,7 +34,7 @@ var is_tick_tock_played_in_slow_motion := true
 var is_slow_motion_start_stop_sound_effect_played := true
 
 
-func register_audio_manifest(manifest: Dictionary) -> void:
+func register_manifest(manifest: Dictionary) -> void:
     self.sounds_manifest = manifest.sounds_manifest
     self.default_sounds_path_prefix = manifest.default_sounds_path_prefix
     self.default_sounds_file_suffix = manifest.default_sounds_file_suffix
@@ -82,3 +82,14 @@ func register_audio_manifest(manifest: Dictionary) -> void:
     if manifest.has("is_slow_motion_start_stop_sound_effect_played"):
         self.is_slow_motion_start_stop_sound_effect_played = \
                 manifest.is_slow_motion_start_stop_sound_effect_played
+    
+    Gs.audio.register_sounds(
+            self.sounds_manifest,
+            self.default_sounds_path_prefix,
+            self.default_sounds_file_suffix,
+            self.default_sounds_bus_index)
+    Gs.audio.register_music(
+            self.music_manifest,
+            self.default_music_path_prefix,
+            self.default_music_file_suffix,
+            self.default_music_bus_index)

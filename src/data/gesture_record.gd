@@ -31,7 +31,7 @@ func _record_new_gesture_event(event: InputEvent) -> void:
             Gs.time.get_play_time())
     recent_gesture_events_for_debugging.push_front(gesture_event)
     while recent_gesture_events_for_debugging.size() > \
-            Gs.recent_gesture_events_for_debugging_buffer_size:
+            Gs.gui.recent_gesture_events_for_debugging_buffer_size:
         recent_gesture_events_for_debugging.pop_back()
 
 

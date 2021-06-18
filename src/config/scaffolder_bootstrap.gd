@@ -54,18 +54,18 @@ func _initialize_framework() -> void:
     Gs.canvas_layers = CanvasLayers.new()
     main.add_child(Gs.canvas_layers)
     
-    Gs.debug_panel = Gs.utils.add_scene(
+    Gs.gui.debug_panel = Gs.utils.add_scene(
             Gs.canvas_layers.layers.top,
-            Gs.DEBUG_PANEL_RESOURCE_PATH,
+            Gs.gui.DEBUG_PANEL_PATH,
             true,
             true)
-    Gs.debug_panel.z_index = 1000
-    Gs.debug_panel.visible = Gs.is_debug_panel_shown
+    Gs.gui.debug_panel.z_index = 1000
+    Gs.gui.debug_panel.visible = Gs.gui.is_debug_panel_shown
     
     if Gs.debug or Gs.playtest:
-        Gs.gesture_record = GestureRecord.new()
+        Gs.gui.gesture_record = GestureRecord.new()
         Gs.canvas_layers.layers.top \
-                .add_child(Gs.gesture_record)
+                .add_child(Gs.gui.gesture_record)
     
     Gs.is_app_initialized = true
     
@@ -73,7 +73,7 @@ func _initialize_framework() -> void:
     
     _throttled_size_changed = Gs.time.throttle(
             funcref(self, "_on_throttled_size_changed"),
-            Gs.display_resize_throttle_interval)
+            Gs.gui.display_resize_throttle_interval)
     get_viewport().connect(
             "size_changed",
             self,
@@ -86,7 +86,7 @@ func _initialize_framework() -> void:
     # Create the screens after the first resize event has propogated.
     Gs.time.set_timeout(
             funcref(self, "_create_screens"),
-            Gs.display_resize_throttle_interval + 0.01)
+            Gs.gui.display_resize_throttle_interval + 0.01)
 
 
 func _create_screens() -> void:
@@ -106,7 +106,7 @@ func _on_screens_created() -> void:
         # some reason, the HTML export seems to need this additional resize.
         Gs.time.set_timeout(
                 funcref(self, "_on_app_initialized"),
-                Gs.display_resize_throttle_interval + 0.01)
+                Gs.gui.display_resize_throttle_interval + 0.01)
     else:
         _on_app_initialized()
 
@@ -183,58 +183,58 @@ func _on_throttled_size_changed() -> void:
 
 
 func _update_font_sizes() -> void:
-    for key in Gs.fonts:
-        Gs.fonts[key].size = \
-                Gs.original_font_sizes[key] * \
-                Gs.gui_scale
+    for key in Gs.gui.fonts:
+        Gs.gui.fonts[key].size = \
+                Gs.gui.original_font_sizes[key] * \
+                Gs.gui.scale
 
 
 func _update_checkbox_size() -> void:
-    var target_icon_size := Gs.default_checkbox_icon_size * Gs.gui_scale
-    var closest_icon_size := Gs.default_checkbox_icon_size
-    for icon_size in Gs.checkbox_icon_sizes:
+    var target_icon_size := Gs.gui.default_checkbox_icon_size * Gs.gui.scale
+    var closest_icon_size := Gs.gui.default_checkbox_icon_size
+    for icon_size in Gs.gui.checkbox_icon_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Gs.current_checkbox_icon_size = closest_icon_size
+    Gs.gui.current_checkbox_icon_size = closest_icon_size
     
     var checked_icon_path := \
-            Gs.checkbox_icon_path_prefix + "checked_" + \
-            str(Gs.current_checkbox_icon_size) + ".png"
+            Gs.gui.checkbox_icon_path_prefix + "checked_" + \
+            str(Gs.gui.current_checkbox_icon_size) + ".png"
     var unchecked_icon_path := \
-            Gs.checkbox_icon_path_prefix + "unchecked_" + \
-            str(Gs.current_checkbox_icon_size) + ".png"
+            Gs.gui.checkbox_icon_path_prefix + "unchecked_" + \
+            str(Gs.gui.current_checkbox_icon_size) + ".png"
     
     var checked_icon := load(checked_icon_path)
     var unchecked_icon := load(unchecked_icon_path)
     
-    Gs.theme.set_icon("checked", "CheckBox", checked_icon)
-    Gs.theme.set_icon("unchecked", "CheckBox", unchecked_icon)
+    Gs.gui.theme.set_icon("checked", "CheckBox", checked_icon)
+    Gs.gui.theme.set_icon("unchecked", "CheckBox", unchecked_icon)
 
 
 func _update_tree_arrow_size() -> void:
-    var target_icon_size := Gs.default_tree_arrow_icon_size * Gs.gui_scale
-    var closest_icon_size := Gs.default_tree_arrow_icon_size
-    for icon_size in Gs.tree_arrow_icon_sizes:
+    var target_icon_size := Gs.gui.default_tree_arrow_icon_size * Gs.gui.scale
+    var closest_icon_size := Gs.gui.default_tree_arrow_icon_size
+    for icon_size in Gs.gui.tree_arrow_icon_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Gs.current_tree_arrow_icon_size = closest_icon_size
+    Gs.gui.current_tree_arrow_icon_size = closest_icon_size
     
     var open_icon_path := \
-            Gs.tree_arrow_icon_path_prefix + "open_" + \
-            str(Gs.current_tree_arrow_icon_size) + ".png"
+            Gs.gui.tree_arrow_icon_path_prefix + "open_" + \
+            str(Gs.gui.current_tree_arrow_icon_size) + ".png"
     var closed_icon_path := \
-            Gs.tree_arrow_icon_path_prefix + "closed_" + \
-            str(Gs.current_tree_arrow_icon_size) + ".png"
+            Gs.gui.tree_arrow_icon_path_prefix + "closed_" + \
+            str(Gs.gui.current_tree_arrow_icon_size) + ".png"
     
     var open_icon := load(open_icon_path)
     var closed_icon := load(closed_icon_path)
     
-    Gs.theme.set_icon("arrow", "Tree", open_icon)
-    Gs.theme.set_icon("arrow_collapsed", "Tree", closed_icon)
-    Gs.theme.set_constant(
-            "item_margin", "Tree", Gs.current_tree_arrow_icon_size)
+    Gs.gui.theme.set_icon("arrow", "Tree", open_icon)
+    Gs.gui.theme.set_icon("arrow_collapsed", "Tree", closed_icon)
+    Gs.gui.theme.set_constant(
+            "item_margin", "Tree", Gs.gui.current_tree_arrow_icon_size)
 
 
 func _update_game_area_region_and_gui_scale() -> void:
@@ -246,18 +246,18 @@ func _update_game_area_region_and_gui_scale() -> void:
     if !Gs.is_app_configured:
         game_area_size = viewport_size
         game_area_position = Vector2.ZERO
-    if aspect_ratio < Gs.aspect_ratio_min:
+    if aspect_ratio < Gs.gui.aspect_ratio_min:
         # Show vertical margin around game area.
         game_area_size = Vector2(
                 viewport_size.x,
-                viewport_size.x / Gs.aspect_ratio_min)
+                viewport_size.x / Gs.gui.aspect_ratio_min)
         game_area_position = Vector2(
                 0.0,
                 (viewport_size.y - game_area_size.y) * 0.5)
-    elif aspect_ratio > Gs.aspect_ratio_max:
+    elif aspect_ratio > Gs.gui.aspect_ratio_max:
         # Show horizontal margin around game area.
         game_area_size = Vector2(
-                viewport_size.y * Gs.aspect_ratio_max,
+                viewport_size.y * Gs.gui.aspect_ratio_max,
                 viewport_size.y)
         game_area_position = Vector2(
                 (viewport_size.x - game_area_size.x) * 0.5,
@@ -267,22 +267,22 @@ func _update_game_area_region_and_gui_scale() -> void:
         game_area_size = viewport_size
         game_area_position = Vector2.ZERO
     
-    Gs.game_area_region = Rect2(game_area_position, game_area_size)
+    Gs.gui.game_area_region = Rect2(game_area_position, game_area_size)
     
     if Gs.is_app_configured:
         var default_aspect_ratio: float = \
-                Gs.default_game_area_size.x / \
-                Gs.default_game_area_size.y
-        Gs.gui_scale = \
-                viewport_size.x / Gs.default_game_area_size.x if \
+                Gs.gui.default_game_area_size.x / \
+                Gs.gui.default_game_area_size.y
+        Gs.gui.scale = \
+                viewport_size.x / Gs.gui.default_game_area_size.x if \
                 aspect_ratio < default_aspect_ratio else \
-                viewport_size.y / Gs.default_game_area_size.y
-        Gs.gui_scale = \
-                max(Gs.gui_scale, Gs.MIN_GUI_SCALE)
+                viewport_size.y / Gs.gui.default_game_area_size.y
+        Gs.gui.scale = \
+                max(Gs.gui.scale, Gs.gui.MIN_GUI_SCALE)
 
 
 func _scale_guis() -> void:
-    for gui in Gs.guis_to_scale:
+    for gui in Gs.gui.guis_to_scale:
         Gs.utils._scale_gui_for_current_screen_size(gui)
 
 

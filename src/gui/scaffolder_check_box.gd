@@ -25,8 +25,8 @@ func _ready() -> void:
 
 func update_gui_scale(gui_scale: float) -> bool:
     $CheckBox.rect_size = Vector2(
-            Gs.current_checkbox_icon_size,
-            Gs.current_checkbox_icon_size)
+            Gs.gui.current_checkbox_icon_size,
+            Gs.gui.current_checkbox_icon_size)
     var check_box_scale := _get_icon_scale()
     $CheckBox.rect_scale = Vector2(check_box_scale, check_box_scale)
     rect_min_size *= gui_scale
@@ -42,8 +42,8 @@ func _update_check_box_position() -> void:
 
 func _get_icon_scale() -> float:
     var target_icon_size: float = \
-            Gs.default_checkbox_icon_size * Gs.gui_scale * scale
-    return target_icon_size / Gs.current_checkbox_icon_size
+            Gs.gui.default_checkbox_icon_size * Gs.gui.scale * scale
+    return target_icon_size / Gs.gui.current_checkbox_icon_size
 
 
 func _set_text(value: String) -> void:
@@ -79,7 +79,7 @@ func _get_disabled() -> bool:
 func _set_scale(value: float) -> void:
     scale = value
     if _is_ready:
-        update_gui_scale(Gs.gui_scale)
+        update_gui_scale(Gs.gui.scale)
 
 
 func _get_scale() -> float:

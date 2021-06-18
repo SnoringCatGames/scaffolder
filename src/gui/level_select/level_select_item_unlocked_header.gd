@@ -56,12 +56,12 @@ func update_size(header_size: Vector2) -> void:
     
     $HBoxContainer.add_constant_override(
             "separation",
-            PADDING.x * Gs.gui_scale)
+            PADDING.x * Gs.gui.scale)
     $HBoxContainer.rect_min_size = header_size
     $HBoxContainer.rect_size = header_size
     
     $HBoxContainer/Caret.texture_scale = \
-            AccordionPanel.CARET_SCALE * Gs.gui_scale
+            AccordionPanel.CARET_SCALE * Gs.gui.scale
     
     rect_size = header_size
 

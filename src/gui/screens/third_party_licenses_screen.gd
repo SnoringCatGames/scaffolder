@@ -23,4 +23,4 @@ func _init().(
 
 func _ready() -> void:
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer \
-            /VBoxContainer/Label.text = Gs.third_party_license_text 
+            /VBoxContainer/Label.text = Gs.gui.third_party_license_text 

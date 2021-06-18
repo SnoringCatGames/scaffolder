@@ -30,8 +30,8 @@ func _get_items() -> Array:
     var item_classes := \
             Gs.utils.get_collection_from_exclusions_and_inclusions(
                     _get_default_item_classes(),
-                    Gs.level_select_item_class_exclusions,
-                    Gs.level_select_item_class_inclusions)
+                    Gs.gui.level_select_item_class_exclusions,
+                    Gs.gui.level_select_item_class_inclusions)
     var items := []
     for item_class in item_classes:
         items.push_back(item_class.new(level_id))

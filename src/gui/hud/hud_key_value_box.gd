@@ -11,7 +11,7 @@ var nine_patch_rect: NinePatchRect
 func _ready() -> void:
     nine_patch_rect = Gs.utils.add_scene(
             self,
-            Gs.hud_manifest.hud_key_value_box_nine_patch_rect_path,
+            Gs.gui.hud_manifest.hud_key_value_box_nine_patch_rect_path,
             true,
             true,
             0)
@@ -19,13 +19,13 @@ func _ready() -> void:
 
 
 func update_gui_scale(gui_scale: float) -> bool:
-    var size: Vector2 = Gs.hud_manifest.hud_key_value_box_size * Gs.gui_scale
-    var spacer_size: float = SEPARATION * Gs.gui_scale
+    var size: Vector2 = Gs.gui.hud_manifest.hud_key_value_box_size * Gs.gui.scale
+    var spacer_size: float = SEPARATION * Gs.gui.scale
     rect_min_size = size
     rect_size = size
-    nine_patch_rect.rect_min_size = Gs.hud_manifest.hud_key_value_box_size
-    nine_patch_rect.rect_size = Gs.hud_manifest.hud_key_value_box_size
-    nine_patch_rect.rect_scale = Vector2(Gs.gui_scale, Gs.gui_scale)
+    nine_patch_rect.rect_min_size = Gs.gui.hud_manifest.hud_key_value_box_size
+    nine_patch_rect.rect_size = Gs.gui.hud_manifest.hud_key_value_box_size
+    nine_patch_rect.rect_scale = Vector2(Gs.gui.scale, Gs.gui.scale)
     $HBoxContainer.rect_min_size = size
     $HBoxContainer.rect_size = size
     $HBoxContainer/Spacer.rect_size.x = spacer_size

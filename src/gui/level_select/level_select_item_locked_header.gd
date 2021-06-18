@@ -32,7 +32,7 @@ func _exit_tree() -> void:
 
 func init_children() -> void:
     $HintWrapper.modulate.a = 0.0
-    previous_gui_scale = Gs.gui_scale
+    previous_gui_scale = Gs.gui.scale
     
     header_stylebox = Gs.utils.create_stylebox_flat_scalable({
         stylebox = get_stylebox("panel"),
@@ -52,8 +52,8 @@ func init_children() -> void:
 func update_size(header_size: Vector2) -> bool:
     rect_min_size = header_size
     
-    var relative_gui_scale := Gs.gui_scale / previous_gui_scale
-    previous_gui_scale = Gs.gui_scale
+    var relative_gui_scale := Gs.gui.scale / previous_gui_scale
+    previous_gui_scale = Gs.gui.scale
     $HintWrapper/Hint.rect_min_size *= relative_gui_scale
     $HintWrapper/Hint.rect_size = header_size
     $HintWrapper.rect_size = header_size

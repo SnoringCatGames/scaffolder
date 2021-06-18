@@ -76,7 +76,7 @@ func create_row(
     row.add_stylebox_override("panel", style)
     
     var hbox := HBoxContainer.new()
-    hbox.rect_min_size.y = height * Gs.gui_scale
+    hbox.rect_min_size.y = height * Gs.gui.scale
     hbox.add_constant_override("separation", 0)
     row.add_child(hbox)
     
@@ -107,9 +107,9 @@ func create_row(
         description_button.texture_hover = ABOUT_ICON_HOVER
         description_button.texture_pressed = ABOUT_ICON_ACTIVE
         description_button.rect_min_size = \
-                ABOUT_ICON_NORMAL.get_size() * Gs.gui_scale
+                ABOUT_ICON_NORMAL.get_size() * Gs.gui.scale
         description_button.texture_scale = \
-                Vector2(Gs.gui_scale, Gs.gui_scale)
+                Vector2(Gs.gui.scale, Gs.gui.scale)
         description_button.expands_texture = false
         description_button.connect(
                 "pressed",
@@ -126,7 +126,7 @@ func create_row(
     var spacer3 := Control.new()
     spacer3.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
     spacer3.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-    spacer3.rect_min_size.x = inner_padding_horizontal * 2.0 * Gs.gui_scale
+    spacer3.rect_min_size.x = inner_padding_horizontal * 2.0 * Gs.gui.scale
     
     if self.type != HEADER:
         var control := create_control()

@@ -26,11 +26,11 @@ func _init().(
 
 
 func _ready() -> void:
-    if Gs.is_main_menu_image_shown:
+    if Gs.gui.is_main_menu_image_shown:
         projected_image = Gs.utils.add_scene(
                 $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
                         CenterContainer/VBoxContainer/MainMenuImageContainer,
-                Gs.main_menu_image_scene_path,
+                Gs.gui.main_menu_image_scene_path,
                 true,
                 true)
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \

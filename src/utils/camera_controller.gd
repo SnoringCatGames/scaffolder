@@ -47,7 +47,7 @@ func _process(_delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
     # Mouse wheel events are never considered pressed by Godot--rather they are
     # only ever considered to have just happened.
-    if Gs.is_user_interaction_enabled and \
+    if Gs.gui.is_user_interaction_enabled and \
             event is InputEventMouseButton and \
             is_instance_valid(_current_camera):
         if event.button_index == BUTTON_WHEEL_UP:
@@ -107,8 +107,8 @@ func get_position() -> Vector2:
 
 func get_derived_zoom() -> float:
     return zoom_factor * \
-            Gs.default_camera_zoom / \
-            Gs.gui_scale
+            Gs.gui.default_camera_zoom / \
+            Gs.gui.scale
 
 
 func _set_zoom_factor(value: float) -> void:

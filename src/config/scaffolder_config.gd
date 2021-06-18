@@ -2,7 +2,7 @@ class_name ScaffolderConfig
 extends Node
 
 
-# ---
+# --- Constants ---
 
 const AGREED_TO_TERMS_SETTINGS_KEY := "agreed_to_terms"
 const IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY := "is_giving_haptic_feedback"
@@ -12,70 +12,6 @@ const IS_DEBUG_TIME_SHOWN_SETTINGS_KEY := "is_debug_time_shown"
 const IS_MUSIC_ENABLED_SETTINGS_KEY := "is_music_enabled"
 const IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY := "is_sound_effects_enabled"
 const ADDITIONAL_DEBUG_TIME_SCALE_SETTINGS_KEY := "additional_debug_time_scale"
-
-const WELCOME_PANEL_RESOURCE_PATH := \
-        "res://addons/scaffolder/src/gui/welcome_panel.tscn"
-const DEBUG_PANEL_RESOURCE_PATH := \
-        "res://addons/scaffolder/src/gui/debug_panel.tscn"
-const DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH := \
-        "res://addons/scaffolder/src/gui/hud/hud_key_value_box_nine_patch_rect.tscn"
-
-const MIN_GUI_SCALE := 0.2
-
-const HUD_KEY_VALUE_BOX_DEFAULT_SIZE := Vector2(256.0, 48.0)
-
-var _DEFAULT_WELCOME_PANEL_ITEMS := [
-    StaticTextLabeledControlItem.new("*Auto nav*", "click"),
-    StaticTextLabeledControlItem.new("Inspect graph", "ctrl + click (x2)"),
-    StaticTextLabeledControlItem.new("Walk/Climb", "arrow key / wasd"),
-    StaticTextLabeledControlItem.new("Jump", "space / x"),
-    StaticTextLabeledControlItem.new("Dash", "z"),
-    StaticTextLabeledControlItem.new("Zoom in/out", "ctrl + =/-"),
-    StaticTextLabeledControlItem.new("Pan", "ctrl + arrow key"),
-]
-
-var _DEFAULT_HUD_MANIFEST := {
-    hud_class = ScaffolderHud,
-    hud_key_value_box_size = HUD_KEY_VALUE_BOX_DEFAULT_SIZE,
-    hud_key_value_box_nine_patch_rect_path = \
-            DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH,
-    hud_key_value_list_item_manifest = [
-        {
-            item_class = TimeLabeledControlItem,
-            settings_enablement_label = "Time",
-            enabled = true,
-        },
-    ],
-}
-
-var DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST := {
-    groups = {
-        main = {
-            label = "",
-            is_collapsible = false,
-            item_classes = [
-                MusicSettingsLabeledControlItem,
-                SoundEffectsSettingsLabeledControlItem,
-                HapticFeedbackSettingsLabeledControlItem,
-            ],
-        },
-        hud = {
-            label = "HUD",
-            is_collapsible = true,
-            item_classes = [
-            ],
-        },
-        miscellaneous = {
-            label = "Miscellaneous",
-            is_collapsible = true,
-            item_classes = [
-                WelcomePanelSettingsLabeledControlItem,
-                TimeScaleSettingsLabeledControlItem,
-                MetronomeSettingsLabeledControlItem,
-            ],
-        },
-    },
-}
 
 # --- Static configuration state ---
 
@@ -97,7 +33,6 @@ var uses_threads: bool
 var thread_count: int
 
 var is_mobile_supported: bool
-var is_data_deletion_button_shown: bool
 
 var app_name: String
 var app_id: String
@@ -105,38 +40,9 @@ var app_version: String
 var score_version: String
 var data_agreement_version: String
 
-var theme: Theme
-
-var cell_size: Vector2
-
-# Should match Project Settings > Display > Window > Size > Width/Height
-var default_game_area_size: Vector2
-
-var aspect_ratio_max: float
-var aspect_ratio_min: float
-
 var uses_level_scores: bool
 
 var must_restart_level_to_change_settings: bool
-
-var settings_item_manifest: Dictionary
-
-var screen_path_exclusions: Array
-var screen_path_inclusions: Array
-var pause_item_class_exclusions: Array
-var pause_item_class_inclusions: Array
-var game_over_item_class_exclusions: Array
-var game_over_item_class_inclusions: Array
-var level_select_item_class_exclusions: Array
-var level_select_item_class_inclusions: Array
-var welcome_panel_items: Array
-
-var hud_manifest: Dictionary
-
-var fonts: Dictionary
-
-var third_party_license_text: String
-var special_thanks_text: String
 
 var app_logo: Texture
 var app_logo_scale: float
@@ -151,15 +57,6 @@ var developer_splash: Texture
 var godot_splash_screen_duration := 0.8
 var developer_splash_screen_duration := 1.0
 
-var main_menu_image_scene_path: String
-var loading_image_scene_path: String
-var welcome_panel_resource_path: String
-
-var fade_in_transition_texture := \
-        preload("res://addons/scaffolder/assets/images/transition_in.png")
-var fade_out_transition_texture := \
-        preload("res://addons/scaffolder/assets/images/transition_out.png")
-
 # Must start with "UA-".
 var google_analytics_id: String
 var terms_and_conditions_url: String
@@ -171,65 +68,24 @@ var error_logs_url: String
 var log_gestures_url: String
 var app_id_query_param: String
 
-var camera_smoothing_speed: float
-var default_camera_zoom := 1.0
-
-var input_vibrate_duration := 0.01
-
-var display_resize_throttle_interval := 0.1
-
-var recent_gesture_events_for_debugging_buffer_size := 1000
-
-var checkbox_icon_path_prefix := \
-        "res://addons/scaffolder/assets/images/gui/checkbox_"
-var default_checkbox_icon_size := 32
-var checkbox_icon_sizes := [16, 32, 64, 128]
-
-var tree_arrow_icon_path_prefix := \
-        "res://addons/scaffolder/assets/images/gui/tree_arrow_"
-var default_tree_arrow_icon_size := 16
-var tree_arrow_icon_sizes := [8, 16, 32, 64]
-
 # --- Derived configuration ---
 
-var is_special_thanks_shown: bool
-var is_third_party_licenses_shown: bool
 var is_data_tracked: bool
 var are_error_logs_captured: bool
-var is_rate_app_shown: bool
-var is_support_shown: bool
-var is_gesture_logging_supported: bool
-var is_developer_logo_shown: bool
-var is_developer_splash_shown: bool
-var is_main_menu_image_shown: bool
-var is_loading_image_shown: bool
-var does_app_contain_welcome_panel: bool
-var is_welcome_panel_shown: bool
-var original_font_sizes: Dictionary
 
 # --- Global state ---
 
 var is_app_configured := false
 var is_app_initialized := false
 var were_screenshots_taken := false
-
 var agreed_to_terms: bool
-var is_giving_haptic_feedback: bool
-var is_debug_panel_shown: bool setget \
-        _set_is_debug_panel_shown, _get_is_debug_panel_shown
-var is_debug_time_shown: bool
 
-var is_user_interaction_enabled := true
-
-var game_area_region: Rect2
-var gui_scale := 1.0
-var current_checkbox_icon_size := default_checkbox_icon_size
-var current_tree_arrow_icon_size := default_checkbox_icon_size
 var crash_reporter: CrashReporter
 var audio_manifest: ScaffolderAudioManifest
 var audio: Audio
 var colors: ScaffolderColors
 var styles: ScaffolderStyles
+var gui: ScaffolderGuiConfig
 var json: JsonUtils
 var nav: ScaffolderNavigation
 var save_state: SaveState
@@ -245,16 +101,9 @@ var level_input: LevelInput
 var slow_motion: SlowMotionController
 var beats: BeatTracker
 var level_config: ScaffolderLevelConfig
-var hud: ScaffolderHud
 var canvas_layers: CanvasLayers
 var camera_controller: CameraController
-var welcome_panel: WelcomePanel
-var debug_panel: DebugPanel
-var gesture_record: GestureRecord
 var level: ScaffolderLevel
-
-var guis_to_scale := {}
-var active_overlays := []
 
 # ---
 
@@ -269,35 +118,17 @@ func _enter_tree() -> void:
 
 
 func amend_app_manifest(manifest: Dictionary) -> void:
-    if !manifest.has("settings_item_manifest"):
-        manifest.settings_item_manifest = \
-                DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST
-    if !manifest.has("screen_path_exclusions"):
-        manifest.screen_path_exclusions = []
-    if !manifest.has("screen_path_inclusions"):
-        manifest.screen_path_inclusions = []
-    if !manifest.has("pause_item_class_exclusions"):
-        manifest.pause_item_class_exclusions = []
-    if !manifest.has("pause_item_class_inclusions"):
-        manifest.pause_item_class_inclusions = []
-    if !manifest.has("game_over_item_class_exclusions"):
-        manifest.game_over_item_class_exclusions = []
-    if !manifest.has("game_over_item_class_inclusions"):
-        manifest.game_over_item_class_inclusions = []
-    if !manifest.has("level_select_item_class_exclusions"):
-        manifest.level_select_item_class_exclusions = []
-    if !manifest.has("level_select_item_class_inclusions"):
-        manifest.level_select_item_class_inclusions = []
-    if !manifest.has("welcome_panel_items"):
-        manifest.welcome_panel_items = _DEFAULT_WELCOME_PANEL_ITEMS
-    if !manifest.has("hud_manifest"):
-        manifest.hud_manifest = _DEFAULT_HUD_MANIFEST
+    pass
 
 
 func register_app_manifest(manifest: Dictionary) -> void:
     self.manifest = manifest
     self.debug = manifest.debug
     self.playtest = manifest.playtest
+    if manifest.has("test"):
+        self.test = manifest.test
+    if manifest.has("are_all_levels_unlocked"):
+        self.are_all_levels_unlocked = manifest.are_all_levels_unlocked
     self.pauses_on_focus_out = manifest.pauses_on_focus_out
     self.also_prints_to_stdout = manifest.also_prints_to_stdout
     self.is_profiler_enabled = manifest.is_profiler_enabled
@@ -305,51 +136,23 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.uses_threads = manifest.uses_threads
     self.thread_count = manifest.thread_count
     self.is_mobile_supported = manifest.is_mobile_supported
-    self.is_data_deletion_button_shown = manifest.is_data_deletion_button_shown
+    self.uses_level_scores = manifest.uses_level_scores
+    self.must_restart_level_to_change_settings = \
+            manifest.must_restart_level_to_change_settings
+    if manifest.has("is_splash_skipped"):
+        self.is_splash_skipped = manifest.is_splash_skipped
+    
     self.app_name = manifest.app_name
     self.app_id = manifest.app_id
     self.app_version = manifest.app_version
     self.score_version = manifest.score_version
-    self.theme = manifest.theme
-    self.cell_size = manifest.cell_size
-    self.default_game_area_size = manifest.default_game_area_size
-    self.aspect_ratio_max = manifest.aspect_ratio_max
-    self.aspect_ratio_min = manifest.aspect_ratio_min
-    self.uses_level_scores = manifest.uses_level_scores
-    self.must_restart_level_to_change_settings = \
-            manifest.must_restart_level_to_change_settings
-    self.settings_item_manifest = manifest.settings_item_manifest
-    self.screen_path_exclusions = manifest.screen_path_exclusions
-    self.screen_path_inclusions = manifest.screen_path_inclusions
-    self.pause_item_class_exclusions = manifest.pause_item_class_exclusions
-    self.pause_item_class_inclusions = manifest.pause_item_class_inclusions
-    self.game_over_item_class_exclusions = \
-            manifest.game_over_item_class_exclusions
-    self.game_over_item_class_inclusions = \
-            manifest.game_over_item_class_inclusions
-    self.level_select_item_class_exclusions = \
-            manifest.level_select_item_class_exclusions
-    self.level_select_item_class_inclusions = \
-            manifest.level_select_item_class_inclusions
-    self.welcome_panel_items = manifest.welcome_panel_items
-    self.hud_manifest = manifest.hud_manifest
-    self.fonts = manifest.fonts
-    self.third_party_license_text = \
-            manifest.third_party_license_text.strip_edges()
-    self.special_thanks_text = manifest.special_thanks_text.strip_edges()
+    
     self.app_logo = manifest.app_logo
     self.app_logo_scale = manifest.app_logo_scale
     self.go_icon = manifest.go_icon
     self.go_icon_scale = manifest.go_icon_scale
     self.developer_name = manifest.developer_name
     self.developer_url = manifest.developer_url
-    
-    if manifest.has("test"):
-        self.test = manifest.test
-    if manifest.has("are_all_levels_unlocked"):
-        self.are_all_levels_unlocked = manifest.are_all_levels_unlocked
-    if manifest.has("is_splash_skipped"):
-        self.is_splash_skipped = manifest.is_splash_skipped
     if manifest.has("developer_logo"):
         self.developer_logo = manifest.developer_logo
     if manifest.has("developer_splash"):
@@ -360,16 +163,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
     if manifest.has("developer_splash_screen_duration"):
         self.developer_splash_screen_duration = \
                 manifest.developer_splash_screen_duration
-    if manifest.has("main_menu_image_scene_path"):
-        self.main_menu_image_scene_path = manifest.main_menu_image_scene_path
-    if manifest.has("loading_image_scene_path"):
-        self.loading_image_scene_path = manifest.loading_image_scene_path
-    if manifest.has("welcome_panel_resource_path"):
-        self.welcome_panel_resource_path = manifest.welcome_panel_resource_path
-    if manifest.has("fade_in_transition_texture"):
-        self.fade_in_transition_texture = manifest.fade_in_transition_texture
-    if manifest.has("fade_out_transition_texture"):
-        self.fade_out_transition_texture = manifest.fade_out_transition_texture
+    
     if manifest.has("google_analytics_id"):
         self.google_analytics_id = manifest.google_analytics_id
     if manifest.has("data_agreement_version"):
@@ -390,19 +184,6 @@ func register_app_manifest(manifest: Dictionary) -> void:
         self.log_gestures_url = manifest.log_gestures_url
     if manifest.has("app_id_query_param"):
         self.app_id_query_param = manifest.app_id_query_param
-    if manifest.has("default_camera_zoom"):
-        self.default_camera_zoom = manifest.default_camera_zoom
-    if manifest.has("camera_smoothing_speed"):
-        self.camera_smoothing_speed = manifest.camera_smoothing_speed
-    if manifest.has("input_vibrate_duration"):
-        self.input_vibrate_duration = \
-                manifest.input_vibrate_duration
-    if manifest.has("display_resize_throttle_interval"):
-        self.display_resize_throttle_interval = \
-                manifest.display_resize_throttle_interval
-    if manifest.has("recent_gesture_events_for_debugging_buffer_size"):
-        self.recent_gesture_events_for_debugging_buffer_size = \
-                manifest.recent_gesture_events_for_debugging_buffer_size
     
     assert(manifest.level_config_class != null)
     assert(self.google_analytics_id.empty() == \
@@ -412,8 +193,6 @@ func register_app_manifest(manifest: Dictionary) -> void:
     assert((self.developer_splash == null) == \
             manifest.audio_manifest.developer_splash_sound.empty())
     
-    self.is_special_thanks_shown = !self.special_thanks_text.empty()
-    self.is_third_party_licenses_shown = !self.third_party_license_text.empty()
     self.is_data_tracked = \
             !self.privacy_policy_url.empty() and \
             !self.terms_and_conditions_url.empty() and \
@@ -421,30 +200,6 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.are_error_logs_captured = \
             self.is_data_tracked and \
             !self.error_logs_url.empty()
-    self.is_rate_app_shown = \
-            !self.android_app_store_url.empty() and \
-            !self.ios_app_store_url.empty()
-    self.is_support_shown = \
-            !self.support_url.empty() and \
-            !self.app_id_query_param.empty()
-    self.is_gesture_logging_supported = \
-            !self.log_gestures_url.empty() and \
-            !self.app_id_query_param.empty()
-    self.is_developer_logo_shown = \
-            manifest.has("developer_logo") and \
-            manifest.developer_logo != null
-    self.is_developer_splash_shown = \
-            manifest.has("developer_splash") and \
-            manifest.has("developer_splash_sound") and \
-            manifest.developer_splash != null and \
-            manifest.developer_splash_sound != ""
-    self.is_main_menu_image_shown = \
-            manifest.has("main_menu_image_scene_path") and \
-            manifest.main_menu_image_scene_path != ""
-    self.is_loading_image_shown = \
-            manifest.has("loading_image_scene_path") and \
-            manifest.loading_image_scene_path != null
-    self.does_app_contain_welcome_panel = welcome_panel_resource_path != ""
 
 
 func initialize_crash_reporter() -> CrashReporter:
@@ -468,18 +223,24 @@ func initialize() -> void:
     else:
         self.audio = Audio.new()
     add_child(self.audio)
+    if manifest.has("gui_class"):
+        self.gui = manifest.gui_class.new()
+        assert(self.gui is ScaffolderGuiConfig)
+    else:
+        self.gui = ScaffolderGuiConfig.new()
+    add_child(self.gui)
     if manifest.has("colors_class"):
         self.colors = manifest.colors_class.new()
         assert(self.colors is ScaffolderColors)
     else:
         self.colors = ScaffolderColors.new()
-    add_child(self.colors)
+    self.add_child(self.colors)
     if manifest.has("styles_class"):
         self.styles = manifest.styles_class.new()
         assert(self.styles is ScaffolderStyles)
     else:
         self.styles = ScaffolderStyles.new()
-    add_child(self.styles)
+    self.add_child(self.styles)
     if manifest.has("json_utils_class"):
         self.json = manifest.json_utils_class.new()
         assert(self.json is JsonUtils)
@@ -557,38 +318,14 @@ func initialize() -> void:
     self.level_config = manifest.level_config_class.new()
     add_child(self.level_config)
     
-    self.audio_manifest.register_audio_manifest(manifest.audio_manifest)
-    
-    self.audio.register_sounds(
-            audio_manifest.sounds_manifest,
-            audio_manifest.default_sounds_path_prefix,
-            audio_manifest.default_sounds_file_suffix,
-            audio_manifest.default_sounds_bus_index)
-    self.audio.register_music(
-            audio_manifest.music_manifest,
-            audio_manifest.default_music_path_prefix,
-            audio_manifest.default_music_file_suffix,
-            audio_manifest.default_music_bus_index)
-    
-    self.colors.register_colors(manifest.colors_manifest)
-    self.styles.register_styles(manifest.styles_manifest)
+    self.audio_manifest.register_manifest(manifest.audio_manifest)
+    self.colors.register_manifest(manifest.colors_manifest)
+    self.styles.register_manifest(manifest.styles_manifest)
+    self.gui.register_manifest(manifest.gui_manifest)
     
     self.is_app_configured = true
-    
-    _record_original_font_sizes()
-    
+
     _validate_project_config()
-
-
-func add_gui_to_scale(
-        gui,
-        default_gui_scale: float) -> void:
-    guis_to_scale[gui] = default_gui_scale
-    Gs.utils._scale_gui_for_current_screen_size(gui)
-
-
-func remove_gui_to_scale(gui) -> void:
-    guis_to_scale.erase(gui)
 
 
 func load_state() -> void:
@@ -596,16 +333,16 @@ func load_state() -> void:
     agreed_to_terms = Gs.save_state.get_setting(
             AGREED_TO_TERMS_SETTINGS_KEY,
             false)
-    is_giving_haptic_feedback = Gs.save_state.get_setting(
+    Gs.gui.is_giving_haptic_feedback = Gs.save_state.get_setting(
             IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY,
             Gs.utils.get_is_android_device())
-    is_debug_panel_shown = Gs.save_state.get_setting(
+    Gs.gui.is_debug_panel_shown = Gs.save_state.get_setting(
             IS_DEBUG_PANEL_SHOWN_SETTINGS_KEY,
             false)
-    is_welcome_panel_shown = Gs.save_state.get_setting(
+    Gs.gui.is_welcome_panel_shown = Gs.save_state.get_setting(
             IS_WELCOME_PANEL_SHOWN_SETTINGS_KEY,
             true)
-    is_debug_time_shown = Gs.save_state.get_setting(
+    Gs.gui.is_debug_time_shown = Gs.save_state.get_setting(
             IS_DEBUG_TIME_SHOWN_SETTINGS_KEY,
             false)
     Gs.audio.is_music_enabled = Gs.save_state.get_setting(
@@ -632,38 +369,23 @@ func set_agreed_to_terms(value := true) -> void:
             value)
 
 
-func _set_is_debug_panel_shown(is_visible: bool) -> void:
-    is_debug_panel_shown = is_visible
-    if debug_panel != null:
-        debug_panel.visible = is_visible
-
-
-func _get_is_debug_panel_shown() -> bool:
-    return is_debug_panel_shown
-
-
-func _record_original_font_sizes() -> void:
-    for key in fonts:
-        original_font_sizes[key] = fonts[key].size
-
-
 func _validate_project_config() -> void:
     assert(ProjectSettings.get_setting(
             "logging/file_logging/enable_file_logging") == true)
     
     assert(ProjectSettings.get_setting("display/window/size/width") == \
-            default_game_area_size.x)
+            Gs.gui.default_game_area_size.x)
     assert(ProjectSettings.get_setting("display/window/size/height") == \
-            default_game_area_size.y)
+            Gs.gui.default_game_area_size.y)
     
 #    assert(geometry.are_colors_equal_with_epsilon(
 #            ProjectSettings.get_setting("application/boot_splash/bg_color"),
 #            colors.background,
 #            0.0001))
-    assert(geometry.are_colors_equal_with_epsilon(
+    assert(Gs.geometry.are_colors_equal_with_epsilon(
             ProjectSettings.get_setting(
                     "rendering/environment/default_clear_color"),
-            colors.background,
+            Gs.colors.background,
             0.0001))
     
     var window_stretch_mode_disabled := "disabled"

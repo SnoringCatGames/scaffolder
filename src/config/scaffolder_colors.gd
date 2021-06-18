@@ -100,7 +100,7 @@ var scroll_bar_grabber_pressed: Color
 # ---
 
 
-func register_colors(manifest: Dictionary) -> void:
+func register_manifest(manifest: Dictionary) -> void:
     for key in _defaults:
         var value = \
                 manifest[key] if \

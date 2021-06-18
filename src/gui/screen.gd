@@ -55,7 +55,7 @@ func _validate_node_hierarchy() -> void:
     # Give a shadow to the outer-most panel.
     outer_panel_container = get_child(0)
     assert(outer_panel_container is PanelContainer)
-    outer_panel_container.theme = Gs.theme
+    outer_panel_container.theme = Gs.gui.theme
     stylebox = Gs.utils.create_stylebox_flat_scalable({
         bg_color = Gs.colors.background,
         shadow_size = 8,
@@ -64,7 +64,7 @@ func _validate_node_hierarchy() -> void:
     outer_panel_container.add_stylebox_override("panel", stylebox)
     
     if auto_adapts_gui_scale:
-        Gs.add_gui_to_scale(
+        Gs.gui.add_gui_to_scale(
                 outer_panel_container,
                 default_gui_scale)
     

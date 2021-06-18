@@ -10,12 +10,12 @@ func _init() -> void:
 
 
 func record_recent_gestures() -> void:
-    assert(Gs.is_gesture_logging_supported)
+    assert(Gs.gui.is_gesture_logging_supported)
     
     var recent_top_level_events_raw_str := ""
     
-    if is_instance_valid(Gs.gesture_record):
-        var events: Array = Gs.gesture_record \
+    if is_instance_valid(Gs.gui.gesture_record):
+        var events: Array = Gs.gui.gesture_record \
                 .recent_gesture_events_for_debugging
         for event in events:
             recent_top_level_events_raw_str += event.to_string()

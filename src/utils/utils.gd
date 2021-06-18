@@ -187,13 +187,13 @@ static func _get_floor_collision(
 
 func add_scene(
         parent: Node,
-        resource_path: String,
+        path: String,
         is_attached := true,
         is_visible := true, \
         child_index := -1) -> Node:
-    var scene := load(resource_path)
+    var scene := load(path)
     if scene == null:
-        Gs.logger.error("Invalid scene path: " + resource_path)
+        Gs.logger.error("Invalid scene path: " + path)
     
     var node: Node = scene.instance()
     if node is CanvasItem:
@@ -204,10 +204,10 @@ func add_scene(
     if child_index >= 0:
         parent.move_child(node, child_index)
     
-    var name := resource_path
+    var name := path
     if name.find_last("/") >= 0:
         name = name.substr(name.find_last("/") + 1)
-    assert(resource_path.ends_with(".tscn"))
+    assert(path.ends_with(".tscn"))
     name = name.substr(0, name.length() - 5)
     node.name = name
     
@@ -223,9 +223,9 @@ func add_overlay_to_current_scene(node: Node) -> void:
 
 
 func vibrate() -> void:
-    if Gs.is_giving_haptic_feedback:
+    if Gs.gui.is_giving_haptic_feedback:
         Input.vibrate_handheld(
-                Gs.input_vibrate_duration * 1000)
+                Gs.gui.input_vibrate_duration * 1000)
 
 
 func give_button_press_feedback(is_fancy := false) -> void:
@@ -616,16 +616,16 @@ func set_mouse_filter_recursively(
 # Automatically resize the gui to adapt to different screen sizes.
 func _scale_gui_for_current_screen_size(gui) -> void:
     if !is_instance_valid(gui) or \
-            !Gs.guis_to_scale.has(gui):
+            !Gs.gui.guis_to_scale.has(gui):
         Gs.logger.error()
         return
     
-    var old_gui_scale: float = Gs.guis_to_scale[gui]
-    var new_gui_scale: float = Gs.gui_scale
+    var old_gui_scale: float = Gs.gui.guis_to_scale[gui]
+    var new_gui_scale: float = Gs.gui.scale
     
     if old_gui_scale != new_gui_scale:
         var relative_scale := new_gui_scale / old_gui_scale
-        Gs.guis_to_scale[gui] = new_gui_scale
+        Gs.gui.guis_to_scale[gui] = new_gui_scale
         Gs.utils._scale_gui_recursively(
                 gui,
                 relative_scale)

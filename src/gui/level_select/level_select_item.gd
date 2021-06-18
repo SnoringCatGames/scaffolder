@@ -54,7 +54,7 @@ func update_gui_scale(gui_scale: float) -> bool:
     
     var header_size := Vector2(
             rect_min_size.x,
-            HEADER_HEIGHT * Gs.gui_scale)
+            HEADER_HEIGHT * Gs.gui.scale)
     $HeaderWrapper.rect_min_size = header_size
     $HeaderWrapper.rect_size = header_size
     locked_header.update_size(header_size)

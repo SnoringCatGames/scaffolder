@@ -43,8 +43,8 @@ func _get_items() -> Array:
     var item_classes := \
             Gs.utils.get_collection_from_exclusions_and_inclusions(
                     _default_item_classes,
-                    Gs.pause_item_class_exclusions,
-                    Gs.pause_item_class_inclusions)
+                    Gs.gui.pause_item_class_exclusions,
+                    Gs.gui.pause_item_class_inclusions)
     var items := []
     for item_class in item_classes:
         if !Gs.uses_level_scores and \
