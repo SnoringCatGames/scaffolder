@@ -13,8 +13,12 @@ func _ready() -> void:
     assert(Gs.gui.hud_manifest.has("hud_key_value_list_item_manifest"))
     assert(Gs.gui.hud_manifest.has("hud_key_value_box_nine_patch_rect_path"))
     
-    var is_hud_key_value_list_shown: bool = \
-            !Gs.gui.hud_manifest.hud_key_value_list_item_manifest.empty()
+    var is_hud_key_value_list_shown: bool = false
+    for item_config in Gs.gui.hud_manifest.hud_key_value_list_item_manifest:
+        if item_config.enabled:
+            is_hud_key_value_list_shown = true
+            break
+    
     if is_hud_key_value_list_shown:
         hud_key_value_list = Gs.utils.add_scene(
                 self,
