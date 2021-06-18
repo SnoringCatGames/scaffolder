@@ -326,14 +326,14 @@ func splash() -> void:
 
 func _splash_helper() -> void:
     open("godot_splash")
-    Gs.audio.play_sound(Gs.godot_splash_sound)
+    Gs.audio.play_sound(Gs.audio_manifest.godot_splash_sound)
     yield(get_tree() \
             .create_timer(Gs.godot_splash_screen_duration),
             "timeout")
     
     if Gs.is_developer_splash_shown:
         open("developer_splash")
-        Gs.audio.play_sound(Gs.developer_splash_sound)
+        Gs.audio.play_sound(Gs.audio_manifest.developer_splash_sound)
         yield(get_tree() \
                 .create_timer(Gs.developer_splash_screen_duration),
                 "timeout")

@@ -41,9 +41,9 @@ func _init() -> void:
 
 func register_sounds(
         manifest: Array,
-        path_prefix = _DEFAULT_SOUNDS_PATH_PREFIX,
-        file_suffix = _DEFAULT_SOUND_FILE_SUFFIX,
-        bus_index = _DEFAULT_SOUNDS_BUS_INDEX) -> void:
+        path_prefix := _DEFAULT_SOUNDS_PATH_PREFIX,
+        file_suffix := _DEFAULT_SOUND_FILE_SUFFIX,
+        bus_index := _DEFAULT_SOUNDS_BUS_INDEX) -> void:
     _fade_out_tween = ScaffolderTween.new()
     add_child(_fade_out_tween)
     _fade_in_tween = ScaffolderTween.new()
@@ -80,9 +80,9 @@ func register_sounds(
 
 func register_music(
         manifest: Array,
-        path_prefix = _DEFAULT_MUSIC_PATH_PREFIX,
-        file_suffix = _DEFAULT_MUSIC_FILE_SUFFIX,
-        bus_index = _DEFAULT_MUSIC_BUS_INDEX) -> void:
+        path_prefix := _DEFAULT_MUSIC_PATH_PREFIX,
+        file_suffix := _DEFAULT_MUSIC_FILE_SUFFIX,
+        bus_index := _DEFAULT_MUSIC_BUS_INDEX) -> void:
     AudioServer.add_bus(bus_index)
     var bus_name := AudioServer.get_bus_name(bus_index)
     
@@ -107,9 +107,10 @@ func register_music(
         config.player = player
         _inflated_music_config[config.name] = config
     
-    if Gs.is_arbitrary_music_speed_change_supported or \
-            Gs.is_music_speed_scaled_with_time_scale or \
-            Gs.is_music_speed_scaled_with_additional_debug_time_scale:
+    if Gs.audio_manifest.is_arbitrary_music_speed_change_supported or \
+            Gs.audio_manifest.is_music_speed_scaled_with_time_scale or \
+            Gs.audio_manifest \
+                    .is_music_speed_scaled_with_additional_debug_time_scale:
         _pitch_shift_effect = AudioEffectPitchShift.new()
         AudioServer.add_bus_effect(bus_index, _pitch_shift_effect)
     
@@ -282,13 +283,15 @@ func _on_cross_fade_music_finished(
 
 
 func set_playback_speed(playback_speed_multiplier: float) -> void:
-    assert(Gs.is_arbitrary_music_speed_change_supported or \
-            Gs.is_music_speed_scaled_with_time_scale or \
-            Gs.is_music_speed_scaled_with_additional_debug_time_scale or \
+    assert(Gs.audio_manifest.is_arbitrary_music_speed_change_supported or \
+            Gs.audio_manifest.is_music_speed_scaled_with_time_scale or \
+            Gs.audio_manifest \
+                    .is_music_speed_scaled_with_additional_debug_time_scale or \
             playback_speed_multiplier == 1.0)
-    if !Gs.is_arbitrary_music_speed_change_supported and \
-            !Gs.is_music_speed_scaled_with_time_scale and \
-            !Gs.is_music_speed_scaled_with_additional_debug_time_scale:
+    if !Gs.audio_manifest.is_arbitrary_music_speed_change_supported and \
+            !Gs.audio_manifest.is_music_speed_scaled_with_time_scale and \
+            !Gs.audio_manifest \
+                    .is_music_speed_scaled_with_additional_debug_time_scale:
         return
     self.playback_speed_multiplier = playback_speed_multiplier
     
@@ -301,9 +304,10 @@ func set_playback_speed(playback_speed_multiplier: float) -> void:
 
 func get_scaled_speed() -> float:
     var scaled_speed := playback_speed_multiplier
-    if Gs.is_music_speed_scaled_with_time_scale:
+    if Gs.audio_manifest.is_music_speed_scaled_with_time_scale:
         scaled_speed *= Gs.time.time_scale
-    if Gs.is_music_speed_scaled_with_additional_debug_time_scale:
+    if Gs.audio_manifest \
+            .is_music_speed_scaled_with_additional_debug_time_scale:
         scaled_speed *= Gs.time.additional_debug_time_scale
     return scaled_speed
 
