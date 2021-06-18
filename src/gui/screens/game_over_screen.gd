@@ -44,7 +44,7 @@ func _ready() -> void:
 
 func _on_activated(previous_screen_name: String) -> void:
     ._on_activated(previous_screen_name)
-    Gs.audio.play_music(Gs.game_over_music)
+    Gs.audio.play_music(Gs.audio_manifest.game_over_music)
     _update_stats()
 
 
@@ -98,13 +98,13 @@ func _get_items() -> Array:
 
 func _on_SelectLevelButton_pressed():
     Gs.utils.give_button_press_feedback()
-    Gs.audio.play_music(Gs.main_menu_music)
+    Gs.audio.play_music(Gs.audio_manifest.main_menu_music)
     Gs.nav.open("level_select")
 
 
 func _on_HomeButton_pressed():
     Gs.utils.give_button_press_feedback()
-    Gs.audio.play_music(Gs.main_menu_music)
+    Gs.audio.play_music(Gs.audio_manifest.main_menu_music)
     Gs.nav.open("main_menu")
 
 

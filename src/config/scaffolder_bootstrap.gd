@@ -128,7 +128,7 @@ func _on_splash_finished() -> void:
         Gs.nav.disconnect("splash_finished", self, "_on_splash_finished")
     
     # Start playing the default music for the menu screen.
-    Gs.audio.play_music(Gs.main_menu_music, true)
+    Gs.audio.play_music(Gs.audio_manifest.main_menu_music, true)
     var post_splash_screen := \
             "main_menu" if \
             Gs.agreed_to_terms or \

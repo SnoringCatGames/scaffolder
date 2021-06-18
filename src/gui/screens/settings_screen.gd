@@ -30,6 +30,7 @@ func _on_activated(previous_screen_name: String) -> void:
 
 func _on_deactivated(next_screen_name: String) -> void:
     ._on_deactivated(next_screen_name)
+    _clear_groups()
     if Gs.level != null and \
             next_screen_name == "pause" and \
             Gs.must_restart_level_to_change_settings:
@@ -37,6 +38,7 @@ func _on_deactivated(next_screen_name: String) -> void:
 
 
 func _instantiate_settings_groups() -> void:
+    _clear_groups()
     for group_name in Gs.settings_item_manifest.groups:
         var group: SettingsGroup = Gs.utils.add_scene(
                 null,
@@ -46,3 +48,10 @@ func _instantiate_settings_groups() -> void:
         group.group_name = group_name
         $FullScreenPanel/VBoxContainer/CenteredPanel/ \
                 ScrollContainer/CenterContainer/VBoxContainer.add_child(group)
+
+
+func _clear_groups() -> void:
+    var group_container := $FullScreenPanel/VBoxContainer/CenteredPanel/ \
+            ScrollContainer/CenterContainer/VBoxContainer
+    for child in group_container.get_children():
+        group_container.remove_child(child)

@@ -99,15 +99,6 @@ var thread_count: int
 var is_mobile_supported: bool
 var is_data_deletion_button_shown: bool
 
-var are_beats_tracked_by_default: bool
-var is_arbitrary_music_speed_change_supported := false
-var is_music_speed_scaled_with_time_scale := false
-var is_music_speed_scaled_with_additional_debug_time_scale := true
-
-var is_music_paused_in_slow_motion := true
-var is_tick_tock_played_in_slow_motion := true
-var is_slow_motion_start_stop_sound_effect_played := true
-
 var app_name: String
 var app_id: String
 var app_version: String
@@ -143,24 +134,6 @@ var welcome_panel_items: Array
 var hud_manifest: Dictionary
 
 var fonts: Dictionary
-
-var sounds_manifest: Array
-var default_sounds_path_prefix: String
-var default_sounds_file_suffix: String
-var default_sounds_bus_index: String
-var music_manifest: Array
-var default_music_path_prefix: String
-var default_music_file_suffix: String
-var default_music_bus_index: String
-
-var pauses_level_music_on_pause: bool
-var main_menu_music: String
-var game_over_music: String
-var pause_menu_music: String
-var default_level_music: String
-var godot_splash_sound := "achievement"
-var developer_splash_sound: String
-var level_end_sound: String
 
 var third_party_license_text: String
 var special_thanks_text: String
@@ -253,6 +226,7 @@ var gui_scale := 1.0
 var current_checkbox_icon_size := default_checkbox_icon_size
 var current_tree_arrow_icon_size := default_checkbox_icon_size
 var crash_reporter: CrashReporter
+var audio_manifest: ScaffolderAudioManifest
 var audio: Audio
 var colors: ScaffolderColors
 var styles: ScaffolderStyles
@@ -341,7 +315,6 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.default_game_area_size = manifest.default_game_area_size
     self.aspect_ratio_max = manifest.aspect_ratio_max
     self.aspect_ratio_min = manifest.aspect_ratio_min
-    self.are_beats_tracked_by_default = manifest.are_beats_tracked_by_default
     self.uses_level_scores = manifest.uses_level_scores
     self.must_restart_level_to_change_settings = \
             manifest.must_restart_level_to_change_settings
@@ -361,16 +334,6 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.welcome_panel_items = manifest.welcome_panel_items
     self.hud_manifest = manifest.hud_manifest
     self.fonts = manifest.fonts
-    self.sounds_manifest = manifest.sounds_manifest
-    self.default_sounds_path_prefix = manifest.default_sounds_path_prefix
-    self.default_sounds_file_suffix = manifest.default_sounds_file_suffix
-    self.default_sounds_bus_index = manifest.default_sounds_bus_index
-    self.music_manifest = manifest.music_manifest
-    self.default_music_path_prefix = manifest.default_music_path_prefix
-    self.default_music_file_suffix = manifest.default_music_file_suffix
-    self.default_music_bus_index = manifest.default_music_bus_index
-    self.pauses_level_music_on_pause = manifest.pauses_level_music_on_pause
-    self.main_menu_music = manifest.main_menu_music
     self.third_party_license_text = \
             manifest.third_party_license_text.strip_edges()
     self.special_thanks_text = manifest.special_thanks_text.strip_edges()
@@ -391,18 +354,6 @@ func register_app_manifest(manifest: Dictionary) -> void:
         self.developer_logo = manifest.developer_logo
     if manifest.has("developer_splash"):
         self.developer_splash = manifest.developer_splash
-    if manifest.has("game_over_music"):
-        self.game_over_music = manifest.game_over_music
-    if manifest.has("pause_menu_music"):
-        self.pause_menu_music = manifest.pause_menu_music
-    if manifest.has("default_level_music"):
-        self.default_level_music = manifest.default_level_music
-    if manifest.has("godot_splash_sound"):
-        self.godot_splash_sound = manifest.godot_splash_sound
-    if manifest.has("developer_splash_sound"):
-        self.developer_splash_sound = manifest.developer_splash_sound
-    if manifest.has("level_end_sound"):
-        self.level_end_sound = manifest.level_end_sound
     if manifest.has("godot_splash_screen_duration"):
         self.godot_splash_screen_duration = \
                 manifest.godot_splash_screen_duration
@@ -452,24 +403,6 @@ func register_app_manifest(manifest: Dictionary) -> void:
     if manifest.has("recent_gesture_events_for_debugging_buffer_size"):
         self.recent_gesture_events_for_debugging_buffer_size = \
                 manifest.recent_gesture_events_for_debugging_buffer_size
-    if manifest.has("is_arbitrary_music_speed_change_supported"):
-        self.is_arbitrary_music_speed_change_supported = \
-                manifest.is_arbitrary_music_speed_change_supported
-    if manifest.has("is_music_speed_scaled_with_time_scale"):
-        self.is_music_speed_scaled_with_time_scale = \
-                manifest.is_music_speed_scaled_with_time_scale
-    if manifest.has("is_music_speed_scaled_with_additional_debug_time_scale"):
-        self.is_music_speed_scaled_with_additional_debug_time_scale = \
-                manifest.is_music_speed_scaled_with_additional_debug_time_scale
-    if manifest.has("is_music_paused_in_slow_motion"):
-        self.is_music_paused_in_slow_motion = \
-                manifest.is_music_paused_in_slow_motion
-    if manifest.has("is_tick_tock_played_in_slow_motion"):
-        self.is_tick_tock_played_in_slow_motion = \
-                manifest.is_tick_tock_played_in_slow_motion
-    if manifest.has("is_slow_motion_start_stop_sound_effect_played"):
-        self.is_slow_motion_start_stop_sound_effect_played = \
-                manifest.is_slow_motion_start_stop_sound_effect_played
     
     assert(manifest.level_config_class != null)
     assert(self.google_analytics_id.empty() == \
@@ -477,8 +410,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
             self.privacy_policy_url.empty() == \
             self.terms_and_conditions_url.empty())
     assert((self.developer_splash == null) == \
-            self.developer_splash_sound.empty())
-    
+            manifest.audio_manifest.developer_splash_sound.empty())
     
     self.is_special_thanks_shown = !self.special_thanks_text.empty()
     self.is_third_party_licenses_shown = !self.third_party_license_text.empty()
@@ -525,6 +457,11 @@ func initialize_crash_reporter() -> CrashReporter:
 
 
 func initialize() -> void:
+    if manifest.has("audio_manifest_class"):
+        self.audio_manifest = manifest.audio_manifest_class.new()
+        assert(self.audio_manifest is ScaffolderAudioManifest)
+    else:
+        self.audio_manifest = ScaffolderAudioManifest.new()
     if manifest.has("audio_class"):
         self.audio = manifest.audio_class.new()
         assert(self.audio is Audio)
@@ -620,16 +557,18 @@ func initialize() -> void:
     self.level_config = manifest.level_config_class.new()
     add_child(self.level_config)
     
+    self.audio_manifest.register_audio_manifest(manifest.audio_manifest)
+    
     self.audio.register_sounds(
-            manifest.sounds_manifest,
-            manifest.default_sounds_path_prefix,
-            manifest.default_sounds_file_suffix,
-            manifest.default_sounds_bus_index)
+            audio_manifest.sounds_manifest,
+            audio_manifest.default_sounds_path_prefix,
+            audio_manifest.default_sounds_file_suffix,
+            audio_manifest.default_sounds_bus_index)
     self.audio.register_music(
-            manifest.music_manifest,
-            manifest.default_music_path_prefix,
-            manifest.default_music_file_suffix,
-            manifest.default_music_bus_index)
+            audio_manifest.music_manifest,
+            audio_manifest.default_music_path_prefix,
+            audio_manifest.default_music_file_suffix,
+            audio_manifest.default_music_bus_index)
     
     self.colors.register_colors(manifest.colors_manifest)
     self.styles.register_styles(manifest.styles_manifest)

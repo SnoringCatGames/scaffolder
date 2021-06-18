@@ -80,9 +80,9 @@ func quit(immediately := true) -> void:
         Gs.nav.open("game_over", true)
         _destroy()
     else:
-        Gs.audio.get_sound_player(Gs.level_end_sound) \
+        Gs.audio.get_sound_player(Gs.audio_manifest.level_end_sound) \
                 .connect("finished", self, "_on_level_quit_sound_finished")
-        Gs.audio.play_sound(Gs.level_end_sound)
+        Gs.audio.play_sound(Gs.audio_manifest.level_end_sound)
 
 
 func restart() -> void:
@@ -114,16 +114,16 @@ func _on_resized() -> void:
 
 
 func pause() -> void:
-    if Gs.pauses_level_music_on_pause:
+    if Gs.audio_manifest.pauses_level_music_on_pause:
         _pre_pause_music_name = Gs.audio.get_music_name()
         _pre_pause_music_position = Gs.audio.get_playback_position()
-        if Gs.pause_menu_music != "":
-            Gs.audio.play_music(Gs.pause_menu_music)
+        if Gs.audio_manifest.pause_menu_music != "":
+            Gs.audio.play_music(Gs.audio_manifest.pause_menu_music)
     Gs.nav.open("pause")
 
 
 func on_unpause() -> void:
-    if Gs.pauses_level_music_on_pause:
+    if Gs.audio_manifest.pauses_level_music_on_pause:
         Gs.audio.play_music(_pre_pause_music_name)
         Gs.audio.seek(_pre_pause_music_position)
 
@@ -185,7 +185,7 @@ func _record_level_results() -> void:
 
 
 func _on_level_quit_sound_finished() -> void:
-    Gs.audio.get_sound_player(Gs.level_end_sound) \
+    Gs.audio.get_sound_player(Gs.audio_manifest.level_end_sound) \
             .disconnect("finished", self, "_on_level_quit_sound_finished")
     var is_rate_app_screen_next: bool = \
             Gs.is_rate_app_shown and \
@@ -199,7 +199,7 @@ func _on_level_quit_sound_finished() -> void:
 
 
 func get_music_name() -> String:
-    return Gs.default_level_music
+    return Gs.audio_manifest.default_level_music
 
 
 func _get_is_rate_app_screen_next() -> bool:
