@@ -297,11 +297,11 @@ func _set_window_debug_size_and_position() -> void:
                     (OS.current_screen + 1) % OS.get_screen_count()
         
         # Useful for getting screenshots at specific resolutions.
-        if Gs.debug_window_size == Vector2.INF:
+        if Gs.gui.debug_window_size == Vector2.INF:
             OS.window_fullscreen = true
             OS.window_borderless = true
         else:
-            OS.window_size = Gs.debug_window_size
+            OS.window_size = Gs.gui.debug_window_size
     
     _on_resized()
 

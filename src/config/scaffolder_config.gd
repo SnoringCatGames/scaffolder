@@ -26,8 +26,6 @@ var are_all_levels_unlocked := false
 var is_splash_skipped := false
 var also_prints_to_stdout := true
 
-var debug_window_size: Vector2
-
 # Should match Project Settings > Physics > 2d > Thread Model
 var uses_threads: bool
 var thread_count: int
@@ -132,7 +130,6 @@ func register_app_manifest(manifest: Dictionary) -> void:
     self.pauses_on_focus_out = manifest.pauses_on_focus_out
     self.also_prints_to_stdout = manifest.also_prints_to_stdout
     self.is_profiler_enabled = manifest.is_profiler_enabled
-    self.debug_window_size = manifest.debug_window_size
     self.uses_threads = manifest.uses_threads
     self.thread_count = manifest.thread_count
     self.is_mobile_supported = manifest.is_mobile_supported
