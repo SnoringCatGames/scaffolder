@@ -83,6 +83,9 @@ func register_manifest(manifest: Dictionary) -> void:
         self.is_slow_motion_start_stop_sound_effect_played = \
                 manifest.is_slow_motion_start_stop_sound_effect_played
     
+    assert(Gs.audio_manifest.pauses_level_music_on_pause or \
+            Gs.audio_manifest.pause_menu_music == "")
+    
     Gs.audio.register_sounds(
             self.sounds_manifest,
             self.default_sounds_path_prefix,

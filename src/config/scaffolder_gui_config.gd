@@ -19,6 +19,19 @@ const MIN_GUI_SCALE := 0.2
 
 const HUD_KEY_VALUE_BOX_DEFAULT_SIZE := Vector2(256.0, 48.0)
 
+# Useful for getting screenshots at specific resolutions.
+const SCREEN_RESOLUTIONS := {
+    # Should match Project Settings > Display > Window > Size > Width/Height
+    default = Vector2(1024, 768),
+    full_screen = Vector2.INF,
+    play_store = Vector2(3840, 2160),
+    iphone_6_5 = Vector2(2778, 1284),
+    iphone_5_5 = Vector2(2208, 1242),
+    ipad_12_9 = Vector2(2732, 2048),
+    google_ads_landscape = Vector2(1024, 768),
+    google_ads_portrait = Vector2(768, 1024),
+}
+
 var DEFAULT_WELCOME_PANEL_ITEMS := [
     StaticTextLabeledControlItem.new("*Auto nav*", "click"),
     StaticTextLabeledControlItem.new("Inspect graph", "ctrl + click (x2)"),
@@ -81,6 +94,8 @@ var default_game_area_size: Vector2
 
 var aspect_ratio_max: float
 var aspect_ratio_min: float
+
+var debug_window_size: Vector2
 
 var camera_smoothing_speed: float
 var default_camera_zoom := 1.0
@@ -205,6 +220,7 @@ func register_manifest(manifest: Dictionary) -> void:
     self.default_game_area_size = manifest.default_game_area_size
     self.aspect_ratio_max = manifest.aspect_ratio_max
     self.aspect_ratio_min = manifest.aspect_ratio_min
+    self.debug_window_size = manifest.debug_window_size
     self.is_data_deletion_button_shown = manifest.is_data_deletion_button_shown
     
     self.settings_item_manifest = manifest.settings_item_manifest
