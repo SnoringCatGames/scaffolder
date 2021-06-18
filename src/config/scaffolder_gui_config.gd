@@ -32,15 +32,20 @@ const SCREEN_RESOLUTIONS := {
     google_ads_portrait = Vector2(768, 1024),
 }
 
-var DEFAULT_WELCOME_PANEL_ITEMS := [
-    StaticTextLabeledControlItem.new("*Auto nav*", "click"),
-    StaticTextLabeledControlItem.new("Inspect graph", "ctrl + click (x2)"),
-    StaticTextLabeledControlItem.new("Walk/Climb", "arrow key / wasd"),
-    StaticTextLabeledControlItem.new("Jump", "space / x"),
-    StaticTextLabeledControlItem.new("Dash", "z"),
-    StaticTextLabeledControlItem.new("Zoom in/out", "ctrl + =/-"),
-    StaticTextLabeledControlItem.new("Pan", "ctrl + arrow key"),
-]
+var DEFAULT_WELCOME_PANEL_MANIFEST := {
+#    header = Gs.app_metadata.app_name,
+#    subheader = "(Click window to give focus)",
+#    is_header_shown = true,
+    items = [
+        ["*Auto nav*", "click"],
+        ["Inspect graph", "ctrl + click (x2)"],
+        ["Walk/Climb", "arrow key / wasd"],
+        ["Jump", "space / x"],
+        ["Dash", "z"],
+        ["Zoom in/out", "ctrl + =/-"],
+        ["Pan", "ctrl + arrow key"],
+    ],
+}
 
 var DEFAULT_HUD_MANIFEST := {
     hud_class = ScaffolderHud,
@@ -85,6 +90,28 @@ var DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST := {
         },
     },
 }
+
+var DEFAULT_SCAFFOLDER_PAUSE_ITEM_MANIFEST := [
+    LevelLabeledControlItem,
+    TimeLabeledControlItem,
+    FastestTimeLabeledControlItem,
+    CurrentScoreLabeledControlItem,
+    HighScoreLabeledControlItem,
+]
+
+var DEFAULT_SCAFFOLDER_GAME_OVER_ITEM_MANIFEST := [
+    LevelLabeledControlItem,
+    GameOverTimeLabeledControlItem,
+    FastestTimeLabeledControlItem,
+    GameOverScoreLabeledControlItem,
+    HighScoreLabeledControlItem,
+]
+
+var DEFAULT_SCAFFOLDER_LEVEL_SELECT_ITEM_MANIFEST := [
+    TotalPlaysLabeledControlItem,
+    FastestTimeLabeledControlItem,
+    HighScoreLabeledControlItem,
+]
 
 # --- Static configuration state ---
 
@@ -136,17 +163,12 @@ var theme: Theme
 var fonts: Dictionary
 
 var settings_item_manifest: Dictionary
+var pause_item_manifest: Array
+var game_over_item_manifest: Array
+var level_select_item_manifest: Array
 var hud_manifest: Dictionary
-var welcome_panel_items: Array
-
-var screen_path_exclusions: Array
-var screen_path_inclusions: Array
-var pause_item_class_exclusions: Array
-var pause_item_class_inclusions: Array
-var game_over_item_class_exclusions: Array
-var game_over_item_class_inclusions: Array
-var level_select_item_class_exclusions: Array
-var level_select_item_class_inclusions: Array
+var welcome_panel_manifest: Dictionary
+var screen_manifest: Dictionary
 
 # --- Derived configuration ---
 
@@ -195,24 +217,22 @@ func amend_app_manifest(manifest: Dictionary) -> void:
     if !manifest.has("settings_item_manifest"):
         manifest.settings_item_manifest = \
                 DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST
-    if !manifest.has("screen_path_exclusions"):
-        manifest.screen_path_exclusions = []
-    if !manifest.has("screen_path_inclusions"):
-        manifest.screen_path_inclusions = []
-    if !manifest.has("pause_item_class_exclusions"):
-        manifest.pause_item_class_exclusions = []
-    if !manifest.has("pause_item_class_inclusions"):
-        manifest.pause_item_class_inclusions = []
-    if !manifest.has("game_over_item_class_exclusions"):
-        manifest.game_over_item_class_exclusions = []
-    if !manifest.has("game_over_item_class_inclusions"):
-        manifest.game_over_item_class_inclusions = []
-    if !manifest.has("level_select_item_class_exclusions"):
-        manifest.level_select_item_class_exclusions = []
-    if !manifest.has("level_select_item_class_inclusions"):
-        manifest.level_select_item_class_inclusions = []
-    if !manifest.has("welcome_panel_items"):
-        manifest.welcome_panel_items = DEFAULT_WELCOME_PANEL_ITEMS
+    if !manifest.has("pause_item_manifest"):
+        manifest.pause_item_manifest = \
+                DEFAULT_SCAFFOLDER_PAUSE_ITEM_MANIFEST
+    if !manifest.has("game_over_item_manifest"):
+        manifest.game_over_item_manifest = \
+                DEFAULT_SCAFFOLDER_GAME_OVER_ITEM_MANIFEST
+    if !manifest.has("level_select_item_manifest"):
+        manifest.level_select_item_manifest = \
+                DEFAULT_SCAFFOLDER_LEVEL_SELECT_ITEM_MANIFEST
+    if !manifest.has("screen_manifest"):
+        manifest.screen_manifest = {
+            path_inclusions = [],
+            path_exclusions = [],
+        }
+    if !manifest.has("welcome_panel_manifest"):
+        manifest.welcome_panel_manifest = DEFAULT_WELCOME_PANEL_MANIFEST
     if !manifest.has("hud_manifest"):
         manifest.hud_manifest = DEFAULT_HUD_MANIFEST
     
@@ -242,19 +262,11 @@ func register_manifest(manifest: Dictionary) -> void:
     self.is_data_deletion_button_shown = manifest.is_data_deletion_button_shown
     
     self.settings_item_manifest = manifest.settings_item_manifest
-    self.screen_path_exclusions = manifest.screen_path_exclusions
-    self.screen_path_inclusions = manifest.screen_path_inclusions
-    self.pause_item_class_exclusions = manifest.pause_item_class_exclusions
-    self.pause_item_class_inclusions = manifest.pause_item_class_inclusions
-    self.game_over_item_class_exclusions = \
-            manifest.game_over_item_class_exclusions
-    self.game_over_item_class_inclusions = \
-            manifest.game_over_item_class_inclusions
-    self.level_select_item_class_exclusions = \
-            manifest.level_select_item_class_exclusions
-    self.level_select_item_class_inclusions = \
-            manifest.level_select_item_class_inclusions
-    self.welcome_panel_items = manifest.welcome_panel_items
+    self.pause_item_manifest = manifest.pause_item_manifest
+    self.game_over_item_manifest = manifest.game_over_item_manifest
+    self.level_select_item_manifest = manifest.level_select_item_manifest
+    self.screen_manifest = manifest.screen_manifest
+    self.welcome_panel_manifest = manifest.welcome_panel_manifest
     self.hud_manifest = manifest.hud_manifest
     self.fonts = manifest.fonts
     self.third_party_license_text = \
@@ -308,6 +320,16 @@ func register_manifest(manifest: Dictionary) -> void:
     _record_original_font_sizes()
     
     _initialize_hud_key_value_list_item_enablement()
+    
+    if !Gs.app_metadata.uses_level_scores:
+        for manifest in [
+                    pause_item_manifest,
+                    game_over_item_manifest,
+                    level_select_item_manifest,
+                ]:
+            manifest.erase(CurrentScoreLabeledControlItem)
+            manifest.erase(HighScoreLabeledControlItem)
+            manifest.erase(GameOverScoreLabeledControlItem)
 
 
 func add_gui_to_scale(

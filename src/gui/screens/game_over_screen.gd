@@ -77,24 +77,9 @@ func _update_stats() -> void:
     control_list.items = _get_items()
 
 
-func _get_default_item_classes() -> Array:
-    var default_items := []
-    default_items.push_back(LevelLabeledControlItem)
-    if Gs.app_metadata.uses_level_scores:
-        default_items.push_back(GameOverScoreLabeledControlItem)
-        default_items.push_back(HighScoreLabeledControlItem)
-    default_items.push_back(GameOverTimeLabeledControlItem)
-    return default_items
-
-
 func _get_items() -> Array:
-    var item_classes := \
-            Gs.utils.get_collection_from_exclusions_and_inclusions(
-                    _get_default_item_classes(),
-                    Gs.gui.game_over_item_class_exclusions,
-                    Gs.gui.game_over_item_class_inclusions)
     var items := []
-    for item_class in item_classes:
+    for item_class in Gs.gui.game_over_item_manifest:
         items.push_back(item_class.new(level_id))
     return items
 
