@@ -3,7 +3,8 @@ class_name SettingsScreen
 extends Screen
 
 
-const SETTINGS_GROUP_PATH := "res://addons/scaffolder/src/gui/settings_group.tscn"
+const SETTINGS_GROUP_PATH := \
+        "res://addons/scaffolder/src/gui/settings_group.tscn"
 const NAME := "settings"
 const LAYER_NAME := "menu_screen"
 const AUTO_ADAPTS_GUI_SCALE := true
@@ -33,7 +34,7 @@ func _on_deactivated(next_screen_name: String) -> void:
     _clear_groups()
     if Gs.level != null and \
             next_screen_name == "pause" and \
-            Gs.must_restart_level_to_change_settings:
+            Gs.app_metadata.must_restart_level_to_change_settings:
         Gs.level.restart()
 
 

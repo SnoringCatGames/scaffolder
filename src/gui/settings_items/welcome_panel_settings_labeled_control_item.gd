@@ -18,7 +18,7 @@ func _init(__ = null).(
 func on_pressed(pressed: bool) -> void:
     Gs.gui.is_welcome_panel_shown = pressed
     Gs.save_state.set_setting(
-            Gs.gui.IS_WELCOME_PANEL_SHOWN_SETTINGS_KEY,
+            SaveState.IS_WELCOME_PANEL_SHOWN_SETTINGS_KEY,
             Gs.gui.is_welcome_panel_shown)
 
 

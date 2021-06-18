@@ -11,12 +11,14 @@ func _enter_tree() -> void:
 
 
 func print(message: String) -> void:
-    if is_instance_valid(Gs.gui and Gs.gui.debug_panel):
+    if is_instance_valid(Gs.gui) and \
+            is_instance_valid(Gs.gui.debug_panel):
         Gs.gui.debug_panel.add_message(message)
     else:
         _print_queue.push_back(message)
     
-    if Gs.also_prints_to_stdout:
+    if !is_instance_valid(Gs.app_metadata) or \
+            Gs.app_metadata.also_prints_to_stdout:
         print(message)
 
 

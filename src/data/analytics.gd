@@ -177,15 +177,15 @@ func _get_payload(
         # Cache buster
         "&z=%s"
     ) % [
-        Gs.google_analytics_id,
+        Gs.app_metadata.google_analytics_id,
         client_id,
         hit_type,
         details,
         viewport_size_str,
         OS.get_locale(),
-        Gs.app_name.http_escape(),
-        Gs.app_id.http_escape(),
-        Gs.app_version.http_escape(),
+        Gs.app_metadata.app_name.http_escape(),
+        Gs.app_metadata.app_id.http_escape(),
+        Gs.app_metadata.app_version.http_escape(),
         str(randi()),
     ]
 
@@ -199,7 +199,7 @@ func _trigger_collect(
         Gs.logger.print("  Payload (readable):\n    " + \
                 payload.replace("&", "\n    &"))
     
-    if Gs.debug:
+    if Gs.app_metadata.debug:
         # Skipping Analytics collection in debug environment
         if is_session_end:
             emit_signal("session_ended")
@@ -209,8 +209,8 @@ func _trigger_collect(
     var body := payload
     var entry := _AnalyticsEntry.new(payload)
     
-    if !Gs.agreed_to_terms or \
-            !Gs.is_data_tracked:
+    if !Gs.app_metadata.agreed_to_terms or \
+            !Gs.app_metadata.is_data_tracked:
         # User hasn't agreed to data collection. Try again later.
         _retry_queue.push_back(entry)
         return
@@ -272,7 +272,7 @@ func _on_collect_request_completed(
             result == HTTPRequest.RESULT_TIMEOUT or \
             (response_code >= 500 and response_code < 600):
         # Probably a temporary failure! Try again later.
-        if Gs.debug:
+        if Gs.app_metadata.debug:
             Gs.logger.print("Analytics._on_collect_request_completed: " +
                     "Queuing entry for re-attempt")
         _retry_queue.push_back(entry)
@@ -379,7 +379,7 @@ func _on_batch_request_completed(
             result == HTTPRequest.RESULT_TIMEOUT or \
             (response_code >= 500 and response_code < 600):
         # Probably a temporary failure! Try again later.
-        if Gs.debug:
+        if Gs.app_metadata.debug:
             Gs.logger.print("Analytics._on_batch_request_completed: " +
                     "Queuing batch for re-attempt")
         for entry in batch:

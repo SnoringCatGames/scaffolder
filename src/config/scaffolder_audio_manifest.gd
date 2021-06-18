@@ -34,6 +34,10 @@ var is_tick_tock_played_in_slow_motion := true
 var is_slow_motion_start_stop_sound_effect_played := true
 
 
+func _init() -> void:
+    Gs.logger.print("ScaffolderAudioManifest._init")
+
+
 func register_manifest(manifest: Dictionary) -> void:
     self.sounds_manifest = manifest.sounds_manifest
     self.default_sounds_path_prefix = manifest.default_sounds_path_prefix

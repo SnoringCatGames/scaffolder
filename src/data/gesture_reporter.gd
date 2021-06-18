@@ -29,8 +29,8 @@ func record_recent_gestures() -> void:
     
     Gs.logger.print("GestureReporter.record_recent_gestures: %s" % url)
     
-    if !Gs.agreed_to_terms or \
-            !Gs.is_data_tracked:
+    if !Gs.app_metadata.agreed_to_terms or \
+            !Gs.app_metadata.is_data_tracked:
         # User hasn't agreed to data collection.
         Gs.logger.error()
         return

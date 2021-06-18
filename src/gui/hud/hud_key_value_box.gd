@@ -19,7 +19,8 @@ func _ready() -> void:
 
 
 func update_gui_scale(gui_scale: float) -> bool:
-    var size: Vector2 = Gs.gui.hud_manifest.hud_key_value_box_size * Gs.gui.scale
+    var size: Vector2 = \
+            Gs.gui.hud_manifest.hud_key_value_box_size * Gs.gui.scale
     var spacer_size: float = SEPARATION * Gs.gui.scale
     rect_min_size = size
     rect_size = size

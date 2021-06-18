@@ -11,7 +11,7 @@ func _init() -> void:
 
 
 func _input(event: InputEvent) -> void:
-    if (Gs.debug or Gs.playtest) and \
+    if (Gs.app_metadata.debug or Gs.app_metadata.playtest) and \
             (event is InputEventScreenTouch or event is InputEventScreenDrag):
         _record_new_gesture_event(event)
 

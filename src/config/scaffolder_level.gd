@@ -150,10 +150,10 @@ func _record_level_results() -> void:
             Gs.time.get_play_time() - \
             level_start_play_time_unscaled)
     
-    if Gs.uses_level_scores:
+    if Gs.app_metadata.uses_level_scores:
         Gs.analytics.event(
                 "score",
-                "v" + Gs.score_version,
+                "v" + Gs.app_metadata.score_version,
                 Gs.level_config.get_level_version_string(_id),
                 int(score))
         

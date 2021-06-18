@@ -30,13 +30,14 @@ func _init() -> void:
 func report_any_previous_crash() -> bool:
     Gs.logger.print("CrashReporter.report_any_previous_crash")
     
-    if !Gs.are_error_logs_captured:
+    if !Gs.app_metadata.are_error_logs_captured:
         return false
     
     var log_file_name := _get_most_recent_log_file_name()
     if log_file_name == "":
         # There are no logs.
-        Gs.logger.print("CrashReporter: There are no previous logs to check")
+        Gs.logger.print(
+                "CrashReporter: There are no previous logs to check")
         return false
     
     var log_file_path := LOGS_DIRECTORY_PATH + "/" + log_file_name
@@ -61,7 +62,8 @@ func report_any_previous_crash() -> bool:
             # We found an indication of a crash, so report recent logs.
             var text := Utils.join(lines, "\n")
             _upload_crash_log(text, log_file_name)
-            Gs.logger.print("CrashReporter: Uploading a previous error log")
+            Gs.logger.print(
+                    "CrashReporter: Uploading a previous error log")
             return true
         
         all_lines_count += 1
@@ -84,7 +86,8 @@ func _get_most_recent_log_file_name() -> String:
         return ""
     var status := directory.open(LOGS_DIRECTORY_PATH)
     if status != OK:
-        Gs.logger.error("Unable to open directory: %s" % LOGS_DIRECTORY_PATH)
+        Gs.logger.error(
+                "Unable to open directory: %s" % LOGS_DIRECTORY_PATH)
         return ""
     
     directory.list_dir_begin(true)
@@ -102,7 +105,9 @@ func _get_most_recent_log_file_name() -> String:
 func _upload_crash_log(
         text: String,
         file_name: String) -> void:
-    var url: String = Gs.error_logs_url + "?uploadType=media&name=" + file_name
+    var url: String = \
+            Gs.app_metadata.error_logs_url + \
+            "?uploadType=media&name=" + file_name
     
     Gs.logger.print("CrashReporter._upload_crash_log: %s" % url)
     

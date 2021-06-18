@@ -17,6 +17,15 @@ const GAVE_FEEDBACK_KEY := "gave_feedback"
 const DATA_AGREEMENT_VERSION_KEY := "data_agreement_v"
 const SCORE_VERSION_KEY := "score_v"
 
+const AGREED_TO_TERMS_SETTINGS_KEY := "agreed_to_terms"
+const IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY := "is_giving_haptic_feedback"
+const IS_DEBUG_PANEL_SHOWN_SETTINGS_KEY := "is_debug_panel_shown"
+const IS_WELCOME_PANEL_SHOWN_SETTINGS_KEY := "is_welcome_panel_shown"
+const IS_DEBUG_TIME_SHOWN_SETTINGS_KEY := "is_debug_time_shown"
+const IS_MUSIC_ENABLED_SETTINGS_KEY := "is_music_enabled"
+const IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY := "is_sound_effects_enabled"
+const ADDITIONAL_DEBUG_TIME_SCALE_SETTINGS_KEY := "additional_debug_time_scale"
+
 var config: ConfigFile
 
 
@@ -239,7 +248,7 @@ func get_level_is_unlocked(level_id: String) -> bool:
             IS_UNLOCKED_SECTION_KEY,
             level_id,
             false) as bool or \
-            Gs.are_all_levels_unlocked
+            Gs.app_metadata.are_all_levels_unlocked
 
 
 func set_new_unlocked_levels(new_unlocked_levels: Array) -> void:

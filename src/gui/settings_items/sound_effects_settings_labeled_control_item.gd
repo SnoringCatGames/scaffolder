@@ -16,7 +16,7 @@ func _init(__ = null).(
 func on_pressed(pressed: bool) -> void:
     Gs.audio.is_sound_effects_enabled = pressed
     Gs.save_state.set_setting(
-            Gs.IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY,
+            SaveState.IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY,
             Gs.audio.is_sound_effects_enabled)
 
 
