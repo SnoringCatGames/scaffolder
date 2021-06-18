@@ -3,6 +3,7 @@ class_name SettingsScreen
 extends Screen
 
 
+const SETTINGS_GROUP_RESOURCE_PATH := "res://addons/scaffolder/src/gui/settings_group.tscn"
 const NAME := "settings"
 const LAYER_NAME := "menu_screen"
 const AUTO_ADAPTS_GUI_SCALE := true
@@ -24,12 +25,7 @@ func _init().(
 
 func _on_activated(previous_screen_name: String) -> void:
     ._on_activated(previous_screen_name)
-    $FullScreenPanel/VBoxContainer/CenteredPanel/ \
-            ScrollContainer/CenterContainer/VBoxContainer/MainList.items = \
-            _get_main_items()
-    $FullScreenPanel/VBoxContainer/CenteredPanel/ \
-            ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/ \
-            VBoxContainer/DetailsList.items = _get_details_items()
+    _instantiate_settings_groups()
 
 
 func _on_deactivated(next_screen_name: String) -> void:
@@ -40,43 +36,13 @@ func _on_deactivated(next_screen_name: String) -> void:
         Gs.level.restart()
 
 
-func _get_main_items() -> Array:
-    var item_classes := \
-            Gs.utils.get_collection_from_exclusions_and_inclusions(
-                    _get_default_main_items(),
-                    Gs.settings_main_item_class_exclusions,
-                    Gs.settings_main_item_class_inclusions)
-    var items := []
-    for item_class in item_classes:
-        items.push_back(item_class.new())
-    return items
-
-
-func _get_details_items() -> Array:
-    var item_classes := \
-            Gs.utils.get_collection_from_exclusions_and_inclusions(
-                    _get_default_details_items(),
-                    Gs.settings_details_item_class_exclusions,
-                    Gs.settings_details_item_class_inclusions)
-    var items := []
-    for item_class in item_classes:
-        items.push_back(item_class.new(Gs.level))
-    return items
-
-
-func _get_default_main_items() -> Array:
-    var defaults := [
-        MusicSettingsLabeledControlItem,
-        SoundEffectsSettingsLabeledControlItem,
-    ]
-    if Gs.is_mobile_supported:
-        defaults.push_back(HapticFeedbackSettingsLabeledControlItem)
-    return defaults
-
-
-func _get_default_details_items() -> Array:
-    var items := []
-    if Gs.does_app_contain_welcome_panel:
-        items.push_back(WelcomePanelSettingsLabeledControlItem)
-    items.push_back(DebugPanelSettingsLabeledControlItem)
-    return items
+func _instantiate_settings_groups() -> void:
+    for group_name in Gs.settings_item_manifest.groups:
+        var group: SettingsGroup = Gs.utils.add_scene(
+                null,
+                SETTINGS_GROUP_RESOURCE_PATH,
+                false,
+                true)
+        group.group_name = group_name
+        $FullScreenPanel/VBoxContainer/CenteredPanel/ \
+                ScrollContainer/CenterContainer/VBoxContainer.add_child(group)

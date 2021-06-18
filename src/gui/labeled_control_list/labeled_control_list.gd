@@ -12,7 +12,7 @@ export var padding_horizontal := 8.0 setget \
 
 # Array<LabeledControlItem>
 var items := [] setget _set_items,_get_items
-var even_row_color := Gs.colors.zebra_stripe_even_row setget \
+var even_row_color: Color = Gs.colors.zebra_stripe_even_row setget \
         _set_even_row_color,_get_even_row_color
 
 var _odd_row_style: StyleBoxEmpty
