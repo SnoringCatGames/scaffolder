@@ -14,6 +14,12 @@ func _ready() -> void:
         var item: LabeledControlItem = item_class.new()
         items.push_back(item)
     
+    if group_config.has("hud_enablement_items"):
+        for item_config in group_config.hud_enablement_items:
+            var item := \
+                    HudKeyValueItemSettingsLabeledControlItem.new(item_config)
+            items.push_back(item)
+    
     var list: LabeledControlList
     if group_config.is_collapsible:
         $LabeledControlList.queue_free()

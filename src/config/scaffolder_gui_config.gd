@@ -51,7 +51,8 @@ var DEFAULT_HUD_MANIFEST := {
         {
             item_class = TimeLabeledControlItem,
             settings_enablement_label = "Time",
-            enabled = true,
+            enabled_by_default = true,
+            settings_group_key = "hud",
         },
     ],
 }
@@ -214,6 +215,19 @@ func amend_app_manifest(manifest: Dictionary) -> void:
         manifest.welcome_panel_items = DEFAULT_WELCOME_PANEL_ITEMS
     if !manifest.has("hud_manifest"):
         manifest.hud_manifest = DEFAULT_HUD_MANIFEST
+    
+    # Configure settings-screen enablement items for each HUD key-value-list
+    # item.
+    for item_config in manifest.hud_manifest.hud_key_value_list_item_manifest:
+        if !item_config.has("settings_group_key"):
+            continue
+        assert(manifest.settings_item_manifest.groups.has(
+                item_config.settings_group_key))
+        var settings_group: Dictionary = manifest.settings_item_manifest \
+                .groups[item_config.settings_group_key]
+        if !settings_group.has("hud_enablement_items"):
+            settings_group.hud_enablement_items = []
+        settings_group.hud_enablement_items.push_back(item_config)
 
 
 func register_manifest(manifest: Dictionary) -> void:
@@ -292,6 +306,8 @@ func register_manifest(manifest: Dictionary) -> void:
             !Gs.app_metadata.app_id_query_param.empty()
     
     _record_original_font_sizes()
+    
+    _initialize_hud_key_value_list_item_enablement()
 
 
 func add_gui_to_scale(
@@ -318,3 +334,17 @@ func _get_is_debug_panel_shown() -> bool:
 func _record_original_font_sizes() -> void:
     for key in fonts:
         original_font_sizes[key] = fonts[key].size
+
+
+func _initialize_hud_key_value_list_item_enablement() -> void:
+    for item_config in hud_manifest.hud_key_value_list_item_manifest:
+        item_config.settings_key = _get_key_value_item_enabled_settings_key(
+                item_config.settings_enablement_label)
+        item_config.enabled = Gs.save_state.get_setting(
+                item_config.settings_key,
+                item_config.enabled_by_default)
+
+
+func _get_key_value_item_enabled_settings_key(
+        settings_enablement_label: String) -> String:
+    return settings_enablement_label.replace(" ", "_") + "_hud"
