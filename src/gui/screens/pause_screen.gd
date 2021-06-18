@@ -10,13 +10,6 @@ const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := true
 const INCLUDES_CENTER_CONTAINER := true
 
-var _default_item_classes := [
-    LevelLabeledControlItem,
-    CurrentScoreLabeledControlItem,
-    HighScoreLabeledControlItem,
-    TimeLabeledControlItem,
-]
-
 
 func _init().(
         NAME,
@@ -40,17 +33,8 @@ func _on_activated(previous_screen_name: String) -> void:
 
 
 func _get_items() -> Array:
-    var item_classes := \
-            Gs.utils.get_collection_from_exclusions_and_inclusions(
-                    _default_item_classes,
-                    Gs.gui.pause_item_class_exclusions,
-                    Gs.gui.pause_item_class_inclusions)
     var items := []
-    for item_class in item_classes:
-        if !Gs.app_metadata.uses_level_scores and \
-                (item_class == CurrentScoreLabeledControlItem or \
-                item_class == HighScoreLabeledControlItem):
-            continue
+    for item_class in Gs.gui.pause_item_manifest:
         items.push_back(item_class.new(Gs.level))
     return items
 

@@ -93,8 +93,8 @@ func create_screens() -> void:
     var screen_paths: Array = \
             Gs.utils.get_collection_from_exclusions_and_inclusions(
                     default,
-                    Gs.gui.screen_path_exclusions,
-                    Gs.gui.screen_path_inclusions)
+                    Gs.gui.screen_manifest.path_exclusions,
+                    Gs.gui.screen_manifest.path_inclusions)
                     
     for path in screen_paths:
         _create_screen(path)

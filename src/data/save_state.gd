@@ -264,3 +264,7 @@ func get_new_unlocked_levels() -> Array:
             MISCELLANEOUS_SECTION_KEY,
             NEW_UNLOCKED_LEVELS_KEY,
             []) as Array
+
+
+static func get_level_fastest_time_settings_key(level_id: String) -> String:
+    return "level_%s_fastest_time" % level_id

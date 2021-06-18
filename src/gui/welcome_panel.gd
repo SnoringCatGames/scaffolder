@@ -20,7 +20,6 @@ func _enter_tree() -> void:
             0.0,
             post_tween_opacity,
             _FADE_IN_DURATION)
-    $Header.text = Gs.app_metadata.app_name
 
 
 func _ready() -> void:
@@ -31,8 +30,30 @@ func _ready() -> void:
     var faded_color: Color = Gs.colors.zebra_stripe_even_row
     faded_color.a *= 0.3
     
+    var items := []
+    for item in Gs.gui.welcome_panel_manifest.items:
+        if item.size() == 1:
+            items.push_back(HeaderLabeledControlItem.new(item[0]))
+        else:
+            assert(item.size() == 2)
+            items.push_back(StaticTextLabeledControlItem.new(item[0], item[1]))
+    
     $PanelContainer/LabeledControlList.even_row_color = faded_color
-    $PanelContainer/LabeledControlList.items = Gs.gui.welcome_panel_items
+    $PanelContainer/LabeledControlList.items = items
+    
+    if Gs.gui.welcome_panel_manifest.has("header") and \
+            !Gs.gui.welcome_panel_manifest.header.empty():
+        $Header.text = Gs.gui.welcome_panel_manifest.header
+    else:
+        $Header.text = Gs.app_metadata.app_name
+    
+    if Gs.gui.welcome_panel_manifest.has("subheader") and \
+            !Gs.gui.welcome_panel_manifest.subheader.empty():
+        $Subheader.text = Gs.gui.welcome_panel_manifest.subheader
+    
+    if Gs.gui.welcome_panel_manifest.has("is_subheader_shown") and \
+            !Gs.gui.welcome_panel_manifest.is_subheader_shown:
+        $Subheader.visible = false
     
     update_gui_scale(1.0)
 
