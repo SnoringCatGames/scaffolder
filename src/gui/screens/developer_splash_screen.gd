@@ -38,7 +38,7 @@ func _enter_tree() -> void:
     else:
         _on_resized()
     $FullScreenPanel/Control/TextureRect.texture = \
-            Gs.developer_splash
+            Gs.app_metadata.developer_splash
 
 
 func _on_resized() -> void:

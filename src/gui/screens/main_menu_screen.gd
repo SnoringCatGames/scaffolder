@@ -35,13 +35,14 @@ func _ready() -> void:
                 true)
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/Title.texture = \
-            Gs.app_logo
+            Gs.app_metadata.app_logo
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/StartGameButton.texture = \
-            Gs.go_icon
+            Gs.app_metadata.go_icon
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/StartGameButton.texture_scale = \
-            Vector2(Gs.go_icon_scale, Gs.go_icon_scale) * \
+            Vector2(Gs.app_metadata.go_icon_scale,
+                    Gs.app_metadata.go_icon_scale) * \
             go_icon_scale_multiplier
     
     _on_resized()
@@ -56,7 +57,7 @@ func _on_resized() -> void:
     ._on_resized()
     var viewport_size := get_viewport().size
     var is_wide_enough_to_put_title_in_nav_bar := \
-            viewport_size.x > Gs.app_logo.get_width() + 256
+            viewport_size.x > Gs.app_metadata.app_logo.get_width() + 256
     $FullScreenPanel/VBoxContainer/NavBar.shows_logo = \
             is_wide_enough_to_put_title_in_nav_bar
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \

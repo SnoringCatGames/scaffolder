@@ -591,7 +591,8 @@ static func draw_shape_outline(
         color: Color,
         thickness: float) -> void:
     var is_rotated_90_degrees = \
-            abs(fmod(rotation + PI * 2, PI) - PI / 2) < Gs.geometry.FLOAT_EPSILON
+            abs(fmod(rotation + PI * 2, PI) - PI / 2) < \
+            Gs.geometry.FLOAT_EPSILON
     
     # Ensure that collision boundaries are only ever axially aligned.
     assert(is_rotated_90_degrees or abs(rotation) < Gs.geometry.FLOAT_EPSILON)
@@ -829,7 +830,8 @@ static func draw_ice_cream_cone(
                 false)
         return
     elif distance_from_cone_end_point_to_circle_center <= circle_radius:
-        # Degenerate case: A circle (the cone-end-point lies within the circle).
+        # Degenerate case: A circle (the cone-end-point lies within the
+        #                  circle).
         if is_filled:
             canvas.draw_circle(
                     circle_center,

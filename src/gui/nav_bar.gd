@@ -28,9 +28,10 @@ func _enter_tree() -> void:
     _set_shows_about(shows_about)
     _set_shows_settings(shows_settings)
     _set_shows_logo(shows_logo)
-    $MarginContainer/LogoWrapper/Logo.texture = Gs.app_logo
-    $MarginContainer/LogoWrapper/Logo.texture_scale = \
-            Vector2(Gs.app_logo_scale, Gs.app_logo_scale)
+    $MarginContainer/LogoWrapper/Logo.texture = Gs.app_metadata.app_logo
+    $MarginContainer/LogoWrapper/Logo.texture_scale = Vector2(
+            Gs.app_metadata.app_logo_scale,
+            Gs.app_metadata.app_logo_scale)
 
 
 func _set_text(value: String) -> void:
@@ -92,7 +93,7 @@ func _on_AboutButton_pressed():
 func _on_SettingsButton_pressed():
     Gs.utils.give_button_press_feedback()
     if Gs.level != null and \
-            Gs.must_restart_level_to_change_settings:
+            Gs.app_metadata.must_restart_level_to_change_settings:
         var description := (
                 "The level must be restarted in order to change settings." +
                 "\n\nAre you sure you want to restart the level?")

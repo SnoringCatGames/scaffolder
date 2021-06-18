@@ -16,7 +16,7 @@ func _init(__ = null).(
 func on_pressed(pressed: bool) -> void:
     Gs.gui.is_debug_time_shown = pressed
     Gs.save_state.set_setting(
-            Gs.gui.IS_DEBUG_TIME_SHOWN_SETTINGS_KEY,
+            SaveState.IS_DEBUG_TIME_SHOWN_SETTINGS_KEY,
             Gs.gui.is_debug_time_shown)
 
 

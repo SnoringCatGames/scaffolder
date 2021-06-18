@@ -28,12 +28,12 @@ func _get_focused_button() -> ShinyButton:
 
 func _on_PrivacyPolicyLink_pressed():
     Gs.utils.give_button_press_feedback()
-    OS.shell_open(Gs.privacy_policy_url)
+    OS.shell_open(Gs.app_metadata.privacy_policy_url)
 
 
 func _on_TermsAndConditionsLink_pressed():
     Gs.utils.give_button_press_feedback()
-    OS.shell_open(Gs.terms_and_conditions_url)
+    OS.shell_open(Gs.app_metadata.terms_and_conditions_url)
 
 
 func _on_AgreeButton_pressed():

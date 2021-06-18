@@ -8,9 +8,10 @@ var level_id: String
 
 
 func _ready() -> void:
-    $PlayButton.texture = Gs.go_icon
+    $PlayButton.texture = Gs.app_metadata.go_icon
     $PlayButton.texture_scale = \
-            Vector2(Gs.go_icon_scale, Gs.go_icon_scale) * \
+            Vector2(Gs.app_metadata.go_icon_scale,
+                    Gs.app_metadata.go_icon_scale) * \
             go_icon_scale_multiplier
 
 
@@ -20,7 +21,7 @@ func update() -> void:
 
 func _get_default_item_classes() -> Array:
     var default_items := []
-    if Gs.uses_level_scores:
+    if Gs.app_metadata.uses_level_scores:
         default_items.push_back(HighScoreLabeledControlItem)
     default_items.push_back(TotalPlaysLabeledControlItem)
     return default_items

@@ -186,6 +186,10 @@ var active_overlays := []
 # ---
 
 
+func _init() -> void:
+    Gs.logger.print("ScaffolderGuiConfig._init")
+
+
 func amend_app_manifest(manifest: Dictionary) -> void:
     if !manifest.has("settings_item_manifest"):
         manifest.settings_item_manifest = \
@@ -271,21 +275,21 @@ func register_manifest(manifest: Dictionary) -> void:
     self.is_special_thanks_shown = !self.special_thanks_text.empty()
     self.is_third_party_licenses_shown = !self.third_party_license_text.empty()
     self.is_rate_app_shown = \
-            !Gs.android_app_store_url.empty() and \
-            !Gs.ios_app_store_url.empty()
+            !Gs.app_metadata.android_app_store_url.empty() and \
+            !Gs.app_metadata.ios_app_store_url.empty()
     self.is_support_shown = \
-            !Gs.support_url.empty() and \
-            !Gs.app_id_query_param.empty()
-    self.is_developer_logo_shown = Gs.developer_logo != null
+            !Gs.app_metadata.support_url.empty() and \
+            !Gs.app_metadata.app_id_query_param.empty()
+    self.is_developer_logo_shown = Gs.app_metadata.developer_logo != null
     self.is_developer_splash_shown = \
-            Gs.developer_splash != null and \
+            Gs.app_metadata.developer_splash != null and \
             Gs.audio_manifest.developer_splash_sound != ""
     self.is_main_menu_image_shown = self.main_menu_image_scene_path != ""
     self.is_loading_image_shown = self.loading_image_scene_path != ""
     self.does_app_contain_welcome_panel = welcome_panel_path != ""
     self.is_gesture_logging_supported = \
-            !Gs.log_gestures_url.empty() and \
-            !Gs.app_id_query_param.empty()
+            !Gs.app_metadata.log_gestures_url.empty() and \
+            !Gs.app_metadata.app_id_query_param.empty()
     
     _record_original_font_sizes()
 

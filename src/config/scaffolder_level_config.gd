@@ -81,8 +81,8 @@ func get_level_version_string(level_id: String) -> String:
 
 
 func _clear_old_version_level_state() -> void:
-    if Gs.score_version != Gs.save_state.get_score_version():
-        Gs.save_state.set_score_version(Gs.score_version)
+    if Gs.app_metadata.score_version != Gs.save_state.get_score_version():
+        Gs.save_state.set_score_version(Gs.app_metadata.score_version)
         Gs.save_state.erase_all_scores()
     
     for level_id in get_level_ids():

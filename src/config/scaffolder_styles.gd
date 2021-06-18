@@ -18,6 +18,10 @@ var scroll_grabber_corner_radius: int
 var scroll_grabber_corner_detail: int
 
 
+func _init() -> void:
+    Gs.logger.print("ScaffolderStyles._init")
+
+
 func register_manifest(manifest: Dictionary) -> void:
     self.button_corner_radius = manifest.button_corner_radius
     self.button_corner_detail = manifest.button_corner_detail

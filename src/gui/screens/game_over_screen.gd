@@ -34,10 +34,12 @@ func _init().(
 func _ready() -> void:
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer/SelectLevelButton \
-            .texture = Gs.go_icon
+            .texture = Gs.app_metadata.go_icon
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer/SelectLevelButton \
-            .texture_scale = Vector2(Gs.go_icon_scale, Gs.go_icon_scale) * \
+            .texture_scale = Vector2(
+                    Gs.app_metadata.go_icon_scale,
+                    Gs.app_metadata.go_icon_scale) * \
                     go_icon_scale_multiplier
     _update_stats()
 
@@ -58,8 +60,9 @@ func _update_stats() -> void:
     var unlocked_new_level_label := $FullScreenPanel/VBoxContainer/ \
             CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/ \
             VBoxContainer2/UnlockedNewLevelLabel
-    var was_best_playthrough_label := $FullScreenPanel/VBoxContainer/CenteredPanel/ \
-            ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/ \
+    var was_best_playthrough_label := \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer2/ \
             WasBestPlaythroughLabel
     var control_list := $FullScreenPanel/VBoxContainer/CenteredPanel/ \
             ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/ \
@@ -68,7 +71,7 @@ func _update_stats() -> void:
     unlocked_new_level_label.visible = !new_unlocked_levels.empty()
     
     was_best_playthrough_label.visible = \
-            Gs.uses_level_scores and \
+            Gs.app_metadata.uses_level_scores and \
             was_best_playthrough
     
     control_list.items = _get_items()
@@ -77,7 +80,7 @@ func _update_stats() -> void:
 func _get_default_item_classes() -> Array:
     var default_items := []
     default_items.push_back(LevelLabeledControlItem)
-    if Gs.uses_level_scores:
+    if Gs.app_metadata.uses_level_scores:
         default_items.push_back(GameOverScoreLabeledControlItem)
         default_items.push_back(HighScoreLabeledControlItem)
     default_items.push_back(GameOverTimeLabeledControlItem)

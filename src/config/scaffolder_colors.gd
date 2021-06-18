@@ -100,6 +100,10 @@ var scroll_bar_grabber_pressed: Color
 # ---
 
 
+func _init() -> void:
+    Gs.logger.print("ScaffolderColors._init")
+
+
 func register_manifest(manifest: Dictionary) -> void:
     for key in _defaults:
         var value = \

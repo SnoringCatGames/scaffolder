@@ -16,7 +16,7 @@ func _init(__ = null).(
 func on_pressed(pressed: bool) -> void:
     Gs.gui.is_giving_haptic_feedback = pressed
     Gs.save_state.set_setting(
-            Gs.gui.IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY,
+            SaveState.IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY,
             Gs.gui.is_giving_haptic_feedback)
 
 

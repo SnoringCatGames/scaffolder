@@ -26,10 +26,11 @@ func _init().(
 func _ready() -> void:
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/Title.texture = \
-            Gs.app_logo
+            Gs.app_metadata.app_logo
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/Title.texture_scale = \
-            Vector2(Gs.app_logo_scale, Gs.app_logo_scale)
+            Vector2(Gs.app_metadata.app_logo_scale,
+                    Gs.app_metadata.app_logo_scale)
     
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer4/ \
@@ -38,13 +39,13 @@ func _ready() -> void:
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer4/ \
             DeveloperLogoLink/DeveloperLogo.texture = \
-            Gs.developer_logo
+            Gs.app_metadata.developer_logo
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer4/ \
-            DeveloperNameLink.text = Gs.developer_name
+            DeveloperNameLink.text = Gs.app_metadata.developer_name
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer4/ \
-            DeveloperUrlLink.text = Gs.developer_url
+            DeveloperUrlLink.text = Gs.app_metadata.developer_url
     
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/SpecialThanksContainer/ \
@@ -55,19 +56,19 @@ func _ready() -> void:
     
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer2/ \
-            TermsAndConditionsLink.visible = Gs.is_data_tracked
+            TermsAndConditionsLink.visible = Gs.app_metadata.is_data_tracked
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer2/ \
-            PrivacyPolicyLink.visible = Gs.is_data_tracked
+            PrivacyPolicyLink.visible = Gs.app_metadata.is_data_tracked
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer/ \
             DataDeletionButton.visible = \
-                    Gs.is_data_tracked and \
+                    Gs.app_metadata.is_data_tracked and \
                     Gs.gui.is_data_deletion_button_shown
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer/ \
             DataDeletionButtonPadding.visible = \
-                    Gs.is_data_tracked and \
+                    Gs.app_metadata.is_data_tracked and \
                     Gs.gui.is_data_deletion_button_shown
     
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
@@ -87,7 +88,7 @@ func _on_third_party_licenses_button_pressed():
 
 func _on_snoring_cat_games_link_pressed():
     Gs.utils.give_button_press_feedback()
-    OS.shell_open(Gs.developer_url)
+    OS.shell_open(Gs.app_metadata.developer_url)
 
 
 func _on_godot_link_pressed():
@@ -97,12 +98,12 @@ func _on_godot_link_pressed():
 
 func _on_PrivacyPolicyLink_pressed():
     Gs.utils.give_button_press_feedback()
-    OS.shell_open(Gs.privacy_policy_url)
+    OS.shell_open(Gs.app_metadata.privacy_policy_url)
 
 
 func _on_TermsAndConditionsLink_pressed():
     Gs.utils.give_button_press_feedback()
-    OS.shell_open(Gs.terms_and_conditions_url)
+    OS.shell_open(Gs.app_metadata.terms_and_conditions_url)
 
 
 func _on_SupportLink_pressed():

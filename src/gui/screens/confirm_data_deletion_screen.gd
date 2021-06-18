@@ -41,7 +41,8 @@ func _on_ConfirmButton_pressed():
     Gs.utils.clear_directory("user://")
     
     var url := Gs.get_support_url_with_params()
-    url += "&request-data-deletion=true&client-id=" + str(Gs.analytics.client_id)
+    url += "&request-data-deletion=true&client-id=" + \
+            str(Gs.analytics.client_id)
     OS.shell_open(url)
     
     quit()
