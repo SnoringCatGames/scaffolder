@@ -25,7 +25,7 @@ func _init().(
 
 func _on_activated(previous_screen_name: String) -> void:
     ._on_activated(previous_screen_name)
-    assert(Gs.is_rate_app_shown)
+    assert(Gs.gui.is_rate_app_shown)
 
 
 func _get_focused_button() -> ShinyButton:

@@ -92,9 +92,9 @@ func _deferred_update() -> void:
     $MarginContainer/ScaffolderTextureRect.texture = texture
     $MarginContainer/ScaffolderTextureRect.texture_scale = texture_scale
     var font: Font = \
-            Gs.fonts.main_xl if \
+            Gs.gui.fonts.main_xl if \
             is_font_xl else \
-            Gs.fonts.main_m
+            Gs.gui.fonts.main_m
     $MarginContainer/BottomButton.add_font_override(
             "font",
             font)

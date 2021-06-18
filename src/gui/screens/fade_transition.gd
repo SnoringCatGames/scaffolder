@@ -30,7 +30,7 @@ func fade() -> void:
 
 func _fade_out() -> void:
     Gs.time.clear_tween(_tween_id)
-    _set_mask(Gs.fade_out_transition_texture)
+    _set_mask(Gs.gui.fade_out_transition_texture)
     _tween_id = Gs.time.tween_method(
             self,
             "_set_cutoff",
@@ -47,7 +47,7 @@ func _fade_in(
         _object: Object,
         _key: NodePath) -> void:
     Gs.time.clear_tween(_tween_id)
-    _set_mask(Gs.fade_in_transition_texture)
+    _set_mask(Gs.gui.fade_in_transition_texture)
     _tween_id = Gs.time.tween_method(
             self,
             "_set_cutoff",

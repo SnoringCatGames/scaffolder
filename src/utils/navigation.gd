@@ -93,8 +93,8 @@ func create_screens() -> void:
     var screen_paths: Array = \
             Gs.utils.get_collection_from_exclusions_and_inclusions(
                     default,
-                    Gs.screen_path_exclusions,
-                    Gs.screen_path_inclusions)
+                    Gs.gui.screen_path_exclusions,
+                    Gs.gui.screen_path_inclusions)
                     
     for path in screen_paths:
         _create_screen(path)
@@ -331,7 +331,7 @@ func _splash_helper() -> void:
             .create_timer(Gs.godot_splash_screen_duration),
             "timeout")
     
-    if Gs.is_developer_splash_shown:
+    if Gs.gui.is_developer_splash_shown:
         open("developer_splash")
         Gs.audio.play_sound(Gs.audio_manifest.developer_splash_sound)
         yield(get_tree() \

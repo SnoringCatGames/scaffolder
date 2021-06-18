@@ -11,8 +11,8 @@ func _enter_tree() -> void:
 
 
 func print(message: String) -> void:
-    if is_instance_valid(Gs.debug_panel):
-        Gs.debug_panel.add_message(message)
+    if is_instance_valid(Gs.gui and Gs.gui.debug_panel):
+        Gs.gui.debug_panel.add_message(message)
     else:
         _print_queue.push_back(message)
     

@@ -103,19 +103,19 @@ func update_gui_scale_deferred(gui_scale: float) -> void:
         if includes_header:
             _header_hbox.add_constant_override(
                     "separation",
-                    padding.x * Gs.gui_scale)
+                    padding.x * Gs.gui.scale)
             
-            _caret.texture_scale = CARET_SCALE * Gs.gui_scale
+            _caret.texture_scale = CARET_SCALE * Gs.gui.scale
             
             var texture_height := \
-                    CARET_SIZE_DEFAULT.y * CARET_SCALE.y * Gs.gui_scale
+                    CARET_SIZE_DEFAULT.y * CARET_SCALE.y * Gs.gui.scale
             var label_height := _header_label.rect_size.y
             var header_height := max(
-                    header_min_height * Gs.gui_scale,
+                    header_min_height * Gs.gui.scale,
                     max(
                             label_height,
                             texture_height)) + \
-                    padding.y * 2.0 * Gs.gui_scale
+                    padding.y * 2.0 * Gs.gui.scale
             _header.rect_size = Vector2(rect_size.x, header_height)
             _header_hbox.rect_size = _header.rect_size
         else:
@@ -320,7 +320,7 @@ func _interpolate_height(open_ratio: float) -> void:
     #       original height of the project content. Otherwise, us changing its
     #       position here seems to cause it's size to change as well.
     var projected_height := \
-            height_override * Gs.gui_scale if \
+            height_override * Gs.gui.scale if \
             height_override != INF else \
             _projected_control.rect_size.y
     _projected_control.rect_size.y = projected_height
@@ -359,7 +359,7 @@ func _interpolate_scroll(open_ratio: float) -> void:
             scroll_container.rect_size.y
     var max_scroll_vertical_to_show_accordion_top := \
             accordion_position_y_in_scroll_container - \
-            extra_scroll_height_for_custom_header * Gs.gui_scale
+            extra_scroll_height_for_custom_header * Gs.gui.scale
     
     var is_scrolling_upward := \
             scroll_container.scroll_vertical > \

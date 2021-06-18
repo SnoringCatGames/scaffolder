@@ -24,15 +24,15 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-    theme = Gs.theme
+    theme = Gs.gui.theme
     
-    Gs.add_gui_to_scale(self, DEFAULT_GUI_SCALE)
+    Gs.gui.add_gui_to_scale(self, DEFAULT_GUI_SCALE)
     
     var faded_color: Color = Gs.colors.zebra_stripe_even_row
     faded_color.a *= 0.3
     
     $PanelContainer/LabeledControlList.even_row_color = faded_color
-    $PanelContainer/LabeledControlList.items = Gs.welcome_panel_items
+    $PanelContainer/LabeledControlList.items = Gs.gui.welcome_panel_items
     
     update_gui_scale(1.0)
 
@@ -54,4 +54,4 @@ func update_gui_scale(gui_scale: float) -> bool:
 
 
 func _exit_tree() -> void:
-    Gs.remove_gui_to_scale(self)
+    Gs.gui.remove_gui_to_scale(self)

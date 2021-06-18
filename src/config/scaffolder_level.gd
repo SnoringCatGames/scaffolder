@@ -44,7 +44,7 @@ func _start() -> void:
             "level",
             "start",
             Gs.level_config.get_level_version_string(_id))
-    Gs.hud.visible = true
+    Gs.gui.hud.visible = true
     call_deferred("_on_started")
 
 
@@ -53,9 +53,9 @@ func _on_started() -> void:
 
 
 func _create_hud() -> void:
-    Gs.hud = Gs.hud_manifest.hud_class.new()
-    Gs.hud.visible = false
-    Gs.canvas_layers.layers.hud.add_child(Gs.hud)
+    Gs.gui.hud = Gs.gui.hud_manifest.hud_class.new()
+    Gs.gui.hud.visible = false
+    Gs.canvas_layers.layers.hud.add_child(Gs.gui.hud)
 
 
 func _exit_tree() -> void:
@@ -65,8 +65,8 @@ func _exit_tree() -> void:
 
 func _destroy() -> void:
     _hide_welcome_panel()
-    if is_instance_valid(Gs.hud):
-        Gs.hud._destroy()
+    if is_instance_valid(Gs.gui.hud):
+        Gs.gui.hud._destroy()
     Gs.level = null
     is_destroyed = true
     queue_free()
@@ -92,7 +92,7 @@ func restart() -> void:
 
 func _input(event: InputEvent) -> void:
     if !_has_initial_input_happened and \
-            Gs.is_user_interaction_enabled and \
+            Gs.gui.is_user_interaction_enabled and \
             _get_level_play_time_unscaled() > min_controls_display_time and \
             (event is InputEventMouseButton or \
                     event is InputEventScreenTouch or \
@@ -105,7 +105,7 @@ func _on_initial_input() -> void:
     Gs.logger.print("ScaffolderLevel._on_initial_input")
     _has_initial_input_happened = true
     # Close the welcome panel on any mouse or key click event.
-    if is_instance_valid(Gs.welcome_panel):
+    if is_instance_valid(Gs.gui.welcome_panel):
         _hide_welcome_panel()
 
 
@@ -129,18 +129,18 @@ func on_unpause() -> void:
 
 
 func _show_welcome_panel() -> void:
-    if !Gs.is_welcome_panel_shown:
+    if !Gs.gui.is_welcome_panel_shown:
         return
-    assert(Gs.welcome_panel == null)
-    Gs.welcome_panel = Gs.utils.add_scene(
+    assert(Gs.gui.welcome_panel == null)
+    Gs.gui.welcome_panel = Gs.utils.add_scene(
             Gs.canvas_layers.layers.hud,
-            Gs.welcome_panel_resource_path)
+            Gs.gui.welcome_panel_path)
 
 
 func _hide_welcome_panel() -> void:
-    if is_instance_valid(Gs.welcome_panel):
-        Gs.welcome_panel.queue_free()
-        Gs.welcome_panel = null
+    if is_instance_valid(Gs.gui.welcome_panel):
+        Gs.gui.welcome_panel.queue_free()
+        Gs.gui.welcome_panel = null
 
 
 func _record_level_results() -> void:
@@ -188,7 +188,7 @@ func _on_level_quit_sound_finished() -> void:
     Gs.audio.get_sound_player(Gs.audio_manifest.level_end_sound) \
             .disconnect("finished", self, "_on_level_quit_sound_finished")
     var is_rate_app_screen_next: bool = \
-            Gs.is_rate_app_shown and \
+            Gs.gui.is_rate_app_shown and \
             _get_is_rate_app_screen_next()
     var next_screen := \
             "rate_app" if \

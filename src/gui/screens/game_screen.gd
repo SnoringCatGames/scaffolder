@@ -25,12 +25,12 @@ func _enter_tree() -> void:
     var loading_image_wrapper := \
             $PanelContainer/LoadProgressPanel/VBoxContainer/LoadingImageWrapper
     
-    loading_image_wrapper.visible = Gs.is_loading_image_shown
+    loading_image_wrapper.visible = Gs.gui.is_loading_image_shown
     
-    if Gs.is_loading_image_shown:
+    if Gs.gui.is_loading_image_shown:
         var loading_image := Gs.utils.add_scene(
                 loading_image_wrapper,
-                Gs.loading_image_scene_path,
+                Gs.gui.loading_image_scene_path,
                 true,
                 true, \
                 0)
@@ -73,12 +73,12 @@ func _on_activated(previous_screen_name: String) -> void:
 func _update_viewport_region_helper() -> void:
     var viewport_size := get_viewport().size
     var game_area_position := \
-            (viewport_size - Gs.game_area_region.size) * 0.5
+            (viewport_size - Gs.gui.game_area_region.size) * 0.5
     
     $PanelContainer.rect_size = viewport_size
     $PanelContainer/ViewportContainer.rect_position = game_area_position
     $PanelContainer/ViewportContainer/Viewport.size = \
-            Gs.game_area_region.size
+            Gs.gui.game_area_region.size
     
     _fix_viewport_dimensions_hack()
 

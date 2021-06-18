@@ -10,8 +10,8 @@ export var stretches_vertically := false \
 
 
 func _init() -> void:
-    theme = Gs.theme
-    add_font_override("font", Gs.fonts.main_m)
+    theme = Gs.gui.theme
+    add_font_override("font", Gs.gui.fonts.main_m)
 
 
 func _ready() -> void:
@@ -32,9 +32,9 @@ func _on_resized() -> void:
         return
     
     rect_position = \
-            (viewport.size - Gs.game_area_region.size) * 0.5
-    rect_min_size = Gs.game_area_region.size
-    rect_size = Gs.game_area_region.size
+            (viewport.size - Gs.gui.game_area_region.size) * 0.5
+    rect_min_size = Gs.gui.game_area_region.size
+    rect_size = Gs.gui.game_area_region.size
     
     if stretches_horizontally:
         size_flags_horizontal = Control.SIZE_EXPAND_FILL

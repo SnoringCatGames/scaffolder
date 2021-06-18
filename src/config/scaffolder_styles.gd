@@ -18,7 +18,7 @@ var scroll_grabber_corner_radius: int
 var scroll_grabber_corner_detail: int
 
 
-func register_styles(manifest: Dictionary) -> void:
+func register_manifest(manifest: Dictionary) -> void:
     self.button_corner_radius = manifest.button_corner_radius
     self.button_corner_detail = manifest.button_corner_detail
     self.button_shadow_size = manifest.button_shadow_size
@@ -186,10 +186,10 @@ func configure_theme() -> void:
     _configure_theme_stylebox_empty("normal", "CheckBox")
     _configure_theme_stylebox_empty("pressed", "CheckBox")
     
-    if Gs.theme.default_font == null:
-        Gs.theme.default_font = Gs.fonts.main_m
+    if Gs.gui.theme.default_font == null:
+        Gs.gui.theme.default_font = Gs.gui.fonts.main_m
     
-    Gs.theme.set_font("font", "TooltipLabel", Gs.fonts.main_xs)
+    Gs.gui.theme.set_font("font", "TooltipLabel", Gs.gui.fonts.main_xs)
     _configure_theme_color( \
             "font_color", "TooltipLabel", Gs.colors.tooltip)
     _configure_theme_stylebox( \
@@ -200,28 +200,28 @@ func _configure_theme_color(
         name: String,
         type: String,
         color: Color) -> void:
-    if !Gs.theme.has_color(name, type):
-        Gs.theme.set_color(name, type, color)
+    if !Gs.gui.theme.has_color(name, type):
+        Gs.gui.theme.set_color(name, type, color)
 
 
 func _configure_theme_stylebox(
         name: String,
         type: String,
         config) -> void:
-    if !Gs.theme.has_stylebox(name, type):
+    if !Gs.gui.theme.has_stylebox(name, type):
         var stylebox: StyleBoxFlatScalable = \
                 Gs.utils.create_stylebox_flat_scalable(config)
-        Gs.theme.set_stylebox(name, type, stylebox)
-    elif !(Gs.theme.get_stylebox(name, type) is StyleBoxFlatScalable):
-        var old: StyleBox = Gs.theme.get_stylebox(name, type)
+        Gs.gui.theme.set_stylebox(name, type, stylebox)
+    elif !(Gs.gui.theme.get_stylebox(name, type) is StyleBoxFlatScalable):
+        var old: StyleBox = Gs.gui.theme.get_stylebox(name, type)
         var new: StyleBoxFlatScalable = \
                 Gs.utils.create_stylebox_flat_scalable(old)
-        Gs.theme.set_stylebox(name, type, new)
+        Gs.gui.theme.set_stylebox(name, type, new)
 
 
 func _configure_theme_stylebox_empty(
         name: String,
         type: String) -> void:
-    if !Gs.theme.has_stylebox(name, type):
+    if !Gs.gui.theme.has_stylebox(name, type):
         var stylebox := StyleBoxEmpty.new()
-        Gs.theme.set_stylebox(name, type, stylebox)
+        Gs.gui.theme.set_stylebox(name, type, stylebox)

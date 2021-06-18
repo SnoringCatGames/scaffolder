@@ -34,7 +34,7 @@ func _ready() -> void:
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer4/ \
             DeveloperLogoLink/DeveloperLogo.visible = \
-            Gs.is_developer_logo_shown
+            Gs.gui.is_developer_logo_shown
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer4/ \
             DeveloperLogoLink/DeveloperLogo.texture = \
@@ -48,10 +48,10 @@ func _ready() -> void:
     
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/SpecialThanksContainer/ \
-            SpecialThanks.text = Gs.special_thanks_text
+            SpecialThanks.text = Gs.gui.special_thanks_text
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/SpecialThanksContainer.visible = \
-            Gs.is_special_thanks_shown
+            Gs.gui.is_special_thanks_shown
     
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer2/ \
@@ -63,21 +63,21 @@ func _ready() -> void:
             CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer/ \
             DataDeletionButton.visible = \
                     Gs.is_data_tracked and \
-                    Gs.is_data_deletion_button_shown
+                    Gs.gui.is_data_deletion_button_shown
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer/ \
             DataDeletionButtonPadding.visible = \
                     Gs.is_data_tracked and \
-                    Gs.is_data_deletion_button_shown
+                    Gs.gui.is_data_deletion_button_shown
     
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer2/ \
-            SupportLink.visible = Gs.is_support_shown
+            SupportLink.visible = Gs.gui.is_support_shown
     
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer/ \
             ThirdPartyLicensesButton.visible = \
-            Gs.is_third_party_licenses_shown
+            Gs.gui.is_third_party_licenses_shown
 
 
 func _on_third_party_licenses_button_pressed():

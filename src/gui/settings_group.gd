@@ -7,7 +7,7 @@ var group_name: String
 
 func _ready() -> void:
     var group_config: Dictionary = \
-            Gs.settings_item_manifest.groups[group_name]
+            Gs.gui.settings_item_manifest.groups[group_name]
     
     var items: Array
     for item_class in group_config.item_classes:
