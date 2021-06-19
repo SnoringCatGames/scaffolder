@@ -72,22 +72,32 @@ func _destroy() -> void:
     queue_free()
 
 
-func quit(immediately := true) -> void:
+func quit(
+        has_finished: bool,
+        immediately: bool) -> void:
     Gs.audio.stop_music()
-    _record_level_results()
+    _record_level_results(has_finished)
     if immediately:
-#        _on_level_quit_sound_finished()
+#        _on_level_quit_sound_finished(has_finished)
         Gs.nav.open("game_over", true)
         _destroy()
     else:
-        Gs.audio.get_sound_player(Gs.audio_manifest.level_end_sound) \
-                .connect("finished", self, "_on_level_quit_sound_finished")
-        Gs.audio.play_sound(Gs.audio_manifest.level_end_sound)
+        var sound_name: String = \
+                Gs.audio_manifest.level_end_sound_win if \
+                has_finished else \
+                Gs.audio_manifest.level_end_sound_lose
+        Gs.audio.get_sound_player(sound_name) \
+                .connect(
+                        "finished",
+                        self,
+                        "_on_level_quit_sound_finished",
+                        [has_finished])
+        Gs.audio.play_sound(sound_name)
 
 
 func restart() -> void:
     _is_restarting = true
-    quit(true)
+    quit(false, true)
 
 
 func _input(event: InputEvent) -> void:
@@ -143,12 +153,17 @@ func _hide_welcome_panel() -> void:
         Gs.gui.welcome_panel = null
 
 
-func _record_level_results() -> void:
+func _record_level_results(has_finished: bool) -> void:
     var game_over_screen = Gs.nav.screens["game_over"]
     game_over_screen.level_id = _id
     game_over_screen.time = Gs.utils.get_time_string_from_seconds(
             Gs.time.get_play_time() - \
             level_start_play_time_unscaled)
+    
+    if !has_finished:
+        return
+    
+    Gs.save_state.set_level_has_finished(_id, has_finished)
     
     if Gs.app_metadata.uses_level_scores:
         Gs.analytics.event(
@@ -172,6 +187,12 @@ func _record_level_results() -> void:
         game_over_screen.high_score = \
                 str(Gs.save_state.get_level_high_score(_id))
     
+    var time := _get_level_play_time_unscaled()
+    var previous_fastest_time: float = \
+            Gs.save_state.get_level_fastest_time(_id)
+    if time < previous_fastest_time:
+        Gs.save_state.set_level_fastest_time(_id, time)
+    
     var new_unlocked_levels: Array = Gs.level_config.get_new_unlocked_levels()
     Gs.save_state.set_new_unlocked_levels(new_unlocked_levels)
     for other_level_id in new_unlocked_levels:
@@ -184,8 +205,12 @@ func _record_level_results() -> void:
     game_over_screen.new_unlocked_levels = new_unlocked_levels
 
 
-func _on_level_quit_sound_finished() -> void:
-    Gs.audio.get_sound_player(Gs.audio_manifest.level_end_sound) \
+func _on_level_quit_sound_finished(level_finished: bool) -> void:
+    var sound_name: String = \
+            Gs.audio_manifest.level_end_sound_win if \
+            level_finished else \
+            Gs.audio_manifest.level_end_sound_lose
+    Gs.audio.get_sound_player(sound_name) \
             .disconnect("finished", self, "_on_level_quit_sound_finished")
     var is_rate_app_screen_next: bool = \
             Gs.gui.is_rate_app_shown and \

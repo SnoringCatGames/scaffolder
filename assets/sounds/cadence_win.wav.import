@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/cadence_win.wav-681769bd37443c0c24b0afd3a67b5889.sample"
+
+[deps]
+
+source_file="res://addons/scaffolder/assets/sounds/cadence_win.wav"
+dest_files=[ "res://.import/cadence_win.wav-681769bd37443c0c24b0afd3a67b5889.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

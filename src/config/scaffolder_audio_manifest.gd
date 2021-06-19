@@ -14,7 +14,8 @@ var default_music_bus_index: int
 
 var godot_splash_sound := "achievement"
 var developer_splash_sound: String
-var level_end_sound: String
+var level_end_sound_win: String
+var level_end_sound_lose: String
 
 var main_menu_music: String
 var game_over_music: String
@@ -53,8 +54,10 @@ func register_manifest(manifest: Dictionary) -> void:
         self.godot_splash_sound = manifest.godot_splash_sound
     if manifest.has("developer_splash_sound"):
         self.developer_splash_sound = manifest.developer_splash_sound
-    if manifest.has("level_end_sound"):
-        self.level_end_sound = manifest.level_end_sound
+    if manifest.has("level_end_sound_win"):
+        self.level_end_sound_win = manifest.level_end_sound_win
+    if manifest.has("level_end_sound_lose"):
+        self.level_end_sound_lose = manifest.level_end_sound_lose
     
     self.main_menu_music = manifest.main_menu_music
     if manifest.has("game_over_music"):

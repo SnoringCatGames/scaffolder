@@ -24,10 +24,9 @@ func get_text() -> String:
     if level_id == "":
         return "—"
     else:
-        var settings_key := \
-                SaveState.get_level_fastest_time_settings_key(level_id)
-        var fastest_time: float = Gs.save_state.get_setting(settings_key, INF)
-        if fastest_time == INF:
+        var fastest_time: float = \
+                Gs.save_state.get_level_fastest_time(level_id)
+        if fastest_time == Utils.MAX_INT:
             return "—"
         else:
-            return Gs.utils.get_time_string_from_seconds(fastest_time)
+            return str(fastest_time)

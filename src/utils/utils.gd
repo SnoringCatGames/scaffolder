@@ -2,6 +2,8 @@ class_name Utils
 extends Node
 
 
+const MAX_INT := 9223372036854775807
+
 signal display_resized
 
 var _ios_model_names
