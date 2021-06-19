@@ -5,7 +5,9 @@ extends Node
 const CONFIG_FILE_PATH := "user://settings.cfg"
 const SETTINGS_SECTION_KEY := "settings"
 const MISCELLANEOUS_SECTION_KEY := "miscellaneous"
+const HAS_FINISHED_SECTION_KEY := "has_finished"
 const HIGH_SCORES_SECTION_KEY := "high_scores"
+const FASTEST_TIMES_SECTION_KEY := "fastest_times"
 const TOTAL_PLAYS_SECTION_KEY := "total_plays"
 const ALL_SCORES_SECTION_KEY := "all_scores"
 const IS_UNLOCKED_SECTION_KEY := "is_unlocked"
@@ -91,6 +93,8 @@ func erase_level_state(level_id: String) -> void:
         HIGH_SCORES_SECTION_KEY,
         TOTAL_PLAYS_SECTION_KEY,
         ALL_SCORES_SECTION_KEY,
+        FASTEST_TIMES_SECTION_KEY,
+        HAS_FINISHED_SECTION_KEY,
     ]
     for section_key in sections:
         if config.has_section_key(section_key, level_id):
@@ -182,6 +186,23 @@ func get_level_version(level_id: String) -> String:
             "") as String
 
 
+func set_level_has_finished(
+        level_id: String,
+        has_finished: bool) -> void:
+    config.set_value(
+            HAS_FINISHED_SECTION_KEY,
+            level_id,
+            has_finished)
+    _save_config()
+
+
+func get_level_has_finished(level_id: String) -> bool:
+    return _get_value(
+            HAS_FINISHED_SECTION_KEY,
+            level_id,
+            false) as bool
+
+
 func set_level_high_score(
         level_id: String,
         high_score: int) -> void:
@@ -197,6 +218,23 @@ func get_level_high_score(level_id: String) -> int:
             HIGH_SCORES_SECTION_KEY,
             level_id,
             0) as int
+
+
+func set_level_fastest_time(
+        level_id: String,
+        fastest_time: float) -> void:
+    config.set_value(
+            FASTEST_TIMES_SECTION_KEY,
+            level_id,
+            fastest_time)
+    _save_config()
+
+
+func get_level_fastest_time(level_id: String) -> float:
+    return _get_value(
+            FASTEST_TIMES_SECTION_KEY,
+            level_id,
+            Utils.MAX_INT) as float
 
 
 func set_level_total_plays(
@@ -264,7 +302,3 @@ func get_new_unlocked_levels() -> Array:
             MISCELLANEOUS_SECTION_KEY,
             NEW_UNLOCKED_LEVELS_KEY,
             []) as Array
-
-
-static func get_level_fastest_time_settings_key(level_id: String) -> String:
-    return "level_%s_fastest_time" % level_id

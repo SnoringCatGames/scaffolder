@@ -48,7 +48,7 @@ func _get_focused_button() -> ShinyButton:
 func _on_ExitLevelButton_pressed() -> void:
     Gs.utils.give_button_press_feedback()
     Gs.nav.close_current_screen()
-    Gs.level.quit(false)
+    Gs.level.quit(false, false)
 
 
 func _on_ResumeButton_pressed() -> void:
