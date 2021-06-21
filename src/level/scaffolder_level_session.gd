@@ -208,4 +208,4 @@ func _update_new_unlocked_levels() -> void:
                 "level",
                 "unlocked",
                 Gs.level_config.get_level_version_string(other_level_id),
-                Gs.level_config.get_level_config(other_level_id).number)
+                other_level_id)
