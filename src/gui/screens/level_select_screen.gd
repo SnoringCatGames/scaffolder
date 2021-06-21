@@ -64,7 +64,7 @@ func _update() -> void:
 #        return
     for item in level_items:
         # FIXME: ------- Add this back in after fixing the unlock animation.
-#        item.is_new_unlocked_item = item == _new_unlocked_item
+        item.is_new_unlocked_item = item == _new_unlocked_item
         item.update()
     call_deferred("_deferred_update")
 

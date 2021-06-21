@@ -192,18 +192,19 @@ func _update_font_sizes() -> void:
 
 
 func _update_checkbox_size() -> void:
-    var target_icon_size := Gs.gui.default_checkbox_icon_size * Gs.gui.scale
-    var closest_icon_size := Gs.gui.default_checkbox_icon_size
+    var target_icon_size: float = \
+            Gs.gui.default_checkbox_icon_size * Gs.gui.scale
+    var closest_icon_size: float = Gs.gui.default_checkbox_icon_size
     for icon_size in Gs.gui.checkbox_icon_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
     Gs.gui.current_checkbox_icon_size = closest_icon_size
     
-    var checked_icon_path := \
+    var checked_icon_path: String = \
             Gs.gui.checkbox_icon_path_prefix + "checked_" + \
             str(Gs.gui.current_checkbox_icon_size) + ".png"
-    var unchecked_icon_path := \
+    var unchecked_icon_path: String = \
             Gs.gui.checkbox_icon_path_prefix + "unchecked_" + \
             str(Gs.gui.current_checkbox_icon_size) + ".png"
     
@@ -215,18 +216,19 @@ func _update_checkbox_size() -> void:
 
 
 func _update_tree_arrow_size() -> void:
-    var target_icon_size := Gs.gui.default_tree_arrow_icon_size * Gs.gui.scale
-    var closest_icon_size := Gs.gui.default_tree_arrow_icon_size
+    var target_icon_size: float = \
+            Gs.gui.default_tree_arrow_icon_size * Gs.gui.scale
+    var closest_icon_size: float = Gs.gui.default_tree_arrow_icon_size
     for icon_size in Gs.gui.tree_arrow_icon_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
     Gs.gui.current_tree_arrow_icon_size = closest_icon_size
     
-    var open_icon_path := \
+    var open_icon_path: String = \
             Gs.gui.tree_arrow_icon_path_prefix + "open_" + \
             str(Gs.gui.current_tree_arrow_icon_size) + ".png"
-    var closed_icon_path := \
+    var closed_icon_path: String = \
             Gs.gui.tree_arrow_icon_path_prefix + "closed_" + \
             str(Gs.gui.current_tree_arrow_icon_size) + ".png"
     

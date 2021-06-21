@@ -22,6 +22,15 @@ var _level_configs_by_number := {}
 func _init(are_levels_scene_based: bool) -> void:
     Gs.logger.print("ScaffolderLevelConfig._init")
     self.are_levels_scene_based = are_levels_scene_based
+    # FIXME: ------------------------------
+    # - This should be redundant with the erasure logic in SaveState._init?
+    #   - Check on this...
+    if Gs.manifest.app_metadata.has(
+                "is_save_state_cleared_for_debugging") and \
+            Gs.manifest.app_metadata.is_save_state_cleared_for_debugging:
+        for id in get_level_ids():
+            Gs.save_state.set_level_is_unlocked(id, false)
+            Gs.save_state.erase_level_state(id)
 
 
 func _ready() -> void:

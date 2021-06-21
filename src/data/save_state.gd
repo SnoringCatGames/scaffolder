@@ -34,6 +34,11 @@ var config: ConfigFile
 func _init() -> void:
     Gs.logger.print("SaveSate._init")
     _load_config()
+    
+    if Gs.manifest.app_metadata.has(
+                "is_save_state_cleared_for_debugging") and \
+            Gs.manifest.app_metadata.is_save_state_cleared_for_debugging:
+        erase_all_state()
 
 
 func _load_config() -> void:
