@@ -1,27 +1,35 @@
 class_name ScaffolderLevelConfig
 extends Node
-
-
 # NOTE: Level config Dictionaries must have the following properties:
 # -   name: String: Try to keep this short and memorable.
 # -   version: String: Of the form "0.0.1".
+# -   is_test_level: bool
 # -   priority: int: Must be unique. Earlier levels have lower values.
 # -   One of (according to are_levels_scene_based):
 #     -   scene_path: String
 #     -   script_class: Class
-
+# 
 # NOTE: Level config Dictionaries will updated to include the following
 #       auto-calculated properties:
 # -   id: String
 # -   number: int
 
+
 var are_levels_scene_based: bool
+var test_level_count := 0
+
+var _level_configs_by_id := {}
 var _level_configs_by_number := {}
+var _level_numbers := []
 
 
-func _init(are_levels_scene_based: bool) -> void:
+func _init(
+        are_levels_scene_based: bool,
+        level_manifest: Dictionary) -> void:
     Gs.logger.print("ScaffolderLevelConfig._init")
     self.are_levels_scene_based = are_levels_scene_based
+    self._level_configs_by_id = level_manifest
+    
     # FIXME: ------------------------------
     # - This should be redundant with the erasure logic in SaveState._init?
     #   - Check on this...
@@ -44,9 +52,14 @@ func _ready() -> void:
 func _sanitize_level_configs() -> void:
     var level_configs_by_priority := {}
     var priorities := []
+    test_level_count = 0
     for level_id in get_level_ids():
         var config := get_level_config(level_id)
         _sanitize_level_config(config)
+        if config.is_test_level:
+            if !Gs.app_metadata.are_test_levels_included:
+                continue
+            test_level_count += 1
         config.id = level_id
         level_configs_by_priority[config.priority] = config
         priorities.push_back(config.priority)
@@ -57,12 +70,16 @@ func _sanitize_level_configs() -> void:
         var config: Dictionary = level_configs_by_priority[priority]
         config.number = number
         _level_configs_by_number[number] = config
+        _level_numbers.push_back(number)
         number += 1
 
 
 func _sanitize_level_config(config: Dictionary) -> void:
     assert(config.has("name") and config.name is String)
     assert(config.has("version") and config.version is String)
+    assert(config.has("is_test_level") and \
+            config.is_test_level is bool and \
+            (config.is_test_level == (config.priority <= 0)))
     assert(config.has("priority") and config.priority is int)
     assert(are_levels_scene_based and \
             config.has("scene_path") and \
@@ -74,15 +91,19 @@ func _sanitize_level_config(config: Dictionary) -> void:
 
 
 func get_level_config(level_id: String) -> Dictionary:
-    Gs.logger.error(
-            "Abstract ScaffolderLevelConfig.get_level_config is not implemented")
-    return {}
+    return _level_configs_by_id[level_id]
+
+
+func get_level_config_by_number(level_number: int) -> Dictionary:
+    return _level_configs_by_number[level_number]
 
 
 func get_level_ids() -> Array:
-    Gs.logger.error(
-            "Abstract ScaffolderLevelConfig.get_level_ids is not implemented")
-    return []
+    return _level_configs_by_id.keys()
+
+
+func get_level_numbers() -> Array:
+    return _level_numbers
 
 
 func get_level_version_string(level_id: String) -> String:

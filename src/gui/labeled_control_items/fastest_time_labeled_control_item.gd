@@ -14,7 +14,7 @@ func _init(level_session_or_id).(
         ) -> void:
     self.level_id = \
             level_session_or_id.id if \
-            level_session_or_id is ScaffolderLevel else \
+            level_session_or_id is ScaffolderLevelSession else \
             (level_session_or_id if \
             level_session_or_id is String else \
             "")

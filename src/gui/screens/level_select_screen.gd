@@ -35,7 +35,9 @@ func _init().(
 
 
 func _ready() -> void:
-    for level_id in Gs.level_config.get_level_ids():
+    for level_number in Gs.level_config.get_level_numbers():
+        var level_config := \
+                Gs.level_config.get_level_config_by_number(level_number)
         var item: LevelSelectItem = Gs.utils.add_scene(
                 $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer \
                         /CenterContainer/VBoxContainer/LevelSelectItems,
@@ -43,7 +45,7 @@ func _ready() -> void:
                 true,
                 true)
         level_items.push_back(item)
-        item.level_id = level_id
+        item.level_id = level_config.id
         item.is_open = false
         item.connect("pressed", self, "_on_item_pressed", [item])
         item.connect("toggled", self, "_on_item_toggled", [item])

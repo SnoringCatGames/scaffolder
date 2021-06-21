@@ -10,6 +10,8 @@ var test := false
 var pauses_on_focus_out := true
 var is_profiler_enabled: bool
 var are_all_levels_unlocked := false
+var are_test_levels_included := true
+var is_save_state_cleared_for_debugging := false
 var is_splash_skipped := false
 var also_prints_to_stdout := true
 
@@ -79,6 +81,11 @@ func register_manifest(manifest: Dictionary) -> void:
         self.test = manifest.test
     if manifest.has("are_all_levels_unlocked"):
         self.are_all_levels_unlocked = manifest.are_all_levels_unlocked
+    if manifest.has("are_test_levels_included"):
+        self.are_test_levels_included = manifest.are_test_levels_included
+    if manifest.has("is_save_state_cleared_for_debugging"):
+        self.is_save_state_cleared_for_debugging = \
+                manifest.is_save_state_cleared_for_debugging
     self.pauses_on_focus_out = manifest.pauses_on_focus_out
     self.also_prints_to_stdout = manifest.also_prints_to_stdout
     self.is_profiler_enabled = manifest.is_profiler_enabled

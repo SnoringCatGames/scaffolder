@@ -4,7 +4,6 @@ extends Control
 
 signal unlock_finished
 
-const LOCKED_OPACITY := 0.6
 const LOCK_LOW_PART_DELAY := 0.4
 const LOCK_HIGH_PART_DELAY := 0.15
 const HINT_PULSE_DURATION := 2.0
@@ -65,17 +64,13 @@ func update_size(header_size: Vector2) -> bool:
 
 
 func update_is_unlocked(is_unlocked: bool) -> void:
-    if !is_unlocked:
-        print("break")
     var unlock_hint_message: String = \
             Gs.level_config.get_unlock_hint(level_id)
-    assert(is_unlocked or !unlock_hint_message.empty())
     var is_next_level_to_unlock: bool = \
             Gs.level_config.get_next_level_to_unlock() == level_id
     
     $HintWrapper/Hint.text = unlock_hint_message
     visible = !is_unlocked
-    modulate.a = LOCKED_OPACITY
     
     # TODO: Remove?
     var is_unlock_pulse_auto_shown := false
@@ -98,7 +93,6 @@ func update_is_unlocked(is_unlocked: bool) -> void:
 
 func unlock() -> void:
     visible = true
-    modulate.a = LOCKED_OPACITY
     
     Gs.time.set_timeout(
             funcref($LockAnimation, "unlock"),

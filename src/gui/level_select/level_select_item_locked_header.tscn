@@ -11,6 +11,7 @@ bg_color = Color( 0.65098, 0.65098, 0.65098, 0.443137 )
 bg_color = Color( 0.0784314, 0.0784314, 0.0784314, 0.894118 )
 
 [node name="LevelSelectItemLockedHeader" type="PanelContainer"]
+self_modulate = Color( 1, 1, 1, 0.572549 )
 margin_right = 320.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 400, 56 )
@@ -22,6 +23,7 @@ __meta__ = {
 }
 
 [node name="LockAnimation" parent="." instance=ExtResource( 2 )]
+modulate = Color( 1, 1, 1, 0.796078 )
 margin_left = 200.0
 margin_top = 28.0
 margin_right = 200.0
@@ -32,6 +34,7 @@ size_flags_vertical = 4
 
 [node name="HintWrapper" type="PanelContainer" parent="."]
 modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 0, 0, 0, 1 )
 margin_right = 400.0
 margin_bottom = 56.0
 mouse_filter = 2
@@ -48,6 +51,9 @@ rect_min_size = Vector2( 212, 34 )
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+custom_constants/shadow_as_outline = 0
 text = "(Finish the previous level)"
 align = 1
 valign = 1

@@ -71,7 +71,12 @@ func update_is_unlocked(is_unlocked: bool) -> void:
     
     var config: Dictionary = \
             Gs.level_config.get_level_config(level_id)
-    $HBoxContainer/LevelNumber.text = str(config.number) + "."
+    var display_number_offset := \
+            -Gs.level_config.test_level_count - 1 if \
+            config.is_test_level else \
+            -Gs.level_config.test_level_count
+    var display_number: int = config.number + display_number_offset
+    $HBoxContainer/LevelNumber.text = str(display_number) + "."
     $HBoxContainer/LevelName.text = config.name
 
 
