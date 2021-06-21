@@ -143,14 +143,14 @@ func _update_for_level_end(has_finished: bool) -> void:
     if !has_finished:
         return
     
+    Gs.save_state.set_level_has_finished(
+            _id,
+            _has_finished)
+    
     if Gs.app_metadata.uses_level_scores:
         _handle_new_score()
     _update_fastest_time()
     _update_new_unlocked_levels()
-    
-    Gs.save_state.set_level_has_finished(
-            _id,
-            _has_finished)
 
 
 func _handle_new_score() -> void:
@@ -169,12 +169,9 @@ func _handle_new_score() -> void:
 
 func _update_high_score() -> void:
     _high_score = Gs.save_state.get_level_high_score(_id)
-    var previously_has_finished: bool = \
-            Gs.save_state.get_level_has_finished(_id)
     _is_new_high_score = \
             _has_finished and \
-            (!previously_has_finished or \
-            _score > _high_score)
+            _score > _high_score
     if _is_new_high_score:
         _high_score = _score
         Gs.save_state.set_level_high_score(
@@ -184,14 +181,17 @@ func _update_high_score() -> void:
 
 func _update_fastest_time() -> void:
     var current_time := _get_level_play_time_unscaled()
-    _fastest_time = Gs.save_state.get_level_fastest_time(_id)
-    var previously_has_finished: bool = \
-            Gs.save_state.get_level_has_finished(_id)
+    var save_state_fastest_time: float = \
+            Gs.save_state.get_level_fastest_time(_id)
+    _fastest_time = \
+            save_state_fastest_time if \
+            save_state_fastest_time != Utils.MAX_INT and \
+                    !is_inf(save_state_fastest_time) else \
+            INF
     _is_new_fastest_time = \
             _has_finished and \
             !is_inf(current_time) and \
-            (!previously_has_finished or \
-            current_time < _fastest_time)
+            current_time < _fastest_time
     if _is_new_fastest_time:
         _fastest_time = current_time
         Gs.save_state.set_level_fastest_time(
@@ -208,4 +208,4 @@ func _update_new_unlocked_levels() -> void:
                 "level",
                 "unlocked",
                 Gs.level_config.get_level_version_string(other_level_id),
-                other_level_id)
+                Gs.level_config.get_level_config(other_level_id).number)

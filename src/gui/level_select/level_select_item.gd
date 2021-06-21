@@ -102,10 +102,13 @@ func toggle() -> void:
 func unlock() -> void:
     unlocked_header.visible = false
     unlocked_header.modulate.a = 0.0
-    unlocked_header.unlock()
+    locked_header.unlock()
 
 
-func _on_unlock_fade_finished(fade_tween: Tween) -> void:
+func _on_unlock_fade_finished(
+        _object: Object,
+        _key: NodePath,
+        fade_tween: ScaffolderTween) -> void:
     fade_tween.queue_free()
     locked_header.visible = false
     unlocked_header.visible = true
@@ -160,7 +163,7 @@ func _on_LevelSelectItemLockedHeader_unlock_finished() -> void:
     fade_tween.interpolate_property(
             locked_header,
             "modulate:a",
-            LevelSelectItemLockedHeader.LOCKED_OPACITY,
+            1.0,
             0.0,
             FADE_TWEEN_DURATION,
             "ease_in_out")
