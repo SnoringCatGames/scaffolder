@@ -12,13 +12,6 @@ const INCLUDES_CENTER_CONTAINER := true
 
 var go_icon_scale_multiplier := 1.0
 
-var level_id: String
-var score: String
-var high_score: String
-var time: String
-var was_best_playthrough: bool
-var new_unlocked_levels: Array
-
 
 func _init().(
         NAME,
@@ -64,15 +57,22 @@ func _update_stats() -> void:
             $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer2/ \
             WasBestPlaythroughLabel
+    var was_fastest_playthrough_label := \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer2/ \
+            WasFastestPlaythroughLabel
     var control_list := $FullScreenPanel/VBoxContainer/CenteredPanel/ \
             ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/ \
             LabeledControlList
     
-    unlocked_new_level_label.visible = !new_unlocked_levels.empty()
+    unlocked_new_level_label.visible = \
+            !Gs.level_session.new_unlocked_levels.empty()
     
     was_best_playthrough_label.visible = \
-            Gs.app_metadata.uses_level_scores and \
-            was_best_playthrough
+            Gs.level_session.is_new_high_score
+    
+    was_fastest_playthrough_label.visible = \
+            Gs.level_session.is_fastest_time
     
     control_list.items = _get_items()
 
@@ -80,7 +80,7 @@ func _update_stats() -> void:
 func _get_items() -> Array:
     var items := []
     for item_class in Gs.gui.game_over_item_manifest:
-        items.push_back(item_class.new(level_id))
+        items.push_back(item_class.new(Gs.level_session.id))
     return items
 
 
@@ -99,4 +99,4 @@ func _on_HomeButton_pressed():
 func _on_RetryButton_pressed():
     Gs.utils.give_button_press_feedback(true)
     Gs.nav.open("game")
-    Gs.nav.screens["game"].start_level(level_id)
+    Gs.nav.screens["game"].start_level(Gs.level_session.id)

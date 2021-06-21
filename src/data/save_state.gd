@@ -205,7 +205,7 @@ func get_level_has_finished(level_id: String) -> bool:
 
 func set_level_high_score(
         level_id: String,
-        high_score: int) -> void:
+        high_score: float) -> void:
     config.set_value(
             HIGH_SCORES_SECTION_KEY,
             level_id,
@@ -213,11 +213,11 @@ func set_level_high_score(
     _save_config()
 
 
-func get_level_high_score(level_id: String) -> int:
+func get_level_high_score(level_id: String) -> float:
     return _get_value(
             HIGH_SCORES_SECTION_KEY,
             level_id,
-            0) as int
+            0) as float
 
 
 func set_level_fastest_time(

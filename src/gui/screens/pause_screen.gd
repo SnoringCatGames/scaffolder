@@ -35,7 +35,7 @@ func _on_activated(previous_screen_name: String) -> void:
 func _get_items() -> Array:
     var items := []
     for item_class in Gs.gui.pause_item_manifest:
-        items.push_back(item_class.new(Gs.level))
+        items.push_back(item_class.new(Gs.level_session))
     return items
 
 

@@ -95,15 +95,15 @@ var DEFAULT_SCAFFOLDER_PAUSE_ITEM_MANIFEST := [
     LevelLabeledControlItem,
     TimeLabeledControlItem,
     FastestTimeLabeledControlItem,
-    CurrentScoreLabeledControlItem,
+    ScoreLabeledControlItem,
     HighScoreLabeledControlItem,
 ]
 
 var DEFAULT_SCAFFOLDER_GAME_OVER_ITEM_MANIFEST := [
     LevelLabeledControlItem,
-    GameOverTimeLabeledControlItem,
+    TimeLabeledControlItem,
     FastestTimeLabeledControlItem,
-    GameOverScoreLabeledControlItem,
+    ScoreLabeledControlItem,
     HighScoreLabeledControlItem,
 ]
 
@@ -327,9 +327,8 @@ func register_manifest(manifest: Dictionary) -> void:
                     game_over_item_manifest,
                     level_select_item_manifest,
                 ]:
-            manifest.erase(CurrentScoreLabeledControlItem)
+            manifest.erase(ScoreLabeledControlItem)
             manifest.erase(HighScoreLabeledControlItem)
-            manifest.erase(GameOverScoreLabeledControlItem)
 
 
 func add_gui_to_scale(

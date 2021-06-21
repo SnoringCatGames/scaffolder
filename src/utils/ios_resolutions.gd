@@ -287,6 +287,6 @@ func get_screen_ppi(ios_model_names: IosModelNames) -> int:
         if is_a_match:
             ppi = suffix_and_ppi.ppi
             break
-    assert(ppi != INF)
+    assert(!is_inf(ppi))
     
     return ppi

@@ -39,6 +39,6 @@ func update_list() -> void:
                 HUD_KEY_VALUE_BOX_PATH,
                 false,
                 true)
-        box.item = item_config.item_class.new(Gs.level)
+        box.item = item_config.item_class.new(Gs.level_session)
         add_child(box)
         boxes.push_back(box)

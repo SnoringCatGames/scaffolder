@@ -321,7 +321,7 @@ func _interpolate_height(open_ratio: float) -> void:
     #       position here seems to cause it's size to change as well.
     var projected_height := \
             height_override * Gs.gui.scale if \
-            height_override != INF else \
+            !is_inf(height_override) else \
             _projected_control.rect_size.y
     _projected_control.rect_size.y = projected_height
     

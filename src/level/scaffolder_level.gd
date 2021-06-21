@@ -2,23 +2,7 @@ class_name ScaffolderLevel
 extends Node2D
 
 
-var min_controls_display_time := 0.5
-
-var _id: String
-var _is_restarting := false
-var _has_initial_input_happened := false
-
-var _pre_pause_music_name := ""
-var _pre_pause_music_position := INF
-
-var level_start_play_time_unscaled := INF
-var score := 0.0
-
-var id: String setget _set_id,_get_id
-var is_started: bool setget ,_get_is_started
-var level_play_time_unscaled: float setget ,_get_level_play_time_unscaled
-
-var is_destroyed := false
+const MIN_CONTROLS_DISPLAY_TIME := 0.5
 
 
 func _ready() -> void:
@@ -36,20 +20,19 @@ func _load() -> void:
 
 func _start() -> void:
     Gs.audio.play_music(get_music_name())
-    level_start_play_time_unscaled = Gs.time.get_play_time()
     Gs.save_state.set_level_total_plays(
-            _id,
-            Gs.save_state.get_level_total_plays(_id) + 1)
+            Gs.level_session.id,
+            Gs.save_state.get_level_total_plays(Gs.level_session.id) + 1)
     Gs.analytics.event(
             "level",
             "start",
-            Gs.level_config.get_level_version_string(_id))
+            Gs.level_config.get_level_version_string(Gs.level_session.id))
     Gs.gui.hud.visible = true
     call_deferred("_on_started")
 
 
 func _on_started() -> void:
-    pass
+    Gs.level_session._level_start_play_time_unscaled = Gs.time.get_play_time()
 
 
 func _create_hud() -> void:
@@ -59,8 +42,8 @@ func _create_hud() -> void:
 
 
 func _exit_tree() -> void:
-    if _is_restarting:
-        Gs.nav.screens["game"].start_level(_id)
+    if Gs.level_session.is_restarting:
+        Gs.nav.screens["game"].start_level(Gs.level_session.id)
 
 
 func _destroy() -> void:
@@ -68,15 +51,16 @@ func _destroy() -> void:
     if is_instance_valid(Gs.gui.hud):
         Gs.gui.hud._destroy()
     Gs.level = null
-    is_destroyed = true
+    Gs.level_session._is_destroyed = true
     queue_free()
 
 
 func quit(
         has_finished: bool,
         immediately: bool) -> void:
+    Gs.level_session._level_end_play_time_unscaled = Gs.time.get_play_time()
     Gs.audio.stop_music()
-    _record_level_results(has_finished)
+    Gs.level_session._update_for_level_end(has_finished)
     if immediately:
 #        _on_level_quit_sound_finished(has_finished)
         Gs.nav.open("game_over", true)
@@ -96,24 +80,25 @@ func quit(
 
 
 func restart() -> void:
-    _is_restarting = true
+    Gs.level_session._is_restarting = true
     quit(false, true)
 
 
 func _input(event: InputEvent) -> void:
-    if !_has_initial_input_happened and \
+    if !Gs.level_session.has_initial_input_happened and \
             Gs.gui.is_user_interaction_enabled and \
-            _get_level_play_time_unscaled() > min_controls_display_time and \
+            Gs.level_session.level_play_time_unscaled > \
+                    MIN_CONTROLS_DISPLAY_TIME and \
             (event is InputEventMouseButton or \
                     event is InputEventScreenTouch or \
                     event is InputEventKey) and \
-            _get_is_started():
+            Gs.level_session.has_started:
         _on_initial_input()
 
 
 func _on_initial_input() -> void:
     Gs.logger.print("ScaffolderLevel._on_initial_input")
-    _has_initial_input_happened = true
+    Gs.level_session._has_initial_input_happened = true
     # Close the welcome panel on any mouse or key click event.
     if is_instance_valid(Gs.gui.welcome_panel):
         _hide_welcome_panel()
@@ -125,8 +110,9 @@ func _on_resized() -> void:
 
 func pause() -> void:
     if Gs.audio_manifest.pauses_level_music_on_pause:
-        _pre_pause_music_name = Gs.audio.get_music_name()
-        _pre_pause_music_position = Gs.audio.get_playback_position()
+        Gs.level_session._pre_pause_music_name = Gs.audio.get_music_name()
+        Gs.level_session._pre_pause_music_position = \
+                Gs.audio.get_playback_position()
         if Gs.audio_manifest.pause_menu_music != "":
             Gs.audio.play_music(Gs.audio_manifest.pause_menu_music)
     Gs.nav.open("pause")
@@ -134,8 +120,8 @@ func pause() -> void:
 
 func on_unpause() -> void:
     if Gs.audio_manifest.pauses_level_music_on_pause:
-        Gs.audio.play_music(_pre_pause_music_name)
-        Gs.audio.seek(_pre_pause_music_position)
+        Gs.audio.play_music(Gs.level_session._pre_pause_music_name)
+        Gs.audio.seek(Gs.level_session._pre_pause_music_position)
 
 
 func _show_welcome_panel() -> void:
@@ -151,58 +137,6 @@ func _hide_welcome_panel() -> void:
     if is_instance_valid(Gs.gui.welcome_panel):
         Gs.gui.welcome_panel.queue_free()
         Gs.gui.welcome_panel = null
-
-
-func _record_level_results(has_finished: bool) -> void:
-    var game_over_screen = Gs.nav.screens["game_over"]
-    game_over_screen.level_id = _id
-    game_over_screen.time = Gs.utils.get_time_string_from_seconds(
-            Gs.time.get_play_time() - \
-            level_start_play_time_unscaled)
-    
-    if !has_finished:
-        return
-    
-    Gs.save_state.set_level_has_finished(_id, has_finished)
-    
-    if Gs.app_metadata.uses_level_scores:
-        Gs.analytics.event(
-                "score",
-                "v" + Gs.app_metadata.score_version,
-                Gs.level_config.get_level_version_string(_id),
-                int(score))
-        
-        var previous_high_score: int = Gs.save_state.get_level_high_score(_id)
-        if score > previous_high_score:
-            Gs.save_state.set_level_high_score(
-                    _id,
-                    int(score))
-            game_over_screen.was_best_playthrough = true
-        
-        var all_scores: Array = Gs.save_state.get_level_all_scores(_id)
-        all_scores.push_back(score)
-        Gs.save_state.set_level_all_scores(_id, all_scores)
-        
-        game_over_screen.score = str(int(score))
-        game_over_screen.high_score = \
-                str(Gs.save_state.get_level_high_score(_id))
-    
-    var time := _get_level_play_time_unscaled()
-    var previous_fastest_time: float = \
-            Gs.save_state.get_level_fastest_time(_id)
-    if time < previous_fastest_time:
-        Gs.save_state.set_level_fastest_time(_id, time)
-    
-    var new_unlocked_levels: Array = Gs.level_config.get_new_unlocked_levels()
-    Gs.save_state.set_new_unlocked_levels(new_unlocked_levels)
-    for other_level_id in new_unlocked_levels:
-        Gs.save_state.set_level_is_unlocked(other_level_id, true)
-        Gs.analytics.event(
-                "level",
-                "unlocked",
-                Gs.level_config.get_level_version_string(other_level_id),
-                Gs.level_config.get_level_config(other_level_id).number)
-    game_over_screen.new_unlocked_levels = new_unlocked_levels
 
 
 func _on_level_quit_sound_finished(level_finished: bool) -> void:
@@ -232,21 +166,3 @@ func _get_is_rate_app_screen_next() -> bool:
             "Abstract ScaffolderLevel._get_is_rate_app_screen_next " +
             "is not implemented")
     return false
-
-
-func _get_is_started() -> bool:
-    return level_start_play_time_unscaled != INF
-
-
-func _get_level_play_time_unscaled() -> float:
-    return Gs.time.get_play_time() - level_start_play_time_unscaled if \
-            _get_is_started() else \
-            0.0
-
-
-func _set_id(value: String) -> void:
-    _id = value
-
-
-func _get_id() -> String:
-    return _id

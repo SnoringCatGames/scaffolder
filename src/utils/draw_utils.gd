@@ -532,7 +532,7 @@ static func draw_strike_through_arrow(
             stroke_width)
     
     # Draw the strike through.
-    if strike_through_length != INF:
+    if !is_inf(strike_through_length):
         var strike_through_angle := start_to_end_angle + STRIKE_THROUGH_ANGLE
         var strike_through_middle := start.linear_interpolate(
                 end,
