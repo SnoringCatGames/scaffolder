@@ -61,6 +61,7 @@ func quit(
     Gs.level_session._level_end_play_time_unscaled = Gs.time.get_play_time()
     Gs.audio.stop_music()
     Gs.level_session._update_for_level_end(has_finished)
+    _record_suggested_next_level()
     if immediately:
 #        _on_level_quit_sound_finished(has_finished)
         Gs.nav.open("game_over", true)
@@ -77,6 +78,14 @@ func quit(
                         "_on_level_quit_sound_finished",
                         [has_finished])
         Gs.audio.play_sound(sound_name)
+
+
+func _record_suggested_next_level() -> void:
+    var suggested_next_level_id: String = \
+            Gs.level_config.calculate_suggested_next_level()
+    Gs.save_state.set_setting(
+            SaveState.SUGGESTED_NEXT_LEVEL_SETTINGS_KEY,
+            suggested_next_level_id)
 
 
 func restart() -> void:

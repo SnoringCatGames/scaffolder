@@ -80,7 +80,7 @@ func _deferred_update() -> void:
     if _new_unlocked_item == null:
         if previous_open_item == null:
             var suggested_level_id: String = \
-                    Gs.level_config.get_suggested_next_level()
+                    Gs.level_config.get_recorded_suggested_next_level()
             var item_to_open: LevelSelectItem
             for item in level_items:
                 if item.level_id == suggested_level_id:
