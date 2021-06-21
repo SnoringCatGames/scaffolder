@@ -69,7 +69,6 @@ func initialize_crash_reporter() -> void:
         assert(self.crash_reporter is CrashReporter)
     else:
         self.crash_reporter = CrashReporter.new()
-    add_child(crash_reporter)
 
 
 func initialize() -> void:

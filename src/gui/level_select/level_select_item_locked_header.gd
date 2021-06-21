@@ -52,7 +52,7 @@ func init_children() -> void:
 func update_size(header_size: Vector2) -> bool:
     rect_min_size = header_size
     
-    var relative_gui_scale := Gs.gui.scale / previous_gui_scale
+    var relative_gui_scale: float = Gs.gui.scale / previous_gui_scale
     previous_gui_scale = Gs.gui.scale
     $HintWrapper/Hint.rect_min_size *= relative_gui_scale
     $HintWrapper/Hint.rect_size = header_size
@@ -65,8 +65,11 @@ func update_size(header_size: Vector2) -> bool:
 
 
 func update_is_unlocked(is_unlocked: bool) -> void:
+    if !is_unlocked:
+        print("break")
     var unlock_hint_message: String = \
             Gs.level_config.get_unlock_hint(level_id)
+    assert(is_unlocked or !unlock_hint_message.empty())
     var is_next_level_to_unlock: bool = \
             Gs.level_config.get_next_level_to_unlock() == level_id
     
@@ -115,14 +118,14 @@ func pulse_unlock_hint() -> void:
     hint_tween.stop_all()
     var fade_in_duration := 0.3
     hint_tween.interpolate_property(
-            $HeaderWrapper/LockedWrapper/HintWrapper,
+            $HintWrapper,
             "modulate:a",
             0.0,
             1.0,
             fade_in_duration,
             "ease_in_out")
     hint_tween.interpolate_property(
-            $HeaderWrapper/LockedWrapper/HintWrapper,
+            $HintWrapper,
             "modulate:a",
             1.0,
             0.0,

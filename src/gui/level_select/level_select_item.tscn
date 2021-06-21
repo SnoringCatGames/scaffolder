@@ -15,7 +15,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-is_open = null
 
 [node name="HeaderWrapper" type="Control" parent="."]
 margin_right = 400.0
@@ -47,5 +46,3 @@ padding = Vector2( 16, 8 )
 
 [connection signal="unlock_finished" from="HeaderWrapper/LevelSelectItemLockedHeader" to="." method="_on_LevelSelectItemLockedHeader_unlock_finished"]
 [connection signal="pressed" from="HeaderWrapper/LevelSelectItemUnlockedHeader" to="." method="_on_LevelSelectItemUnlockedHeader_pressed"]
-[connection signal="caret_rotated" from="AccordionPanel" to="." method="_on_AccordionPanel_caret_rotated"]
-[connection signal="toggled" from="AccordionPanel" to="." method="_on_AccordionPanel_toggled"]
