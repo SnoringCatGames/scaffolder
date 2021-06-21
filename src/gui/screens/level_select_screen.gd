@@ -125,6 +125,8 @@ func _process(_delta: float) -> void:
 
 func _calculate_new_unlocked_item() -> void:
     var new_unlocked_levels: Array = Gs.save_state.get_new_unlocked_levels()
+    Gs.save_state.set_new_unlocked_levels([])
+    
     if new_unlocked_levels.empty():
         _new_unlocked_item = null
     else:
@@ -200,9 +202,11 @@ func _interpolate_scroll(scroll_ratio: float) -> void:
             scroll_ratio)
 
 
-func _on_scroll_finished(item: LevelSelectItem) -> void:
+func _on_scroll_finished(
+        _object: Object,
+        _key: NodePath,
+        item: LevelSelectItem) -> void:
     item.unlock()
-    Gs.save_state.set_new_unlocked_levels([])
 
 
 func _get_focused_button() -> ShinyButton:

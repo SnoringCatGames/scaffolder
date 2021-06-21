@@ -4,7 +4,7 @@ extends Control
 
 signal unlock_finished
 
-const LOCK_LOW_PART_DELAY := 0.4
+const LOCK_LOW_PART_DELAY := 0.2
 const LOCK_HIGH_PART_DELAY := 0.15
 const HINT_PULSE_DURATION := 2.0
 
