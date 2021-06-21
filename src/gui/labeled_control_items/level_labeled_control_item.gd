@@ -8,15 +8,15 @@ const DESCRIPTION := ""
 var level_id: String
 
 
-func _init(level_or_id).(
+func _init(level_session_or_id).(
         LABEL,
         DESCRIPTION \
         ) -> void:
     self.level_id = \
-            level_or_id.id if \
-            level_or_id is ScaffolderLevel else \
-            (level_or_id if \
-            level_or_id is String else \
+            level_session_or_id.id if \
+            level_session_or_id is ScaffolderLevel else \
+            (level_session_or_id if \
+            level_session_or_id is String else \
             "")
 
 

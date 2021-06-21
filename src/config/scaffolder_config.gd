@@ -29,6 +29,7 @@ var level_config: ScaffolderLevelConfig
 var canvas_layers: CanvasLayers
 var camera_controller: CameraController
 var level: ScaffolderLevel
+var level_session: ScaffolderLevelSession
 
 
 func _enter_tree() -> void:
@@ -72,102 +73,121 @@ func initialize_crash_reporter() -> void:
 
 
 func initialize() -> void:
+    self.level_session = manifest.level_session_class.new()
+    assert(self.level_session is ScaffolderLevelSession)
+    
     if manifest.has("audio_manifest_class"):
         self.audio_manifest = manifest.audio_manifest_class.new()
         assert(self.audio_manifest is ScaffolderAudioManifest)
     else:
         self.audio_manifest = ScaffolderAudioManifest.new()
     add_child(audio_manifest)
+    
     if manifest.has("audio_class"):
         self.audio = manifest.audio_class.new()
         assert(self.audio is Audio)
     else:
         self.audio = Audio.new()
     add_child(self.audio)
+    
     if manifest.has("gui_class"):
         self.gui = manifest.gui_class.new()
         assert(self.gui is ScaffolderGuiConfig)
     else:
         self.gui = ScaffolderGuiConfig.new()
     add_child(self.gui)
+    
     if manifest.has("colors_class"):
         self.colors = manifest.colors_class.new()
         assert(self.colors is ScaffolderColors)
     else:
         self.colors = ScaffolderColors.new()
     add_child(self.colors)
+    
     if manifest.has("styles_class"):
         self.styles = manifest.styles_class.new()
         assert(self.styles is ScaffolderStyles)
     else:
         self.styles = ScaffolderStyles.new()
     add_child(self.styles)
+    
     if manifest.has("json_utils_class"):
         self.json = manifest.json_utils_class.new()
         assert(self.json is JsonUtils)
     else:
         self.json = JsonUtils.new()
     add_child(self.json)
+    
     if manifest.has("save_state_class"):
         self.save_state = manifest.save_state_class.new()
         assert(self.save_state is SaveState)
     else:
         self.save_state = SaveState.new()
     add_child(self.save_state)
+    
     if manifest.has("analytics_class"):
         self.analytics = manifest.analytics_class.new()
         assert(self.analytics is Analytics)
     else:
         self.analytics = Analytics.new()
     add_child(self.analytics)
+    
     if manifest.has("gesture_reporter_class"):
         self.gesture_reporter = manifest.gesture_reporter_class.new()
         assert(self.gesture_reporter is GestureReporter)
     else:
         self.gesture_reporter = GestureReporter.new()
     add_child(self.gesture_reporter)
+    
     if manifest.has("time_class"):
         self.time = manifest.time_class.new()
         assert(self.time is Time)
     else:
         self.time = Time.new()
     add_child(self.time)
+    
     if manifest.has("profiler_class"):
         self.profiler = manifest.profiler_class.new()
         assert(self.profiler is Profiler)
     else:
         self.profiler = Profiler.new()
     add_child(self.profiler)
+    
     if manifest.has("geometry_class"):
         self.geometry = manifest.geometry_class.new()
         assert(self.geometry is ScaffolderGeometry)
     else:
         self.geometry = ScaffolderGeometry.new()
     add_child(self.geometry)
+    
     if manifest.has("draw_utils_class"):
         self.draw_utils = manifest.draw_utils_class.new()
         assert(self.draw_utils is DrawUtils)
     else:
         self.draw_utils = DrawUtils.new()
     add_child(self.draw_utils)
+    
     if manifest.has("nav_class"):
         self.nav = manifest.nav_class.new()
         assert(self.nav is ScaffolderNavigation)
     else:
         self.nav = ScaffolderNavigation.new()
     add_child(self.nav)
+    
     if manifest.has("level_input_class"):
         self.level_input = manifest.level_input_class.new()
         assert(self.level_input is LevelInput)
     else:
         self.level_input = LevelInput.new()
     add_child(self.level_input)
+    
     if manifest.has("slow_motion_class"):
         self.slow_motion = manifest.slow_motion_class.new()
         assert(self.slow_motion is SlowMotionController)
     else:
         self.slow_motion = SlowMotionController.new()
     add_child(self.slow_motion)
+    
     if manifest.has("beat_tracker_class"):
         self.beats = manifest.beat_tracker_class.new()
         assert(self.beats is BeatTracker)

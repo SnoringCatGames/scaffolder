@@ -100,6 +100,14 @@ custom_colors/font_color = Color( 1, 0.946, 0.46, 1 )
 text = "That's a new high score!"
 align = 1
 
+[node name="WasFastestPlaythroughLabel" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
+visible = false
+margin_right = 280.0
+margin_bottom = 28.0
+custom_colors/font_color = Color( 1, 0.946, 0.46, 1 )
+text = "That's your fastest time!"
+align = 1
+
 [node name="Spacer7" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_left = 180.0
 margin_top = 18.0

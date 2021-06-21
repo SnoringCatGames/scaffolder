@@ -111,6 +111,8 @@ class MyCustomUtils extends ScaffolderUtils:
 
 #### `ScaffolderConfig` properties
 
+[scaffolder_config.gd](./src/config/scaffolder_config.gd) contains a list of interesting app-level parameters you can adjust.
+
 > TODO: Enumerate and describe each `ScaffolderConfig` property.
 
 ## Features

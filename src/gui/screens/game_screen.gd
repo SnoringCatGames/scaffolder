@@ -110,7 +110,7 @@ func start_level(level_id: String) -> void:
             true)
     if Surfacer.debug_params.has("limit_parsing"):
         level.script = DebugLevel
-    level.id = level_id
+    Gs.level_session._reset(level_id)
     $PanelContainer/ViewportContainer/Viewport.add_child(level)
     level.graph_parser.connect(
             "calculation_started",
@@ -154,8 +154,8 @@ func _on_graph_parse_progress(
             float(player_count) * \
             100.0
     
-    
-    var player_name: String = Gs.level_config.get_level_config(Gs.level.id) \
+    var player_name: String = \
+            Gs.level_config.get_level_config(Gs.level_session.id) \
             .platform_graph_player_names[player_index]
     var label_1 := "Player %s (%s of %s)" % [
         player_name,
@@ -209,7 +209,7 @@ func _on_graph_parse_finished() -> void:
     Gs.analytics.event(
             "graphs",
             "loaded",
-            Gs.level_config.get_level_version_string(Gs.level.id),
+            Gs.level_config.get_level_version_string(Gs.level_session.id),
             Gs.time.get_clock_time() - graph_load_start_time)
 
 
