@@ -9,8 +9,6 @@ var includes_standard_hierarchy: bool
 var includes_nav_bar: bool
 var includes_center_container: bool
 
-var default_gui_scale := 1.0
-
 var outer_panel_container: PanelContainer
 var nav_bar: Control
 var scroll_container: ScrollContainer
@@ -64,9 +62,7 @@ func _validate_node_hierarchy() -> void:
     outer_panel_container.add_stylebox_override("panel", stylebox)
     
     if auto_adapts_gui_scale:
-        Gs.gui.add_gui_to_scale(
-                outer_panel_container,
-                default_gui_scale)
+        Gs.gui.add_gui_to_scale(outer_panel_container)
     
     if includes_standard_hierarchy:
         var outer_vbox: VBoxContainer = $FullScreenPanel/VBoxContainer

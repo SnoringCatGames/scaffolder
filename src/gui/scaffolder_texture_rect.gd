@@ -16,23 +16,26 @@ func _ready() -> void:
     _is_ready = true
     _set_texture(texture)
     _set_texture_scale(texture_scale)
-    update_gui_scale(1.0)
+    update_gui_scale()
 
 
-func update_gui_scale(gui_scale: float) -> bool:
-    _update_gui_scale_deferred(gui_scale)
-    # TODO: Fix the underlying dependency, instead of this double-call hack.
-    #       (To repro the problem: run, open CreditsScreen, logo and publisher
-    #        ScaffolderTextureRects are mis-aligned.)
-    call_deferred("_update_gui_scale_deferred", 1.0)
+func update_gui_scale() -> bool:
+    call_deferred("_update_gui_scale_deferred")
     return true
 
 
-func _update_gui_scale_deferred(gui_scale: float) -> void:
-    rect_position *= gui_scale
+func _update_gui_scale_deferred() -> void:
+    if !has_meta("gs_rect_position"):
+        set_meta("gs_rect_position", rect_position)
+        $TextureRect.set_meta("gs_rect_scale", $TextureRect.rect_scale)
+    var original_rect_position: Vector2 = get_meta("gs_rect_position")
+    var original_texture_rect_scale: Vector2 = \
+            $TextureRect.get_meta("gs_rect_scale")
+
+    rect_position = original_rect_position * Gs.gui.scale
     if texture != null:
         $TextureRect.rect_pivot_offset = texture.get_size() / 2.0
-    $TextureRect.rect_scale *= gui_scale
+    $TextureRect.rect_scale = original_texture_rect_scale * Gs.gui.scale
     _update_size_to_match_texture()
 
 

@@ -84,20 +84,24 @@ func _exit_tree() -> void:
         _header_pressed_stylebox.destroy()
 
 
-func update_gui_scale(gui_scale: float) -> bool:
-    update_gui_scale_deferred(gui_scale)
+func update_gui_scale() -> bool:
+    update_gui_scale_deferred()
     # TODO: Fix the underlying dependency, instead of this double-call hack.
     #       (To repro the problem: run, open SettingsScreen,
     #        maximize window, unmaximize window, Details AccordionPanel hasn't
     #        shrunk back to the correct size.)
-    call_deferred("update_gui_scale_deferred", 1.0)
+    call_deferred("update_gui_scale_deferred")
     return true
 
 
-func update_gui_scale_deferred(gui_scale: float) -> void:
-    rect_position.x *= gui_scale
-    rect_min_size *= gui_scale
-    rect_size *= gui_scale
+func update_gui_scale_deferred() -> void:
+    if !has_meta("gs_rect_size"):
+        set_meta("gs_rect_position", rect_position)
+        set_meta("gs_rect_size", rect_size)
+        set_meta("gs_rect_min_size", rect_min_size)
+    var original_rect_position: Vector2 = get_meta("gs_rect_position")
+    var original_rect_size: Vector2 = get_meta("gs_rect_size")
+    var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
     
     if is_instance_valid(_header):
         if includes_header:
@@ -119,12 +123,20 @@ func update_gui_scale_deferred(gui_scale: float) -> void:
             _header.rect_size = Vector2(rect_size.x, header_height)
             _header_hbox.rect_size = _header.rect_size
         else:
-            Gs.utils._scale_gui_recursively(_header, gui_scale)
+            Gs.utils._scale_gui_recursively(_header)
     
-    Gs.utils._scale_gui_recursively(_projected_control, gui_scale)
+    Gs.utils._scale_gui_recursively(_projected_control)
     _projected_control.rect_size.x = rect_size.x
     if is_instance_valid(_header):
         _projected_control.rect_position.y = _header.rect_size.y
+    
+    rect_position.x = original_rect_position.x * Gs.gui.scale
+    rect_min_size = original_rect_min_size * Gs.gui.scale
+    rect_size = original_rect_size * Gs.gui.scale
+    
+    # Update height according to the accordion contents.
+    var open_ratio := 1.0 if is_open else 0.0
+    _interpolate_height(open_ratio)
 
 
 func add_child(child: Node, legible_unique_name=false) -> void:
@@ -261,7 +273,7 @@ func _update_children() -> void:
     
     call_deferred("_trigger_open_change", false)
     
-    update_gui_scale(1.0)
+    update_gui_scale()
 
 
 func _trigger_open_change(is_tweening: bool) -> void:

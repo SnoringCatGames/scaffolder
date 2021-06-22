@@ -7,6 +7,7 @@ const SHINE_TEXTURE := \
         preload("res://addons/scaffolder/assets/images/gui/shine_line.png")
 const SHINE_DURATION := 0.35
 const SHINE_INTERVAL := 3.5
+const SHINE_SCALE := Vector2(1.0, 1.0)
 const COLOR_PULSE_DURATION := 1.2
 const COLOR_PULSE_INTERVAL := 2.4
 
@@ -54,13 +55,24 @@ func _exit_tree() -> void:
         button_style_pulse.destroy()
 
 
-func update_gui_scale(gui_scale: float) -> bool:
-    texture_scale *= gui_scale
-    rect_min_size *= gui_scale
-    rect_size *= gui_scale
-    rect_position *= gui_scale
-    $MarginContainer/ShineLineWrapper/ShineLine.scale *= gui_scale
-    $MarginContainer/ScaffolderTextureRect.update_gui_scale(gui_scale)
+func update_gui_scale() -> bool:
+    if !has_meta("gs_rect_size"):
+        set_meta("gs_rect_position", rect_position)
+        set_meta("gs_rect_size", rect_size)
+        set_meta("gs_rect_min_size", rect_min_size)
+        set_meta("gs_texture_scale", texture_scale)
+    var original_rect_position: Vector2 = get_meta("gs_rect_position")
+    var original_rect_size: Vector2 = get_meta("gs_rect_size")
+    var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
+    var original_texture_scale: Vector2 = get_meta("gs_texture_scale")
+
+    texture_scale = original_texture_scale * Gs.gui.scale
+    rect_min_size = original_rect_min_size * Gs.gui.scale
+    rect_size = original_rect_size * Gs.gui.scale
+    rect_position = original_rect_position * Gs.gui.scale
+    $MarginContainer/ShineLineWrapper/ShineLine.scale = \
+            SHINE_SCALE * Gs.gui.scale
+    $MarginContainer/ScaffolderTextureRect.update_gui_scale()
     update()
     
     return true

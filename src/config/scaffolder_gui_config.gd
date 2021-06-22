@@ -188,6 +188,7 @@ var original_font_sizes: Dictionary
 # --- Global state ---
 
 var game_area_region: Rect2
+var previous_scale := 1.0
 var scale := 1.0
 var current_checkbox_icon_size := default_checkbox_icon_size
 var current_tree_arrow_icon_size := default_checkbox_icon_size
@@ -331,10 +332,8 @@ func register_manifest(manifest: Dictionary) -> void:
             manifest.erase(HighScoreLabeledControlItem)
 
 
-func add_gui_to_scale(
-        gui,
-        default_gui_scale: float) -> void:
-    guis_to_scale[gui] = default_gui_scale
+func add_gui_to_scale(gui) -> void:
+    guis_to_scale[gui] = true
     Gs.utils._scale_gui_for_current_screen_size(gui)
 
 

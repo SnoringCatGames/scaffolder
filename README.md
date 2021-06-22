@@ -159,7 +159,7 @@ This provides limited flexibility in how far the camera is zoomed. That is, you 
 
 -   At runtime, a `gui_scale` value is calculated according to how the current screen resolution compares to the expected default screen resolution, as described above.
 -   Then all fonts—which are registered with the scaffold configuration—are resized according to this `gui_scale`.
--   Then the size, position, and scale of all GUI nodes are updated accordingly.
+-   Then the size, position, and scale of all GUI nodes are also updated accordingly.
 
 #### Constraints for how you define your GUI layouts
 

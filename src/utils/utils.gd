@@ -622,29 +622,49 @@ func _scale_gui_for_current_screen_size(gui) -> void:
         Gs.logger.error()
         return
     
-    var old_gui_scale: float = Gs.gui.guis_to_scale[gui]
-    var new_gui_scale: float = Gs.gui.scale
-    
-    if old_gui_scale != new_gui_scale:
-        var relative_scale := new_gui_scale / old_gui_scale
-        Gs.gui.guis_to_scale[gui] = new_gui_scale
-        Gs.utils._scale_gui_recursively(
-                gui,
-                relative_scale)
+    Gs.utils._scale_gui_recursively(gui)
 
 
-func _scale_gui_recursively(
-        gui,
-        gui_scale: float) -> void:
+func _scale_gui_recursively(gui) -> void:
     var snap_epsilon := 0.001
     
     if gui.has_method("update_gui_scale"):
-        var handled: bool = gui.update_gui_scale(gui_scale)
+        var handled: bool = gui.update_gui_scale()
         if handled:
             return
     
     assert(gui is Control)
     var control: Control = gui
+    
+    if !control.has_meta("gs_rect_size"):
+        # Record original dimensions.
+        control.set_meta("gs_rect_size", control.rect_size)
+        control.set_meta("gs_rect_min_size", control.rect_min_size)
+        control.set_meta("gs_rect_scale", control.rect_scale)
+        control.set_meta("gs_rect_position", control.rect_position)
+#        control.set_meta("gs_rect_pivot_offset", control.rect_pivot_offset)
+        if control is VBoxContainer or \
+                control is HBoxContainer:
+            control.set_meta(
+                    "gs_separation", control.get_constant("separation"))
+        if control is ShinyButton:
+            control.set_meta("gs_texture_scale", control.texture_scale)
+    
+    # Retrieve original dimensions.
+    var original_rect_size: Vector2 = control.get_meta("gs_rect_size")
+    var original_rect_min_size: Vector2 = control.get_meta("gs_rect_min_size")
+    var original_rect_scale: Vector2 = control.get_meta("gs_rect_scale")
+    var original_rect_position: Vector2 = control.get_meta("gs_rect_position")
+#    var original_rect_pivot_offset: Vector2 = \
+#            control.get_meta("gs_rect_pivot_offset")
+    var original_separation: float = \
+            control.get_meta("gs_separation") if \
+            control.has_meta("gs_separation") else \
+            INF
+    var original_texture_scale: float = \
+            control.get_meta("gs_texture_scale") if \
+            control.has_meta("gs_texture_scale") else \
+            INF
     
     var is_gui_container := \
             control is Container
@@ -654,27 +674,27 @@ func _scale_gui_recursively(
             control is TextureRect
     
     var explicitly_updates_rect_size := false
-    var next_rect_size := control.rect_size * gui_scale
+    var next_rect_size: Vector2 = original_rect_size * Gs.gui.scale
     
-    control.rect_min_size *= gui_scale
+    control.rect_min_size = original_rect_min_size * Gs.gui.scale
     
     if control is VBoxContainer or \
             control is HBoxContainer:
-        var separation := round(control.get_constant("separation") * gui_scale)
+        var separation := round(original_separation * Gs.gui.scale)
         control.add_constant_override("separation", separation)
     
     if control is TextureButton:
-        control.rect_scale *= gui_scale
-        control.rect_position *= gui_scale
-        control.rect_min_size /= gui_scale
+        control.rect_scale = original_rect_scale * Gs.gui.scale
+        control.rect_position = original_rect_position * Gs.gui.scale
+        control.rect_min_size = original_rect_min_size * Gs.gui.scale
     elif is_gui_texture_based:
         # Only scale texture-based GUIs, since we scale fonts separately.
-        control.rect_scale *= gui_scale
+        control.rect_scale = original_rect_scale * Gs.gui.scale
         
-#        control.rect_position *= gui_scale
+#        control.rect_position = original_rect_position * Gs.gui.scale
         
         if control is ShinyButton:
-            control.texture_scale *= gui_scale
+            control.texture_scale = original_texture_scale * Gs.gui.scale
         
         # This ensures that control will shrink back down, since otherwise it's
         # min would decrease but it's actual would stay constant.
@@ -686,16 +706,16 @@ func _scale_gui_recursively(
     if explicitly_updates_rect_size:
         control.rect_size = next_rect_size
     
-#    control.rect_position /= gui_scale
+#    control.rect_position = original_rect_position * Gs.gui.scale
 #    control.rect_position = Gs.geometry.snap_vector2_to_integers(
 #            control.rect_position, snap_epsilon)
-#    control.rect_pivot_offset *= gui_scale
+#    control.rect_pivot_offset = original_rect_pivot_offset * Gs.gui.scale
 #    control.rect_pivot_offset = Gs.geometry.snap_vector2_to_integers(
 #            control.rect_pivot_offset, snap_epsilon)
     
     for child in control.get_children():
         if child is Control:
-            _scale_gui_recursively(child, gui_scale)
+            _scale_gui_recursively(child)
     
     # Try setting the rect_size again, in case children rect_min_size values
     # prevented this from updating correctly before.

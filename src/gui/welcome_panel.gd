@@ -2,7 +2,6 @@ class_name WelcomePanel
 extends VBoxContainer
 
 
-const DEFAULT_GUI_SCALE := 1.0
 const _FADE_IN_DURATION := 0.2
 
 var post_tween_opacity: float
@@ -25,7 +24,7 @@ func _enter_tree() -> void:
 func _ready() -> void:
     theme = Gs.gui.theme
     
-    Gs.gui.add_gui_to_scale(self, DEFAULT_GUI_SCALE)
+    Gs.gui.add_gui_to_scale(self)
     
     var faded_color: Color = Gs.colors.zebra_stripe_even_row
     faded_color.a *= 0.3
@@ -55,15 +54,19 @@ func _ready() -> void:
             !Gs.gui.welcome_panel_manifest.is_subheader_shown:
         $Subheader.visible = false
     
-    update_gui_scale(1.0)
+    update_gui_scale()
 
 
-func update_gui_scale(gui_scale: float) -> bool:
+func update_gui_scale() -> bool:
+    if !has_meta("gs_rect_min_size"):
+        set_meta("gs_rect_min_size", rect_min_size)
+    var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
+
     for child in get_children():
         if child is Control:
-            Gs.utils._scale_gui_recursively(child, gui_scale)
+            Gs.utils._scale_gui_recursively(child)
         
-    rect_min_size *= gui_scale
+    rect_min_size = original_rect_min_size * Gs.gui.scale
     rect_size.x = rect_min_size.x
     rect_size.y = \
             $Header.rect_size.y + \

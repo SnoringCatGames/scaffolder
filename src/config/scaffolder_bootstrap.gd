@@ -177,11 +177,6 @@ func _on_throttled_size_changed() -> void:
     _update_tree_arrow_size()
     _scale_guis()
     Gs.utils.emit_signal("display_resized")
-    # TODO: Fix the underlying dependency, instead of this double-call hack.
-    #       (To repro the problem: run, maximize window, unmaximize window,
-    #        Screen hasn't shrunk back to the correct size.)
-    _scale_guis()
-    Gs.utils.emit_signal("display_resized")
 
 
 func _update_font_sizes() -> void:
@@ -277,6 +272,7 @@ func _update_game_area_region_and_gui_scale() -> void:
         var default_aspect_ratio: float = \
                 Gs.gui.default_game_area_size.x / \
                 Gs.gui.default_game_area_size.y
+        Gs.gui.previous_scale = Gs.gui.scale
         Gs.gui.scale = \
                 viewport_size.x / Gs.gui.default_game_area_size.x if \
                 aspect_ratio < default_aspect_ratio else \
@@ -286,8 +282,9 @@ func _update_game_area_region_and_gui_scale() -> void:
 
 
 func _scale_guis() -> void:
-    for gui in Gs.gui.guis_to_scale:
-        Gs.utils._scale_gui_for_current_screen_size(gui)
+    if Gs.gui.previous_scale != Gs.gui.scale:
+        for gui in Gs.gui.guis_to_scale:
+            Gs.utils._scale_gui_for_current_screen_size(gui)
 
 
 func _set_window_debug_size_and_position() -> void:
