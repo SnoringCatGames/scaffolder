@@ -28,6 +28,8 @@ const SCREEN_SLIDE_DURATION := 0.3
 const SCREEN_FADE_DURATION := 1.2
 const SESSION_END_TIMEOUT := 2.0
 
+var is_debugging_active_screen_stack := false
+
 # Dictionary<String, Screen>
 var screens := {}
 # Array<Screen>
@@ -124,11 +126,20 @@ func open(
         screen_name,
     ])
     
+    var old_stack_string := get_active_screen_stack_string()
+    
     _set_screen_is_open(
             screen_name,
             true,
             includes_fade,
             params)
+    
+    if is_debugging_active_screen_stack:
+        var new_stack_string := get_active_screen_stack_string()
+        Gs.logger.print("Nav.active_screen_stack: BEFORE=%s, AFTER=%s" % [
+            old_stack_string,
+            new_stack_string,
+        ])
 
 
 func close_current_screen(includes_fade := false) -> void:
@@ -146,11 +157,27 @@ func close_current_screen(includes_fade := false) -> void:
         next_name,
     ])
     
+    var old_stack_string := get_active_screen_stack_string()
+    
     _set_screen_is_open(
             previous_name,
             false,
             includes_fade,
             null)
+    
+    if is_debugging_active_screen_stack:
+        var new_stack_string := get_active_screen_stack_string()
+        Gs.logger.print("Nav.active_screen_stack: BEFORE=%s, AFTER=%s" % [
+            old_stack_string,
+            new_stack_string,
+        ])
+
+
+func get_active_screen_stack_string() -> String:
+    var stack_string := ""
+    for screen in active_screen_stack:
+        stack_string += ">" + screen.screen_name
+    return stack_string
 
 
 func get_active_screen() -> Screen:
