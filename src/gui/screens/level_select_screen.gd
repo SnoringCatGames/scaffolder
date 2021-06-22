@@ -58,14 +58,7 @@ func _on_activated(previous_screen_name: String) -> void:
 
 func _update() -> void:
     _calculate_new_unlocked_item()
-    # FIXME: ------------------------------- Remove
-#    if _new_unlocked_item != null:
-#        Gs.save_state.set_level_is_unlocked(_new_unlocked_item.level_id, true)
-#        Gs.save_state.set_new_unlocked_levels([])
-#        _update()
-#        return
     for item in level_items:
-        # FIXME: ------- Add this back in after fixing the unlock animation.
         item.is_new_unlocked_item = item == _new_unlocked_item
         item.update()
     call_deferred("_deferred_update")
