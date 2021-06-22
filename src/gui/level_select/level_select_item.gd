@@ -44,12 +44,18 @@ func _init_children() -> void:
     accordion.extra_scroll_height_for_custom_header = \
             $HeaderWrapper.rect_size.y
     
-    update_gui_scale(1.0)
+    update_gui_scale()
 
 
-func update_gui_scale(gui_scale: float) -> bool:
-    rect_position.x *= gui_scale
-    rect_min_size *= gui_scale
+func update_gui_scale() -> bool:
+    if !has_meta("gs_rect_min_size"):
+        set_meta("gs_rect_position", rect_position)
+        set_meta("gs_rect_min_size", rect_min_size)
+    var original_rect_position: Vector2 = get_meta("gs_rect_position")
+    var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
+
+    rect_position.x = original_rect_position.x * Gs.gui.scale
+    rect_min_size = original_rect_min_size * Gs.gui.scale
     rect_size = rect_min_size
     
     var header_size := Vector2(
@@ -60,7 +66,7 @@ func update_gui_scale(gui_scale: float) -> bool:
     locked_header.update_size(header_size)
     unlocked_header.update_size(header_size)
     
-    accordion.update_gui_scale(gui_scale)
+    accordion.update_gui_scale()
     
     return true
 

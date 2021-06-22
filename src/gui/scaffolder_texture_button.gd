@@ -37,14 +37,25 @@ func _ready() -> void:
     _set_texture_click_mask(texture_click_mask)
     _set_texture_scale(texture_scale)
     _set_expands_texture(expands_texture)
-    update_gui_scale(1.0)
+    update_gui_scale()
 
 
-func update_gui_scale(gui_scale: float) -> bool:
-    rect_position *= gui_scale
-    $TextureButton.rect_scale *= gui_scale
-    set_custom_minimum_size(gui_scale * rect_min_size)
-    _set_size(gui_scale * rect_size)
+func update_gui_scale() -> bool:
+    if !has_meta("gs_rect_size"):
+        set_meta("gs_rect_position", rect_position)
+        $TextureButton.set_meta("gs_rect_scale", $TextureButton.rect_scale)
+        set_meta("gs_rect_size", rect_size)
+        set_meta("gs_rect_min_size", rect_min_size)
+    var original_rect_position: Vector2 = get_meta("gs_rect_position")
+    var original_texture_rect_scale: Vector2 = \
+            $TextureButton.get_meta("gs_rect_scale")
+    var original_rect_size: Vector2 = get_meta("gs_rect_size")
+    var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
+    
+    rect_position = original_rect_position * Gs.gui.scale
+    $TextureButton.rect_scale = original_texture_rect_scale * Gs.gui.scale
+    set_custom_minimum_size(Gs.gui.scale * original_rect_min_size)
+    _set_size(Gs.gui.scale * original_rect_size)
     return true
 
 

@@ -49,14 +49,19 @@ func init_children() -> void:
 
 
 func update_size(header_size: Vector2) -> bool:
+    if !$HintWrapper/Hint.has_meta("gs_rect_min_size"):
+        $HintWrapper/Hint.set_meta(
+                "gs_rect_min_size", $HintWrapper/Hint.rect_min_size)
+    var original_hint_rect_min_size: Vector2 = \
+            $HintWrapper/Hint.get_meta("gs_rect_min_size")
+    
     rect_min_size = header_size
     
-    var relative_gui_scale: float = Gs.gui.scale / previous_gui_scale
-    previous_gui_scale = Gs.gui.scale
-    $HintWrapper/Hint.rect_min_size *= relative_gui_scale
+    $HintWrapper/Hint.rect_min_size = \
+            original_hint_rect_min_size * Gs.gui.scale
     $HintWrapper/Hint.rect_size = header_size
     $HintWrapper.rect_size = header_size
-    $LockAnimation.update_gui_scale(relative_gui_scale)
+    $LockAnimation.update_gui_scale()
     
     rect_size = header_size
     

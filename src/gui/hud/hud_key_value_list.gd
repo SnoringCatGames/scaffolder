@@ -4,7 +4,6 @@ extends VBoxContainer
 
 const HUD_KEY_VALUE_BOX_PATH := \
         "res://addons/scaffolder/src/gui/hud/hud_key_value_box.tscn"
-const DEFAULT_GUI_SCALE := 1.0
 
 var boxes := []
 
@@ -12,12 +11,12 @@ var boxes := []
 func _ready() -> void:
     update_list()
     
-    Gs.gui.add_gui_to_scale(self, DEFAULT_GUI_SCALE)
+    Gs.gui.add_gui_to_scale(self)
     
-    update_gui_scale(1.0)
+    update_gui_scale()
 
 
-func update_gui_scale(gui_scale: float) -> bool:
+func update_gui_scale() -> bool:
     var separation: float = HudKeyValueBox.SEPARATION * Gs.gui.scale
     
     rect_position = Vector2(separation, separation)
