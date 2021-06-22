@@ -213,7 +213,7 @@ func _init() -> void:
     Gs.logger.print("ScaffolderGuiConfig._init")
 
 
-func amend_app_manifest(manifest: Dictionary) -> void:
+func amend_manifest(manifest: Dictionary) -> void:
     if !manifest.has("settings_item_manifest"):
         manifest.settings_item_manifest = \
                 DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST
@@ -251,7 +251,7 @@ func amend_app_manifest(manifest: Dictionary) -> void:
 
 
 func register_manifest(manifest: Dictionary) -> void:
-    amend_app_manifest(manifest)
+    amend_manifest(manifest)
     
     self.theme = manifest.theme
     self.cell_size = manifest.cell_size
