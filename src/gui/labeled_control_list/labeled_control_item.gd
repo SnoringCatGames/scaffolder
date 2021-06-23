@@ -76,6 +76,7 @@ func create_row(
     row.add_stylebox_override("panel", style)
     
     var hbox := HBoxContainer.new()
+    hbox.set_meta("gs_rect_min_size", Vector2(0.0, height))
     hbox.rect_min_size.y = height * Gs.gui.scale
     hbox.add_constant_override("separation", 0)
     row.add_child(hbox)
@@ -83,7 +84,10 @@ func create_row(
     var spacer1 := Control.new()
     spacer1.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
     spacer1.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-    spacer1.rect_min_size.x = outer_padding_horizontal
+    spacer1.set_meta(
+            "gs_rect_min_size",
+            Vector2(outer_padding_horizontal, 0.0))
+    spacer1.rect_min_size.x = outer_padding_horizontal * Gs.gui.scale
     hbox.add_child(spacer1)
     
     var label := Label.new()
@@ -106,10 +110,11 @@ func create_row(
         description_button.texture_normal = ABOUT_ICON_NORMAL
         description_button.texture_hover = ABOUT_ICON_HOVER
         description_button.texture_pressed = ABOUT_ICON_ACTIVE
+        description_button.set_meta(
+                "gs_rect_min_size", ABOUT_ICON_NORMAL.get_size())
         description_button.rect_min_size = \
-                ABOUT_ICON_NORMAL.get_size() * Gs.gui.scale
-        description_button.texture_scale = \
-                Vector2(Gs.gui.scale, Gs.gui.scale)
+                ABOUT_ICON_NORMAL.get_size()
+        description_button.texture_scale = Vector2.ONE
         description_button.expands_texture = false
         description_button.connect(
                 "pressed",
@@ -126,6 +131,9 @@ func create_row(
     var spacer3 := Control.new()
     spacer3.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
     spacer3.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+    spacer3.set_meta(
+            "gs_rect_min_size",
+            Vector2(inner_padding_horizontal * 2.0, 0.0))
     spacer3.rect_min_size.x = inner_padding_horizontal * 2.0 * Gs.gui.scale
     
     if self.type != HEADER:
@@ -155,7 +163,10 @@ func create_row(
     var spacer2 := Control.new()
     spacer2.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
     spacer2.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-    spacer2.rect_min_size.x = outer_padding_horizontal
+    spacer2.set_meta(
+            "gs_rect_min_size",
+            Vector2(outer_padding_horizontal, 0.0))
+    spacer2.rect_min_size.x = outer_padding_horizontal * Gs.gui.scale
     hbox.add_child(spacer2)
     
     return row

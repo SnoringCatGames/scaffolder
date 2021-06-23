@@ -636,19 +636,44 @@ func _scale_gui_recursively(gui) -> void:
     assert(gui is Control)
     var control: Control = gui
     
+    # Record original dimensions.
     if !control.has_meta("gs_rect_size"):
-        # Record original dimensions.
         control.set_meta("gs_rect_size", control.rect_size)
+    if !control.has_meta("gs_rect_min_size"):
         control.set_meta("gs_rect_min_size", control.rect_min_size)
+    if !control.has_meta("gs_rect_scale"):
         control.set_meta("gs_rect_scale", control.rect_scale)
+    if !control.has_meta("gs_rect_position"):
         control.set_meta("gs_rect_position", control.rect_position)
 #        control.set_meta("gs_rect_pivot_offset", control.rect_pivot_offset)
         if control is VBoxContainer or \
                 control is HBoxContainer:
-            control.set_meta(
-                    "gs_separation", control.get_constant("separation"))
+            if !control.has_meta("gs_separation"):
+                control.set_meta(
+                        "gs_separation",
+                        control.get_constant("separation"))
+        if control is MarginContainer:
+            if !control.has_meta("gs_margin_right"):
+                control.set_meta(
+                        "gs_margin_right",
+                        control.get_constant("margin_right"))
+            if !control.has_meta("gs_margin_top"):
+                control.set_meta(
+                        "gs_margin_top",
+                        control.get_constant("margin_top"))
+            if !control.has_meta("gs_margin_left"):
+                control.set_meta(
+                        "gs_margin_left",
+                        control.get_constant("margin_left"))
+            if !control.has_meta("gs_margin_bottom"):
+                control.set_meta(
+                        "gs_margin_bottom",
+                        control.get_constant("margin_bottom"))
         if control is ShinyButton:
-            control.set_meta("gs_texture_scale", control.texture_scale)
+            if !control.has_meta("gs_texture_scale"):
+                control.set_meta(
+                        "gs_texture_scale",
+                        control.texture_scale)
     
     # Retrieve original dimensions.
     var original_rect_size: Vector2 = control.get_meta("gs_rect_size")
@@ -660,6 +685,22 @@ func _scale_gui_recursively(gui) -> void:
     var original_separation: float = \
             control.get_meta("gs_separation") if \
             control.has_meta("gs_separation") else \
+            INF
+    var original_margin_right: float = \
+            control.get_meta("gs_margin_right") if \
+            control.has_meta("gs_margin_right") else \
+            INF
+    var original_margin_top: float = \
+            control.get_meta("gs_margin_top") if \
+            control.has_meta("gs_margin_top") else \
+            INF
+    var original_margin_left: float = \
+            control.get_meta("gs_margin_left") if \
+            control.has_meta("gs_margin_left") else \
+            INF
+    var original_margin_bottom: float = \
+            control.get_meta("gs_margin_bottom") if \
+            control.has_meta("gs_margin_bottom") else \
             INF
     var original_texture_scale: float = \
             control.get_meta("gs_texture_scale") if \
@@ -682,6 +723,16 @@ func _scale_gui_recursively(gui) -> void:
             control is HBoxContainer:
         var separation := round(original_separation * Gs.gui.scale)
         control.add_constant_override("separation", separation)
+    
+    if control is MarginContainer:
+        var margin_right := round(original_margin_right * Gs.gui.scale)
+        control.add_constant_override("margin_right", margin_right)
+        var margin_top := round(original_margin_top * Gs.gui.scale)
+        control.add_constant_override("margin_top", margin_top)
+        var margin_left := round(original_margin_left * Gs.gui.scale)
+        control.add_constant_override("margin_left", margin_left)
+        var margin_bottom := round(original_margin_bottom * Gs.gui.scale)
+        control.add_constant_override("margin_bottom", margin_bottom)
     
     if control is TextureButton:
         control.rect_scale = original_rect_scale * Gs.gui.scale
