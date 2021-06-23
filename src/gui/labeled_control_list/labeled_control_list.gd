@@ -6,8 +6,8 @@ extends VBoxContainer
 signal item_changed(item)
 
 export var font: Font setget _set_font,_get_font
-export var row_height := 0.0 setget _set_row_height,_get_row_height
-export var padding_horizontal := 8.0 setget \
+export var row_height := 48.0 setget _set_row_height,_get_row_height
+export var padding_horizontal := 10.0 setget \
         _set_padding_horizontal,_get_padding_horizontal
 
 # Array<LabeledControlItem>

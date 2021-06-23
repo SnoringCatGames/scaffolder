@@ -183,7 +183,7 @@ var is_main_menu_image_shown: bool
 var is_loading_image_shown: bool
 var does_app_contain_welcome_panel: bool
 var is_welcome_panel_shown: bool
-var original_font_sizes: Dictionary
+var original_font_dimensions: Dictionary
 
 # --- Global state ---
 
@@ -318,7 +318,7 @@ func register_manifest(manifest: Dictionary) -> void:
             !Gs.app_metadata.log_gestures_url.empty() and \
             !Gs.app_metadata.app_id_query_param.empty()
     
-    _record_original_font_sizes()
+    _record_original_font_dimensions()
     
     _initialize_hud_key_value_list_item_enablement()
     
@@ -351,9 +351,18 @@ func _get_is_debug_panel_shown() -> bool:
     return is_debug_panel_shown
 
 
-func _record_original_font_sizes() -> void:
-    for key in fonts:
-        original_font_sizes[key] = fonts[key].size
+func _record_original_font_dimensions() -> void:
+    for font_name in fonts:
+        var dimensions := {}
+        original_font_dimensions[font_name] = dimensions
+        for dimension_name in [
+                    "size",
+                    "extra_spacing_top",
+                    "extra_spacing_bottom",
+                    "extra_spacing_char",
+                    "extra_spacing_space",
+                ]:
+             dimensions[dimension_name] = fonts[font_name].get(dimension_name)
 
 
 func _initialize_hud_key_value_list_item_enablement() -> void:

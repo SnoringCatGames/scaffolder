@@ -180,10 +180,13 @@ func _on_throttled_size_changed() -> void:
 
 
 func _update_font_sizes() -> void:
-    for key in Gs.gui.fonts:
-        Gs.gui.fonts[key].size = \
-                Gs.gui.original_font_sizes[key] * \
-                Gs.gui.scale
+    for font_name in Gs.gui.fonts:
+        var original_dimensions: Dictionary = \
+                Gs.gui.original_font_dimensions[font_name]
+        for dimension_name in original_dimensions:
+            Gs.gui.fonts[font_name].set(
+                    dimension_name,
+                    original_dimensions[dimension_name] * Gs.gui.scale)
 
 
 func _update_checkbox_size() -> void:

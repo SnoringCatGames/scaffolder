@@ -55,9 +55,9 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
 margin_left = 268.0
-margin_top = 126.0
+margin_top = 118.0
 margin_right = 678.0
-margin_bottom = 819.0
+margin_bottom = 828.0
 
 [node name="Title" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 12 )]
 margin_right = 410.0
@@ -75,10 +75,10 @@ size_flags_stretch_ratio = 0.5
 [node name="VBoxContainer4" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_top = 38.0
 margin_right = 410.0
-margin_bottom = 185.0
+margin_bottom = 193.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-custom_constants/separation = 0
+custom_constants/separation = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -98,9 +98,9 @@ margin_bottom = 170.0
 texture_scale = Vector2( 0.5, 0.5 )
 
 [node name="DeveloperNameLink" type="LinkButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer4"]
-margin_top = 85.0
+margin_top = 89.0
 margin_right = 410.0
-margin_bottom = 116.0
+margin_bottom = 120.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 7 )
 text = "Created by Snoring Cat LLC"
@@ -111,9 +111,9 @@ __meta__ = {
 
 [node name="DeveloperUrlLink" type="LinkButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer4"]
 margin_left = 12.0
-margin_top = 116.0
+margin_top = 124.0
 margin_right = 398.0
-margin_bottom = 147.0
+margin_bottom = 155.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 7 )
 text = "https://snoringcat.games"
@@ -124,9 +124,9 @@ __meta__ = {
 
 [node name="Spacer3" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_left = 205.0
-margin_top = 189.0
+margin_top = 197.0
 margin_right = 205.0
-margin_bottom = 229.0
+margin_bottom = 237.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -134,12 +134,12 @@ size_flags_stretch_ratio = 0.8
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_left = 81.0
-margin_top = 233.0
+margin_top = 241.0
 margin_right = 329.0
-margin_bottom = 349.0
+margin_bottom = 361.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-custom_constants/separation = 0
+custom_constants/separation = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -161,9 +161,9 @@ texture = ExtResource( 2 )
 texture_scale = Vector2( 0.5, 0.5 )
 
 [node name="LinkButton" type="LinkButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer3"]
-margin_top = 85.0
+margin_top = 89.0
 margin_right = 248.0
-margin_bottom = 116.0
+margin_bottom = 120.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 7 )
 text = "Made with Godot"
@@ -174,19 +174,19 @@ __meta__ = {
 
 [node name="Spacer1" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_left = 205.0
-margin_top = 353.0
+margin_top = 365.0
 margin_right = 205.0
-margin_bottom = 393.0
+margin_bottom = 405.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
 
 [node name="SpecialThanksContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_top = 397.0
+margin_top = 409.0
 margin_right = 410.0
-margin_bottom = 504.0
-custom_constants/separation = 11
+margin_bottom = 518.0
+custom_constants/separation = 12
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -203,28 +203,28 @@ valign = 1
 
 [node name="SpecialThanks" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/SpecialThanksContainer"]
 margin_left = 205.0
-margin_top = 42.0
+margin_top = 43.0
 margin_right = 205.0
-margin_bottom = 56.0
+margin_bottom = 57.0
 size_flags_horizontal = 4
 align = 1
 valign = 1
 
 [node name="Spacer5" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/SpecialThanksContainer"]
 margin_left = 205.0
-margin_top = 67.0
+margin_top = 69.0
 margin_right = 205.0
-margin_bottom = 107.0
+margin_bottom = 109.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_top = 508.0
+margin_top = 522.0
 margin_right = 410.0
-margin_bottom = 613.0
-custom_constants/separation = 11
+margin_bottom = 630.0
+custom_constants/separation = 12
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -239,27 +239,27 @@ underline = 2
 
 [node name="PrivacyPolicyLink" type="LinkButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
 margin_left = 161.0
-margin_top = 25.0
+margin_top = 26.0
 margin_right = 248.0
-margin_bottom = 39.0
+margin_bottom = 40.0
 size_flags_horizontal = 4
 text = "Privacy Policy"
 underline = 2
 
 [node name="SupportLink" type="LinkButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
 margin_left = 180.0
-margin_top = 50.0
+margin_top = 52.0
 margin_right = 229.0
-margin_bottom = 64.0
+margin_bottom = 66.0
 size_flags_horizontal = 4
 text = "Support"
 underline = 2
 
 [node name="Spacer2" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
 margin_left = 205.0
-margin_top = 75.0
+margin_top = 78.0
 margin_right = 205.0
-margin_bottom = 105.0
+margin_bottom = 108.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -267,9 +267,9 @@ size_flags_stretch_ratio = 0.6
 
 [node name="AccordionPanel" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 10 )]
 margin_left = 45.0
-margin_top = 617.0
+margin_top = 634.0
 margin_right = 365.0
-margin_bottom = 649.0
+margin_bottom = 666.0
 rect_min_size = Vector2( 320, 32 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -331,9 +331,9 @@ __meta__ = {
 
 [node name="PaddingBottom" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_left = 205.0
-margin_top = 653.0
+margin_top = 670.0
 margin_right = 205.0
-margin_bottom = 693.0
+margin_bottom = 710.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
