@@ -28,6 +28,5 @@ func _ready() -> void:
 
 
 func _destroy() -> void:
-    if is_instance_valid(hud_key_value_list):
-        Gs.canvas_layers.layers.hud.remove_child(hud_key_value_list)
+    hud_key_value_list._destroy()
     queue_free()

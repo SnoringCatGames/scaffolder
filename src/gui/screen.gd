@@ -47,6 +47,7 @@ func _ready() -> void:
 func _exit_tree() -> void:
     if is_instance_valid(stylebox):
         stylebox.destroy()
+    Gs.gui.remove_gui_to_scale(outer_panel_container)
 
 
 func _validate_node_hierarchy() -> void:

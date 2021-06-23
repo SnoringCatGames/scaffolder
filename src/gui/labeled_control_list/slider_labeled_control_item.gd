@@ -74,3 +74,11 @@ func _on_slider_value_changed(_value: float) -> void:
     value = control.value
     on_value_changed(value)
     emit_signal("item_changed")
+
+
+func set_original_size(original_size: Vector2) -> void:
+    width = original_size.x
+    control.set_meta("gs_rect_size", original_size)
+    control.set_meta("gs_rect_min_size", original_size)
+    control.set_meta("gs_rect_scale", control.rect_scale)
+    control.set_meta("gs_rect_position", control.rect_position)

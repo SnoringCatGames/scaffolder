@@ -16,6 +16,11 @@ func _ready() -> void:
     update_gui_scale()
 
 
+func _destroy() -> void:
+    Gs.gui.remove_gui_to_scale(self)
+    queue_free()
+
+
 func update_gui_scale() -> bool:
     var separation: float = HudKeyValueBox.SEPARATION * Gs.gui.scale
     
