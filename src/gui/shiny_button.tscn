@@ -2,7 +2,7 @@
 
 [ext_resource path="res://addons/scaffolder/src/gui/shiny_button.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/shine_line.png" type="Texture" id=2]
-[ext_resource path="res://addons/scaffolder/assets/fonts/main_font_m.tres" type="DynamicFont" id=4]
+[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres" type="DynamicFont" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/scaffolder_texture_rect.tscn" type="PackedScene" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=1]
