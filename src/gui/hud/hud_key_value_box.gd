@@ -37,6 +37,8 @@ func update_gui_scale() -> bool:
 
 
 func _process(_delta: float) -> void:
+    if !is_instance_valid(Gs.level):
+        return
     _update_display()
 
 
