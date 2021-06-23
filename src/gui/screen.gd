@@ -97,6 +97,8 @@ func _validate_node_hierarchy() -> void:
         Gs.utils.set_mouse_filter_recursively(
                 scroll_container,
                 Control.MOUSE_FILTER_PASS)
+        
+        Gs.utils.set_link_color_recursively(scroll_container)
 
 
 func _unhandled_key_input(event: InputEventKey) -> void:
