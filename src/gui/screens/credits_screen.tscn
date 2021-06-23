@@ -90,6 +90,7 @@ margin_bottom = 85.0
 rect_min_size = Vector2( 235, 85 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
+underline = 2
 
 [node name="DeveloperLogo" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer4/DeveloperLogoLink" instance=ExtResource( 12 )]
 margin_right = 470.0
@@ -116,6 +117,7 @@ margin_bottom = 147.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 7 )
 text = "https://snoringcat.games"
+underline = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -149,6 +151,7 @@ margin_bottom = 85.0
 rect_min_size = Vector2( 235, 85 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
+underline = 2
 
 [node name="GodotLogo" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer3/LinkButton2" instance=ExtResource( 12 )]
 margin_right = 234.5
@@ -164,6 +167,7 @@ margin_bottom = 116.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 7 )
 text = "Made with Godot"
+underline = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -231,6 +235,7 @@ margin_right = 268.0
 margin_bottom = 14.0
 size_flags_horizontal = 4
 text = "Terms & Conditions"
+underline = 2
 
 [node name="PrivacyPolicyLink" type="LinkButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
 margin_left = 161.0
@@ -239,6 +244,7 @@ margin_right = 248.0
 margin_bottom = 39.0
 size_flags_horizontal = 4
 text = "Privacy Policy"
+underline = 2
 
 [node name="SupportLink" type="LinkButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
 margin_left = 180.0
@@ -247,6 +253,7 @@ margin_right = 229.0
 margin_bottom = 64.0
 size_flags_horizontal = 4
 text = "Support"
+underline = 2
 
 [node name="Spacer2" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
 margin_left = 205.0
