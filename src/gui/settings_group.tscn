@@ -17,8 +17,6 @@ __meta__ = {
 
 [node name="LabeledControlList" parent="." instance=ExtResource( 1 )]
 margin_right = 1024.0
-row_height = 0.0
-padding_horizontal = 8.0
 
 [node name="AccordionPanel" parent="." instance=ExtResource( 2 )]
 margin_left = 0.0
@@ -46,8 +44,6 @@ __meta__ = {
 margin_top = 14.0
 margin_right = 40.0
 margin_bottom = 14.0
-row_height = 0.0
-padding_horizontal = 8.0
 
 [node name="Spacer" type="Control" parent="."]
 margin_left = 512.0

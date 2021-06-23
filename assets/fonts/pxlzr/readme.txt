@@ -2,7 +2,7 @@
 font-building tool.
 This font was created by “levilindsey”.
 This font has a homepage where this archive and other versions may be found:
-https://fontstruct.com/fontstructions/show/1959984
+https://fontstruct.com/fontstructions/show/1960083
 
 Try Fontstruct at https://fontstruct.com
 It’s easy and it’s fun.
