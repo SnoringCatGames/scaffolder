@@ -43,32 +43,31 @@ func _ready() -> void:
 func update_gui_scale() -> bool:
     if !has_meta("gs_rect_size"):
         set_meta("gs_rect_position", rect_position)
-        $TextureButton.set_meta("gs_rect_scale", $TextureButton.rect_scale)
         set_meta("gs_rect_size", rect_size)
         set_meta("gs_rect_min_size", rect_min_size)
     var original_rect_position: Vector2 = get_meta("gs_rect_position")
-    var original_texture_rect_scale: Vector2 = \
-            $TextureButton.get_meta("gs_rect_scale")
     var original_rect_size: Vector2 = get_meta("gs_rect_size")
     var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
     
     rect_position = original_rect_position * Gs.gui.scale
-    $TextureButton.rect_scale = original_texture_rect_scale * Gs.gui.scale
-    set_custom_minimum_size(Gs.gui.scale * original_rect_min_size)
-    _set_size(Gs.gui.scale * original_rect_size)
+    rect_min_size = original_rect_min_size * Gs.gui.scale
+    rect_size = original_rect_size * Gs.gui.scale
+    $TextureButton.rect_scale = texture_scale * Gs.gui.scale
+    $TextureButton.rect_size = original_rect_size / texture_scale
+    
     return true
 
 
 func _set_size(size: Vector2) -> void:
     ._set_size(size)
     if _is_ready:
-        $TextureButton.rect_size = size / $TextureButton.rect_scale
+        update_gui_scale()
 
 
 func set_custom_minimum_size(min_size: Vector2) -> void:
     .set_custom_minimum_size(min_size)
     if _is_ready:
-        $TextureButton.rect_size = min_size / $TextureButton.rect_scale
+        update_gui_scale()
 
 
 func _set_texture_normal(value: Texture) -> void:
@@ -134,7 +133,7 @@ func _get_texture_click_mask() -> Texture:
 func _set_texture_scale(value: Vector2) -> void:
     texture_scale = value
     if _is_ready:
-        $TextureButton.rect_scale = texture_scale
+        update_gui_scale()
 
 
 func _get_texture_scale() -> Vector2:

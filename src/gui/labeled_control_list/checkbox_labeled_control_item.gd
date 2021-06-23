@@ -62,6 +62,8 @@ func create_control() -> Control:
             "pressed",
             self,
             "_on_checkbox_pressed")
+    var default_size: float = Gs.gui.default_checkbox_icon_size
+    checkbox.set_original_size(Vector2(default_size, default_size))
     return checkbox
 
 
