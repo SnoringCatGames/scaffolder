@@ -24,6 +24,11 @@ func _ready() -> void:
 
 
 func update_gui_scale() -> bool:
+    call_deferred("_deferred_update_gui_scale")
+    return true
+
+
+func _deferred_update_gui_scale() -> void:
     if !has_meta("gs_rect_size"):
         set_meta("gs_rect_size", rect_size)
         set_meta("gs_rect_min_size", rect_min_size)
@@ -39,7 +44,6 @@ func update_gui_scale() -> bool:
     rect_size = original_rect_size * Gs.gui.scale * scale
     $CheckBox.rect_position = \
             (rect_size - $CheckBox.rect_size * _get_icon_scale()) / 2.0
-    return true
 
 
 func _get_icon_scale() -> float:

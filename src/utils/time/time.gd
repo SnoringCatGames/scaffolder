@@ -26,6 +26,8 @@ var _tweens := {}
 var _last_timeout_id := -1
 # Dictionary<FuncRef, _Throttler>
 var _throttled_callbacks := {}
+# Dictionary<FuncRef, _Debouncer>
+var _debounced_callbacks := {}
 
 
 func _init() -> void:
@@ -324,17 +326,37 @@ func throttle(
     return throttled_callback
 
 
-func cancel_pending_throttle(throttled_callback: FuncRef) -> void:
+func clear_throttle(throttled_callback: FuncRef) -> void:
     assert(_throttled_callbacks.has(throttled_callback))
     _throttled_callbacks[throttled_callback].cancel()
 
 
-func erase_throttle(throttled_callback: FuncRef) -> bool:
-    return _throttled_callbacks.erase(throttled_callback)
+func debounce(
+        callback: FuncRef,
+        interval: float,
+        invokes_at_start := false,
+        time_type := TimeType.APP_PHYSICS) -> FuncRef:
+    var debouncer := _Debouncer.new(
+            time_type,
+            callback,
+            interval,
+            invokes_at_start)
+    var debounced_callback := funcref(
+            debouncer,
+            "on_call")
+    _debounced_callbacks[debounced_callback] = debouncer
+    return debounced_callback
+
+
+func clear_debounce(debounced_callback: FuncRef) -> void:
+    assert(_debounced_callbacks.has(debounced_callback))
+    _debounced_callbacks[debounced_callback].cancel()
 
 
 # Keeps track of elapsed time.
 class _TimeTracker extends Node:
+    
+    
     var time_scale := _DEFAULT_TIME_SCALE
     
     var start_clock_time: float
@@ -345,6 +367,7 @@ class _TimeTracker extends Node:
     var elapsed_physics_scaled_time: float
     var elapsed_render_scaled_time: float
     
+    
     func _ready() -> void:
         start_clock_time = OS.get_ticks_usec() / 1000000.0
         elapsed_clock_time = 0.0
@@ -354,14 +377,17 @@ class _TimeTracker extends Node:
         elapsed_physics_scaled_time = 0.0
         elapsed_render_scaled_time = 0.0
     
+    
     func _process(delta: float) -> void:
         elapsed_render_time += delta
         elapsed_render_scaled_time += delta * time_scale
+    
     
     func _physics_process(delta: float) -> void:
         elapsed_physics_time += delta
         elapsed_physics_scaled_time += delta * time_scale
         _update_clock_time()
+    
     
     func _update_clock_time() -> void:
         var next_elapsed_clock_time := \
@@ -373,12 +399,15 @@ class _TimeTracker extends Node:
 
 
 class _Timeout extends Reference:
+    
+    
     var time_tracker
     var elapsed_time_key: String
     var callback: FuncRef
     var time: float
     var arguments: Array
     var id: int
+    
     
     func _init(
             time_type: int,
@@ -393,9 +422,11 @@ class _Timeout extends Reference:
         self.arguments = arguments
         self.id = Gs.time.get_next_task_id()
     
+    
     func get_has_expired() -> bool:
         var elapsed_time: float = time_tracker.get(elapsed_time_key)
         return elapsed_time >= time
+    
     
     func trigger() -> void:
         if !callback.is_valid():
@@ -404,6 +435,8 @@ class _Timeout extends Reference:
 
 
 class _Interval extends Reference:
+    
+    
     var time_tracker
     var elapsed_time_key: String
     var callback: FuncRef
@@ -411,6 +444,7 @@ class _Interval extends Reference:
     var arguments: Array
     var next_trigger_time: float
     var id: int
+    
     
     func _init(
             time_type: int,
@@ -427,9 +461,11 @@ class _Interval extends Reference:
                 time_tracker.get(elapsed_time_key) + interval
         self.id = Gs.time.get_next_task_id()
     
+    
     func get_has_reached_next_trigger_time() -> bool:
         var elapsed_time: float = time_tracker.get(elapsed_time_key)
         return elapsed_time >= next_trigger_time
+    
     
     func trigger() -> void:
         if !callback.is_valid():
@@ -440,6 +476,8 @@ class _Interval extends Reference:
 
 
 class _Throttler extends Reference:
+    
+    
     var time_type: int
     var time_tracker
     var elapsed_time_key: String
@@ -453,6 +491,7 @@ class _Throttler extends Reference:
     var last_call_time := -INF
     var is_callback_scheduled := false
     
+    
     func _init(
             time_type: int,
             callback: FuncRef,
@@ -465,6 +504,7 @@ class _Throttler extends Reference:
         self.callback = callback
         self.interval = interval
         self.invokes_at_end = invokes_at_end
+    
     
     func on_call() -> void:
         if !is_callback_scheduled:
@@ -481,9 +521,71 @@ class _Throttler extends Reference:
                         time_type)
                 is_callback_scheduled = true
     
+    
     func cancel() -> void:
         Gs.time.clear_timeout(last_timeout_id)
         is_callback_scheduled = false
+    
+    
+    func _trigger_callback() -> void:
+        last_call_time = time_tracker.get(elapsed_time_key)
+        is_callback_scheduled = false
+        if callback.is_valid():
+            callback.call_func()
+
+
+class _Debouncer extends Reference:
+    
+    
+    var time_type: int
+    var time_tracker
+    var elapsed_time_key: String
+    var callback: FuncRef
+    var interval: float
+    var invokes_at_start: bool
+    
+    var trigger_callback_callback := funcref(self, "_trigger_callback")
+    var last_timeout_id := -1
+    
+    var last_call_time := -INF
+    var is_callback_scheduled := false
+    
+    
+    func _init(
+            time_type: int,
+            callback: FuncRef,
+            interval: float,
+            invokes_at_start: bool) -> void:
+        self.time_type = time_type
+        self.time_tracker = Gs.time._get_time_tracker_for_time_type(time_type)
+        self.elapsed_time_key = \
+                Gs.time._get_elapsed_time_key_for_time_type(time_type)
+        self.callback = callback
+        self.interval = interval
+        self.invokes_at_start = invokes_at_start
+    
+    
+    func on_call() -> void:
+        var current_call_time: float = \
+                time_tracker.get(elapsed_time_key)
+        if invokes_at_start and \
+                !is_callback_scheduled and \
+                current_call_time > last_call_time + interval:
+            _trigger_callback()
+        
+        Gs.time.clear_timeout(last_timeout_id)
+        last_timeout_id = Gs.time.set_timeout(
+                trigger_callback_callback,
+                interval,
+                [],
+                time_type)
+        is_callback_scheduled = true
+    
+    
+    func cancel() -> void:
+        Gs.time.clear_timeout(last_timeout_id)
+        is_callback_scheduled = false
+    
     
     func _trigger_callback() -> void:
         last_call_time = time_tracker.get(elapsed_time_key)
