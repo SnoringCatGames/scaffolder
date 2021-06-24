@@ -54,3 +54,17 @@ func create_layer(
     Gs.utils.add_overlay_to_current_scene(canvas_layer)
     layers[name] = canvas_layer
     return canvas_layer
+
+
+func set_global_visibility(visible: bool) -> void:
+    for layer in layers.values():
+        for child in layer.get_children():
+            if child is CanvasItem:
+                if visible:
+                    child.visible = \
+                            child.get_meta("gs_visible") if \
+                            child.has_meta("gs_visible") else \
+                            true
+                else:
+                    child.set_meta("gs_visible", child.visible)
+                    child.visible = false
