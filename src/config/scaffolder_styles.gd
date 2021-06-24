@@ -40,19 +40,19 @@ func register_manifest(manifest: Dictionary) -> void:
 
 func configure_theme() -> void:
     _configure_theme_color(
-            "font_color", "Label", Gs.colors.font)
+            "font_color", "Label", Gs.colors.text)
     _configure_theme_color(
-            "font_color", "Button", Gs.colors.font)
+            "font_color", "Button", Gs.colors.text)
     _configure_theme_color(
-            "font_color", "CheckBox", Gs.colors.font)
+            "font_color", "CheckBox", Gs.colors.text)
     _configure_theme_color(
-            "font_color", "ItemList", Gs.colors.font)
+            "font_color", "ItemList", Gs.colors.text)
     _configure_theme_color(
-            "font_color", "OptionButton", Gs.colors.font)
+            "font_color", "OptionButton", Gs.colors.text)
     _configure_theme_color(
-            "font_color", "PopupMenu", Gs.colors.font)
+            "font_color", "PopupMenu", Gs.colors.text)
     _configure_theme_color(
-            "font_color", "Tree", Gs.colors.font)
+            "font_color", "Tree", Gs.colors.text)
     
     _configure_theme_stylebox(
             "disabled", "Button", {
