@@ -22,11 +22,11 @@ func _init(level_session_or_id).(
 
 func get_text() -> String:
     if level_id == "":
-        return "—"
+        return TimeLabeledControlItem.BLANK_TIME_STRING
     else:
         var fastest_time: float = \
                 Gs.save_state.get_level_fastest_time(level_id)
         if fastest_time == Utils.MAX_INT:
-            return "—"
+            return TimeLabeledControlItem.BLANK_TIME_STRING
         else:
-            return str(fastest_time)
+            return Gs.utils.get_time_string_from_seconds(fastest_time)
