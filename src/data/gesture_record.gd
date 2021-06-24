@@ -36,9 +36,12 @@ func _record_new_gesture_event(event: InputEvent) -> void:
 
 
 class GestureEventForDebugging extends Reference:
+    
+    
     var position: Vector2
     var name: String
     var time: float
+    
     
     func _init(
             position: Vector2,
@@ -47,6 +50,7 @@ class GestureEventForDebugging extends Reference:
         self.position = position
         self.name = name
         self.time = time
+    
     
     func to_string() -> String:
         return "{%s;(%.2f,%.2f);%.3f}" % [

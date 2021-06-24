@@ -151,6 +151,8 @@ func _interpolate(
 
 
 class _SubTween extends Reference:
+    
+    
     var object: Object
     var key: String
     var is_property: bool
@@ -165,6 +167,7 @@ class _SubTween extends Reference:
     var time_type: int
     
     var start_time := INF
+    
     
     func _init(
             object: Object,
@@ -187,17 +190,21 @@ class _SubTween extends Reference:
         self.delay = delay
         self.time_type = time_type
     
+    
     func get_is_finished() -> bool:
         return Gs.time.get_elapsed_time(time_type) >= \
                 start_time + duration + delay or \
                 !is_instance_valid(object)
     
+    
     func start() -> void:
         start_time = Gs.time.get_elapsed_time(time_type)
+    
     
     func end() -> void:
         if is_instance_valid(object):
             _update_with_value(final_val)
+    
     
     func step() -> void:
         var current_time: float = Gs.time.get_elapsed_time(time_type)
@@ -210,6 +217,7 @@ class _SubTween extends Reference:
                 1)
         progress = Gs.utils.ease_by_name(progress, ease_name)
         _update_with_value(lerp(initial_val, final_val, progress))
+    
     
     func _update_with_value(value) -> void:
         if is_property:
