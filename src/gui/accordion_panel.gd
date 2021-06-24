@@ -27,6 +27,8 @@ export var header_text := "" setget _set_header_text,_get_header_text
 export var header_min_height := 0.0 setget \
         _set_header_min_height,_get_header_min_height
 export var header_font: Font setget _set_header_font,_get_header_font
+export var uses_header_color := false setget \
+        _set_uses_header_color,_get_uses_header_color
 export var is_caret_on_left := true setget \
         _set_is_caret_on_left,_get_is_caret_on_left
 export var padding := Vector2(8.0, 4.0) setget _set_padding,_get_padding
@@ -178,6 +180,8 @@ func _create_header() -> void:
     _header.add_stylebox_override("normal", _header_normal_stylebox)
     _header.add_stylebox_override("hover", _header_hover_stylebox)
     _header.add_stylebox_override("pressed", _header_pressed_stylebox)
+    if uses_header_color:
+        _header.add_color_override("font_color", Gs.colors.header)
     
     _header_hbox = HBoxContainer.new()
     _header.add_child(_header_hbox)
@@ -473,6 +477,16 @@ func _set_header_font(value: Font) -> void:
 
 func _get_header_font() -> Font:
     return header_font
+
+
+func _set_uses_header_color(value: bool) -> void:
+    uses_header_color = value
+    if _is_ready:
+        _update_children()
+
+
+func _get_uses_header_color() -> bool:
+    return uses_header_color
 
 
 func _set_is_caret_on_left(value: bool) -> void:

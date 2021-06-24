@@ -16,9 +16,9 @@ const ALPHA_XXXFAINT := 0.03
 # Should match Project Settings > Rendering > Environment > Default Clear Color
 var background: Color
 
-var font: Color
+var text: Color
 
-var header_font: Color
+var header: Color
 
 var button_normal: Color
 var button_disabled: Color
@@ -75,8 +75,8 @@ var scroll_bar_grabber_pressed_hsv_delta: Dictionary
 
 var _defaults := {
     background = Color("404040"),
-    font = Color("eeeeee"),
-    header_font = Color("eeeeee"),
+    text = Color("eeeeee"),
+    header = Color("eeeeee"),
     link_normal = Color("707070"),
     link_hover = Color("969696"),
     link_pressed = Color("969696"),
