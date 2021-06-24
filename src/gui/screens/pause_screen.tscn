@@ -54,30 +54,30 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 273.0
+margin_left = 193.0
 margin_top = 363.0
-margin_right = 673.0
+margin_right = 753.0
 margin_bottom = 583.0
-rect_min_size = Vector2( 400, 0 )
+rect_min_size = Vector2( 560, 0 )
 custom_constants/separation = 0
 
 [node name="LabeledControlList" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 9 )]
-margin_right = 400.0
+margin_right = 560.0
 row_height = 0.0
 padding_horizontal = 6.0
 
 [node name="Spacer2" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_left = 200.0
-margin_right = 200.0
+margin_left = 280.0
+margin_right = 280.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_left = 136.0
+margin_left = 216.0
 margin_top = 20.0
-margin_right = 264.0
+margin_right = 344.0
 margin_bottom = 180.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -115,9 +115,9 @@ size_flags_vertical = 4
 texture = ExtResource( 7 )
 
 [node name="Spacer3" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_left = 200.0
+margin_left = 280.0
 margin_top = 180.0
-margin_right = 200.0
+margin_right = 280.0
 margin_bottom = 220.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4

@@ -12,6 +12,8 @@ const INCLUDES_CENTER_CONTAINER := true
 
 var go_icon_scale_multiplier := 1.0
 
+var projected_image: Control
+
 
 func _init().(
         NAME,
@@ -25,6 +27,13 @@ func _init().(
 
 
 func _ready() -> void:
+    if Gs.gui.is_game_over_image_shown:
+        projected_image = Gs.utils.add_scene(
+                $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+                        CenterContainer/VBoxContainer/GameOverImageContainer,
+                Gs.gui.game_over_image_scene_path,
+                true,
+                true)
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer/SelectLevelButton \
             .texture = Gs.app_metadata.go_icon

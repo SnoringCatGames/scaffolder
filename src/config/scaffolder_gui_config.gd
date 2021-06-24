@@ -150,6 +150,7 @@ var third_party_license_text: String
 var special_thanks_text: String
 
 var main_menu_image_scene_path: String
+var game_over_image_scene_path: String
 var loading_image_scene_path: String
 var welcome_panel_path: String
 
@@ -180,6 +181,7 @@ var is_gesture_logging_supported: bool
 var is_developer_logo_shown: bool
 var is_developer_splash_shown: bool
 var is_main_menu_image_shown: bool
+var is_game_over_image_shown: bool
 var is_loading_image_shown: bool
 var does_app_contain_welcome_panel: bool
 var is_welcome_panel_shown: bool
@@ -276,6 +278,8 @@ func register_manifest(manifest: Dictionary) -> void:
     
     if manifest.has("main_menu_image_scene_path"):
         self.main_menu_image_scene_path = manifest.main_menu_image_scene_path
+    if manifest.has("game_over_image_scene_path"):
+        self.game_over_image_scene_path = manifest.game_over_image_scene_path
     if manifest.has("loading_image_scene_path"):
         self.loading_image_scene_path = manifest.loading_image_scene_path
     if manifest.has("welcome_panel_path"):
@@ -312,6 +316,7 @@ func register_manifest(manifest: Dictionary) -> void:
             Gs.app_metadata.developer_splash != null and \
             Gs.audio_manifest.developer_splash_sound != ""
     self.is_main_menu_image_shown = self.main_menu_image_scene_path != ""
+    self.is_game_over_image_shown = self.game_over_image_scene_path != ""
     self.is_loading_image_shown = self.loading_image_scene_path != ""
     self.does_app_contain_welcome_panel = welcome_panel_path != ""
     self.is_gesture_logging_supported = \

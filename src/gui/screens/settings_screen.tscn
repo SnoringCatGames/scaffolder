@@ -48,9 +48,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 233.0
+margin_left = 193.0
 margin_top = 473.0
-margin_right = 713.0
+margin_right = 753.0
 margin_bottom = 473.0
-rect_min_size = Vector2( 480, 0 )
+rect_min_size = Vector2( 560, 0 )
 custom_constants/separation = 0

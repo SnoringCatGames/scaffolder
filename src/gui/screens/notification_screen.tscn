@@ -7,23 +7,18 @@
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/nav_bar.tscn" type="PackedScene" id=12]
 
-
-
-
-
-
-
-
 [node name="NotificationScreen" type="Node2D"]
 script = ExtResource( 4 )
 
 [node name="FullScreenPanel" parent="." instance=ExtResource( 3 )]
-margin_right = 480.0
-margin_bottom = 480.0
+margin_right = 960.0
+margin_bottom = 960.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
-margin_right = 480.0
-margin_bottom = 612.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 967.0
+margin_bottom = 1177.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 8.0
@@ -32,41 +27,41 @@ __meta__ = {
 }
 
 [node name="NavBar" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 12 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 480.0
-margin_bottom = 128.0
+margin_right = 960.0
+margin_bottom = 206.0
 text = "Notification"
 
 [node name="CenteredPanel" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 132.0
-margin_right = 480.0
-margin_bottom = 612.0
+margin_top = 210.0
+margin_right = 960.0
+margin_bottom = 1170.0
 stretches_vertically = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel"]
-margin_right = 480.0
-margin_bottom = 480.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 953.0
+margin_bottom = 953.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
-margin_right = 480.0
-margin_bottom = 480.0
+margin_right = 946.0
+margin_bottom = 946.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 100.0
-margin_top = 162.0
-margin_right = 380.0
-margin_bottom = 318.0
-rect_min_size = Vector2( 280, 0 )
+margin_left = 273.0
+margin_top = 395.0
+margin_right = 673.0
+margin_bottom = 551.0
+rect_min_size = Vector2( 400, 0 )
 
 [node name="BodyText" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_right = 280.0
+margin_right = 400.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 5 )
 text = "Notification message"
@@ -77,9 +72,9 @@ __meta__ = {
 }
 
 [node name="Spacer6" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_left = 140.0
+margin_left = 200.0
 margin_top = 27.0
-margin_right = 140.0
+margin_right = 200.0
 margin_bottom = 42.0
 rect_min_size = Vector2( 0, 15 )
 size_flags_horizontal = 4
@@ -89,18 +84,18 @@ __meta__ = {
 }
 
 [node name="NotificationLink" type="LinkButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_left = 81.0
+margin_left = 129.0
 margin_top = 46.0
-margin_right = 199.0
+margin_right = 270.0
 margin_bottom = 69.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 5 )
 text = "Notification link"
 
 [node name="Spacer5" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_left = 140.0
+margin_left = 200.0
 margin_top = 73.0
-margin_right = 140.0
+margin_right = 200.0
 margin_bottom = 88.0
 rect_min_size = Vector2( 0, 15 )
 size_flags_horizontal = 4
@@ -110,11 +105,9 @@ __meta__ = {
 }
 
 [node name="CloseButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 40.0
+margin_left = 100.0
 margin_top = 92.0
-margin_right = 240.0
+margin_right = 300.0
 margin_bottom = 132.0
 rect_min_size = Vector2( 200, 40 )
 size_flags_horizontal = 4
@@ -122,12 +115,13 @@ size_flags_vertical = 4
 text = "Close"
 
 [node name="Spacer4" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_left = 140.0
+margin_left = 200.0
 margin_top = 136.0
-margin_right = 140.0
+margin_right = 200.0
 margin_bottom = 156.0
 rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
+
 [connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/NotificationLink" to="." method="_on_NotificationLink_pressed"]
 [connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]
