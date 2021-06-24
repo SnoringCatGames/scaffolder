@@ -55,9 +55,9 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
 margin_left = 268.0
-margin_top = 118.0
+margin_top = 102.0
 margin_right = 678.0
-margin_bottom = 828.0
+margin_bottom = 844.0
 
 [node name="Title" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 12 )]
 margin_right = 410.0
@@ -75,7 +75,7 @@ size_flags_stretch_ratio = 0.5
 [node name="VBoxContainer4" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_top = 38.0
 margin_right = 410.0
-margin_bottom = 193.0
+margin_bottom = 209.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 4
@@ -100,7 +100,7 @@ texture_scale = Vector2( 0.5, 0.5 )
 [node name="DeveloperNameLink" type="LinkButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer4"]
 margin_top = 89.0
 margin_right = 410.0
-margin_bottom = 120.0
+margin_bottom = 128.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 7 )
 text = "Created by Snoring Cat LLC"
@@ -110,10 +110,10 @@ __meta__ = {
 }
 
 [node name="DeveloperUrlLink" type="LinkButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer4"]
-margin_left = 12.0
-margin_top = 124.0
-margin_right = 398.0
-margin_bottom = 155.0
+margin_left = 13.0
+margin_top = 132.0
+margin_right = 396.0
+margin_bottom = 171.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 7 )
 text = "https://snoringcat.games"
@@ -124,9 +124,9 @@ __meta__ = {
 
 [node name="Spacer3" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_left = 205.0
-margin_top = 197.0
+margin_top = 213.0
 margin_right = 205.0
-margin_bottom = 237.0
+margin_bottom = 253.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -134,9 +134,9 @@ size_flags_stretch_ratio = 0.8
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_left = 81.0
-margin_top = 241.0
+margin_top = 257.0
 margin_right = 329.0
-margin_bottom = 361.0
+margin_bottom = 385.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 4
@@ -163,7 +163,7 @@ texture_scale = Vector2( 0.5, 0.5 )
 [node name="LinkButton" type="LinkButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer3"]
 margin_top = 89.0
 margin_right = 248.0
-margin_bottom = 120.0
+margin_bottom = 128.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 7 )
 text = "Made with Godot"
@@ -174,18 +174,18 @@ __meta__ = {
 
 [node name="Spacer1" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_left = 205.0
-margin_top = 365.0
+margin_top = 389.0
 margin_right = 205.0
-margin_bottom = 405.0
+margin_bottom = 429.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
 
 [node name="SpecialThanksContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_top = 409.0
+margin_top = 433.0
 margin_right = 410.0
-margin_bottom = 518.0
+margin_bottom = 550.0
 custom_constants/separation = 12
 __meta__ = {
 "_edit_use_anchors_": false
@@ -194,7 +194,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/SpecialThanksContainer"]
 margin_left = 93.0
 margin_right = 316.0
-margin_bottom = 31.0
+margin_bottom = 39.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 7 )
 text = "Special thanks:"
@@ -203,27 +203,27 @@ valign = 1
 
 [node name="SpecialThanks" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/SpecialThanksContainer"]
 margin_left = 205.0
-margin_top = 43.0
+margin_top = 51.0
 margin_right = 205.0
-margin_bottom = 57.0
+margin_bottom = 65.0
 size_flags_horizontal = 4
 align = 1
 valign = 1
 
 [node name="Spacer5" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/SpecialThanksContainer"]
 margin_left = 205.0
-margin_top = 69.0
+margin_top = 77.0
 margin_right = 205.0
-margin_bottom = 109.0
+margin_bottom = 117.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_top = 522.0
+margin_top = 554.0
 margin_right = 410.0
-margin_bottom = 630.0
+margin_bottom = 662.0
 custom_constants/separation = 12
 __meta__ = {
 "_edit_use_anchors_": false
@@ -267,15 +267,14 @@ size_flags_stretch_ratio = 0.6
 
 [node name="AccordionPanel" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 10 )]
 margin_left = 45.0
-margin_top = 634.0
+margin_top = 666.0
 margin_right = 365.0
-margin_bottom = 666.0
+margin_bottom = 698.0
 rect_min_size = Vector2( 320, 32 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 header_text = "More details"
-is_caret_on_left = false
-padding = Vector2( 16, 8 )
+is_header_text_centered = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel"]
 margin_right = 40.0
@@ -331,9 +330,9 @@ __meta__ = {
 
 [node name="PaddingBottom" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_left = 205.0
-margin_top = 670.0
+margin_top = 702.0
 margin_right = 205.0
-margin_bottom = 710.0
+margin_bottom = 742.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 3

@@ -29,9 +29,11 @@ export var header_min_height := 0.0 setget \
 export var header_font: Font setget _set_header_font,_get_header_font
 export var uses_header_color := false setget \
         _set_uses_header_color,_get_uses_header_color
-export var is_caret_on_left := true setget \
+export var is_header_text_centered := false setget \
+        _set_is_header_text_centered,_get_is_header_text_centered
+export var is_caret_on_left := false setget \
         _set_is_caret_on_left,_get_is_caret_on_left
-export var padding := Vector2(8.0, 4.0) setget _set_padding,_get_padding
+export var padding := Vector2(16.0, 8.0) setget _set_padding,_get_padding
 export var extra_scroll_height_for_custom_header := 0.0 setget \
         _set_extra_scroll_height_for_custom_header, \
         _get_extra_scroll_height_for_custom_header
@@ -180,8 +182,6 @@ func _create_header() -> void:
     _header.add_stylebox_override("normal", _header_normal_stylebox)
     _header.add_stylebox_override("hover", _header_hover_stylebox)
     _header.add_stylebox_override("pressed", _header_pressed_stylebox)
-    if uses_header_color:
-        _header.add_color_override("font_color", Gs.colors.header)
     
     _header_hbox = HBoxContainer.new()
     _header.add_child(_header_hbox)
@@ -214,6 +214,10 @@ func _create_header() -> void:
     _spacer2.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
     _spacer2.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     
+    if uses_header_color:
+        _header.add_color_override("font_color", Gs.colors.header)
+        _header_label.add_color_override("font_color", Gs.colors.header)
+    
     _update_header_arrangement()
     
     add_child(_header)
@@ -227,10 +231,19 @@ func _update_header_arrangement() -> void:
     if is_caret_on_left:
         _header_hbox.add_child(_caret)
         _header_hbox.add_child(_header_label)
+        _header_label.align = Label.ALIGN_RIGHT
     else:
         _header_hbox.add_child(_header_label)
         _header_hbox.add_child(_caret)
+        _header_label.align = Label.ALIGN_LEFT
     _header_hbox.add_child(_spacer2)
+    
+    if is_header_text_centered:
+        _header_label.text = ""
+        _header.text = header_text
+    else:
+        _header_label.text = header_text
+        _header.text = ""
 
 
 func _update_children() -> void:
@@ -452,7 +465,7 @@ func _get_includes_header() -> bool:
 func _set_header_text(value: String) -> void:
     header_text = value
     if _is_ready and includes_header:
-        _header.text = value
+        _update_children()
 
 
 func _get_header_text() -> String:
@@ -487,6 +500,16 @@ func _set_uses_header_color(value: bool) -> void:
 
 func _get_uses_header_color() -> bool:
     return uses_header_color
+
+
+func _set_is_header_text_centered(value: bool) -> void:
+    is_header_text_centered = value
+    if _is_ready:
+        _update_children()
+
+
+func _get_is_header_text_centered() -> bool:
+    return is_header_text_centered
 
 
 func _set_is_caret_on_left(value: bool) -> void:
