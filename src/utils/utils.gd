@@ -636,39 +636,7 @@ func _scale_gui_recursively(gui) -> void:
     assert(gui is Control)
     var control: Control = gui
     
-    # Record original dimensions.
-    if !control.has_meta("gs_rect_size"):
-        control.set_meta("gs_rect_size", control.rect_size)
-    if !control.has_meta("gs_rect_min_size"):
-        control.set_meta("gs_rect_min_size", control.rect_min_size)
-    if !control.has_meta("gs_rect_scale"):
-        control.set_meta("gs_rect_scale", control.rect_scale)
-    if !control.has_meta("gs_rect_position"):
-        control.set_meta("gs_rect_position", control.rect_position)
-#        control.set_meta("gs_rect_pivot_offset", control.rect_pivot_offset)
-        if control is VBoxContainer or \
-                control is HBoxContainer:
-            if !control.has_meta("gs_separation"):
-                control.set_meta(
-                        "gs_separation",
-                        control.get_constant("separation"))
-        if control is MarginContainer:
-            if !control.has_meta("gs_margin_right"):
-                control.set_meta(
-                        "gs_margin_right",
-                        control.get_constant("margin_right"))
-            if !control.has_meta("gs_margin_top"):
-                control.set_meta(
-                        "gs_margin_top",
-                        control.get_constant("margin_top"))
-            if !control.has_meta("gs_margin_left"):
-                control.set_meta(
-                        "gs_margin_left",
-                        control.get_constant("margin_left"))
-            if !control.has_meta("gs_margin_bottom"):
-                control.set_meta(
-                        "gs_margin_bottom",
-                        control.get_constant("margin_bottom"))
+    _record_gui_original_dimensions(control)
     
     # Retrieve original dimensions.
     var original_rect_size: Vector2 = control.get_meta("gs_rect_size")
@@ -760,6 +728,50 @@ func _scale_gui_recursively(gui) -> void:
     # prevented this from updating correctly before.
     if explicitly_updates_rect_size:
         control.rect_size = next_rect_size
+
+
+func _record_gui_original_dimensions_recursively(gui) -> void:
+    if !(gui is Control):
+        return
+    _record_gui_original_dimensions(gui)
+    for child in gui.get_children():
+        _record_gui_original_dimensions_recursively(child)
+
+
+func _record_gui_original_dimensions(control: Control) -> void:
+    # Record original dimensions.
+    if !control.has_meta("gs_rect_size"):
+        control.set_meta("gs_rect_size", control.rect_size)
+    if !control.has_meta("gs_rect_min_size"):
+        control.set_meta("gs_rect_min_size", control.rect_min_size)
+    if !control.has_meta("gs_rect_scale"):
+        control.set_meta("gs_rect_scale", control.rect_scale)
+    if !control.has_meta("gs_rect_position"):
+        control.set_meta("gs_rect_position", control.rect_position)
+#    control.set_meta("gs_rect_pivot_offset", control.rect_pivot_offset)
+    if control is VBoxContainer or \
+            control is HBoxContainer:
+        if !control.has_meta("gs_separation"):
+            control.set_meta(
+                    "gs_separation",
+                    control.get_constant("separation"))
+    if control is MarginContainer:
+        if !control.has_meta("gs_margin_right"):
+            control.set_meta(
+                    "gs_margin_right",
+                    control.get_constant("margin_right"))
+        if !control.has_meta("gs_margin_top"):
+            control.set_meta(
+                    "gs_margin_top",
+                    control.get_constant("margin_top"))
+        if !control.has_meta("gs_margin_left"):
+            control.set_meta(
+                    "gs_margin_left",
+                    control.get_constant("margin_left"))
+        if !control.has_meta("gs_margin_bottom"):
+            control.set_meta(
+                    "gs_margin_bottom",
+                    control.get_constant("margin_bottom"))
 
 
 func set_link_color_recursively(node: Node) -> void:

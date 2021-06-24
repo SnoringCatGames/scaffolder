@@ -68,17 +68,7 @@ func create_control() -> Control:
 
 
 func set_check_box_scale(check_box_scale: float) -> void:
-    var control_rect_size: float = Gs.gui.current_checkbox_icon_size
-    var control_rect_scale := _get_icon_scale(check_box_scale)
-    control.rect_min_size.x = control_rect_size
-    control.rect_size.x = control_rect_size
-    control.scale = control_rect_scale
-
-
-func _get_icon_scale(check_box_scale: float) -> float:
-    var target_icon_size: float = \
-            Gs.gui.default_checkbox_icon_size * Gs.gui.scale * check_box_scale
-    return target_icon_size / Gs.gui.current_checkbox_icon_size
+    control.scale = check_box_scale
 
 
 func _on_checkbox_pressed() -> void:
