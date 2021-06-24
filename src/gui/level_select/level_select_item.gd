@@ -41,8 +41,7 @@ func _init_children() -> void:
     locked_header.init_children()
     unlocked_header.init_children()
     
-    accordion.extra_scroll_height_for_custom_header = \
-            $HeaderWrapper.rect_size.y
+    accordion.extra_scroll_height_for_custom_header = HEADER_HEIGHT
     
     rect_min_size.x = Gs.gui.screen_body_width
     set_meta("gs_rect_min_size", rect_min_size)
