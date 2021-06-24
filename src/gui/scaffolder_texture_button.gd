@@ -30,7 +30,6 @@ var _is_ready := false
 func _ready() -> void:
     _is_ready = true
     
-    set_meta("gs_rect_position", rect_position)
     set_meta("gs_rect_size", rect_size)
     set_meta("gs_rect_min_size", rect_min_size)
     
@@ -46,11 +45,9 @@ func _ready() -> void:
 
 
 func update_gui_scale() -> bool:
-    var original_rect_position: Vector2 = get_meta("gs_rect_position")
     var original_rect_size: Vector2 = get_meta("gs_rect_size")
     var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
     
-    rect_position = original_rect_position * Gs.gui.scale
     rect_min_size = original_rect_min_size * Gs.gui.scale
     rect_size = original_rect_size * Gs.gui.scale
     $TextureButton.rect_scale = texture_scale * Gs.gui.scale

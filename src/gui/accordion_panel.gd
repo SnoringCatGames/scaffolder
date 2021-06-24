@@ -73,7 +73,6 @@ func _ready() -> void:
     _is_ready = true
     rect_clip_content = true
     
-    set_meta("gs_rect_position", rect_position)
     set_meta("gs_rect_size", rect_size)
     set_meta("gs_rect_min_size", rect_min_size)
     
@@ -103,8 +102,6 @@ func update_gui_scale() -> bool:
 
 
 func update_gui_scale_deferred() -> void:
-    var original_rect_position: Vector2 = get_meta("gs_rect_position")
-    
     rect_min_size.x = \
             (header_size_override.x if \
             header_size_override.x != 0.0 else \
@@ -140,8 +137,6 @@ func update_gui_scale_deferred() -> void:
     _projected_control.rect_size.x = rect_size.x
     if is_instance_valid(_header):
         _projected_control.rect_position.y = _header.rect_size.y
-    
-    rect_position.x = original_rect_position.x * Gs.gui.scale
     
     # Update height according to the accordion contents.
     var open_ratio := 1.0 if is_open else 0.0

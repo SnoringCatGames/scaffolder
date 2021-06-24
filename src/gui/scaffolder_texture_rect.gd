@@ -15,8 +15,6 @@ var _is_ready := false
 func _ready() -> void:
     _is_ready = true
     
-    set_meta("gs_rect_position", rect_position)
-    
     _set_texture(texture)
     _set_texture_scale(texture_scale)
     
@@ -29,9 +27,6 @@ func update_gui_scale() -> bool:
 
 
 func _update_gui_scale_deferred() -> void:
-    var original_rect_position: Vector2 = get_meta("gs_rect_position")
-
-    rect_position = original_rect_position * Gs.gui.scale
     if texture != null:
         $TextureRect.rect_pivot_offset = texture.get_size() / 2.0
     $TextureRect.rect_scale = texture_scale * Gs.gui.scale
