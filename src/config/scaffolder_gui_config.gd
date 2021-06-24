@@ -349,6 +349,7 @@ func register_manifest(manifest: Dictionary) -> void:
 
 func add_gui_to_scale(gui) -> void:
     guis_to_scale[gui] = true
+#    Gs.utils._record_gui_original_dimensions_recursively(gui)
     Gs.utils._scale_gui_for_current_screen_size(gui)
 
 
