@@ -14,7 +14,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-is_open = null
 
 [node name="HeaderWrapper" type="Control" parent="."]
 mouse_filter = 2
@@ -34,9 +33,10 @@ margin_right = 0.0
 size_flags_horizontal = 3
 includes_header = false
 header_text = " "
-padding = Vector2( 16, 8 )
 
 [node name="LevelSelectItemBody" parent="AccordionPanel" instance=ExtResource( 5 )]
 
 [connection signal="unlock_finished" from="HeaderWrapper/LevelSelectItemLockedHeader" to="." method="_on_LevelSelectItemLockedHeader_unlock_finished"]
 [connection signal="pressed" from="HeaderWrapper/LevelSelectItemUnlockedHeader" to="." method="_on_LevelSelectItemUnlockedHeader_pressed"]
+[connection signal="caret_rotated" from="AccordionPanel" to="." method="_on_AccordionPanel_caret_rotated"]
+[connection signal="toggled" from="AccordionPanel" to="." method="_on_AccordionPanel_toggled"]
