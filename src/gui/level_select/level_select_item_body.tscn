@@ -28,12 +28,12 @@ margin_left = 140.0
 margin_top = 16.0
 margin_right = 260.0
 margin_bottom = 76.0
-rect_min_size = Vector2( 120, 60 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 2 )
 is_shiny = true
 includes_color_pulse = true
+size_override = Vector2( 120, 60 )
 
 [node name="LabeledControlList" parent="." instance=ExtResource( 5 )]
 margin_top = 92.0

@@ -669,11 +669,6 @@ func _scale_gui_recursively(gui) -> void:
                 control.set_meta(
                         "gs_margin_bottom",
                         control.get_constant("margin_bottom"))
-        if control is ShinyButton:
-            if !control.has_meta("gs_texture_scale"):
-                control.set_meta(
-                        "gs_texture_scale",
-                        control.texture_scale)
     
     # Retrieve original dimensions.
     var original_rect_size: Vector2 = control.get_meta("gs_rect_size")
@@ -701,10 +696,6 @@ func _scale_gui_recursively(gui) -> void:
     var original_margin_bottom: float = \
             control.get_meta("gs_margin_bottom") if \
             control.has_meta("gs_margin_bottom") else \
-            INF
-    var original_texture_scale: float = \
-            control.get_meta("gs_texture_scale") if \
-            control.has_meta("gs_texture_scale") else \
             INF
     
     var is_gui_container := \
@@ -743,9 +734,6 @@ func _scale_gui_recursively(gui) -> void:
         control.rect_scale = original_rect_scale * Gs.gui.scale
         
 #        control.rect_position = original_rect_position * Gs.gui.scale
-        
-        if control is ShinyButton:
-            control.texture_scale = original_texture_scale * Gs.gui.scale
         
         # This ensures that control will shrink back down, since otherwise it's
         # min would decrease but it's actual would stay constant.

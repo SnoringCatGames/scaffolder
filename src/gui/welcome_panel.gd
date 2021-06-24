@@ -24,6 +24,8 @@ func _enter_tree() -> void:
 func _ready() -> void:
     theme = Gs.gui.theme
     
+    set_meta("gs_rect_min_size", rect_min_size)
+    
     Gs.gui.add_gui_to_scale(self)
     
     var faded_color: Color = Gs.colors.zebra_stripe_even_row
@@ -58,8 +60,6 @@ func _ready() -> void:
 
 
 func update_gui_scale() -> bool:
-    if !has_meta("gs_rect_min_size"):
-        set_meta("gs_rect_min_size", rect_min_size)
     var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
 
     for child in get_children():

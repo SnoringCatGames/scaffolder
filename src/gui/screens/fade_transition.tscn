@@ -2,8 +2,6 @@
 
 [ext_resource path="res://addons/scaffolder/src/gui/screens/fade_transition.gd" type="Script" id=1]
 
-
-
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 render_mode unshaded;

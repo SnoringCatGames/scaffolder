@@ -8,6 +8,9 @@ margin_right = -0.314972
 rect_clip_content = true
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"gs_rect_min_size": Vector2( 0, 0 ),
+"gs_rect_position": Vector2( -0.314972, 0 ),
+"gs_rect_size": Vector2( 0, 0 )
 }
 padding = Vector2( 8, 4 )

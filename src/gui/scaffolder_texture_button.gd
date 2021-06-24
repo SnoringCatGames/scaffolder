@@ -29,6 +29,11 @@ var _is_ready := false
 
 func _ready() -> void:
     _is_ready = true
+    
+    set_meta("gs_rect_position", rect_position)
+    set_meta("gs_rect_size", rect_size)
+    set_meta("gs_rect_min_size", rect_min_size)
+    
     _set_texture_normal(texture_normal)
     _set_texture_pressed(texture_pressed)
     _set_texture_hover(texture_hover)
@@ -41,10 +46,6 @@ func _ready() -> void:
 
 
 func update_gui_scale() -> bool:
-    if !has_meta("gs_rect_size"):
-        set_meta("gs_rect_position", rect_position)
-        set_meta("gs_rect_size", rect_size)
-        set_meta("gs_rect_min_size", rect_min_size)
     var original_rect_position: Vector2 = get_meta("gs_rect_position")
     var original_rect_size: Vector2 = get_meta("gs_rect_size")
     var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")

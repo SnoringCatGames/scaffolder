@@ -81,11 +81,6 @@ func _ready() -> void:
             Gs.gui.is_third_party_licenses_shown
 
 
-func _on_third_party_licenses_button_pressed():
-    Gs.utils.give_button_press_feedback()
-    Gs.nav.open("third_party_licenses")
-
-
 func _on_snoring_cat_games_link_pressed():
     Gs.utils.give_button_press_feedback()
     OS.shell_open(Gs.app_metadata.developer_url)
@@ -114,3 +109,8 @@ func _on_SupportLink_pressed():
 func _on_DataDeletionButton_pressed():
     Gs.utils.give_button_press_feedback()
     Gs.nav.open("confirm_data_deletion")
+
+
+func _on_ThirdPartyLicensesButton_pressed():
+    Gs.utils.give_button_press_feedback()
+    Gs.nav.open("third_party_licenses")

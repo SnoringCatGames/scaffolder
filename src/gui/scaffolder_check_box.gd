@@ -16,10 +16,15 @@ var _is_ready := false
 
 func _ready() -> void:
     _is_ready = true
+    
+    set_meta("gs_rect_size", rect_size)
+    set_meta("gs_rect_min_size", rect_min_size)
+    
     _set_text(text)
     _set_pressed(pressed)
     _set_disabled(disabled)
     _set_scale(scale)
+    
     update_gui_scale()
 
 
@@ -29,9 +34,6 @@ func update_gui_scale() -> bool:
 
 
 func _deferred_update_gui_scale() -> void:
-    if !has_meta("gs_rect_size"):
-        set_meta("gs_rect_size", rect_size)
-        set_meta("gs_rect_min_size", rect_min_size)
     var original_rect_size: Vector2 = get_meta("gs_rect_size")
     var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
     

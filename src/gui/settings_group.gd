@@ -26,7 +26,6 @@ func _ready() -> void:
         list = $AccordionPanel/VBoxContainer/LabeledControlList
         
         $AccordionPanel.header_text = group_config.label
-        $AccordionPanel.header_min_height = 32.0
     else:
         $AccordionPanel.queue_free()
         list = $LabeledControlList

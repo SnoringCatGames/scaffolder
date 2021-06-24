@@ -7,7 +7,6 @@
 [ext_resource path="res://addons/scaffolder/src/gui/level_select/level_select_item_unlocked_header.tscn" type="PackedScene" id=8]
 
 [node name="LevelSelectItem" type="VBoxContainer"]
-rect_min_size = Vector2( 400, 56 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_constants/separation = 0
@@ -17,11 +16,9 @@ __meta__ = {
 }
 
 [node name="HeaderWrapper" type="Control" parent="."]
-margin_right = 400.0
-margin_bottom = 56.0
-rect_min_size = Vector2( 400, 56 )
 mouse_filter = 2
 mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
 
 [node name="LevelSelectItemLockedHeader" parent="HeaderWrapper" instance=ExtResource( 4 )]
 size_flags_horizontal = 3
@@ -32,14 +29,10 @@ visible = false
 
 [node name="AccordionPanel" parent="." instance=ExtResource( 2 )]
 margin_left = 0.0
-margin_top = 56.0
-margin_right = 400.0
-margin_bottom = 56.0
+margin_right = 0.0
 size_flags_horizontal = 3
 includes_header = false
 header_text = " "
-header_min_height = 40.0
-is_caret_on_left = false
 padding = Vector2( 16, 8 )
 
 [node name="LevelSelectItemBody" parent="AccordionPanel" instance=ExtResource( 5 )]

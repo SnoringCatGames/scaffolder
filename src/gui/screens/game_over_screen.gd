@@ -50,6 +50,8 @@ func _on_activated(previous_screen_name: String) -> void:
     ._on_activated(previous_screen_name)
     Gs.audio.play_music(Gs.audio_manifest.game_over_music)
     _update_stats()
+    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/AccordionPanel.toggle()
 
 
 func _get_focused_button() -> ShinyButton:

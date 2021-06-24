@@ -128,6 +128,10 @@ var debug_window_size: Vector2
 var camera_smoothing_speed: float
 var default_camera_zoom := 1.0
 
+var button_height := 56.0
+var button_width := 230.0
+var screen_body_width := 460.0
+
 var is_data_deletion_button_shown: bool
 
 var input_vibrate_duration := 0.01
@@ -293,6 +297,12 @@ func register_manifest(manifest: Dictionary) -> void:
         self.default_camera_zoom = manifest.default_camera_zoom
     if manifest.has("camera_smoothing_speed"):
         self.camera_smoothing_speed = manifest.camera_smoothing_speed
+    if manifest.has("button_height"):
+        self.button_height = manifest.button_height
+    if manifest.has("button_width"):
+        self.button_width = manifest.button_width
+    if manifest.has("screen_body_width"):
+        self.screen_body_width = manifest.screen_body_width
     if manifest.has("input_vibrate_duration"):
         self.input_vibrate_duration = \
                 manifest.input_vibrate_duration
