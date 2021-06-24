@@ -397,8 +397,11 @@ func _on_batch_request_completed(
 
 
 class _AnalyticsEntry extends Reference:
+    
+    
     var payload: String
     var time: float
+    
     
     func _init(payload: String) -> void:
         self.payload = payload
