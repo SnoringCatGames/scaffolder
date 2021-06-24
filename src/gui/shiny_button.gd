@@ -10,6 +10,7 @@ const SHINE_INTERVAL := 3.5
 const SHINE_SCALE := Vector2(1.0, 1.0)
 const COLOR_PULSE_DURATION := 1.2
 const COLOR_PULSE_INTERVAL := 2.4
+const MIN_PADDING := 8.0
 
 export var texture: Texture setget _set_texture,_get_texture
 export var texture_scale := Vector2(1.0, 1.0) setget \
@@ -18,6 +19,8 @@ export var is_shiny := false setget _set_is_shiny,_get_is_shiny
 export var includes_color_pulse := false setget \
         _set_includes_color_pulse,_get_includes_color_pulse
 export var is_font_xl := false setget _set_is_font_xl,_get_is_font_xl
+export var size_override := Vector2.ZERO setget \
+        _set_size_override,_get_size_override
 
 var shine_interval_id := -1
 var color_pulse_interval_id := -1
@@ -33,6 +36,8 @@ var button_style_pulse: StyleBoxFlat
 var shine_tween := ScaffolderTween.new()
 var color_pulse_tween := ScaffolderTween.new()
 
+var _is_ready := false
+
 
 func _enter_tree() -> void:
     add_child(shine_tween)
@@ -40,6 +45,8 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+    _is_ready = true
+    
     button_style_normal = $MarginContainer/BottomButton.get_stylebox("normal")
     button_style_hover = $MarginContainer/BottomButton.get_stylebox("hover")
     button_style_pressed = \
@@ -47,7 +54,8 @@ func _ready() -> void:
     
     Gs.utils.connect(
             "display_resized", self, "update")
-    update()
+    
+    update_gui_scale()
 
 
 func _exit_tree() -> void:
@@ -56,33 +64,25 @@ func _exit_tree() -> void:
 
 
 func update_gui_scale() -> bool:
-    if !has_meta("gs_rect_size"):
-        set_meta("gs_rect_position", rect_position)
-        set_meta("gs_rect_size", rect_size)
-        set_meta("gs_rect_min_size", rect_min_size)
-        set_meta("gs_texture_scale", texture_scale)
-    var original_rect_position: Vector2 = get_meta("gs_rect_position")
-    var original_rect_size: Vector2 = get_meta("gs_rect_size")
-    var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
-    var original_texture_scale: Vector2 = get_meta("gs_texture_scale")
-
-    texture_scale = original_texture_scale * Gs.gui.scale
-    rect_min_size = original_rect_min_size * Gs.gui.scale
-    rect_size = original_rect_size * Gs.gui.scale
-    rect_position = original_rect_position * Gs.gui.scale
-    $MarginContainer/ShineLineWrapper/ShineLine.scale = \
-            SHINE_SCALE * Gs.gui.scale
-    $MarginContainer/ScaffolderTextureRect.update_gui_scale()
     update()
-    
     return true
 
 
 func update() -> void:
-    call_deferred("_deferred_update")
+    rect_min_size.x = \
+            (size_override.x if \
+            size_override.x != 0.0 else \
+            Gs.gui.button_width) * Gs.gui.scale
+    rect_min_size.y = \
+            (size_override.y if \
+            size_override.y != 0.0 else \
+            Gs.gui.button_height) * Gs.gui.scale
+    rect_size = rect_min_size
 
-
-func _deferred_update() -> void:
+    $MarginContainer/ShineLineWrapper/ShineLine.scale = \
+            SHINE_SCALE * Gs.gui.scale
+    $MarginContainer/ScaffolderTextureRect.update_gui_scale()
+    
     var half_size := rect_size / 2.0
     var shine_base_position: Vector2 = half_size
     shine_start_x = shine_base_position.x - rect_size.x
@@ -99,8 +99,10 @@ func _deferred_update() -> void:
     
     $MarginContainer.rect_size = rect_size
     $MarginContainer/BottomButton.text = text
+    $MarginContainer/ShineLineWrapper/ShineLine.visible = is_shiny
     $MarginContainer/ShineLineWrapper/ShineLine.position = \
             Vector2(shine_start_x, shine_base_position.y)
+    $MarginContainer/ScaffolderTextureRect.visible = texture != null
     $MarginContainer/ScaffolderTextureRect.texture = texture
     $MarginContainer/ScaffolderTextureRect.texture_scale = texture_scale
     var font: Font = \
@@ -181,7 +183,8 @@ func _trigger_color_pulse() -> void:
 
 func _set_texture(value: Texture) -> void:
     texture = value
-    update()
+    if _is_ready:
+        update()
 
 
 func _get_texture() -> Texture:
@@ -190,7 +193,8 @@ func _get_texture() -> Texture:
 
 func _set_texture_scale(value: Vector2) -> void:
     texture_scale = value
-    update()
+    if _is_ready:
+        update()
 
 
 func _get_texture_scale() -> Vector2:
@@ -199,7 +203,8 @@ func _get_texture_scale() -> Vector2:
 
 func _set_is_shiny(value: bool) -> void:
     is_shiny = value
-    update()
+    if _is_ready:
+        update()
 
 
 func _get_is_shiny() -> bool:
@@ -208,7 +213,8 @@ func _get_is_shiny() -> bool:
 
 func _set_includes_color_pulse(value: bool) -> void:
     includes_color_pulse = value
-    update()
+    if _is_ready:
+        update()
 
 
 func _get_includes_color_pulse() -> bool:
@@ -217,11 +223,22 @@ func _get_includes_color_pulse() -> bool:
 
 func _set_is_font_xl(value: bool) -> void:
     is_font_xl = value
-    update()
+    if _is_ready:
+        update()
 
 
 func _get_is_font_xl() -> bool:
     return is_font_xl
+
+
+func _set_size_override(value: Vector2) -> void:
+    size_override = value
+    if _is_ready:
+        update()
+
+
+func _get_size_override() -> Vector2:
+    return size_override
 
 
 func press() -> void:

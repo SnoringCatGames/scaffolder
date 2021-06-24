@@ -19,7 +19,7 @@ func _init().(
     pass
 
 
-func _enter_tree() -> void:
+func _ready() -> void:
     move_canvas_layer_to_game_viewport("annotation")
     
     var loading_image_wrapper := \
@@ -35,6 +35,9 @@ func _enter_tree() -> void:
                 true, \
                 0)
         loading_image.set_base_scale(0.5)
+    
+    inner_vbox = $PanelContainer/LoadProgressPanel/VBoxContainer
+    inner_vbox.rect_min_size.x = Gs.gui.screen_body_width
     
     _on_resized()
 

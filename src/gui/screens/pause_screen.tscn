@@ -54,71 +54,70 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 193.0
-margin_top = 363.0
-margin_right = 753.0
-margin_bottom = 583.0
-rect_min_size = Vector2( 560, 0 )
+margin_left = 465.0
+margin_top = 421.0
+margin_right = 481.0
+margin_bottom = 525.0
 custom_constants/separation = 0
 
 [node name="LabeledControlList" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 9 )]
-margin_right = 560.0
+margin_right = 16.0
 row_height = 0.0
 padding_horizontal = 6.0
 
 [node name="Spacer2" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_left = 280.0
-margin_right = 280.0
+margin_left = 8.0
+margin_right = 8.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_left = 216.0
 margin_top = 20.0
-margin_right = 344.0
-margin_bottom = 180.0
+margin_right = 16.0
+margin_bottom = 64.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 16
 
 [node name="ResumeButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 10 )]
-margin_right = 128.0
-margin_bottom = 88.0
-rect_min_size = Vector2( 128, 88 )
+margin_left = 8.0
+margin_right = 8.0
+margin_bottom = 14.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 5 )
+size_override = Vector2( 128, 88 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer"]
-margin_top = 104.0
-margin_right = 128.0
-margin_bottom = 160.0
+margin_top = 30.0
+margin_right = 16.0
+margin_bottom = 44.0
 custom_constants/separation = 16
 
 [node name="ExitLevelButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
-margin_right = 56.0
-margin_bottom = 56.0
-rect_min_size = Vector2( 56, 56 )
+margin_right = 0.0
+margin_bottom = 14.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 6 )
+size_override = Vector2( 56, 56 )
 
 [node name="RestartButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
-margin_left = 72.0
-margin_right = 128.0
-margin_bottom = 56.0
-rect_min_size = Vector2( 56, 56 )
+margin_left = 16.0
+margin_right = 16.0
+margin_bottom = 14.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 7 )
+size_override = Vector2( 56, 56 )
 
 [node name="Spacer3" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_left = 280.0
-margin_top = 180.0
-margin_right = 280.0
-margin_bottom = 220.0
+margin_left = 8.0
+margin_top = 64.0
+margin_right = 8.0
+margin_bottom = 104.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 4

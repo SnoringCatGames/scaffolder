@@ -20,38 +20,41 @@ margin_right = 960.0
 margin_bottom = 960.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
-margin_right = 1024.0
-margin_bottom = 1156.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 967.0
+margin_bottom = 1177.0
 
 [node name="NavBar" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 3 )]
-margin_right = 1024.0
-margin_bottom = 192.0
+margin_right = 960.0
+margin_bottom = 206.0
 text = "Third-party licenses"
 
 [node name="CenteredPanel" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 196.0
-margin_right = 1024.0
-margin_bottom = 676.0
-stretches_horizontally = false
+margin_top = 210.0
+margin_right = 960.0
+margin_bottom = 1170.0
 stretches_vertically = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel"]
-margin_right = 1024.0
-margin_bottom = 480.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 953.0
+margin_bottom = 953.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
-margin_right = 1024.0
+margin_right = 946.0
 margin_bottom = 294.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/VBoxContainer"]
-margin_left = 63.0
-margin_right = 959.0
+margin_left = 25.0
+margin_right = 921.0
 margin_bottom = 294.0
 rect_min_size = Vector2( 896, 294 )
 size_flags_horizontal = 4

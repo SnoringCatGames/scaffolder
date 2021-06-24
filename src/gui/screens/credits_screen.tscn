@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=2]
 
+[ext_resource path="res://addons/scaffolder/src/gui/shiny_button.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/godot_logo_about.png" type="Texture" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/credits_screen.gd" type="Script" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/nav_bar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/full_screen_panel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres" type="DynamicFont" id=7]
 [ext_resource path="res://addons/scaffolder/src/gui/centered_panel.tscn" type="PackedScene" id=8]
-[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=9]
 [ext_resource path="res://addons/scaffolder/src/gui/accordion_panel.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/scaffolder/src/gui/scaffolder_texture_rect.tscn" type="PackedScene" id=12]
 
@@ -154,9 +154,9 @@ size_flags_vertical = 4
 underline = 2
 
 [node name="GodotLogo" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer3/LinkButton2" instance=ExtResource( 12 )]
-margin_right = 234.5
-margin_bottom = 85.0
-rect_min_size = Vector2( 234.5, 85 )
+margin_right = 469.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 469, 170 )
 texture = ExtResource( 2 )
 texture_scale = Vector2( 0.5, 0.5 )
 
@@ -266,11 +266,11 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
 
 [node name="AccordionPanel" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 10 )]
-margin_left = 45.0
+margin_left = 25.0
 margin_top = 666.0
-margin_right = 365.0
+margin_right = 385.0
 margin_bottom = 698.0
-rect_min_size = Vector2( 320, 32 )
+rect_min_size = Vector2( 360, 32 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 header_text = "More details"
@@ -284,29 +284,28 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer"]
-margin_left = 160.0
-margin_right = 160.0
+margin_left = 180.0
+margin_right = 180.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="DataDeletionButton" type="Button" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer"]
-margin_left = 56.0
+[node name="DataDeletionButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer" instance=ExtResource( 1 )]
+margin_left = 110.0
 margin_top = 14.0
-margin_right = 264.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 200, 40 )
+margin_right = 250.0
+margin_bottom = 28.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
 text = "Request data deletion"
+size_override = Vector2( 360, 0 )
 
 [node name="DataDeletionButtonPadding" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer"]
-margin_left = 160.0
-margin_top = 58.0
-margin_right = 160.0
-margin_bottom = 88.0
+margin_left = 180.0
+margin_top = 32.0
+margin_right = 180.0
+margin_bottom = 62.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -315,18 +314,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ThirdPartyLicensesButton" type="Button" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer"]
-margin_top = 92.0
-margin_right = 321.0
-margin_bottom = 142.0
-rect_min_size = Vector2( 320, 50 )
+[node name="ThirdPartyLicensesButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer" instance=ExtResource( 1 )]
+margin_left = 117.0
+margin_top = 66.0
+margin_right = 243.0
+margin_bottom = 80.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 7 )
 text = "Third-party licenses"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+size_override = Vector2( 360, 0 )
 
 [node name="PaddingBottom" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_left = 205.0
@@ -346,4 +342,4 @@ size_flags_vertical = 3
 [connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/PrivacyPolicyLink" to="." method="_on_PrivacyPolicyLink_pressed"]
 [connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/SupportLink" to="." method="_on_SupportLink_pressed"]
 [connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer/DataDeletionButton" to="." method="_on_DataDeletionButton_pressed"]
-[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer/ThirdPartyLicensesButton" to="." method="_on_third_party_licenses_button_pressed"]
+[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer/ThirdPartyLicensesButton" to="." method="_on_ThirdPartyLicensesButton_pressed"]

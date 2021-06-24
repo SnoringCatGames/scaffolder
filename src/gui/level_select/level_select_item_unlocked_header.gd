@@ -60,8 +60,7 @@ func update_size(header_size: Vector2) -> void:
     $HBoxContainer.rect_min_size = header_size
     $HBoxContainer.rect_size = header_size
     
-    $HBoxContainer/Caret.texture_scale = \
-            AccordionPanel.CARET_SCALE * Gs.gui.scale
+    $HBoxContainer/Caret.texture_scale = AccordionPanel.CARET_SCALE
     
     rect_size = header_size
 

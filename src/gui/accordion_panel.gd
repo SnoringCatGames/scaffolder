@@ -24,8 +24,6 @@ export var is_open := false setget _set_is_open,_get_is_open
 export var includes_header := true setget \
         _set_includes_header,_get_includes_header
 export var header_text := "" setget _set_header_text,_get_header_text
-export var header_min_height := 0.0 setget \
-        _set_header_min_height,_get_header_min_height
 export var header_font: Font setget _set_header_font,_get_header_font
 export var uses_header_color := false setget \
         _set_uses_header_color,_get_uses_header_color
@@ -37,6 +35,8 @@ export var padding := Vector2(16.0, 8.0) setget _set_padding,_get_padding
 export var extra_scroll_height_for_custom_header := 0.0 setget \
         _set_extra_scroll_height_for_custom_header, \
         _get_extra_scroll_height_for_custom_header
+export var header_size_override := Vector2.ZERO setget \
+        _set_header_size_override,_get_header_size_override
 
 var height_override := INF
 
@@ -73,6 +73,10 @@ func _ready() -> void:
     _is_ready = true
     rect_clip_content = true
     
+    set_meta("gs_rect_position", rect_position)
+    set_meta("gs_rect_size", rect_size)
+    set_meta("gs_rect_min_size", rect_min_size)
+    
     move_child(_is_open_tween, 0)
     
     _update_children()
@@ -99,13 +103,13 @@ func update_gui_scale() -> bool:
 
 
 func update_gui_scale_deferred() -> void:
-    if !has_meta("gs_rect_size"):
-        set_meta("gs_rect_position", rect_position)
-        set_meta("gs_rect_size", rect_size)
-        set_meta("gs_rect_min_size", rect_min_size)
     var original_rect_position: Vector2 = get_meta("gs_rect_position")
-    var original_rect_size: Vector2 = get_meta("gs_rect_size")
-    var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
+    
+    rect_min_size.x = \
+            (header_size_override.x if \
+            header_size_override.x != 0.0 else \
+            Gs.gui.screen_body_width) * Gs.gui.scale
+    rect_size = rect_min_size
     
     if is_instance_valid(_header):
         if includes_header:
@@ -113,18 +117,21 @@ func update_gui_scale_deferred() -> void:
                     "separation",
                     padding.x * Gs.gui.scale)
             
-            _caret.texture_scale = CARET_SCALE * Gs.gui.scale
+            _caret.texture_scale = CARET_SCALE
             
             var texture_height := \
                     CARET_SIZE_DEFAULT.y * CARET_SCALE.y * Gs.gui.scale
             var label_height := _header_label.rect_size.y
+            var min_height := \
+                    (header_size_override.y if \
+                    header_size_override.y != 0.0 else \
+                    Gs.gui.button_height) * Gs.gui.scale
             var header_height := max(
-                    header_min_height * Gs.gui.scale,
-                    max(
-                            label_height,
-                            texture_height)) + \
+                    min_height,
+                    max(label_height,
+                        texture_height)) + \
                     padding.y * 2.0 * Gs.gui.scale
-            _header.rect_size = Vector2(rect_size.x, header_height)
+            _header.rect_size = Vector2(rect_min_size.x, header_height)
             _header_hbox.rect_size = _header.rect_size
         else:
             Gs.utils._scale_gui_recursively(_header)
@@ -135,8 +142,6 @@ func update_gui_scale_deferred() -> void:
         _projected_control.rect_position.y = _header.rect_size.y
     
     rect_position.x = original_rect_position.x * Gs.gui.scale
-    rect_min_size = original_rect_min_size * Gs.gui.scale
-    rect_size = original_rect_size * Gs.gui.scale
     
     # Update height according to the accordion contents.
     var open_ratio := 1.0 if is_open else 0.0
@@ -472,16 +477,6 @@ func _get_header_text() -> String:
     return header_text
 
 
-func _set_header_min_height(value: float) -> void:
-    header_min_height = value
-    if _is_ready:
-        _update_children()
-
-
-func _get_header_min_height() -> float:
-    return header_min_height
-
-
 func _set_header_font(value: Font) -> void:
     header_font = value
     if _is_ready:
@@ -540,6 +535,16 @@ func _set_extra_scroll_height_for_custom_header(value: float) -> void:
 
 func _get_extra_scroll_height_for_custom_header() -> float:
     return extra_scroll_height_for_custom_header
+
+
+func _set_header_size_override(value: Vector2) -> void:
+    header_size_override = value
+    if _is_ready:
+        _update_children()
+
+
+func _get_header_size_override() -> Vector2:
+    return header_size_override
 
 
 func update() -> void:
