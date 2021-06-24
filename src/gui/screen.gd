@@ -8,6 +8,7 @@ var auto_adapts_gui_scale: bool
 var includes_standard_hierarchy: bool
 var includes_nav_bar: bool
 var includes_center_container: bool
+var background_color: Color
 
 var outer_panel_container: PanelContainer
 var nav_bar: Control
@@ -26,13 +27,15 @@ func _init(
         auto_adapts_gui_scale: bool,
         includes_standard_hierarchy: bool,
         includes_nav_bar := true,
-        includes_center_container := true) -> void:
+        includes_center_container := true,
+        background_color := Gs.colors.background) -> void:
     self.screen_name = screen_name
     self.layer_name = layer_name
     self.auto_adapts_gui_scale = auto_adapts_gui_scale
     self.includes_standard_hierarchy = includes_standard_hierarchy
     self.includes_nav_bar = includes_nav_bar
     self.includes_center_container = includes_center_container
+    self.background_color = background_color
 
 
 func _ready() -> void:
@@ -56,7 +59,7 @@ func _validate_node_hierarchy() -> void:
     assert(outer_panel_container is PanelContainer)
     outer_panel_container.theme = Gs.gui.theme
     stylebox = Gs.utils.create_stylebox_flat_scalable({
-        bg_color = Gs.colors.background,
+        bg_color = background_color,
         shadow_size = 8,
         shadow_offset = Vector2(-4.0, 4.0),
     })

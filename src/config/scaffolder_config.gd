@@ -260,10 +260,10 @@ func _validate_project_config() -> void:
     assert(ProjectSettings.get_setting("display/window/size/height") == \
             Gs.gui.default_game_area_size.y)
     
-#    assert(geometry.are_colors_equal_with_epsilon(
-#            ProjectSettings.get_setting("application/boot_splash/bg_color"),
-#            colors.background,
-#            0.0001))
+    assert(geometry.are_colors_equal_with_epsilon(
+            ProjectSettings.get_setting("application/boot_splash/bg_color"),
+            colors.boot_splash_background,
+            0.0001))
     assert(Gs.geometry.are_colors_equal_with_epsilon(
             ProjectSettings.get_setting(
                     "rendering/environment/default_clear_color"),

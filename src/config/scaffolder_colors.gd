@@ -10,9 +10,13 @@ const ALPHA_XFAINT := 0.3
 const ALPHA_XXFAINT := 0.1
 const ALPHA_XXXFAINT := 0.03
 
+const DEFAULT_BOOT_SPLASH_BACKGROUND_COLOR := Color("202531")
+
 # --- Configured colors ---
 
 # Should match Project Settings > Application > Boot Splash > Bg Color
+var boot_splash_background: Color
+
 # Should match Project Settings > Rendering > Environment > Default Clear Color
 var background: Color
 
@@ -74,6 +78,7 @@ var scroll_bar_grabber_pressed_hsv_delta: Dictionary
 # ---
 
 var _defaults := {
+    boot_splash_background = DEFAULT_BOOT_SPLASH_BACKGROUND_COLOR,
     background = Color("404040"),
     text = Color("eeeeee"),
     header = Color("eeeeee"),
