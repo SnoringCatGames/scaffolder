@@ -45,17 +45,14 @@ func _init_children() -> void:
             $HeaderWrapper.rect_size.y
     
     rect_min_size.x = Gs.gui.screen_body_width
-    set_meta("gs_rect_position", rect_position)
     set_meta("gs_rect_min_size", rect_min_size)
     
     update_gui_scale()
 
 
 func update_gui_scale() -> bool:
-    var original_rect_position: Vector2 = get_meta("gs_rect_position")
     var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
     
-    rect_position.x = original_rect_position.x * Gs.gui.scale
     rect_min_size = original_rect_min_size * Gs.gui.scale
     rect_size = rect_min_size
     

@@ -14,6 +14,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+is_open = null
 
 [node name="HeaderWrapper" type="Control" parent="."]
 mouse_filter = 2
