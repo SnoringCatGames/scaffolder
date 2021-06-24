@@ -1,5 +1,5 @@
 tool
-class_name ShinyButton, "res://addons/scaffolder/assets/images/editor_icons/shiny_button.png"
+class_name ScaffolderButton, "res://addons/scaffolder/assets/images/editor_icons/scaffolder_button.png"
 extends Button
 
 
@@ -156,7 +156,7 @@ func _trigger_color_pulse() -> void:
             button_style_normal.bg_color if \
             button_style_normal is StyleBoxFlat else \
             Gs.colors.button_normal
-    var color_pulse: Color = Gs.colors.shiny_button_highlight
+    var color_pulse: Color = Gs.colors.scaffolder_button_highlight
     var pulse_half_duration := COLOR_PULSE_DURATION / 2.0
     
     button_style_pulse.bg_color = color_original

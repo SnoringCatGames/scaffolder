@@ -702,7 +702,7 @@ func _scale_gui_recursively(gui) -> void:
             control is Container
     var is_gui_texture_based := \
             control is TextureButton or \
-            control is ShinyButton or \
+            control is ScaffolderButton or \
             control is TextureRect
     
     var explicitly_updates_rect_size := false

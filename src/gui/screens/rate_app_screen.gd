@@ -28,10 +28,10 @@ func _on_activated(previous_screen_name: String) -> void:
     assert(Gs.gui.is_rate_app_shown)
 
 
-func _get_focused_button() -> ShinyButton:
+func _get_focused_button() -> ScaffolderButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer2/RateAppButton as \
-            ShinyButton
+            ScaffolderButton
 
 
 func _on_RateAppButton_pressed():

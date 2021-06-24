@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shiny_button.png-791c5345900131280a8e7c1b247ca505.stex"
+path="res://.import/scaffolder_button_64.png-059e122b2f25e691acc3fbacee154e5a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/editor_icons/shiny_button.png"
-dest_files=[ "res://.import/shiny_button.png-791c5345900131280a8e7c1b247ca505.stex" ]
+source_file="res://addons/scaffolder/assets/images/editor_icons/scaffolder_button_64.png"
+dest_files=[ "res://.import/scaffolder_button_64.png-059e122b2f25e691acc3fbacee154e5a.stex" ]
 
 [params]
 

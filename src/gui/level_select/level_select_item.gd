@@ -144,7 +144,7 @@ func _get_is_open() -> bool:
     return accordion.is_open
 
 
-func get_button() -> ShinyButton:
+func get_button() -> ScaffolderButton:
     return body.get_button()
 
 

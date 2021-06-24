@@ -48,9 +48,9 @@ func _ready() -> void:
     _on_resized()
 
 
-func _get_focused_button() -> ShinyButton:
+func _get_focused_button() -> ScaffolderButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/StartGameButton as ShinyButton
+            CenterContainer/VBoxContainer/StartGameButton as ScaffolderButton
 
 
 func _on_resized() -> void:

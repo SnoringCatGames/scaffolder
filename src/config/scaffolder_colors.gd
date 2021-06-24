@@ -30,7 +30,7 @@ var button_focused: Color
 var button_hover: Color
 var button_pressed: Color
 
-var shiny_button_highlight: Color
+var scaffolder_button_highlight: Color
 
 var link_normal: Color
 var link_hover: Color
@@ -90,7 +90,7 @@ var _defaults := {
     button_focused = Color("969696"),
     button_hover = Color("969696"),
     button_pressed = Color("969696"),
-    shiny_button_highlight = Color("d0d0d0"),
+    scaffolder_button_highlight = Color("d0d0d0"),
     dropdown_normal = Color("404040"),
     dropdown_disabled = Color("4d4d4d"),
     dropdown_focused = Color("4d4d4d"),

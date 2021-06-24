@@ -32,7 +32,7 @@ func set_params(params) -> void:
             ScrollContainer/CenterContainer/VBoxContainer/BodyText
     var link: LinkButton = $FullScreenPanel/VBoxContainer/CenteredPanel/ \
             ScrollContainer/CenterContainer/VBoxContainer/NotificationLink
-    var close_button: ShinyButton = $FullScreenPanel/VBoxContainer/ \
+    var close_button: ScaffolderButton = $FullScreenPanel/VBoxContainer/ \
             CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/ \
             CloseButton
     
@@ -58,9 +58,9 @@ func set_params(params) -> void:
         link.visible = false
 
 
-func _get_focused_button() -> ShinyButton:
+func _get_focused_button() -> ScaffolderButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/CloseButton as ShinyButton
+            CenterContainer/VBoxContainer/CloseButton as ScaffolderButton
 
 
 func _on_CloseButton_pressed():

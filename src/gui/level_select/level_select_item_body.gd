@@ -26,8 +26,8 @@ func _get_items() -> Array:
     return items
 
 
-func get_button() -> ShinyButton:
-    return $PlayButton as ShinyButton
+func get_button() -> ScaffolderButton:
+    return $PlayButton as ScaffolderButton
 
 
 func _on_PlayButton_pressed():

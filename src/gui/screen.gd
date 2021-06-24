@@ -16,7 +16,7 @@ var scroll_container: ScrollContainer
 var inner_vbox: VBoxContainer
 var stylebox: StyleBoxFlatScalable
 
-var _focused_button: ShinyButton
+var _focused_button: ScaffolderButton
 
 var params: Dictionary
 
@@ -138,7 +138,7 @@ func _on_resized() -> void:
     pass
 
 
-func _get_focused_button() -> ShinyButton:
+func _get_focused_button() -> ScaffolderButton:
     return null
 
 
@@ -149,7 +149,7 @@ func _scroll_to_top() -> void:
         scroll_container.scroll_vertical = scroll_bar.min_value
 
 
-func _give_button_focus(button: ShinyButton) -> void:
+func _give_button_focus(button: ScaffolderButton) -> void:
     if _focused_button != null:
         _focused_button.is_shiny = false
         _focused_button.includes_color_pulse = false

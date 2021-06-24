@@ -39,10 +39,10 @@ func _get_items() -> Array:
     return items
 
 
-func _get_focused_button() -> ShinyButton:
+func _get_focused_button() -> ScaffolderButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer/ResumeButton as \
-            ShinyButton
+            ScaffolderButton
 
 
 func _on_ExitLevelButton_pressed() -> void:

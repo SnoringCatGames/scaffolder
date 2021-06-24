@@ -54,10 +54,10 @@ func _on_activated(previous_screen_name: String) -> void:
             CenterContainer/VBoxContainer/AccordionPanel.toggle()
 
 
-func _get_focused_button() -> ShinyButton:
+func _get_focused_button() -> ScaffolderButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer/ \
-            SelectLevelButton as ShinyButton
+            SelectLevelButton as ScaffolderButton
 
 
 func _update_stats() -> void:

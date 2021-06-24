@@ -134,7 +134,7 @@ It might just be easiest to scroll through some of the following files to see wh
 For example:
 -   [`AccordionPanel`](./src/gui/accordion_panel.gd)
 -   [`LabeledControlList`](./src/gui/labeled_control_list/labeled_control_list.gd)
--   [`ShinyButton`](./src/gui/shiny_button.gd)
+-   [`ScaffolderButton`](./src/gui/scaffolder_button.gd)
 -   [`NavBar`](./src/gui/nav_bar.gd)
 
 
@@ -231,7 +231,7 @@ It might just be easiest to scroll through some of the following files to see wh
 For example:
 -   [`AccordionPanel`](./src/gui/accordion_panel.gd)
 -   [`LabeledControlList`](./src/gui/labeled_control_list/labeled_control_list.gd)
--   [`ShinyButton`](./src/gui/shiny_button.gd)
+-   [`ScaffolderButton`](./src/gui/scaffolder_button.gd)
 -   [`NavBar`](./src/gui/nav_bar.gd)
 
 ## Licenses
