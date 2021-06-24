@@ -27,9 +27,9 @@ func _ready() -> void:
             str(Gs.analytics.client_id)
 
 
-func _get_focused_button() -> ShinyButton:
+func _get_focused_button() -> ScaffolderButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/CancelButton as ShinyButton
+            CenterContainer/VBoxContainer/CancelButton as ScaffolderButton
 
 
 func _on_ConfirmButton_pressed():

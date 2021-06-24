@@ -21,9 +21,9 @@ func _init().(
     pass
 
 
-func _get_focused_button() -> ShinyButton:
+func _get_focused_button() -> ScaffolderButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/AgreeButton as ShinyButton
+            CenterContainer/VBoxContainer/AgreeButton as ScaffolderButton
 
 
 func _on_PrivacyPolicyLink_pressed():

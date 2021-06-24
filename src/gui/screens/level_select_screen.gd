@@ -202,7 +202,7 @@ func _on_scroll_finished(
     item.unlock()
 
 
-func _get_focused_button() -> ShinyButton:
+func _get_focused_button() -> ScaffolderButton:
     return null
 
 
