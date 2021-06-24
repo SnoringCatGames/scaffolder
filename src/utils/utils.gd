@@ -780,16 +780,18 @@ func set_link_color_recursively(node: Node) -> void:
 
 func get_node_vscroll_position(
         scroll_container: ScrollContainer,
-        control: Control) -> int:
+        control: Control,
+        offset := 0) -> int:
     var scroll_container_global_position := \
             scroll_container.rect_global_position
     var control_global_position := control.rect_global_position
     var vscroll_position: int = \
             control_global_position.y - \
             scroll_container_global_position.y + \
-            scroll_container.scroll_vertical
+            scroll_container.scroll_vertical + \
+            offset
     var max_vscroll_position := scroll_container.get_v_scrollbar().max_value
-    return vscroll_position
+    return int(min(vscroll_position, max_vscroll_position))
 
 
 func does_control_have_focus_recursively(control: Control) -> bool:

@@ -188,7 +188,8 @@ func _scroll_to_item(
 func _interpolate_scroll(scroll_ratio: float) -> void:
     var scroll_start := scroll_container.get_v_scrollbar().min_value
     var scroll_end: int = Gs.utils.get_node_vscroll_position(
-            scroll_container, _scroll_target)
+            scroll_container,
+            _scroll_target)
     scroll_container.scroll_vertical = lerp(
             scroll_start,
             scroll_end,
