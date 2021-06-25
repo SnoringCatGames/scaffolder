@@ -171,12 +171,20 @@ func _on_resized() -> void:
 func _on_throttled_size_changed() -> void:
     Gs.logger.print("ScaffolderBootstrap._on_throttled_size_changed")
     
+    # NOTE: For some reason, the show/hide breaks in full-screen mode.
+    if !OS.window_fullscreen:
+        Gs.canvas_layers.set_global_visibility(false)
+    
     _update_game_area_region_and_gui_scale()
     _update_font_sizes()
     _update_checkbox_size()
     _update_tree_arrow_size()
     _scale_guis()
     Gs.utils.emit_signal("display_resized")
+    
+    # NOTE: For some reason, the show/hide breaks in full-screen mode.
+    if !OS.window_fullscreen:
+        Gs.canvas_layers.call_deferred("set_global_visibility", true)
 
 
 func _update_font_sizes() -> void:
@@ -285,11 +293,9 @@ func _update_game_area_region_and_gui_scale() -> void:
 
 
 func _scale_guis() -> void:
-    Gs.canvas_layers.set_global_visibility(false)
     if Gs.gui.previous_scale != Gs.gui.scale:
         for gui in Gs.gui.guis_to_scale:
             Gs.utils._scale_gui_for_current_screen_size(gui)
-    Gs.canvas_layers.call_deferred("set_global_visibility", true)
 
 
 func _set_window_debug_size_and_position() -> void:
