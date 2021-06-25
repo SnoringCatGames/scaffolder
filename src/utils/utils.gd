@@ -739,39 +739,42 @@ func _record_gui_original_dimensions_recursively(gui) -> void:
 
 
 func _record_gui_original_dimensions(control: Control) -> void:
+    var scale: float = Gs.gui.scale
     # Record original dimensions.
     if !control.has_meta("gs_rect_size"):
-        control.set_meta("gs_rect_size", control.rect_size)
+        control.set_meta("gs_rect_size", control.rect_size / scale)
     if !control.has_meta("gs_rect_min_size"):
-        control.set_meta("gs_rect_min_size", control.rect_min_size)
+        control.set_meta("gs_rect_min_size", control.rect_min_size / scale)
     if !control.has_meta("gs_rect_scale"):
-        control.set_meta("gs_rect_scale", control.rect_scale)
+        control.set_meta("gs_rect_scale", control.rect_scale / scale)
     if !control.has_meta("gs_rect_position"):
-        control.set_meta("gs_rect_position", control.rect_position)
-#    control.set_meta("gs_rect_pivot_offset", control.rect_pivot_offset)
+        control.set_meta("gs_rect_position", control.rect_position / scale)
+#    control.set_meta(
+#            "gs_rect_pivot_offset",
+#            control.rect_pivot_offset / scale)
     if control is VBoxContainer or \
             control is HBoxContainer:
         if !control.has_meta("gs_separation"):
             control.set_meta(
                     "gs_separation",
-                    control.get_constant("separation"))
+                    control.get_constant("separation") / scale)
     if control is MarginContainer:
         if !control.has_meta("gs_margin_right"):
             control.set_meta(
                     "gs_margin_right",
-                    control.get_constant("margin_right"))
+                    control.get_constant("margin_right") / scale)
         if !control.has_meta("gs_margin_top"):
             control.set_meta(
                     "gs_margin_top",
-                    control.get_constant("margin_top"))
+                    control.get_constant("margin_top") / scale)
         if !control.has_meta("gs_margin_left"):
             control.set_meta(
                     "gs_margin_left",
-                    control.get_constant("margin_left"))
+                    control.get_constant("margin_left") / scale)
         if !control.has_meta("gs_margin_bottom"):
             control.set_meta(
                     "gs_margin_bottom",
-                    control.get_constant("margin_bottom"))
+                    control.get_constant("margin_bottom") / scale)
 
 
 func set_link_color_recursively(node: Node) -> void:

@@ -101,7 +101,7 @@ func focus() -> void:
 
 
 func toggle() -> void:
-    if Gs.nav.get_active_screen_name() == "level_select":
+    if Gs.nav.get_current_screen_name() == "level_select":
         accordion.toggle()
 
 

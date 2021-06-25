@@ -4,6 +4,7 @@ extends Screen
 
 const NAME := "main_menu"
 const LAYER_NAME := "menu_screen"
+const IS_ALWAYS_ALIVE := false
 const AUTO_ADAPTS_GUI_SCALE := true
 const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := true
@@ -17,6 +18,7 @@ var projected_image: Control
 func _init().(
         NAME,
         LAYER_NAME,
+        IS_ALWAYS_ALIVE,
         AUTO_ADAPTS_GUI_SCALE,
         INCLUDES_STANDARD_HIERARCHY,
         INCLUDES_NAV_BAR,
@@ -56,7 +58,7 @@ func _get_focused_button() -> ScaffolderButton:
 func _on_resized() -> void:
     ._on_resized()
     var viewport_size := get_viewport().size
-    var is_wide_enough_to_put_title_in_nav_bar := \
+    var is_wide_enough_to_put_title_in_nav_bar: bool = \
             viewport_size.x > Gs.app_metadata.app_logo.get_width() + 256
     $FullScreenPanel/VBoxContainer/NavBar.shows_logo = \
             is_wide_enough_to_put_title_in_nav_bar

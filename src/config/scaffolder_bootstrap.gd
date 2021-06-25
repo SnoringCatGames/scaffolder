@@ -56,6 +56,8 @@ func _initialize_framework() -> void:
     Gs.canvas_layers = CanvasLayers.new()
     main.add_child(Gs.canvas_layers)
     
+    Gs.nav.register_manifest(Gs.manifest.gui_manifest.screen_manifest)
+    
     Gs.gui.debug_panel = Gs.utils.add_scene(
             Gs.canvas_layers.layers.top,
             Gs.gui.DEBUG_PANEL_PATH,
@@ -85,19 +87,14 @@ func _initialize_framework() -> void:
     
     _log_device_settings()
     
-    # Create the screens after the first resize event has propogated.
+    # Wait until the first resize event has propogated.
     Gs.time.set_timeout(
-            funcref(self, "_create_screens"),
+            funcref(self, "_on_window_size_set"),
             Gs.gui.display_resize_throttle_interval + 0.01)
 
 
-func _create_screens() -> void:
-    Gs.nav.create_screens()
-    call_deferred("_on_screens_created")
-
-
-func _on_screens_created() -> void:
-    Gs.logger.print("ScaffolderBootstrap._on_screens_created")
+func _on_window_size_set() -> void:
+    Gs.logger.print("ScaffolderBootstrap._on_window_size_set")
     
     if Gs.utils.get_is_browser():
         JavaScript.eval("window.onAppReady()")

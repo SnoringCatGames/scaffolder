@@ -57,6 +57,10 @@ var _header_pressed_stylebox: StyleBoxFlatScalable
 
 var _start_scroll_vertical: int
 
+var _debounced_update_children: FuncRef = Gs.time.debounce(
+        funcref(self, "_update_children_debounced"),
+        0.02)
+
 
 func _enter_tree() -> void:
     _is_open_tween = ScaffolderTween.new()
@@ -77,7 +81,6 @@ func _ready() -> void:
     move_child(_is_open_tween, 0)
     
     _update_children()
-    call_deferred("_update_children")
 
 
 func _exit_tree() -> void:
@@ -90,11 +93,11 @@ func _exit_tree() -> void:
 
 
 func update_gui_scale() -> bool:
-    call_deferred("update_gui_scale_deferred")
+    _debounced_update_children.call_func()
     return true
 
 
-func update_gui_scale_deferred() -> void:
+func _update_gui_scale_debounced() -> void:
     rect_min_size.x = \
             (header_size_override.x if \
             header_size_override.x != 0.0 else \
@@ -109,7 +112,7 @@ func update_gui_scale_deferred() -> void:
             
             _caret.texture_scale = CARET_SCALE
             
-            var header_height := \
+            var header_height: float = \
                     (header_size_override.y if \
                     header_size_override.y != 0.0 else \
                     Gs.gui.button_height) * Gs.gui.scale
@@ -123,9 +126,11 @@ func update_gui_scale_deferred() -> void:
     if is_instance_valid(_header):
         _projected_control.rect_position.y = _header.rect_size.y
     
-    # Update height according to the accordion contents.
-    var open_ratio := 1.0 if is_open else 0.0
-    _interpolate_height(open_ratio)
+    # FIXME: ------------------------------
+#    # Update height according to the accordion contents.
+#    var open_ratio := 1.0 if is_open else 0.0
+#    _interpolate_height(open_ratio)
+    call_deferred("_trigger_open_change", false)
 
 
 func add_child(child: Node, legible_unique_name=false) -> void:
@@ -232,6 +237,10 @@ func _update_header_arrangement() -> void:
 
 
 func _update_children() -> void:
+    _debounced_update_children.call_func()
+
+
+func _update_children_debounced() -> void:
     if !_is_ready:
         return
     
@@ -269,13 +278,13 @@ func _update_children() -> void:
     
     _projected_control = projected_node
     _projected_control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+    _projected_control.set_meta(
+            "gs_rect_size", _projected_control.rect_size)
     
     configuration_warning = ""
     update_configuration_warning()
     
-    update_gui_scale()
-    
-    call_deferred("_trigger_open_change", false)
+    _update_gui_scale_debounced()
 
 
 func _trigger_open_change(is_tweening: bool) -> void:
@@ -315,7 +324,7 @@ func _trigger_open_change(is_tweening: bool) -> void:
                 "ease_in_out")
         if is_open:
             var scroll_container: ScrollContainer = \
-                    Gs.nav.get_active_screen().scroll_container
+                    Gs.nav.current_screen.scroll_container
             _start_scroll_vertical = scroll_container.scroll_vertical
             _is_open_tween.interpolate_method(
                     self,
@@ -330,7 +339,7 @@ func _trigger_open_change(is_tweening: bool) -> void:
 
 
 func _interpolate_height(open_ratio: float) -> void:
-    var projected_height: float = _projected_control.rect_size.y
+    var projected_height: float = _projected_control.get_meta("gs_rect_size").y
     _projected_control.rect_size.y = projected_height
     
     rect_min_size.y = projected_height * open_ratio
@@ -351,7 +360,7 @@ func _interpolate_caret_rotation(rotation: float) -> void:
 # off the top of the screen!
 func _interpolate_scroll(open_ratio: float) -> void:
     var scroll_container: ScrollContainer = \
-            Gs.nav.get_active_screen().scroll_container
+            Gs.nav.current_screen.scroll_container
     if scroll_container == null:
         return
     
@@ -365,7 +374,7 @@ func _interpolate_scroll(open_ratio: float) -> void:
             accordion_position_y_in_scroll_container + \
             accordion_height - \
             scroll_container.rect_size.y
-    var max_scroll_vertical_to_show_accordion_top := \
+    var max_scroll_vertical_to_show_accordion_top: float = \
             accordion_position_y_in_scroll_container - \
             extra_scroll_height_for_custom_header * Gs.gui.scale
     
