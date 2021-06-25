@@ -4,6 +4,7 @@ extends Screen
 
 const NAME := "game"
 const LAYER_NAME := "game_screen"
+const IS_ALWAYS_ALIVE := true
 const AUTO_ADAPTS_GUI_SCALE := true
 const INCLUDES_STANDARD_HIERARCHY := false
 
@@ -13,6 +14,7 @@ var graph_load_start_time := INF
 func _init().(
         NAME,
         LAYER_NAME,
+        IS_ALWAYS_ALIVE,
         AUTO_ADAPTS_GUI_SCALE,
         INCLUDES_STANDARD_HIERARCHY \
         ) -> void:
@@ -28,7 +30,7 @@ func _ready() -> void:
     loading_image_wrapper.visible = Gs.gui.is_loading_image_shown
     
     if Gs.gui.is_loading_image_shown:
-        var loading_image := Gs.utils.add_scene(
+        var loading_image: Control = Gs.utils.add_scene(
                 loading_image_wrapper,
                 Gs.gui.loading_image_scene_path,
                 true,
@@ -67,15 +69,15 @@ func _on_resized() -> void:
     Gs.time.set_timeout(funcref(self, "_update_viewport_region_helper"), 1.0)
 
 
-func _on_activated(previous_screen_name: String) -> void:
-    ._on_activated(previous_screen_name)
+func _on_activated(previous_screen: Screen) -> void:
+    ._on_activated(previous_screen)
     if is_instance_valid(Gs.level):
         Gs.level.on_unpause()
 
 
 func _update_viewport_region_helper() -> void:
     var viewport_size := get_viewport().size
-    var game_area_position := \
+    var game_area_position: Vector2 = \
             (viewport_size - Gs.gui.game_area_region.size) * 0.5
     
     $PanelContainer.rect_size = viewport_size
@@ -106,7 +108,7 @@ func start_level(level_id: String) -> void:
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label2.text = ""
     $PanelContainer/LoadProgressPanel/VBoxContainer/Label3.text = ""
     
-    var level := Gs.utils.add_scene(
+    var level: ScaffolderLevel = Gs.utils.add_scene(
             null,
             Gs.level_config.get_level_config(level_id).scene_path,
             false,

@@ -9,6 +9,7 @@ extends Screen
 
 const NAME := "godot_splash"
 const LAYER_NAME := "menu_screen"
+const IS_ALWAYS_ALIVE := false
 const AUTO_ADAPTS_GUI_SCALE := true
 const INCLUDES_STANDARD_HIERARCHY := false
 const INCLUDES_NAV_BAR := false
@@ -20,6 +21,7 @@ const SPLASH_IMAGE_SIZE_DEFAULT := Vector2(900, 835)
 func _init().(
         NAME,
         LAYER_NAME,
+        IS_ALWAYS_ALIVE,
         AUTO_ADAPTS_GUI_SCALE,
         INCLUDES_STANDARD_HIERARCHY,
         INCLUDES_NAV_BAR,

@@ -4,36 +4,19 @@ extends Node
 
 signal splash_finished
 
-const _DEFAULT_SCREEN_PATH_PREFIX := "res://addons/scaffolder/src/gui/screens/"
-const _DEFAULT_SCREEN_FILENAMES := [
-    "confirm_data_deletion_screen.tscn",
-    "credits_screen.tscn",
-    "data_agreement_screen.tscn",
-    "developer_splash_screen.tscn",
-    "game_screen.tscn",
-    "game_over_screen.tscn",
-    "godot_splash_screen.tscn",
-    "level_select_screen.tscn",
-    "main_menu_screen.tscn",
-    "notification_screen.tscn",
-    "pause_screen.tscn",
-    "rate_app_screen.tscn",
-    "settings_screen.tscn",
-    "third_party_licenses_screen.tscn",
-]
-const FADE_TRANSITION_PATH := \
-        _DEFAULT_SCREEN_PATH_PREFIX + "fade_transition.tscn"
-
 const SCREEN_SLIDE_DURATION := 0.3
 const SCREEN_FADE_DURATION := 1.2
 const SESSION_END_TIMEOUT := 2.0
 
-var is_debugging_active_screen_stack := false
+var _is_debugging_active_screen_stack := false
 
+# Dictionary<String, PackedScene>
+var _screen_scenes := {}
 # Dictionary<String, Screen>
 var screens := {}
-# Array<Screen>
-var active_screen_stack := []
+# Array<String>
+var _active_screen_name_stack := []
+var current_screen: Screen
 
 var fade_transition: FadeTransition
 
@@ -55,7 +38,7 @@ func _notification(notification: int) -> void:
     if notification == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
         # Handle the Android back button to navigate within the app instead of
         # quitting the app.
-        if get_active_screen_name() == "main_menu":
+        if current_screen is MainMenuScreen:
             close_app()
         else:
             call_deferred("close_current_screen")
@@ -76,36 +59,42 @@ func _on_session_end() -> void:
     get_tree().quit()
 
 
-func _create_screen(path: String) -> void:
-    var screen: Screen = Gs.utils.add_scene(
-            null,
-            path,
-            false,
-            false)
+func _create_screen(screen_name: String) -> Screen:
+    var screen: Screen
+    if screens.has(screen_name):
+        screen = screens[screen_name]
+    else:
+        screen = _screen_scenes[screen_name].instance()
     screen.pause_mode = Node.PAUSE_MODE_STOP
-    screens[screen.screen_name] = screen
     Gs.canvas_layers.layers[screen.layer_name].add_child(screen)
+    return screen
 
 
-func create_screens() -> void:
-    var default := []
-    for filename in _DEFAULT_SCREEN_FILENAMES:
-        default.push_back(_DEFAULT_SCREEN_PATH_PREFIX + filename)
-    
-    var screen_paths: Array = \
+func register_manifest(screen_manifest: Dictionary) -> void:
+    var screen_scenes: Array = \
             Gs.utils.get_collection_from_exclusions_and_inclusions(
-                    default,
-                    Gs.gui.screen_manifest.path_exclusions,
-                    Gs.gui.screen_manifest.path_inclusions)
-                    
-    for path in screen_paths:
-        _create_screen(path)
+                    Gs.gui.DEFAULT_SCREEN_SCENES,
+                    screen_manifest.exclusions,
+                    screen_manifest.inclusions)
     
-    fade_transition = Gs.utils.add_scene(
-            Gs.canvas_layers.layers.top,
-            FADE_TRANSITION_PATH,
-            true,
-            false)
+    for screen_scene in screen_scenes:
+        assert(screen_scene is PackedScene)
+        var scene_state: SceneState = screen_scene.get_state()
+        assert(scene_state.get_node_type(0) == "Node2D")
+        assert(scene_state.get_node_property_name(0, 0) == "script")
+        var screen_class = scene_state.get_node_property_value(0, 0)
+        assert(screen_class.get("NAME") is String)
+        assert(screen_class.get("IS_ALWAYS_ALIVE") is bool)
+        
+        self._screen_scenes[screen_class.NAME] = screen_scene
+        if screen_class.IS_ALWAYS_ALIVE:
+            var screen: Screen = _create_screen(screen_class.NAME)
+            screen.visible = false
+            self.screens[screen_class.NAME] = screen
+    
+    fade_transition = screen_manifest.fade_transition.instance()
+    Gs.canvas_layers.layers.top.add_child(fade_transition)
+    fade_transition.visible = false
     fade_transition.duration = SCREEN_FADE_DURATION
     fade_transition.connect(
             "fade_completed",
@@ -118,8 +107,8 @@ func open(
         includes_fade := false,
         params = null) -> void:
     var previous_name := \
-            get_active_screen_name() if \
-            !active_screen_stack.empty() else \
+            current_screen.screen_name if \
+            is_instance_valid(current_screen) else \
             "_"
     Gs.logger.print("Nav.open: %s => %s" % [
         previous_name,
@@ -134,22 +123,23 @@ func open(
             includes_fade,
             params)
     
-    if is_debugging_active_screen_stack:
+    if _is_debugging_active_screen_stack:
         var new_stack_string := get_active_screen_stack_string()
-        Gs.logger.print("Nav.active_screen_stack: BEFORE=%s, AFTER=%s" % [
-            old_stack_string,
-            new_stack_string,
-        ])
+        Gs.logger.print(
+                "Nav._active_screen_name_stack: BEFORE=%s, AFTER=%s" % [
+                    old_stack_string,
+                    new_stack_string,
+                ])
 
 
 func close_current_screen(includes_fade := false) -> void:
-    assert(!active_screen_stack.empty())
+    assert(!_active_screen_name_stack.empty())
     
-    var previous_name := get_active_screen_name()
-    var previous_index := active_screen_stack.find(screens[previous_name])
+    var previous_name := get_current_screen_name()
+    var previous_index := _active_screen_name_stack.find(previous_name)
     assert(previous_index >= 0)
     var next_name = \
-            active_screen_stack[previous_index - 1].screen_name if \
+            _active_screen_name_stack[previous_index - 1] if \
             previous_index > 0 else \
             "_"
     Gs.logger.print("Nav.close_current_screen: %s => %s" % [
@@ -165,27 +155,26 @@ func close_current_screen(includes_fade := false) -> void:
             includes_fade,
             null)
     
-    if is_debugging_active_screen_stack:
+    if _is_debugging_active_screen_stack:
         var new_stack_string := get_active_screen_stack_string()
-        Gs.logger.print("Nav.active_screen_stack: BEFORE=%s, AFTER=%s" % [
-            old_stack_string,
-            new_stack_string,
-        ])
+        Gs.logger.print(
+                "Nav._active_screen_name_stack: BEFORE=%s, AFTER=%s" % [
+                    old_stack_string,
+                    new_stack_string,
+                ])
 
 
 func get_active_screen_stack_string() -> String:
     var stack_string := ""
-    for screen in active_screen_stack:
-        stack_string += ">" + screen.screen_name
+    for screen_name in _active_screen_name_stack:
+        stack_string += ">" + screen_name
     return stack_string
 
 
-func get_active_screen() -> Screen:
-    return active_screen_stack.back()
-
-
-func get_active_screen_name() -> String:
-    return get_active_screen().screen_name
+func get_current_screen_name() -> String:
+    return current_screen.screen_name if \
+            is_instance_valid(current_screen) else \
+            ""
 
 
 func _set_screen_is_open(
@@ -193,55 +182,63 @@ func _set_screen_is_open(
         is_open: bool,
         includes_fade := false,
         params = null) -> void:
+    var previous_screen := current_screen
     var next_screen: Screen
-    var previous_screen: Screen
     if is_open:
-        next_screen = screens[screen_name]
-        previous_screen = \
-                active_screen_stack.back() if \
-                !active_screen_stack.empty() else \
-                null
+        if is_instance_valid(current_screen) and \
+                current_screen.screen_name == screen_name:
+            # The screen is already open.
+            return
+        next_screen = _create_screen(screen_name)
     else:
-        previous_screen = screens[screen_name]
-        var index := active_screen_stack.find(previous_screen)
-        assert(index >= 0)
-        next_screen = \
-                active_screen_stack[index - 1] if \
-                index > 0 else \
-                null
+        var index_to_close := _active_screen_name_stack.find(screen_name)
+        assert(index_to_close >= 0)
+        if index_to_close > 0:
+            var next_screen_name: String = \
+                    _active_screen_name_stack[index_to_close - 1]
+            next_screen = _create_screen(next_screen_name)
+        else:
+            next_screen = null
+    current_screen = next_screen
     
     var next_screen_name := \
             next_screen.screen_name if \
-            next_screen != null else \
-            "_"
-    var is_paused: bool = next_screen_name != "game"
-    var is_first_screen := is_open and active_screen_stack.empty()
+            is_instance_valid(next_screen) else \
+            ""
+    var previous_screen_name := \
+            previous_screen.screen_name if \
+            is_instance_valid(previous_screen) else \
+            ""
+    
+    var is_paused: bool = !(next_screen is GameScreen)
+    var is_first_screen := is_open and _active_screen_name_stack.empty()
+    
+    get_tree().paused = is_paused
+    if is_instance_valid(next_screen):
+        next_screen.visible = true
     
     var next_screen_was_already_shown := false
     if is_open:
-        if !active_screen_stack.has(next_screen):
-            active_screen_stack.push_back(next_screen)
+        if !_active_screen_name_stack.has(next_screen_name):
+            _active_screen_name_stack.push_back(next_screen_name)
         else:
             next_screen_was_already_shown = true
     
     # Remove all (potential) following screens from the stack.
-    var index := active_screen_stack.find(next_screen)
-    while index + 1 < active_screen_stack.size():
-        var removed_screen: Screen = active_screen_stack.back()
-        active_screen_stack.pop_back()
-        removed_screen.visible = false
+    var index := _active_screen_name_stack.find(next_screen_name)
+    while index < _active_screen_name_stack.size() - 1:
+        _active_screen_name_stack.pop_back()
     
-    get_tree().paused = is_paused
-    
+    # Ensure the correct screen shows on top.
     if previous_screen != null:
-        previous_screen.visible = true
         previous_screen.z_index = \
-                -100 + active_screen_stack.find(previous_screen) if \
-                active_screen_stack.has(previous_screen) else \
-                -100 + active_screen_stack.size()
+                -100 + _active_screen_name_stack.find(
+                        previous_screen_name) if \
+                _active_screen_name_stack.has(previous_screen_name) else \
+                -100 + _active_screen_name_stack.size()
     if next_screen != null:
-        next_screen.visible = true
-        next_screen.z_index = -100 + active_screen_stack.find(next_screen)
+        next_screen.z_index = \
+                -100 + _active_screen_name_stack.find(next_screen_name)
     
     if !is_first_screen:
         var start_position: Vector2
@@ -302,19 +299,21 @@ func _set_screen_is_open(
                 next_screen)
     
     if previous_screen != null:
-        previous_screen._on_deactivated(next_screen_name)
+        previous_screen._on_deactivated(next_screen)
         previous_screen.pause_mode = Node.PAUSE_MODE_STOP
     
     if next_screen != null:
         next_screen.set_params(params)
         
-        # If opening a new screen, auto-scroll to the top. Otherwise, if
-        # navigating back to a previous screen, maintain the scroll position,
-        # so the user can remember where they were.
-        if is_open:
-            next_screen._scroll_to_top()
+        # FIXME: ---------------------
+        # - Implement a way to remember scroll position?
+#        # If opening a new screen, auto-scroll to the top. Otherwise, if
+#        # navigating back to a previous screen, maintain the scroll position,
+#        # so the user can remember where they were.
+#        if is_open:
+#            next_screen._scroll_to_top()
         
-        Gs.analytics.screen(next_screen.screen_name)
+        Gs.analytics.screen(next_screen_name)
 
 
 func _on_screen_slide_completed(
@@ -322,19 +321,16 @@ func _on_screen_slide_completed(
         _key: NodePath,
         previous_screen: Screen,
         next_screen: Screen) -> void:
-    var previous_screen_name := \
-            previous_screen.screen_name if \
-            previous_screen != null else \
-            "_"
-    
     if previous_screen != null:
         previous_screen.visible = false
         previous_screen.position = Vector2.ZERO
+        if !previous_screen.is_always_alive:
+            previous_screen._destroy()
     if next_screen != null:
         next_screen.visible = true
         next_screen.position = Vector2.ZERO
         next_screen.pause_mode = Node.PAUSE_MODE_PROCESS
-        next_screen._on_activated(previous_screen_name)
+        next_screen._on_activated(previous_screen)
 
 
 func fade() -> void:

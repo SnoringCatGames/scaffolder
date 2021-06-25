@@ -5,6 +5,7 @@ extends Screen
 
 const NAME := "pause"
 const LAYER_NAME := "menu_screen"
+const IS_ALWAYS_ALIVE := false
 const AUTO_ADAPTS_GUI_SCALE := true
 const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := true
@@ -14,6 +15,7 @@ const INCLUDES_CENTER_CONTAINER := true
 func _init().(
         NAME,
         LAYER_NAME,
+        IS_ALWAYS_ALIVE,
         AUTO_ADAPTS_GUI_SCALE,
         INCLUDES_STANDARD_HIERARCHY,
         INCLUDES_NAV_BAR,
@@ -22,8 +24,8 @@ func _init().(
     pass
 
 
-func _on_activated(previous_screen_name: String) -> void:
-    ._on_activated(previous_screen_name)
+func _on_activated(previous_screen: Screen) -> void:
+    ._on_activated(previous_screen)
     $FullScreenPanel/VBoxContainer/CenteredPanel/ \
             ScrollContainer/CenterContainer/VBoxContainer/LabeledControlList \
             .items = _get_items()

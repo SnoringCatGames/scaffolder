@@ -10,6 +10,7 @@ const SCROLL_TWEEN_DURATION := 0.3
 
 const NAME := "level_select"
 const LAYER_NAME := "menu_screen"
+const IS_ALWAYS_ALIVE := false
 const AUTO_ADAPTS_GUI_SCALE := true
 const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := true
@@ -26,6 +27,7 @@ var _new_unlocked_item: LevelSelectItem
 func _init().(
         NAME,
         LAYER_NAME,
+        IS_ALWAYS_ALIVE,
         AUTO_ADAPTS_GUI_SCALE,
         INCLUDES_STANDARD_HIERARCHY,
         INCLUDES_NAV_BAR,
@@ -36,7 +38,7 @@ func _init().(
 
 func _ready() -> void:
     for level_number in Gs.level_config.get_level_numbers():
-        var level_config := \
+        var level_config: Dictionary = \
                 Gs.level_config.get_level_config_by_number(level_number)
         var item: LevelSelectItem = Gs.utils.add_scene(
                 $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer \
@@ -51,8 +53,8 @@ func _ready() -> void:
         item.connect("toggled", self, "_on_item_toggled", [item])
 
 
-func _on_activated(previous_screen_name: String) -> void:
-    ._on_activated(previous_screen_name)
+func _on_activated(previous_screen: Screen) -> void:
+    ._on_activated(previous_screen)
     _update()
 
 
@@ -93,7 +95,7 @@ func _deferred_update() -> void:
 
 
 func _process(_delta: float) -> void:
-    if Gs.nav.get_active_screen() != self:
+    if Gs.nav.current_screen != self:
         return
     
     var item_to_expand: LevelSelectItem

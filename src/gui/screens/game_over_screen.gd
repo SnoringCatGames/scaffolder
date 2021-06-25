@@ -5,6 +5,7 @@ extends Screen
 
 const NAME := "game_over"
 const LAYER_NAME := "menu_screen"
+const IS_ALWAYS_ALIVE := false
 const AUTO_ADAPTS_GUI_SCALE := true
 const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := false
@@ -18,6 +19,7 @@ var projected_image: Control
 func _init().(
         NAME,
         LAYER_NAME,
+        IS_ALWAYS_ALIVE,
         AUTO_ADAPTS_GUI_SCALE,
         INCLUDES_STANDARD_HIERARCHY,
         INCLUDES_NAV_BAR,
@@ -46,8 +48,8 @@ func _ready() -> void:
     _update_stats()
 
 
-func _on_activated(previous_screen_name: String) -> void:
-    ._on_activated(previous_screen_name)
+func _on_activated(previous_screen: Screen) -> void:
+    ._on_activated(previous_screen)
     Gs.audio.play_music(Gs.audio_manifest.game_over_music)
     _update_stats()
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \

@@ -70,7 +70,7 @@ func update_is_unlocked(is_unlocked: bool) -> void:
     
     var config: Dictionary = \
             Gs.level_config.get_level_config(level_id)
-    var display_number_offset := \
+    var display_number_offset: int = \
             -Gs.level_config.test_level_count - 1 if \
             config.is_test_level else \
             -Gs.level_config.test_level_count
