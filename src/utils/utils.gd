@@ -626,8 +626,6 @@ func _scale_gui_for_current_screen_size(gui) -> void:
 
 
 func _scale_gui_recursively(gui) -> void:
-    var snap_epsilon := 0.001
-    
     if gui.has_method("update_gui_scale"):
         var handled: bool = gui.update_gui_scale()
         if handled:
@@ -636,54 +634,34 @@ func _scale_gui_recursively(gui) -> void:
     assert(gui is Control)
     var control: Control = gui
     
-    _record_gui_original_dimensions(control)
-    
-    # Retrieve original dimensions.
-    var original_rect_size: Vector2 = control.get_meta("gs_rect_size")
-    var original_rect_min_size: Vector2 = control.get_meta("gs_rect_min_size")
-    var original_rect_scale: Vector2 = control.get_meta("gs_rect_scale")
-    var original_rect_position: Vector2 = control.get_meta("gs_rect_position")
-#    var original_rect_pivot_offset: Vector2 = \
-#            control.get_meta("gs_rect_pivot_offset")
-    var original_separation: float = \
-            control.get_meta("gs_separation") if \
-            control.has_meta("gs_separation") else \
-            INF
-    var original_margin_right: float = \
-            control.get_meta("gs_margin_right") if \
-            control.has_meta("gs_margin_right") else \
-            INF
-    var original_margin_top: float = \
-            control.get_meta("gs_margin_top") if \
-            control.has_meta("gs_margin_top") else \
-            INF
-    var original_margin_left: float = \
-            control.get_meta("gs_margin_left") if \
-            control.has_meta("gs_margin_left") else \
-            INF
-    var original_margin_bottom: float = \
-            control.get_meta("gs_margin_bottom") if \
-            control.has_meta("gs_margin_bottom") else \
-            INF
-    
-    var is_gui_container := \
-            control is Container
-    var is_gui_texture_based := \
-            control is TextureButton or \
-            control is ScaffolderButton or \
-            control is TextureRect
-    
-    var explicitly_updates_rect_size := false
-    var next_rect_size: Vector2 = original_rect_size * Gs.gui.scale
-    
-    control.rect_min_size = original_rect_min_size * Gs.gui.scale
+    _record_gui_original_simple_dimensions(control)
     
     if control is VBoxContainer or \
             control is HBoxContainer:
+        var original_separation: float = \
+                control.get_meta("gs_separation") if \
+                control.has_meta("gs_separation") else \
+                INF
         var separation := round(original_separation * Gs.gui.scale)
         control.add_constant_override("separation", separation)
     
     if control is MarginContainer:
+        var original_margin_right: float = \
+                control.get_meta("gs_margin_right") if \
+                control.has_meta("gs_margin_right") else \
+                INF
+        var original_margin_top: float = \
+                control.get_meta("gs_margin_top") if \
+                control.has_meta("gs_margin_top") else \
+                INF
+        var original_margin_left: float = \
+                control.get_meta("gs_margin_left") if \
+                control.has_meta("gs_margin_left") else \
+                INF
+        var original_margin_bottom: float = \
+                control.get_meta("gs_margin_bottom") if \
+                control.has_meta("gs_margin_bottom") else \
+                INF
         var margin_right := round(original_margin_right * Gs.gui.scale)
         control.add_constant_override("margin_right", margin_right)
         var margin_top := round(original_margin_top * Gs.gui.scale)
@@ -693,88 +671,35 @@ func _scale_gui_recursively(gui) -> void:
         var margin_bottom := round(original_margin_bottom * Gs.gui.scale)
         control.add_constant_override("margin_bottom", margin_bottom)
     
-    if control is TextureButton:
-        control.rect_scale = original_rect_scale * Gs.gui.scale
-        control.rect_position = original_rect_position * Gs.gui.scale
-        control.rect_min_size = original_rect_min_size * Gs.gui.scale
-    elif is_gui_texture_based:
-        # Only scale texture-based GUIs, since we scale fonts separately.
-        control.rect_scale = original_rect_scale * Gs.gui.scale
-        
-#        control.rect_position = original_rect_position * Gs.gui.scale
-        
-        # This ensures that control will shrink back down, since otherwise it's
-        # min would decrease but it's actual would stay constant.
-        if control.rect_min_size != Vector2.ZERO:
-            explicitly_updates_rect_size = true
-    else:
-        explicitly_updates_rect_size = true
-    
-    if explicitly_updates_rect_size:
-        control.rect_size = next_rect_size
-    
-#    control.rect_position = original_rect_position * Gs.gui.scale
-#    control.rect_position = Gs.geometry.snap_vector2_to_integers(
-#            control.rect_position, snap_epsilon)
-#    control.rect_pivot_offset = original_rect_pivot_offset * Gs.gui.scale
-#    control.rect_pivot_offset = Gs.geometry.snap_vector2_to_integers(
-#            control.rect_pivot_offset, snap_epsilon)
-    
     for child in control.get_children():
         if child is Control:
             _scale_gui_recursively(child)
-    
-    # Try setting the rect_size again, in case children rect_min_size values
-    # prevented this from updating correctly before.
-    if explicitly_updates_rect_size:
-        control.rect_size = next_rect_size
 
 
-func _record_gui_original_dimensions_recursively(gui) -> void:
-    if !(gui is Control):
-        return
-    _record_gui_original_dimensions(gui)
-    for child in gui.get_children():
-        _record_gui_original_dimensions_recursively(child)
-
-
-func _record_gui_original_dimensions(control: Control) -> void:
-    var scale: float = Gs.gui.scale
-    # Record original dimensions.
-    if !control.has_meta("gs_rect_size"):
-        control.set_meta("gs_rect_size", control.rect_size / scale)
-    if !control.has_meta("gs_rect_min_size"):
-        control.set_meta("gs_rect_min_size", control.rect_min_size / scale)
-    if !control.has_meta("gs_rect_scale"):
-        control.set_meta("gs_rect_scale", control.rect_scale / scale)
-    if !control.has_meta("gs_rect_position"):
-        control.set_meta("gs_rect_position", control.rect_position / scale)
-#    control.set_meta(
-#            "gs_rect_pivot_offset",
-#            control.rect_pivot_offset / scale)
+func _record_gui_original_simple_dimensions(control: Control) -> void:
     if control is VBoxContainer or \
             control is HBoxContainer:
         if !control.has_meta("gs_separation"):
             control.set_meta(
                     "gs_separation",
-                    control.get_constant("separation") / scale)
+                    control.get_constant("separation"))
     if control is MarginContainer:
         if !control.has_meta("gs_margin_right"):
             control.set_meta(
                     "gs_margin_right",
-                    control.get_constant("margin_right") / scale)
+                    control.get_constant("margin_right"))
         if !control.has_meta("gs_margin_top"):
             control.set_meta(
                     "gs_margin_top",
-                    control.get_constant("margin_top") / scale)
+                    control.get_constant("margin_top"))
         if !control.has_meta("gs_margin_left"):
             control.set_meta(
                     "gs_margin_left",
-                    control.get_constant("margin_left") / scale)
+                    control.get_constant("margin_left"))
         if !control.has_meta("gs_margin_bottom"):
             control.set_meta(
                     "gs_margin_bottom",
-                    control.get_constant("margin_bottom") / scale)
+                    control.get_constant("margin_bottom"))
 
 
 func set_link_color_recursively(node: Node) -> void:

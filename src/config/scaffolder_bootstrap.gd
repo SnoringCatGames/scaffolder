@@ -7,6 +7,8 @@ var main: Node
 
 var _throttled_size_changed: FuncRef
 
+var _is_global_visibility_disabled_for_resize := false
+
 
 func _init() -> void:
     name = "ScaffolderBootstrap"
@@ -162,16 +164,21 @@ func _notification(notification: int) -> void:
 
 
 func _on_resized() -> void:
+    # NOTE: For some reason, the show/hide breaks in full-screen mode.
+    if !OS.window_fullscreen and \
+            !_is_global_visibility_disabled_for_resize:
+        _is_global_visibility_disabled_for_resize = true
+        Gs.canvas_layers.set_global_visibility(false)
+    
     _throttled_size_changed.call_func()
 
 
 func _on_throttled_size_changed() -> void:
     Gs.logger.print("ScaffolderBootstrap._on_throttled_size_changed")
-    
-    # NOTE: For some reason, the show/hide breaks in full-screen mode.
-    if !OS.window_fullscreen:
-        Gs.canvas_layers.set_global_visibility(false)
-    
+    call_deferred("update_gui_scale")
+
+
+func update_gui_scale() -> void:
     _update_game_area_region_and_gui_scale()
     _update_font_sizes()
     _update_checkbox_size()
@@ -179,9 +186,12 @@ func _on_throttled_size_changed() -> void:
     _scale_guis()
     Gs.utils.emit_signal("display_resized")
     
-    # NOTE: For some reason, the show/hide breaks in full-screen mode.
-    if !OS.window_fullscreen:
-        Gs.canvas_layers.call_deferred("set_global_visibility", true)
+    if _is_global_visibility_disabled_for_resize:
+        _is_global_visibility_disabled_for_resize = false
+        Gs.time.set_timeout(
+                funcref(Gs.canvas_layers, "set_global_visibility"),
+                0.05,
+                [true])
 
 
 func _update_font_sizes() -> void:
