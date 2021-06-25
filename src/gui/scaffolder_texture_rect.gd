@@ -14,26 +14,20 @@ var _is_ready := false
 
 func _ready() -> void:
     _is_ready = true
-    
     _set_texture(texture)
     _set_texture_scale(texture_scale)
-    
-    update_gui_scale()
 
 
 func update_gui_scale() -> bool:
-    call_deferred("_update_gui_scale_deferred")
+    _update_size()
     return true
 
 
-func _update_gui_scale_deferred() -> void:
+func _update_size() -> void:
     if texture != null:
         $TextureRect.rect_pivot_offset = texture.get_size() / 2.0
     $TextureRect.rect_scale = texture_scale * Gs.gui.scale
-    _update_size_to_match_texture()
-
-
-func _update_size_to_match_texture() -> void:
+    
     if texture == null:
         return
     var size: Vector2 = texture.get_size() * $TextureRect.rect_scale
@@ -45,7 +39,7 @@ func _set_texture(value: Texture) -> void:
     texture = value
     if _is_ready:
         $TextureRect.texture = value
-        _update_size_to_match_texture()
+        _update_size()
 
 
 func _get_texture() -> Texture:
@@ -55,8 +49,7 @@ func _get_texture() -> Texture:
 func _set_texture_scale(value: Vector2) -> void:
     texture_scale = value
     if _is_ready:
-        $TextureRect.rect_scale = texture_scale * Gs.gui.scale
-        _update_size_to_match_texture()
+        _update_size()
 
 
 func _get_texture_scale() -> Vector2:
