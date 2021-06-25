@@ -91,10 +91,6 @@ func update() -> void:
     unlocked_header.update_is_unlocked(is_unlocked)
     accordion.update()
     body.update()
-    
-    # TODO: Fix this. This hard-coded height assignment shouldn't be needed,
-    #       but for some reason the height keeps getting enlarged otherwise.
-    accordion.height_override = 268.0
 
 
 func focus() -> void:

@@ -38,8 +38,6 @@ export var extra_scroll_height_for_custom_header := 0.0 setget \
 export var header_size_override := Vector2.ZERO setget \
         _set_header_size_override,_get_header_size_override
 
-var height_override := INF
-
 var configuration_warning := ""
 
 var _is_ready := false
@@ -92,11 +90,6 @@ func _exit_tree() -> void:
 
 
 func update_gui_scale() -> bool:
-    update_gui_scale_deferred()
-    # TODO: Fix the underlying dependency, instead of this double-call hack.
-    #       (To repro the problem: run, open SettingsScreen,
-    #        maximize window, unmaximize window, Details AccordionPanel hasn't
-    #        shrunk back to the correct size.)
     call_deferred("update_gui_scale_deferred")
     return true
 
@@ -116,18 +109,10 @@ func update_gui_scale_deferred() -> void:
             
             _caret.texture_scale = CARET_SCALE
             
-            var texture_height := \
-                    CARET_SIZE_DEFAULT.y * CARET_SCALE.y * Gs.gui.scale
-            var label_height := _header_label.rect_size.y
-            var min_height := \
+            var header_height := \
                     (header_size_override.y if \
                     header_size_override.y != 0.0 else \
                     Gs.gui.button_height) * Gs.gui.scale
-            var header_height := max(
-                    min_height,
-                    max(label_height,
-                        texture_height)) + \
-                    padding.y * 2.0 * Gs.gui.scale
             _header.rect_size = Vector2(rect_min_size.x, header_height)
             _header_hbox.rect_size = _header.rect_size
         else:
@@ -288,9 +273,9 @@ func _update_children() -> void:
     configuration_warning = ""
     update_configuration_warning()
     
-    call_deferred("_trigger_open_change", false)
-    
     update_gui_scale()
+    
+    call_deferred("_trigger_open_change", false)
 
 
 func _trigger_open_change(is_tweening: bool) -> void:
@@ -345,13 +330,7 @@ func _trigger_open_change(is_tweening: bool) -> void:
 
 
 func _interpolate_height(open_ratio: float) -> void:
-    # NOTE: For some reason, this assignment is needed in order to preserve the
-    #       original height of the project content. Otherwise, us changing its
-    #       position here seems to cause it's size to change as well.
-    var projected_height := \
-            height_override * Gs.gui.scale if \
-            !is_inf(height_override) else \
-            _projected_control.rect_size.y
+    var projected_height: float = _projected_control.rect_size.y
     _projected_control.rect_size.y = projected_height
     
     rect_min_size.y = projected_height * open_ratio
