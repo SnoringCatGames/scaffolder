@@ -26,28 +26,53 @@ func _init().(
 
 
 func _ready() -> void:
-    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/Title.texture = \
-            Gs.app_metadata.app_logo
-    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/Title.texture_scale = \
-            Vector2(Gs.app_metadata.app_logo_scale,
-                    Gs.app_metadata.app_logo_scale)
+    var title_logo := \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/Title
+    var developer_logo_link := \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer4/DeveloperLogoLink
+    var developer_name_link := \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer4/DeveloperNameLink
+    var developer_url_link := \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer4/DeveloperUrlLink
+    var godot_logo_link := \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer3/GodotLogoLink
+    var godot_text_link := \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer3/GodotTextLink
+    var terms_and_conditions_link := \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer2/TermsAndConditionsLink
+    var privacy_policy_link := \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer2/PrivacyPolicyLink
+    var support_link := \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer2/SupportLink
     
-    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/VBoxContainer4/ \
-            DeveloperLogoLink/DeveloperLogo.visible = \
-            Gs.gui.is_developer_logo_shown
-    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/VBoxContainer4/ \
-            DeveloperLogoLink/DeveloperLogo.texture = \
-            Gs.app_metadata.developer_logo
-    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/VBoxContainer4/ \
-            DeveloperNameLink.text = Gs.app_metadata.developer_name
-    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/VBoxContainer4/ \
-            DeveloperUrlLink.text = Gs.app_metadata.developer_url
+    title_logo.texture = Gs.app_metadata.app_logo
+    title_logo.texture_scale = Vector2(
+            Gs.app_metadata.app_logo_scale,
+            Gs.app_metadata.app_logo_scale)
+    
+    developer_logo_link.visible = Gs.gui.is_developer_logo_shown
+    developer_logo_link.texture = Gs.app_metadata.developer_logo
+    developer_logo_link.url = Gs.app_metadata.developer_url
+    developer_name_link.text = "Created by " + Gs.app_metadata.developer_name
+    developer_name_link.url = Gs.app_metadata.developer_url
+    developer_url_link.text = Gs.app_metadata.developer_url
+    developer_url_link.url = Gs.app_metadata.developer_url
+    
+    godot_logo_link.url = GODOT_URL
+    godot_text_link.url = GODOT_URL
+    
+    terms_and_conditions_link.url = Gs.app_metadata.terms_and_conditions_url
+    privacy_policy_link.url = Gs.app_metadata.privacy_policy_url
+    support_link.url = Gs.get_support_url_with_params()
     
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/SpecialThanksContainer/ \
@@ -81,31 +106,6 @@ func _ready() -> void:
             CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer/ \
             ThirdPartyLicensesButton.visible = \
             Gs.gui.is_third_party_licenses_shown
-
-
-func _on_snoring_cat_games_link_pressed():
-    Gs.utils.give_button_press_feedback()
-    OS.shell_open(Gs.app_metadata.developer_url)
-
-
-func _on_godot_link_pressed():
-    Gs.utils.give_button_press_feedback()
-    OS.shell_open(GODOT_URL)
-
-
-func _on_PrivacyPolicyLink_pressed():
-    Gs.utils.give_button_press_feedback()
-    OS.shell_open(Gs.app_metadata.privacy_policy_url)
-
-
-func _on_TermsAndConditionsLink_pressed():
-    Gs.utils.give_button_press_feedback()
-    OS.shell_open(Gs.app_metadata.terms_and_conditions_url)
-
-
-func _on_SupportLink_pressed():
-    Gs.utils.give_button_press_feedback()
-    OS.shell_open(Gs.get_support_url_with_params())
 
 
 func _on_DataDeletionButton_pressed():

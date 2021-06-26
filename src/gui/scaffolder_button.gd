@@ -181,6 +181,15 @@ func _trigger_color_pulse() -> void:
     color_pulse_tween.start()
 
 
+func set_text(value: String) -> void:
+    .set_text("")
+    $MarginContainer/Label.text = value.c_unescape()
+
+
+func get_text() -> String:
+    return $MarginContainer/Label.text.c_escape()
+
+
 func _set_texture(value: Texture) -> void:
     texture = value
     if _is_ready:

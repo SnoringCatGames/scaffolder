@@ -5,7 +5,6 @@ extends Control
 
 export var texture: Texture setget \
         _set_texture,_get_texture
-
 export var texture_scale := Vector2.ONE setget \
         _set_texture_scale,_get_texture_scale
 
@@ -23,14 +22,17 @@ func update_gui_scale() -> bool:
     return true
 
 
+func get_custom_size() -> Vector2:
+    return texture.get_size() * texture_scale * Gs.gui.scale if \
+            is_instance_valid(texture) else \
+            Vector2.ZERO
+
+
 func _update_size() -> void:
     if texture != null:
         $TextureRect.rect_pivot_offset = texture.get_size() / 2.0
     $TextureRect.rect_scale = texture_scale * Gs.gui.scale
-    
-    if texture == null:
-        return
-    var size: Vector2 = texture.get_size() * $TextureRect.rect_scale
+    var size: Vector2 = get_custom_size()
     rect_min_size = size
     rect_size = size
 
