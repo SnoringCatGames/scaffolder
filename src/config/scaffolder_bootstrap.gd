@@ -184,6 +184,7 @@ func update_gui_scale() -> void:
     _update_checkbox_size()
     _update_tree_arrow_size()
     _scale_guis()
+    
     Gs.utils.emit_signal("display_resized")
     
     if _is_global_visibility_disabled_for_resize:
