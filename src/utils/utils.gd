@@ -710,22 +710,6 @@ func _record_gui_original_simple_dimensions(control: Control) -> void:
                     control.get_constant("margin_bottom"))
 
 
-func set_link_color_recursively(node: Node) -> void:
-    if !(node is Control):
-        return
-    var control: Control = node
-    
-    if control is LinkButton:
-        control.add_color_override("font_color", Gs.colors.link_normal)
-        control.add_color_override("font_color_hover", Gs.colors.link_hover)
-        control.add_color_override(
-                "font_color_pressed", Gs.colors.link_pressed)
-        control.underline = LinkButton.UNDERLINE_MODE_NEVER
-    
-    for child in control.get_children():
-        set_link_color_recursively(child)
-
-
 func get_node_vscroll_position(
         scroll_container: ScrollContainer,
         control: Control,
