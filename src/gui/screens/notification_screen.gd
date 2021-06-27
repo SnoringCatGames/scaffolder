@@ -30,13 +30,15 @@ func set_params(params) -> void:
         return
     
     var nav_bar: Control = $FullScreenPanel/VBoxContainer/NavBar
-    var body_text: Label = $FullScreenPanel/VBoxContainer/CenteredPanel/ \
-            ScrollContainer/CenterContainer/VBoxContainer/BodyText
-    var link: LinkButton = $FullScreenPanel/VBoxContainer/CenteredPanel/ \
-            ScrollContainer/CenterContainer/VBoxContainer/NotificationLink
-    var close_button: ScaffolderButton = $FullScreenPanel/VBoxContainer/ \
-            CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/ \
-            CloseButton
+    var body_text: Label = \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/BodyText
+    var link: ScaffolderLabelLink = \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/NotificationLink
+    var close_button: ScaffolderButton = \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/CloseButton
     
     assert(params.has("header_text"))
     nav_bar.text = params["header_text"]
@@ -56,6 +58,7 @@ func set_params(params) -> void:
         assert(params.has("link_href"))
         link.visible = true
         link.text = params["link_text"]
+        link.url = params["link_href"]
     else:
         link.visible = false
 
@@ -66,8 +69,6 @@ func _get_focused_button() -> ScaffolderButton:
 
 
 func _on_CloseButton_pressed():
-    Gs.utils.give_button_press_feedback()
-    
     if params.has("close_callback"):
         params["close_callback"].call_func()
     
@@ -79,9 +80,3 @@ func _on_CloseButton_pressed():
                 [params["next_screen"]])
     else:
         Gs.nav.close_current_screen()
-
-
-func _on_NotificationLink_pressed():
-    Gs.utils.give_button_press_feedback()
-    
-    OS.shell_open(params["link_href"])

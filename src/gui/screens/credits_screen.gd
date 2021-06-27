@@ -108,11 +108,9 @@ func _ready() -> void:
             Gs.gui.is_third_party_licenses_shown
 
 
-func _on_DataDeletionButton_pressed():
-    Gs.utils.give_button_press_feedback()
+func _on_DataDeletionButton_pressed() -> void:
     Gs.nav.open("confirm_data_deletion")
 
 
-func _on_ThirdPartyLicensesButton_pressed():
-    Gs.utils.give_button_press_feedback()
+func _on_ThirdPartyLicensesButton_pressed() -> void:
     Gs.nav.open("third_party_licenses")

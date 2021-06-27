@@ -149,4 +149,5 @@ func _get_expands_texture() -> bool:
 
 
 func _on_TextureButton_pressed() -> void:
+    Gs.utils.give_button_press_feedback()
     emit_signal("pressed")

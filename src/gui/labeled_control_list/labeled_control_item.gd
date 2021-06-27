@@ -173,13 +173,12 @@ func create_row(
 
 
 func _on_control_pressed() -> void:
-    Gs.utils.give_button_press_feedback()
+    pass
 
 
 func _on_description_button_pressed(
         label: String,
         description: String) -> void:
-    Gs.utils.give_button_press_feedback()
     Gs.nav.open(
             "notification",
             false,

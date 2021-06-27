@@ -48,18 +48,15 @@ func _get_focused_button() -> ScaffolderButton:
 
 
 func _on_ExitLevelButton_pressed() -> void:
-    Gs.utils.give_button_press_feedback()
     Gs.nav.close_current_screen()
     Gs.level.quit(false, false)
 
 
 func _on_ResumeButton_pressed() -> void:
-    Gs.utils.give_button_press_feedback()
     Gs.nav.close_current_screen()
 
 
 func _on_RestartButton_pressed() -> void:
-    Gs.utils.give_button_press_feedback()
     Gs.nav.close_current_screen(true)
     Gs.level.restart()
 

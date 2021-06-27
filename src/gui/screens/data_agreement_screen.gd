@@ -28,17 +28,14 @@ func _get_focused_button() -> ScaffolderButton:
             CenterContainer/VBoxContainer/AgreeButton as ScaffolderButton
 
 
-func _on_PrivacyPolicyLink_pressed():
-    Gs.utils.give_button_press_feedback()
+func _on_PrivacyPolicyLink_pressed() -> void:
     OS.shell_open(Gs.app_metadata.privacy_policy_url)
 
 
-func _on_TermsAndConditionsLink_pressed():
-    Gs.utils.give_button_press_feedback()
+func _on_TermsAndConditionsLink_pressed() -> void:
     OS.shell_open(Gs.app_metadata.terms_and_conditions_url)
 
 
-func _on_AgreeButton_pressed():
-    Gs.utils.give_button_press_feedback()
+func _on_AgreeButton_pressed() -> void:
     Gs.set_agreed_to_terms()
     Gs.nav.open("main_menu")

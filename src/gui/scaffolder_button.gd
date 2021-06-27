@@ -232,6 +232,7 @@ func press() -> void:
 
 
 func _on_TopButton_pressed() -> void:
+    Gs.utils.give_button_press_feedback()
     emit_signal("pressed")
 
 

@@ -37,7 +37,6 @@ func _get_focused_button() -> ScaffolderButton:
 
 
 func _on_RateAppButton_pressed():
-    Gs.utils.give_button_press_feedback()
     Gs.save_state.set_gave_feedback(true)
     Gs.nav.open(NEXT_SCREEN_TYPE)
     var app_store_url: String = \
@@ -48,17 +47,14 @@ func _on_RateAppButton_pressed():
 
 
 func _on_DontAskAgainButton_pressed():
-    Gs.utils.give_button_press_feedback()
     Gs.save_state.set_gave_feedback(true)
     Gs.nav.open(NEXT_SCREEN_TYPE)
 
 
 func _on_KeepPlayingButton_pressed():
-    Gs.utils.give_button_press_feedback()
     Gs.nav.open(NEXT_SCREEN_TYPE)
 
 
 func _on_SendFeedbackButton_pressed() -> void:
-    Gs.utils.give_button_press_feedback()
     Gs.nav.open(NEXT_SCREEN_TYPE)
     OS.shell_open(Gs.get_support_url_with_params())
