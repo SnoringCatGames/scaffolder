@@ -50,21 +50,20 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
-margin_right = 946.0
-margin_bottom = 946.0
+margin_right = 934.0
+margin_bottom = 3178.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 364.0
-margin_top = 301.0
-margin_right = 581.0
-margin_bottom = 645.0
+margin_left = 466.0
+margin_right = 467.0
+margin_bottom = 3178.0
 custom_constants/separation = 8
 
 [node name="Label2" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_right = 217.0
-margin_bottom = 75.0
+margin_right = 1.0
+margin_bottom = 1687.0
 custom_fonts/font = ExtResource( 5 )
 text = "Please let us know if you are seeing any issues on your device!"
 align = 1
@@ -74,27 +73,24 @@ __meta__ = {
 }
 
 [node name="SendFeedbackButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
-margin_left = 62.0
-margin_top = 83.0
-margin_right = 154.0
-margin_bottom = 97.0
+margin_top = 1695.0
+margin_right = 0.0
+margin_bottom = 1709.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Send feedback"
+label = "Send feedback"
 
 [node name="Spacer2" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_left = 108.0
-margin_top = 105.0
-margin_right = 108.0
-margin_bottom = 121.0
+margin_top = 1717.0
+margin_bottom = 1733.0
 rect_min_size = Vector2( 0, 16 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
 [node name="Label3" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_top = 129.0
-margin_right = 217.0
-margin_bottom = 178.0
+margin_top = 1741.0
+margin_right = 1.0
+margin_bottom = 3012.0
 custom_fonts/font = ExtResource( 5 )
 text = "Also, please help our app succeed by rating it!"
 align = 1
@@ -104,47 +100,41 @@ __meta__ = {
 }
 
 [node name="RateAppButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 186.0
-margin_right = 217.0
-margin_bottom = 248.0
+margin_top = 3020.0
+margin_right = 0.0
+margin_bottom = 3082.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 11 )
-text = "Rate app!"
-is_font_xl = true
+label = "Rate app!"
+font_size = 4
 
 [node name="DontAskAgainButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
-margin_left = 60.0
-margin_top = 256.0
-margin_right = 156.0
-margin_bottom = 270.0
+margin_top = 3090.0
+margin_right = 0.0
+margin_bottom = 3104.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Don't ask again"
+label = "Don\\'t ask again"
 
 [node name="Spacer3" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_left = 108.0
-margin_top = 278.0
-margin_right = 108.0
-margin_bottom = 294.0
+margin_top = 3112.0
+margin_bottom = 3128.0
 rect_min_size = Vector2( 0, 16 )
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
 [node name="KeepPlayingButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
-margin_left = 53.0
-margin_top = 302.0
-margin_right = 164.0
-margin_bottom = 316.0
+margin_top = 3136.0
+margin_right = 0.0
+margin_bottom = 3150.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Just keep playing!"
+label = "Just keep playing!"
 
 [node name="Spacer4" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_left = 108.0
-margin_top = 324.0
-margin_right = 108.0
-margin_bottom = 344.0
+margin_top = 3158.0
+margin_bottom = 3178.0
 rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 4
 size_flags_vertical = 3

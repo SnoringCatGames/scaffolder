@@ -3,6 +3,14 @@ class_name ScaffolderButton, "res://addons/scaffolder/assets/images/editor_icons
 extends Button
 
 
+enum FontSize {
+    XS,
+    S,
+    M,
+    L,
+    XL,
+}
+
 const SHINE_TEXTURE := \
         preload("res://addons/scaffolder/assets/images/gui/shine_line.png")
 const SHINE_DURATION := 0.35
@@ -12,15 +20,13 @@ const COLOR_PULSE_DURATION := 1.2
 const COLOR_PULSE_INTERVAL := 2.4
 const MIN_PADDING := 8.0
 
-export var texture: Texture setget _set_texture,_get_texture
-export var texture_scale := Vector2(1.0, 1.0) setget \
-        _set_texture_scale,_get_texture_scale
-export var is_shiny := false setget _set_is_shiny,_get_is_shiny
-export var includes_color_pulse := false setget \
-        _set_includes_color_pulse,_get_includes_color_pulse
-export var is_font_xl := false setget _set_is_font_xl,_get_is_font_xl
-export var size_override := Vector2.ZERO setget \
-        _set_size_override,_get_size_override
+export var label: String setget _set_label,_get_label
+export var texture: Texture setget _set_texture
+export var texture_scale := Vector2(1.0, 1.0) setget _set_texture_scale
+export var is_shiny := false setget _set_is_shiny
+export var includes_color_pulse := false setget _set_includes_color_pulse
+export(FontSize) var font_size := FontSize.M setget _set_font_size
+export var size_override := Vector2.ZERO setget _set_size_override
 
 var shine_interval_id := -1
 var color_pulse_interval_id := -1
@@ -98,18 +104,14 @@ func update() -> void:
     })
     
     $MarginContainer.rect_size = rect_size
-    $MarginContainer/BottomButton.text = text
     $MarginContainer/ShineLineWrapper/ShineLine.visible = is_shiny
     $MarginContainer/ShineLineWrapper/ShineLine.position = \
             Vector2(shine_start_x, shine_base_position.y)
     $MarginContainer/ScaffolderTextureRect.visible = texture != null
     $MarginContainer/ScaffolderTextureRect.texture = texture
     $MarginContainer/ScaffolderTextureRect.texture_scale = texture_scale
-    var font: Font = \
-            Gs.gui.fonts.main_xl if \
-            is_font_xl else \
-            Gs.gui.fonts.main_m
-    $MarginContainer/BottomButton.add_font_override(
+    var font := _get_font_from_font_size(font_size)
+    $MarginContainer/Label.add_font_override(
             "font",
             font)
     
@@ -181,12 +183,11 @@ func _trigger_color_pulse() -> void:
     color_pulse_tween.start()
 
 
-func set_text(value: String) -> void:
-    .set_text("")
+func _set_label(value: String) -> void:
     $MarginContainer/Label.text = value.c_unescape()
 
 
-func get_text() -> String:
+func _get_label() -> String:
     return $MarginContainer/Label.text.c_escape()
 
 
@@ -196,18 +197,10 @@ func _set_texture(value: Texture) -> void:
         update()
 
 
-func _get_texture() -> Texture:
-    return texture
-
-
 func _set_texture_scale(value: Vector2) -> void:
     texture_scale = value
     if _is_ready:
         update()
-
-
-func _get_texture_scale() -> Vector2:
-    return texture_scale
 
 
 func _set_is_shiny(value: bool) -> void:
@@ -216,38 +209,22 @@ func _set_is_shiny(value: bool) -> void:
         update()
 
 
-func _get_is_shiny() -> bool:
-    return is_shiny
-
-
 func _set_includes_color_pulse(value: bool) -> void:
     includes_color_pulse = value
     if _is_ready:
         update()
 
 
-func _get_includes_color_pulse() -> bool:
-    return includes_color_pulse
-
-
-func _set_is_font_xl(value: bool) -> void:
-    is_font_xl = value
+func _set_font_size(value: int) -> void:
+    font_size = value
     if _is_ready:
         update()
-
-
-func _get_is_font_xl() -> bool:
-    return is_font_xl
 
 
 func _set_size_override(value: Vector2) -> void:
     size_override = value
     if _is_ready:
         update()
-
-
-func _get_size_override() -> Vector2:
-    return size_override
 
 
 func press() -> void:
@@ -276,3 +253,20 @@ func _on_TopButton_button_down() -> void:
 func _on_TopButton_button_up() -> void:
     $MarginContainer/BottomButton \
             .add_stylebox_override("normal", button_style_hover)
+
+
+func _get_font_from_font_size(font_size: int) -> Font:
+    match font_size:
+        FontSize.XS:
+            return Gs.gui.fonts.main_xs
+        FontSize.S:
+            return Gs.gui.fonts.main_s
+        FontSize.M:
+            return Gs.gui.fonts.main_m
+        FontSize.L:
+            return Gs.gui.fonts.main_l
+        FontSize.XL:
+            return Gs.gui.fonts.main_xl
+        _:
+            Gs.logger.error()
+            return Gs.gui.fonts.main_m

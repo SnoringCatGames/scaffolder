@@ -109,7 +109,7 @@ margin_right = 88.0
 margin_bottom = 132.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Close"
+label = "Close"
 
 [node name="Spacer4" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_left = 70.0

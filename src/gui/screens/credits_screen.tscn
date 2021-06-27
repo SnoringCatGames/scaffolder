@@ -281,26 +281,27 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer"]
-margin_left = 70.0
-margin_right = 70.0
+margin_left = 20.0
+margin_right = 20.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="DataDeletionButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer" instance=ExtResource( 1 )]
+margin_left = 20.0
 margin_top = 14.0
-margin_right = 140.0
+margin_right = 20.0
 margin_bottom = 28.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Request data deletion"
+label = "Request data deletion"
 size_override = Vector2( 360, 0 )
 
 [node name="DataDeletionButtonPadding" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer"]
-margin_left = 70.0
+margin_left = 20.0
 margin_top = 32.0
-margin_right = 70.0
+margin_right = 20.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 4
@@ -311,13 +312,13 @@ __meta__ = {
 }
 
 [node name="ThirdPartyLicensesButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel/VBoxContainer" instance=ExtResource( 1 )]
-margin_left = 7.0
+margin_left = 20.0
 margin_top = 66.0
-margin_right = 133.0
+margin_right = 20.0
 margin_bottom = 80.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Third-party licenses"
+label = "Third-party licenses"
 size_override = Vector2( 360, 0 )
 
 [node name="PaddingBottom" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
