@@ -3,8 +3,8 @@
 [ext_resource path="res://addons/scaffolder/src/gui/level_select/level_select_item_unlocked_header.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres" type="DynamicFont" id=2]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/left_caret_normal.png" type="Texture" id=3]
-[ext_resource path="res://addons/scaffolder/src/gui/scaffolder_texture_rect.tscn" type="PackedScene" id=4]
-[ext_resource path="res://addons/scaffolder/src/gui/spacer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 
 [node name="LevelSelectItemUnlockedHeader" type="Button"]
 margin_right = 320.0
