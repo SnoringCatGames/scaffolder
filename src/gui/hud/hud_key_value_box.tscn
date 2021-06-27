@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/gui/spacer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/hud/hud_key_value_box.gd" type="Script" id=2]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=3]
 
