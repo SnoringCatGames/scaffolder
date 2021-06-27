@@ -44,9 +44,9 @@ custom_styles/panel = SubResource( 2 )
 
 [node name="Hint" type="Label" parent="HintWrapper"]
 margin_left = 94.0
-margin_top = 11.0
+margin_top = 3.0
 margin_right = 306.0
-margin_bottom = 45.0
+margin_bottom = 52.0
 rect_min_size = Vector2( 212, 34 )
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 3 )

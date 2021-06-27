@@ -46,4 +46,3 @@ func _update_display() -> void:
     item.update_item()
     $HBoxContainer/Key.text = item.label
     $HBoxContainer/Value.text = item.text
-#    self.visible = 
