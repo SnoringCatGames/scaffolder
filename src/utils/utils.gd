@@ -633,6 +633,7 @@ func _scale_gui_recursively(gui) -> void:
     
     assert(gui is Control)
     var control: Control = gui
+    var scale: float = Gs.gui.scale
     
     _record_gui_original_simple_dimensions(control)
     
@@ -642,7 +643,7 @@ func _scale_gui_recursively(gui) -> void:
                 control.get_meta("gs_separation") if \
                 control.has_meta("gs_separation") else \
                 INF
-        var separation := round(original_separation * Gs.gui.scale)
+        var separation := round(original_separation * scale)
         control.add_constant_override("separation", separation)
     
     if control is MarginContainer:
@@ -662,14 +663,21 @@ func _scale_gui_recursively(gui) -> void:
                 control.get_meta("gs_margin_bottom") if \
                 control.has_meta("gs_margin_bottom") else \
                 INF
-        var margin_right := round(original_margin_right * Gs.gui.scale)
+        var margin_right := round(original_margin_right * scale)
         control.add_constant_override("margin_right", margin_right)
-        var margin_top := round(original_margin_top * Gs.gui.scale)
+        var margin_top := round(original_margin_top * scale)
         control.add_constant_override("margin_top", margin_top)
-        var margin_left := round(original_margin_left * Gs.gui.scale)
+        var margin_left := round(original_margin_left * scale)
         control.add_constant_override("margin_left", margin_left)
-        var margin_bottom := round(original_margin_bottom * Gs.gui.scale)
+        var margin_bottom := round(original_margin_bottom * scale)
         control.add_constant_override("margin_bottom", margin_bottom)
+    
+    if control.has_meta("gs_rect_min_size"):
+        control.rect_min_size = control.get_meta("gs_rect_min_size") * scale
+    if control.has_meta("gs_rect_size"):
+        control.rect_size = control.get_meta("gs_rect_size") * scale
+    if control.has_meta("gs_rect_scale"):
+        control.rect_scale = control.get_meta("gs_rect_scale") * scale
     
     for child in control.get_children():
         if child is Control:

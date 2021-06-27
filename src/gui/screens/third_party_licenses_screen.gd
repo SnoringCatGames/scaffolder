@@ -10,6 +10,8 @@ const INCLUDES_STANDARD_HIERARCHY := true
 const INCLUDES_NAV_BAR := true
 const INCLUDES_CENTER_CONTAINER := false
 
+const BODY_WIDTH_SCALE := 2.0
+
 
 func _init().(
         NAME,
@@ -25,4 +27,15 @@ func _init().(
 
 func _ready() -> void:
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer \
-            /VBoxContainer/Label.text = Gs.gui.third_party_license_text 
+            /VBoxContainer/Label.text = Gs.gui.third_party_license_text
+
+
+func _on_resized() -> void:
+    ._on_resized()
+    
+    var width := min(
+            Gs.gui.screen_body_width * Gs.gui.scale * BODY_WIDTH_SCALE,
+            get_viewport().size.x)
+    
+    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            VBoxContainer/Label.rect_min_size.x = width

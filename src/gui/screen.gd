@@ -150,8 +150,11 @@ func _validate_node_hierarchy() -> void:
                     ScrollContainer/VBoxContainer
             assert(inner_vbox != null)
         
-        inner_vbox.rect_min_size.x = Gs.gui.screen_body_width
-        inner_vbox.set_meta("gs_rect_min_size", inner_vbox.rect_min_size)
+        var original_rect_min_size := Vector2(
+                Gs.gui.screen_body_width,
+                inner_vbox.rect_min_size.y)
+        inner_vbox.set_meta("gs_rect_min_size", original_rect_min_size)
+        inner_vbox.rect_min_size.x = original_rect_min_size.x * Gs.gui.scale
         
         Gs.utils.set_mouse_filter_recursively(
                 scroll_container,
