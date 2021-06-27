@@ -1,5 +1,5 @@
 tool
-class_name ScaffolderTextureLink
+class_name ScaffolderTextureLink, "res://addons/scaffolder/assets/images/editor_icons/scaffolder_texture_link.png"
 extends LinkButton
 
 

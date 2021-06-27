@@ -1,5 +1,5 @@
 tool
-class_name ScaffolderLabelLink
+class_name ScaffolderLabelLink, "res://addons/scaffolder/assets/images/editor_icons/scaffolder_label_link.png"
 extends LinkButton
 
 
