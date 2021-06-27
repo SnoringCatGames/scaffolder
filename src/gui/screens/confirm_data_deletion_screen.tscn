@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/centered_panel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/spacer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/full_screen_panel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/alert_icon_normal_large.png" type="Texture" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen.gd" type="Script" id=5]
@@ -57,9 +58,9 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
 margin_left = 313.0
-margin_top = 144.0
+margin_top = 214.0
 margin_right = 633.0
-margin_bottom = 801.0
+margin_bottom = 731.0
 
 [node name="ScaffolderTextureRect" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 7 )]
 margin_right = 320.0
@@ -67,22 +68,19 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 texture = ExtResource( 4 )
 
-[node name="Spacer3" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="Spacer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 160.0
 margin_top = 68.0
 margin_right = 160.0
-margin_bottom = 88.0
-rect_min_size = Vector2( 0, 20 )
-size_flags_horizontal = 4
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 68.0
+size = Vector2( 0, 20 )
 
 [node name="Label" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_top = 92.0
+margin_top = 72.0
 margin_right = 320.0
-margin_bottom = 219.0
+margin_bottom = 199.0
 rect_min_size = Vector2( 320, 0 )
 custom_fonts/font = ExtResource( 8 )
 text = "This will both erase all game progress on this device and send a request to have your analytics usage data erased from our remote servers as well."
@@ -92,22 +90,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer6" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="Spacer2" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 160.0
-margin_top = 223.0
+margin_top = 203.0
 margin_right = 160.0
-margin_bottom = 243.0
-rect_min_size = Vector2( 0, 20 )
-size_flags_horizontal = 4
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 203.0
+size = Vector2( 0, 20 )
 
 [node name="Label2" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_top = 247.0
+margin_top = 207.0
 margin_right = 320.0
-margin_bottom = 478.0
+margin_bottom = 438.0
 rect_min_size = Vector2( 320, 0 )
 custom_fonts/font = ExtResource( 8 )
 text = "IMPORTANT: Record your client ID number (taking a screenshot might be easiest). In case there's a problem with your request, we'll need this number to know which data to delete. After you click the confirmation button below, you will not be able to retrieve this number. Here is your client ID number:"
@@ -117,22 +112,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer7" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="Spacer9" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 160.0
-margin_top = 482.0
+margin_top = 442.0
 margin_right = 160.0
-margin_bottom = 502.0
-rect_min_size = Vector2( 0, 20 )
-size_flags_horizontal = 4
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 442.0
+size = Vector2( 0, 20 )
 
 [node name="ClientIdNumber" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_top = 506.0
+margin_top = 446.0
 margin_right = 320.0
-margin_bottom = 529.0
+margin_bottom = 469.0
 rect_min_size = Vector2( 320, 0 )
 custom_fonts/font = ExtResource( 8 )
 align = 1
@@ -141,58 +133,54 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer8" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="Spacer10" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 160.0
-margin_top = 533.0
+margin_top = 473.0
 margin_right = 160.0
-margin_bottom = 553.0
-rect_min_size = Vector2( 0, 20 )
-size_flags_horizontal = 4
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 473.0
+size = Vector2( 0, 20 )
 
 [node name="ScaffolderButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 6 )]
 margin_left = 160.0
-margin_top = 557.0
+margin_top = 477.0
 margin_right = 160.0
-margin_bottom = 571.0
+margin_bottom = 491.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+label = "I\\'m sure.\\nPlease delete all my data."
 font_size = 1
 size_override = Vector2( 300, 80 )
 
-[node name="Spacer5" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="Spacer11" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 160.0
-margin_top = 575.0
+margin_top = 495.0
 margin_right = 160.0
-margin_bottom = 585.0
-rect_min_size = Vector2( 0, 10 )
-size_flags_horizontal = 4
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 495.0
+size = Vector2( 0, 10 )
 
 [node name="CancelButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 6 )]
 margin_left = 160.0
-margin_top = 589.0
+margin_top = 499.0
 margin_right = 160.0
-margin_bottom = 603.0
+margin_bottom = 513.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+label = "Cancel!"
 is_shiny = true
 font_size = 4
 size_override = Vector2( 400, 120 )
 
-[node name="Spacer4" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="Spacer12" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 160.0
-margin_top = 607.0
+margin_top = 517.0
 margin_right = 160.0
-margin_bottom = 657.0
-rect_min_size = Vector2( 0, 50 )
-size_flags_horizontal = 4
-size_flags_vertical = 3
+margin_bottom = 517.0
+size = Vector2( 0, 50 )
 
 [connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

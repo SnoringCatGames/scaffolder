@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/screens/level_select_screen.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/full_screen_panel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/nav_bar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/centered_panel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/scaffolder/src/gui/spacer.tscn" type="PackedScene" id=5]
 
 [node name="LevelSelectScreen" type="Node2D"]
 script = ExtResource( 1 )
@@ -53,9 +54,9 @@ margin_top = 469.0
 margin_right = 473.0
 margin_bottom = 477.0
 
-[node name="Spacer1" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-size_flags_horizontal = 4
-size_flags_vertical = 3
+[node name="Spacer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 
 [node name="LevelSelectItems" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
 margin_top = 4.0
@@ -64,8 +65,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_constants/separation = 16
 
-[node name="Spacer2" type="Control" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="Spacer3" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 8.0
 margin_bottom = 8.0
-size_flags_horizontal = 4
-size_flags_vertical = 3
