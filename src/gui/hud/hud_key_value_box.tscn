@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://addons/scaffolder/src/gui/spacer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/hud/hud_key_value_box.gd" type="Script" id=2]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=3]
 
@@ -21,40 +22,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer" type="Control" parent="HBoxContainer"]
+[node name="Spacer" parent="HBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 24.0
-margin_right = 8.0
 margin_bottom = 24.0
-rect_min_size = Vector2( 8, 0 )
-mouse_filter = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
+size = Vector2( 8, 0 )
 
 [node name="Key" type="Label" parent="HBoxContainer"]
-margin_left = 8.0
-margin_top = 13.0
-margin_right = 238.0
+margin_top = 12.0
+margin_right = 244.0
 margin_bottom = 35.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 text = "Label:"
 
 [node name="Value" type="Label" parent="HBoxContainer"]
-margin_left = 238.0
-margin_top = 13.0
-margin_right = 248.0
+margin_left = 244.0
+margin_top = 12.0
+margin_right = 256.0
 margin_bottom = 35.0
 size_flags_horizontal = 9
 custom_fonts/font = ExtResource( 3 )
 text = "0"
 align = 2
 
-[node name="Spacer2" type="Control" parent="HBoxContainer"]
-margin_left = 248.0
+[node name="Spacer2" parent="HBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 256.0
 margin_top = 24.0
 margin_right = 256.0
 margin_bottom = 24.0
-rect_min_size = Vector2( 8, 0 )
-mouse_filter = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
+size = Vector2( 8, 0 )

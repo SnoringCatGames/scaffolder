@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/labeled_control_list/labeled_control_list.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/accordion_panel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/settings_group.gd" type="Script" id=3]
+[ext_resource path="res://addons/scaffolder/src/gui/spacer.tscn" type="PackedScene" id=4]
 
 [node name="SettingsGroup" type="VBoxContainer"]
 anchor_right = 1.0
@@ -31,29 +32,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer" type="Control" parent="AccordionPanel/VBoxContainer"]
+[node name="Spacer2" parent="AccordionPanel/VBoxContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 20.0
 margin_right = 20.0
-margin_bottom = 10.0
-rect_min_size = Vector2( 0, 10 )
-size_flags_horizontal = 4
-size_flags_vertical = 4
-__meta__ = {
-"_edit_use_anchors_": false
-}
+size = Vector2( 0, 10 )
 
 [node name="LabeledControlList" parent="AccordionPanel/VBoxContainer" instance=ExtResource( 1 )]
-margin_top = 14.0
+margin_top = 4.0
 margin_right = 40.0
-margin_bottom = 14.0
+margin_bottom = 4.0
 
-[node name="Spacer" type="Control" parent="."]
+[node name="Spacer3" parent="." instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 512.0
 margin_right = 512.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
-size_flags_horizontal = 4
-size_flags_vertical = 4
-__meta__ = {
-"_edit_use_anchors_": false
-}
+size = Vector2( 0, 30 )
