@@ -1,5 +1,5 @@
 tool
-class_name Spacer
+class_name Spacer, "res://addons/scaffolder/assets/images/editor_icons/spacer.png"
 extends Control
 
 
