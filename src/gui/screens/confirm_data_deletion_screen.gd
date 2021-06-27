@@ -34,9 +34,7 @@ func _get_focused_button() -> ScaffolderButton:
             CenterContainer/VBoxContainer/CancelButton as ScaffolderButton
 
 
-func _on_ConfirmButton_pressed():
-    Gs.utils.give_button_press_feedback()
-    
+func _on_ConfirmButton_pressed() -> void:
     Gs.save_state.erase_all_state()
     
     # Erase user files.
@@ -55,6 +53,5 @@ func quit() -> void:
     Gs.nav.open("data_agreement")
 
 
-func _on_CancelButton_pressed():
-    Gs.utils.give_button_press_feedback()
+func _on_CancelButton_pressed() -> void:
     Gs.nav.close_current_screen()

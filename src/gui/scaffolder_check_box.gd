@@ -100,6 +100,7 @@ func set_original_size(original_size: Vector2) -> void:
 
 
 func _on_CheckBox_pressed() -> void:
+    Gs.utils.give_button_press_feedback()
     emit_signal("pressed")
 
 

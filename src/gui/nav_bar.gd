@@ -80,18 +80,15 @@ func _get_shows_logo() -> bool:
     return shows_logo
 
 
-func _on_BackButton_pressed():
-    Gs.utils.give_button_press_feedback()
+func _on_BackButton_pressed() -> void:
     Gs.nav.close_current_screen()
 
 
-func _on_AboutButton_pressed():
-    Gs.utils.give_button_press_feedback()
+func _on_AboutButton_pressed() -> void:
     Gs.nav.open("credits")
 
 
-func _on_SettingsButton_pressed():
-    Gs.utils.give_button_press_feedback()
+func _on_SettingsButton_pressed() -> void:
     if Gs.level != null and \
             Gs.app_metadata.must_restart_level_to_change_settings:
         var description := (

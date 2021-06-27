@@ -98,18 +98,15 @@ func _get_items() -> Array:
 
 
 func _on_SelectLevelButton_pressed():
-    Gs.utils.give_button_press_feedback()
     Gs.audio.play_music(Gs.audio_manifest.main_menu_music)
     Gs.nav.open("level_select")
 
 
 func _on_HomeButton_pressed():
-    Gs.utils.give_button_press_feedback()
     Gs.audio.play_music(Gs.audio_manifest.main_menu_music)
     Gs.nav.open("main_menu")
 
 
 func _on_RetryButton_pressed():
-    Gs.utils.give_button_press_feedback(true)
     Gs.nav.open("game")
     Gs.nav.screens["game"].start_level(Gs.level_session.id)
