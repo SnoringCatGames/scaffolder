@@ -109,7 +109,7 @@ func create_row(
         description_button.texture_pressed = ABOUT_ICON_ACTIVE
         description_button.set_meta(
                 "gs_rect_min_size", ABOUT_ICON_NORMAL.get_size())
-        description_button.rect_min_size = \
+        description_button.size_override = \
                 ABOUT_ICON_NORMAL.get_size()
         description_button.texture_scale = Vector2.ONE
         description_button.expands_texture = false
