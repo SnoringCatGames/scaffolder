@@ -83,8 +83,6 @@ margin_left = 352.0
 margin_top = 164.0
 margin_right = 352.0
 margin_bottom = 164.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
 [node name="TopButton" type="Button" parent="MarginContainer"]
 margin_right = 704.0
