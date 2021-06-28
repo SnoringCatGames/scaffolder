@@ -19,9 +19,6 @@ const ABOUT_ICON_HOVER := \
 const ABOUT_ICON_ACTIVE := \
         preload("res://addons/scaffolder/assets/images/gui/about_icon_active.png")
 
-const SCAFFOLDER_TEXTURE_BUTTON_SCENE_PATH := \
-        "res://addons/scaffolder/src/gui/widgets/scaffolder_texture_button.tscn"
-
 const ENABLED_ALPHA := 1.0
 const DISABLED_ALPHA := 0.3
 
@@ -104,7 +101,7 @@ func create_row(
             includes_description:
         description_button = Gs.utils.add_scene(
                 hbox, 
-                SCAFFOLDER_TEXTURE_BUTTON_SCENE_PATH,
+                Gs.gui.SCAFFOLDER_TEXTURE_BUTTON_SCENE,
                 false,
                 true)
         description_button.texture_normal = ABOUT_ICON_NORMAL

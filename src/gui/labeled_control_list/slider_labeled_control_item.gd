@@ -54,9 +54,13 @@ func _update_control() -> void:
 
 
 func create_control() -> Control:
-    var slider := HSlider.new()
+    var slider: ScaffolderSlider = Gs.utils.add_scene(
+            null,
+            Gs.gui.SCAFFOLDER_SLIDER_SCENE,
+            false,
+            true)
     slider.editable = enabled
-    slider.rect_min_size.x = width
+    slider.size_override.x = width
     slider.step = step
     slider.tick_count = tick_count
     slider.min_value = min_value

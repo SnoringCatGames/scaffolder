@@ -1,6 +1,6 @@
 tool
 class_name ScaffolderSlider, "res://addons/scaffolder/assets/images/editor_icons/slider.png"
-extends Slider
+extends HSlider
 
 
 export var size_override := Vector2.ZERO setget _set_size_override

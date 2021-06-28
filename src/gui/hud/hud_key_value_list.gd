@@ -2,9 +2,6 @@ class_name HudKeyValueList
 extends VBoxContainer
 
 
-const HUD_KEY_VALUE_BOX_PATH := \
-        "res://addons/scaffolder/src/gui/hud/hud_key_value_box.tscn"
-
 var boxes := []
 
 
@@ -40,7 +37,7 @@ func update_list() -> void:
         
         var box: HudKeyValueBox = Gs.utils.add_scene(
                 self,
-                HUD_KEY_VALUE_BOX_PATH,
+                Gs.gui.hud_manifest.hud_key_value_box_scene,
                 false,
                 true)
         box.item = item_config.item_class.new(Gs.level_session)
