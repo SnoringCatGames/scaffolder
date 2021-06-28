@@ -3,7 +3,7 @@ extends LabeledControlItem
 
 
 const SCAFFOLDER_CHECK_BOX_SCENE_PATH := \
-        "res://addons/scaffolder/src/gui/scaffolder_check_box.tscn"
+        "res://addons/scaffolder/src/gui/widgets/scaffolder_check_box.tscn"
 
 var TYPE := LabeledControlItem.CHECKBOX
 
