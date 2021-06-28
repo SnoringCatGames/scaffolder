@@ -207,6 +207,10 @@ var tree_arrow_icon_sizes := [8, 16, 32, 64]
 var third_party_license_text: String
 var special_thanks_text: String
 
+var main_menu_image_scale: float
+var game_over_image_scale: float
+var loading_image_scale: float
+
 var main_menu_image_scene: PackedScene
 var game_over_image_scene: PackedScene
 var loading_image_scene: PackedScene
@@ -335,6 +339,13 @@ func register_manifest(manifest: Dictionary) -> void:
     self.third_party_license_text = \
             manifest.third_party_license_text.strip_edges()
     self.special_thanks_text = manifest.special_thanks_text.strip_edges()
+    
+    if manifest.has("main_menu_image_scale"):
+        self.main_menu_image_scale = manifest.main_menu_image_scale
+    if manifest.has("game_over_image_scale"):
+        self.game_over_image_scale = manifest.game_over_image_scale
+    if manifest.has("loading_image_scale"):
+        self.loading_image_scale = manifest.loading_image_scale
     
     if manifest.has("main_menu_image_scene"):
         self.main_menu_image_scene = manifest.main_menu_image_scene

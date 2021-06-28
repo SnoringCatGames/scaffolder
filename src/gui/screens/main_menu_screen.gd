@@ -12,7 +12,7 @@ const INCLUDES_CENTER_CONTAINER := true
 
 var go_icon_scale_multiplier := 1.0
 
-var projected_image: Control
+var projected_image: ScaffolderConfiguredImage
 
 
 func _init().(
@@ -35,6 +35,7 @@ func _ready() -> void:
                 Gs.gui.main_menu_image_scene,
                 true,
                 true)
+        projected_image.original_scale = Gs.gui.main_menu_image_scale
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/Title.texture = \
             Gs.app_metadata.app_logo
