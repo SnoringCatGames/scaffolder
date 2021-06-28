@@ -1,4 +1,4 @@
-class_name Screen
+class_name Screen, "res://addons/scaffolder/assets/images/editor_icons/screen.png"
 extends Node2D
 
 

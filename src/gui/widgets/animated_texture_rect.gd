@@ -1,5 +1,5 @@
 tool
-class_name AnimatedTextureRect
+class_name AnimatedTextureRect, "res://addons/scaffolder/assets/images/editor_icons/animated_texture_rect.png"
 extends Control
 
 
