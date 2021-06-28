@@ -68,7 +68,7 @@ func _get_focused_button() -> ScaffolderButton:
             CenterContainer/VBoxContainer/CloseButton as ScaffolderButton
 
 
-func _on_CloseButton_pressed():
+func _on_CloseButton_pressed() -> void:
     if params.has("close_callback"):
         params["close_callback"].call_func()
     
