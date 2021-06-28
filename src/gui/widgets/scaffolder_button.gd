@@ -11,8 +11,6 @@ enum FontSize {
     XL,
 }
 
-const SHINE_TEXTURE := \
-        preload("res://addons/scaffolder/assets/images/gui/shine_line.png")
 const SHINE_DURATION := 0.35
 const SHINE_INTERVAL := 3.5
 const SHINE_SCALE := Vector2(1.0, 1.0)
@@ -67,6 +65,8 @@ func _ready() -> void:
 func _exit_tree() -> void:
     if is_instance_valid(button_style_pulse):
         button_style_pulse.destroy()
+    Gs.time.clear_interval(shine_interval_id)
+    Gs.time.clear_interval(color_pulse_interval_id)
 
 
 func update_gui_scale() -> bool:
@@ -125,10 +125,14 @@ func update() -> void:
             button_style_normal)
     
     if is_shiny:
+        print(">>>>>>>>>>1.1: %s" % shine_interval_id)
         _trigger_shine()
         shine_interval_id = Gs.time.set_interval(
                 funcref(self, "_trigger_shine"),
                 SHINE_INTERVAL)
+        print(">>>>>>>>>>1.2: %s" % shine_interval_id)
+    else:
+        print(">>>>>>>>>>2: %s" % shine_interval_id)
     
     if includes_color_pulse:
         _trigger_color_pulse()
@@ -138,6 +142,7 @@ func update() -> void:
 
 
 func _trigger_shine() -> void:
+    print(">>>>>>>>>>3: %s" % shine_interval_id)
     shine_tween.interpolate_property(
             $MarginContainer/ShineLineWrapper/ShineLine,
             "position:x",
