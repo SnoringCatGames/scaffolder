@@ -13,7 +13,7 @@ const INCLUDES_CENTER_CONTAINER := true
 
 var go_icon_scale_multiplier := 1.0
 
-var projected_image: Control
+var projected_image: ScaffolderConfiguredImage
 
 
 func _init().(
@@ -36,6 +36,7 @@ func _ready() -> void:
                 Gs.gui.game_over_image_scene,
                 true,
                 true)
+        projected_image.original_scale = Gs.gui.game_over_image_scale
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/VBoxContainer/SelectLevelButton \
             .texture = Gs.app_metadata.go_icon

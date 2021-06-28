@@ -30,13 +30,13 @@ func _ready() -> void:
     loading_image_wrapper.visible = Gs.gui.is_loading_image_shown
     
     if Gs.gui.is_loading_image_shown:
-        var loading_image: Control = Gs.utils.add_scene(
+        var loading_image: ScaffolderConfiguredImage = Gs.utils.add_scene(
                 loading_image_wrapper,
                 Gs.gui.loading_image_scene,
                 true,
                 true, \
                 0)
-        loading_image.set_base_scale(0.5)
+        loading_image.original_scale = Gs.gui.loading_image_scale
     
     inner_vbox = $PanelContainer/LoadProgressPanel/VBoxContainer
     inner_vbox.rect_min_size.x = Gs.gui.screen_body_width
