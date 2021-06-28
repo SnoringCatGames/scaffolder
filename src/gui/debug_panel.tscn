@@ -23,23 +23,21 @@ __meta__ = {
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer"]
 margin_right = 214.0
 margin_bottom = 214.0
-rect_min_size = Vector2( 200, 200 )
 mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="PanelContainer/ScrollContainer"]
-margin_right = 200.0
-margin_bottom = 26.0
-rect_min_size = Vector2( 200, 0 )
+margin_right = 1.0
+margin_bottom = 23.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0.772549, 1, 0.368627, 1 )
 autowrap = true
 
 [node name="Time" type="Label" parent="PanelContainer"]
 margin_right = 214.0
-margin_bottom = 26.0
+margin_bottom = 23.0
 size_flags_vertical = 0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0.772549, 1, 0.368627, 1 )
