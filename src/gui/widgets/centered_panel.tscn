@@ -5,7 +5,6 @@
 [node name="CenteredPanel" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 960, 960 )
 mouse_filter = 2
 script = ExtResource( 1 )
 __meta__ = {

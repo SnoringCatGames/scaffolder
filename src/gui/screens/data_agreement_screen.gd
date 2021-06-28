@@ -23,17 +23,20 @@ func _init().(
     pass
 
 
+func _ready() -> void:
+    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/ \
+            TermsAndConditionsLink.url = \
+            Gs.app_metadata.terms_and_conditions_url
+    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/ \
+            PrivacyPolicyLink.url = \
+            Gs.app_metadata.privacy_policy_url
+
+
 func _get_focused_button() -> ScaffolderButton:
     return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
             CenterContainer/VBoxContainer/AgreeButton as ScaffolderButton
-
-
-func _on_PrivacyPolicyLink_pressed() -> void:
-    OS.shell_open(Gs.app_metadata.privacy_policy_url)
-
-
-func _on_TermsAndConditionsLink_pressed() -> void:
-    OS.shell_open(Gs.app_metadata.terms_and_conditions_url)
 
 
 func _on_AgreeButton_pressed() -> void:
