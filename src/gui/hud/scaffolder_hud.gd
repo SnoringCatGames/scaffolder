@@ -2,16 +2,15 @@ class_name ScaffolderHud
 extends Node2D
 
 
-const HUD_KEY_VALUE_LIST_PATH := \
-        "res://addons/scaffolder/src/gui/hud/hud_key_value_list.tscn"
-
 var hud_key_value_list: HudKeyValueList
 
 
 func _ready() -> void:
     assert(Gs.gui.hud_manifest.has("hud_key_value_box_size"))
     assert(Gs.gui.hud_manifest.has("hud_key_value_list_item_manifest"))
-    assert(Gs.gui.hud_manifest.has("hud_key_value_box_nine_patch_rect_path"))
+    assert(Gs.gui.hud_manifest.has("hud_key_value_box_scene"))
+    assert(Gs.gui.hud_manifest.has("hud_key_value_list_scene"))
+    assert(Gs.gui.hud_manifest.has("hud_key_value_box_nine_patch_rect_scene"))
     
     var is_hud_key_value_list_shown: bool = false
     for item_config in Gs.gui.hud_manifest.hud_key_value_list_item_manifest:
@@ -22,7 +21,7 @@ func _ready() -> void:
     if is_hud_key_value_list_shown:
         hud_key_value_list = Gs.utils.add_scene(
                 self,
-                HUD_KEY_VALUE_LIST_PATH,
+                Gs.gui.hud_manifest.hud_key_value_list_scene,
                 true,
                 true)
 

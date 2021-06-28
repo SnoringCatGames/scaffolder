@@ -2,9 +2,6 @@ class_name CheckboxLabeledControlItem
 extends LabeledControlItem
 
 
-const SCAFFOLDER_CHECK_BOX_SCENE_PATH := \
-        "res://addons/scaffolder/src/gui/widgets/scaffolder_check_box.tscn"
-
 var TYPE := LabeledControlItem.CHECKBOX
 
 var pressed := false
@@ -45,7 +42,7 @@ func _update_control() -> void:
 func create_control() -> Control:
     var checkbox: ScaffolderCheckBox = Gs.utils.add_scene(
             null,
-            SCAFFOLDER_CHECK_BOX_SCENE_PATH,
+            Gs.gui.SCAFFOLDER_CHECK_BOX_SCENE,
             false,
             true)
     checkbox.pressed = pressed

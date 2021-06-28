@@ -139,7 +139,7 @@ func _show_welcome_panel() -> void:
     assert(Gs.gui.welcome_panel == null)
     Gs.gui.welcome_panel = Gs.utils.add_scene(
             Gs.canvas_layers.layers.hud,
-            Gs.gui.welcome_panel_path)
+            Gs.gui.welcome_panel_scene)
 
 
 func _hide_welcome_panel() -> void:

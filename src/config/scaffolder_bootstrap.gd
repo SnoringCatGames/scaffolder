@@ -62,7 +62,7 @@ func _initialize_framework() -> void:
     
     Gs.gui.debug_panel = Gs.utils.add_scene(
             Gs.canvas_layers.layers.top,
-            Gs.gui.DEBUG_PANEL_PATH,
+            Gs.gui.debug_panel_scene,
             true,
             true)
     Gs.gui.debug_panel.z_index = 1000

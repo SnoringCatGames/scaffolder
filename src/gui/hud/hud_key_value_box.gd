@@ -11,7 +11,7 @@ var nine_patch_rect: NinePatchRect
 func _ready() -> void:
     nine_patch_rect = Gs.utils.add_scene(
             self,
-            Gs.gui.hud_manifest.hud_key_value_box_nine_patch_rect_path,
+            Gs.gui.hud_manifest.hud_key_value_box_nine_patch_rect_scene,
             true,
             true,
             0)

@@ -3,9 +3,8 @@ class_name LevelSelectScreen
 extends Screen
 
 
-const LEVEL_SELECT_ITEM_PATH := \
-        "res://addons/scaffolder/src/gui/level_select/level_select_item.tscn"
-
+const LEVEL_SELECT_ITEM_SCENE := \
+        preload("res://addons/scaffolder/src/gui/level_select/level_select_item.tscn")
 const SCROLL_TWEEN_DURATION := 0.3
 
 const NAME := "level_select"
@@ -43,7 +42,7 @@ func _ready() -> void:
         var item: LevelSelectItem = Gs.utils.add_scene(
                 $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer \
                         /CenterContainer/VBoxContainer/LevelSelectItems,
-                LEVEL_SELECT_ITEM_PATH,
+                LEVEL_SELECT_ITEM_SCENE,
                 true,
                 true)
         level_items.push_back(item)

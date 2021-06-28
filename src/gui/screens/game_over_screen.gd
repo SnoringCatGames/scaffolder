@@ -33,7 +33,7 @@ func _ready() -> void:
         projected_image = Gs.utils.add_scene(
                 $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
                         CenterContainer/VBoxContainer/GameOverImageContainer,
-                Gs.gui.game_over_image_scene_path,
+                Gs.gui.game_over_image_scene,
                 true,
                 true)
     $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \

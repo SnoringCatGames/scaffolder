@@ -4,12 +4,42 @@ extends Node
 
 # --- Constants ---
 
+const ACCORDION_PANEL_SCENE := \
+        preload("res://addons/scaffolder/src/gui/widgets/accordion_panel.tscn")
+const CENTERED_PANEL_SCENE := \
+        preload("res://addons/scaffolder/src/gui/widgets/centered_panel.tscn")
+const FULL_SCREEN_PANEL_SCENE := \
+        preload("res://addons/scaffolder/src/gui/widgets/full_screen_panel.tscn")
+const SCAFFOLDER_BUTTON_SCENE := \
+        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn")
+const SCAFFOLDER_CHECK_BOX_SCENE := \
+        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_check_box.tscn")
+const SCAFFOLDER_LABEL_LINK_SCENE := \
+        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_label_link.tscn")
+const SCAFFOLDER_PROGRESS_BAR_SCENE := \
+        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_progress_bar.tscn")
+const SCAFFOLDER_SLIDER_SCENE := \
+        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_slider.tscn")
+const SCAFFOLDER_TEXTURE_BUTTON_SCENE := \
+        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_texture_button.tscn")
+const SCAFFOLDER_TEXTURE_LINK_SCENE := \
+        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_texture_link.tscn")
+const SCAFFOLDER_TEXTURE_RECT_SCENE := \
+        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn")
+const SPACER_SCENE := \
+        preload("res://addons/scaffolder/src/gui/widgets/spacer.tscn")
+
 const WELCOME_PANEL_PATH := \
         "res://addons/scaffolder/src/gui/welcome_panel.tscn"
 const DEBUG_PANEL_PATH := \
         "res://addons/scaffolder/src/gui/debug_panel.tscn"
+const DEFAULT_HUD_KEY_VALUE_BOX_PATH := \
+        "res://addons/scaffolder/src/gui/hud/hud_key_value_box.tscn"
+const DEFAULT_HUD_KEY_VALUE_LIST_PATH := \
+        "res://addons/scaffolder/src/gui/hud/hud_key_value_list.tscn"
 const DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH := \
         "res://addons/scaffolder/src/gui/hud/hud_key_value_box_nine_patch_rect.tscn"
+
 const DEFAULT_FADE_IN_TRANSITON_TEXTURE_PATH := \
         "res://addons/scaffolder/assets/images/transition_in.png"
 const DEFAULT_FADE_OUT_TRANSITON_TEXTURE_PATH := \
@@ -70,8 +100,12 @@ var DEFAULT_WELCOME_PANEL_MANIFEST := {
 var DEFAULT_HUD_MANIFEST := {
     hud_class = ScaffolderHud,
     hud_key_value_box_size = HUD_KEY_VALUE_BOX_DEFAULT_SIZE,
-    hud_key_value_box_nine_patch_rect_path = \
-            DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH,
+    hud_key_value_box_scene = \
+            preload(DEFAULT_HUD_KEY_VALUE_BOX_PATH),
+    hud_key_value_list_scene = \
+            preload(DEFAULT_HUD_KEY_VALUE_LIST_PATH),
+    hud_key_value_box_nine_patch_rect_scene = \
+            preload(DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH),
     hud_key_value_list_item_manifest = [
         {
             item_class = TimeLabeledControlItem,
@@ -173,10 +207,11 @@ var tree_arrow_icon_sizes := [8, 16, 32, 64]
 var third_party_license_text: String
 var special_thanks_text: String
 
-var main_menu_image_scene_path: String
-var game_over_image_scene_path: String
-var loading_image_scene_path: String
-var welcome_panel_path: String
+var main_menu_image_scene: PackedScene
+var game_over_image_scene: PackedScene
+var loading_image_scene: PackedScene
+var welcome_panel_scene: PackedScene
+var debug_panel_scene: PackedScene
 
 var fade_in_transition_texture := \
         preload(DEFAULT_FADE_IN_TRANSITON_TEXTURE_PATH)
@@ -301,14 +336,16 @@ func register_manifest(manifest: Dictionary) -> void:
             manifest.third_party_license_text.strip_edges()
     self.special_thanks_text = manifest.special_thanks_text.strip_edges()
     
-    if manifest.has("main_menu_image_scene_path"):
-        self.main_menu_image_scene_path = manifest.main_menu_image_scene_path
-    if manifest.has("game_over_image_scene_path"):
-        self.game_over_image_scene_path = manifest.game_over_image_scene_path
-    if manifest.has("loading_image_scene_path"):
-        self.loading_image_scene_path = manifest.loading_image_scene_path
-    if manifest.has("welcome_panel_path"):
-        self.welcome_panel_path = manifest.welcome_panel_path
+    if manifest.has("main_menu_image_scene"):
+        self.main_menu_image_scene = manifest.main_menu_image_scene
+    if manifest.has("game_over_image_scene"):
+        self.game_over_image_scene = manifest.game_over_image_scene
+    if manifest.has("loading_image_scene"):
+        self.loading_image_scene = manifest.loading_image_scene
+    if manifest.has("welcome_panel_scene"):
+        self.welcome_panel_scene = manifest.welcome_panel_scene
+    if manifest.has("debug_panel_scene"):
+        self.debug_panel_scene = manifest.debug_panel_scene
     if manifest.has("fade_in_transition_texture"):
         self.fade_in_transition_texture = manifest.fade_in_transition_texture
     if manifest.has("fade_out_transition_texture"):
@@ -346,10 +383,10 @@ func register_manifest(manifest: Dictionary) -> void:
     self.is_developer_splash_shown = \
             Gs.app_metadata.developer_splash != null and \
             Gs.audio_manifest.developer_splash_sound != ""
-    self.is_main_menu_image_shown = self.main_menu_image_scene_path != ""
-    self.is_game_over_image_shown = self.game_over_image_scene_path != ""
-    self.is_loading_image_shown = self.loading_image_scene_path != ""
-    self.does_app_contain_welcome_panel = welcome_panel_path != ""
+    self.is_main_menu_image_shown = self.main_menu_image_scene != null
+    self.is_game_over_image_shown = self.game_over_image_scene != null
+    self.is_loading_image_shown = self.loading_image_scene != null
+    self.does_app_contain_welcome_panel = self.welcome_panel_scene != null
     self.is_gesture_logging_supported = \
             !Gs.app_metadata.log_gestures_url.empty() and \
             !Gs.app_metadata.app_id_query_param.empty()

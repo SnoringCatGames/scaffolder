@@ -189,13 +189,17 @@ static func _get_floor_collision(
 
 func add_scene(
         parent: Node,
-        path: String,
+        path_or_packed_scene,
         is_attached := true,
         is_visible := true, \
         child_index := -1) -> Node:
-    var scene := load(path)
+    var scene: PackedScene
+    if path_or_packed_scene is String:
+        scene = load(path_or_packed_scene)
+    else:
+        scene = path_or_packed_scene
     if scene == null:
-        Gs.logger.error("Invalid scene path: " + path)
+        Gs.logger.error("Invalid scene path: %s" % path_or_packed_scene)
     
     var node: Node = scene.instance()
     if node is CanvasItem:
@@ -206,12 +210,14 @@ func add_scene(
     if child_index >= 0:
         parent.move_child(node, child_index)
     
-    var name := path
-    if name.find_last("/") >= 0:
-        name = name.substr(name.find_last("/") + 1)
-    assert(path.ends_with(".tscn"))
-    name = name.substr(0, name.length() - 5)
-    node.name = name
+    if path_or_packed_scene is String:
+        # Assign a node name based on the file name.
+        var name: String = path_or_packed_scene
+        if name.find_last("/") >= 0:
+            name = name.substr(name.find_last("/") + 1)
+        assert(path_or_packed_scene.ends_with(".tscn"))
+        name = name.substr(0, name.length() - 5)
+        node.name = name
     
     return node
 

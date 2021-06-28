@@ -32,7 +32,7 @@ func _ready() -> void:
     if Gs.gui.is_loading_image_shown:
         var loading_image: Control = Gs.utils.add_scene(
                 loading_image_wrapper,
-                Gs.gui.loading_image_scene_path,
+                Gs.gui.loading_image_scene,
                 true,
                 true, \
                 0)

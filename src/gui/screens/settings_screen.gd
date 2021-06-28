@@ -3,8 +3,8 @@ class_name SettingsScreen
 extends Screen
 
 
-const SETTINGS_GROUP_PATH := \
-        "res://addons/scaffolder/src/gui/settings_group.tscn"
+const SETTINGS_GROUP_SCENE := \
+        preload("res://addons/scaffolder/src/gui/settings_group.tscn")
 const NAME := "settings"
 const LAYER_NAME := "menu_screen"
 const IS_ALWAYS_ALIVE := false
@@ -45,7 +45,7 @@ func _instantiate_settings_groups() -> void:
     for group_name in Gs.gui.settings_item_manifest.groups:
         var group: SettingsGroup = Gs.utils.add_scene(
                 null,
-                SETTINGS_GROUP_PATH,
+                SETTINGS_GROUP_SCENE,
                 false,
                 true)
         group.group_name = group_name
