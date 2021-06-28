@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/screens/game_screen.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/centered_panel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_progress_bar.tscn" type="PackedScene" id=4]
 
 [node name="GameScreen" type="Node2D"]
 script = ExtResource( 1 )
@@ -74,16 +75,16 @@ size_flags_horizontal = 4
 text = "Calculating platform graphs"
 align = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
+[node name="ProgressBar" parent="PanelContainer/LoadProgressPanel/VBoxContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 158.0
 margin_top = 46.0
-margin_right = 320.0
+margin_right = 162.0
 margin_bottom = 60.0
-rect_min_size = Vector2( 320, 0 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
-__meta__ = {
-"_edit_use_anchors_": false
-}
+size_override = Vector2( 320, 0 )
 
 [node name="Duration" type="Label" parent="PanelContainer/LoadProgressPanel/VBoxContainer"]
 margin_left = 160.0

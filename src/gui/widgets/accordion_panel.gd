@@ -9,7 +9,7 @@ signal caret_rotated
 const CARET_LEFT_NORMAL: Texture = \
         preload("res://addons/scaffolder/assets/images/gui/left_caret_normal.png")
 const SCAFFOLDER_TEXTURE_RECT_SCENE_PATH := \
-        "res://addons/scaffolder/src/gui/scaffolder_texture_rect.tscn"
+        "res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn"
 
 const CARET_SIZE_DEFAULT := Vector2(23.0, 32.0)
 const CARET_SCALE := Vector2(0.5, 0.5)
