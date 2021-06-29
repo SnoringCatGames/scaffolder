@@ -12,6 +12,9 @@ var _active_sub_tweens := []
 
 
 func _init() -> void:
+    if Engine.editor_hint:
+        return
+    
     self.id = Gs.time.get_next_task_id()
 
 

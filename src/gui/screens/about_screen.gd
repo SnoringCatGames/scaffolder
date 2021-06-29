@@ -6,6 +6,9 @@ const GODOT_URL := "https://godotengine.org"
 
 
 func _ready() -> void:
+    if Engine.editor_hint:
+        return
+    
     var title_logo := $VBoxContainer/Title
     var developer_logo_link := $VBoxContainer/VBoxContainer4/DeveloperLogoLink
     var developer_name_link := $VBoxContainer/VBoxContainer4/DeveloperNameLink

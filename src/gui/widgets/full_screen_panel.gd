@@ -4,6 +4,9 @@ extends PanelContainer
 
 
 func _init() -> void:
+    if Engine.editor_hint:
+        return
+    
     theme = Gs.gui.theme
     add_font_override("font", Gs.gui.fonts.main_m)
 
@@ -11,12 +14,13 @@ func _init() -> void:
 func _enter_tree() -> void:
     if Engine.editor_hint:
         rect_size = Vector2(1024, 768)
-    else:
-        Gs.utils.connect(
-                "display_resized",
-                self,
-                "_on_resized")
-        _on_resized()
+        return
+    
+    Gs.utils.connect(
+            "display_resized",
+            self,
+            "_on_resized")
+    _on_resized()
 
 
 func _on_resized() -> void:

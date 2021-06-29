@@ -10,11 +10,17 @@ export var stretches_vertically := false \
 
 
 func _init() -> void:
+    if Engine.editor_hint:
+        return
+    
     theme = Gs.gui.theme
     add_font_override("font", Gs.gui.fonts.main_m)
 
 
 func _ready() -> void:
+    if Engine.editor_hint:
+        return
+    
     Gs.utils.connect(
             "display_resized",
             self,

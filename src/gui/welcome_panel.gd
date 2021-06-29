@@ -39,7 +39,7 @@ func _ready() -> void:
             assert(item.size() == 2)
             items.push_back(StaticTextLabeledControlItem.new(item[0], item[1]))
     
-    $PanelContainer/LabeledControlList.even_row_color = faded_color
+    $PanelContainer/LabeledControlList.even_row_color_override = faded_color
     $PanelContainer/LabeledControlList.items = items
     
     if Gs.gui.welcome_panel_manifest.has("header") and \

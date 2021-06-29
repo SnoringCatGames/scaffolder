@@ -44,11 +44,17 @@ var _is_ready := false
 
 
 func _enter_tree() -> void:
+    if Engine.editor_hint:
+        return
+    
     add_child(shine_tween)
     add_child(color_pulse_tween)
 
 
 func _ready() -> void:
+    if Engine.editor_hint:
+        return
+    
     _is_ready = true
     
     button_style_normal = $MarginContainer/BottomButton.get_stylebox("normal")
@@ -63,6 +69,9 @@ func _ready() -> void:
 
 
 func _exit_tree() -> void:
+    if Engine.editor_hint:
+        return
+    
     if is_instance_valid(button_style_pulse):
         button_style_pulse.destroy()
     Gs.time.clear_interval(shine_interval_id)

@@ -20,9 +20,10 @@ func _enter_tree() -> void:
         var position := -SPLASH_IMAGE_SIZE_DEFAULT / 2
         $ScaffolderTextureRect.rect_scale = scale
         $ScaffolderTextureRect.rect_position = position
-    else:
-        background_color_override = Gs.colors.boot_splash_background
-        _on_resized()
+        return
+    
+    background_color_override = Gs.colors.boot_splash_background
+    _on_resized()
 
 
 func _on_resized() -> void:

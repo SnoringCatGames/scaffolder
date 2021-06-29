@@ -17,8 +17,9 @@ func _enter_tree() -> void:
         var position := -SPLASH_IMAGE_SIZE_DEFAULT / 2
         $ScaffolderTextureRect.rect_scale = scale
         $ScaffolderTextureRect.rect_position = position
-    else:
-        _on_resized()
+        return
+    
+    _on_resized()
     $ScaffolderTextureRect.texture = Gs.app_metadata.developer_splash
 
 

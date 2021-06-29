@@ -73,6 +73,9 @@ func _destroy() -> void:
 
 
 func _exit_tree() -> void:
+    if Engine.editor_hint:
+        return
+    
     _destroy()
 
 
