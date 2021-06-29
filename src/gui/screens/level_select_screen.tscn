@@ -1,71 +1,37 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/screens/level_select_screen.gd" type="Script" id=1]
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/full_screen_panel.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/scaffolder/src/gui/nav_bar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/centered_panel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 
-[node name="LevelSelectScreen" type="Node2D"]
+[node name="LevelSelectScreen" type="Control"]
+rect_min_size = Vector2( 1024, 768 )
 script = ExtResource( 1 )
+screen_name = "level_select"
+nav_bar_text = "Select level"
 
-[node name="FullScreenPanel" parent="." instance=ExtResource( 2 )]
-margin_right = 960.0
-margin_bottom = 960.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 967.0
-margin_bottom = 1177.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 519.0
+margin_top = 467.0
+margin_right = 519.0
+margin_bottom = 475.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="NavBar" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 3 )]
-margin_right = 960.0
-margin_bottom = 206.0
-text = "Select level"
-
-[node name="CenteredPanel" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 210.0
-margin_right = 960.0
-margin_bottom = 1170.0
-stretches_vertically = true
-
-[node name="ScrollContainer" type="ScrollContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 953.0
-margin_bottom = 953.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="CenterContainer" type="CenterContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
-margin_right = 946.0
-margin_bottom = 946.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 473.0
-margin_top = 469.0
-margin_right = 473.0
-margin_bottom = 477.0
-
-[node name="Spacer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 5 )]
+[node name="Spacer" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 
-[node name="LevelSelectItems" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="LevelSelectItems" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 4.0
 margin_bottom = 4.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_constants/separation = 16
 
-[node name="Spacer3" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 5 )]
+[node name="Spacer3" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 8.0

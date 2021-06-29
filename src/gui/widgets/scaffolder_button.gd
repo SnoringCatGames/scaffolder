@@ -18,7 +18,7 @@ const COLOR_PULSE_DURATION := 1.2
 const COLOR_PULSE_INTERVAL := 2.4
 const MIN_PADDING := 8.0
 
-export var label: String setget _set_label,_get_label
+export(String, MULTILINE) var label: String setget _set_label,_get_label
 export var texture: Texture setget _set_texture
 export var texture_scale := Vector2(1.0, 1.0) setget _set_texture_scale
 export var is_shiny := false setget _set_is_shiny
@@ -125,14 +125,10 @@ func update() -> void:
             button_style_normal)
     
     if is_shiny:
-        print(">>>>>>>>>>1.1: %s" % shine_interval_id)
         _trigger_shine()
         shine_interval_id = Gs.time.set_interval(
                 funcref(self, "_trigger_shine"),
                 SHINE_INTERVAL)
-        print(">>>>>>>>>>1.2: %s" % shine_interval_id)
-    else:
-        print(">>>>>>>>>>2: %s" % shine_interval_id)
     
     if includes_color_pulse:
         _trigger_color_pulse()
@@ -142,7 +138,6 @@ func update() -> void:
 
 
 func _trigger_shine() -> void:
-    print(">>>>>>>>>>3: %s" % shine_interval_id)
     shine_tween.interpolate_property(
             $MarginContainer/ShineLineWrapper/ShineLine,
             "position:x",
@@ -189,11 +184,11 @@ func _trigger_color_pulse() -> void:
 
 
 func _set_label(value: String) -> void:
-    $MarginContainer/Label.text = value.c_unescape()
+    $MarginContainer/Label.text = value
 
 
 func _get_label() -> String:
-    return $MarginContainer/Label.text.c_escape()
+    return $MarginContainer/Label.text
 
 
 func _set_texture(value: Texture) -> void:

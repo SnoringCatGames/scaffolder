@@ -2,23 +2,7 @@ class_name GameScreen
 extends Screen
 
 
-const NAME := "game"
-const LAYER_NAME := "game_screen"
-const IS_ALWAYS_ALIVE := true
-const AUTO_ADAPTS_GUI_SCALE := true
-const INCLUDES_STANDARD_HIERARCHY := false
-
 var graph_load_start_time := INF
-
-
-func _init().(
-        NAME,
-        LAYER_NAME,
-        IS_ALWAYS_ALIVE,
-        AUTO_ADAPTS_GUI_SCALE,
-        INCLUDES_STANDARD_HIERARCHY \
-        ) -> void:
-    pass
 
 
 func _ready() -> void:
@@ -38,8 +22,8 @@ func _ready() -> void:
                 0)
         loading_image.original_scale = Gs.gui.loading_image_scale
     
-    inner_vbox = $PanelContainer/LoadProgressPanel/VBoxContainer
-    inner_vbox.rect_min_size.x = Gs.gui.screen_body_width
+    $PanelContainer/LoadProgressPanel/VBoxContainer.rect_min_size.x = \
+            Gs.gui.screen_body_width
     
     _on_resized()
 

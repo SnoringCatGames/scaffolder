@@ -1,70 +1,28 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/centered_panel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/full_screen_panel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/rate_app_screen.gd" type="Script" id=4]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_xl.tres" type="DynamicFont" id=11]
-[ext_resource path="res://addons/scaffolder/src/gui/nav_bar.tscn" type="PackedScene" id=12]
 
-[node name="RateAppScreen" type="Node2D"]
+[node name="RateAppScreen" type="Control"]
 script = ExtResource( 4 )
+screen_name = "rate_app"
+nav_bar_text = "How's it going?"
 
-[node name="FullScreenPanel" parent="." instance=ExtResource( 3 )]
-margin_right = 960.0
-margin_bottom = 960.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 967.0
-margin_bottom = 1177.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 8.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NavBar" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 12 )]
-margin_right = 960.0
-margin_bottom = 206.0
-text = "How's it going?"
-shows_back = false
-
-[node name="CenteredPanel" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 210.0
-margin_right = 960.0
-margin_bottom = 1170.0
-stretches_vertically = true
-
-[node name="ScrollContainer" type="ScrollContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 953.0
-margin_bottom = 953.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="CenterContainer" type="CenterContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
-margin_right = 934.0
-margin_bottom = 3126.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 466.0
-margin_right = 467.0
-margin_bottom = 3126.0
-custom_constants/separation = 8
-
-[node name="Label2" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_right = 1.0
-margin_bottom = 1687.0
+[node name="Label2" type="Label" parent="VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 439.0
 custom_fonts/font = ExtResource( 5 )
 text = "Please let us know if you are seeing any issues on your device!"
 align = 1
@@ -73,25 +31,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SendFeedbackButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 1695.0
-margin_right = 0.0
-margin_bottom = 1709.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
+[node name="SendFeedbackButton" parent="VBoxContainer" instance=ExtResource( 2 )]
+margin_left = 20.0
+margin_top = 443.0
+margin_right = 20.0
+margin_bottom = 457.0
 label = "Send feedback"
 
-[node name="Spacer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 6 )]
+[node name="Spacer" parent="VBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 1717.0
-margin_bottom = 1717.0
+margin_left = 20.0
+margin_top = 461.0
+margin_right = 20.0
+margin_bottom = 461.0
 size = Vector2( 0, 16 )
 
-[node name="Label3" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_top = 1725.0
-margin_right = 1.0
-margin_bottom = 2996.0
+[node name="Label3" type="Label" parent="VBoxContainer"]
+margin_top = 465.0
+margin_right = 40.0
+margin_bottom = 800.0
 custom_fonts/font = ExtResource( 5 )
 text = "Also, please help our app succeed by rating it!"
 align = 1
@@ -100,47 +59,48 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RateAppButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 3004.0
-margin_right = 0.0
-margin_bottom = 3066.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
+[node name="RateAppButton" parent="VBoxContainer" instance=ExtResource( 2 )]
+margin_left = 20.0
+margin_top = 804.0
+margin_right = 20.0
+margin_bottom = 866.0
 custom_fonts/font = ExtResource( 11 )
 label = "Rate app!"
 font_size = 4
 
-[node name="DontAskAgainButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 3074.0
-margin_right = 0.0
-margin_bottom = 3088.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
+[node name="DontAskAgainButton" parent="VBoxContainer" instance=ExtResource( 2 )]
+margin_left = 20.0
+margin_top = 870.0
+margin_right = 20.0
+margin_bottom = 884.0
 label = "Don\\'t ask again"
 
-[node name="Spacer5" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 6 )]
+[node name="Spacer5" parent="VBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 3096.0
-margin_bottom = 3096.0
+margin_left = 20.0
+margin_top = 888.0
+margin_right = 20.0
+margin_bottom = 888.0
 size = Vector2( 0, 16 )
 
-[node name="KeepPlayingButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 3104.0
-margin_right = 0.0
-margin_bottom = 3118.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
+[node name="KeepPlayingButton" parent="VBoxContainer" instance=ExtResource( 2 )]
+margin_left = 20.0
+margin_top = 892.0
+margin_right = 20.0
+margin_bottom = 906.0
 label = "Just keep playing!"
 
-[node name="Spacer6" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 6 )]
+[node name="Spacer6" parent="VBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 3126.0
-margin_bottom = 3126.0
+margin_left = 20.0
+margin_top = 910.0
+margin_right = 20.0
+margin_bottom = 910.0
 size = Vector2( 0, 20 )
 
-[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/SendFeedbackButton" to="." method="_on_SendFeedbackButton_pressed"]
-[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/RateAppButton" to="." method="_on_RateAppButton_pressed"]
-[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/DontAskAgainButton" to="." method="_on_DontAskAgainButton_pressed"]
-[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/KeepPlayingButton" to="." method="_on_KeepPlayingButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/SendFeedbackButton" to="." method="_on_SendFeedbackButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/RateAppButton" to="." method="_on_RateAppButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/DontAskAgainButton" to="." method="_on_DontAskAgainButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/KeepPlayingButton" to="." method="_on_KeepPlayingButton_pressed"]

@@ -1,10 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/full_screen_panel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=2]
-[ext_resource path="res://addons/scaffolder/src/gui/nav_bar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/third_party_licenses_screen.gd" type="Script" id=4]
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/centered_panel.tscn" type="PackedScene" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 content_margin_left = 12.0
@@ -12,52 +9,18 @@ content_margin_right = 12.0
 content_margin_top = 12.0
 content_margin_bottom = 12.0
 
-[node name="ThirdPartyLicensesScreen" type="Node2D"]
+[node name="ThirdPartyLicensesScreen" type="Control"]
 script = ExtResource( 4 )
+screen_name = "third_party_licenses"
+nav_bar_text = "Third-party licenses"
 
-[node name="FullScreenPanel" parent="." instance=ExtResource( 1 )]
-margin_right = 974.0
-margin_bottom = 1184.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
-margin_left = 7.0
-margin_top = 7.0
+[node name="Label" type="Label" parent="."]
+margin_left = 71.0
+margin_top = 94.0
 margin_right = 967.0
-margin_bottom = 1177.0
-
-[node name="NavBar" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 3 )]
-margin_right = 960.0
-margin_bottom = 206.0
-text = "Third-party licenses"
-
-[node name="CenteredPanel" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 5 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 210.0
-margin_right = 960.0
-margin_bottom = 1170.0
-stretches_vertically = true
-
-[node name="ScrollContainer" type="ScrollContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 953.0
-margin_bottom = 953.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-scroll_horizontal_enabled = false
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
-margin_right = 946.0
-margin_bottom = 294.0
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/VBoxContainer"]
-margin_left = 25.0
-margin_right = 921.0
-margin_bottom = 294.0
+margin_bottom = 388.0
 rect_min_size = Vector2( 896, 294 )
-size_flags_horizontal = 4
+size_flags_horizontal = 3
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 2 )
 autowrap = true

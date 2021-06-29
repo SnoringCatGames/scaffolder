@@ -1,55 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/screens/settings_screen.gd" type="Script" id=1]
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/centered_panel.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/scaffolder/src/gui/nav_bar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/full_screen_panel.tscn" type="PackedScene" id=5]
 
-[node name="SettingsScreen" type="Node2D"]
+[node name="SettingsScreen" type="Control"]
+rect_min_size = Vector2( 1024, 768 )
 script = ExtResource( 1 )
+screen_name = "settings"
+nav_bar_text = "Settings"
 
-[node name="FullScreenPanel" parent="." instance=ExtResource( 5 )]
-margin_right = 960.0
-margin_bottom = 960.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 967.0
-margin_bottom = 1177.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="NavBar" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 3 )]
-margin_right = 960.0
-margin_bottom = 206.0
-text = "Settings"
-
-[node name="CenteredPanel" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 2 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 210.0
-margin_right = 960.0
-margin_bottom = 1170.0
-stretches_vertically = true
-
-[node name="ScrollContainer" type="ScrollContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 953.0
-margin_bottom = 953.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="CenterContainer" type="CenterContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
-margin_right = 946.0
-margin_bottom = 946.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 473.0
-margin_top = 473.0
-margin_right = 473.0
-margin_bottom = 473.0
-custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}

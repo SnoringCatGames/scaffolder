@@ -64,7 +64,7 @@ const SCREEN_RESOLUTIONS := {
 
 var DEFAULT_SCREEN_SCENES := [
     preload("res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/credits_screen.tscn"),
+    preload("res://addons/scaffolder/src/gui/screens/about_screen.tscn"),
     preload("res://addons/scaffolder/src/gui/screens/data_agreement_screen.tscn"),
     preload("res://addons/scaffolder/src/gui/screens/developer_splash_screen.tscn"),
     preload("res://addons/scaffolder/src/gui/screens/game_screen.tscn"),

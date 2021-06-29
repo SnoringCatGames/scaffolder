@@ -2,36 +2,12 @@ class_name ConfirmDataDeletionScreen
 extends Screen
 
 
-const NAME := "confirm_data_deletion"
-const LAYER_NAME := "menu_screen"
-const IS_ALWAYS_ALIVE := false
-const AUTO_ADAPTS_GUI_SCALE := true
-const INCLUDES_STANDARD_HIERARCHY := true
-const INCLUDES_NAV_BAR := true
-const INCLUDES_CENTER_CONTAINER := true
-
-
-func _init().(
-        NAME,
-        LAYER_NAME,
-        IS_ALWAYS_ALIVE,
-        AUTO_ADAPTS_GUI_SCALE,
-        INCLUDES_STANDARD_HIERARCHY,
-        INCLUDES_NAV_BAR,
-        INCLUDES_CENTER_CONTAINER \
-        ) -> void:
-    pass
-
-
 func _ready() -> void:
-    $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/ClientIdNumber.text = \
-            str(Gs.analytics.client_id)
+    $VBoxContainer/ClientIdNumber.text = str(Gs.analytics.client_id)
 
 
 func _get_focused_button() -> ScaffolderButton:
-    return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/CancelButton as ScaffolderButton
+    return $VBoxContainer/CancelButton as ScaffolderButton
 
 
 func _on_ConfirmButton_pressed() -> void:

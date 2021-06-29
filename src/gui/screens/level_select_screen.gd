@@ -7,14 +7,6 @@ const LEVEL_SELECT_ITEM_SCENE := \
         preload("res://addons/scaffolder/src/gui/level_select/level_select_item.tscn")
 const SCROLL_TWEEN_DURATION := 0.3
 
-const NAME := "level_select"
-const LAYER_NAME := "menu_screen"
-const IS_ALWAYS_ALIVE := false
-const AUTO_ADAPTS_GUI_SCALE := true
-const INCLUDES_STANDARD_HIERARCHY := true
-const INCLUDES_NAV_BAR := true
-const INCLUDES_CENTER_CONTAINER := true
-
 # Array<LevelSelectItem>
 var level_items := []
 var previous_expanded_item: LevelSelectItem
@@ -23,25 +15,12 @@ var _scroll_target: LevelSelectItem
 var _new_unlocked_item: LevelSelectItem
 
 
-func _init().(
-        NAME,
-        LAYER_NAME,
-        IS_ALWAYS_ALIVE,
-        AUTO_ADAPTS_GUI_SCALE,
-        INCLUDES_STANDARD_HIERARCHY,
-        INCLUDES_NAV_BAR,
-        INCLUDES_CENTER_CONTAINER \
-        ) -> void:
-    pass
-
-
 func _ready() -> void:
     for level_number in Gs.level_config.get_level_numbers():
         var level_config: Dictionary = \
                 Gs.level_config.get_level_config_by_number(level_number)
         var item: LevelSelectItem = Gs.utils.add_scene(
-                $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer \
-                        /CenterContainer/VBoxContainer/LevelSelectItems,
+                $VBoxContainer/LevelSelectItems,
                 LEVEL_SELECT_ITEM_SCENE,
                 true,
                 true)
@@ -187,11 +166,12 @@ func _scroll_to_item(
 
 
 func _interpolate_scroll(scroll_ratio: float) -> void:
-    var scroll_start := scroll_container.get_v_scrollbar().min_value
+    var scroll_start: int = \
+            container.scroll_container.get_v_scrollbar().min_value
     var scroll_end: int = Gs.utils.get_node_vscroll_position(
-            scroll_container,
+            container.scroll_container,
             _scroll_target)
-    scroll_container.scroll_vertical = lerp(
+    container.scroll_container.scroll_vertical = lerp(
             scroll_start,
             scroll_end,
             scroll_ratio)

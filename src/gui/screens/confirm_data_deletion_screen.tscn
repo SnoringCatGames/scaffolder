@@ -1,74 +1,36 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/centered_panel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/full_screen_panel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/alert_icon_normal_large.png" type="Texture" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen.gd" type="Script" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=7]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=8]
-[ext_resource path="res://addons/scaffolder/src/gui/nav_bar.tscn" type="PackedScene" id=12]
 
-[node name="ConfirmDataDeletionScreen" type="Node2D"]
+[node name="ConfirmDataDeletionScreen" type="Control"]
 script = ExtResource( 5 )
+screen_name = "confirm_data_deletion"
+nav_bar_text = "Are you sure?"
 
-[node name="FullScreenPanel" parent="." instance=ExtResource( 3 )]
-margin_right = 960.0
-margin_bottom = 960.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 967.0
-margin_bottom = 1177.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 359.0
+margin_top = 212.0
+margin_right = 679.0
+margin_bottom = 729.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 8.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NavBar" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 12 )]
-margin_right = 960.0
-margin_bottom = 206.0
-text = "Are you sure?"
-
-[node name="CenteredPanel" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 210.0
-margin_right = 960.0
-margin_bottom = 1170.0
-stretches_vertically = true
-
-[node name="ScrollContainer" type="ScrollContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 953.0
-margin_bottom = 953.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="CenterContainer" type="CenterContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
-margin_right = 946.0
-margin_bottom = 946.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 313.0
-margin_top = 214.0
-margin_right = 633.0
-margin_bottom = 731.0
-
-[node name="ScaffolderTextureRect" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 7 )]
-margin_right = 320.0
+[node name="ScaffolderTextureRect" parent="VBoxContainer" instance=ExtResource( 7 )]
+margin_left = 128.0
+margin_right = 192.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 texture = ExtResource( 4 )
 
-[node name="Spacer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
+[node name="Spacer" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 160.0
@@ -77,7 +39,7 @@ margin_right = 160.0
 margin_bottom = 68.0
 size = Vector2( 0, 20 )
 
-[node name="Label" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer"]
 margin_top = 72.0
 margin_right = 320.0
 margin_bottom = 199.0
@@ -90,7 +52,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer2" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
+[node name="Spacer2" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 160.0
@@ -99,7 +61,7 @@ margin_right = 160.0
 margin_bottom = 203.0
 size = Vector2( 0, 20 )
 
-[node name="Label2" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer"]
 margin_top = 207.0
 margin_right = 320.0
 margin_bottom = 438.0
@@ -112,7 +74,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer9" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
+[node name="Spacer9" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 160.0
@@ -121,7 +83,7 @@ margin_right = 160.0
 margin_bottom = 442.0
 size = Vector2( 0, 20 )
 
-[node name="ClientIdNumber" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="ClientIdNumber" type="Label" parent="VBoxContainer"]
 margin_top = 446.0
 margin_right = 320.0
 margin_bottom = 469.0
@@ -133,7 +95,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer10" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
+[node name="Spacer10" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 160.0
@@ -142,18 +104,17 @@ margin_right = 160.0
 margin_bottom = 473.0
 size = Vector2( 0, 20 )
 
-[node name="ScaffolderButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 6 )]
+[node name="ScaffolderButton" parent="VBoxContainer" instance=ExtResource( 6 )]
 margin_left = 160.0
 margin_top = 477.0
 margin_right = 160.0
 margin_bottom = 491.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-label = "I\\'m sure.\\nPlease delete all my data."
+label = "I'm sure.
+Please delete all my data."
 font_size = 1
 size_override = Vector2( 300, 80 )
 
-[node name="Spacer11" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
+[node name="Spacer11" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 160.0
@@ -162,19 +123,17 @@ margin_right = 160.0
 margin_bottom = 495.0
 size = Vector2( 0, 10 )
 
-[node name="CancelButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 6 )]
+[node name="CancelButton" parent="VBoxContainer" instance=ExtResource( 6 )]
 margin_left = 160.0
 margin_top = 499.0
 margin_right = 160.0
 margin_bottom = 513.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
 label = "Cancel!"
 is_shiny = true
 font_size = 4
 size_override = Vector2( 400, 120 )
 
-[node name="Spacer12" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 2 )]
+[node name="Spacer12" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 160.0
@@ -183,4 +142,4 @@ margin_right = 160.0
 margin_bottom = 517.0
 size = Vector2( 0, 50 )
 
-[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

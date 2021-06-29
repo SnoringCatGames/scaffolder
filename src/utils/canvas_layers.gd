@@ -4,7 +4,7 @@ extends Node2D
 
 const _DEFAULT_LAYERS_CONFIG := [
     {
-        name = "menu_screen",
+        name = "menu",
         z_index = 40,
         pause_mode = Node.PAUSE_MODE_PROCESS,
     },
@@ -24,7 +24,7 @@ const _DEFAULT_LAYERS_CONFIG := [
         pause_mode = Node.PAUSE_MODE_STOP,
     },
     {
-        name = "game_screen",
+        name = "game",
         z_index = 10,
         pause_mode = Node.PAUSE_MODE_STOP,
     },

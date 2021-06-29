@@ -204,7 +204,7 @@ This feature currently depends on the proprietary third-party **[Google Cloud St
 -   It is easy to include custom screens and exclude default screens.
 -   Here are some of the default screns included:
     -   Main menu
-    -   Credits
+    -   About
     -   Settings
         -   Configurable to display checkboxes, dropdowns, or plain text for whatever settings you might want to support.
     -   Level select
