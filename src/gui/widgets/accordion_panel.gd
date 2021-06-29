@@ -322,7 +322,7 @@ func _trigger_open_change(is_tweening: bool) -> void:
                 "ease_in_out")
         if is_open:
             var scroll_container: ScrollContainer = \
-                    Gs.nav.current_screen.scroll_container
+                    Gs.nav.current_screen_container.scroll_container
             _start_scroll_vertical = scroll_container.scroll_vertical
             _is_open_tween.interpolate_method(
                     self,
@@ -358,7 +358,7 @@ func _interpolate_caret_rotation(rotation: float) -> void:
 # off the top of the screen!
 func _interpolate_scroll(open_ratio: float) -> void:
     var scroll_container: ScrollContainer = \
-            Gs.nav.current_screen.scroll_container
+            Gs.nav.current_screen_container.scroll_container
     if scroll_container == null:
         return
     

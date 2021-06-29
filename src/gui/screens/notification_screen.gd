@@ -2,48 +2,20 @@ class_name NotificationScreen
 extends Screen
 
 
-const NAME := "notification"
-const LAYER_NAME := "menu_screen"
-const IS_ALWAYS_ALIVE := false
-const AUTO_ADAPTS_GUI_SCALE := true
-const INCLUDES_STANDARD_HIERARCHY := true
-const INCLUDES_NAV_BAR := true
-const INCLUDES_CENTER_CONTAINER := true
-
-
-func _init().(
-        NAME,
-        LAYER_NAME,
-        IS_ALWAYS_ALIVE,
-        AUTO_ADAPTS_GUI_SCALE,
-        INCLUDES_STANDARD_HIERARCHY,
-        INCLUDES_NAV_BAR,
-        INCLUDES_CENTER_CONTAINER \
-        ) -> void:
-    pass
-
-
 func set_params(params) -> void:
     .set_params(params)
     
     if params == null:
         return
     
-    var nav_bar: Control = $FullScreenPanel/VBoxContainer/NavBar
-    var body_text: Label = \
-            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/BodyText
-    var link: ScaffolderLabelLink = \
-            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/NotificationLink
-    var close_button: ScaffolderButton = \
-            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/CloseButton
+    var body_text: Label = $VBoxContainer/BodyText
+    var link: ScaffolderLabelLink = $VBoxContainer/NotificationLink
+    var close_button: ScaffolderButton = $VBoxContainer/CloseButton
     
     assert(params.has("header_text"))
-    nav_bar.text = params["header_text"]
+    container.nav_bar.text = params["header_text"]
     assert(params.has("is_back_button_shown"))
-    nav_bar.shows_back = params["is_back_button_shown"]
+    container.nav_bar.shows_back = params["is_back_button_shown"]
     assert(params.has("body_text"))
     body_text.text = params["body_text"]
     assert(params.has("close_button_text"))
@@ -64,8 +36,7 @@ func set_params(params) -> void:
 
 
 func _get_focused_button() -> ScaffolderButton:
-    return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/CloseButton as ScaffolderButton
+    return $VBoxContainer/CloseButton as ScaffolderButton
 
 
 func _on_CloseButton_pressed() -> void:

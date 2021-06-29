@@ -1,9 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/centered_panel.tscn" type="PackedScene" id=1]
-[ext_resource path="res://addons/scaffolder/src/gui/nav_bar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/pause_screen.gd" type="Script" id=3]
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/full_screen_panel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/play_icon_normal.png" type="Texture" id=5]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/stop_normal.png" type="Texture" id=6]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/retry_icon_normal.png" type="Texture" id=7]
@@ -11,116 +8,80 @@
 [ext_resource path="res://addons/scaffolder/src/gui/labeled_control_list/labeled_control_list.tscn" type="PackedScene" id=9]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=10]
 
-[node name="PauseScreen" type="Node2D"]
+[node name="PauseScreen" type="Control"]
+rect_min_size = Vector2( 1024, 768 )
 script = ExtResource( 3 )
+screen_name = "pause"
+nav_bar_text = "Paused"
+is_settings_button_shown = true
 
-[node name="FullScreenPanel" parent="." instance=ExtResource( 4 )]
-margin_right = 960.0
-margin_bottom = 960.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 967.0
-margin_bottom = 1177.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="NavBar" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 2 )]
-margin_right = 960.0
-margin_bottom = 206.0
-text = "Paused"
-shows_settings = true
-
-[node name="CenteredPanel" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 210.0
-margin_right = 960.0
-margin_bottom = 1170.0
-stretches_vertically = true
-
-[node name="ScrollContainer" type="ScrollContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 953.0
-margin_bottom = 953.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="CenterContainer" type="CenterContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
-margin_right = 946.0
-margin_bottom = 946.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 465.0
-margin_top = 451.0
-margin_right = 481.0
-margin_bottom = 495.0
-custom_constants/separation = 0
-
-[node name="LabeledControlList" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 9 )]
-margin_right = 16.0
+[node name="LabeledControlList" parent="VBoxContainer" instance=ExtResource( 9 )]
+margin_right = 40.0
 row_height = 0.0
 padding_horizontal = 6.0
 
-[node name="Spacer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 8 )]
+[node name="Spacer" parent="VBoxContainer" instance=ExtResource( 8 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 8.0
-margin_right = 8.0
+margin_left = 20.0
+margin_top = 4.0
+margin_right = 20.0
+margin_bottom = 4.0
 size = Vector2( 0, 20 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
-margin_right = 16.0
-margin_bottom = 44.0
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_left = 12.0
+margin_top = 8.0
+margin_right = 28.0
+margin_bottom = 52.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 16
 
-[node name="ResumeButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 10 )]
+[node name="ResumeButton" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 10 )]
 margin_left = 8.0
 margin_right = 8.0
 margin_bottom = 14.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
 texture = ExtResource( 5 )
 size_override = Vector2( 128, 88 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
 margin_top = 30.0
 margin_right = 16.0
 margin_bottom = 44.0
 custom_constants/separation = 16
 
-[node name="ExitLevelButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
+[node name="ExitLevelButton" parent="VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
 margin_right = 0.0
 margin_bottom = 14.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
 texture = ExtResource( 6 )
 size_override = Vector2( 56, 56 )
 
-[node name="RestartButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
+[node name="RestartButton" parent="VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
 margin_left = 16.0
 margin_right = 16.0
 margin_bottom = 14.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
 texture = ExtResource( 7 )
 size_override = Vector2( 56, 56 )
 
-[node name="Spacer2" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 8 )]
+[node name="Spacer2" parent="VBoxContainer" instance=ExtResource( 8 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 8.0
-margin_top = 44.0
-margin_right = 8.0
-margin_bottom = 44.0
+margin_left = 20.0
+margin_top = 56.0
+margin_right = 20.0
+margin_bottom = 56.0
 size = Vector2( 0, 40 )
 
-[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
-[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/ExitLevelButton" to="." method="_on_ExitLevelButton_pressed"]
-[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/ExitLevelButton" to="." method="_on_ExitLevelButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]

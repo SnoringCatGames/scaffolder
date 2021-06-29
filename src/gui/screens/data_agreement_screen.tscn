@@ -1,73 +1,36 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/centered_panel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_l.tres" type="DynamicFont" id=2]
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/full_screen_panel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/data_agreement_screen.gd" type="Script" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label_link.tscn" type="PackedScene" id=7]
-[ext_resource path="res://addons/scaffolder/src/gui/nav_bar.tscn" type="PackedScene" id=12]
 
-[node name="DataAgreementScreen" type="Node2D"]
+[node name="DataAgreementScreen" type="Control"]
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+screen_name = "data_agreement"
+nav_bar_text = "Accept terms"
+is_back_button_shown = false
 
-[node name="FullScreenPanel" parent="." instance=ExtResource( 3 )]
-margin_right = 960.0
-margin_bottom = 960.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 967.0
-margin_bottom = 1047.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 395.0
+margin_top = 420.0
+margin_right = 643.0
+margin_bottom = 522.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 8.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NavBar" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 12 )]
-margin_right = 960.0
-margin_bottom = 76.0
-text = "Accept terms"
-shows_back = false
-
-[node name="CenteredPanel" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 80.0
-margin_right = 960.0
-margin_bottom = 1040.0
-rect_min_size = Vector2( 960, 960 )
-stretches_vertically = true
-
-[node name="ScrollContainer" type="ScrollContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 953.0
-margin_bottom = 953.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="CenterContainer" type="CenterContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
-margin_right = 946.0
-margin_bottom = 946.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 349.0
-margin_top = 422.0
-margin_right = 597.0
-margin_bottom = 524.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
 margin_right = 248.0
 margin_bottom = 36.0
 
-[node name="Label" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer"]
 margin_right = 248.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
@@ -78,7 +41,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer2" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
+[node name="Spacer2" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 124.0
@@ -86,7 +49,7 @@ margin_top = 18.0
 margin_right = 124.0
 margin_bottom = 18.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
 margin_top = 22.0
 margin_right = 248.0
 margin_bottom = 36.0
@@ -95,20 +58,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TermsAndConditionsLink" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 7 )]
+[node name="TermsAndConditionsLink" parent="VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 126.0
 margin_bottom = 14.0
 text = "Terms & Conditions"
 
-[node name="Label" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
 margin_left = 126.0
 margin_right = 157.0
 margin_bottom = 14.0
 text = " and "
 
-[node name="PrivacyPolicyLink" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 7 )]
+[node name="PrivacyPolicyLink" parent="VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 157.0
@@ -117,13 +80,13 @@ margin_bottom = 14.0
 focus_mode = 2
 text = "Privacy Policy"
 
-[node name="Label2" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
 margin_left = 244.0
 margin_right = 248.0
 margin_bottom = 14.0
 text = "."
 
-[node name="Spacer5" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 6 )]
+[node name="Spacer5" parent="VBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 124.0
@@ -132,7 +95,7 @@ margin_right = 124.0
 margin_bottom = 40.0
 size = Vector2( 0, 50 )
 
-[node name="AgreeButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 5 )]
+[node name="AgreeButton" parent="VBoxContainer" instance=ExtResource( 5 )]
 margin_left = 124.0
 margin_top = 44.0
 margin_right = 124.0
@@ -140,7 +103,7 @@ margin_bottom = 98.0
 custom_fonts/font = ExtResource( 2 )
 label = "I agree"
 
-[node name="Spacer6" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 6 )]
+[node name="Spacer6" parent="VBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 124.0
@@ -149,4 +112,4 @@ margin_right = 124.0
 margin_bottom = 102.0
 size = Vector2( 0, 30 )
 
-[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AgreeButton" to="." method="_on_AgreeButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/AgreeButton" to="." method="_on_AgreeButton_pressed"]

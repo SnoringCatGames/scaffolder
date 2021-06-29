@@ -2,27 +2,7 @@ class_name RateAppScreen
 extends Screen
 
 
-const NAME := "rate_app"
-const LAYER_NAME := "menu_screen"
-const IS_ALWAYS_ALIVE := false
-const AUTO_ADAPTS_GUI_SCALE := true
-const INCLUDES_STANDARD_HIERARCHY := true
-const INCLUDES_NAV_BAR := true
-const INCLUDES_CENTER_CONTAINER := true
-
 const NEXT_SCREEN_TYPE := "main_menu"
-
-
-func _init().(
-        NAME,
-        LAYER_NAME,
-        IS_ALWAYS_ALIVE,
-        AUTO_ADAPTS_GUI_SCALE,
-        INCLUDES_STANDARD_HIERARCHY,
-        INCLUDES_NAV_BAR,
-        INCLUDES_CENTER_CONTAINER \
-        ) -> void:
-    pass
 
 
 func _on_activated(previous_screen: Screen) -> void:
@@ -31,9 +11,7 @@ func _on_activated(previous_screen: Screen) -> void:
 
 
 func _get_focused_button() -> ScaffolderButton:
-    return $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
-            CenterContainer/VBoxContainer/VBoxContainer2/RateAppButton as \
-            ScaffolderButton
+    return $VBoxContainer/VBoxContainer2/RateAppButton as ScaffolderButton
 
 
 func _on_RateAppButton_pressed() -> void:

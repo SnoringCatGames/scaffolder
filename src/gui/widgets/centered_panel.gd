@@ -24,7 +24,7 @@ func _ready() -> void:
 
 func _on_resized() -> void:
     if Engine.editor_hint:
-        rect_min_size = Vector2(960, 960)
+        rect_min_size = Vector2(1024, 768)
         return
     
     var viewport := get_viewport()

@@ -1,8 +1,5 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/centered_panel.tscn" type="PackedScene" id=1]
-[ext_resource path="res://addons/scaffolder/src/gui/nav_bar.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/scaffolder/src/gui/widgets/full_screen_panel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/game_over_screen.gd" type="Script" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/labeled_control_list/labeled_control_list.tscn" type="PackedScene" id=6]
@@ -12,67 +9,31 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_panel.tscn" type="PackedScene" id=11]
 
-[node name="GameOverScreen" type="Node2D"]
+[node name="GameOverScreen" type="Control"]
+rect_min_size = Vector2( 1024, 768 )
 script = ExtResource( 4 )
+screen_name = "game_over"
+nav_bar_text = "Game over"
 
-[node name="FullScreenPanel" parent="." instance=ExtResource( 3 )]
-margin_right = 974.0
-margin_bottom = 1184.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 967.0
-margin_bottom = 1177.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 511.0
+margin_top = 435.0
+margin_right = 527.0
+margin_bottom = 507.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 8.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NavBar" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 2 )]
-margin_right = 960.0
-margin_bottom = 206.0
-text = "Game over"
-shows_back = false
-
-[node name="CenteredPanel" parent="FullScreenPanel/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 210.0
-margin_right = 960.0
-margin_bottom = 1170.0
-stretches_vertically = true
-
-[node name="ScrollContainer" type="ScrollContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 953.0
-margin_bottom = 953.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="CenterContainer" type="CenterContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
-margin_right = 946.0
-margin_bottom = 946.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer"]
-margin_left = 465.0
-margin_top = 437.0
-margin_right = 481.0
-margin_bottom = 509.0
-
-[node name="Spacer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 5 )]
+[node name="Spacer" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 8.0
 margin_right = 8.0
 size = Vector2( 0, 10 )
 
-[node name="GameOverImageContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="GameOverImageContainer" type="VBoxContainer" parent="VBoxContainer"]
 margin_left = 8.0
 margin_top = 4.0
 margin_right = 8.0
@@ -83,12 +44,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer2" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/GameOverImageContainer" instance=ExtResource( 5 )]
+[node name="Spacer2" parent="VBoxContainer/GameOverImageContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 size = Vector2( 0, 10 )
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 8.0
 margin_right = 16.0
 margin_bottom = 8.0
@@ -96,7 +57,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UnlockedNewLevelLabel" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
+[node name="UnlockedNewLevelLabel" type="Label" parent="VBoxContainer/VBoxContainer2"]
 visible = false
 margin_right = 280.0
 margin_bottom = 28.0
@@ -104,7 +65,7 @@ custom_colors/font_color = Color( 1, 0.946, 0.46, 1 )
 text = "You unlocked a new level!"
 align = 1
 
-[node name="WasBestPlaythroughLabel" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
+[node name="WasBestPlaythroughLabel" type="Label" parent="VBoxContainer/VBoxContainer2"]
 visible = false
 margin_right = 280.0
 margin_bottom = 28.0
@@ -112,7 +73,7 @@ custom_colors/font_color = Color( 1, 0.946, 0.46, 1 )
 text = "That's a new high score!"
 align = 1
 
-[node name="WasFastestPlaythroughLabel" type="Label" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
+[node name="WasFastestPlaythroughLabel" type="Label" parent="VBoxContainer/VBoxContainer2"]
 visible = false
 margin_right = 280.0
 margin_bottom = 28.0
@@ -120,7 +81,7 @@ custom_colors/font_color = Color( 1, 0.946, 0.46, 1 )
 text = "That's your fastest time!"
 align = 1
 
-[node name="Spacer6" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 5 )]
+[node name="Spacer6" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 8.0
@@ -129,7 +90,7 @@ margin_right = 8.0
 margin_bottom = 12.0
 size = Vector2( 0, 10 )
 
-[node name="AccordionPanel" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 11 )]
+[node name="AccordionPanel" parent="VBoxContainer" instance=ExtResource( 11 )]
 margin_left = 0.0
 margin_top = 16.0
 margin_right = 16.0
@@ -137,13 +98,13 @@ margin_bottom = 16.0
 header_text = "Details"
 is_header_text_centered = true
 
-[node name="LabeledControlList" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/AccordionPanel" instance=ExtResource( 6 )]
+[node name="LabeledControlList" parent="VBoxContainer/AccordionPanel" instance=ExtResource( 6 )]
 margin_top = 4.0
 margin_bottom = 4.0
 row_height = 0.0
 padding_horizontal = 8.0
 
-[node name="Spacer8" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 5 )]
+[node name="Spacer8" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 8.0
@@ -152,7 +113,7 @@ margin_right = 8.0
 margin_bottom = 20.0
 size = Vector2( 0, 20 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 24.0
 margin_right = 16.0
 margin_bottom = 68.0
@@ -163,17 +124,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SelectLevelButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 10 )]
+[node name="SelectLevelButton" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 10 )]
 margin_left = 8.0
 margin_right = 8.0
 margin_bottom = 14.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
 texture = ExtResource( 7 )
 texture_scale = Vector2( 2, 2 )
 size_override = Vector2( 128, 88 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
 margin_top = 30.0
 margin_right = 16.0
 margin_bottom = 44.0
@@ -181,24 +140,20 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 16
 
-[node name="HomeButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
+[node name="HomeButton" parent="VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
 margin_right = 0.0
 margin_bottom = 14.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
 texture = ExtResource( 9 )
 size_override = Vector2( 56, 56 )
 
-[node name="RetryButton" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
+[node name="RetryButton" parent="VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
 margin_left = 16.0
 margin_right = 16.0
 margin_bottom = 14.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
 texture = ExtResource( 8 )
 size_override = Vector2( 56, 56 )
 
-[node name="Spacer9" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer" instance=ExtResource( 5 )]
+[node name="Spacer9" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 8.0
@@ -207,6 +162,6 @@ margin_right = 8.0
 margin_bottom = 72.0
 size = Vector2( 0, 30 )
 
-[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/SelectLevelButton" to="." method="_on_SelectLevelButton_pressed"]
-[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/HomeButton" to="." method="_on_HomeButton_pressed"]
-[connection signal="pressed" from="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/RetryButton" to="." method="_on_RetryButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/SelectLevelButton" to="." method="_on_SelectLevelButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/HomeButton" to="." method="_on_HomeButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/RetryButton" to="." method="_on_RetryButton_pressed"]

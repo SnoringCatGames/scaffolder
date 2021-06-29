@@ -85,7 +85,7 @@ func _on_BackButton_pressed() -> void:
 
 
 func _on_AboutButton_pressed() -> void:
-    Gs.nav.open("credits")
+    Gs.nav.open("about")
 
 
 func _on_SettingsButton_pressed() -> void:
