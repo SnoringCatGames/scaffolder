@@ -4,7 +4,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/godot_splash_screen.gd" type="Script" id=4]
 
-[node name="GodotSplashScreen" type="Control"]
+[node name="GodotSplashScreen" type="VBoxContainer"]
 rect_min_size = Vector2( 1024, 768 )
 script = ExtResource( 4 )
 __meta__ = {

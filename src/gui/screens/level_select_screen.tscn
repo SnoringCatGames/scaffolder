@@ -3,7 +3,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/screens/level_select_screen.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 
-[node name="LevelSelectScreen" type="Control"]
+[node name="LevelSelectScreen" type="VBoxContainer"]
 rect_min_size = Vector2( 1024, 768 )
 script = ExtResource( 1 )
 screen_name = "level_select"

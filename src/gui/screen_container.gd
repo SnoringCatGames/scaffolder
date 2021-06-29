@@ -20,10 +20,12 @@ func set_up(contents: Screen) -> void:
     self.nav_bar = $FullScreenPanel/VBoxContainer/NavBar
     self.scroll_container = \
             $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer
+    var center_container := \
+            $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer/ \
+            CenterContainer
     
     self.contents = contents
     contents.container = self
-    scroll_container.add_child(contents)
     
     var contents_width := \
             contents.width_override if \
@@ -31,8 +33,10 @@ func set_up(contents: Screen) -> void:
             Gs.gui.screen_body_width
     var original_rect_min_size := Vector2(
             contents_width,
-            contents.rect_min_size.y)
+            contents.rect_size.y)
     contents.set_meta("gs_rect_min_size", original_rect_min_size)
+    
+    center_container.add_child(contents)
     
     outer_panel.theme = Gs.gui.theme
     # FIXME: -----------------------

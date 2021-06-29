@@ -9,16 +9,17 @@ content_margin_right = 12.0
 content_margin_top = 12.0
 content_margin_bottom = 12.0
 
-[node name="ThirdPartyLicensesScreen" type="Control"]
+[node name="ThirdPartyLicensesScreen" type="VBoxContainer"]
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 screen_name = "third_party_licenses"
 nav_bar_text = "Third-party licenses"
 
 [node name="Label" type="Label" parent="."]
-margin_left = 71.0
-margin_top = 94.0
-margin_right = 967.0
-margin_bottom = 388.0
+margin_right = 896.0
+margin_bottom = 294.0
 rect_min_size = Vector2( 896, 294 )
 size_flags_horizontal = 3
 custom_styles/normal = SubResource( 1 )

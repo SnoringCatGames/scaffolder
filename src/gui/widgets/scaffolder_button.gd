@@ -112,7 +112,7 @@ func update() -> void:
         shadow_size = Gs.styles.button_shadow_size,
     })
     
-    $MarginContainer.rect_size = rect_size
+    $MarginContainer.call_deferred("set", "rect_size", rect_size)
     $MarginContainer/ShineLineWrapper/ShineLine.visible = is_shiny
     $MarginContainer/ShineLineWrapper/ShineLine.position = \
             Vector2(shine_start_x, shine_base_position.y)

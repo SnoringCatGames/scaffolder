@@ -5,7 +5,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/centered_panel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_progress_bar.tscn" type="PackedScene" id=4]
 
-[node name="GameScreen" type="Control"]
+[node name="GameScreen" type="VBoxContainer"]
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

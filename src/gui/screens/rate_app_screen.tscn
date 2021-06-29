@@ -6,7 +6,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_xl.tres" type="DynamicFont" id=11]
 
-[node name="RateAppScreen" type="Control"]
+[node name="RateAppScreen" type="VBoxContainer"]
 script = ExtResource( 4 )
 screen_name = "rate_app"
 nav_bar_text = "How's it going?"

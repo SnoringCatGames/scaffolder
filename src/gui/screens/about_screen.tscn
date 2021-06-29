@@ -10,7 +10,7 @@
 [ext_resource path="res://addons/scaffolder/assets/images/gui/godot_logo_about.png" type="Texture" id=8]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/about_screen.gd" type="Script" id=9]
 
-[node name="AboutScreen" type="Control"]
+[node name="AboutScreen" type="VBoxContainer"]
 script = ExtResource( 9 )
 screen_name = "about"
 nav_bar_text = "About"

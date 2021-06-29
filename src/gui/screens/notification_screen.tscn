@@ -6,7 +6,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label_link.tscn" type="PackedScene" id=7]
 
-[node name="NotificationScreen" type="Control"]
+[node name="NotificationScreen" type="VBoxContainer"]
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
