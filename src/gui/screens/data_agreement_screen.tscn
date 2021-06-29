@@ -6,7 +6,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label_link.tscn" type="PackedScene" id=7]
 
-[node name="DataAgreementScreen" type="Control"]
+[node name="DataAgreementScreen" type="VBoxContainer"]
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -16,10 +16,8 @@ nav_bar_text = "Accept terms"
 is_back_button_shown = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 395.0
-margin_top = 420.0
-margin_right = 643.0
-margin_bottom = 522.0
+margin_right = 248.0
+margin_bottom = 102.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -29,6 +27,8 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
 margin_right = 248.0
 margin_bottom = 36.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer"]
 margin_right = 248.0
@@ -53,6 +53,8 @@ margin_bottom = 18.0
 margin_top = 22.0
 margin_right = 248.0
 margin_bottom = 36.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 custom_constants/separation = 0
 __meta__ = {
 "_edit_use_anchors_": false

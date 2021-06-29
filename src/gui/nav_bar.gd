@@ -3,6 +3,8 @@ class_name NavBar, "res://addons/scaffolder/assets/images/editor_icons/nav_bar.p
 extends PanelContainer
 
 
+const HEIGHT := 192.0
+
 export var text := "" setget _set_text
 export var shows_back := true setget _set_shows_back,_get_shows_back
 export var shows_about := false setget _set_shows_about,_get_shows_about
@@ -14,6 +16,8 @@ export var shows_logo := false setget _set_shows_logo,_get_shows_logo
 func _enter_tree() -> void:
     if Engine.editor_hint:
         return
+    
+    set_meta("gs_rect_min_size", Vector2(0.0, HEIGHT))
     
     $MarginContainer/Header.add_color_override(
             "font_color", Gs.colors.header)

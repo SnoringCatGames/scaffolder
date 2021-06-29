@@ -5,9 +5,15 @@ extends Screen
 const BODY_WIDTH_SCALE := 2.0
 
 
-func _ready() -> void:
+func _init() -> void:
     if Engine.editor_hint:
         return
     
     width_override = Gs.gui.screen_body_width * BODY_WIDTH_SCALE
+
+
+func _ready() -> void:
+    if Engine.editor_hint:
+        return
+    
     $Label.text = Gs.gui.third_party_license_text

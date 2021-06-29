@@ -9,7 +9,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_panel.tscn" type="PackedScene" id=11]
 
-[node name="GameOverScreen" type="Control"]
+[node name="GameOverScreen" type="VBoxContainer"]
 rect_min_size = Vector2( 1024, 768 )
 script = ExtResource( 4 )
 screen_name = "game_over"

@@ -6,7 +6,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=7]
 
-[node name="MainMenuScreen" type="Control"]
+[node name="MainMenuScreen" type="VBoxContainer"]
 script = ExtResource( 4 )
 screen_name = "main_menu"
 is_back_button_shown = false

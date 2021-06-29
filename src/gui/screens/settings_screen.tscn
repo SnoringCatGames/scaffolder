@@ -2,7 +2,7 @@
 
 [ext_resource path="res://addons/scaffolder/src/gui/screens/settings_screen.gd" type="Script" id=1]
 
-[node name="SettingsScreen" type="Control"]
+[node name="SettingsScreen" type="VBoxContainer"]
 rect_min_size = Vector2( 1024, 768 )
 script = ExtResource( 1 )
 screen_name = "settings"

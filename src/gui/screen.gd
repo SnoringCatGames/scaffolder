@@ -1,6 +1,6 @@
 tool
 class_name Screen, "res://addons/scaffolder/assets/images/editor_icons/screen.png"
-extends Control
+extends VBoxContainer
 
 
 export var screen_name := ""

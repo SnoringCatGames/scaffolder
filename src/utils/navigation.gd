@@ -87,7 +87,7 @@ func register_manifest(screen_manifest: Dictionary) -> void:
     for screen_scene in screen_scenes:
         assert(screen_scene is PackedScene)
         var scene_state: SceneState = screen_scene.get_state()
-        assert(scene_state.get_node_type(0) == "Control")
+        assert(scene_state.get_node_type(0) == "VBoxContainer")
         
         var screen_name := ""
         var is_always_alive := false
