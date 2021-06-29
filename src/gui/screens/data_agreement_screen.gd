@@ -3,6 +3,9 @@ extends Screen
 
 
 func _ready() -> void:
+    if Engine.editor_hint:
+        return
+    
     $VBoxContainer/VBoxContainer/HBoxContainer/TermsAndConditionsLink.url = \
             Gs.app_metadata.terms_and_conditions_url
     $VBoxContainer/VBoxContainer/HBoxContainer/PrivacyPolicyLink.url = \

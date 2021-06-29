@@ -12,18 +12,20 @@ export var padding_horizontal := 10.0 setget \
 
 # Array<LabeledControlItem>
 var items := [] setget _set_items,_get_items
-var even_row_color: Color = Gs.colors.zebra_stripe_even_row setget \
-        _set_even_row_color,_get_even_row_color
+var even_row_color_override := Color.black setget _set_even_row_color_override
 
 var _odd_row_style: StyleBoxEmpty
 var _even_row_style: StyleBoxFlat
 
 
 func _init() -> void:
+    if Engine.editor_hint:
+        return
+    
     _odd_row_style = StyleBoxEmpty.new()
     
     _even_row_style = StyleBoxFlat.new()
-    _even_row_style.bg_color = even_row_color
+    _set_even_row_color_override(even_row_color_override)
 
 
 func _ready() -> void:
@@ -31,6 +33,9 @@ func _ready() -> void:
 
 
 func _update_children() -> void:
+    if Engine.editor_hint:
+        return
+    
     for child in get_children():
         child.queue_free()
     
@@ -107,13 +112,12 @@ func _get_padding_horizontal() -> float:
     return padding_horizontal
 
 
-func _set_even_row_color(value: Color) -> void:
-    even_row_color = value
-    _even_row_style.bg_color = even_row_color
-
-
-func _get_even_row_color() -> Color:
-    return even_row_color
+func _set_even_row_color_override(value: Color) -> void:
+    even_row_color_override = value
+    _even_row_style.bg_color = \
+            even_row_color_override if \
+            even_row_color_override != Color.black else \
+            Gs.colors.zebra_stripe_even_row
 
 
 func _set_font(value: Font) -> void:

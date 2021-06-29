@@ -6,6 +6,9 @@ var graph_load_start_time := INF
 
 
 func _ready() -> void:
+    if Engine.editor_hint:
+        return
+    
     move_canvas_layer_to_game_viewport("annotation")
     
     var loading_image_wrapper := \

@@ -12,6 +12,9 @@ export var shows_logo := false setget _set_shows_logo,_get_shows_logo
 
 
 func _enter_tree() -> void:
+    if Engine.editor_hint:
+        return
+    
     $MarginContainer/Header.add_color_override(
             "font_color", Gs.colors.header)
     

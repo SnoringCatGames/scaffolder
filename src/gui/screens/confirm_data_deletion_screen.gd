@@ -3,6 +3,9 @@ extends Screen
 
 
 func _ready() -> void:
+    if Engine.editor_hint:
+        return
+    
     $VBoxContainer/ClientIdNumber.text = str(Gs.analytics.client_id)
 
 
