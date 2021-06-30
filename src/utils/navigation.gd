@@ -351,10 +351,15 @@ func _on_screen_slide_completed(
         if !previous_screen_container.contents.is_always_alive:
             previous_screen_container._destroy()
     if is_instance_valid(next_screen_container):
-        next_screen_container.visible = true
-        next_screen_container.position = Vector2.ZERO
-        next_screen_container.pause_mode = Node.PAUSE_MODE_PROCESS
-        next_screen_container._on_activated(previous_screen_container)
+        if next_screen_container == current_screen_container:
+            next_screen_container.visible = true
+            next_screen_container.position = Vector2.ZERO
+            next_screen_container.pause_mode = Node.PAUSE_MODE_PROCESS
+            next_screen_container._on_activated(previous_screen_container)
+        else:
+            # We already navigated to a different screen while this one was
+            # activating.
+            next_screen_container._destroy()
 
 
 func fade() -> void:

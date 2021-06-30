@@ -45,9 +45,10 @@ func update_gui_scale() -> bool:
 
 func _on_activated(previous_screen: Screen) -> void:
     _give_button_focus(_get_focused_button())
-    Gs.utils.set_mouse_filter_recursively(
-            self,
-            Control.MOUSE_FILTER_PASS)
+    if get_is_mouse_handled_by_gui():
+        Gs.utils.set_mouse_filter_recursively(
+                self,
+                Control.MOUSE_FILTER_PASS)
 
 
 func _on_deactivated(next_screen: Screen) -> void:
@@ -122,6 +123,10 @@ func get_is_nav_bar_shown() -> bool:
             is_settings_button_shown or \
             is_nav_bar_logo_shown or \
             nav_bar_text != ""
+
+
+func get_is_mouse_handled_by_gui() -> bool:
+    return layer == "menu"
 
 
 func _get_configuration_warning() -> String:

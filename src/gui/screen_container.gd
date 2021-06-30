@@ -17,7 +17,9 @@ func _ready() -> void:
 
 func set_up(contents: Screen) -> void:
     self.outer_panel = $FullScreenPanel
+    var vbox_container := $FullScreenPanel/VBoxContainer
     self.nav_bar = $FullScreenPanel/VBoxContainer/NavBar
+    var centered_panel := $FullScreenPanel/VBoxContainer/CenteredPanel
     self.scroll_container = \
             $FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer
     var center_container := \
@@ -58,8 +60,7 @@ func set_up(contents: Screen) -> void:
     if has_background_color_override:
         var centered_panel_stylebox := StyleBoxFlat.new()
         centered_panel_stylebox.bg_color = background_color
-        $FullScreenPanel/VBoxContainer/CenteredPanel \
-                .add_stylebox_override("panel", centered_panel_stylebox)
+        centered_panel.add_stylebox_override("panel", centered_panel_stylebox)
     
     if !contents.get_is_nav_bar_shown():
         nav_bar.queue_free()
@@ -69,6 +70,18 @@ func set_up(contents: Screen) -> void:
         nav_bar.shows_settings = contents.is_settings_button_shown
         nav_bar.shows_logo = contents.is_nav_bar_logo_shown
         nav_bar.text = contents.nav_bar_text
+    
+    if !contents.get_is_mouse_handled_by_gui():
+        for control in [
+                    outer_panel,
+                    vbox_container,
+                    nav_bar,
+                    centered_panel,
+                    scroll_container,
+                    center_container,
+                    contents,
+                ]:
+            control.mouse_filter = Control.MOUSE_FILTER_IGNORE
     
     _update()
 
