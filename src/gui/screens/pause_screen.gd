@@ -30,7 +30,7 @@ func _on_ResumeButton_pressed() -> void:
 
 
 func _on_RestartButton_pressed() -> void:
-    Gs.nav.close_current_screen(true)
+    Gs.nav.close_current_screen()
     Gs.level.restart()
 
 

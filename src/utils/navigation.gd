@@ -359,7 +359,8 @@ func _on_screen_slide_completed(
         else:
             # We already navigated to a different screen while this one was
             # activating.
-            next_screen_container._destroy()
+            if !next_screen_container.contents.is_always_alive:
+                next_screen_container._destroy()
 
 
 func fade() -> void:
