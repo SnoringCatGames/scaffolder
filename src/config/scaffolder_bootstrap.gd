@@ -164,12 +164,7 @@ func _notification(notification: int) -> void:
 
 
 func _on_resized() -> void:
-    # NOTE: For some reason, the show/hide breaks in full-screen mode.
-    if !OS.window_fullscreen and \
-            !_is_global_visibility_disabled_for_resize:
-        _is_global_visibility_disabled_for_resize = true
-        Gs.canvas_layers.set_global_visibility(false)
-    
+    _set_global_visibility_for_resize(false)
     _throttled_size_changed.call_func()
 
 
@@ -187,12 +182,21 @@ func update_gui_scale() -> void:
     
     Gs.utils.emit_signal("display_resized")
     
-    if _is_global_visibility_disabled_for_resize:
-        _is_global_visibility_disabled_for_resize = false
-        Gs.time.set_timeout(
-                funcref(Gs.canvas_layers, "set_global_visibility"),
-                0.05,
-                [true])
+    Gs.time.set_timeout(
+            funcref(self, "_set_global_visibility_for_resize"), 0.05, [true])
+
+
+func _set_global_visibility_for_resize(is_visible: bool) -> void:
+    if is_visible:
+        if _is_global_visibility_disabled_for_resize:
+            _is_global_visibility_disabled_for_resize = false
+            Gs.canvas_layers.set_global_visibility(true)
+    else:
+        # NOTE: For some reason, the show/hide breaks in full-screen mode.
+        if !OS.window_fullscreen and \
+                !_is_global_visibility_disabled_for_resize:
+            _is_global_visibility_disabled_for_resize = true
+            Gs.canvas_layers.set_global_visibility(false)
 
 
 func _update_font_sizes() -> void:
