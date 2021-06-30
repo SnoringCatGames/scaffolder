@@ -33,7 +33,7 @@ func set_up(contents: Screen) -> void:
             Gs.gui.screen_body_width
     var original_rect_min_size := Vector2(
             contents_width,
-            contents.rect_size.y)
+            0.0)
     contents.set_meta("gs_rect_min_size", original_rect_min_size)
     
     center_container.add_child(contents)
@@ -60,7 +60,6 @@ func set_up(contents: Screen) -> void:
         centered_panel_stylebox.bg_color = background_color
         $FullScreenPanel/VBoxContainer/CenteredPanel \
                 .add_stylebox_override("panel", centered_panel_stylebox)
-    
     
     if !contents.get_is_nav_bar_shown():
         nav_bar.queue_free()
@@ -112,4 +111,4 @@ func _on_deactivated(next_screen_container: ScreenContainer) -> void:
             next_screen_container.contents if \
             is_instance_valid(next_screen_container) else \
             null
-    contents._on_activated(next_screen)
+    contents._on_deactivated(next_screen)
