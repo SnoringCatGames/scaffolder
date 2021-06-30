@@ -31,5 +31,4 @@ func get_button() -> ScaffolderButton:
 
 
 func _on_PlayButton_pressed() -> void:
-    Gs.nav.open("game")
-    Gs.nav.screens["game"].start_level(level_id)
+    Gs.nav.open("loading", false, {level_id = level_id})

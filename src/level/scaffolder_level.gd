@@ -43,7 +43,7 @@ func _create_hud() -> void:
 
 func _exit_tree() -> void:
     if Gs.level_session.is_restarting:
-        Gs.nav.screens["game"].start_level(Gs.level_session.id)
+        Gs.nav.open("loading", false, {level_id = Gs.level_session.id})
 
 
 func _destroy() -> void:

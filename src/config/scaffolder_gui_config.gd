@@ -71,6 +71,7 @@ var DEFAULT_SCREEN_SCENES := [
     preload("res://addons/scaffolder/src/gui/screens/game_over_screen.tscn"),
     preload("res://addons/scaffolder/src/gui/screens/godot_splash_screen.tscn"),
     preload("res://addons/scaffolder/src/gui/screens/level_select_screen.tscn"),
+    preload("res://addons/scaffolder/src/gui/screens/loading_screen.tscn"),
     preload("res://addons/scaffolder/src/gui/screens/main_menu_screen.tscn"),
     preload("res://addons/scaffolder/src/gui/screens/notification_screen.tscn"),
     preload("res://addons/scaffolder/src/gui/screens/pause_screen.tscn"),
