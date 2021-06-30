@@ -402,6 +402,10 @@ static func floor_vector(v: Vector2) -> Vector2:
     return Vector2(floor(v.x), floor(v.y))
 
 
+static func round_vector(v: Vector2) -> Vector2:
+    return Vector2(round(v.x), round(v.y))
+
+
 static func mix(
         values: Array,
         weights: Array):
@@ -679,11 +683,14 @@ func scale_gui_recursively(gui) -> void:
         control.add_constant_override("margin_bottom", margin_bottom)
     
     if control.has_meta("gs_rect_min_size"):
-        control.rect_min_size = control.get_meta("gs_rect_min_size") * scale
+        control.rect_min_size = \
+                round_vector(control.get_meta("gs_rect_min_size") * scale)
     if control.has_meta("gs_rect_size"):
-        control.rect_size = control.get_meta("gs_rect_size") * scale
+        control.rect_size = \
+                round_vector(control.get_meta("gs_rect_size") * scale)
     if control.has_meta("gs_rect_scale"):
-        control.rect_scale = control.get_meta("gs_rect_scale") * scale
+        control.rect_scale = \
+                round_vector(control.get_meta("gs_rect_scale") * scale)
     
     for child in control.get_children():
         if child is Control:
