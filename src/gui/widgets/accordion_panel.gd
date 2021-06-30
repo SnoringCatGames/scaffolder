@@ -401,6 +401,9 @@ func _interpolate_scroll(open_ratio: float) -> void:
 
 
 func _on_is_open_tween_started() -> void:
+    if !is_instance_valid(_projected_control):
+        return
+    
     _projected_control.visible = true
     rect_clip_content = true
 
