@@ -52,12 +52,6 @@ func _initialize_framework() -> void:
     if main != self:
         main.add_child(self)
     
-    Gs.camera_controller = CameraController.new()
-    main.add_child(Gs.camera_controller)
-    
-    Gs.canvas_layers = CanvasLayers.new()
-    main.add_child(Gs.canvas_layers)
-    
     Gs.nav.register_manifest(Gs.manifest.gui_manifest.screen_manifest)
     
     Gs.gui.debug_panel = Gs.utils.add_scene(
@@ -144,7 +138,7 @@ func _report_any_previous_crash() -> bool:
             "upload_finished",
             self,
             "_initialize_framework")
-    add_child(Gs.crash_reporter)
+    Gs.add_child(Gs.crash_reporter)
     return Gs.crash_reporter.report_any_previous_crash()
 
 

@@ -27,13 +27,14 @@ const IS_DEBUG_TIME_SHOWN_SETTINGS_KEY := "is_debug_time_shown"
 const IS_MUSIC_ENABLED_SETTINGS_KEY := "is_music_enabled"
 const IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY := "is_sound_effects_enabled"
 const ADDITIONAL_DEBUG_TIME_SCALE_SETTINGS_KEY := "additional_debug_time_scale"
+const ZOOM_FACTOR_SETTINGS_KEY := "zoom_factor"
 const SUGGESTED_NEXT_LEVEL_SETTINGS_KEY := "suggested_next_level"
 
 var config: ConfigFile
 
 
 func _init() -> void:
-    Gs.logger.print("SaveSate._init")
+    Gs.logger.on_global_init(self, "SaveState")
     _load_config()
     
     if Gs.manifest.app_metadata.has(

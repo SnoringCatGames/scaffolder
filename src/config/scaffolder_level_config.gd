@@ -33,7 +33,7 @@ var _level_numbers := []
 func _init(
         are_levels_scene_based: bool,
         level_manifest: Dictionary) -> void:
-    Gs.logger.print("ScaffolderLevelConfig._init")
+    Gs.logger.on_global_init(self, "ScaffolderLevelConfig")
     self.are_levels_scene_based = are_levels_scene_based
     self._level_configs_by_id = level_manifest
 

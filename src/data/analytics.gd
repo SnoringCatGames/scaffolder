@@ -41,7 +41,7 @@ var _retry_queue := []
 
 
 func _init() -> void:
-    Gs.logger.print("Analytics._init")
+    Gs.logger.on_global_init(self, "Analytics")
 
 
 func _process(_delta: float) -> void:

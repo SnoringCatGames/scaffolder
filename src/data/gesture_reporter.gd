@@ -6,7 +6,7 @@ const HEADERS := ["Content-Type: application/json"]
 
 
 func _init() -> void:
-    Gs.logger.print("GestureReporter._init")
+    Gs.logger.on_global_init(self, "GestureReporter")
 
 
 func record_recent_gestures() -> void:

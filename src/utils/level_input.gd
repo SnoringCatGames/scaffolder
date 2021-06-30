@@ -8,7 +8,8 @@ var _an_active_overlay_has_focus := false
 
 
 func _init() -> void:
-    Gs.logger.print("LevelInput._init")
+    Gs.logger.on_global_init(self, "LevelInput")
+    
     _control = Control.new()
     add_child(_control)
 

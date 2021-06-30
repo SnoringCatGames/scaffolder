@@ -36,7 +36,7 @@ var is_sound_effects_enabled := true setget \
 
 
 func _init() -> void:
-    Gs.logger.print("Audio._init")
+    Gs.logger.on_global_init(self, "Audio")
 
 
 func register_sounds(

@@ -19,7 +19,7 @@ const EXCLAMATION_MARK_DOT_WIDTH_RATIO := 1.0
 
 
 func _init() -> void:
-    Gs.logger.print("DrawUtils._init")
+    Gs.logger.on_global_init(self, "DrawUtils")
 
 
 # Godot's CanvasItem.draw_polyline function draws the ends of the polyline with

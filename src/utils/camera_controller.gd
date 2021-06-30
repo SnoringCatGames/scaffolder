@@ -17,7 +17,7 @@ var zoom_tween: ScaffolderTween
 
 
 func _init() -> void:
-    name = "CameraController"
+    Gs.logger.on_global_init(self, "CameraController")
 
 
 func _enter_tree() -> void:
@@ -26,22 +26,24 @@ func _enter_tree() -> void:
 
 
 func _process(_delta: float) -> void:
-    if is_instance_valid(_current_camera):
-        # Handle zooming.
-        if Gs.level_input.is_action_pressed("zoom_in"):
-            _set_zoom_factor(zoom_factor * (1 - ZOOM_FACTOR_STEP_RATIO))
-        elif Gs.level_input.is_action_pressed("zoom_out"):
-            _set_zoom_factor(zoom_factor * (1 + ZOOM_FACTOR_STEP_RATIO))
+    if !is_instance_valid(_current_camera):
+        return
     
-        # Handle Panning.
-        if Gs.level_input.is_action_pressed("pan_up"):
-            _current_camera.offset.y -= PAN_STEP
-        elif Gs.level_input.is_action_pressed("pan_down"):
-            _current_camera.offset.y += PAN_STEP
-        elif Gs.level_input.is_action_pressed("pan_left"):
-            _current_camera.offset.x -= PAN_STEP
-        elif Gs.level_input.is_action_pressed("pan_right"):
-            _current_camera.offset.x += PAN_STEP
+    # Handle zooming.
+    if Gs.level_input.is_action_pressed("zoom_in"):
+        _set_zoom_factor(zoom_factor * (1 - ZOOM_FACTOR_STEP_RATIO))
+    elif Gs.level_input.is_action_pressed("zoom_out"):
+        _set_zoom_factor(zoom_factor * (1 + ZOOM_FACTOR_STEP_RATIO))
+    
+    # Handle Panning.
+    if Gs.level_input.is_action_pressed("pan_up"):
+        _current_camera.offset.y -= PAN_STEP
+    elif Gs.level_input.is_action_pressed("pan_down"):
+        _current_camera.offset.y += PAN_STEP
+    elif Gs.level_input.is_action_pressed("pan_left"):
+        _current_camera.offset.x -= PAN_STEP
+    elif Gs.level_input.is_action_pressed("pan_right"):
+        _current_camera.offset.x += PAN_STEP
 
 
 func _unhandled_input(event: InputEvent) -> void:

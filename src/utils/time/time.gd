@@ -31,7 +31,7 @@ var _debounced_callbacks := {}
 
 
 func _init() -> void:
-    Gs.logger.print("Time._init")
+    Gs.logger.on_global_init(self, "Time")
     pause_mode = Node.PAUSE_MODE_PROCESS
 
 

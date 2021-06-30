@@ -25,7 +25,7 @@ var _preregistered_metric_keys := []
 
 
 func _init() -> void:
-    Gs.logger.print("Profiler._init")
+    Gs.logger.on_global_init(self, "Profiler")
     init_thread(DEFAULT_THREAD_ID)
 
 

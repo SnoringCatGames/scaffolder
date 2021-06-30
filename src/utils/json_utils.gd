@@ -6,7 +6,7 @@ var REGEX_TO_MATCH_TRAILING_ZEROS_AFTER_DECIMAL := RegEx.new()
 
 
 func _init() -> void:
-    Gs.logger.print("JsonUtils._init")
+    Gs.logger.on_global_init(self, "JsonUtils")
     REGEX_TO_MATCH_TRAILING_ZEROS_AFTER_DECIMAL.compile("\\.0*$")
 
 

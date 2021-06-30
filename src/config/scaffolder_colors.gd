@@ -110,7 +110,7 @@ var _defaults := {
 
 
 func _init() -> void:
-    Gs.logger.print("ScaffolderColors._init")
+    Gs.logger.on_global_init(self, "ScaffolderColors")
 
 
 func register_manifest(manifest: Dictionary) -> void:
