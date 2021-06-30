@@ -4,6 +4,8 @@ extends VBoxContainer
 
 const _FADE_IN_DURATION := 0.2
 
+export var size_override := Vector2.ZERO
+
 var post_tween_opacity: float
 
 
@@ -28,11 +30,9 @@ func _ready() -> void:
     if Engine.editor_hint:
         return
     
-    Gs.utils.record_gui_original_min_rect_size_recursively(self)
+    Gs.utils.record_gui_original_size_recursively(self)
     
     theme = Gs.gui.theme
-    
-    set_meta("gs_rect_min_size", rect_min_size)
     
     Gs.gui.add_gui_to_scale(self)
     
@@ -68,13 +68,11 @@ func _ready() -> void:
 
 
 func update_gui_scale() -> bool:
-    var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
-
     for child in get_children():
         if child is Control:
             Gs.utils.scale_gui_recursively(child)
         
-    rect_min_size = original_rect_min_size * Gs.gui.scale
+    rect_min_size = size_override * Gs.gui.scale
     rect_size.x = rect_min_size.x
     rect_size.y = \
             $Header.rect_size.y + \

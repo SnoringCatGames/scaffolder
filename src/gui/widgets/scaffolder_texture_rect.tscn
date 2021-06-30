@@ -20,5 +20,4 @@ grow_vertical = 2
 stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": false,
-"gs_rect_scale": Vector2( 1, 1 )
 }

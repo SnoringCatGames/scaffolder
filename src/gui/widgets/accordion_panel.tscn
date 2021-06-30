@@ -8,6 +8,5 @@ margin_right = -0.314972
 rect_clip_content = true
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_use_anchors_": false,
-"gs_rect_min_size": Vector2( 0, 0 ),
+"_edit_use_anchors_": false
 }

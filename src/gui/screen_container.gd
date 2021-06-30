@@ -83,11 +83,6 @@ func _exit_tree() -> void:
     _destroy()
 
 
-func update_gui_scale() -> void:
-    _update()
-    contents.update_gui_scale()
-
-
 func _update() -> void:
     var contents_size: Vector2 = \
             contents.get_meta("gs_rect_min_size") * Gs.gui.scale
