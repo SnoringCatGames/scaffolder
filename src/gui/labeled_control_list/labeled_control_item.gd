@@ -73,19 +73,12 @@ func create_row(
     row.add_stylebox_override("panel", style)
     
     var hbox := HBoxContainer.new()
-    hbox.set_meta("gs_rect_min_size", Vector2(0.0, height))
-    hbox.rect_min_size.y = height * Gs.gui.scale
     hbox.add_constant_override("separation", 0)
     row.add_child(hbox)
     
-    var spacer1 := Control.new()
-    spacer1.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-    spacer1.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-    spacer1.set_meta(
-            "gs_rect_min_size",
-            Vector2(outer_padding_horizontal, 0.0))
-    spacer1.rect_min_size.x = outer_padding_horizontal * Gs.gui.scale
-    hbox.add_child(spacer1)
+    var spacer1: Spacer = Gs.utils.add_scene(
+            hbox, Gs.gui.SPACER_SCENE, true, true)
+    spacer1.size = Vector2(outer_padding_horizontal, height)
     
     var label := Label.new()
     label.text = self.label
@@ -100,17 +93,11 @@ func create_row(
     if self.description != "" and \
             includes_description:
         description_button = Gs.utils.add_scene(
-                hbox, 
-                Gs.gui.SCAFFOLDER_TEXTURE_BUTTON_SCENE,
-                false,
-                true)
+                null, Gs.gui.SCAFFOLDER_TEXTURE_BUTTON_SCENE, false, true)
         description_button.texture_normal = ABOUT_ICON_NORMAL
         description_button.texture_hover = ABOUT_ICON_HOVER
         description_button.texture_pressed = ABOUT_ICON_ACTIVE
-        description_button.set_meta(
-                "gs_rect_min_size", ABOUT_ICON_NORMAL.get_size())
-        description_button.size_override = \
-                ABOUT_ICON_NORMAL.get_size()
+        description_button.size_override = ABOUT_ICON_NORMAL.get_size()
         description_button.texture_scale = Vector2.ONE
         description_button.expands_texture = false
         description_button.connect(
@@ -125,13 +112,9 @@ func create_row(
                 Control.SIZE_SHRINK_CENTER
         description_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     
-    var spacer3 := Control.new()
-    spacer3.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-    spacer3.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-    spacer3.set_meta(
-            "gs_rect_min_size",
-            Vector2(inner_padding_horizontal * 2.0, 0.0))
-    spacer3.rect_min_size.x = inner_padding_horizontal * 2.0 * Gs.gui.scale
+    var spacer3: Spacer = Gs.utils.add_scene(
+            null, Gs.gui.SPACER_SCENE, false, true)
+    spacer3.size = Vector2(inner_padding_horizontal * 2.0, height)
     
     if self.type != HEADER:
         var control := create_control()
@@ -157,14 +140,9 @@ func create_row(
         if is_instance_valid(description_button):
             hbox.add_child(description_button)
     
-    var spacer2 := Control.new()
-    spacer2.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-    spacer2.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-    spacer2.set_meta(
-            "gs_rect_min_size",
-            Vector2(outer_padding_horizontal, 0.0))
-    spacer2.rect_min_size.x = outer_padding_horizontal * Gs.gui.scale
-    hbox.add_child(spacer2)
+    var spacer2: Spacer = Gs.utils.add_scene(
+            hbox, Gs.gui.SPACER_SCENE, true, true)
+    spacer2.size = Vector2(outer_padding_horizontal, height)
     
     return row
 

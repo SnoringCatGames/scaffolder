@@ -46,8 +46,8 @@ var _header_label: Label
 var _projected_control: Control
 var _caret: ScaffolderTextureRect
 var _is_open_tween: ScaffolderTween
-var _spacer1: Control
-var _spacer2: Control
+var _spacer1: Spacer
+var _spacer2: Spacer
 
 var _header_normal_stylebox: StyleBoxFlatScalable
 var _header_hover_stylebox: StyleBoxFlatScalable
@@ -81,9 +81,6 @@ func _ready() -> void:
     _is_ready = true
     rect_clip_content = true
     
-    set_meta("gs_rect_size", rect_size)
-    set_meta("gs_rect_min_size", rect_min_size)
-    
     move_child(_is_open_tween, 0)
     
     _update_children()
@@ -100,6 +97,7 @@ func _exit_tree() -> void:
 
 func update_gui_scale() -> bool:
     _debounced_update_children.call_func()
+    Gs.time.set_timeout(funcref(self, "_trigger_open_change"), 0.2, [false])
     return true
 
 
@@ -132,10 +130,6 @@ func _update_gui_scale_debounced() -> void:
     if is_instance_valid(_header):
         _projected_control.rect_position.y = _header.rect_size.y
     
-    # FIXME: ------------------------------
-#    # Update height according to the accordion contents.
-#    var open_ratio := 1.0 if is_open else 0.0
-#    _interpolate_height(open_ratio)
     call_deferred("_trigger_open_change", false)
 
 
@@ -182,9 +176,9 @@ func _create_header() -> void:
     _header_hbox = HBoxContainer.new()
     _header.add_child(_header_hbox)
     
-    _spacer1 = Control.new()
-    _spacer1.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-    _spacer1.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+    _spacer1 = Gs.utils.add_scene(
+            null, Gs.gui.SPACER_SCENE, false, true)
+    _spacer1.size = Vector2.ZERO
     
     _caret = Gs.utils.add_scene(
             null,
@@ -206,9 +200,9 @@ func _create_header() -> void:
     _header_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     _header_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     
-    _spacer2 = Control.new()
-    _spacer2.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-    _spacer2.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+    _spacer2 = Gs.utils.add_scene(
+            null, Gs.gui.SPACER_SCENE, false, true)
+    _spacer2.size = Vector2.ZERO
     
     if uses_header_color:
         _header.add_color_override("font_color", Gs.colors.header)
@@ -283,9 +277,7 @@ func _update_children_debounced() -> void:
         return
     
     _projected_control = projected_node
-    _projected_control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-    _projected_control.set_meta(
-            "gs_rect_size", _projected_control.rect_size)
+    _projected_control.size_flags_vertical = Control.SIZE_FILL
     
     configuration_warning = ""
     update_configuration_warning()
@@ -345,15 +337,19 @@ func _trigger_open_change(is_tweening: bool) -> void:
 
 
 func _interpolate_height(open_ratio: float) -> void:
-    var projected_height: float = _projected_control.get_meta("gs_rect_size").y
-    _projected_control.rect_size.y = projected_height
+    # NOTE: This hack is a work-around for an underlying bug in Godot's size
+    #       calculations. For some reason, this forces an update to the actual
+    #       rect_size value. Without this, rect_size will be inaccurate.
+    _projected_control.rect_size.y = 0
     
+    var projected_height := _projected_control.rect_size.y
     rect_min_size.y = projected_height * open_ratio
     _projected_control.rect_position.y = -projected_height * (1.0 - open_ratio)
     if includes_header:
         rect_min_size.y += _header.rect_size.y
         _header_hbox.rect_size.y = _header.rect_size.y
         _projected_control.rect_position.y += _header.rect_size.y
+    rect_size = rect_min_size
 
 
 func _interpolate_caret_rotation(rotation: float) -> void:
