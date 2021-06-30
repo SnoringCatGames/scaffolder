@@ -24,11 +24,14 @@ func _init(__ = null).(
         WIDTH,
         TICK_COUNT
         ) -> void:
-    pass
+    Gs.camera_controller.connect("zoomed", self, "_on_camera_zoomed")
 
 
 func on_value_changed(control_value: float) -> void:
     var result_value := _control_value_to_result_value(control_value)
+    if Gs.geometry.are_floats_equal_with_epsilon(
+            Gs.camera_controller.zoom_factor, result_value, 0.0001):
+        return
     Gs.camera_controller.zoom_factor = result_value
     Gs.save_state.set_setting(
             SaveState.ZOOM_FACTOR_SETTINGS_KEY,
@@ -41,3 +44,11 @@ func get_value() -> float:
 
 func get_is_enabled() -> bool:
     return true
+
+
+func _on_camera_zoomed() -> void:
+    var new_control_value := \
+            _result_value_to_control_value(Gs.camera_controller.zoom_factor)
+    if control.value != new_control_value:
+        _is_change_triggered_indirectly = true
+        control.value = new_control_value
