@@ -47,7 +47,7 @@ var is_fastest_time: bool setget ,_get_is_new_fastest_time
 var new_unlocked_levels: Array setget ,_get_new_unlocked_levels
 
 
-func _reset(id: String) -> void:
+func reset(id: String) -> void:
     self._id = id
     _is_destroyed = false
     _is_restarting = false

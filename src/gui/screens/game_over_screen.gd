@@ -78,5 +78,4 @@ func _on_HomeButton_pressed() -> void:
 
 
 func _on_RetryButton_pressed() -> void:
-    Gs.nav.open("game")
-    Gs.nav.screens["game"].start_level(Gs.level_session.id)
+    Gs.nav.open("loading", false, {level_id = Gs.level_session.id})
