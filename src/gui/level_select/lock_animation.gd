@@ -15,16 +15,14 @@ func _ready() -> void:
             self,
             "_on_lock_animation_finished")
     
-    set_meta("gs_rect_size", rect_size)
     set_meta("gs_rect_min_size", rect_min_size)
 
 
 func update_gui_scale() -> bool:
-    var original_rect_size: Vector2 = get_meta("gs_rect_size")
     var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
 
     rect_min_size = original_rect_min_size * Gs.gui.scale
-    rect_size = original_rect_size * Gs.gui.scale
+    rect_size = rect_min_size
     $Control.rect_position = -LOCK_SIZE * LOCK_SCALE * 0.5 * Gs.gui.scale
     $Control/Node2D.position = LOCK_SIZE * LOCK_SCALE * 0.5 * Gs.gui.scale
     $Control/Node2D/Lock.scale = \

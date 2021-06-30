@@ -19,8 +19,7 @@ nav_bar_text = "Third-party licenses"
 
 [node name="Label" type="Label" parent="."]
 margin_right = 896.0
-margin_bottom = 294.0
-rect_min_size = Vector2( 896, 294 )
+margin_bottom = 47.0
 size_flags_horizontal = 3
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 2 )

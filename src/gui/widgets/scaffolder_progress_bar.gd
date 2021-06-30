@@ -13,4 +13,4 @@ func _set_size_override(value: Vector2) -> void:
         return
     
     set_meta("gs_rect_min_size", size_override)
-    Gs.utils._scale_gui_recursively(self)
+    Gs.utils.scale_gui_recursively(self)

@@ -232,6 +232,8 @@ func _set_font_size(value: int) -> void:
 
 func _set_size_override(value: Vector2) -> void:
     size_override = value
+    if Engine.editor_hint:
+        rect_size = size_override
     if _is_ready:
         update()
 

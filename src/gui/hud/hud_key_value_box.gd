@@ -9,6 +9,9 @@ var item: TextLabeledControlItem
 var nine_patch_rect: NinePatchRect
 
 func _ready() -> void:
+    if Engine.editor_hint:
+        return
+    
     nine_patch_rect = Gs.utils.add_scene(
             self,
             Gs.gui.hud_manifest.hud_key_value_box_nine_patch_rect_scene,

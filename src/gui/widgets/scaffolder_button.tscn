@@ -26,8 +26,7 @@
 [sub_resource type="StyleBoxEmpty" id=10]
 
 [node name="ScaffolderButton" type="Button"]
-margin_right = 704.0
-margin_bottom = 328.0
+margin_bottom = 14.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_styles/hover = SubResource( 1 )
@@ -43,6 +42,7 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_right = 704.0
 margin_bottom = 328.0
+rect_clip_content = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -50,10 +50,12 @@ __meta__ = {
 [node name="BottomButton" type="Button" parent="MarginContainer"]
 margin_right = 704.0
 margin_bottom = 328.0
+rect_clip_content = true
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -61,6 +63,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="MarginContainer"]
 margin_right = 704.0
 margin_bottom = 328.0
+rect_clip_content = true
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 1
@@ -87,6 +90,7 @@ margin_bottom = 164.0
 [node name="TopButton" type="Button" parent="MarginContainer"]
 margin_right = 704.0
 margin_bottom = 328.0
+rect_clip_content = true
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/hover = SubResource( 6 )
@@ -94,6 +98,7 @@ custom_styles/pressed = SubResource( 7 )
 custom_styles/focus = SubResource( 8 )
 custom_styles/disabled = SubResource( 9 )
 custom_styles/normal = SubResource( 10 )
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

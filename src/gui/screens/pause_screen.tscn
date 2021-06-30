@@ -9,7 +9,6 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=10]
 
 [node name="PauseScreen" type="VBoxContainer"]
-rect_min_size = Vector2( 1024, 768 )
 script = ExtResource( 3 )
 screen_name = "pause"
 nav_bar_text = "Paused"

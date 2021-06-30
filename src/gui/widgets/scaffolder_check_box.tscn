@@ -9,7 +9,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false,
 "gs_rect_min_size": Vector2( 0, 0 ),
-"gs_rect_size": Vector2( 0, 0 )
 }
 
 [node name="CheckBox" type="CheckBox" parent="."]
