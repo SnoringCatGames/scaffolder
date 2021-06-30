@@ -9,7 +9,6 @@
 [node name="LevelSelectItemUnlockedHeader" type="Button"]
 margin_right = 320.0
 margin_bottom = 56.0
-rect_min_size = Vector2( 400, 56 )
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -21,7 +20,6 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
-rect_min_size = Vector2( 400, 56 )
 custom_constants/separation = 16
 __meta__ = {
 "_edit_use_anchors_": false
@@ -30,14 +28,13 @@ __meta__ = {
 [node name="Spacer3" parent="HBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 28.0
-margin_bottom = 28.0
+margin_top = 20.0
+margin_bottom = 20.0
 
 [node name="LevelNumber" type="Label" parent="HBoxContainer"]
 margin_left = 16.0
-margin_top = 8.0
 margin_right = 46.0
-margin_bottom = 47.0
+margin_bottom = 39.0
 rect_min_size = Vector2( 30, 0 )
 custom_fonts/font = ExtResource( 2 )
 align = 2
@@ -45,29 +42,26 @@ valign = 1
 
 [node name="LevelName" type="Label" parent="HBoxContainer"]
 margin_left = 62.0
-margin_top = 8.0
-margin_right = 357.0
-margin_bottom = 47.0
+margin_right = 62.0
+margin_bottom = 39.0
 rect_clip_content = true
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
 valign = 1
 
 [node name="Caret" parent="HBoxContainer" instance=ExtResource( 4 )]
-margin_left = 372.0
-margin_top = 20.0
-margin_right = 383.5
-margin_bottom = 36.0
+margin_left = 77.0
+margin_top = 12.0
+margin_right = 88.5
+margin_bottom = 28.0
 rect_min_size = Vector2( 11.5, 16 )
-size_flags_horizontal = 4
-size_flags_vertical = 4
 texture = ExtResource( 3 )
 texture_scale = Vector2( 0.5, 0.5 )
 
 [node name="Spacer4" parent="HBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 400.0
-margin_top = 28.0
-margin_right = 400.0
-margin_bottom = 28.0
+margin_left = 105.0
+margin_top = 20.0
+margin_right = 105.0
+margin_bottom = 20.0

@@ -5,7 +5,6 @@
 [ext_resource path="res://addons/scaffolder/assets/images/gui/snoring_cat_logo_splash.png" type="Texture" id=3]
 
 [node name="DeveloperSplashScreen" type="VBoxContainer"]
-rect_min_size = Vector2( 1024, 768 )
 script = ExtResource( 2 )
 screen_name = "developer_splash"
 is_back_button_shown = false

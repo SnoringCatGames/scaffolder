@@ -8,7 +8,6 @@ size_flags_vertical = 4
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false,
-"gs_rect_position": Vector2( 0, 0 )
 }
 
 [node name="TextureRect" type="TextureRect" parent="."]

@@ -20,7 +20,6 @@ func _ready() -> void:
     
     _is_ready = true
     
-    set_meta("gs_rect_size", rect_size)
     set_meta("gs_rect_min_size", rect_min_size)
     
     _set_text(text)
@@ -37,7 +36,6 @@ func update_gui_scale() -> bool:
 
 
 func _deferred_update_gui_scale() -> void:
-    var original_rect_size: Vector2 = get_meta("gs_rect_size")
     var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
     
     $CheckBox.rect_size = Vector2(
@@ -46,7 +44,7 @@ func _deferred_update_gui_scale() -> void:
     var check_box_scale := _get_icon_scale()
     $CheckBox.rect_scale = Vector2(check_box_scale, check_box_scale)
     rect_min_size = original_rect_min_size * Gs.gui.scale * scale
-    rect_size = original_rect_size * Gs.gui.scale * scale
+    rect_size = rect_min_size
     $CheckBox.rect_position = \
             (rect_size - $CheckBox.rect_size * _get_icon_scale()) / 2.0
 
@@ -98,7 +96,6 @@ func _get_scale() -> float:
 
 
 func set_original_size(original_size: Vector2) -> void:
-    set_meta("gs_rect_size", original_size)
     set_meta("gs_rect_min_size", original_size)
 
 

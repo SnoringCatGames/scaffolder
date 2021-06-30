@@ -4,7 +4,6 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 
 [node name="LevelSelectScreen" type="VBoxContainer"]
-rect_min_size = Vector2( 1024, 768 )
 script = ExtResource( 1 )
 screen_name = "level_select"
 nav_bar_text = "Select level"

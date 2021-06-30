@@ -628,10 +628,10 @@ func _scale_gui_for_current_screen_size(gui) -> void:
         Gs.logger.error()
         return
     
-    Gs.utils._scale_gui_recursively(gui)
+    Gs.utils.scale_gui_recursively(gui)
 
 
-func _scale_gui_recursively(gui) -> void:
+func scale_gui_recursively(gui) -> void:
     if gui.has_method("update_gui_scale"):
         var handled: bool = gui.update_gui_scale()
         if handled:
@@ -687,7 +687,7 @@ func _scale_gui_recursively(gui) -> void:
     
     for child in control.get_children():
         if child is Control:
-            _scale_gui_recursively(child)
+            scale_gui_recursively(child)
 
 
 func _record_gui_original_simple_dimensions(control: Control) -> void:
@@ -714,6 +714,17 @@ func _record_gui_original_simple_dimensions(control: Control) -> void:
             control.set_meta(
                     "gs_margin_bottom",
                     control.get_constant("margin_bottom"))
+
+
+func record_gui_original_min_rect_size_recursively(control: Control) -> void:
+    if control.rect_min_size != Vector2.ZERO:
+        control.set_meta(
+                "gs_rect_min_size",
+                control.rect_min_size)
+    
+    for child in control.get_children():
+        if child is Control:
+            record_gui_original_min_rect_size_recursively(child)
 
 
 func get_node_vscroll_position(

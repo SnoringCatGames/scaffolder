@@ -24,7 +24,7 @@ var _configuration_warning := ""
 
 func _ready() -> void:
     if Engine.editor_hint:
-        rect_min_size = Vector2(1024, 768)
+        rect_size = Vector2(1024, 768)
         return
     
     Gs.utils.connect(

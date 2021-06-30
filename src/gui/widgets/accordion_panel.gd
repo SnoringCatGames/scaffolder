@@ -125,9 +125,9 @@ func _update_gui_scale_debounced() -> void:
             _header.rect_size = Vector2(rect_min_size.x, header_height)
             _header_hbox.rect_size = _header.rect_size
         else:
-            Gs.utils._scale_gui_recursively(_header)
+            Gs.utils.scale_gui_recursively(_header)
     
-    Gs.utils._scale_gui_recursively(_projected_control)
+    Gs.utils.scale_gui_recursively(_projected_control)
     _projected_control.rect_size.x = rect_size.x
     if is_instance_valid(_header):
         _projected_control.rect_position.y = _header.rect_size.y

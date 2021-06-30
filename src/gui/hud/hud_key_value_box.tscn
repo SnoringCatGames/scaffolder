@@ -5,7 +5,6 @@
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=3]
 
 [node name="HudKeyValueBox" type="Control"]
-rect_min_size = Vector2( 256, 48 )
 mouse_filter = 2
 script = ExtResource( 2 )
 __meta__ = {
@@ -15,7 +14,6 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 256.0
 margin_bottom = 48.0
-rect_min_size = Vector2( 256, 48 )
 mouse_filter = 2
 custom_constants/separation = 0
 __meta__ = {

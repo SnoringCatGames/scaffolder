@@ -65,8 +65,6 @@ func update_gui_scale() -> bool:
     
     accordion.rect_min_size.x = Gs.gui.screen_body_width
     body.rect_min_size.x = Gs.gui.screen_body_width
-    accordion.set_meta("gs_rect_position", accordion.rect_position)
-    accordion.set_meta("gs_rect_size", accordion.rect_size)
     accordion.set_meta("gs_rect_min_size", accordion.rect_min_size)
     body.set_meta("gs_rect_min_size", accordion.rect_min_size)
     

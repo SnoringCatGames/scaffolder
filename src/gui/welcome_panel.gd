@@ -13,6 +13,9 @@ func _init() -> void:
 
 
 func _enter_tree() -> void:
+    if Engine.editor_hint:
+        return
+    
     Gs.time.tween_property(
             self,
             "modulate:a",
@@ -22,6 +25,11 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+    if Engine.editor_hint:
+        return
+    
+    Gs.utils.record_gui_original_min_rect_size_recursively(self)
+    
     theme = Gs.gui.theme
     
     set_meta("gs_rect_min_size", rect_min_size)
@@ -64,7 +72,7 @@ func update_gui_scale() -> bool:
 
     for child in get_children():
         if child is Control:
-            Gs.utils._scale_gui_recursively(child)
+            Gs.utils.scale_gui_recursively(child)
         
     rect_min_size = original_rect_min_size * Gs.gui.scale
     rect_size.x = rect_min_size.x

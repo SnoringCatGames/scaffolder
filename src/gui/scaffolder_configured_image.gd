@@ -35,7 +35,7 @@ func _update() -> void:
         return
     var child: Node = children[0]
     
-    Gs.utils._scale_gui_recursively(child)
+    Gs.utils.scale_gui_recursively(child)
     
     var scale: Vector2 = Vector2.ONE * original_scale
     child.rect_scale = scale

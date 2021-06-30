@@ -31,8 +31,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 80.0
 margin_right = 1024.0
-margin_bottom = 848.0
-rect_min_size = Vector2( 1024, 768 )
+margin_bottom = 94.0
 mouse_filter = 1
 stretches_vertically = true
 
@@ -40,14 +39,13 @@ stretches_vertically = true
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 1017.0
-margin_bottom = 761.0
+margin_bottom = 7.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="FullScreenPanel/VBoxContainer/CenteredPanel/ScrollContainer"]
 margin_right = 1010.0
-margin_bottom = 754.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
