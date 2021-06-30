@@ -40,7 +40,7 @@ func get_is_nav_bar_shown() -> bool:
 
 func _on_activated(previous_screen: Screen) -> void:
     ._on_activated(previous_screen)
-    _load_level()
+    Gs.time.set_timeout(funcref(self, "_load_level"), 0.05)
 
 
 func _load_level() -> void:
@@ -81,6 +81,13 @@ func _load_level() -> void:
 
 func _on_calculation_started() -> void:
     container.nav_bar.text = "Calculating platform graphs"
+    $VBoxContainer/Duration.text = Gs.utils.get_time_string_from_seconds( \
+            0.0, \
+            false, \
+            false, \
+            true)
+    $VBoxContainer/Label1.text = "Parsing surfaces"
+    $VBoxContainer/Label2.text = ""
 
 
 func _on_load_started() -> void:
