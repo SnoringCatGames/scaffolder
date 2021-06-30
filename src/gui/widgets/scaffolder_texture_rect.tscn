@@ -7,7 +7,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_use_anchors_": false,
+"_edit_use_anchors_": false
 }
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -19,5 +19,5 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 4
 __meta__ = {
-"_edit_use_anchors_": false,
+"_edit_use_anchors_": false
 }

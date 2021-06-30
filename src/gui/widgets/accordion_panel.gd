@@ -130,7 +130,7 @@ func _update_gui_scale_debounced() -> void:
     if is_instance_valid(_header):
         _projected_control.rect_position.y = _header.rect_size.y
     
-    call_deferred("_trigger_open_change", false)
+    call_deferred("_on_is_open_tween_completed")
 
 
 func add_child(child: Node, legible_unique_name=false) -> void:
@@ -408,6 +408,9 @@ func _on_is_open_tween_started() -> void:
 func _on_is_open_tween_completed(
         _object = null,
         _key = null) -> void:
+    if !is_instance_valid(_projected_control):
+        return
+    
     var open_ratio := 1.0 if is_open else 0.0
     _interpolate_height(open_ratio)
     _projected_control.visible = is_open
