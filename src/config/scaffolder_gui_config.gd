@@ -139,6 +139,7 @@ var DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST := {
             is_collapsible = true,
             item_classes = [
                 WelcomePanelSettingsLabeledControlItem,
+                CameraZoomSettingsLabeledControlItem,
                 TimeScaleSettingsLabeledControlItem,
                 MetronomeSettingsLabeledControlItem,
             ],
@@ -277,7 +278,7 @@ var active_overlays := []
 
 
 func _init() -> void:
-    Gs.logger.print("ScaffolderGuiConfig._init")
+    Gs.logger.on_global_init(self, "ScaffolderGuiConfig")
 
 
 func amend_manifest(manifest: Dictionary) -> void:

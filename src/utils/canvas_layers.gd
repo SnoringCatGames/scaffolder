@@ -34,8 +34,7 @@ var layers := {}
 
 
 func _init() -> void:
-    Gs.logger.print("CanvasLayers._init")
-    name = "CanvasLayers"
+    Gs.logger.on_global_init(self, "CanvasLayers")
 
 
 func _enter_tree() -> void:

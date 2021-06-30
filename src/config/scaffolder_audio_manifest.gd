@@ -36,7 +36,7 @@ var is_slow_motion_start_stop_sound_effect_played := true
 
 
 func _init() -> void:
-    Gs.logger.print("ScaffolderAudioManifest._init")
+    Gs.logger.on_global_init(self, "ScaffolderAudioManifest")
 
 
 func register_manifest(manifest: Dictionary) -> void:

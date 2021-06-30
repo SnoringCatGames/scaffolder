@@ -12,7 +12,7 @@ var _focus_releaser: Control
 
 
 func _init() -> void:
-    Gs.logger.print("Utils._init")
+    Gs.logger.on_global_init(self, "Utils")
     
     _ios_model_names = IosModelNames.new()
     _ios_resolutions = IosResolutions.new()

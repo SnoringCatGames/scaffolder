@@ -71,7 +71,7 @@ var agreed_to_terms: bool
 
 
 func _init() -> void:
-    Gs.logger.print("ScaffolderAppMetadata._init")
+    Gs.logger.on_global_init(self, "ScaffolderAppMetadata")
 
 
 func register_manifest(manifest: Dictionary) -> void:

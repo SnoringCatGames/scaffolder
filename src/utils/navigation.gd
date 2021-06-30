@@ -27,7 +27,7 @@ var fade_transition: FadeTransition
 
 
 func _init() -> void:
-    Gs.logger.print("Navigation._init")
+    Gs.logger.on_global_init(self, "Navigation")
 
 
 func _ready() -> void:

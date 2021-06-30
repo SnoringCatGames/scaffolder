@@ -194,6 +194,20 @@ func initialize() -> void:
         self.beats = BeatTracker.new()
     add_child(self.beats)
     
+    if manifest.has("camera_controller_class"):
+        self.camera_controller = manifest.camera_controller_class.new()
+        assert(self.camera_controller is CameraController)
+    else:
+        self.camera_controller = CameraController.new()
+    add_child(self.camera_controller)
+    
+    if manifest.has("canvas_layers_class"):
+        self.canvas_layers = manifest.canvas_layers_class.new()
+        assert(self.canvas_layers is CanvasLayers)
+    else:
+        self.canvas_layers = CanvasLayers.new()
+    add_child(self.canvas_layers)
+    
     # This depends on SaveState, and must be instantiated after.
     self.level_config = manifest.level_config_class.new()
     add_child(self.level_config)
@@ -233,6 +247,9 @@ func load_state() -> void:
             true)
     Gs.time.additional_debug_time_scale = Gs.save_state.get_setting(
             SaveState.ADDITIONAL_DEBUG_TIME_SCALE_SETTINGS_KEY,
+            1.0)
+    Gs.camera_controller.zoom_factor = Gs.save_state.get_setting(
+            SaveState.ZOOM_FACTOR_SETTINGS_KEY,
             1.0)
 
 

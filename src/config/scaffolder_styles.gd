@@ -19,7 +19,7 @@ var scroll_grabber_corner_detail: int
 
 
 func _init() -> void:
-    Gs.logger.print("ScaffolderStyles._init")
+    Gs.logger.on_global_init(self, "ScaffolderStyles")
 
 
 func register_manifest(manifest: Dictionary) -> void:

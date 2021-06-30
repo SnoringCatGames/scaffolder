@@ -16,7 +16,7 @@ const COLLISION_BETWEEN_CELLS_DISTANCE_THRESHOLD := 0.5
 
 
 func _init() -> void:
-    Gs.logger.print("Geometry._init")
+    Gs.logger.on_global_init(self, "Geometry")
 
 
 # Calculates the minimum squared distance between a line segment and a point.

@@ -6,6 +6,7 @@ var _print_queue := []
 
 
 func _enter_tree() -> void:
+    name = "ScaffolderLog"
     _print_front_matter()
     self.print("ScaffolderLog._enter_tree")
 
@@ -42,6 +43,11 @@ static func static_error(
 func warning(message := "An warning occurred") -> void:
     push_warning("WARNING: %s" % message)
     self.print("**WARNING**: %s" % message)
+
+
+func on_global_init(global: Node, name: String) -> void:
+    global.name = name
+    print("%s._init" % name)
 
 
 func _print_front_matter() -> void:

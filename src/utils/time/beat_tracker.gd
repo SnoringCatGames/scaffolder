@@ -16,7 +16,8 @@ var _last_music_scaled_speed := 1.0
 
 
 func _init() -> void:
-    Gs.logger.print("BeatTracker._init")
+    Gs.logger.on_global_init(self, "BeatTracker")
+    
     is_tracking_beat = Gs.audio_manifest.are_beats_tracked_by_default
     Gs.audio.connect("music_changed", self, "_on_music_changed")
 

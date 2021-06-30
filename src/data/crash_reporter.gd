@@ -24,7 +24,7 @@ const HEADERS := ["Content-Type: text/plain"]
 
 
 func _init() -> void:
-    Gs.logger.print("CrashReporter._init")
+    Gs.logger.on_global_init(self, "CrashReporter")
 
 
 func report_any_previous_crash() -> bool:

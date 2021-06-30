@@ -21,7 +21,7 @@ var _desaturation_material: ShaderMaterial
 
 
 func _init() -> void:
-    Gs.logger.print("SlowMotionController._init")
+    Gs.logger.on_global_init(self, "SlowMotionController")
     
     music = SlowMotionMusic.new()
     add_child(music)
