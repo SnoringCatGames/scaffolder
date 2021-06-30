@@ -2,6 +2,9 @@ class_name CameraController
 extends Node2D
 
 
+signal zoomed
+signal panned
+
 const ZOOM_FACTOR_STEP_RATIO := 0.05
 const PAN_STEP := 8.0
 
@@ -78,7 +81,10 @@ func get_current_camera() -> Camera2D:
 func _set_offset(offset: Vector2) -> void:
     if !is_instance_valid(_current_camera):
         return
+    if _current_camera.offset == offset:
+        return
     _current_camera.offset = offset
+    emit_signal("panned")
 
 
 func _get_offset() -> Vector2:
@@ -114,8 +120,11 @@ func get_derived_zoom() -> float:
 
 
 func _set_zoom_factor(value: float) -> void:
+    if zoom_factor == value:
+        return
     zoom_factor = value
     _update_zoom()
+    emit_signal("zoomed")
 
 
 func animate_to_zoom_factor(

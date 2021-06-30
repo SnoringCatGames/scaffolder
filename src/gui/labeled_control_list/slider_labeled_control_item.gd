@@ -16,6 +16,8 @@ var step: float
 var width: float
 var tick_count: int
 
+var _is_change_triggered_indirectly := false
+
 
 func _init(
         label: String,
@@ -81,7 +83,9 @@ func create_control() -> Control:
 
 
 func _on_slider_value_changed(_value: float) -> void:
-    Gs.utils.give_button_press_feedback()
+    if !_is_change_triggered_indirectly:
+        Gs.utils.give_button_press_feedback()
+    _is_change_triggered_indirectly = false
     value = control.value
     on_value_changed(value)
     emit_signal("item_changed")
