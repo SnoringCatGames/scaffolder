@@ -30,8 +30,8 @@ mouse_filter = 1
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 80.0
-margin_right = 1024.0
-margin_bottom = 848.0
+margin_right = 1010.0
+margin_bottom = 94.0
 mouse_filter = 1
 stretches_vertically = true
 
