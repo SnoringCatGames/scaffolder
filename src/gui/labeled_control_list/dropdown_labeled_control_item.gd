@@ -64,4 +64,4 @@ func _on_dropdown_item_selected(_option_index: int) -> void:
     on_selected(
             selected_index,
             options[selected_index])
-    emit_signal("item_changed")
+    emit_signal("changed")

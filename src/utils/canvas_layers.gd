@@ -42,6 +42,11 @@ func _enter_tree() -> void:
         create_layer(config.name, config.z_index, config.pause_mode)
 
 
+func _exit_tree() -> void:
+    for layer_name in layers:
+        layers[layer_name].queue_free()
+
+
 func create_layer(
         name: String,
         z_index: int,
