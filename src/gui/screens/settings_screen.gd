@@ -35,4 +35,4 @@ func _instantiate_settings_groups() -> void:
 
 func _clear_groups() -> void:
     for child in $VBoxContainer.get_children():
-        $VBoxContainer.remove_child(child)
+        child.queue_free()

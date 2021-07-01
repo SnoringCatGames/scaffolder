@@ -88,7 +88,7 @@ func _on_slider_value_changed(_value: float) -> void:
     _is_change_triggered_indirectly = false
     value = control.value
     on_value_changed(value)
-    emit_signal("item_changed")
+    emit_signal("changed")
 
 
 func set_original_size(original_size: Vector2) -> void:
