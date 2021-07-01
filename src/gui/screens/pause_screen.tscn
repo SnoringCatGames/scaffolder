@@ -27,8 +27,6 @@ __meta__ = {
 
 [node name="LabeledControlList" parent="VBoxContainer" instance=ExtResource( 9 )]
 margin_right = 1024.0
-row_height = 0.0
-padding_horizontal = 6.0
 
 [node name="Spacer" parent="VBoxContainer" instance=ExtResource( 8 )]
 anchor_right = 0.0

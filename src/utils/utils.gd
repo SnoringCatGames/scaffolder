@@ -321,7 +321,8 @@ static func get_is_pc_device() -> bool:
 
 
 static func get_is_mobile_device() -> bool:
-    return get_is_android_device() or get_is_ios_device()
+    return get_is_android_device() or \
+            get_is_ios_device()
 
 
 static func get_model_name() -> String:

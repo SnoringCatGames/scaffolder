@@ -10,15 +10,19 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_panel.tscn" type="PackedScene" id=11]
 
 [node name="GameOverScreen" type="VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 768.0
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 screen_name = "game_over"
 nav_bar_text = "Game over"
+is_back_button_shown = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 511.0
-margin_top = 435.0
-margin_right = 527.0
-margin_bottom = 507.0
+margin_right = 1024.0
+margin_bottom = 768.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -28,14 +32,14 @@ __meta__ = {
 [node name="Spacer" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 8.0
-margin_right = 8.0
+margin_left = 512.0
+margin_right = 512.0
 size = Vector2( 0, 10 )
 
 [node name="GameOverImageContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_left = 8.0
+margin_left = 512.0
 margin_top = 4.0
-margin_right = 8.0
+margin_right = 512.0
 margin_bottom = 4.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -50,7 +54,7 @@ size = Vector2( 0, 10 )
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 8.0
-margin_right = 16.0
+margin_right = 1024.0
 margin_bottom = 8.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -83,16 +87,16 @@ align = 1
 [node name="Spacer6" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 8.0
+margin_left = 512.0
 margin_top = 12.0
-margin_right = 8.0
+margin_right = 512.0
 margin_bottom = 12.0
 size = Vector2( 0, 10 )
 
 [node name="AccordionPanel" parent="VBoxContainer" instance=ExtResource( 11 )]
 margin_left = 0.0
 margin_top = 16.0
-margin_right = 16.0
+margin_right = 1024.0
 margin_bottom = 16.0
 header_text = "Details"
 is_header_text_centered = true
@@ -100,21 +104,20 @@ is_header_text_centered = true
 [node name="LabeledControlList" parent="VBoxContainer/AccordionPanel" instance=ExtResource( 6 )]
 margin_top = 4.0
 margin_bottom = 4.0
-row_height = 0.0
-padding_horizontal = 8.0
 
 [node name="Spacer8" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 8.0
+margin_left = 512.0
 margin_top = 20.0
-margin_right = 8.0
+margin_right = 512.0
 margin_bottom = 20.0
 size = Vector2( 0, 20 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_left = 504.0
 margin_top = 24.0
-margin_right = 16.0
+margin_right = 520.0
 margin_bottom = 68.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -126,7 +129,6 @@ __meta__ = {
 [node name="SelectLevelButton" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 10 )]
 margin_left = 8.0
 margin_right = 8.0
-margin_bottom = 14.0
 texture = ExtResource( 7 )
 texture_scale = Vector2( 2, 2 )
 size_override = Vector2( 128, 88 )
@@ -140,24 +142,21 @@ size_flags_vertical = 4
 custom_constants/separation = 16
 
 [node name="HomeButton" parent="VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
-margin_right = 0.0
-margin_bottom = 14.0
 texture = ExtResource( 9 )
 size_override = Vector2( 56, 56 )
 
 [node name="RetryButton" parent="VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
 margin_left = 16.0
 margin_right = 16.0
-margin_bottom = 14.0
 texture = ExtResource( 8 )
 size_override = Vector2( 56, 56 )
 
 [node name="Spacer9" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 8.0
+margin_left = 512.0
 margin_top = 72.0
-margin_right = 8.0
+margin_right = 512.0
 margin_bottom = 72.0
 size = Vector2( 0, 30 )
 

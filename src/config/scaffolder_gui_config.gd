@@ -173,8 +173,8 @@ var DEFAULT_SCAFFOLDER_LEVEL_SELECT_ITEM_MANIFEST := [
 
 var cell_size: Vector2
 
-# Should match Project Settings > Display > Window > Size > Width/Height
-var default_game_area_size: Vector2
+var default_pc_game_area_size: Vector2
+var default_mobile_game_area_size: Vector2
 
 var aspect_ratio_max: float
 var aspect_ratio_min: float
@@ -324,7 +324,8 @@ func register_manifest(manifest: Dictionary) -> void:
     
     self.theme = manifest.theme
     self.cell_size = manifest.cell_size
-    self.default_game_area_size = manifest.default_game_area_size
+    self.default_pc_game_area_size = manifest.default_pc_game_area_size
+    self.default_mobile_game_area_size = manifest.default_mobile_game_area_size
     self.aspect_ratio_max = manifest.aspect_ratio_max
     self.aspect_ratio_min = manifest.aspect_ratio_min
     self.debug_window_size = manifest.debug_window_size
