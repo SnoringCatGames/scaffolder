@@ -28,7 +28,7 @@ func _on_ConfirmButton_pressed() -> void:
 
 
 func quit() -> void:
-    get_tree().quit()
+    Gs.nav.emit_signal("app_quit")
     Gs.nav.open("data_agreement")
 
 

@@ -46,6 +46,7 @@ func _initialize_framework() -> void:
     Gs.logger.print("ScaffolderBootstrap._initialize_framework")
     
     Gs.initialize()
+    Gs.nav.connect("app_quit", self, "_on_app_quit")
     Gs.load_state()
     Gs.styles.configure_theme()
     
@@ -62,7 +63,8 @@ func _initialize_framework() -> void:
     Gs.gui.debug_panel.z_index = 1000
     Gs.gui.debug_panel.visible = Gs.gui.is_debug_panel_shown
     
-    if Gs.app_metadata.debug or Gs.app_metadata.playtest:
+    if Gs.app_metadata.debug or \
+            Gs.app_metadata.playtest:
         Gs.gui.gesture_record = GestureRecord.new()
         Gs.canvas_layers.layers.top \
                 .add_child(Gs.gui.gesture_record)
@@ -130,6 +132,11 @@ func _on_splash_finished() -> void:
             !Gs.app_metadata.is_data_tracked else \
             "data_agreement"
     Gs.nav.open(post_splash_screen)
+
+
+func _on_app_quit() -> void:
+    Gs.logger.print("ScaffolderBootstrap._on_app_quit")
+    get_tree().call_deferred("quit")
 
 
 func _report_any_previous_crash() -> bool:
