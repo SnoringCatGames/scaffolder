@@ -3,6 +3,7 @@ extends Node
 
 
 signal splash_finished
+signal app_quit
 
 const SCREEN_CONTAINER_SCENE := \
         preload("res://addons/scaffolder/src/gui/screen_container.tscn")
@@ -61,7 +62,7 @@ func close_app() -> void:
 func _on_session_end() -> void:
     if Gs.app_metadata.were_screenshots_taken:
         Gs.utils.open_screenshot_folder()
-    get_tree().quit()
+    emit_signal("app_quit")
 
 
 func _create_screen_container(screen_name: String) -> ScreenContainer:
