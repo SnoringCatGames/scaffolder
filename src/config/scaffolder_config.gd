@@ -272,11 +272,6 @@ func _validate_project_config() -> void:
     assert(ProjectSettings.get_setting(
             "logging/file_logging/enable_file_logging") == true)
     
-    assert(ProjectSettings.get_setting("display/window/size/width") == \
-            Gs.gui.default_game_area_size.x)
-    assert(ProjectSettings.get_setting("display/window/size/height") == \
-            Gs.gui.default_game_area_size.y)
-    
     assert(geometry.are_colors_equal_with_epsilon(
             ProjectSettings.get_setting("application/boot_splash/bg_color"),
             colors.boot_splash_background,

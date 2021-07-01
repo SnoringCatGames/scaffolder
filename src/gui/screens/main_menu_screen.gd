@@ -18,7 +18,6 @@ func _ready() -> void:
                 true,
                 true)
         projected_image.original_scale = Gs.gui.main_menu_image_scale
-    $VBoxContainer/Title.texture = Gs.app_metadata.app_logo
     $VBoxContainer/StartGameButton.texture = Gs.app_metadata.go_icon
     $VBoxContainer/StartGameButton.texture_scale = \
             Vector2(Gs.app_metadata.go_icon_scale,
@@ -30,20 +29,6 @@ func _ready() -> void:
 
 func _get_focused_button() -> ScaffolderButton:
     return $VBoxContainer/StartGameButton as ScaffolderButton
-
-
-func _on_resized() -> void:
-    ._on_resized()
-    
-    if Engine.editor_hint:
-        return
-    
-    var viewport_size := get_viewport().size
-    var is_wide_enough_to_put_title_in_nav_bar: bool = \
-            viewport_size.x > Gs.app_metadata.app_logo.get_width() + 256
-    container.nav_bar.shows_logo = \
-            is_wide_enough_to_put_title_in_nav_bar
-    $VBoxContainer/Title.visible = !is_wide_enough_to_put_title_in_nav_bar
 
 
 func _on_StartGameButton_pressed() -> void:

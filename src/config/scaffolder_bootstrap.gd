@@ -293,14 +293,17 @@ func _update_game_area_region_and_gui_scale() -> void:
     Gs.gui.game_area_region = Rect2(game_area_position, game_area_size)
     
     if Gs.app_metadata.is_app_configured:
+        var default_game_area_size := \
+                Gs.gui.default_mobile_game_area_size if \
+                Gs.utils.get_is_mobile_device() else \
+                Gs.gui.default_pc_game_area_size
         var default_aspect_ratio: float = \
-                Gs.gui.default_game_area_size.x / \
-                Gs.gui.default_game_area_size.y
+                default_game_area_size.x / default_game_area_size.y
         Gs.gui.previous_scale = Gs.gui.scale
         Gs.gui.scale = \
-                viewport_size.x / Gs.gui.default_game_area_size.x if \
+                viewport_size.x / default_game_area_size.x if \
                 aspect_ratio < default_aspect_ratio else \
-                viewport_size.y / Gs.gui.default_game_area_size.y
+                viewport_size.y / default_game_area_size.y
         Gs.gui.scale = \
                 max(Gs.gui.scale, Gs.gui.MIN_GUI_SCALE)
 
