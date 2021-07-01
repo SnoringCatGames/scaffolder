@@ -57,7 +57,7 @@ func _print_front_matter() -> void:
     self.print(
             "If not, then you should refactor how you're using the " +
             "Scaffolder framework, so that your custom classes are " +
-            "instantiated/run later.")
+            "instantiated later.")
     self.print("")
     self.print(get_datetime_string())
     self.print((

@@ -22,6 +22,11 @@ const LOG_LAST_MESSAGE_COUNT_TO_CHECK_FOR_ERRORS := 5
 
 const HEADERS := ["Content-Type: text/plain"]
 
+const ERROR_EXCLUSION_PATTERNS := [
+    "Condition \"_first != __null\" is true",
+    "Resources still in use at exit",
+]
+
 
 func _init() -> void:
     Gs.logger.on_global_init(self, "CrashReporter")
@@ -31,6 +36,7 @@ func report_any_previous_crash() -> bool:
     Gs.logger.print("CrashReporter.report_any_previous_crash")
     
     if !Gs.app_metadata.are_error_logs_captured:
+        Gs.logger.print("CrashReporter: Error logs not captured for this app")
         return false
     
     var log_file_name := _get_most_recent_log_file_name()
@@ -58,7 +64,8 @@ func report_any_previous_crash() -> bool:
             all_lines_count < lines.size():
         var line: String = lines[lines.size() - 1 - all_lines_count]
         
-        if error_regex.search(line) != null:
+        if error_regex.search(line) != null and \
+                !_does_line_match_an_exclusion_pattern(line):
             # We found an indication of a crash, so report recent logs.
             var text := Utils.join(lines, "\n")
             _upload_crash_log(text, log_file_name)
@@ -76,6 +83,13 @@ func report_any_previous_crash() -> bool:
     Gs.logger.print(
             "CrashReporter: There did not seem to be an error in the " +
             "previous session")
+    return false
+
+
+func _does_line_match_an_exclusion_pattern(line: String) -> bool:
+    for pattern in ERROR_EXCLUSION_PATTERNS:
+        if line.find(pattern) >= 0:
+            return true
     return false
 
 
