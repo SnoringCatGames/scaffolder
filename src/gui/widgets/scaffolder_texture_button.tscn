@@ -7,6 +7,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1024.0
 margin_bottom = -768.0
+mouse_filter = 1
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource( 1 )
@@ -17,6 +18,7 @@ __meta__ = {
 [node name="TextureButton" type="TextureButton" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 size_flags_horizontal = 0
 size_flags_vertical = 0
 expand = true

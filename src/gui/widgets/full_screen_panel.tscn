@@ -5,8 +5,6 @@
 [node name="FullScreenPanel" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -64.0
-margin_bottom = 192.0
 mouse_filter = 2
 script = ExtResource( 1 )
 __meta__ = {

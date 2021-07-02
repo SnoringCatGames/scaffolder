@@ -144,6 +144,18 @@ func create_row(
             hbox, Gs.gui.SPACER_SCENE, true, true)
     spacer2.size = Vector2(outer_padding_horizontal, height)
     
+    # Set mouse-filter to pass, so the user can still scroll with dragging.
+    for node in [
+                row,
+                hbox,
+                label,
+                description_button,
+                control,
+                spacer1,
+            ]:
+        if is_instance_valid(node):
+            node.mouse_filter = Control.MOUSE_FILTER_PASS
+    
     return row
 
 
