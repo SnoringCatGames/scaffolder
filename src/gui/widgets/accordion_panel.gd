@@ -151,6 +151,7 @@ func _create_header() -> void:
         _header.queue_free()
     
     _header = Button.new()
+    _header.mouse_filter = Control.MOUSE_FILTER_PASS
     _header.connect("pressed", self, "_on_header_pressed")
     
     _header_normal_stylebox = Gs.utils.create_stylebox_flat_scalable({

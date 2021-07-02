@@ -251,7 +251,9 @@ var is_game_over_image_shown: bool
 var is_loading_image_shown: bool
 var does_app_contain_welcome_panel: bool
 var is_welcome_panel_shown: bool
+var font_size_overrides: Dictionary
 var original_font_dimensions: Dictionary
+var splash_scale: float
 
 # --- Global state ---
 
@@ -387,6 +389,21 @@ func register_manifest(manifest: Dictionary) -> void:
         self.recent_gesture_events_for_debugging_buffer_size = \
                 manifest.recent_gesture_events_for_debugging_buffer_size
     
+    if fonts_manifest.has("sizes"):
+        if Gs.utils.get_is_mobile_device():
+            if fonts_manifest.sizes.has("mobile"):
+                self.font_size_overrides = fonts_manifest.sizes.mobile
+        else:
+            if fonts_manifest.sizes.has("pc"):
+                self.font_size_overrides = fonts_manifest.sizes.pc
+    
+    if Gs.utils.get_is_mobile_device():
+        if manifest.has("splash_scale_mobile"):
+            self.splash_scale = manifest.splash_scale_mobile
+    else:
+        if manifest.has("splash_scale_pc"):
+            self.splash_scale = manifest.splash_scale_pc
+    
     self.is_special_thanks_shown = !self.special_thanks_text.empty()
     self.is_third_party_licenses_shown = !self.third_party_license_text.empty()
     self.is_rate_app_shown = \
@@ -441,12 +458,11 @@ func _get_is_debug_panel_shown() -> bool:
 
 
 func _record_original_font_dimensions() -> void:
-    var size_overrides := _get_font_size_overrides()
-    
     for font_name in fonts:
         var scale: float = \
-                float(size_overrides[font_name]) / fonts[font_name].size if \
-                size_overrides.has(font_name) else \
+                float(font_size_overrides[font_name]) / \
+                        fonts[font_name].size if \
+                font_size_overrides.has(font_name) else \
                 1.0
         
         var dimensions := {}
@@ -460,17 +476,6 @@ func _record_original_font_dimensions() -> void:
                 ]:
              dimensions[dimension_name] = \
                     fonts[font_name].get(dimension_name) * scale
-
-
-func _get_font_size_overrides() -> Dictionary:
-    if fonts_manifest.has("sizes"):
-        if Gs.utils.get_is_mobile_device():
-            if fonts_manifest.sizes.has("mobile"):
-                return fonts_manifest.sizes.mobile
-        else:
-            if fonts_manifest.sizes.has("pc"):
-                return fonts_manifest.sizes.pc
-    return {}
 
 
 func _initialize_hud_key_value_list_item_enablement() -> void:

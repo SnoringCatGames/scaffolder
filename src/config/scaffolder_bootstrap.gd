@@ -207,16 +207,14 @@ func _set_global_visibility_for_resize(is_visible: bool) -> void:
 
 
 func _update_font_sizes() -> void:
-    var font_size_overrides := Gs.gui._get_font_size_overrides()
-    
     # First, update the fonts that don't have size overrides.
     for font_name in Gs.gui.fonts:
-        if font_size_overrides.has(font_name):
+        if Gs.gui.font_size_overrides.has(font_name):
             continue
         _update_sizes_for_font(font_name)
     
     # Second, update the fonts with size overrides.
-    for font_name in font_size_overrides:
+    for font_name in Gs.gui.font_size_overrides:
         _update_sizes_for_font(font_name)
 
 
