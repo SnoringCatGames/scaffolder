@@ -62,6 +62,10 @@ func close_app() -> void:
 func _on_session_end() -> void:
     if Gs.app_metadata.were_screenshots_taken:
         Gs.utils.open_screenshot_folder()
+    _on_app_quit()
+
+
+func _on_app_quit() -> void:
     emit_signal("app_quit")
 
 

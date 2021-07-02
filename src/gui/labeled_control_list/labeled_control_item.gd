@@ -22,7 +22,12 @@ const ABOUT_ICON_ACTIVE := \
 const ENABLED_ALPHA := 1.0
 const DISABLED_ALPHA := 0.3
 
+var font_size := "M" setget _set_font_size
+
 var control: Control
+var description_button: ScaffolderTextureButton
+var label_control: ScaffolderLabel
+
 var label: String
 var type: int
 var description: String
@@ -80,17 +85,18 @@ func create_row(
             hbox, Gs.gui.SPACER_SCENE, true, true)
     spacer1.size = Vector2(outer_padding_horizontal, height)
     
-    var label := Label.new()
-    label.text = self.label
-    label.modulate.a = \
+    label_control = Gs.utils.add_scene(
+            null, Gs.gui.SCAFFOLDER_LABEL_SCENE, false, true)
+    label_control.text = label
+    label_control.modulate.a = \
             ENABLED_ALPHA if \
             self.enabled else \
             DISABLED_ALPHA
-    label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-    label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+    label_control.align = Label.ALIGN_LEFT
+    label_control.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    label_control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     
-    var description_button: ScaffolderTextureButton
-    if self.description != "" and \
+    if description != "" and \
             includes_description:
         description_button = Gs.utils.add_scene(
                 null, Gs.gui.SCAFFOLDER_TEXTURE_BUTTON_SCENE, false, true)
@@ -105,8 +111,8 @@ func create_row(
                 self,
                 "_on_description_button_pressed",
                 [
-                    self.label,
-                    self.description
+                    label,
+                    description
                 ])
         description_button.size_flags_horizontal = \
                 Control.SIZE_SHRINK_CENTER
@@ -121,10 +127,10 @@ func create_row(
         control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
         self.control = control
     else:
-        label.align = Label.ALIGN_CENTER
+        label_control.align = Label.ALIGN_CENTER
     
     if is_control_on_right_side:
-        hbox.add_child(label)
+        hbox.add_child(label_control)
         if is_instance_valid(description_button):
             hbox.add_child(description_button)
         hbox.add_child(spacer3)
@@ -136,7 +142,7 @@ func create_row(
             control.size_flags_horizontal = 0
             hbox.add_child(control)
         hbox.add_child(spacer3)
-        hbox.add_child(label)
+        hbox.add_child(label_control)
         if is_instance_valid(description_button):
             hbox.add_child(description_button)
     
@@ -148,13 +154,16 @@ func create_row(
     for node in [
                 row,
                 hbox,
-                label,
+                label_control,
                 description_button,
-                control,
                 spacer1,
+                spacer2,
+                spacer3,
             ]:
         if is_instance_valid(node):
             node.mouse_filter = Control.MOUSE_FILTER_PASS
+    
+    _set_font_size(font_size)
     
     return row
 
@@ -182,3 +191,23 @@ func _get_alpha() -> float:
     return ENABLED_ALPHA if \
             enabled else \
             DISABLED_ALPHA
+
+
+func _set_font_size(value: String) -> void:
+    font_size = value
+    
+    var font: Font = Gs.gui.get_font(
+            font_size,
+            false,
+            false,
+            false)
+    
+    if is_instance_valid(control):
+        if control is ScaffolderLabel or \
+                control is ScaffolderButton:
+            control.font_size = font_size
+        else:
+            control.add_font_override("font", font)
+    
+    if is_instance_valid(label_control):
+        label_control.font_size = font_size

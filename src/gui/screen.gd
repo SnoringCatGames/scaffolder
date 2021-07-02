@@ -5,6 +5,7 @@ extends VBoxContainer
 
 export var screen_name := ""
 export var nav_bar_text := ""
+export(String, "Xs", "S", "M", "L", "Xl") var nav_bar_font_size := "Xl"
 export var is_back_button_shown := true
 export var is_about_button_shown := false
 export var is_settings_button_shown := false

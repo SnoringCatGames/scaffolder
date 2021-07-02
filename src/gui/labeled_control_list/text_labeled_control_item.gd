@@ -37,7 +37,9 @@ func _update_control() -> void:
 
 
 func create_control() -> Control:
-    var label := Label.new()
+    var label: ScaffolderLabel = Gs.utils.add_scene(
+            null, Gs.gui.SCAFFOLDER_LABEL_SCENE, false, true)
     label.text = text
     label.modulate.a = _get_alpha()
+    label.align = Label.ALIGN_RIGHT
     return label

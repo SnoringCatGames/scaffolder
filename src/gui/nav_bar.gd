@@ -8,6 +8,8 @@ const SINGLE_ROW_WITH_LOGO_MIN_WIDTH_WIGGLE_ROOM := 32.0
 const SINGLE_ROW_WITH_TEXT_MIN_WIDTH_WIGGLE_ROOM := 96.0
 
 export var text := "" setget _set_text
+export(String, "Xs", "S", "M", "L", "Xl") var font_size := "Xl" \
+        setget _set_font_size
 export var shows_back := true setget _set_shows_back
 export var shows_about := false setget _set_shows_about
 export var shows_settings := false setget _set_shows_settings
@@ -75,6 +77,11 @@ func _update_visiblity() -> void:
     $MarginContainer/VBoxContainer/BottomRow/Header \
             .text = text
     
+    $MarginContainer/TopRow/Header \
+            .font_size = font_size
+    $MarginContainer/VBoxContainer/BottomRow/Header \
+            .font_size = font_size
+    
     call_deferred("_update_visibility_after_setting_text")
 
 
@@ -122,6 +129,11 @@ func _update_visibility_after_setting_text() -> void:
 
 func _set_text(value: String) -> void:
     text = value
+    _update_visiblity()
+
+
+func _set_font_size(value: String) -> void:
+    font_size = value
     _update_visiblity()
 
 

@@ -18,23 +18,20 @@ const HEIGHT_TWEEN_DURATION := 0.2
 const CARET_ROTATION_TWEEN_DURATION := 0.2
 const SCROLL_TWEEN_DURATION := 0.3
 
-export var is_open := false setget _set_is_open,_get_is_open
-export var includes_header := true setget \
-        _set_includes_header,_get_includes_header
-export var header_text := "" setget _set_header_text,_get_header_text
-export var header_font: Font setget _set_header_font,_get_header_font
-export var uses_header_color := false setget \
-        _set_uses_header_color,_get_uses_header_color
+export var is_open := false setget _set_is_open
+export var includes_header := true setget _set_includes_header
+export var header_text := "" setget _set_header_text
+export(String, "Xs", "S", "M", "L", "Xl") var header_font_size := "M" \
+        setget _set_header_font_size
+export var uses_header_color := false setget _set_uses_header_color
 export var is_header_text_centered := false setget \
-        _set_is_header_text_centered,_get_is_header_text_centered
-export var is_caret_on_left := false setget \
-        _set_is_caret_on_left,_get_is_caret_on_left
-export var padding := Vector2(16.0, 8.0) setget _set_padding,_get_padding
+        _set_is_header_text_centered
+export var is_caret_on_left := false setget _set_is_caret_on_left
+export var padding := Vector2(16.0, 8.0) setget _set_padding
 export var extra_scroll_height_for_custom_header := 0.0 setget \
-        _set_extra_scroll_height_for_custom_header, \
-        _get_extra_scroll_height_for_custom_header
+        _set_extra_scroll_height_for_custom_header
 export var header_size_override := Vector2.ZERO setget \
-        _set_header_size_override,_get_header_size_override
+        _set_header_size_override
 
 var configuration_warning := ""
 
@@ -42,7 +39,7 @@ var _is_ready := false
 var _scroll_container: ScrollContainer
 var _header: Button
 var _header_hbox: HBoxContainer
-var _header_label: Label
+var _header_label: ScaffolderLabel
 var _projected_control: Control
 var _caret: ScaffolderTextureRect
 var _is_open_tween: ScaffolderTween
@@ -151,7 +148,7 @@ func _create_header() -> void:
         _header.queue_free()
     
     _header = Button.new()
-    _header.mouse_filter = Control.MOUSE_FILTER_PASS
+    _header.mouse_filter = Control.MOUSE_FILTER_STOP
     _header.connect("pressed", self, "_on_header_pressed")
     
     _header_normal_stylebox = Gs.utils.create_stylebox_flat_scalable({
@@ -194,7 +191,8 @@ func _create_header() -> void:
     inner_texture_rect.rect_pivot_offset = CARET_SIZE_DEFAULT / 2.0
     inner_texture_rect.rect_rotation = CARET_ROTATION_CLOSED
     
-    _header_label = Label.new()
+    _header_label = Gs.utils.add_scene(
+            null, Gs.gui.SCAFFOLDER_LABEL_SCENE, false, true)
     _header_label.text = header_text
     _header_label.align = Label.ALIGN_LEFT
     _header_label.valign = Label.VALIGN_CENTER
@@ -279,6 +277,10 @@ func _update_children_debounced() -> void:
     
     _projected_control = projected_node
     _projected_control.size_flags_vertical = Control.SIZE_FILL
+    
+    if includes_header:
+        var header_font: Font = Gs.gui.get_font(header_font_size)
+        _header.add_font_override("font", header_font)
     
     configuration_warning = ""
     update_configuration_warning()
@@ -445,98 +447,50 @@ func _set_is_open(value: bool) -> void:
         _trigger_open_change(false)
 
 
-func _get_is_open() -> bool:
-    return is_open
-
-
 func _set_includes_header(value: bool) -> void:
     includes_header = value
-    if _is_ready:
-        _update_children()
-
-
-func _get_includes_header() -> bool:
-    return includes_header
+    _update_children()
 
 
 func _set_header_text(value: String) -> void:
     header_text = value
-    if _is_ready and includes_header:
+    if includes_header:
         _update_children()
 
 
-func _get_header_text() -> String:
-    return header_text
-
-
-func _set_header_font(value: Font) -> void:
-    header_font = value
-    if _is_ready:
-        _update_children()
-
-
-func _get_header_font() -> Font:
-    return header_font
+func _set_header_font_size(value: String) -> void:
+    header_font_size = value
+    _update_children()
 
 
 func _set_uses_header_color(value: bool) -> void:
     uses_header_color = value
-    if _is_ready:
-        _update_children()
-
-
-func _get_uses_header_color() -> bool:
-    return uses_header_color
+    _update_children()
 
 
 func _set_is_header_text_centered(value: bool) -> void:
     is_header_text_centered = value
-    if _is_ready:
-        _update_children()
-
-
-func _get_is_header_text_centered() -> bool:
-    return is_header_text_centered
+    _update_children()
 
 
 func _set_is_caret_on_left(value: bool) -> void:
     is_caret_on_left = value
-    if _is_ready:
-        _update_children()
-
-
-func _get_is_caret_on_left() -> bool:
-    return is_caret_on_left
+    _update_children()
 
 
 func _set_padding(value: Vector2) -> void:
     padding = value
-    if _is_ready:
-        _update_children()
-
-
-func _get_padding() -> Vector2:
-    return padding
+    _update_children()
 
 
 func _set_extra_scroll_height_for_custom_header(value: float) -> void:
     extra_scroll_height_for_custom_header = value
-    if _is_ready:
-        _update_children()
-
-
-func _get_extra_scroll_height_for_custom_header() -> float:
-    return extra_scroll_height_for_custom_header
+    _update_children()
 
 
 func _set_header_size_override(value: Vector2) -> void:
     header_size_override = value
-    if _is_ready:
-        _update_children()
-
-
-func _get_header_size_override() -> Vector2:
-    return header_size_override
+    _update_children()
 
 
 func update() -> void:

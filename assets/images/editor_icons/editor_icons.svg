@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8284271"
-     inkscape:cx="-48.47865"
-     inkscape:cy="-568.08983"
+     inkscape:cx="11.271747"
+     inkscape:cy="-621.86352"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1142,5 +1142,47 @@
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05"
        sodipodi:nodetypes="sssssssssccccc" />
+    <path
+       id="path966"
+       d="m -6.4339691,299.62766 a 0.26460979,0.26460979 0 0 0 -0.187069,0.0775 l -1.058333,1.05834 a 0.26460979,0.26460979 0 0 0 0,0.37415 l 1.058333,1.05833 a 0.26460979,0.26460979 0 0 0 0.187069,0.0775 h 2.116666 a 0.26460979,0.26460979 0 0 0 0.264584,-0.26458 v -2.11667 a 0.26460979,0.26460979 0 0 0 -0.264584,-0.26458 h -2.116666 z m -0.264584,1.05833 a 0.26458333,0.26458333 0 0 1 0.264584,0.26459 0.26458333,0.26458333 0 0 1 -0.264584,0.26458 0.26458333,0.26458333 0 0 1 -0.264583,-0.26458 0.26458333,0.26458333 0 0 1 0.264583,-0.26459 z"
+       inkscape:connector-curvature="0"
+       style="fill:#8eef97;fill-rule:evenodd;stroke-width:0.26458335" />
+    <rect
+       style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.08065414;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5342-3-5-9-2-6-42-1-8-6"
+       width="4.2333336"
+       height="4.2333336"
+       x="-0.42994782"
+       y="398.36908"
+       rx="0"
+       ry="0"
+       inkscape:export-xdpi="192.05"
+       inkscape:export-ydpi="192.05"
+       inkscape:export-filename="C:\Users\lsl\scaffolder_label.png" />
+    <path
+       id="path966-5"
+       d="m 1.15753,399.16281 a 0.26460979,0.26460979 0 0 0 -0.18706901,0.0775 l -1.0583329,1.05834 a 0.26460979,0.26460979 0 0 0 0,0.37415 l 1.0583329,1.05833 A 0.26460979,0.26460979 0 0 0 1.15753,401.80863 H 3.2741961 A 0.26460979,0.26460979 0 0 0 3.53878,401.54405 v -2.11667 A 0.26460979,0.26460979 0 0 0 3.2741961,399.1628 H 1.15753 Z m -0.26458401,1.05833 a 0.26458333,0.26458333 0 0 1 0.26458401,0.26459 0.26458333,0.26458333 0 0 1 -0.26458401,0.26458 0.26458333,0.26458333 0 0 1 -0.2645829,-0.26458 0.26458333,0.26458333 0 0 1 0.2645829,-0.26459 z"
+       inkscape:connector-curvature="0"
+       style="fill:#f6ed7a;fill-rule:evenodd;stroke-width:0.26458335;fill-opacity:1"
+       inkscape:export-filename="C:\Users\lsl\scaffolder_label.png"
+       inkscape:export-xdpi="192.05"
+       inkscape:export-ydpi="192.05" />
+    <rect
+       style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:126.16130066;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5342-3-5-9-2-6-42-1-8-6-5"
+       width="8.4666672"
+       height="8.4666672"
+       x="11.914984"
+       y="504.96008"
+       rx="0"
+       ry="0"
+       inkscape:export-xdpi="192.05"
+       inkscape:export-ydpi="192.05"
+       inkscape:export-filename="C:\Users\lsl\screen.png" />
+    <path
+       id="path966-5-0"
+       d="m 15.089938,506.54755 a 0.52921955,0.52921955 0 0 0 -0.374138,0.155 l -2.116665,2.11668 a 0.52921955,0.52921955 0 0 0 0,0.7483 l 2.116665,2.11666 a 0.52921955,0.52921955 0 0 0 0.374138,0.155 h 4.233332 a 0.52921955,0.52921955 0 0 0 0.529168,-0.52916 v -4.23334 a 0.52921955,0.52921955 0 0 0 -0.529168,-0.52916 h -4.233332 z m -0.529168,2.11666 a 0.52916663,0.52916663 0 0 1 0.529168,0.52918 0.52916663,0.52916663 0 0 1 -0.529168,0.52916 0.52916663,0.52916663 0 0 1 -0.529165,-0.52916 0.52916663,0.52916663 0 0 1 0.529165,-0.52918 z"
+       inkscape:connector-curvature="0"
+       style="fill:#f6ed7a;fill-rule:evenodd;stroke-width:0.5291667;fill-opacity:1" />
   </g>
 </svg>

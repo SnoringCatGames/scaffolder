@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/game_over_screen.gd" type="Script" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/labeled_control_list/labeled_control_list.tscn" type="PackedScene" id=6]
@@ -55,49 +56,51 @@ size = Vector2( 0, 10 )
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 8.0
 margin_right = 1024.0
-margin_bottom = 8.0
+margin_bottom = 58.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UnlockedNewLevelLabel" type="Label" parent="VBoxContainer/VBoxContainer2"]
-visible = false
-margin_right = 280.0
-margin_bottom = 28.0
-custom_colors/font_color = Color( 1, 0.946, 0.46, 1 )
+[node name="UnlockedNewLevelLabel" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1024.0
+margin_bottom = 14.0
 text = "You unlocked a new level!"
-align = 1
+valign = 0
 
-[node name="WasBestPlaythroughLabel" type="Label" parent="VBoxContainer/VBoxContainer2"]
-visible = false
-margin_right = 280.0
-margin_bottom = 28.0
-custom_colors/font_color = Color( 1, 0.946, 0.46, 1 )
+[node name="WasBestPlaythroughLabel" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 18.0
+margin_right = 1024.0
+margin_bottom = 32.0
 text = "That's a new high score!"
-align = 1
+valign = 0
 
-[node name="WasFastestPlaythroughLabel" type="Label" parent="VBoxContainer/VBoxContainer2"]
-visible = false
-margin_right = 280.0
-margin_bottom = 28.0
-custom_colors/font_color = Color( 1, 0.946, 0.46, 1 )
+[node name="WasFastestPlaythroughLabel" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 36.0
+margin_right = 1024.0
+margin_bottom = 50.0
 text = "That's your fastest time!"
-align = 1
+valign = 0
 
 [node name="Spacer6" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 512.0
-margin_top = 12.0
+margin_top = 62.0
 margin_right = 512.0
-margin_bottom = 12.0
+margin_bottom = 62.0
 size = Vector2( 0, 10 )
 
 [node name="AccordionPanel" parent="VBoxContainer" instance=ExtResource( 11 )]
 margin_left = 0.0
-margin_top = 16.0
+margin_top = 66.0
 margin_right = 1024.0
-margin_bottom = 16.0
+margin_bottom = 66.0
 header_text = "Details"
 is_header_text_centered = true
 
@@ -109,16 +112,16 @@ margin_bottom = 4.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 512.0
-margin_top = 20.0
+margin_top = 70.0
 margin_right = 512.0
-margin_bottom = 20.0
+margin_bottom = 70.0
 size = Vector2( 0, 20 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
 margin_left = 504.0
-margin_top = 24.0
+margin_top = 74.0
 margin_right = 520.0
-margin_bottom = 68.0
+margin_bottom = 118.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 16
@@ -155,9 +158,9 @@ size_override = Vector2( 56, 56 )
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 512.0
-margin_top = 72.0
+margin_top = 122.0
 margin_right = 512.0
-margin_bottom = 72.0
+margin_bottom = 122.0
 size = Vector2( 0, 30 )
 
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/SelectLevelButton" to="." method="_on_SelectLevelButton_pressed"]
