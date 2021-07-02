@@ -48,7 +48,8 @@ custom_constants/separation = 16
 
 [node name="ResumeButton" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 10 )]
 margin_left = 8.0
-margin_right = 8.0
+margin_right = 136.0
+margin_bottom = 88.0
 texture = ExtResource( 5 )
 size_override = Vector2( 128, 88 )
 
@@ -59,12 +60,15 @@ margin_bottom = 44.0
 custom_constants/separation = 16
 
 [node name="ExitLevelButton" parent="VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
+margin_right = 56.0
+margin_bottom = 56.0
 texture = ExtResource( 6 )
 size_override = Vector2( 56, 56 )
 
 [node name="RestartButton" parent="VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
 margin_left = 16.0
-margin_right = 16.0
+margin_right = 72.0
+margin_bottom = 56.0
 texture = ExtResource( 7 )
 size_override = Vector2( 56, 56 )
 

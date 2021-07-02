@@ -228,6 +228,7 @@ var theme: Theme
 
 var fonts: Dictionary
 
+var fonts_manifest: Dictionary
 var settings_item_manifest: Dictionary
 var pause_item_manifest: Array
 var game_over_item_manifest: Array
@@ -338,7 +339,8 @@ func register_manifest(manifest: Dictionary) -> void:
     self.screen_manifest = manifest.screen_manifest
     self.welcome_panel_manifest = manifest.welcome_panel_manifest
     self.hud_manifest = manifest.hud_manifest
-    self.fonts = manifest.fonts
+    self.fonts_manifest = manifest.fonts_manifest
+    self.fonts = manifest.fonts_manifest.fonts
     self.third_party_license_text = \
             manifest.third_party_license_text.strip_edges()
     self.special_thanks_text = manifest.special_thanks_text.strip_edges()
@@ -439,7 +441,14 @@ func _get_is_debug_panel_shown() -> bool:
 
 
 func _record_original_font_dimensions() -> void:
+    var size_overrides := _get_font_size_overrides()
+    
     for font_name in fonts:
+        var scale: float = \
+                float(size_overrides[font_name]) / fonts[font_name].size if \
+                size_overrides.has(font_name) else \
+                1.0
+        
         var dimensions := {}
         original_font_dimensions[font_name] = dimensions
         for dimension_name in [
@@ -449,7 +458,19 @@ func _record_original_font_dimensions() -> void:
                     "extra_spacing_char",
                     "extra_spacing_space",
                 ]:
-             dimensions[dimension_name] = fonts[font_name].get(dimension_name)
+             dimensions[dimension_name] = \
+                    fonts[font_name].get(dimension_name) * scale
+
+
+func _get_font_size_overrides() -> Dictionary:
+    if fonts_manifest.has("sizes"):
+        if Gs.utils.get_is_mobile_device():
+            if fonts_manifest.sizes.has("mobile"):
+                return fonts_manifest.sizes.mobile
+        else:
+            if fonts_manifest.sizes.has("pc"):
+                return fonts_manifest.sizes.pc
+    return {}
 
 
 func _initialize_hud_key_value_list_item_enablement() -> void:
