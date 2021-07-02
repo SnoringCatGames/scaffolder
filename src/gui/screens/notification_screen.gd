@@ -8,7 +8,7 @@ func set_params(params) -> void:
     if params == null:
         return
     
-    var body_text: Label = $VBoxContainer/BodyText
+    var body_text: ScaffolderLabel = $VBoxContainer/BodyText
     var link: ScaffolderLabelLink = $VBoxContainer/NotificationLink
     var close_button: ScaffolderButton = $VBoxContainer/CloseButton
     
@@ -20,6 +20,11 @@ func set_params(params) -> void:
     body_text.text = params["body_text"]
     assert(params.has("close_button_text"))
     close_button.text = params["close_button_text"]
+    
+    if params.has("header_font_size"):
+        container.nav_bar.font_size = params["header_font_size"]
+    if params.has("body_font_size"):
+        body_text.font_size = params["body_font_size"]
     
     if params.has("body_alignment"):
         body_text.align = params["body_alignment"]
