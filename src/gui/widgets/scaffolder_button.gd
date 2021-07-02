@@ -3,14 +3,6 @@ class_name ScaffolderButton, "res://addons/scaffolder/assets/images/editor_icons
 extends Button
 
 
-enum FontSize {
-    XS,
-    S,
-    M,
-    L,
-    XL,
-}
-
 const SHINE_DURATION := 0.35
 const SHINE_INTERVAL := 3.5
 const SHINE_SCALE := Vector2(1.0, 1.0)
@@ -23,7 +15,8 @@ export var texture: Texture setget _set_texture
 export var texture_scale := Vector2(1.0, 1.0) setget _set_texture_scale
 export var is_shiny := false setget _set_is_shiny
 export var includes_color_pulse := false setget _set_includes_color_pulse
-export(FontSize) var font_size := FontSize.M setget _set_font_size
+export(String, "Xs", "S", "M", "L", "Xl") var font_size := "M" \
+        setget _set_font_size
 export var size_override := Vector2.ZERO setget _set_size_override
 
 var shine_interval_id := -1
@@ -63,7 +56,7 @@ func _ready() -> void:
             $MarginContainer/BottomButton.get_stylebox("pressed")
     
     Gs.utils.connect(
-            "display_resized", self, "update")
+            "display_resized", self, "_update")
     
     update_gui_scale()
 
@@ -79,11 +72,11 @@ func _exit_tree() -> void:
 
 
 func update_gui_scale() -> bool:
-    update()
+    _update()
     return true
 
 
-func update() -> void:
+func _update() -> void:
     rect_min_size.x = \
             (size_override.x if \
             size_override.x != 0.0 else \
@@ -119,10 +112,8 @@ func update() -> void:
     $MarginContainer/ScaffolderTextureRect.visible = texture != null
     $MarginContainer/ScaffolderTextureRect.texture = texture
     $MarginContainer/ScaffolderTextureRect.texture_scale = texture_scale
-    var font := _get_font_from_font_size(font_size)
-    $MarginContainer/Label.add_font_override(
-            "font",
-            font)
+    var font: Font = Gs.gui.get_font(font_size)
+    $MarginContainer/Label.add_font_override("font", font)
     
     shine_tween.stop_all()
     Gs.time.clear_interval(shine_interval_id)
@@ -203,31 +194,31 @@ func _get_label() -> String:
 func _set_texture(value: Texture) -> void:
     texture = value
     if _is_ready:
-        update()
+        _update()
 
 
 func _set_texture_scale(value: Vector2) -> void:
     texture_scale = value
     if _is_ready:
-        update()
+        _update()
 
 
 func _set_is_shiny(value: bool) -> void:
     is_shiny = value
     if _is_ready:
-        update()
+        _update()
 
 
 func _set_includes_color_pulse(value: bool) -> void:
     includes_color_pulse = value
     if _is_ready:
-        update()
+        _update()
 
 
-func _set_font_size(value: int) -> void:
+func _set_font_size(value: String) -> void:
     font_size = value
     if _is_ready:
-        update()
+        _update()
 
 
 func _set_size_override(value: Vector2) -> void:
@@ -235,7 +226,7 @@ func _set_size_override(value: Vector2) -> void:
     if Engine.editor_hint:
         rect_size = size_override
     if _is_ready:
-        update()
+        _update()
 
 
 func press() -> void:
@@ -265,20 +256,3 @@ func _on_TopButton_button_down() -> void:
 func _on_TopButton_button_up() -> void:
     $MarginContainer/BottomButton \
             .add_stylebox_override("normal", button_style_hover)
-
-
-func _get_font_from_font_size(font_size: int) -> Font:
-    match font_size:
-        FontSize.XS:
-            return Gs.gui.fonts.main_xs
-        FontSize.S:
-            return Gs.gui.fonts.main_s
-        FontSize.M:
-            return Gs.gui.fonts.main_m
-        FontSize.L:
-            return Gs.gui.fonts.main_l
-        FontSize.XL:
-            return Gs.gui.fonts.main_xl
-        _:
-            Gs.logger.error()
-            return Gs.gui.fonts.main_m

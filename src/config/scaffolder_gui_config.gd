@@ -14,6 +14,8 @@ const SCAFFOLDER_BUTTON_SCENE := \
         preload("res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn")
 const SCAFFOLDER_CHECK_BOX_SCENE := \
         preload("res://addons/scaffolder/src/gui/widgets/scaffolder_check_box.tscn")
+const SCAFFOLDER_LABEL_SCENE := \
+        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn")
 const SCAFFOLDER_LABEL_LINK_SCENE := \
         preload("res://addons/scaffolder/src/gui/widgets/scaffolder_label_link.tscn")
 const SCAFFOLDER_PROGRESS_BAR_SCENE := \
@@ -490,3 +492,63 @@ func _initialize_hud_key_value_list_item_enablement() -> void:
 func _get_key_value_item_enabled_settings_key(
         settings_enablement_label: String) -> String:
     return settings_enablement_label.replace(" ", "_") + "_hud"
+
+
+func font_size_to_string(size: int) -> String:
+    match size:
+        FontSize.XS:
+            return "Xs"
+        FontSize.S:
+            return "S"
+        FontSize.M:
+            return "M"
+        FontSize.L:
+            return "L"
+        FontSize.XL:
+            return "Xl"
+        _:
+            Gs.logger.error()
+            return ""
+
+
+func string_to_font_size(string: String) -> int:
+    match string:
+        "Xs":
+            return FontSize.XS
+        "S":
+            return FontSize.S
+        "M":
+            return FontSize.M
+        "L":
+            return FontSize.L
+        "Xl":
+            return FontSize.XL
+        _:
+            Gs.logger.error()
+            return FontSize.M
+
+
+func get_font(
+        size,
+        is_header := false,
+        is_bold := false,
+        is_italic := false) -> Font:
+    var context_part := \
+            "header" if \
+            is_header else \
+            "main"
+    var bold_part := \
+            "_bold" if \
+            is_bold else \
+            ""
+    var italic_part := \
+            "_italic" if \
+            is_italic else \
+            ""
+    var size_string: String = \
+            size if \
+            size is String else \
+            font_size_to_string(size)
+    var size_part := "_" + size_string.to_lower()
+    var font_key := context_part + size_part + bold_part + italic_part
+    return Gs.gui.fonts[font_key]

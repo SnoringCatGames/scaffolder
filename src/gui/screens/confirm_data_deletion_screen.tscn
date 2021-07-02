@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=2]
 
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/alert_icon_normal_large.png" type="Texture" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen.gd" type="Script" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=7]
-[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=8]
 
 [node name="ConfirmDataDeletionScreen" type="VBoxContainer"]
 script = ExtResource( 5 )
@@ -17,7 +17,7 @@ nav_bar_text = "Are you sure?"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 1.0
-margin_bottom = 11771.0
+margin_bottom = 7703.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
@@ -33,89 +33,86 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 size = Vector2( 0, 20 )
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_right = 1.0
-margin_bottom = 3845.0
-custom_fonts/font = ExtResource( 8 )
+margin_bottom = 2513.0
 text = "This will both erase all game progress on this device and send a request to have your analytics usage data erased from our remote servers as well."
-align = 1
+valign = 0
 autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+font_size = "S"
 
 [node name="Spacer2" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 3845.0
-margin_bottom = 3845.0
+margin_top = 2513.0
+margin_bottom = 2513.0
 size = Vector2( 0, 20 )
 
-[node name="Label2" type="Label" parent="VBoxContainer"]
-margin_top = 3845.0
+[node name="Label2" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 2513.0
 margin_right = 1.0
-margin_bottom = 11720.0
-custom_fonts/font = ExtResource( 8 )
+margin_bottom = 7661.0
 text = "IMPORTANT: Record your client ID number (taking a screenshot might be easiest). In case there's a problem with your request, we'll need this number to know which data to delete. After you click the confirmation button below, you will not be able to retrieve this number. Here is your client ID number:"
-align = 1
+valign = 0
 autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+font_size = "S"
 
 [node name="Spacer9" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 11720.0
-margin_bottom = 11720.0
+margin_top = 7661.0
+margin_bottom = 7661.0
 size = Vector2( 0, 20 )
 
-[node name="ClientIdNumber" type="Label" parent="VBoxContainer"]
-margin_top = 11720.0
+[node name="ClientIdNumber" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 7661.0
 margin_right = 1.0
-margin_bottom = 11743.0
-custom_fonts/font = ExtResource( 8 )
-align = 1
+margin_bottom = 7675.0
+valign = 0
 autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+font_size = "S"
 
 [node name="Spacer10" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 11743.0
-margin_bottom = 11743.0
+margin_top = 7675.0
+margin_bottom = 7675.0
 size = Vector2( 0, 20 )
 
 [node name="ScaffolderButton" parent="VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 11743.0
-margin_bottom = 11757.0
+margin_top = 7675.0
+margin_bottom = 7689.0
 label = "I'm sure.
 Please delete all my data."
-font_size = 1
+font_size = "S"
 size_override = Vector2( 300, 80 )
 
 [node name="Spacer11" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 11757.0
-margin_bottom = 11757.0
+margin_top = 7689.0
+margin_bottom = 7689.0
 size = Vector2( 0, 10 )
 
 [node name="CancelButton" parent="VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 11757.0
-margin_bottom = 11771.0
+margin_top = 7689.0
+margin_bottom = 7703.0
 label = "Cancel!"
 is_shiny = true
-font_size = 4
+font_size = "Xl"
 size_override = Vector2( 400, 120 )
 
 [node name="Spacer12" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 11771.0
-margin_bottom = 11771.0
+margin_top = 7703.0
+margin_bottom = 7703.0
 size = Vector2( 0, 50 )
 
 [connection signal="pressed" from="VBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

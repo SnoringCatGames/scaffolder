@@ -4,7 +4,6 @@
 [ext_resource path="res://addons/scaffolder/assets/images/gui/left_caret_normal.png" type="Texture" id=2]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/gear_icon_normal_large.png" type="Texture" id=3]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/left_caret_active.png" type="Texture" id=4]
-[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_xl.tres" type="DynamicFont" id=5]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/about_icon_normal_large.png" type="Texture" id=6]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/left_caret_hover.png" type="Texture" id=7]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/about_icon_active_large.png" type="Texture" id=8]
@@ -14,6 +13,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=12]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_button.tscn" type="PackedScene" id=13]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=14]
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=15]
 
 [node name="NavBar" type="PanelContainer"]
 size_flags_horizontal = 3
@@ -36,22 +36,24 @@ custom_constants/margin_bottom = 0
 
 [node name="TopRow" type="CenterContainer" parent="MarginContainer"]
 visible = false
-margin_right = 1.0
-margin_bottom = 54.0
+margin_bottom = 62.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Header" type="Label" parent="MarginContainer/TopRow"]
-margin_right = 1.0
-margin_bottom = 54.0
-size_flags_horizontal = 4
-custom_fonts/font = ExtResource( 5 )
+[node name="Header" parent="MarginContainer/TopRow" instance=ExtResource( 15 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 24.0
+margin_right = 0.0
+margin_bottom = 38.0
 align = 1
 valign = 1
+font_size = "Xl"
+is_header = true
 
 [node name="Logo" parent="MarginContainer/TopRow" instance=ExtResource( 14 )]
-margin_top = 27.0
-margin_bottom = 27.0
+margin_top = 31.0
+margin_bottom = 31.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 size_flags_horizontal = 3
@@ -121,14 +123,16 @@ margin_right = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Header" type="Label" parent="MarginContainer/VBoxContainer/BottomRow"]
-margin_top = 4.0
-margin_right = 1.0
-margin_bottom = 58.0
-size_flags_horizontal = 4
-custom_fonts/font = ExtResource( 5 )
+[node name="Header" parent="MarginContainer/VBoxContainer/BottomRow" instance=ExtResource( 15 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 24.0
+margin_right = 0.0
+margin_bottom = 38.0
 align = 1
 valign = 1
+font_size = "Xl"
+is_header = true
 
 [node name="Logo" parent="MarginContainer/VBoxContainer/BottomRow" instance=ExtResource( 14 )]
 margin_top = 31.0

@@ -3,12 +3,12 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_panel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=3]
-[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres" type="DynamicFont" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label_link.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_link.tscn" type="PackedScene" id=7]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/godot_logo_about.png" type="Texture" id=8]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/about_screen.gd" type="Script" id=9]
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=10]
 
 [node name="AboutScreen" type="VBoxContainer"]
 script = ExtResource( 9 )
@@ -19,8 +19,8 @@ screen_name = "about"
 nav_bar_text = "About"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 360.0
-margin_bottom = 305.0
+margin_right = 169.0
+margin_bottom = 248.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -28,22 +28,21 @@ __meta__ = {
 }
 
 [node name="Title" parent="VBoxContainer" instance=ExtResource( 3 )]
-margin_left = 180.0
-margin_right = 180.0
+margin_left = 84.0
+margin_right = 84.0
 
 [node name="Spacer2" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 180.0
+margin_left = 84.0
 margin_top = 4.0
-margin_right = 180.0
+margin_right = 84.0
 margin_bottom = 4.0
 size = Vector2( 0, 30 )
 
 [node name="VBoxContainer4" type="VBoxContainer" parent="VBoxContainer"]
-margin_left = 95.0
 margin_top = 8.0
-margin_right = 264.0
+margin_right = 169.0
 margin_bottom = 62.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -88,9 +87,9 @@ margin_bottom = 54.0
 size = Vector2( 0, 40 )
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer"]
-margin_left = 125.0
+margin_left = 30.0
 margin_top = 66.0
-margin_right = 234.0
+margin_right = 139.0
 margin_bottom = 102.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -127,45 +126,44 @@ size = Vector2( 0, 40 )
 
 [node name="SpecialThanksContainer" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 106.0
-margin_right = 360.0
-margin_bottom = 183.0
+margin_right = 169.0
+margin_bottom = 158.0
 custom_constants/separation = 12
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="VBoxContainer/SpecialThanksContainer"]
-margin_left = 68.0
-margin_right = 291.0
-margin_bottom = 39.0
+[node name="Label" parent="VBoxContainer/SpecialThanksContainer" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 37.0
+margin_right = 132.0
+margin_bottom = 14.0
 size_flags_horizontal = 4
-custom_fonts/font = ExtResource( 4 )
 text = "Special thanks:"
-align = 1
-valign = 1
 
-[node name="SpecialThanks" type="Label" parent="VBoxContainer/SpecialThanksContainer"]
-margin_left = 180.0
-margin_top = 51.0
-margin_right = 180.0
-margin_bottom = 65.0
+[node name="SpecialThanks" parent="VBoxContainer/SpecialThanksContainer" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 84.0
+margin_top = 26.0
+margin_right = 84.0
+margin_bottom = 40.0
 size_flags_horizontal = 4
-align = 1
-valign = 1
 
 [node name="Spacer6" parent="VBoxContainer/SpecialThanksContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 180.0
-margin_top = 77.0
-margin_right = 180.0
-margin_bottom = 77.0
+margin_left = 84.0
+margin_top = 52.0
+margin_right = 84.0
+margin_bottom = 52.0
 size = Vector2( 0, 40 )
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 187.0
-margin_right = 360.0
-margin_bottom = 265.0
+margin_top = 162.0
+margin_right = 169.0
+margin_bottom = 240.0
 custom_constants/separation = 12
 __meta__ = {
 "_edit_use_anchors_": false
@@ -174,17 +172,17 @@ __meta__ = {
 [node name="TermsAndConditionsLink" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 117.0
-margin_right = 243.0
+margin_left = 21.0
+margin_right = 147.0
 margin_bottom = 14.0
 text = "Terms & Conditions"
 
 [node name="PrivacyPolicyLink" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 136.0
+margin_left = 41.0
 margin_top = 26.0
-margin_right = 223.0
+margin_right = 128.0
 margin_bottom = 40.0
 focus_mode = 2
 text = "Privacy Policy"
@@ -192,9 +190,9 @@ text = "Privacy Policy"
 [node name="SupportLink" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 155.0
+margin_left = 60.0
 margin_top = 52.0
-margin_right = 204.0
+margin_right = 109.0
 margin_bottom = 66.0
 focus_mode = 2
 text = "Support"
@@ -202,17 +200,17 @@ text = "Support"
 [node name="Spacer7" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 180.0
+margin_left = 84.0
 margin_top = 78.0
-margin_right = 180.0
+margin_right = 84.0
 margin_bottom = 78.0
 size = Vector2( 0, 30 )
 
 [node name="AccordionPanel" parent="VBoxContainer" instance=ExtResource( 2 )]
-margin_left = 180.0
-margin_top = 269.0
-margin_right = 180.0
-margin_bottom = 269.0
+margin_left = 84.0
+margin_top = 244.0
+margin_right = 84.0
+margin_bottom = 244.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 header_text = "More details"
@@ -260,10 +258,10 @@ size_override = Vector2( 360, 0 )
 [node name="PaddingBottom" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 180.0
-margin_top = 273.0
-margin_right = 180.0
-margin_bottom = 273.0
+margin_left = 84.0
+margin_top = 248.0
+margin_right = 84.0
+margin_bottom = 248.0
 size = Vector2( 0, 40 )
 
 [connection signal="pressed" from="VBoxContainer/AccordionPanel/VBoxContainer/DataDeletionButton" to="." method="_on_DataDeletionButton_pressed"]

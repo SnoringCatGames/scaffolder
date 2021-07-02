@@ -70,6 +70,7 @@ func set_up(contents: Screen) -> void:
         nav_bar.shows_settings = contents.is_settings_button_shown
         nav_bar.shows_logo = contents.is_nav_bar_logo_shown
         nav_bar.text = contents.nav_bar_text
+        nav_bar.font_size = contents.nav_bar_font_size
     
     if !contents.get_is_mouse_handled_by_gui():
         for control in [
