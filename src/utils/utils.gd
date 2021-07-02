@@ -403,6 +403,10 @@ static func floor_vector(v: Vector2) -> Vector2:
     return Vector2(floor(v.x), floor(v.y))
 
 
+static func ceil_vector(v: Vector2) -> Vector2:
+    return Vector2(ceil(v.x), ceil(v.y))
+
+
 static func round_vector(v: Vector2) -> Vector2:
     return Vector2(round(v.x), round(v.y))
 

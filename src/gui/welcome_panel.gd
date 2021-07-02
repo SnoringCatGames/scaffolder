@@ -71,7 +71,11 @@ func update_gui_scale() -> bool:
     for child in get_children():
         if child is Control:
             Gs.utils.scale_gui_recursively(child)
-        
+        # Round-up sizes to the nearest pixel, in order to prevent small gaps
+        # between rows.
+        child.rect_min_size = Gs.utils.ceil_vector(child.rect_min_size)
+        child.rect_size = rect_min_size
+    
     rect_min_size = size_override * Gs.gui.scale
     rect_size.x = rect_min_size.x
     rect_size.y = \
