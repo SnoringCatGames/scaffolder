@@ -89,13 +89,6 @@ func initialize() -> void:
         self.audio = Audio.new()
     add_child(self.audio)
     
-    if manifest.has("gui_class"):
-        self.gui = manifest.gui_class.new()
-        assert(self.gui is ScaffolderGuiConfig)
-    else:
-        self.gui = ScaffolderGuiConfig.new()
-    add_child(self.gui)
-    
     if manifest.has("colors_class"):
         self.colors = manifest.colors_class.new()
         assert(self.colors is ScaffolderColors)
@@ -109,6 +102,13 @@ func initialize() -> void:
     else:
         self.styles = ScaffolderStyles.new()
     add_child(self.styles)
+    
+    if manifest.has("gui_class"):
+        self.gui = manifest.gui_class.new()
+        assert(self.gui is ScaffolderGuiConfig)
+    else:
+        self.gui = ScaffolderGuiConfig.new()
+    add_child(self.gui)
     
     if manifest.has("json_utils_class"):
         self.json = manifest.json_utils_class.new()

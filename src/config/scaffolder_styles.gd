@@ -2,6 +2,11 @@ class_name ScaffolderStyles
 extends Node
 
 
+const OVERLAY_PANEL_BODY_STYLEBOX := \
+        preload("res://addons/scaffolder/src/gui/overlay_panel_body_stylebox.tres")
+const OVERLAY_PANEL_HEADER_STYLEBOX := \
+        preload("res://addons/scaffolder/src/gui/overlay_panel_header_stylebox.tres")
+
 var button_corner_radius: int
 var button_corner_detail: int
 var button_shadow_size: int
@@ -16,6 +21,8 @@ var scroll_content_margin: int
 
 var scroll_grabber_corner_radius: int
 var scroll_grabber_corner_detail: int
+
+var overlay_panel_border_width: int
 
 
 func _init() -> void:
@@ -36,6 +43,8 @@ func register_manifest(manifest: Dictionary) -> void:
     
     self.scroll_grabber_corner_radius = manifest.scroll_grabber_corner_radius
     self.scroll_grabber_corner_detail = manifest.scroll_grabber_corner_detail
+    
+    self.overlay_panel_border_width = manifest.overlay_panel_border_width
 
 
 func configure_theme() -> void:
@@ -182,6 +191,8 @@ func configure_theme() -> void:
             "panel", "Panel", Gs.colors.background)
     _configure_theme_stylebox(
             "panel", "PanelContainer", Gs.colors.background)
+    _configure_theme_stylebox(
+            "bg", "Tree", Color.transparent)
     
     _configure_theme_stylebox_empty("disabled", "CheckBox")
     _configure_theme_stylebox_empty("focus", "CheckBox")
@@ -198,6 +209,11 @@ func configure_theme() -> void:
             "font_color", "TooltipLabel", Gs.colors.tooltip)
     _configure_theme_stylebox( \
             "panel", "TooltipPanel", Gs.colors.tooltip_bg)
+    
+    OVERLAY_PANEL_BODY_STYLEBOX.bg_color = \
+            Gs.colors.overlay_panel_body_background
+    OVERLAY_PANEL_HEADER_STYLEBOX.bg_color = \
+            Gs.colors.overlay_panel_header_background
 
 
 func _configure_theme_color(

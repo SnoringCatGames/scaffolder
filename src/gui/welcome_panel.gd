@@ -1,5 +1,5 @@
 class_name WelcomePanel
-extends VBoxContainer
+extends PanelContainer
 
 
 const _FADE_IN_DURATION := 0.2
@@ -47,28 +47,29 @@ func _ready() -> void:
             assert(item.size() == 2)
             items.push_back(StaticTextLabeledControlItem.new(item[0], item[1]))
     
-    $PanelContainer/LabeledControlList.even_row_color_override = faded_color
-    $PanelContainer/LabeledControlList.items = items
+    $VBoxContainer/PanelContainer/LabeledControlList \
+            .even_row_color_override = faded_color
+    $VBoxContainer/PanelContainer/LabeledControlList.items = items
     
     if Gs.gui.welcome_panel_manifest.has("header") and \
             !Gs.gui.welcome_panel_manifest.header.empty():
-        $Header.text = Gs.gui.welcome_panel_manifest.header
+        $VBoxContainer/Header.text = Gs.gui.welcome_panel_manifest.header
     else:
-        $Header.text = Gs.app_metadata.app_name
+        $VBoxContainer/Header.text = Gs.app_metadata.app_name
     
     if Gs.gui.welcome_panel_manifest.has("subheader") and \
             !Gs.gui.welcome_panel_manifest.subheader.empty():
-        $Subheader.text = Gs.gui.welcome_panel_manifest.subheader
+        $VBoxContainer/Subheader.text = Gs.gui.welcome_panel_manifest.subheader
     
     if Gs.gui.welcome_panel_manifest.has("is_subheader_shown") and \
             !Gs.gui.welcome_panel_manifest.is_subheader_shown:
-        $Subheader.visible = false
+        $VBoxContainer/Subheader.visible = false
     
     update_gui_scale()
 
 
 func update_gui_scale() -> bool:
-    for child in get_children():
+    for child in $VBoxContainer.get_children():
         if child is Control:
             Gs.utils.scale_gui_recursively(child)
         # Round-up sizes to the nearest pixel, in order to prevent small gaps
@@ -79,10 +80,19 @@ func update_gui_scale() -> bool:
     rect_min_size = size_override * Gs.gui.scale
     rect_size.x = rect_min_size.x
     rect_size.y = \
-            $Header.rect_size.y + \
-            $Subheader.rect_size.y + \
-            $PanelContainer.rect_size.y
+            $VBoxContainer/Header.rect_size.y + \
+            $VBoxContainer/Subheader.rect_size.y + \
+            $VBoxContainer/PanelContainer.rect_size.y
     rect_position = (get_viewport().size - rect_size) / 2.0
+    
+    var stylebox: StyleBoxFlat = get_stylebox("panel")
+    stylebox.border_color = Gs.colors.overlay_panel_border
+    var border_width: float = \
+            Gs.styles.overlay_panel_border_width * Gs.gui.scale
+    stylebox.border_width_left = border_width
+    stylebox.border_width_top = border_width
+    stylebox.border_width_right = border_width
+    stylebox.border_width_bottom = border_width
     
     return true
 

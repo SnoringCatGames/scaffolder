@@ -49,6 +49,10 @@ var tooltip_bg: Color
 
 var zebra_stripe_even_row: Color
 
+var overlay_panel_body_background: Color
+var overlay_panel_header_background: Color
+var overlay_panel_border: Color
+
 var scroll_bar_background: Color
 var scroll_bar_grabber_normal: Color
 var scroll_bar_grabber_hover: Color
@@ -69,6 +73,9 @@ var dropdown_pressed_hsv_delta: Dictionary
 var popup_background_hsv_delta: Dictionary
 
 var zebra_stripe_even_row_hsv_delta: Dictionary
+
+var overlay_panel_body_background_hsv_delta: Dictionary
+var overlay_panel_header_background_hsv_delta: Dictionary
 
 var scroll_bar_background_hsv_delta: Dictionary
 var scroll_bar_grabber_normal_hsv_delta: Dictionary
@@ -104,6 +111,9 @@ var _defaults := {
     scroll_bar_grabber_hover = Color("969696"),
     scroll_bar_grabber_pressed = Color("969696"),
     zebra_stripe_even_row = Color("4d4d4d"),
+    overlay_panel_body_background = Color("141414"),
+    overlay_panel_header_background = Color("282828"),
+    overlay_panel_border = Color("eeeeee"),
 }
 
 # ---
@@ -169,6 +179,17 @@ func _derive_colors() -> void:
                 _derive_color_from_hsva_delta(
                         Gs.colors.background,
                         Gs.colors.zebra_stripe_even_row_hsv_delta)
+    
+    if !Gs.colors.overlay_panel_body_background_hsv_delta.empty():
+        Gs.colors.overlay_panel_body_background = \
+                _derive_color_from_hsva_delta(
+                        Gs.colors.background,
+                        Gs.colors.overlay_panel_body_background_hsv_delta)
+    if !Gs.colors.overlay_panel_header_background_hsv_delta.empty():
+        Gs.colors.overlay_panel_header_background = \
+                _derive_color_from_hsva_delta(
+                        Gs.colors.background,
+                        Gs.colors.overlay_panel_header_background_hsv_delta)
     
     if !Gs.colors.scroll_bar_background_hsv_delta.empty():
         Gs.colors.scroll_bar_background = \
