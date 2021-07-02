@@ -174,7 +174,7 @@ func _on_throttled_size_changed() -> void:
     call_deferred("update_gui_scale")
 
 
-func update_gui_scale() -> void:
+func update_gui_scale(is_first_call := true) -> void:
     _update_game_area_region_and_gui_scale()
     _update_font_sizes()
     _update_checkbox_size()
@@ -183,8 +183,14 @@ func update_gui_scale() -> void:
     
     Gs.utils.emit_signal("display_resized")
     
-    Gs.time.set_timeout(
-            funcref(self, "_set_global_visibility_for_resize"), 0.05, [true])
+    if is_first_call and \
+            Gs.utils.get_is_mobile_device():
+        call_deferred("update_gui_scale", false)
+    else:
+        Gs.time.set_timeout(
+                funcref(self, "_set_global_visibility_for_resize"),
+                0.05,
+                [true])
 
 
 func _set_global_visibility_for_resize(is_visible: bool) -> void:
@@ -201,13 +207,26 @@ func _set_global_visibility_for_resize(is_visible: bool) -> void:
 
 
 func _update_font_sizes() -> void:
+    var font_size_overrides := Gs.gui._get_font_size_overrides()
+    
+    # First, update the fonts that don't have size overrides.
     for font_name in Gs.gui.fonts:
-        var original_dimensions: Dictionary = \
-                Gs.gui.original_font_dimensions[font_name]
-        for dimension_name in original_dimensions:
-            Gs.gui.fonts[font_name].set(
-                    dimension_name,
-                    original_dimensions[dimension_name] * Gs.gui.scale)
+        if font_size_overrides.has(font_name):
+            continue
+        _update_sizes_for_font(font_name)
+    
+    # Second, update the fonts with size overrides.
+    for font_name in font_size_overrides:
+        _update_sizes_for_font(font_name)
+
+
+func _update_sizes_for_font(font_name: String) -> void:
+    var original_dimensions: Dictionary = \
+            Gs.gui.original_font_dimensions[font_name]
+    for dimension_name in original_dimensions:
+        Gs.gui.fonts[font_name].set(
+                dimension_name,
+                original_dimensions[dimension_name] * Gs.gui.scale)
 
 
 func _update_checkbox_size() -> void:
