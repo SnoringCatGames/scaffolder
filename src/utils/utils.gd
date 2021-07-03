@@ -6,16 +6,11 @@ const MAX_INT := 9223372036854775807
 
 signal display_resized
 
-var _ios_model_names
-var _ios_resolutions
 var _focus_releaser: Control
 
 
 func _init() -> void:
     Gs.logger.on_global_init(self, "Utils")
-    
-    _ios_model_names = IosModelNames.new()
-    _ios_resolutions = IosResolutions.new()
     
     _focus_releaser = Button.new()
     _focus_releaser.modulate.a = 0.0
@@ -288,115 +283,6 @@ static func ease_by_name(
         progress: float,
         ease_name: String) -> float:
     return ease(progress, ease_name_to_param(ease_name))
-
-
-static func get_is_android_device() -> bool:
-    return OS.get_name() == "Android"
-
-
-static func get_is_ios_device() -> bool:
-    return OS.get_name() == "iOS"
-
-
-static func get_is_browser() -> bool:
-    return OS.get_name() == "HTML5"
-
-
-static func get_is_windows_device() -> bool:
-    return OS.get_name() == "Windows"
-
-
-static func get_is_mac_device() -> bool:
-    return OS.get_name() == "OSX"
-
-
-static func get_is_linux_device() -> bool:
-    return OS.get_name() == "X11"
-
-
-static func get_is_pc_device() -> bool:
-    return get_is_windows_device() or \
-            get_is_mac_device() or \
-            get_is_linux_device()
-
-
-static func get_is_mobile_device() -> bool:
-    return get_is_android_device() or \
-            get_is_ios_device()
-
-
-static func get_model_name() -> String:
-    return IosModelNames.get_model_name() if \
-        get_is_ios_device() else \
-        OS.get_model_name()
-
-
-func get_screen_scale() -> float:
-    # NOTE: OS.get_screen_scale() is only implemented for MacOS, so it's
-    #       useless.
-    if get_is_mobile_device():
-        if OS.window_size.x < OS.window_size.y:
-            return OS.window_size.x / get_viewport().size.x
-        else:
-            return OS.window_size.y / get_viewport().size.y
-    elif get_is_mac_device():
-        return OS.get_screen_scale()
-    else:
-        return 1.0
-
-
-# This does not take into account the screen scale. Node.get_viewport().size
-# likely returns a smaller number than OS.window_size, because of screen scale.
-func get_screen_ppi() -> int:
-    if get_is_ios_device():
-        return _get_ios_screen_ppi()
-    else:
-        return OS.get_screen_dpi()
-
-
-func _get_ios_screen_ppi() -> int:
-    return _ios_resolutions.get_screen_ppi(_ios_model_names)
-
-
-# This takes into account the screen scale, and should enable accurate
-# conversion of event positions from pixels to inches.
-# 
-# NOTE: This assumes that the viewport takes up the entire screen, which will
-#       likely be true only for mobile devices, and is not even guaranteed for
-#       them.
-func get_viewport_ppi() -> float:
-    return get_screen_ppi() / get_screen_scale()
-
-
-func get_viewport_size_inches() -> Vector2:
-    return get_viewport().size / get_viewport_ppi()
-
-
-func get_viewport_diagonal_inches() -> float:
-    return get_viewport_size_inches().length()
-
-
-func get_viewport_safe_area() -> Rect2:
-    var os_safe_area := OS.get_window_safe_area()
-    return Rect2(
-            os_safe_area.position / get_screen_scale(),
-            os_safe_area.size / get_screen_scale())
-
-
-func get_safe_area_margin_top() -> float:
-    return get_viewport_safe_area().position.y
-
-
-func get_safe_area_margin_bottom() -> float:
-    return get_viewport().size.y - get_viewport_safe_area().end.y
-
-
-func get_safe_area_margin_left() -> float:
-    return get_viewport_safe_area().position.x
-
-
-func get_safe_area_margin_right() -> float:
-    return get_viewport().size.x - OS.get_window_safe_area().end.x
 
 
 static func floor_vector(v: Vector2) -> Vector2:

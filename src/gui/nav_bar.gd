@@ -30,13 +30,13 @@ func _ready() -> void:
     
     $MarginContainer.set(
             "custom_constants/margin_top",
-            Gs.utils.get_safe_area_margin_top())
+            Gs.device.get_safe_area_margin_top())
     $MarginContainer.set(
             "custom_constants/margin_left",
-            Gs.utils.get_safe_area_margin_left())
+            Gs.device.get_safe_area_margin_left())
     $MarginContainer.set(
             "custom_constants/margin_right",
-            Gs.utils.get_safe_area_margin_right())
+            Gs.device.get_safe_area_margin_right())
     
     $MarginContainer/TopRow/Header \
             .add_color_override("font_color", Gs.colors.header)

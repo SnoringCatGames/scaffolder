@@ -40,6 +40,8 @@ func get_is_nav_bar_shown() -> bool:
 
 func _on_activated(previous_screen: Screen) -> void:
     ._on_activated(previous_screen)
+    if Gs.device.get_is_browser_app():
+        Gs.audio.stop_music()
     Gs.time.set_timeout(funcref(self, "_load_level"), 0.05)
 
 

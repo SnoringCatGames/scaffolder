@@ -109,8 +109,8 @@ func _log_device_info() -> void:
     event(
             "device",
             OS.get_name(),
-            Gs.utils.get_model_name(),
-            int(Gs.utils.get_viewport_diagonal_inches() * 1000),
+            Gs.device.get_model_name(),
+            int(Gs.device.get_viewport_diagonal_inches() * 1000),
             true)
 
 

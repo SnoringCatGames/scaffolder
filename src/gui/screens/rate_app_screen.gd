@@ -19,7 +19,7 @@ func _on_RateAppButton_pressed() -> void:
     Gs.nav.open(NEXT_SCREEN_TYPE)
     var app_store_url: String = \
             Gs.app_metadata.ios_app_store_url if \
-            Gs.utils.get_is_ios_device() else \
+            Gs.device.get_is_ios_app() else \
             Gs.app_metadata.android_app_store_url
     OS.shell_open(app_store_url)
 

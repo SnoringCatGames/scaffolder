@@ -6,8 +6,8 @@ var app_manifest: Dictionary
 var main: Node
 
 var _throttled_size_changed: FuncRef
-
 var _is_global_visibility_disabled_for_resize := false
+var _has_initial_input_happened := false
 
 
 func _init() -> void:
@@ -94,7 +94,7 @@ func _initialize_framework() -> void:
 func _on_window_size_set() -> void:
     Gs.logger.print("ScaffolderBootstrap._on_window_size_set")
     
-    if Gs.utils.get_is_browser():
+    if Gs.device.get_is_browser_app():
         JavaScript.eval("window.onAppReady()")
         
         _on_resized()
@@ -164,6 +164,34 @@ func _notification(notification: int) -> void:
         Gs.level.pause()
 
 
+func _input(event: InputEvent) -> void:
+    # Listen for a touch event, which indicates that the device definitely
+    # supports touch.
+    if !Gs.device._is_definitely_touch_device and \
+            event is InputEventScreenTouch and \
+            !Gs.device._is_emulating_touch_from_mouse:
+        Gs.device._is_definitely_touch_device = true
+    
+    # Listen for the first input that indicates the user is interacting with
+    # the window.
+    if !_has_initial_input_happened and \
+            (event is InputEventKey or \
+            event is InputEventMouseButton or \
+            event is InputEventScreenTouch):
+        _on_initial_input()
+
+
+func _on_initial_input() -> void:
+    Gs.logger.print(
+            "ScaffolderBootstrap._on_initial_input: is_definitely_touch=%s" %
+            str(Gs.device.get_is_definitely_touch_device()))
+    _has_initial_input_happened = true
+    if Gs.device.get_is_browser_app() and \
+            Gs.device.get_is_mobile_app():
+        # FIXME: ------------------------ Check this
+        OS.window_fullscreen = true
+
+
 func _on_resized() -> void:
     _set_global_visibility_for_resize(false)
     _throttled_size_changed.call_func()
@@ -184,7 +212,7 @@ func update_gui_scale(is_first_call := true) -> void:
     Gs.utils.emit_signal("display_resized")
     
     if is_first_call and \
-            Gs.utils.get_is_mobile_device():
+            Gs.device.get_is_mobile_app():
         call_deferred("update_gui_scale", false)
     else:
         Gs.time.set_timeout(
@@ -312,7 +340,7 @@ func _update_game_area_region_and_gui_scale() -> void:
     if Gs.app_metadata.is_app_configured:
         var default_game_area_size := \
                 Gs.gui.default_mobile_game_area_size if \
-                Gs.utils.get_is_mobile_device() else \
+                Gs.device.get_is_mobile_app() else \
                 Gs.gui.default_pc_game_area_size
         var default_aspect_ratio: float = \
                 default_game_area_size.x / default_game_area_size.y
@@ -333,8 +361,8 @@ func _scale_guis() -> void:
 
 func _set_window_debug_size_and_position() -> void:
     if Gs.app_metadata.debug and \
-            (Gs.utils.get_is_windows_device() or \
-            Gs.utils.get_is_mac_device()):
+            (Gs.device.get_is_windows_app() or \
+            Gs.device.get_is_mac_app()):
         # Show the game window on the other window, rather than over-top the
         # editor.
         if OS.get_screen_count() > 1:
@@ -352,56 +380,63 @@ func _set_window_debug_size_and_position() -> void:
 
 
 func _log_device_settings() -> void:
-    var utils_model_name: String = Gs.utils.get_model_name()
-    var utils_screen_scale: float = Gs.utils.get_screen_scale()
+    var device_model_name: String = Gs.device.get_model_name()
+    var is_mobile_device: bool = Gs.device.get_is_mobile_device()
+    var is_definitely_touch_device: bool = \
+            Gs.device.get_is_definitely_touch_device()
+    var device_screen_scale: float = Gs.device.get_screen_scale()
     var ios_resolution: String = \
-            Gs.utils._get_ios_screen_ppi() if \
-            Gs.utils.get_is_ios_device() else \
+            Gs.device._get_ios_screen_ppi() if \
+            Gs.device.get_is_ios_app() else \
             "N/A"
     Gs.logger.print(
             ("Device settings:" +
             "\n    OS.get_name()=%s" +
             "\n    OS.get_model_name()=%s" +
-            "\n    Gs.utils.get_model_name()=%s" +
+            "\n    Gs.device.get_model_name()=%s" +
+            "\n    Gs.device.get_is_mobile_device()=%s" +
+            "\n    Gs.device.get_is_definitely_touch_device()=%s" +
             "\n    get_viewport().size=(%4d,%4d)" +
             "\n    OS.window_size=%s" +
             "\n    OS.get_real_window_size()=%s" +
             "\n    OS.get_screen_size()=%s" +
-            "\n    Gs.utils.get_screen_scale()=%s" +
+            "\n    Gs.device.get_screen_scale()=%s" +
             "\n    OS.get_screen_scale()=%s" +
-            "\n    Gs.utils.get_screen_ppi()=%s" +
-            "\n    Gs.utils.get_viewport_ppi()=%s" +
+            "\n    Gs.device.get_screen_ppi()=%s" +
+            "\n    Gs.device.get_viewport_ppi()=%s" +
             "\n    OS.get_screen_dpi()=%s" +
             "\n    IosResolutions.get_screen_ppi()=%s" +
-            "\n    Gs.utils.get_viewport_size_inches()=%s" +
-            "\n    Gs.utils.get_viewport_diagonal_inches()=%s" +
-            "\n    Gs.utils.get_viewport_safe_area()=%s" +
+            "\n    Gs.device.get_viewport_size_inches()=%s" +
+            "\n    Gs.device.get_viewport_diagonal_inches()=%s" +
+            "\n    Gs.device.get_viewport_safe_area()=%s" +
             "\n    OS.get_window_safe_area()=%s" +
-            "\n    Gs.utils.get_safe_area_margin_top()=%s" +
-            "\n    Gs.utils.get_safe_area_margin_bottom()=%s" +
-            "\n    Gs.utils.get_safe_area_margin_left()=%s" +
-            "\n    Gs.utils.get_safe_area_margin_right()=%s" +
+            "\n    Gs.device.get_safe_area_margin_top()=%s" +
+            "\n    Gs.device.get_safe_area_margin_bottom()=%s" +
+            "\n    Gs.device.get_safe_area_margin_left()=%s" +
+            "\n    Gs.device.get_safe_area_margin_right()=%s" +
             "") % [
                 OS.get_name(),
                 OS.get_model_name(),
-                utils_model_name,
+                device_model_name,
+                is_mobile_device,
+                is_definitely_touch_device,
                 get_viewport().size.x,
                 get_viewport().size.y,
                 OS.window_size,
                 OS.get_real_window_size(),
                 OS.get_screen_size(),
-                utils_screen_scale,
+                device_screen_scale,
                 OS.get_screen_scale(),
-                Gs.utils.get_screen_ppi(),
-                Gs.utils.get_viewport_ppi(),
+                Gs.device.get_screen_ppi(),
+                Gs.device.get_viewport_ppi(),
                 OS.get_screen_dpi(),
                 ios_resolution,
-                Gs.utils.get_viewport_size_inches(),
-                Gs.utils.get_viewport_diagonal_inches(),
-                Gs.utils.get_viewport_safe_area(),
+                Gs.device.get_viewport_size_inches(),
+                Gs.device.get_viewport_diagonal_inches(),
+                Gs.device.get_viewport_safe_area(),
                 OS.get_window_safe_area(),
-                Gs.utils.get_safe_area_margin_top(),
-                Gs.utils.get_safe_area_margin_bottom(),
-                Gs.utils.get_safe_area_margin_left(),
-                Gs.utils.get_safe_area_margin_right(),
+                Gs.device.get_safe_area_margin_top(),
+                Gs.device.get_safe_area_margin_bottom(),
+                Gs.device.get_safe_area_margin_left(),
+                Gs.device.get_safe_area_margin_right(),
             ])

@@ -13,8 +13,8 @@ var _message_count := 0
 func _enter_tree() -> void:
     _log_print_queue()
     $PanelContainer.theme = Gs.gui.theme
-    position.y = max(CORNER_OFFSET.y, Gs.utils.get_safe_area_margin_top())
-    position.x = max(CORNER_OFFSET.x, Gs.utils.get_safe_area_margin_left())
+    position.y = max(CORNER_OFFSET.y, Gs.device.get_safe_area_margin_top())
+    position.x = max(CORNER_OFFSET.x, Gs.device.get_safe_area_margin_left())
 
 
 func _ready() -> void:
