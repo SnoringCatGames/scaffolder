@@ -392,14 +392,14 @@ func register_manifest(manifest: Dictionary) -> void:
                 manifest.recent_gesture_events_for_debugging_buffer_size
     
     if fonts_manifest.has("sizes"):
-        if Gs.device.get_is_mobile_app():
+        if Gs.device.get_is_mobile_device():
             if fonts_manifest.sizes.has("mobile"):
                 self.font_size_overrides = fonts_manifest.sizes.mobile
         else:
             if fonts_manifest.sizes.has("pc"):
                 self.font_size_overrides = fonts_manifest.sizes.pc
     
-    if Gs.device.get_is_mobile_app():
+    if Gs.device.get_is_mobile_device():
         if manifest.has("splash_scale_mobile"):
             self.splash_scale = manifest.splash_scale_mobile
     else:
