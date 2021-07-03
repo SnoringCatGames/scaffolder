@@ -181,7 +181,7 @@ static func calculate_path_beat_hashes(
             var weight: float
             if edge.trajectory != null:
                 var edge_vertices: PoolVector2Array = \
-                        Gs.draw_utils._get_edge_trajectory_vertices(
+                        Gs.draw._get_edge_trajectory_vertices(
                                 edge, false)
                 var index_before_hash := \
                         int((path_time_of_next_beat - edge_start_time) / \

@@ -23,7 +23,7 @@ var gesture_reporter: GestureReporter
 var time: Time
 var profiler: Profiler
 var geometry: ScaffolderGeometry
-var draw_utils: DrawUtils
+var draw: DrawUtils
 var level_input: LevelInput
 var slow_motion: SlowMotionController
 var beats: BeatTracker
@@ -165,11 +165,11 @@ func initialize() -> void:
     add_child(self.geometry)
     
     if manifest.has("draw_utils_class"):
-        self.draw_utils = manifest.draw_utils_class.new()
-        assert(self.draw_utils is DrawUtils)
+        self.draw = manifest.draw_utils_class.new()
+        assert(self.draw is DrawUtils)
     else:
-        self.draw_utils = DrawUtils.new()
-    add_child(self.draw_utils)
+        self.draw = DrawUtils.new()
+    add_child(self.draw)
     
     if manifest.has("nav_class"):
         self.nav = manifest.nav_class.new()
