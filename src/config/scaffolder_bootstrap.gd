@@ -188,7 +188,13 @@ func _on_initial_input() -> void:
     _has_initial_input_happened = true
     if Gs.device.get_is_browser_app() and \
             Gs.device.get_is_mobile_device():
-        # FIXME: ------------------------ Check this
+        # TODO:
+        #     - This doesn't actually work on mobile-web yet, but maybe it will
+        #       in a future version of Godot?
+        #     - If I want to make this work sooner, I can always call-through
+        #       to a custom JavaScript function that hides the browser address
+        #       bar.
+        #     - https://developers.google.com/web/fundamentals/native-hardware/fullscreen
         OS.window_fullscreen = true
 
 
