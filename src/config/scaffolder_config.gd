@@ -4,6 +4,10 @@ extends Node
 
 var manifest: Dictionary
 
+var logger: ScaffolderLog
+var utils: Utils
+var device: DeviceUtils
+
 var crash_reporter: CrashReporter
 var app_metadata: ScaffolderAppMetadata
 var audio_manifest: ScaffolderAudioManifest
@@ -16,8 +20,6 @@ var nav: ScaffolderNavigation
 var save_state: SaveState
 var analytics: Analytics
 var gesture_reporter: GestureReporter
-var logger: ScaffolderLog
-var utils: Utils
 var time: Time
 var profiler: Profiler
 var geometry: ScaffolderGeometry
@@ -40,6 +42,9 @@ func _enter_tree() -> void:
     
     self.utils = Utils.new()
     add_child(self.utils)
+    
+    self.device = DeviceUtils.new()
+    add_child(self.device)
 
 
 func amend_app_manifest(manifest: Dictionary) -> void:
@@ -229,7 +234,7 @@ func load_state() -> void:
             false)
     Gs.gui.is_giving_haptic_feedback = Gs.save_state.get_setting(
             SaveState.IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY,
-            Gs.utils.get_is_android_device())
+            Gs.device.get_is_android_app())
     Gs.gui.is_debug_panel_shown = Gs.save_state.get_setting(
             SaveState.IS_DEBUG_PANEL_SHOWN_SETTINGS_KEY,
             false)

@@ -25,4 +25,4 @@ func get_is_pressed() -> bool:
 
 
 func get_is_enabled() -> bool:
-    return Gs.utils.get_is_mobile_device()
+    return Gs.device.get_is_mobile_app()
