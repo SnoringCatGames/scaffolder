@@ -15,9 +15,9 @@ const JAVASCRIPT_IS_MOBILE_CHECK := """
 
     var isMobile =
         MOBILE_REGEX_LONG.test(userAgent) ||
-        MOBILE_REGEX_SHORT.test(userAgent).substr(0, 4);
+        MOBILE_REGEX_SHORT.test(userAgent.substr(0, 4));
     var isTablet =
-        !gs.isMobile &&
+        !isMobile &&
         NON_MOBILE_TABLET_REGEX_LONG.test(userAgent);
     
     return isMobile;
@@ -53,13 +53,13 @@ func _init() -> void:
     _ios_model_names = IosModelNames.new()
     _ios_resolutions = IosResolutions.new()
     
-    if get_is_browser_app():
-        _is_mobile_web = JavaScript.eval(JAVASCRIPT_IS_MOBILE_CHECK, true)
-    
     _is_emulating_touch_from_mouse = ProjectSettings.get_setting(
             "input_devices/pointing/emulate_touch_from_mouse")
     _is_emulating_mouse_from_touch = ProjectSettings.get_setting(
             "input_devices/pointing/emulate_mouse_from_touch")
+    
+    if get_is_browser_app():
+        _is_mobile_web = JavaScript.eval(JAVASCRIPT_IS_MOBILE_CHECK, true)
 
 
 static func get_is_android_app() -> bool:
