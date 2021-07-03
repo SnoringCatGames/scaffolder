@@ -3,6 +3,8 @@ class_name GameOverScreen
 extends Screen
 
 
+const ACHIEVEMENT_COLOR := Color("fff175")
+
 var go_icon_scale_multiplier := 1.0
 
 var projected_image: ScaffolderConfiguredImage
@@ -25,6 +27,14 @@ func _ready() -> void:
             Vector2(Gs.app_metadata.go_icon_scale,
                     Gs.app_metadata.go_icon_scale) * \
                     go_icon_scale_multiplier
+    
+    $VBoxContainer/VBoxContainer2/UnlockedNewLevelLabel \
+            .add_color_override("font_color", ACHIEVEMENT_COLOR)
+    $VBoxContainer/VBoxContainer2/WasBestPlaythroughLabel \
+            .add_color_override("font_color", ACHIEVEMENT_COLOR)
+    $VBoxContainer/VBoxContainer2/WasFastestPlaythroughLabel \
+            .add_color_override("font_color", ACHIEVEMENT_COLOR)
+    
     _update_stats()
 
 
