@@ -2,6 +2,7 @@ class_name DebugPanel, "res://addons/scaffolder/assets/images/editor_icons/debug
 extends Node2D
 
 
+const FONT_COLOR := Color("c5ff5e")
 const CORNER_OFFSET := Vector2(0.0, 0.0)
 const MESSAGE_COUNT_LIMIT := 500
 
@@ -15,6 +16,8 @@ func _enter_tree() -> void:
     $PanelContainer.theme = Gs.gui.theme
     position.y = max(CORNER_OFFSET.y, Gs.device.get_safe_area_margin_top())
     position.x = max(CORNER_OFFSET.x, Gs.device.get_safe_area_margin_left())
+    $PanelContainer/ScrollContainer/Label.add_color_override("font_color", FONT_COLOR)
+    $PanelContainer/Time.add_color_override("font_color", FONT_COLOR)
 
 
 func _ready() -> void:
