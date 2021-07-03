@@ -187,7 +187,7 @@ func _on_initial_input() -> void:
             str(Gs.device.get_is_definitely_touch_device()))
     _has_initial_input_happened = true
     if Gs.device.get_is_browser_app() and \
-            Gs.device.get_is_mobile_app():
+            Gs.device.get_is_mobile_device():
         # FIXME: ------------------------ Check this
         OS.window_fullscreen = true
 
@@ -212,7 +212,7 @@ func update_gui_scale(is_first_call := true) -> void:
     Gs.utils.emit_signal("display_resized")
     
     if is_first_call and \
-            Gs.device.get_is_mobile_app():
+            Gs.device.get_is_mobile_device():
         call_deferred("update_gui_scale", false)
     else:
         Gs.time.set_timeout(
@@ -340,7 +340,7 @@ func _update_game_area_region_and_gui_scale() -> void:
     if Gs.app_metadata.is_app_configured:
         var default_game_area_size := \
                 Gs.gui.default_mobile_game_area_size if \
-                Gs.device.get_is_mobile_app() else \
+                Gs.device.get_is_mobile_device() else \
                 Gs.gui.default_pc_game_area_size
         var default_aspect_ratio: float = \
                 default_game_area_size.x / default_game_area_size.y
