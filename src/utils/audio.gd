@@ -33,6 +33,7 @@ var playback_speed_multiplier := 1.0
 var is_music_enabled := true setget _set_is_music_enabled
 var is_sound_effects_enabled := true setget \
         _set_is_sound_effects_enabled
+var is_metronome_enabled: bool
 
 
 func _init() -> void:
@@ -115,6 +116,10 @@ func register_music(
         AudioServer.add_bus_effect(bus_index, _pitch_shift_effect)
     
     _update_volume()
+    
+    self.is_metronome_enabled = Gs.save_state.get_setting(
+            SaveState.IS_METRONOME_ENABLED_SETTINGS_KEY,
+            false)
 
 
 func play_sound(

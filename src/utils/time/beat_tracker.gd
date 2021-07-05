@@ -80,7 +80,7 @@ func _on_beat(
         is_downbeat: bool,
         beat_index: int,
         meter: int) -> void:
-    if Surfacer.is_metronome_enabled:
+    if Gs.is_metronome_enabled:
         var sound_name := \
                 "tock_high" if \
                 is_downbeat else \

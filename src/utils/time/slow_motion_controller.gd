@@ -7,6 +7,8 @@ signal slow_motion_toggled(is_enabled)
 const DESATURATION_SHADER := \
         preload("res://addons/scaffolder/src/desaturation.shader")
 
+const GROUP_NAME_DESATURATABLES := "desaturatables"
+
 const ENABLE_SLOW_MOTION_DURATION := 0.3
 const DISABLE_SLOW_MOTION_DURATION := 0.2
 const DISABLE_SLOW_MOTION_SATURATION_DURATION_MULTIPLIER := 0.9
@@ -14,7 +16,13 @@ const DISABLE_SLOW_MOTION_SATURATION_DURATION_MULTIPLIER := 0.9
 var is_enabled := false setget set_slow_motion_enabled
 var is_transitioning := false
 
+var time_scale := 0.02
+var tick_tock_tempo_multiplier := 25
+var saturation := 0.2
+
 var music: SlowMotionMusic
+
+var _slow_motionable_animators := []
 
 var _tween: ScaffolderTween
 var _desaturation_material: ShaderMaterial
@@ -39,6 +47,15 @@ func _init() -> void:
             "_on_music_transition_complete")
 
 
+func register_manifest(manifest: Dictionary) -> void:
+    if manifest.has("time_scale"):
+        self.time_scale = manifest.time_scale
+    if manifest.has("tick_tock_tempo_multiplier"):
+        self.tick_tock_tempo_multiplier = manifest.tick_tock_tempo_multiplier
+    if manifest.has("saturation"):
+        self.saturation = manifest.saturation
+
+
 func set_slow_motion_enabled(value: bool) -> void:
     if value == is_enabled:
         # No change.
@@ -55,10 +72,10 @@ func set_slow_motion_enabled(value: bool) -> void:
     var next_saturation: float
     var saturation_duration: float
     if is_enabled:
-        next_time_scale = Surfacer.nav_selection_slow_mo_time_scale
+        next_time_scale = time_scale
         time_scale_duration = ENABLE_SLOW_MOTION_DURATION
         ease_name = "ease_in"
-        next_saturation = Surfacer.nav_selection_slow_mo_saturation
+        next_saturation = saturation
         saturation_duration = \
                 time_scale_duration * \
                 DISABLE_SLOW_MOTION_SATURATION_DURATION_MULTIPLIER
@@ -82,7 +99,7 @@ func set_slow_motion_enabled(value: bool) -> void:
     
     # Update desaturation.
     var desaturatables: Array = Gs.utils.get_all_nodes_in_group(
-            Surfacer.group_name_desaturatable)
+            GROUP_NAME_DESATURATABLES)
     for node in desaturatables:
         node.material = _desaturation_material
     _tween.interpolate_method(
@@ -123,12 +140,8 @@ func _set_time_scale(value: float) -> void:
     Gs.time.time_scale = value
     
     # Update PlayerAnimators.
-    var computer_players: Array = Gs.utils.get_all_nodes_in_group(
-            Surfacer.group_name_computer_players)
-    var human_players := [Surfacer.human_player]
-    for players in [computer_players, human_players]:
-        for player in players:
-            player.animator.match_rate_to_time_scale()
+    for animator in _slow_motionable_animators:
+        animator.match_rate_to_time_scale()
 
 
 func _on_music_transition_complete(is_active: bool) -> void:
@@ -137,3 +150,11 @@ func _on_music_transition_complete(is_active: bool) -> void:
 
 func get_is_enabled_or_transitioning() -> bool:
     return is_enabled or is_transitioning
+
+
+func add_animator(animator: Node2D) -> void:
+    _slow_motionable_animators.push_back(animator)
+
+
+func remove_animator(animator: Node2D) -> void:
+    _slow_motionable_animators.erase(animator)

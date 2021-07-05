@@ -91,7 +91,7 @@ Unfortunately, since these errors so often occur during app initialization, you 
 Here are some guidelines to minimize app crashes before we can report any previous crashes:
 -   Include as few AutoLoads as possible.
 -   Do as little in your "Main Scene" as possible.
--   Do not call `.new()` on anything from any of your AutoLoads or your "Main Scene", until after you know `SurfacerConfig` is ready. You can use `call_deferred()` for this.
+-   Do not call `.new()` on anything from any of your AutoLoads or your "Main Scene", until after you know `ScaffolderConfig` is ready. You can use `call_deferred()` for this.
 
 #### Overriding `ScaffolderConfig` defaults
 

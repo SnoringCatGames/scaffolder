@@ -127,7 +127,7 @@ func _update_beat_state() -> void:
             Gs.audio.playback_speed_multiplier
     tick_tock_beat_duration_unscaled = \
             music_beat_duration_unscaled / \
-            Surfacer.nav_selection_slow_mo_tick_tock_tempo_multiplier
+            Gs.slow_motion.tick_tock_tempo_multiplier
     
     var slow_motion_duration_scaled: float = \
             Gs.time.get_scaled_play_time() - _start_time_scaled

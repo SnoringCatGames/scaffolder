@@ -139,30 +139,6 @@ static func get_child_by_type(
     return children[0]
 
 
-static func get_which_wall_collided_for_body(body: KinematicBody2D) -> int:
-    if body.is_on_wall():
-        for i in body.get_slide_count():
-            var collision := body.get_slide_collision(i)
-            var side := get_which_surface_side_collided(collision)
-            if side == SurfaceSide.LEFT_WALL or side == SurfaceSide.RIGHT_WALL:
-                return side
-    return SurfaceSide.NONE
-
-
-static func get_which_surface_side_collided(
-        collision: KinematicCollision2D) -> int:
-    if abs(collision.normal.angle_to(Gs.geometry.UP)) <= \
-            Gs.geometry.FLOOR_MAX_ANGLE:
-        return SurfaceSide.FLOOR
-    elif abs(collision.normal.angle_to(Gs.geometry.DOWN)) <= \
-            Gs.geometry.FLOOR_MAX_ANGLE:
-        return SurfaceSide.CEILING
-    elif collision.normal.x > 0:
-        return SurfaceSide.LEFT_WALL
-    else:
-        return SurfaceSide.RIGHT_WALL
-
-
 static func get_floor_friction_multiplier(body: KinematicBody2D) -> float:
     var collision := _get_floor_collision(body)
     # Collision friction is a property of the TileMap node.
