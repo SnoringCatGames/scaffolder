@@ -503,8 +503,8 @@ func _scale_gui_for_current_screen_size(gui) -> void:
 
 
 func scale_gui_recursively(gui) -> void:
-    if gui.has_method("update_gui_scale"):
-        var handled: bool = gui.update_gui_scale()
+    if gui.has_method("_on_gui_scale_changed"):
+        var handled: bool = gui._on_gui_scale_changed()
         if handled:
             return
     
@@ -602,7 +602,7 @@ func record_gui_original_size_recursively(control: Control) -> void:
     
     for child in control.get_children():
         if child is Control and \
-                !child.has_method("update_gui_scale"):
+                !child.has_method("_on_gui_scale_changed"):
             record_gui_original_size_recursively(child)
 
 

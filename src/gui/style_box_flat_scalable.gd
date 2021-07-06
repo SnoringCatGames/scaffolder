@@ -26,7 +26,7 @@ func destroy() -> void:
     Gs.gui.remove_gui_to_scale(self)
 
 
-func update_gui_scale() -> bool:
+func _on_gui_scale_changed() -> bool:
     var current_border_width := round(initial_border_width * Gs.gui.scale)
     border_width_left = current_border_width
     border_width_top = current_border_width

@@ -40,7 +40,7 @@ func _destroy() -> void:
         queue_free()
 
 
-func update_gui_scale() -> bool:
+func _on_gui_scale_changed() -> bool:
     return false
 
 
@@ -69,7 +69,7 @@ func _on_resized() -> void:
         _configuration_warning = ""
         if screen_name == "":
             _configuration_warning = "screen_name must be defined."
-    update_gui_scale()
+    _on_gui_scale_changed()
 
 
 func _unhandled_key_input(event: InputEventKey) -> void:

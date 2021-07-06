@@ -6,7 +6,7 @@ extends ProgressBar
 export var size_override := Vector2.ZERO setget _set_size_override
 
 
-func update_gui_scale() -> bool:
+func _on_gui_scale_changed() -> bool:
     rect_min_size = size_override * Gs.gui.scale
     rect_size = size_override * Gs.gui.scale
     return true
@@ -18,4 +18,4 @@ func _set_size_override(value: Vector2) -> void:
     if Engine.editor_hint:
         return
     
-    update_gui_scale()
+    _on_gui_scale_changed()

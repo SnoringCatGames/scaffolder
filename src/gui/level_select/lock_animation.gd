@@ -18,7 +18,7 @@ func _ready() -> void:
     set_meta("gs_rect_min_size", rect_min_size)
 
 
-func update_gui_scale() -> bool:
+func _on_gui_scale_changed() -> bool:
     var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
 
     rect_min_size = original_rect_min_size * Gs.gui.scale

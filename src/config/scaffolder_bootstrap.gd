@@ -205,10 +205,10 @@ func _on_resized() -> void:
 
 func _on_throttled_size_changed() -> void:
     Gs.logger.print("ScaffolderBootstrap._on_throttled_size_changed")
-    call_deferred("update_gui_scale")
+    call_deferred("_on_gui_scale_changed")
 
 
-func update_gui_scale(is_first_call := true) -> void:
+func _on_gui_scale_changed(is_first_call := true) -> void:
     _update_game_area_region_and_gui_scale()
     _update_font_sizes()
     _update_checkbox_size()
@@ -219,7 +219,7 @@ func update_gui_scale(is_first_call := true) -> void:
     
     if is_first_call and \
             Gs.device.get_is_mobile_device():
-        call_deferred("update_gui_scale", false)
+        call_deferred("_on_gui_scale_changed", false)
     else:
         Gs.time.set_timeout(
                 funcref(self, "_set_global_visibility_for_resize"),

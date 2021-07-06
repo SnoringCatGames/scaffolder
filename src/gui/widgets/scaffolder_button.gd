@@ -58,7 +58,7 @@ func _ready() -> void:
     Gs.utils.connect(
             "display_resized", self, "_update")
     
-    update_gui_scale()
+    _on_gui_scale_changed()
 
 
 func _exit_tree() -> void:
@@ -71,7 +71,7 @@ func _exit_tree() -> void:
     Gs.time.clear_interval(color_pulse_interval_id)
 
 
-func update_gui_scale() -> bool:
+func _on_gui_scale_changed() -> bool:
     _update()
     return true
 
@@ -89,7 +89,7 @@ func _update() -> void:
 
     $MarginContainer/ShineLineWrapper/ShineLine.scale = \
             SHINE_SCALE * Gs.gui.scale
-    $MarginContainer/ScaffolderTextureRect.update_gui_scale()
+    $MarginContainer/ScaffolderTextureRect._on_gui_scale_changed()
     
     var half_size := rect_size / 2.0
     var shine_base_position: Vector2 = half_size

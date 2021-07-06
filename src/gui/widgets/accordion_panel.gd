@@ -92,13 +92,13 @@ func _exit_tree() -> void:
         _header_pressed_stylebox.destroy()
 
 
-func update_gui_scale() -> bool:
+func _on_gui_scale_changed() -> bool:
     _debounced_update_children.call_func()
     Gs.time.set_timeout(funcref(self, "_trigger_open_change"), 0.2, [false])
     return true
 
 
-func _update_gui_scale_debounced() -> void:
+func _on_gui_scale_changed_debounced() -> void:
     rect_min_size.x = \
             (header_size_override.x if \
             header_size_override.x != 0.0 else \
@@ -285,7 +285,7 @@ func _update_children_debounced() -> void:
     configuration_warning = ""
     update_configuration_warning()
     
-    _update_gui_scale_debounced()
+    _on_gui_scale_changed_debounced()
 
 
 func _trigger_open_change(is_tweening: bool) -> void:

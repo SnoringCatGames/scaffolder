@@ -56,10 +56,10 @@ func _ready() -> void:
                     Gs.app_metadata.app_logo_scale,
                     Gs.app_metadata.app_logo_scale)
     
-    update_gui_scale()
+    _on_gui_scale_changed()
 
 
-func update_gui_scale() -> bool:
+func _on_gui_scale_changed() -> bool:
     _update_visiblity()
     
     for child in get_children():
