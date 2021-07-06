@@ -43,7 +43,10 @@ func _create_hud() -> void:
 
 func _exit_tree() -> void:
     if Gs.level_session.is_restarting:
-        Gs.nav.open("loading", false, {level_id = Gs.level_session.id})
+        Gs.nav.open(
+                "loading",
+                ScreenTransition.DEFAULT,
+                {level_id = Gs.level_session.id})
 
 
 func _destroy() -> void:
@@ -64,7 +67,7 @@ func quit(
     _record_suggested_next_level()
     if immediately:
         if !Gs.level_session.is_restarting:
-            Gs.nav.open("game_over", true)
+            Gs.nav.open("game_over", ScreenTransition.FANCY)
         _destroy()
     else:
         var sound_name: String = \
@@ -163,7 +166,7 @@ func _on_level_quit_sound_finished(level_finished: bool) -> void:
                 "rate_app" if \
                 is_rate_app_screen_next else \
                 "game_over"
-        Gs.nav.open(next_screen, true)
+        Gs.nav.open(next_screen, ScreenTransition.FANCY)
     _destroy()
 
 

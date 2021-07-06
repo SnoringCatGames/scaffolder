@@ -269,8 +269,15 @@ func _call_tween_completed_callback(
     on_completed_callback.call_funcv(arguments)
 
 
-func clear_tween(tween_id: int) -> bool:
-    return _tweens.erase(tween_id)
+func clear_tween(
+        tween_id: int,
+        triggers_completed := false) -> bool:
+    if !_tweens.has(tween_id):
+        return false
+    if triggers_completed:
+        _tweens[tween_id].trigger_completed()
+    _tweens.erase(tween_id)
+    return true
 
 
 func set_timeout(
@@ -287,8 +294,15 @@ func set_timeout(
     return timeout.id
 
 
-func clear_timeout(timeout_id: int) -> bool:
-    return _timeouts.erase(timeout_id)
+func clear_timeout(
+        timeout_id: int,
+        triggers_timeout := false) -> bool:
+    if !_timeouts.has(timeout_id):
+        return false
+    if triggers_timeout:
+        _timeouts[timeout_id].trigger()
+    _timeouts.erase(timeout_id)
+    return true
 
 
 func set_interval(
@@ -305,8 +319,15 @@ func set_interval(
     return interval.id
 
 
-func clear_interval(interval_id: int) -> bool:
-    return _intervals.erase(interval_id)
+func clear_interval(
+        interval_id: int,
+        triggers_interval := false) -> bool:
+    if !_intervals.has(interval_id):
+        return false
+    if triggers_interval:
+        _intervals[interval_id].trigger()
+    _intervals.erase(interval_id)
+    return true
 
 
 func throttle(

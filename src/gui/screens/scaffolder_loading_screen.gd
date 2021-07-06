@@ -60,8 +60,8 @@ func _load_level() -> void:
     
     Gs.level._load()
     
-    Gs.nav.open("game", true)
+    Gs.nav.open("game", ScreenTransition.FANCY)
     
     Gs.time.set_timeout( \
             funcref(Gs.level, "_start"), \
-            Gs.nav.fade_transition.duration / 2.0)
+            Gs.nav.transition_handler._overlay_mask_transition.duration / 2.0)

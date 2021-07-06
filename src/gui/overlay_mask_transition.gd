@@ -1,8 +1,8 @@
-class_name FadeTransition
+class_name OverlayMaskTransition
 extends ColorRect
 
 
-signal fade_completed
+signal completed
 
 var _tween_id: int
 var duration := 0.3
@@ -23,14 +23,14 @@ func _on_resized() -> void:
     rect_size = get_viewport().size
 
 
-func fade() -> void:
+func start() -> void:
     is_transitioning = true
     _fade_out()
 
 
 func _fade_out() -> void:
     Gs.time.clear_tween(_tween_id)
-    _set_mask(Gs.gui.fade_out_transition_texture)
+    _set_mask(Gs.gui.overlay_mask_transition_fade_out_texture)
     _tween_id = Gs.time.tween_method(
             self,
             "_set_cutoff",
@@ -47,7 +47,7 @@ func _fade_in(
         _object: Object,
         _key: NodePath) -> void:
     Gs.time.clear_tween(_tween_id)
-    _set_mask(Gs.gui.fade_in_transition_texture)
+    _set_mask(Gs.gui.overlay_mask_transition_fade_in_texture)
     _tween_id = Gs.time.tween_method(
             self,
             "_set_cutoff",
@@ -75,4 +75,4 @@ func _on_tween_complete(
         _object: Object,
         _key: NodePath) -> void:
     is_transitioning = false
-    emit_signal("fade_completed")
+    emit_signal("completed")

@@ -7,9 +7,9 @@ signal app_quit
 
 const SCREEN_CONTAINER_SCENE := \
         preload("res://addons/scaffolder/src/gui/screen_container.tscn")
-const SCREEN_SLIDE_DURATION := 0.3
-const SCREEN_FADE_DURATION := 1.2
 const SESSION_END_TIMEOUT := 2.0
+
+var transition_handler: ScreenTransitionHandler
 
 var _is_debugging_active_screen_stack := false
 
@@ -23,8 +23,6 @@ var screens := {}
 var _active_screen_name_stack := []
 var current_screen_container: ScreenContainer
 var current_screen: Screen
-
-var fade_transition: FadeTransition
 
 
 func _init() -> void:
@@ -53,6 +51,7 @@ func _notification(notification: int) -> void:
 
 
 func close_app() -> void:
+    transition_handler.clear_transitions()
     Gs.analytics.end_session()
     Gs.time.set_timeout(
             funcref(self, "_on_session_end"),
@@ -112,20 +111,21 @@ func register_manifest(screen_manifest: Dictionary) -> void:
             screen_containers[screen_name] = screen_container
             screens[screen_name] = screen_container.contents
     
-    fade_transition = screen_manifest.fade_transition.instance()
-    Gs.canvas_layers.layers.top.add_child(fade_transition)
-    fade_transition.visible = false
-    fade_transition.duration = SCREEN_FADE_DURATION
-    fade_transition.connect(
-            "fade_completed",
-            self,
-            "_on_fade_complete")
+    if screen_manifest.has("screen_transition_handler_class"):
+        transition_handler = \
+                screen_manifest.screen_transition_handler_class.new()
+        assert(transition_handler is ScreenTransitionHandler)
+    else:
+        transition_handler = ScreenTransitionHandler.new()
+    add_child(transition_handler)
+    transition_handler.register_manifest(screen_manifest)
 
 
 func open(
         screen_name: String,
-        includes_fade := false,
-        params = null) -> void:
+        transition_type := ScreenTransition.DEFAULT,
+        screen_params := {},
+        transition_params := {}) -> void:
     var previous_name := \
             current_screen.screen_name if \
             is_instance_valid(current_screen) else \
@@ -140,8 +140,9 @@ func open(
     _set_screen_is_open(
             screen_name,
             true,
-            includes_fade,
-            params)
+            transition_type,
+            screen_params,
+            transition_params)
     
     if _is_debugging_active_screen_stack:
         var new_stack_string := get_active_screen_stack_string()
@@ -152,7 +153,9 @@ func open(
                 ])
 
 
-func close_current_screen(includes_fade := false) -> void:
+func close_current_screen(
+        transition_type := ScreenTransition.DEFAULT,
+        transition_params := {}) -> void:
     assert(!_active_screen_name_stack.empty())
     
     var previous_name := get_current_screen_name()
@@ -172,8 +175,9 @@ func close_current_screen(includes_fade := false) -> void:
     _set_screen_is_open(
             previous_name,
             false,
-            includes_fade,
-            null)
+            transition_type,
+            {},
+            transition_params)
     
     if _is_debugging_active_screen_stack:
         var new_stack_string := get_active_screen_stack_string()
@@ -200,8 +204,9 @@ func get_current_screen_name() -> String:
 func _set_screen_is_open(
         screen_name: String,
         is_open: bool,
-        includes_fade := false,
-        params = null) -> void:
+        transition_type := ScreenTransition.DEFAULT,
+        screen_params := {},
+        transition_params := {}) -> void:
     var previous_screen := current_screen
     var previous_screen_container := current_screen_container
     
@@ -269,70 +274,12 @@ func _set_screen_is_open(
         next_screen_container.z_index = \
                 -100 + _active_screen_name_stack.find(next_screen_name)
     
-    if !is_first_screen:
-        var start_position: Vector2
-        var end_position: Vector2
-        var tween_screen_container: ScreenContainer
-        if screen_name == "game":
-            start_position = Vector2.ZERO
-            end_position = Vector2(
-                    -get_viewport().size.x,
-                    0.0)
-            tween_screen_container = previous_screen_container
-        elif next_screen_was_already_shown:
-            start_position = Vector2(
-                    get_viewport().size.x,
-                    0.0)
-            end_position = Vector2.ZERO
-            tween_screen_container = next_screen_container
-            var swap_z_index := next_screen_container.z_index
-            next_screen_container.z_index = previous_screen_container.z_index
-            previous_screen_container.z_index = swap_z_index
-        elif is_open:
-            start_position = Vector2(
-                    get_viewport().size.x,
-                    0.0)
-            end_position = Vector2.ZERO
-            tween_screen_container = next_screen_container
-        else:
-            start_position = Vector2.ZERO
-            end_position = Vector2(
-                    get_viewport().size.x,
-                    0.0)
-            tween_screen_container = previous_screen_container
-        
-        var slide_duration := SCREEN_SLIDE_DURATION
-        var slide_delay := 0.0
-        if includes_fade:
-            fade()
-            slide_duration = SCREEN_SLIDE_DURATION / 2.0
-            slide_delay = (SCREEN_FADE_DURATION - slide_duration) / 2.0
-        
-        tween_screen_container.position = start_position
-        Gs.time.tween_property(
-                tween_screen_container,
-                "position",
-                start_position,
-                end_position,
-                SCREEN_SLIDE_DURATION,
-                "ease_in_out",
-                slide_delay,
-                TimeType.APP_PHYSICS,
-                funcref(self, "_on_screen_slide_completed"),
-                [previous_screen_container, next_screen_container])
-    else:
-        _on_screen_slide_completed(
-                null,
-                "",
-                previous_screen_container,
-                next_screen_container)
-    
     if previous_screen_container != null:
         previous_screen_container._on_deactivated(next_screen_container)
         previous_screen_container.pause_mode = Node.PAUSE_MODE_STOP
     
     if next_screen_container != null:
-        next_screen.set_params(params)
+        next_screen.set_params(screen_params)
         
         # FIXME: ---------------------
         # - Implement a way to remember scroll position?
@@ -343,39 +290,20 @@ func _set_screen_is_open(
 #            next_screen._scroll_to_top()
         
         Gs.analytics.screen(next_screen_name)
-
-
-func _on_screen_slide_completed(
-        _object: Object,
-        _key: NodePath,
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer) -> void:
-    if is_instance_valid(previous_screen_container):
-        previous_screen_container.visible = false
-        previous_screen_container.position = Vector2.ZERO
-        if !previous_screen_container.contents.is_always_alive:
-            previous_screen_container._destroy()
-    if is_instance_valid(next_screen_container):
-        if next_screen_container == current_screen_container:
-            next_screen_container.visible = true
-            next_screen_container.position = Vector2.ZERO
-            next_screen_container.pause_mode = Node.PAUSE_MODE_PROCESS
-            next_screen_container._on_activated(previous_screen_container)
-        else:
-            # We already navigated to a different screen while this one was
-            # activating.
-            if !next_screen_container.contents.is_always_alive:
-                next_screen_container._destroy()
-
-
-func fade() -> void:
-    fade_transition.visible = true
-    fade_transition.fade()
-
-
-func _on_fade_complete() -> void:
-    if !fade_transition.is_transitioning:
-        fade_transition.visible = false
+    
+    if is_first_screen:
+        transition_handler.on_transition_completed(
+                null,
+                "",
+                previous_screen_container,
+                next_screen_container)
+    else:
+        transition_handler.start_transition(
+                previous_screen_container,
+                next_screen_container,
+                transition_type,
+                transition_params,
+                is_open or next_screen_was_already_shown)
 
 
 func splash() -> void:

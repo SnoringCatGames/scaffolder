@@ -56,25 +56,51 @@ size = Vector2( 0, 10 )
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 8.0
 margin_right = 1024.0
-margin_bottom = 8.0
+margin_bottom = 58.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="UnlockedNewLevelLabel" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1024.0
+margin_bottom = 14.0
+text = "You unlocked a new level!"
+valign = 0
+
+[node name="WasBestPlaythroughLabel" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 18.0
+margin_right = 1024.0
+margin_bottom = 32.0
+text = "That's a new high score!"
+valign = 0
+
+[node name="WasFastestPlaythroughLabel" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 36.0
+margin_right = 1024.0
+margin_bottom = 50.0
+text = "That's your fastest time!"
+valign = 0
 
 [node name="Spacer6" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 512.0
-margin_top = 12.0
+margin_top = 62.0
 margin_right = 512.0
-margin_bottom = 12.0
+margin_bottom = 62.0
 size = Vector2( 0, 10 )
 
 [node name="AccordionPanel" parent="VBoxContainer" instance=ExtResource( 11 )]
 margin_left = 0.0
-margin_top = 16.0
+margin_top = 66.0
 margin_right = 1024.0
-margin_bottom = 16.0
+margin_bottom = 66.0
 header_text = "Details"
 is_header_text_centered = true
 
@@ -86,16 +112,16 @@ margin_bottom = 4.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 512.0
-margin_top = 20.0
+margin_top = 70.0
 margin_right = 512.0
-margin_bottom = 20.0
+margin_bottom = 70.0
 size = Vector2( 0, 20 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_left = 429.0
-margin_top = 24.0
-margin_right = 594.0
-margin_bottom = 158.0
+margin_left = 504.0
+margin_top = 74.0
+margin_right = 520.0
+margin_bottom = 118.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 16
@@ -104,44 +130,16 @@ __meta__ = {
 }
 
 [node name="SelectLevelButton" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 10 )]
-margin_left = 82.0
-margin_right = 82.0
+margin_left = 8.0
+margin_right = 8.0
 texture = ExtResource( 7 )
 texture_scale = Vector2( 2, 2 )
 size_override = Vector2( 128, 88 )
 
-[node name="UnlockedNewLevelLabel" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 30.0
-margin_right = 165.0
-margin_bottom = 44.0
-text = "You unlocked a new level!"
-valign = 0
-
-[node name="WasBestPlaythroughLabel" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 60.0
-margin_right = 165.0
-margin_bottom = 74.0
-text = "That's a new high score!"
-valign = 0
-
-[node name="WasFastestPlaythroughLabel" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 90.0
-margin_right = 165.0
-margin_bottom = 104.0
-text = "That's your fastest time!"
-valign = 0
-
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
-margin_left = 74.0
-margin_top = 120.0
-margin_right = 90.0
-margin_bottom = 134.0
+margin_top = 30.0
+margin_right = 16.0
+margin_bottom = 44.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 16
@@ -160,9 +158,9 @@ size_override = Vector2( 56, 56 )
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 512.0
-margin_top = 162.0
+margin_top = 122.0
 margin_right = 512.0
-margin_bottom = 162.0
+margin_bottom = 122.0
 size = Vector2( 0, 30 )
 
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/SelectLevelButton" to="." method="_on_SelectLevelButton_pressed"]
