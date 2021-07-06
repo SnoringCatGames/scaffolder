@@ -177,7 +177,7 @@ func _on_description_button_pressed(
         description: String) -> void:
     Gs.nav.open(
             "notification",
-            false,
+            ScreenTransition.DEFAULT,
             {
                 header_text = label,
                 is_back_button_shown = true,

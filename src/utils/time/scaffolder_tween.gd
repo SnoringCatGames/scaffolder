@@ -91,6 +91,22 @@ func stop_all() -> bool:
         return true
 
 
+func trigger_completed() -> void:
+    if _active_sub_tweens.empty():
+        return
+    var sub_tween: _SubTween = _active_sub_tweens[0]
+    
+    var connections := get_signal_connection_list("tween_completed")
+    if connections.empty():
+        return
+    var connection: Dictionary = connections[0]
+    
+    var args := [sub_tween.object, sub_tween.key]
+    Gs.utils.concat(args, connection.binds)
+    
+    connection.target.callv(connection.method, args)
+
+
 func interpolate_method(
         object: Object,
         key: String,

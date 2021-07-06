@@ -31,4 +31,7 @@ func get_button() -> ScaffolderButton:
 
 
 func _on_PlayButton_pressed() -> void:
-    Gs.nav.open("loading", false, {level_id = level_id})
+    Gs.nav.open(
+            "loading",
+            ScreenTransition.DEFAULT,
+            {level_id = level_id})

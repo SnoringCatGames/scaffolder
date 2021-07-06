@@ -173,7 +173,7 @@ func _on_SettingsButton_pressed() -> void:
                 "\n\nAre you sure you want to restart the level?")
         Gs.nav.open(
                 "notification",
-                false,
+                ScreenTransition.DEFAULT,
                 {
                     header_text = "Reset level?",
                     is_back_button_shown = true,
