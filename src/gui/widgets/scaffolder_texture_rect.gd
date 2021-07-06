@@ -20,7 +20,7 @@ func _ready() -> void:
     _set_texture_scale(texture_scale)
 
 
-func update_gui_scale() -> bool:
+func _on_gui_scale_changed() -> bool:
     _update_size()
     return true
 

@@ -27,7 +27,7 @@ func _ready() -> void:
     _update()
 
 
-func update_gui_scale() -> bool:
+func _on_gui_scale_changed() -> bool:
     _update()
     return true
 

@@ -18,10 +18,10 @@ func _ready() -> void:
             true,
             true,
             0)
-    update_gui_scale()
+    _on_gui_scale_changed()
 
 
-func update_gui_scale() -> bool:
+func _on_gui_scale_changed() -> bool:
     var size: Vector2 = \
             Gs.gui.hud_manifest.hud_key_value_box_size * Gs.gui.scale
     var spacer_size: float = SEPARATION * Gs.gui.scale

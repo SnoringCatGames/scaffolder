@@ -46,10 +46,10 @@ func _init_children() -> void:
     rect_min_size.x = Gs.gui.screen_body_width
     set_meta("gs_rect_min_size", rect_min_size)
     
-    update_gui_scale()
+    _on_gui_scale_changed()
 
 
-func update_gui_scale() -> bool:
+func _on_gui_scale_changed() -> bool:
     var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
     
     rect_min_size = original_rect_min_size * Gs.gui.scale
@@ -68,7 +68,7 @@ func update_gui_scale() -> bool:
     accordion.set_meta("gs_rect_min_size", accordion.rect_min_size)
     body.set_meta("gs_rect_min_size", accordion.rect_min_size)
     
-    accordion.update_gui_scale()
+    accordion._on_gui_scale_changed()
     
     return true
 

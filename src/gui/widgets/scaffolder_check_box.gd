@@ -25,15 +25,15 @@ func _ready() -> void:
     _set_pressed(pressed)
     _set_disabled(disabled)
     
-    update_gui_scale()
+    _on_gui_scale_changed()
 
 
-func update_gui_scale() -> bool:
-    call_deferred("_deferred_update_gui_scale")
+func _on_gui_scale_changed() -> bool:
+    call_deferred("_deferred_on_gui_scale_changed")
     return true
 
 
-func _deferred_update_gui_scale() -> void:
+func _deferred_on_gui_scale_changed() -> void:
     $CheckBox.rect_size = Vector2(
             Gs.gui.current_checkbox_icon_size,
             Gs.gui.current_checkbox_icon_size)
@@ -72,13 +72,13 @@ func _set_disabled(value: bool) -> void:
 func _set_scale(value: float) -> void:
     scale = value
     if _is_ready:
-        update_gui_scale()
+        _on_gui_scale_changed()
 
 
 func _set_size_override(value: Vector2) -> void:
     size_override = value
     if _is_ready:
-        update_gui_scale()
+        _on_gui_scale_changed()
 
 
 func _on_CheckBox_pressed() -> void:

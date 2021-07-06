@@ -20,8 +20,8 @@ func _ready() -> void:
     _update_size()
 
 
-func update_gui_scale() -> bool:
-    $ScaffolderTextureRect.update_gui_scale()
+func _on_gui_scale_changed() -> bool:
+    $ScaffolderTextureRect._on_gui_scale_changed()
     _update_size()
     return true
 

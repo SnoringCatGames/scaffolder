@@ -61,7 +61,7 @@ func update_size(header_size: Vector2) -> bool:
             original_hint_rect_min_size * Gs.gui.scale
     $HintWrapper/Hint.rect_size = header_size
     $HintWrapper.rect_size = header_size
-    $LockAnimation.update_gui_scale()
+    $LockAnimation._on_gui_scale_changed()
     
     rect_size = header_size
     

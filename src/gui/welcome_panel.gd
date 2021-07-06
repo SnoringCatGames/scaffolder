@@ -65,10 +65,10 @@ func _ready() -> void:
             !Gs.gui.welcome_panel_manifest.is_subheader_shown:
         $VBoxContainer/Subheader.visible = false
     
-    update_gui_scale()
+    _on_gui_scale_changed()
 
 
-func update_gui_scale() -> bool:
+func _on_gui_scale_changed() -> bool:
     for child in $VBoxContainer.get_children():
         if child is Control:
             Gs.utils.scale_gui_recursively(child)
