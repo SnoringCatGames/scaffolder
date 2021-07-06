@@ -423,6 +423,17 @@ func _on_is_open_tween_completed(
     rect_clip_content = !is_open
 
 
+func _on_screen_visible() -> void:
+    if !is_instance_valid(_projected_control):
+        return
+    
+    # If the containing screen has `visible = false`, then Godot will tell us
+    # the that height of the projected content is 0.0. So we must wait until
+    # the accordion is visible before calculating height.
+    var open_ratio := 1.0 if is_open else 0.0
+    _interpolate_height(open_ratio)
+
+
 func _get_configuration_warning() -> String:
     return configuration_warning
 

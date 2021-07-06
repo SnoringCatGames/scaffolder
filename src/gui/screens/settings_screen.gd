@@ -7,13 +7,13 @@ const SETTINGS_GROUP_SCENE := \
         preload("res://addons/scaffolder/src/gui/settings_group.tscn")
 
 
-func _on_activated(previous_screen: Screen) -> void:
-    ._on_activated(previous_screen)
+func _on_transition_in_started(previous_screen: Screen) -> void:
+    ._on_transition_in_started(previous_screen)
     _instantiate_settings_groups()
 
 
-func _on_deactivated(next_screen: Screen) -> void:
-    ._on_deactivated(next_screen)
+func _on_transition_out_started(next_screen: Screen) -> void:
+    ._on_transition_out_started(next_screen)
     _clear_groups()
     if Gs.level != null and \
             next_screen is PauseScreen and \

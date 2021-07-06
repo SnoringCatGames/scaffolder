@@ -158,16 +158,14 @@ func _on_level_quit_sound_finished(level_finished: bool) -> void:
             Gs.audio_manifest.level_end_sound_lose
     Gs.audio.get_sound_player(sound_name) \
             .disconnect("finished", self, "_on_level_quit_sound_finished")
-    if !Gs.level_session.is_restarting:
-        var is_rate_app_screen_next: bool = \
-                Gs.gui.is_rate_app_shown and \
-                _get_is_rate_app_screen_next()
-        var next_screen := \
-                "rate_app" if \
-                is_rate_app_screen_next else \
-                "game_over"
-        Gs.nav.open(next_screen, ScreenTransition.FANCY)
-    _destroy()
+    var is_rate_app_screen_next: bool = \
+            Gs.gui.is_rate_app_shown and \
+            _get_is_rate_app_screen_next()
+    var next_screen := \
+            "rate_app" if \
+            is_rate_app_screen_next else \
+            "game_over"
+    Gs.nav.open(next_screen, ScreenTransition.FANCY)
 
 
 func get_music_name() -> String:

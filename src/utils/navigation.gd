@@ -248,8 +248,6 @@ func _set_screen_is_open(
     var is_first_screen := is_open and _active_screen_name_stack.empty()
     
     get_tree().paused = is_paused
-    if is_instance_valid(next_screen_container):
-        next_screen_container.visible = true
     
     var next_screen_was_already_shown := false
     if is_open:
@@ -262,21 +260,6 @@ func _set_screen_is_open(
     var index := _active_screen_name_stack.find(next_screen_name)
     while index < _active_screen_name_stack.size() - 1:
         _active_screen_name_stack.pop_back()
-    
-    # Ensure the correct screen shows on top.
-    if previous_screen_container != null:
-        previous_screen_container.z_index = \
-                -100 + _active_screen_name_stack.find(
-                        previous_screen_name) if \
-                _active_screen_name_stack.has(previous_screen_name) else \
-                -100 + _active_screen_name_stack.size()
-    if next_screen_container != null:
-        next_screen_container.z_index = \
-                -100 + _active_screen_name_stack.find(next_screen_name)
-    
-    if previous_screen_container != null:
-        previous_screen_container._on_deactivated(next_screen_container)
-        previous_screen_container.pause_mode = Node.PAUSE_MODE_STOP
     
     if next_screen_container != null:
         next_screen.set_params(screen_params)
@@ -292,11 +275,7 @@ func _set_screen_is_open(
         Gs.analytics.screen(next_screen_name)
     
     if is_first_screen:
-        transition_handler.on_transition_completed(
-                null,
-                "",
-                previous_screen_container,
-                next_screen_container)
+        transition_handler.show_first_screen(next_screen_container)
     else:
         transition_handler.start_transition(
                 previous_screen_container,

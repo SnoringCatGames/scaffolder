@@ -3,8 +3,8 @@ class_name PauseScreen
 extends Screen
 
 
-func _on_activated(previous_screen: Screen) -> void:
-    ._on_activated(previous_screen)
+func _on_transition_in_started(previous_screen: Screen) -> void:
+    ._on_transition_in_started(previous_screen)
     $VBoxContainer/LabeledControlList.items = _get_items()
     _give_button_focus($VBoxContainer/VBoxContainer/ResumeButton)
 
