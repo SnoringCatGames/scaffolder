@@ -39,14 +39,24 @@ func _on_resized() -> void:
     Gs.time.set_timeout(funcref(self, "_update_viewport_region_helper"), 1.0)
 
 
-func _on_activated(previous_screen: Screen) -> void:
-    ._on_activated(previous_screen)
+func _on_transition_in_started(previous_screen: Screen) -> void:
+    ._on_transition_in_started(previous_screen)
     
     if !_is_first_activation_with_level and \
             is_instance_valid(Gs.level):
         Gs.level.on_unpause()
     
     _is_first_activation_with_level = false
+    
+    if !Gs.level_session.has_started:
+        Gs.level._start()
+
+
+func _on_transition_out_ended(next_screen: Screen) -> void:
+    ._on_transition_out_ended(next_screen)
+    
+    if next_screen.screen_name != "pause":
+        Gs.level._destroy()
 
 
 func _update_viewport_region_helper() -> void:

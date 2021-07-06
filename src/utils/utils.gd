@@ -606,6 +606,15 @@ func record_gui_original_size_recursively(control: Control) -> void:
             record_gui_original_size_recursively(child)
 
 
+func notify_on_screen_visible_recursively(control: CanvasItem) -> void:
+    if control.has_method("_on_screen_visible"):
+        control._on_screen_visible()
+    
+    for child in control.get_children():
+        if child is CanvasItem:
+            notify_on_screen_visible_recursively(child)
+
+
 func get_node_vscroll_position(
         scroll_container: ScrollContainer,
         control: Control,

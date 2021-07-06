@@ -34,8 +34,8 @@ func _ready() -> void:
         item.connect("toggled", self, "_on_item_toggled", [item])
 
 
-func _on_activated(previous_screen: Screen) -> void:
-    ._on_activated(previous_screen)
+func _on_transition_in_started(previous_screen: Screen) -> void:
+    ._on_transition_in_started(previous_screen)
     _update()
 
 

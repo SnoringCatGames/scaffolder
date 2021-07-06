@@ -44,7 +44,7 @@ func update_gui_scale() -> bool:
     return false
 
 
-func _on_activated(previous_screen: Screen) -> void:
+func _on_transition_in_started(previous_screen: Screen) -> void:
     _give_button_focus(_get_focused_button())
     if get_is_mouse_handled_by_gui():
         Gs.utils.set_mouse_filter_recursively(
@@ -52,7 +52,15 @@ func _on_activated(previous_screen: Screen) -> void:
                 Control.MOUSE_FILTER_PASS)
 
 
-func _on_deactivated(next_screen: Screen) -> void:
+func _on_transition_out_started(next_screen: Screen) -> void:
+    pass
+
+
+func _on_transition_in_ended(previous_screen: Screen) -> void:
+    pass
+
+
+func _on_transition_out_ended(next_screen: Screen) -> void:
     pass
 
 
@@ -74,7 +82,7 @@ func _unhandled_key_input(event: InputEventKey) -> void:
         focused_button.press()
     elif (event.scancode == KEY_ESCAPE) and \
             event.pressed and \
-            container.nav_bar != null and \
+            is_instance_valid(container.nav_bar) and \
             container.nav_bar.shows_back and \
             Gs.nav.current_screen == self:
         # Go back when pressing escape.
@@ -85,7 +93,7 @@ func _input(event: InputEvent) -> void:
     if event is InputEventMouseButton and \
             event.pressed and \
             event.button_index == BUTTON_XBUTTON1 and \
-            container.nav_bar != null and \
+            is_instance_valid(container.nav_bar) and \
             container.nav_bar.shows_back and \
             Gs.nav.current_screen == self:
         # Go back when pressing the mouse-back button.

@@ -112,17 +112,43 @@ func _update() -> void:
     contents.rect_min_size = contents_size
 
 
-func _on_activated(previous_screen_container: ScreenContainer) -> void:
+func _on_transition_in_started(
+        previous_screen_container: ScreenContainer) -> void:
     var previous_screen := \
             previous_screen_container.contents if \
             is_instance_valid(previous_screen_container) else \
             null
-    contents._on_activated(previous_screen)
+    contents._on_transition_in_started(previous_screen)
 
 
-func _on_deactivated(next_screen_container: ScreenContainer) -> void:
+func _on_transition_out_started(
+        next_screen_container: ScreenContainer) -> void:
     var next_screen := \
             next_screen_container.contents if \
             is_instance_valid(next_screen_container) else \
             null
-    contents._on_deactivated(next_screen)
+    contents._on_transition_out_started(next_screen)
+
+
+func _on_transition_in_ended(
+        previous_screen_container: ScreenContainer) -> void:
+    var previous_screen := \
+            previous_screen_container.contents if \
+            is_instance_valid(previous_screen_container) else \
+            null
+    contents._on_transition_in_ended(previous_screen)
+
+
+func _on_transition_out_ended(
+        next_screen_container: ScreenContainer) -> void:
+    var next_screen := \
+            next_screen_container.contents if \
+            is_instance_valid(next_screen_container) else \
+            null
+    contents._on_transition_out_ended(next_screen)
+
+
+func set_visible(value: bool) -> void:
+    .set_visible(value)
+    if value:
+        Gs.utils.notify_on_screen_visible_recursively(self)
