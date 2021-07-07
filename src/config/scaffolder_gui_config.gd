@@ -42,11 +42,6 @@ const DEFAULT_HUD_KEY_VALUE_LIST_PATH := \
 const DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH := \
         "res://addons/scaffolder/src/gui/hud/hud_key_value_box_nine_patch_rect.tscn"
 
-const DEFAULT_OVERLAY_MASK_TRANSITION_FADE_IN_TEXTURE_PATH := \
-        "res://addons/scaffolder/assets/images/mask_transition_in.png"
-const DEFAULT_OVERLAY_MASK_TRANSITION_FADE_OUT_TEXTURE_PATH := \
-        "res://addons/scaffolder/assets/images/mask_transition_out.png"
-
 const MIN_GUI_SCALE := 0.2
 
 const HUD_KEY_VALUE_BOX_DEFAULT_SIZE := Vector2(256.0, 48.0)
@@ -81,9 +76,6 @@ var DEFAULT_SCREEN_SCENES := [
     preload("res://addons/scaffolder/src/gui/screens/settings_screen.tscn"),
     preload("res://addons/scaffolder/src/gui/screens/third_party_licenses_screen.tscn"),
 ]
-
-const OVERLAY_MASK_TRANSITION_SCREEN_SCENE := \
-        preload("res://addons/scaffolder/src/gui/overlay_mask_transition.tscn")
 
 var DEFAULT_WELCOME_PANEL_MANIFEST := {
 #    header = Gs.app_metadata.app_name,
@@ -221,11 +213,6 @@ var loading_image_scene: PackedScene
 var welcome_panel_scene: PackedScene
 var debug_panel_scene: PackedScene
 
-var overlay_mask_transition_fade_in_texture := \
-        preload(DEFAULT_OVERLAY_MASK_TRANSITION_FADE_IN_TEXTURE_PATH)
-var overlay_mask_transition_fade_out_texture := \
-        preload(DEFAULT_OVERLAY_MASK_TRANSITION_FADE_OUT_TEXTURE_PATH)
-
 var theme: Theme
 
 var fonts: Dictionary
@@ -303,7 +290,15 @@ func amend_manifest(manifest: Dictionary) -> void:
         manifest.screen_manifest = {
             inclusions = [],
             exclusions = [],
-            overlay_mask_transition = OVERLAY_MASK_TRANSITION_SCREEN_SCENE,
+            overlay_mask_transition_class = OverlayMaskTransition,
+            screen_mask_transition_class = ScreenMaskTransition,
+            default_transition_type = ScreenTransition.FADE,
+            fancy_transition_type = ScreenTransition.SCREEN_MASK,
+            overlay_mask_transition_color = Color("#111111"),
+            overlay_mask_transition_uses_pixel_snap = false,
+            overlay_mask_transition_smooth_size = 0.2,
+            screen_mask_transition_uses_pixel_snap = true,
+            screen_mask_transition_smooth_size = 0.0,
         }
     if !manifest.has("welcome_panel_manifest"):
         manifest.welcome_panel_manifest = DEFAULT_WELCOME_PANEL_MANIFEST
@@ -366,10 +361,6 @@ func register_manifest(manifest: Dictionary) -> void:
         self.welcome_panel_scene = manifest.welcome_panel_scene
     if manifest.has("debug_panel_scene"):
         self.debug_panel_scene = manifest.debug_panel_scene
-    if manifest.has("overlay_mask_transition_fade_in_texture"):
-        self.overlay_mask_transition_fade_in_texture = manifest.overlay_mask_transition_fade_in_texture
-    if manifest.has("overlay_mask_transition_fade_out_texture"):
-        self.overlay_mask_transition_fade_out_texture = manifest.overlay_mask_transition_fade_out_texture
     
     if manifest.has("default_camera_zoom"):
         self.default_camera_zoom = manifest.default_camera_zoom

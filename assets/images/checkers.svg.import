@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mask_transition_out.png-5bc8b0626103494b73d97c4632956c87.stex"
+path="res://.import/checkers.svg-066604be1d4f4645e12569b44982819d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/mask_transition_out.png"
-dest_files=[ "res://.import/mask_transition_out.png-5bc8b0626103494b73d97c4632956c87.stex" ]
+source_file="res://addons/scaffolder/assets/images/checkers.svg"
+dest_files=[ "res://.import/checkers.svg-066604be1d4f4645e12569b44982819d.stex" ]
 
 [params]
 

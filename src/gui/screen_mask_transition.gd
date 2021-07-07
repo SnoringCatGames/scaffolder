@@ -1,30 +1,29 @@
-class_name OverlayMaskTransition
+class_name ScreenMaskTransition
 extends Node
 
 
 signal completed(previous_screen_container, next_screen_container)
 
 var SHADER := \
-        preload("res://addons/scaffolder/src/gui/overlay_mask_transition.shader")
+        preload("res://addons/scaffolder/src/gui/screen_mask_transition.shader")
 
 var _tween_id: int
 var is_transitioning := false
 
-var duration := INF
-
-var color := Color.black setget _set_color
 var pixel_snap := true setget _set_pixel_snap
 var smooth_size := 0.0 setget _set_smooth_size
 
-var color_rect: ColorRect
+var sprite: Sprite
 var material: ShaderMaterial
+var mask_texture: ImageTexture
 
+var active_screen_container: ScreenContainer
 var previous_screen_container: ScreenContainer
 var next_screen_container: ScreenContainer
 
 
 func _init() -> void:
-    name = "OverlayMaskTransition"
+    name = "ScreenMaskTransition"
 
 
 func _ready() -> void:
@@ -33,6 +32,14 @@ func _ready() -> void:
     
     material.set_shader_param("smooth_size", smooth_size)
     material.set_shader_param("pixel_snap", pixel_snap)
+    
+    var flipped_image: Image = \
+            Gs.nav.transition_handler.screen_mask_transition_fade_texture.get_data()
+    flipped_image.flip_y()
+    mask_texture = ImageTexture.new()
+    mask_texture.create_from_image(flipped_image)
+    material.set_shader_param("mask", mask_texture)
+    material.set_shader_param("mask_size", mask_texture.get_size())
     
     _set_cutoff(0)
     
@@ -45,8 +52,7 @@ func _ready() -> void:
 
 func _on_resized() -> void:
     var viewport_size := get_viewport().size
-    var mask_size: Vector2 = \
-            Gs.nav.transition_handler.overlay_mask_transition_fade_in_texture.get_size()
+    var mask_size := mask_texture.get_size()
     
     var viewport_aspect := viewport_size.x / viewport_size.y
     var mask_aspect := mask_size.x / mask_size.y
@@ -61,62 +67,51 @@ func _on_resized() -> void:
     material.set_shader_param("mask_scale", mask_scale)
     material.set_shader_param("mask_offset", mask_offset)
     
-    if is_instance_valid(color_rect):
-        color_rect.rect_size = viewport_size
+    if is_instance_valid(sprite):
+        sprite.scale = viewport_size / mask_size
 
 
 func start(
+        active_screen_container: ScreenContainer,
+        is_fading_in: bool,
         duration: float,
         previous_screen_container: ScreenContainer,
         next_screen_container: ScreenContainer) -> void:
-    self.duration = duration
+    self.active_screen_container = active_screen_container
     self.previous_screen_container = previous_screen_container
     self.next_screen_container = next_screen_container
+    
     is_transitioning = true
-    color_rect = ColorRect.new()
-    color_rect.rect_size = get_viewport().size
-    color_rect.color = color
-    color_rect.material = material
-    Gs.canvas_layers.layers.top.add_child(color_rect)
-    _fade_out()
-
-
-func _fade_out() -> void:
+    
+    var screenshot_image := get_viewport().get_texture().get_data()
+    var screenshot_texture := ImageTexture.new()
+    screenshot_texture.create_from_image(screenshot_image)
+    sprite = Sprite.new()
+    sprite.texture = screenshot_texture
+    sprite.material = material
+    sprite.centered = false
+    sprite.flip_v = true
+    sprite.scale = get_viewport().size / sprite.texture.get_size()
+    Gs.canvas_layers.layers.top.add_child(sprite)
+    
+    # Fading-in isn't currently supported (we would need to get a screenshot of
+    # the new screen that has yet to be shown).
+    assert(!is_fading_in)
+    var start_cutoff := 0.0
+    var end_cutoff := 1.0
+    
     Gs.time.clear_tween(_tween_id)
-    _set_mask(Gs.nav.transition_handler.overlay_mask_transition_fade_out_texture)
+    
     _tween_id = Gs.time.tween_method(
             self,
             "_set_cutoff",
-            1.0,
-            0.0,
-            duration / 2.0,
-            "ease_in_weak",
-            0.0,
-            TimeType.APP_PHYSICS,
-            funcref(self, "_fade_in"))
-
-
-func _fade_in(
-        _object: Object,
-        _key: NodePath) -> void:
-    Gs.time.clear_tween(_tween_id)
-    _set_mask(Gs.nav.transition_handler.overlay_mask_transition_fade_in_texture)
-    _tween_id = Gs.time.tween_method(
-            self,
-            "_set_cutoff",
-            0.0,
-            1.0,
-            duration / 2.0,
-            "ease_out_weak",
+            start_cutoff,
+            end_cutoff,
+            duration,
+            "ease_in_out",
             0.0,
             TimeType.APP_PHYSICS,
             funcref(self, "_on_tween_complete"))
-
-
-func _set_mask(value: Texture) -> void:
-    material.set_shader_param(
-            "mask",
-            value)
 
 
 func _set_cutoff(value: float) -> void:
@@ -130,9 +125,9 @@ func stop(triggers_completed := false) -> bool:
         return false
     Gs.time.clear_tween(_tween_id)
     is_transitioning = false
-    if is_instance_valid(color_rect):
-        color_rect.queue_free()
-        color_rect = null
+    if is_instance_valid(sprite):
+        sprite.queue_free()
+        sprite = null
     if triggers_completed:
         emit_signal(
                 "completed",
@@ -145,19 +140,13 @@ func _on_tween_complete(
         _object: Object,
         _key: NodePath) -> void:
     is_transitioning = false
-    if is_instance_valid(color_rect):
-        color_rect.queue_free()
-        color_rect = null
+    if is_instance_valid(sprite):
+        sprite.queue_free()
+        sprite = null
     emit_signal(
             "completed",
             previous_screen_container,
             next_screen_container)
-
-
-func _set_color(value: Color) -> void:
-    color = value
-    if is_instance_valid(color_rect):
-        color_rect.color = color
 
 
 func _set_pixel_snap(value: bool) -> void:
