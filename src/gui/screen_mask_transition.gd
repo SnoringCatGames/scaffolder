@@ -10,6 +10,8 @@ var SHADER := \
 var _tween_id: int
 var is_transitioning := false
 
+var texture: Texture setget _set_texture
+var easing := "ease_in"
 var pixel_snap := true setget _set_pixel_snap
 var smooth_size := 0.0 setget _set_smooth_size
 
@@ -32,14 +34,9 @@ func _ready() -> void:
     
     material.set_shader_param("smooth_size", smooth_size)
     material.set_shader_param("pixel_snap", pixel_snap)
-    
-    var flipped_image: Image = \
-            Gs.nav.transition_handler.screen_mask_transition_fade_texture.get_data()
-    flipped_image.flip_y()
-    mask_texture = ImageTexture.new()
-    mask_texture.create_from_image(flipped_image)
-    material.set_shader_param("mask", mask_texture)
-    material.set_shader_param("mask_size", mask_texture.get_size())
+    if is_instance_valid(mask_texture):
+        material.set_shader_param("mask", mask_texture)
+        material.set_shader_param("mask_size", mask_texture.get_size())
     
     _set_cutoff(0)
     
@@ -51,6 +48,9 @@ func _ready() -> void:
 
 
 func _on_resized() -> void:
+    if !is_instance_valid(mask_texture):
+        return
+    
     var viewport_size := get_viewport().size
     var mask_size := mask_texture.get_size()
     
@@ -60,10 +60,14 @@ func _on_resized() -> void:
     var mask_offset: Vector2
     if viewport_aspect > mask_aspect:
         mask_scale = Vector2(1, mask_aspect / viewport_aspect)
-        mask_offset = Vector2(0, mask_aspect / viewport_aspect / 2.0)
+        mask_offset = Vector2(
+                0,
+                (viewport_aspect - mask_aspect) / viewport_aspect / 2.0)
     else:
         mask_scale = Vector2(viewport_aspect / mask_aspect, 1)
-        mask_offset = Vector2(viewport_aspect / mask_aspect / 2.0, 0)
+        mask_offset = Vector2(
+                (mask_aspect - viewport_aspect) / mask_aspect / 2.0,
+                0)
     material.set_shader_param("mask_scale", mask_scale)
     material.set_shader_param("mask_offset", mask_offset)
     
@@ -108,7 +112,7 @@ func start(
             start_cutoff,
             end_cutoff,
             duration,
-            "ease_in_out",
+            easing,
             0.0,
             TimeType.APP_PHYSICS,
             funcref(self, "_on_tween_complete"))
@@ -147,6 +151,23 @@ func _on_tween_complete(
             "completed",
             previous_screen_container,
             next_screen_container)
+
+
+func _set_texture(value: Texture) -> void:
+    texture = value
+    
+    if !is_instance_valid(texture):
+        return
+    
+    var flipped_image: Image = texture.get_data()
+    flipped_image.flip_y()
+    mask_texture = ImageTexture.new()
+    mask_texture.create_from_image(flipped_image)
+    
+    if is_instance_valid(material):
+        material.set_shader_param("mask", mask_texture)
+        material.set_shader_param("mask_size", mask_texture.get_size())
+        _on_resized()
 
 
 func _set_pixel_snap(value: bool) -> void:

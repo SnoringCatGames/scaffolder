@@ -204,7 +204,14 @@ func _on_resized() -> void:
 
 
 func _on_throttled_size_changed() -> void:
-    Gs.logger.print("ScaffolderBootstrap._on_throttled_size_changed")
+    var viewport_size := get_viewport().size
+    Gs.logger.print(
+        (
+            "ScaffolderBootstrap._on_throttled_size_changed: (%.1f,%.1f)"
+        ) % [
+            viewport_size.x,
+            viewport_size.y,
+        ])
     call_deferred("_on_gui_scale_changed")
 
 

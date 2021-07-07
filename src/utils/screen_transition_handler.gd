@@ -5,9 +5,9 @@ extends Node
 # --- Constants ---
 
 const DEFAULT_OVERLAY_MASK_TRANSITION_FADE_IN_TEXTURE_PATH := \
-        "res://addons/scaffolder/assets/images/swipes_mask_transition_in.png"
+        "res://addons/scaffolder/assets/images/radial_mask_transition_in.png"
 const DEFAULT_OVERLAY_MASK_TRANSITION_FADE_OUT_TEXTURE_PATH := \
-        "res://addons/scaffolder/assets/images/swipes_mask_transition_out.png"
+        "res://addons/scaffolder/assets/images/radial_mask_transition_in.png"
 const DEFAULT_SCREEN_MASK_TRANSITION_FADE_TEXTURE_PATH := \
         "res://addons/scaffolder/assets/images/checkers_mask_transition.png"
 
@@ -27,6 +27,12 @@ var slide_transition_duration := 0.3
 var fade_transition_duration := 0.3
 var overlay_mask_transition_duration := 1.2
 var screen_mask_transition_duration := 1.2
+
+var slide_transition_easing := "ease_in_out"
+var fade_transition_easing := "ease_in_out"
+var overlay_mask_transition_fade_in_easing := "ease_out"
+var overlay_mask_transition_fade_out_easing := "ease_in"
+var screen_mask_transition_easing := "ease_in"
 
 var default_transition_type := ScreenTransition.FADE
 var fancy_transition_type := ScreenTransition.SCREEN_MASK
@@ -82,6 +88,22 @@ func register_manifest(screen_manifest: Dictionary) -> void:
     if screen_manifest.has("screen_mask_transition_duration"):
         screen_mask_transition_duration = \
                 screen_manifest.screen_mask_transition_duration
+    
+    if screen_manifest.has("slide_transition_easing"):
+        slide_transition_easing = \
+                screen_manifest.slide_transition_easing
+    if screen_manifest.has("fade_transition_easing"):
+        fade_transition_easing = \
+                screen_manifest.fade_transition_easing
+    if screen_manifest.has("overlay_mask_transition_fade_in_easing"):
+        overlay_mask_transition_fade_in_easing = \
+                screen_manifest.overlay_mask_transition_fade_in_easing
+    if screen_manifest.has("overlay_mask_transition_fade_out_easing"):
+        overlay_mask_transition_fade_out_easing = \
+                screen_manifest.overlay_mask_transition_fade_out_easing
+    if screen_manifest.has("screen_mask_transition_easing"):
+        screen_mask_transition_easing = \
+                screen_manifest.screen_mask_transition_easing
     
     assert(!screen_manifest.has("default_transition_type") or \
             (screen_manifest.default_transition_type != \
@@ -160,6 +182,7 @@ func start_transition(
         is_forward: bool) -> void:
     var transition_method_name: String
     var default_duration: float
+    var default_easing: String
     match transition_type:
         ScreenTransition.DEFAULT:
             start_transition(
@@ -179,23 +202,29 @@ func start_transition(
             return
         ScreenTransition.IMMEDIATE:
             transition_method_name = "_start_immediate_transition"
-            default_duration = 0.0
+            default_duration = INF
+            default_easing = ""
         ScreenTransition.SLIDE:
             transition_method_name = "_start_slide_transition"
             default_duration = slide_transition_duration
+            default_easing = slide_transition_easing
         ScreenTransition.FADE:
             transition_method_name = "_start_fade_transition"
             default_duration = fade_transition_duration
+            default_easing = fade_transition_easing
         ScreenTransition.OVERLAY_MASK:
             transition_method_name = "_start_overlay_mask_transition"
             default_duration = overlay_mask_transition_duration
+            default_easing = ""
         ScreenTransition.SCREEN_MASK:
             transition_method_name = "_start_screen_mask_transition"
             default_duration = screen_mask_transition_duration
+            default_easing = screen_mask_transition_easing
         _:
             Gs.utils.error()
             transition_method_name = "_start_immediate_transition"
             default_duration = INF
+            default_easing = ""
     
     var is_game_screen_next := \
             next_screen_container.contents.screen_name == "game" if \
@@ -206,11 +235,14 @@ func start_transition(
             transition_params.duration if \
             transition_params.has("duration") else \
             default_duration
-    
     var delay: float = \
             transition_params.delay if \
             transition_params.has("delay") else \
             0.0
+    var easing: String = \
+            transition_params.easing if \
+            transition_params.has("easing") else \
+            default_easing
     
     clear_transitions()
     
@@ -231,7 +263,8 @@ func start_transition(
             is_forward,
             is_game_screen_next,
             duration,
-            delay)
+            delay,
+            easing)
 
 
 func _start_immediate_transition(
@@ -241,7 +274,8 @@ func _start_immediate_transition(
         is_forward: bool,
         is_game_screen_next: bool,
         duration: float,
-        delay: float) -> void:
+        delay: float,
+        easing: String) -> void:
     if delay > 0.0:
         _start_immediate_transition_timeout_id = Gs.time.set_timeout( \
                 funcref(self, "_start_immediate_transition"), \
@@ -274,7 +308,8 @@ func _start_slide_transition(
         is_forward: bool,
         is_game_screen_next: bool,
         duration: float,
-        delay: float) -> void:
+        delay: float,
+        easing: String) -> void:
     var tween_screen_container: ScreenContainer
     var start_position: Vector2
     var end_position: Vector2
@@ -320,7 +355,7 @@ func _start_slide_transition(
             start_position,
             end_position,
             duration,
-            "ease_in_out",
+            easing,
             delay,
             TimeType.APP_PHYSICS,
             funcref(self, "_on_transition_completed"),
@@ -334,7 +369,8 @@ func _start_fade_transition(
         is_forward: bool,
         is_game_screen_next: bool,
         duration: float,
-        delay: float) -> void:
+        delay: float,
+        easing: String) -> void:
     var tween_screen_container: ScreenContainer
     var start_opacity: float
     var end_opacity: float
@@ -368,7 +404,7 @@ func _start_fade_transition(
             start_opacity,
             end_opacity,
             duration,
-            "ease_in_out",
+            easing,
             delay,
             TimeType.APP_PHYSICS,
             funcref(self, "_on_transition_completed"),
@@ -382,7 +418,24 @@ func _start_overlay_mask_transition(
         is_forward: bool,
         is_game_screen_next: bool,
         duration: float,
-        delay: float) -> void:
+        delay: float,
+        easing: String) -> void:
+    var fade_out_texture: Texture = \
+            transition_params.fade_out_texture if \
+            transition_params.has("fade_out_texture") else \
+            overlay_mask_transition_fade_out_texture
+    var fade_in_texture: Texture = \
+            transition_params.fade_in_texture if \
+            transition_params.has("fade_in_texture") else \
+            overlay_mask_transition_fade_in_texture
+    var fade_in_easing: String = \
+            transition_params.easing if \
+            transition_params.has("fade_in_easing") else \
+            overlay_mask_transition_fade_in_easing
+    var fade_out_easing: String = \
+            transition_params.easing if \
+            transition_params.has("fade_out_easing") else \
+            overlay_mask_transition_fade_out_easing
     var color: Color = \
             transition_params.color if \
             transition_params.has("color") else \
@@ -396,9 +449,13 @@ func _start_overlay_mask_transition(
             transition_params.has("smooth_size") else \
             overlay_mask_transition_smooth_size
     
+    _overlay_mask_transition.fade_out_texture = fade_out_texture
+    _overlay_mask_transition.fade_in_texture = fade_in_texture
     _overlay_mask_transition.color = color
     _overlay_mask_transition.pixel_snap = pixel_snap
     _overlay_mask_transition.smooth_size = smooth_size
+    _overlay_mask_transition.fade_in_easing = fade_in_easing
+    _overlay_mask_transition.fade_out_easing = fade_out_easing
     
     _update_visibilities(
             previous_screen_container,
@@ -453,7 +510,8 @@ func _start_screen_mask_transition(
         is_forward: bool,
         is_game_screen_next: bool,
         duration: float,
-        delay: float) -> void:
+        delay: float,
+        easing: String) -> void:
     var tween_screen_container: ScreenContainer
     var is_fading_in: bool
     if is_game_screen_next:
@@ -468,6 +526,10 @@ func _start_screen_mask_transition(
         tween_screen_container = previous_screen_container
         is_fading_in = false
     
+    var texture: Texture = \
+            transition_params.texture if \
+            transition_params.has("texture") else \
+            screen_mask_transition_fade_texture
     var pixel_snap: bool = \
             transition_params.pixel_snap if \
             transition_params.has("pixel_snap") else \
@@ -477,8 +539,10 @@ func _start_screen_mask_transition(
             transition_params.has("smooth_size") else \
             screen_mask_transition_smooth_size
     
+    _screen_mask_transition.texture = texture
     _screen_mask_transition.pixel_snap = pixel_snap
     _screen_mask_transition.smooth_size = smooth_size
+    _screen_mask_transition.easing = easing
     
     _update_visibilities(
             previous_screen_container,
