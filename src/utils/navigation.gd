@@ -130,9 +130,10 @@ func open(
             current_screen.screen_name if \
             is_instance_valid(current_screen) else \
             "_"
-    Gs.logger.print("Nav.open: %s => %s" % [
+    Gs.logger.print("Nav.open: %s => %s (%s)" % [
         previous_name,
         screen_name,
+        ScreenTransition.type_to_string(transition_type),
     ])
     
     var old_stack_string := get_active_screen_stack_string()
@@ -165,9 +166,10 @@ func close_current_screen(
             _active_screen_name_stack[previous_index - 1] if \
             previous_index > 0 else \
             "_"
-    Gs.logger.print("Nav.close_current_screen: %s => %s" % [
+    Gs.logger.print("Nav.close_current_screen: %s => %s (%s)" % [
         previous_name,
         next_name,
+        ScreenTransition.type_to_string(transition_type),
     ])
     
     var old_stack_string := get_active_screen_stack_string()

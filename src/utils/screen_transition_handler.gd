@@ -2,14 +2,46 @@ class_name ScreenTransitionHandler
 extends Node
 
 
-const SCREEN_SLIDE_TRANSITION_DURATION := 0.3
-const SCREEN_FADE_TRANSITION_DURATION := 0.3
-const SCREEN_MASK_TRANSITION_DURATION := 1.2
+# --- Constants ---
 
-var _default_transition_type := ScreenTransition.IMMEDIATE
-var _fancy_transition_type := ScreenTransition.OVERLAY_MASK
+const DEFAULT_OVERLAY_MASK_TRANSITION_FADE_IN_TEXTURE_PATH := \
+        "res://addons/scaffolder/assets/images/swipes_mask_transition_in.png"
+const DEFAULT_OVERLAY_MASK_TRANSITION_FADE_OUT_TEXTURE_PATH := \
+        "res://addons/scaffolder/assets/images/swipes_mask_transition_out.png"
+const DEFAULT_SCREEN_MASK_TRANSITION_FADE_TEXTURE_PATH := \
+        "res://addons/scaffolder/assets/images/checkers_mask_transition.png"
+
+# --- Configuration from app manifest ---
+
+var overlay_mask_transition_fade_in_texture := \
+        preload(DEFAULT_OVERLAY_MASK_TRANSITION_FADE_IN_TEXTURE_PATH)
+var overlay_mask_transition_fade_out_texture := \
+        preload(DEFAULT_OVERLAY_MASK_TRANSITION_FADE_OUT_TEXTURE_PATH)
+var screen_mask_transition_fade_texture := \
+        preload(DEFAULT_SCREEN_MASK_TRANSITION_FADE_TEXTURE_PATH)
+
+var overlay_mask_transition_class: GDScript = OverlayMaskTransition
+var screen_mask_transition_class: GDScript = ScreenMaskTransition
+
+var slide_transition_duration := 0.3
+var fade_transition_duration := 0.3
+var overlay_mask_transition_duration := 1.2
+var screen_mask_transition_duration := 1.2
+
+var default_transition_type := ScreenTransition.FADE
+var fancy_transition_type := ScreenTransition.SCREEN_MASK
+
+var overlay_mask_transition_color := Color.black
+var overlay_mask_transition_uses_pixel_snap = true
+var overlay_mask_transition_smooth_size := 0.0
+
+var screen_mask_transition_uses_pixel_snap := true
+var screen_mask_transition_smooth_size := 0.0
+
+# --- Run-time state ---
 
 var _overlay_mask_transition: OverlayMaskTransition
+var _screen_mask_transition: ScreenMaskTransition
 
 var _start_transition_helper_timeout_id := -1
 var _start_immediate_transition_timeout_id := -1
@@ -21,29 +53,92 @@ func _init() -> void:
     Gs.logger.on_global_init(self, "ScreenTransitionHandler")
 
 
+func _destroy() -> void:
+    if is_instance_valid(_overlay_mask_transition):
+        _overlay_mask_transition.queue_free()
+    if is_instance_valid(_screen_mask_transition):
+        _screen_mask_transition.queue_free()
+    queue_free()
+
+
 func register_manifest(screen_manifest: Dictionary) -> void:
-    assert(screen_manifest.has("default_transition_type") and \
-            screen_manifest.default_transition_type != \
+    if screen_manifest.has("overlay_mask_transition_fade_in_texture"):
+        self.overlay_mask_transition_fade_in_texture = \
+                screen_manifest.overlay_mask_transition_fade_in_texture
+    if screen_manifest.has("overlay_mask_transition_fade_out_texture"):
+        self.overlay_mask_transition_fade_out_texture = \
+                screen_manifest.overlay_mask_transition_fade_out_texture
+    if screen_manifest.has("screen_mask_transition_fade_texture"):
+        self.screen_mask_transition_fade_texture = \
+                screen_manifest.screen_mask_transition_fade_texture
+    
+    if screen_manifest.has("slide_transition_duration"):
+        slide_transition_duration = screen_manifest.slide_transition_duration
+    if screen_manifest.has("fade_transition_duration"):
+        fade_transition_duration = screen_manifest.fade_transition_duration
+    if screen_manifest.has("overlay_mask_transition_duration"):
+        overlay_mask_transition_duration = \
+                screen_manifest.overlay_mask_transition_duration
+    if screen_manifest.has("screen_mask_transition_duration"):
+        screen_mask_transition_duration = \
+                screen_manifest.screen_mask_transition_duration
+    
+    assert(!screen_manifest.has("default_transition_type") or \
+            (screen_manifest.default_transition_type != \
                     ScreenTransition.DEFAULT and \
             screen_manifest.default_transition_type != \
-                    ScreenTransition.FANCY)
-    _default_transition_type = screen_manifest.default_transition_type
+                    ScreenTransition.FANCY))
+    if screen_manifest.has("default_transition_type"):
+        default_transition_type = screen_manifest.default_transition_type
     
-    assert(screen_manifest.has("fancy_transition_type") and \
-            screen_manifest.fancy_transition_type != \
+    assert(!screen_manifest.has("fancy_transition_type") or \
+            (screen_manifest.fancy_transition_type != \
                     ScreenTransition.DEFAULT and \
             screen_manifest.fancy_transition_type != \
-                    ScreenTransition.FANCY)
-    _fancy_transition_type = screen_manifest.fancy_transition_type
+                    ScreenTransition.FANCY))
+    if screen_manifest.has("fancy_transition_type"):
+        fancy_transition_type = screen_manifest.fancy_transition_type
     
+    if screen_manifest.has("overlay_mask_transition_class"):
+        overlay_mask_transition_class = \
+                screen_manifest.overlay_mask_transition_class
     _overlay_mask_transition = \
-            screen_manifest.overlay_mask_transition.instance()
-    Gs.canvas_layers.layers.top.add_child(_overlay_mask_transition)
-    _overlay_mask_transition.visible = false
+            screen_manifest.overlay_mask_transition_class.new()
+    assert(_overlay_mask_transition is OverlayMaskTransition)
     _overlay_mask_transition.connect(
             "completed",
             self,
             "_on_overlay_mask_transition_complete")
+    add_child(_overlay_mask_transition)
+    
+    if screen_manifest.has("screen_mask_transition_class"):
+        screen_mask_transition_class = \
+                screen_manifest.screen_mask_transition_class
+    _screen_mask_transition = \
+            screen_manifest.screen_mask_transition_class.new()
+    assert(_screen_mask_transition is ScreenMaskTransition)
+    _screen_mask_transition.connect(
+            "completed",
+            self,
+            "_on_screen_mask_transition_complete")
+    add_child(_screen_mask_transition)
+    
+    if screen_manifest.has("overlay_mask_transition_color"):
+        overlay_mask_transition_color = \
+                screen_manifest.overlay_mask_transition_color
+    if screen_manifest.has("overlay_mask_transition_uses_pixel_snap"):
+        overlay_mask_transition_uses_pixel_snap = \
+                screen_manifest.overlay_mask_transition_uses_pixel_snap
+    if screen_manifest.has("overlay_mask_transition_smooth_size"):
+        overlay_mask_transition_smooth_size = \
+                screen_manifest.overlay_mask_transition_smooth_size
+    
+    if screen_manifest.has("screen_mask_transition_uses_pixel_snap"):
+        screen_mask_transition_uses_pixel_snap = \
+                screen_manifest.screen_mask_transition_uses_pixel_snap
+    if screen_manifest.has("screen_mask_transition_smooth_size"):
+        screen_mask_transition_smooth_size = \
+                screen_manifest.screen_mask_transition_smooth_size
 
 
 func show_first_screen(screen_container: ScreenContainer) -> void:
@@ -70,7 +165,7 @@ func start_transition(
             start_transition(
                     previous_screen_container,
                     next_screen_container,
-                    _default_transition_type,
+                    default_transition_type,
                     transition_params,
                     is_forward)
             return
@@ -78,7 +173,7 @@ func start_transition(
             start_transition(
                     previous_screen_container,
                     next_screen_container,
-                    _fancy_transition_type,
+                    fancy_transition_type,
                     transition_params,
                     is_forward)
             return
@@ -87,16 +182,16 @@ func start_transition(
             default_duration = 0.0
         ScreenTransition.SLIDE:
             transition_method_name = "_start_slide_transition"
-            default_duration = SCREEN_SLIDE_TRANSITION_DURATION
+            default_duration = slide_transition_duration
         ScreenTransition.FADE:
             transition_method_name = "_start_fade_transition"
-            default_duration = SCREEN_FADE_TRANSITION_DURATION
+            default_duration = fade_transition_duration
         ScreenTransition.OVERLAY_MASK:
             transition_method_name = "_start_overlay_mask_transition"
-            default_duration = SCREEN_MASK_TRANSITION_DURATION
+            default_duration = overlay_mask_transition_duration
         ScreenTransition.SCREEN_MASK:
             transition_method_name = "_start_screen_mask_transition"
-            default_duration = SCREEN_MASK_TRANSITION_DURATION
+            default_duration = screen_mask_transition_duration
         _:
             Gs.utils.error()
             transition_method_name = "_start_immediate_transition"
@@ -288,7 +383,22 @@ func _start_overlay_mask_transition(
         is_game_screen_next: bool,
         duration: float,
         delay: float) -> void:
-    _overlay_mask_transition.duration = duration
+    var color: Color = \
+            transition_params.color if \
+            transition_params.has("color") else \
+            overlay_mask_transition_color
+    var pixel_snap: bool = \
+            transition_params.pixel_snap if \
+            transition_params.has("pixel_snap") else \
+            overlay_mask_transition_uses_pixel_snap
+    var smooth_size: float = \
+            transition_params.smooth_size if \
+            transition_params.has("smooth_size") else \
+            overlay_mask_transition_smooth_size
+    
+    _overlay_mask_transition.color = color
+    _overlay_mask_transition.pixel_snap = pixel_snap
+    _overlay_mask_transition.smooth_size = smooth_size
     
     _update_visibilities(
             previous_screen_container,
@@ -297,27 +407,43 @@ func _start_overlay_mask_transition(
             false)
     
     _start_transition_helper_timeout_id = Gs.time.set_timeout( \
-            funcref(self, "_start_overlay_mask_transition_helper"), \
-            delay)
+            funcref(_overlay_mask_transition, "start"), \
+            delay,
+            [
+                duration,
+                previous_screen_container,
+                next_screen_container,
+            ])
     
-    _start_immediate_transition(
+    _start_immediate_transition_timeout_id = Gs.time.set_timeout( \
+            funcref(self, "_on_overlay_mask_transition_middle"), \
+            duration / 2.0 + delay,
+            [
+                previous_screen_container,
+                next_screen_container,
+                is_forward,
+            ])
+
+
+func _on_overlay_mask_transition_middle(
+        previous_screen_container: ScreenContainer,
+        next_screen_container: ScreenContainer,
+        is_forward: bool) -> void:
+    _update_visibilities(
             previous_screen_container,
             next_screen_container,
-            transition_params,
-            is_forward,
-            is_game_screen_next,
-            0.0,
-            duration / 2.0 + delay)
+            false,
+            true)
 
 
-func _start_overlay_mask_transition_helper() -> void:
-    _overlay_mask_transition.visible = true
-    _overlay_mask_transition.start()
-
-
-func _on_overlay_mask_transition_complete() -> void:
-    if !_overlay_mask_transition.is_transitioning:
-        _overlay_mask_transition.visible = false
+func _on_overlay_mask_transition_complete(
+        previous_screen_container: ScreenContainer,
+        next_screen_container: ScreenContainer) -> void:
+    _on_transition_completed(
+            null,
+            "",
+            previous_screen_container,
+            next_screen_container)
 
 
 func _start_screen_mask_transition(
@@ -328,8 +454,81 @@ func _start_screen_mask_transition(
         is_game_screen_next: bool,
         duration: float,
         delay: float) -> void:
-    # FIXME: ----------------
-    pass
+    var tween_screen_container: ScreenContainer
+    var is_fading_in: bool
+    if is_game_screen_next:
+        tween_screen_container = previous_screen_container
+        is_fading_in = false
+    elif is_forward:
+#        tween_screen_container = next_screen_container
+#        is_fading_in = true
+        tween_screen_container = previous_screen_container
+        is_fading_in = false
+    else:
+        tween_screen_container = previous_screen_container
+        is_fading_in = false
+    
+    var pixel_snap: bool = \
+            transition_params.pixel_snap if \
+            transition_params.has("pixel_snap") else \
+            screen_mask_transition_uses_pixel_snap
+    var smooth_size: float = \
+            transition_params.smooth_size if \
+            transition_params.has("smooth_size") else \
+            screen_mask_transition_smooth_size
+    
+    _screen_mask_transition.pixel_snap = pixel_snap
+    _screen_mask_transition.smooth_size = smooth_size
+    
+    _update_visibilities(
+            previous_screen_container,
+            next_screen_container,
+            true,
+            false)
+    _update_z_indices(
+            previous_screen_container,
+            next_screen_container,
+            is_forward)
+    
+    _start_transition_helper_timeout_id = Gs.time.set_timeout( \
+            funcref(self, "_on_screen_mask_transition_start"), \
+            delay, \
+            [
+                tween_screen_container,
+                is_fading_in,
+                duration,
+                previous_screen_container,
+                next_screen_container,
+            ])
+
+
+func _on_screen_mask_transition_start(
+            tween_screen_container: ScreenContainer,
+            is_fading_in: bool,
+            duration: float,
+            previous_screen_container: ScreenContainer,
+            next_screen_container: ScreenContainer) -> void:
+    _screen_mask_transition.start(
+            tween_screen_container,
+            is_fading_in,
+            duration,
+            previous_screen_container,
+            next_screen_container)
+    _update_visibilities(
+            previous_screen_container,
+            next_screen_container,
+            false,
+            true)
+
+
+func _on_screen_mask_transition_complete(
+        previous_screen_container: ScreenContainer,
+        next_screen_container: ScreenContainer) -> void:
+    _on_transition_completed(
+            null,
+            "",
+            previous_screen_container,
+            next_screen_container)
 
 
 func _update_visibilities(
@@ -394,3 +593,5 @@ func clear_transitions() -> void:
     Gs.time.clear_timeout(_start_immediate_transition_timeout_id, true)
     Gs.time.clear_tween(_slide_transition_tween_id, true)
     Gs.time.clear_tween(_fade_transition_tween_id, true)
+    _overlay_mask_transition.stop(true)
+    _screen_mask_transition.stop(true)
