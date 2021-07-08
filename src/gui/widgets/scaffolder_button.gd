@@ -3,7 +3,7 @@ class_name ScaffolderButton, "res://addons/scaffolder/assets/images/editor_icons
 extends Button
 
 
-const SHINE_DURATION := 0.35
+const SHINE_DURATION := 0.4
 const SHINE_INTERVAL := 3.5
 const SHINE_SCALE := Vector2(1.0, 1.0)
 const COLOR_PULSE_DURATION := 1.2

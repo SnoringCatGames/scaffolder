@@ -2,17 +2,16 @@ class_name LevelSelectItemBody
 extends Node
 
 
-var go_icon_scale_multiplier := 0.75
+var go_scale_multiplier := 0.75
 
 var level_id: String
 
 
 func _ready() -> void:
-    $PlayButton.texture = Gs.app_metadata.go_icon
+    $PlayButton.texture = Gs.icons.go_normal
     $PlayButton.texture_scale = \
-            Vector2(Gs.app_metadata.go_icon_scale,
-                    Gs.app_metadata.go_icon_scale) * \
-            go_icon_scale_multiplier
+            Vector2(Gs.icons.go_scale, Gs.icons.go_scale) * \
+            go_scale_multiplier
 
 
 func update() -> void:

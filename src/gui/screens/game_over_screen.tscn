@@ -1,12 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/game_over_screen.gd" type="Script" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/labeled_control_list/labeled_control_list.tscn" type="PackedScene" id=6]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/go_icon_normal.png" type="Texture" id=7]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/retry_icon_normal.png" type="Texture" id=8]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/home_icon_normal.png" type="Texture" id=9]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_panel.tscn" type="PackedScene" id=11]
 
@@ -132,8 +129,6 @@ __meta__ = {
 [node name="SelectLevelButton" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 10 )]
 margin_left = 8.0
 margin_right = 8.0
-texture = ExtResource( 7 )
-texture_scale = Vector2( 2, 2 )
 size_override = Vector2( 128, 88 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
@@ -145,15 +140,11 @@ size_flags_vertical = 4
 custom_constants/separation = 16
 
 [node name="HomeButton" parent="VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
-texture = ExtResource( 9 )
-texture_scale = Vector2( 2, 2 )
 size_override = Vector2( 56, 56 )
 
 [node name="RetryButton" parent="VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
 margin_left = 16.0
 margin_right = 16.0
-texture = ExtResource( 8 )
-texture_scale = Vector2( 2, 2 )
 size_override = Vector2( 56, 56 )
 
 [node name="Spacer9" parent="VBoxContainer" instance=ExtResource( 5 )]

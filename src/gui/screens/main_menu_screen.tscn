@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/screens/main_menu_screen.gd" type="Script" id=4]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/go_icon_normal.png" type="Texture" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=7]
 
@@ -45,7 +44,6 @@ size = Vector2( 0, 60 )
 [node name="StartGameButton" parent="VBoxContainer" instance=ExtResource( 7 )]
 margin_top = 8.0
 margin_bottom = 22.0
-texture = ExtResource( 5 )
 size_override = Vector2( 160, 80 )
 
 [node name="Spacer5" parent="VBoxContainer" instance=ExtResource( 6 )]

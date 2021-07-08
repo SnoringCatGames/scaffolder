@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/level_select/level_select_item_unlocked_header.gd" type="Script" id=1]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/left_caret_normal.png" type="Texture" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=6]
@@ -57,8 +56,6 @@ margin_top = 12.0
 margin_right = 58.5
 margin_bottom = 28.0
 rect_min_size = Vector2( 11.5, 16 )
-texture = ExtResource( 3 )
-texture_scale = Vector2( 3, 3 )
 
 [node name="Spacer4" parent="HBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0

@@ -3,6 +3,21 @@ class_name PauseScreen
 extends Screen
 
 
+func _ready() -> void:
+    $VBoxContainer/VBoxContainer/ResumeButton \
+            .texture = Gs.icons.play_normal
+    $VBoxContainer/VBoxContainer/ResumeButton \
+            .texture_scale = Vector2(2.0, 2.0)
+    $VBoxContainer/VBoxContainer/HBoxContainer/ExitLevelButton \
+            .texture = Gs.icons.stop_normal
+    $VBoxContainer/VBoxContainer/HBoxContainer/ExitLevelButton \
+            .texture_scale = Vector2(2.0, 2.0)
+    $VBoxContainer/VBoxContainer/HBoxContainer/RestartButton \
+            .texture = Gs.icons.retry_normal
+    $VBoxContainer/VBoxContainer/HBoxContainer/RestartButton \
+            .texture_scale = Vector2(2.0, 2.0)
+
+
 func _on_transition_in_started(previous_screen: Screen) -> void:
     ._on_transition_in_started(previous_screen)
     $VBoxContainer/LabeledControlList.items = _get_items()

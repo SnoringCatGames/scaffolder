@@ -2,7 +2,7 @@ class_name MainMenuScreen
 extends Screen
 
 
-var go_icon_scale_multiplier := 1.0
+var go_scale_multiplier := 1.0
 
 var projected_image: ScaffolderConfiguredImage
 
@@ -18,11 +18,10 @@ func _ready() -> void:
                 true,
                 true)
         projected_image.original_scale = Gs.gui.main_menu_image_scale
-    $VBoxContainer/StartGameButton.texture = Gs.app_metadata.go_icon
+    $VBoxContainer/StartGameButton.texture = Gs.icons.go_normal
     $VBoxContainer/StartGameButton.texture_scale = \
-            Vector2(Gs.app_metadata.go_icon_scale,
-                    Gs.app_metadata.go_icon_scale) * \
-            go_icon_scale_multiplier
+            Vector2(Gs.icons.go_scale, Gs.icons.go_scale) * \
+            go_scale_multiplier
     
     _on_resized()
 
