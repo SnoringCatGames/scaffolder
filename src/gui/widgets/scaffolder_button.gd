@@ -103,6 +103,8 @@ func _update() -> void:
         corner_radius = Gs.styles.button_corner_radius,
         corner_detail = Gs.styles.button_corner_detail,
         shadow_size = Gs.styles.button_shadow_size,
+        border_width = Gs.styles.button_border_width,
+        border_color = Gs.colors.button_border,
     })
     
     $MarginContainer.call_deferred("set", "rect_size", rect_size)

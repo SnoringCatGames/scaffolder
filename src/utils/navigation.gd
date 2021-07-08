@@ -9,7 +9,7 @@ const SCREEN_CONTAINER_SCENE := \
         preload("res://addons/scaffolder/src/gui/screen_container.tscn")
 const SESSION_END_TIMEOUT := 2.0
 
-var transition_handler: ScreenTransitionHandler
+var transitions: ScreenTransitionHandler
 
 var _is_debugging_active_screen_stack := false
 
@@ -51,7 +51,7 @@ func _notification(notification: int) -> void:
 
 
 func close_app() -> void:
-    transition_handler.clear_transitions()
+    transitions.clear_transitions()
     Gs.analytics.end_session()
     Gs.time.set_timeout(
             funcref(self, "_on_session_end"),
@@ -112,13 +112,13 @@ func register_manifest(screen_manifest: Dictionary) -> void:
             screens[screen_name] = screen_container.contents
     
     if screen_manifest.has("screen_transition_handler_class"):
-        transition_handler = \
+        transitions = \
                 screen_manifest.screen_transition_handler_class.new()
-        assert(transition_handler is ScreenTransitionHandler)
+        assert(transitions is ScreenTransitionHandler)
     else:
-        transition_handler = ScreenTransitionHandler.new()
-    add_child(transition_handler)
-    transition_handler.register_manifest(screen_manifest)
+        transitions = ScreenTransitionHandler.new()
+    add_child(transitions)
+    transitions.register_manifest(screen_manifest)
 
 
 func open(
@@ -277,9 +277,9 @@ func _set_screen_is_open(
         Gs.analytics.screen(next_screen_name)
     
     if is_first_screen:
-        transition_handler.show_first_screen(next_screen_container)
+        transitions.show_first_screen(next_screen_container)
     else:
-        transition_handler.start_transition(
+        transitions.start_transition(
                 previous_screen_container,
                 next_screen_container,
                 transition_type,

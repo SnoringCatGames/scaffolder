@@ -704,6 +704,8 @@ func _create_stylebox_flat_scalable_from_config(
         stylebox.border_width_top = config.border_width
         stylebox.border_width_right = config.border_width
         stylebox.border_width_bottom = config.border_width
+    if config.has("border_color"):
+        stylebox.border_color = config.border_color
     if config.has("content_margin"):
         stylebox.content_margin_left = config.content_margin
         stylebox.content_margin_top = config.content_margin

@@ -30,16 +30,25 @@ func init_children() -> void:
         bg_color = Gs.colors.dropdown_normal,
         corner_radius = Gs.styles.dropdown_corner_radius,
         corner_detail = Gs.styles.dropdown_corner_detail,
+        shadow_size = Gs.styles.dropdown_shadow_size,
+        border_width = Gs.styles.dropdown_border_width,
+        border_color = Gs.colors.dropdown_border,
     })
     hover_stylebox = Gs.utils.create_stylebox_flat_scalable({
         bg_color = Gs.colors.dropdown_hover,
         corner_radius = Gs.styles.dropdown_corner_radius,
         corner_detail = Gs.styles.dropdown_corner_detail,
+        shadow_size = Gs.styles.dropdown_shadow_size,
+        border_width = Gs.styles.dropdown_border_width,
+        border_color = Gs.colors.dropdown_border,
     })
     pressed_stylebox = Gs.utils.create_stylebox_flat_scalable({
         bg_color = Gs.colors.dropdown_pressed,
         corner_radius = Gs.styles.dropdown_corner_radius,
         corner_detail = Gs.styles.dropdown_corner_detail,
+        shadow_size = Gs.styles.dropdown_shadow_size,
+        border_width = Gs.styles.dropdown_border_width,
+        border_color = Gs.colors.dropdown_border,
     })
     
     add_stylebox_override("normal", normal_stylebox)
