@@ -5,7 +5,7 @@ extends Screen
 
 const ACHIEVEMENT_COLOR := Color("fff175")
 
-var go_icon_scale_multiplier := 1.0
+var go_scale_multiplier := 1.0
 
 var projected_image: ScaffolderConfiguredImage
 
@@ -21,12 +21,19 @@ func _ready() -> void:
                 true,
                 true)
         projected_image.original_scale = Gs.gui.game_over_image_scale
-    $VBoxContainer/VBoxContainer/SelectLevelButton.texture = \
-            Gs.app_metadata.go_icon
+    $VBoxContainer/VBoxContainer/SelectLevelButton \
+            .texture = Gs.icons.go_normal
     $VBoxContainer/VBoxContainer/SelectLevelButton.texture_scale = \
-            Vector2(Gs.app_metadata.go_icon_scale,
-                    Gs.app_metadata.go_icon_scale) * \
-                    go_icon_scale_multiplier
+            Vector2(Gs.icons.go_scale, Gs.icons.go_scale) * \
+                    go_scale_multiplier
+    $VBoxContainer/VBoxContainer/HBoxContainer/HomeButton \
+            .texture = Gs.icons.home_normal
+    $VBoxContainer/VBoxContainer/HBoxContainer/HomeButton \
+            .texture_scale = Vector2(2.0, 2.0)
+    $VBoxContainer/VBoxContainer/HBoxContainer/RetryButton \
+            .texture = Gs.icons.retry_normal
+    $VBoxContainer/VBoxContainer/HBoxContainer/RetryButton \
+            .texture_scale = Vector2(2.0, 2.0)
     
     $VBoxContainer/VBoxContainer2/UnlockedNewLevelLabel \
             .add_color_override("font_color", ACHIEVEMENT_COLOR)

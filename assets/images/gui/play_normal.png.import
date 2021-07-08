@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gear_circle_icon_hover.png-f86cbbac9476821bc769ecb1e4e58f31.stex"
+path="res://.import/play_normal.png-0e7db5ccf77dcdd4b82ffb20ff5f0f4f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/gui/gear_circle_icon_hover.png"
-dest_files=[ "res://.import/gear_circle_icon_hover.png-f86cbbac9476821bc769ecb1e4e58f31.stex" ]
+source_file="res://addons/scaffolder/assets/images/gui/play_normal.png"
+dest_files=[ "res://.import/play_normal.png-0e7db5ccf77dcdd4b82ffb20ff5f0f4f.stex" ]
 
 [params]
 

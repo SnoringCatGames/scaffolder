@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/play_icon_normal.png-79b49a957a4188d89b2929ff65f91747.stex"
+path="res://.import/go_normal.png-7f553923488432e79a2775505946b70e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/gui/play_icon_normal.png"
-dest_files=[ "res://.import/play_icon_normal.png-79b49a957a4188d89b2929ff65f91747.stex" ]
+source_file="res://addons/scaffolder/assets/images/gui/go_normal.png"
+dest_files=[ "res://.import/go_normal.png-7f553923488432e79a2775505946b70e.stex" ]
 
 [params]
 

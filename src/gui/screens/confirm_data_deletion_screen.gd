@@ -6,6 +6,8 @@ func _ready() -> void:
     if Engine.editor_hint:
         return
     
+    $VBoxContainer/AlertIcon.texture = Gs.icons.alert_normal
+    $VBoxContainer/AlertIcon.texture_scale = Vector2(4.0, 4.0)
     $VBoxContainer/ClientIdNumber.text = str(Gs.analytics.client_id)
 
 

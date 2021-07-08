@@ -56,6 +56,33 @@ func _ready() -> void:
                     Gs.app_metadata.app_logo_scale,
                     Gs.app_metadata.app_logo_scale)
     
+    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
+            .texture_pressed = Gs.icons.left_caret_active
+    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
+            .texture_hover = Gs.icons.left_caret_hover
+    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
+            .texture_normal = Gs.icons.left_caret_normal
+    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
+            .texture_scale = Vector2(8.0, 8.0)
+    
+    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
+            .texture_pressed = Gs.icons.about_circle_active
+    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
+            .texture_hover = Gs.icons.about_circle_hover
+    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
+            .texture_normal = Gs.icons.about_circle_normal
+    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
+            .texture_scale = Vector2(4.0, 4.0)
+    
+    $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
+            .texture_pressed = Gs.icons.gear_circle_active
+    $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
+            .texture_hover = Gs.icons.gear_circle_hover
+    $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
+            .texture_normal = Gs.icons.gear_circle_normal
+    $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
+            .texture_scale = Vector2(4.0, 4.0)
+    
     _on_gui_scale_changed()
 
 

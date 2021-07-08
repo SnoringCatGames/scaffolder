@@ -21,6 +21,8 @@ func _exit_tree() -> void:
 
 
 func init_children() -> void:
+    $HBoxContainer/Caret.texture = Gs.icons.left_caret_normal
+    $HBoxContainer/Caret.texture_scale = Vector2(3.0, 3.0)
     $HBoxContainer/Caret/TextureRect.rect_pivot_offset = \
             AccordionPanel.CARET_SIZE_DEFAULT / 2.0
     $HBoxContainer/Caret/TextureRect.rect_rotation = \

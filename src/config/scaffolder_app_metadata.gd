@@ -33,8 +33,6 @@ var must_restart_level_to_change_settings: bool
 
 var app_logo: Texture
 var app_logo_scale: float
-var go_icon: Texture
-var go_icon_scale: float
 var developer_name: String
 var developer_url: String
 
@@ -105,8 +103,6 @@ func register_manifest(manifest: Dictionary) -> void:
     
     self.app_logo = manifest.app_logo
     self.app_logo_scale = manifest.app_logo_scale
-    self.go_icon = manifest.go_icon
-    self.go_icon_scale = manifest.go_icon_scale
     self.developer_name = manifest.developer_name
     self.developer_url = manifest.developer_url
     if manifest.has("developer_logo"):

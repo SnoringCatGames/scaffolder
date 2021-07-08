@@ -6,9 +6,6 @@ extends Control
 signal toggled
 signal caret_rotated
 
-const CARET_LEFT_NORMAL: Texture = \
-        preload("res://addons/scaffolder/assets/images/gui/left_caret_normal.png")
-
 const CARET_SIZE_DEFAULT := Vector2(23.0, 32.0)
 const CARET_SCALE := Vector2(3.0, 3.0)
 const CARET_ROTATION_CLOSED := 270.0
@@ -194,7 +191,7 @@ func _create_header() -> void:
             true)
     _caret.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
     _caret.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-    _caret.texture = CARET_LEFT_NORMAL
+    _caret.texture = Gs.icons.left_caret_normal
     _caret.mouse_filter = MOUSE_FILTER_IGNORE
     var inner_texture_rect := _caret.get_node("TextureRect")
     inner_texture_rect.rect_pivot_offset = CARET_SIZE_DEFAULT / 2.0

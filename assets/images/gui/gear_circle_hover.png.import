@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stop_hover.png-160885358e35d90efaa7bbaa08624c8f.stex"
+path="res://.import/gear_circle_hover.png-27b6bad4cf56900463445f471e7bbabd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/gui/stop_hover.png"
-dest_files=[ "res://.import/stop_hover.png-160885358e35d90efaa7bbaa08624c8f.stex" ]
+source_file="res://addons/scaffolder/assets/images/gui/gear_circle_hover.png"
+dest_files=[ "res://.import/gear_circle_hover.png-27b6bad4cf56900463445f471e7bbabd.stex" ]
 
 [params]
 
