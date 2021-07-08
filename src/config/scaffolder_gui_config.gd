@@ -190,15 +190,25 @@ var display_resize_throttle_interval := 0.1
 
 var recent_gesture_events_for_debugging_buffer_size := 1000
 
+# FIXME: ----------------- Make this configurable for pixel or high-res setting
 var checkbox_icon_path_prefix := \
-        "res://addons/scaffolder/assets/images/gui/checkbox_"
+        "res://addons/scaffolder/assets/images/gui/checkbox_pixel/checkbox_"
 var default_checkbox_icon_size := 32
-var checkbox_icon_sizes := [16, 32, 64, 128]
+var checkbox_icon_sizes := [8, 16, 32, 64, 128]
+#var checkbox_icon_path_prefix := \
+#        "res://addons/scaffolder/assets/images/gui/checkbox/checkbox_"
+#var default_checkbox_icon_size := 32
+#var checkbox_icon_sizes := [8, 16, 32, 64, 128]
 
+# FIXME: ----------------- Make this configurable for pixel or high-res setting
 var tree_arrow_icon_path_prefix := \
-        "res://addons/scaffolder/assets/images/gui/tree_arrow_"
+        "res://addons/scaffolder/assets/images/gui/tree_arrow_pixel/tree_arrow_"
 var default_tree_arrow_icon_size := 16
-var tree_arrow_icon_sizes := [8, 16, 32, 64]
+var tree_arrow_icon_sizes := [4, 8, 16, 32, 64, 128]
+#var tree_arrow_icon_path_prefix := \
+#        "res://addons/scaffolder/assets/images/gui/tree_arrow/tree_arrow_"
+#var default_tree_arrow_icon_size := 16
+#var tree_arrow_icon_sizes := [8, 16, 32, 64]
 
 var third_party_license_text: String
 var special_thanks_text: String

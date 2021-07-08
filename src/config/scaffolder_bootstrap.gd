@@ -271,7 +271,7 @@ func _update_sizes_for_font(font_name: String) -> void:
 func _update_checkbox_size() -> void:
     var target_icon_size: float = \
             Gs.gui.default_checkbox_icon_size * Gs.gui.scale
-    var closest_icon_size: float = Gs.gui.default_checkbox_icon_size
+    var closest_icon_size: float = INF
     for icon_size in Gs.gui.checkbox_icon_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
@@ -295,7 +295,7 @@ func _update_checkbox_size() -> void:
 func _update_tree_arrow_size() -> void:
     var target_icon_size: float = \
             Gs.gui.default_tree_arrow_icon_size * Gs.gui.scale
-    var closest_icon_size: float = Gs.gui.default_tree_arrow_icon_size
+    var closest_icon_size: float = INF
     for icon_size in Gs.gui.tree_arrow_icon_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
