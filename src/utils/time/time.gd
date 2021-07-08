@@ -130,7 +130,7 @@ func _get_time_tracker_for_time_type(time_type: int) -> _TimeTracker:
         TimeType.PLAY_RENDER_SCALED:
             return _play_time
         _:
-            Gs.utils.error("Unrecognized time_type: %d" % time_type)
+            Gs.logger.error("Unrecognized time_type: %d" % time_type)
             return null
 
 
@@ -151,7 +151,7 @@ func _get_elapsed_time_key_for_time_type(time_type: int) -> String:
         TimeType.PLAY_RENDER_SCALED:
             return "elapsed_render_scaled_time"
         _:
-            Gs.utils.error("Unrecognized time_type: %d" % time_type)
+            Gs.logger.error("Unrecognized time_type: %d" % time_type)
             return ""
 
 

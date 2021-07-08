@@ -473,7 +473,7 @@ static func get_last_x_lines_from_file(
     var file := File.new()
     var status := file.open(path, File.READ)
     if status != OK:
-        push_error("Unable to open file: " + path)
+        ScaffolderLog.static_error("Unable to open file: " + path)
         return []
     var buffer := CircularBuffer.new(x)
     while !file.eof_reached():

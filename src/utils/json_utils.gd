@@ -65,7 +65,7 @@ func to_json_object(value):
                 value[key] = to_json_object(value[key])
             return value
         _:
-            Gs.utils.error("Unsupported data type for JSON: " + value)
+            Gs.logger.error("Unsupported data type for JSON: " + value)
 
 
 # JSON decoding with custom syntax for vector values.

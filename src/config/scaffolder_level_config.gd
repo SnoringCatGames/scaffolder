@@ -144,7 +144,7 @@ func get_previous_level_id(level_id: String) -> String:
             else:
                 return _level_configs_by_number[_level_numbers[i - 1]].id
     
-    Utils.error("The given level_id is invalid: %s" % level_id)
+    Gs.logger.error("The given level_id is invalid: %s" % level_id)
     
     return ""
 
@@ -159,7 +159,7 @@ func get_next_level_id(level_id: String) -> String:
             else:
                 return _level_configs_by_number[_level_numbers[i + 1]].id
     
-    Utils.error("The given level_id is invalid: %s" % level_id)
+    Gs.logger.error("The given level_id is invalid: %s" % level_id)
     
     return ""
 
@@ -208,7 +208,7 @@ func get_unlock_hint(level_id: String) -> String:
     if unlock_conditions == "finish_previous_level":
         var previous_level_id := get_previous_level_id(level_id)
         if previous_level_id == "":
-            Utils.error("No previous level")
+            Gs.logger.error("No previous level")
             return ""
         
         if Gs.save_state.get_level_has_finished(previous_level_id):
@@ -216,11 +216,11 @@ func get_unlock_hint(level_id: String) -> String:
         
         return "Finish %s" % get_level_config(previous_level_id).name
     elif unlock_conditions is Object:
-        Utils.error("App must override get_unlock_hint if defining custom " +
+        Gs.logger.error("App must override get_unlock_hint if defining custom " +
                     "unlock_conditions")
         return ""
     else:
-        Utils.error("Invalid value for unlock_conditions: %s" % \
+        Gs.logger.error("Invalid value for unlock_conditions: %s" % \
                 unlock_conditions)
         return ""
 
@@ -266,6 +266,6 @@ func get_first_always_unlocked_level() -> String:
                 _level_configs_by_number[level_number]
         if level_config.unlock_conditions == "unlocked":
             return level_config.id
-    Utils.error("No level is unlocked at the start??")
+    Gs.logger.error("No level is unlocked at the start??")
     return get_level_ids().front()
     
