@@ -12,11 +12,11 @@ enum {
     HEADER,
 }
 
-const about_circle_icon_NORMAL := \
+const ABOUT_CIRCLE_ICON_NORMAL := \
         preload("res://addons/scaffolder/assets/images/gui/about_circle_icon_normal.png")
-const about_circle_icon_HOVER := \
+const ABOUT_CIRCLE_ICON_HOVER := \
         preload("res://addons/scaffolder/assets/images/gui/about_circle_icon_hover.png")
-const about_circle_icon_ACTIVE := \
+const ABOUT_CIRCLE_ICON_ACTIVE := \
         preload("res://addons/scaffolder/assets/images/gui/about_circle_icon_active.png")
 
 const ENABLED_ALPHA := 1.0
@@ -100,11 +100,13 @@ func create_row(
             includes_description:
         description_button = Gs.utils.add_scene(
                 null, Gs.gui.SCAFFOLDER_TEXTURE_BUTTON_SCENE, false, true)
-        description_button.texture_normal = about_circle_icon_NORMAL
-        description_button.texture_hover = about_circle_icon_HOVER
-        description_button.texture_pressed = about_circle_icon_ACTIVE
-        description_button.size_override = about_circle_icon_NORMAL.get_size()
-        description_button.texture_scale = Vector2.ONE
+        description_button.texture_normal = ABOUT_CIRCLE_ICON_NORMAL
+        description_button.texture_hover = ABOUT_CIRCLE_ICON_HOVER
+        description_button.texture_pressed = ABOUT_CIRCLE_ICON_ACTIVE
+        description_button.texture_scale = Vector2(2.0, 2.0)
+        description_button.size_override = \
+                ABOUT_CIRCLE_ICON_NORMAL.get_size() * \
+                description_button.texture_scale
         description_button.expands_texture = false
         description_button.connect(
                 "pressed",
