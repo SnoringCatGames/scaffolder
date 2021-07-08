@@ -221,7 +221,7 @@ func start_transition(
             default_duration = screen_mask_transition_duration
             default_easing = screen_mask_transition_easing
         _:
-            Gs.utils.error()
+            Gs.logger.error()
             transition_method_name = "_start_immediate_transition"
             default_duration = INF
             default_easing = ""
