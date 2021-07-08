@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/screens/main_menu_screen.gd" type="Script" id=4]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/go_icon_normal_large.png" type="Texture" id=5]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/go_icon_normal.png" type="Texture" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=7]
 

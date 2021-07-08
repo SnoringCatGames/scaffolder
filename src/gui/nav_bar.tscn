@@ -2,14 +2,14 @@
 
 [ext_resource path="res://addons/scaffolder/src/gui/nav_bar.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/left_caret_normal.png" type="Texture" id=2]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/gear_icon_normal_large.png" type="Texture" id=3]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/gear_circle_icon_normal.png" type="Texture" id=3]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/left_caret_active.png" type="Texture" id=4]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/about_icon_normal_large.png" type="Texture" id=6]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/about_circle_icon_normal.png" type="Texture" id=6]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/left_caret_hover.png" type="Texture" id=7]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/about_icon_active_large.png" type="Texture" id=8]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/gear_icon_hover_large.png" type="Texture" id=9]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/gear_icon_active_large.png" type="Texture" id=10]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/about_icon_hover_large.png" type="Texture" id=11]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/about_circle_icon_active.png" type="Texture" id=8]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/gear_circle_icon_hover.png" type="Texture" id=9]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/gear_circle_icon_active.png" type="Texture" id=10]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/about_circle_icon_hover.png" type="Texture" id=11]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=12]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_button.tscn" type="PackedScene" id=13]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=14]
@@ -36,24 +36,21 @@ custom_constants/margin_bottom = 0
 
 [node name="TopRow" type="CenterContainer" parent="MarginContainer"]
 visible = false
-margin_bottom = 62.0
+margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Header" parent="MarginContainer/TopRow" instance=ExtResource( 15 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 24.0
 margin_right = 0.0
-margin_bottom = 38.0
-align = 1
-valign = 1
+margin_bottom = 14.0
 font_size = "Xl"
 is_header = true
 
 [node name="Logo" parent="MarginContainer/TopRow" instance=ExtResource( 14 )]
-margin_top = 31.0
-margin_bottom = 31.0
+margin_top = 7.0
+margin_bottom = 7.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 size_flags_horizontal = 3
@@ -77,7 +74,7 @@ margin_bottom = 0.0
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 4 )
 texture_hover = ExtResource( 7 )
-texture_scale = Vector2( 2, 2 )
+texture_scale = Vector2( 8, 8 )
 size_override = Vector2( 160, 160 )
 
 [node name="AboutButton" parent="MarginContainer/VBoxContainer/ButtonRow/RightContainer" instance=ExtResource( 13 )]
@@ -91,7 +88,7 @@ margin_bottom = -31.0
 texture_normal = ExtResource( 6 )
 texture_pressed = ExtResource( 8 )
 texture_hover = ExtResource( 11 )
-texture_scale = Vector2( 1.5, 1.5 )
+texture_scale = Vector2( 4, 4 )
 size_override = Vector2( 160, 160 )
 
 [node name="Spacer" parent="MarginContainer/VBoxContainer/ButtonRow" instance=ExtResource( 12 )]
@@ -113,7 +110,7 @@ margin_bottom = -31.0
 texture_normal = ExtResource( 3 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 9 )
-texture_scale = Vector2( 1.5, 1.5 )
+texture_scale = Vector2( 4, 4 )
 size_override = Vector2( 160, 160 )
 
 [node name="BottomRow" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
@@ -129,8 +126,6 @@ anchor_bottom = 0.0
 margin_top = 24.0
 margin_right = 0.0
 margin_bottom = 38.0
-align = 1
-valign = 1
 font_size = "Xl"
 is_header = true
 

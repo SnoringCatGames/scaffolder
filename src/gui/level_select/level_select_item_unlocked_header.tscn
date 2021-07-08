@@ -58,7 +58,7 @@ margin_right = 58.5
 margin_bottom = 28.0
 rect_min_size = Vector2( 11.5, 16 )
 texture = ExtResource( 3 )
-texture_scale = Vector2( 0.5, 0.5 )
+texture_scale = Vector2( 3, 3 )
 
 [node name="Spacer4" parent="HBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
