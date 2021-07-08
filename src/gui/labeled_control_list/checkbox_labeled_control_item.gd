@@ -50,7 +50,7 @@ func create_control() -> Control:
     checkbox.modulate.a = _get_alpha()
     checkbox.size_flags_horizontal = 0
     checkbox.size_flags_vertical = 0
-    checkbox.size_override = Vector2.ONE * Gs.gui.default_checkbox_icon_size
+    checkbox.size_override = Vector2.ONE * Gs.icons.default_checkbox_icon_size
     checkbox.connect(
             "pressed",
             self,

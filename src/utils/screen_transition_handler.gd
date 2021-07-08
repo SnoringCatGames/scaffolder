@@ -54,6 +54,8 @@ var _start_immediate_transition_timeout_id := -1
 var _slide_transition_tween_id := -1
 var _fade_transition_tween_id := -1
 
+var _current_duration := INF
+
 
 func _init() -> void:
     Gs.logger.on_global_init(self, "ScreenTransitionHandler")
@@ -245,6 +247,8 @@ func start_transition(
             default_easing
     
     clear_transitions()
+    
+    _current_duration = duration
     
     if is_instance_valid(previous_screen_container):
         previous_screen_container \
@@ -631,6 +635,7 @@ func _on_transition_completed(
         _key: NodePath,
         previous_screen_container: ScreenContainer,
         next_screen_container: ScreenContainer) -> void:
+    _current_duration = INF
     if is_instance_valid(previous_screen_container):
         previous_screen_container.set_visible(false)
         previous_screen_container.position = Vector2.ZERO
@@ -659,3 +664,12 @@ func clear_transitions() -> void:
     Gs.time.clear_tween(_fade_transition_tween_id, true)
     _overlay_mask_transition.stop(true)
     _screen_mask_transition.stop(true)
+    _current_duration = INF
+
+
+func get_current_duration() -> float:
+    return _current_duration
+
+
+func get_is_transition_active() -> bool:
+    return _current_duration != INF

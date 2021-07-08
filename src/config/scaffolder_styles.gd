@@ -10,9 +10,16 @@ const OVERLAY_PANEL_HEADER_STYLEBOX := \
 var button_corner_radius: int
 var button_corner_detail: int
 var button_shadow_size: int
+var button_border_width: int
 
 var dropdown_corner_radius: int
 var dropdown_corner_detail: int
+var dropdown_shadow_size: int
+var dropdown_border_width: int
+
+var screen_shadow_size: int
+var screen_shadow_offset: Vector2
+var screen_border_width: int
 
 var scroll_corner_radius: int
 var scroll_corner_detail: int
@@ -33,9 +40,16 @@ func register_manifest(manifest: Dictionary) -> void:
     self.button_corner_radius = manifest.button_corner_radius
     self.button_corner_detail = manifest.button_corner_detail
     self.button_shadow_size = manifest.button_shadow_size
+    self.button_border_width = manifest.button_border_width
     
     self.dropdown_corner_radius = manifest.dropdown_corner_radius
     self.dropdown_corner_detail = manifest.dropdown_corner_detail
+    self.dropdown_shadow_size = manifest.dropdown_shadow_size
+    self.dropdown_border_width = manifest.dropdown_border_width
+    
+    self.screen_shadow_size = manifest.screen_shadow_size
+    self.screen_shadow_offset = manifest.screen_shadow_offset
+    self.screen_border_width = manifest.screen_border_width
     
     self.scroll_corner_radius = manifest.scroll_corner_radius
     self.scroll_corner_detail = manifest.scroll_corner_detail
@@ -69,6 +83,8 @@ func configure_theme() -> void:
                 corner_radius = Gs.styles.button_corner_radius,
                 corner_detail = Gs.styles.button_corner_detail,
                 shadow_size = round(Gs.styles.button_shadow_size * 0.0),
+                border_width = round(Gs.styles.button_border_width * 0.0),
+                border_color = Gs.colors.button_border,
             })
     _configure_theme_stylebox(
             "focused", "Button", {
@@ -77,6 +93,8 @@ func configure_theme() -> void:
                 corner_detail = Gs.styles.button_corner_detail,
                 shadow_size = round(Gs.styles.button_shadow_size * 1.5),
                 shadow_color = Color.from_hsv(0, 0, 0, 0.5),
+                border_width = Gs.styles.button_border_width,
+                border_color = Gs.colors.button_border,
             })
     _configure_theme_stylebox(
             "hover", "Button", {
@@ -85,6 +103,8 @@ func configure_theme() -> void:
                 corner_detail = Gs.styles.button_corner_detail,
                 shadow_size = round(Gs.styles.button_shadow_size * 1.5),
                 shadow_color = Color.from_hsv(0, 0, 0, 0.5),
+                border_width = Gs.styles.button_border_width,
+                border_color = Gs.colors.button_border,
             })
     _configure_theme_stylebox(
             "normal", "Button", {
@@ -92,6 +112,8 @@ func configure_theme() -> void:
                 corner_radius = Gs.styles.button_corner_radius,
                 corner_detail = Gs.styles.button_corner_detail,
                 shadow_size = Gs.styles.button_shadow_size,
+                border_width = Gs.styles.button_border_width,
+                border_color = Gs.colors.button_border,
             })
     _configure_theme_stylebox(
             "pressed", "Button", {
@@ -99,6 +121,8 @@ func configure_theme() -> void:
                 corner_radius = Gs.styles.button_corner_radius,
                 corner_detail = Gs.styles.button_corner_detail,
                 shadow_size = round(Gs.styles.button_shadow_size * 0.2),
+                border_width = Gs.styles.button_border_width,
+                border_color = Gs.colors.button_border,
             })
     
     _configure_theme_stylebox(
@@ -106,30 +130,45 @@ func configure_theme() -> void:
                 bg_color = Gs.colors.dropdown_disabled,
                 corner_radius = Gs.styles.dropdown_corner_radius,
                 corner_detail = Gs.styles.dropdown_corner_detail,
+                shadow_size = Gs.styles.dropdown_shadow_size,
+                border_width = Gs.styles.dropdown_border_width,
+                border_color = Gs.colors.dropdown_border,
             })
     _configure_theme_stylebox(
             "focused", "OptionButton", {
                 bg_color = Gs.colors.dropdown_focused,
                 corner_radius = Gs.styles.dropdown_corner_radius,
                 corner_detail = Gs.styles.dropdown_corner_detail,
+                shadow_size = Gs.styles.dropdown_shadow_size,
+                border_width = Gs.styles.dropdown_border_width,
+                border_color = Gs.colors.dropdown_border,
             })
     _configure_theme_stylebox(
             "hover", "OptionButton", {
                 bg_color = Gs.colors.dropdown_hover,
                 corner_radius = Gs.styles.dropdown_corner_radius,
                 corner_detail = Gs.styles.dropdown_corner_detail,
+                shadow_size = Gs.styles.dropdown_shadow_size,
+                border_width = Gs.styles.dropdown_border_width,
+                border_color = Gs.colors.dropdown_border,
             })
     _configure_theme_stylebox(
             "normal", "OptionButton", {
                 bg_color = Gs.colors.dropdown_normal,
                 corner_radius = Gs.styles.dropdown_corner_radius,
                 corner_detail = Gs.styles.dropdown_corner_detail,
+                shadow_size = Gs.styles.dropdown_shadow_size,
+                border_width = Gs.styles.dropdown_border_width,
+                border_color = Gs.colors.dropdown_border,
             })
     _configure_theme_stylebox(
             "pressed", "OptionButton", {
                 bg_color = Gs.colors.dropdown_pressed,
                 corner_radius = Gs.styles.dropdown_corner_radius,
                 corner_detail = Gs.styles.dropdown_corner_detail,
+                shadow_size = Gs.styles.dropdown_shadow_size,
+                border_width = Gs.styles.dropdown_border_width,
+                border_color = Gs.colors.dropdown_border,
             })
     
     _configure_theme_stylebox(

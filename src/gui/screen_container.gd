@@ -41,8 +41,6 @@ func set_up(contents: Screen) -> void:
     center_container.add_child(contents)
     
     outer_panel.theme = Gs.gui.theme
-    # FIXME: -----------------------
-    # - Configure screen shadow / border in Scaffolder.
     var has_background_color_override := \
             contents.background_color_override != Color.black
     var background_color := \
@@ -51,8 +49,10 @@ func set_up(contents: Screen) -> void:
             Gs.colors.background
     stylebox = Gs.utils.create_stylebox_flat_scalable({
         bg_color = background_color,
-        shadow_size = 8,
-        shadow_offset = Vector2(-4.0, 4.0),
+        shadow_size = Gs.styles.screen_shadow_size,
+        shadow_offset = Gs.styles.screen_shadow_offset,
+        border_width = Gs.styles.screen_border_width,
+        border_color = Gs.colors.screen_border,
     })
     outer_panel.add_stylebox_override("panel", stylebox)
     Gs.gui.add_gui_to_scale(outer_panel)

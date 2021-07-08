@@ -270,20 +270,20 @@ func _update_sizes_for_font(font_name: String) -> void:
 
 func _update_checkbox_size() -> void:
     var target_icon_size: float = \
-            Gs.gui.default_checkbox_icon_size * Gs.gui.scale
+            Gs.icons.default_checkbox_icon_size * Gs.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Gs.gui.checkbox_icon_sizes:
+    for icon_size in Gs.icons.checkbox_icon_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Gs.gui.current_checkbox_icon_size = closest_icon_size
+    Gs.icons.current_checkbox_icon_size = closest_icon_size
     
     var checked_icon_path: String = \
-            Gs.gui.checkbox_icon_path_prefix + "checked_" + \
-            str(Gs.gui.current_checkbox_icon_size) + ".png"
+            Gs.icons.checkbox_icon_path_prefix + "checked_" + \
+            str(Gs.icons.current_checkbox_icon_size) + ".png"
     var unchecked_icon_path: String = \
-            Gs.gui.checkbox_icon_path_prefix + "unchecked_" + \
-            str(Gs.gui.current_checkbox_icon_size) + ".png"
+            Gs.icons.checkbox_icon_path_prefix + "unchecked_" + \
+            str(Gs.icons.current_checkbox_icon_size) + ".png"
     
     var checked_icon := load(checked_icon_path)
     var unchecked_icon := load(unchecked_icon_path)
@@ -294,20 +294,20 @@ func _update_checkbox_size() -> void:
 
 func _update_tree_arrow_size() -> void:
     var target_icon_size: float = \
-            Gs.gui.default_tree_arrow_icon_size * Gs.gui.scale
+            Gs.icons.default_tree_arrow_icon_size * Gs.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Gs.gui.tree_arrow_icon_sizes:
+    for icon_size in Gs.icons.tree_arrow_icon_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Gs.gui.current_tree_arrow_icon_size = closest_icon_size
+    Gs.icons.current_tree_arrow_icon_size = closest_icon_size
     
     var open_icon_path: String = \
-            Gs.gui.tree_arrow_icon_path_prefix + "open_" + \
-            str(Gs.gui.current_tree_arrow_icon_size) + ".png"
+            Gs.icons.tree_arrow_icon_path_prefix + "open_" + \
+            str(Gs.icons.current_tree_arrow_icon_size) + ".png"
     var closed_icon_path: String = \
-            Gs.gui.tree_arrow_icon_path_prefix + "closed_" + \
-            str(Gs.gui.current_tree_arrow_icon_size) + ".png"
+            Gs.icons.tree_arrow_icon_path_prefix + "closed_" + \
+            str(Gs.icons.current_tree_arrow_icon_size) + ".png"
     
     var open_icon := load(open_icon_path)
     var closed_icon := load(closed_icon_path)
@@ -315,7 +315,7 @@ func _update_tree_arrow_size() -> void:
     Gs.gui.theme.set_icon("arrow", "Tree", open_icon)
     Gs.gui.theme.set_icon("arrow_collapsed", "Tree", closed_icon)
     Gs.gui.theme.set_constant(
-            "item_margin", "Tree", Gs.gui.current_tree_arrow_icon_size)
+            "item_margin", "Tree", Gs.icons.current_tree_arrow_icon_size)
 
 
 func _update_game_area_region_and_gui_scale() -> void:

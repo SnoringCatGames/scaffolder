@@ -29,6 +29,7 @@ var button_disabled: Color
 var button_focused: Color
 var button_hover: Color
 var button_pressed: Color
+var button_border: Color
 
 var scaffolder_button_highlight: Color
 
@@ -41,6 +42,7 @@ var dropdown_disabled: Color
 var dropdown_focused: Color
 var dropdown_hover: Color
 var dropdown_pressed: Color
+var dropdown_border: Color
 
 var popup_background: Color
 
@@ -58,17 +60,21 @@ var scroll_bar_grabber_normal: Color
 var scroll_bar_grabber_hover: Color
 var scroll_bar_grabber_pressed: Color
 
+var screen_border: Color
+
 # --- Optionally, you can configure some colors as relative to others. ---
 
 var button_disabled_hsv_delta: Dictionary
 var button_focused_hsv_delta: Dictionary
 var button_hover_hsv_delta: Dictionary
 var button_pressed_hsv_delta: Dictionary
+var button_border_hsv_delta: Dictionary
 
 var dropdown_disabled_hsv_delta: Dictionary
 var dropdown_focused_hsv_delta: Dictionary
 var dropdown_hover_hsv_delta: Dictionary
 var dropdown_pressed_hsv_delta: Dictionary
+var dropdown_border_hsv_delta: Dictionary
 
 var popup_background_hsv_delta: Dictionary
 
@@ -81,6 +87,8 @@ var scroll_bar_background_hsv_delta: Dictionary
 var scroll_bar_grabber_normal_hsv_delta: Dictionary
 var scroll_bar_grabber_hover_hsv_delta: Dictionary
 var scroll_bar_grabber_pressed_hsv_delta: Dictionary
+
+var screen_border_hsv_delta: Dictionary
 
 # ---
 
@@ -97,12 +105,14 @@ var _defaults := {
     button_focused = Color("969696"),
     button_hover = Color("969696"),
     button_pressed = Color("969696"),
+    button_border = Color("969696"),
     scaffolder_button_highlight = Color("d0d0d0"),
     dropdown_normal = Color("404040"),
     dropdown_disabled = Color("4d4d4d"),
     dropdown_focused = Color("4d4d4d"),
     dropdown_hover = Color("4d4d4d"),
     dropdown_pressed = Color("4d4d4d"),
+    dropdown_border = Color("4d4d4d"),
     tooltip = Color("080808"),
     tooltip_bg = Color("bbbbbb"),
     popup_background = Color("4d4d4d"),
@@ -114,6 +124,7 @@ var _defaults := {
     overlay_panel_body_background = Color("141414"),
     overlay_panel_header_background = Color("282828"),
     overlay_panel_border = Color("eeeeee"),
+    screen_border = Color("404040"),
 }
 
 # ---
@@ -151,6 +162,10 @@ func _derive_colors() -> void:
         Gs.colors.button_pressed = _derive_color_from_hsva_delta(
                 Gs.colors.button_normal,
                 Gs.colors.button_pressed_hsv_delta)
+    if !Gs.colors.button_border_hsv_delta.empty():
+        Gs.colors.button_border = _derive_color_from_hsva_delta(
+                Gs.colors.button_normal,
+                Gs.colors.button_border_hsv_delta)
     
     if !Gs.colors.dropdown_disabled_hsv_delta.empty():
         Gs.colors.dropdown_disabled = _derive_color_from_hsva_delta(
@@ -168,6 +183,10 @@ func _derive_colors() -> void:
         Gs.colors.dropdown_pressed = _derive_color_from_hsva_delta(
                 Gs.colors.dropdown_normal,
                 Gs.colors.dropdown_pressed_hsv_delta)
+    if !Gs.colors.dropdown_border_hsv_delta.empty():
+        Gs.colors.dropdown_border = _derive_color_from_hsva_delta(
+                Gs.colors.dropdown_normal,
+                Gs.colors.dropdown_border_hsv_delta)
     
     if !Gs.colors.popup_background_hsv_delta.empty():
         Gs.colors.popup_background = _derive_color_from_hsva_delta(
@@ -211,6 +230,11 @@ func _derive_colors() -> void:
                 _derive_color_from_hsva_delta(
                         Gs.colors.scroll_bar_grabber_normal,
                         Gs.colors.scroll_bar_grabber_pressed_hsv_delta)
+    
+    if !Gs.colors.screen_border_hsv_delta.empty():
+        Gs.colors.screen_border = _derive_color_from_hsva_delta(
+                Gs.colors.background,
+                Gs.colors.screen_border_hsv_delta)
 
 
 func _derive_color_from_hsva_delta(
