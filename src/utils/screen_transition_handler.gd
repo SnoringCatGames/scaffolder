@@ -5,11 +5,11 @@ extends Node
 # --- Constants ---
 
 const DEFAULT_OVERLAY_MASK_TRANSITION_FADE_IN_TEXTURE_PATH := \
-        "res://addons/scaffolder/assets/images/radial_mask_transition_in.png"
+        "res://addons/scaffolder/assets/images/transition_masks/radial_mask_transition_in.png"
 const DEFAULT_OVERLAY_MASK_TRANSITION_FADE_OUT_TEXTURE_PATH := \
-        "res://addons/scaffolder/assets/images/radial_mask_transition_in.png"
+        "res://addons/scaffolder/assets/images/transition_masks/radial_mask_transition_in.png"
 const DEFAULT_SCREEN_MASK_TRANSITION_FADE_TEXTURE_PATH := \
-        "res://addons/scaffolder/assets/images/checkers_mask_transition.png"
+        "res://addons/scaffolder/assets/images/transition_masks/checkers_mask_transition.png"
 
 # --- Configuration from app manifest ---
 

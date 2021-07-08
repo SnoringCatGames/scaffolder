@@ -6,7 +6,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label_link.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_link.tscn" type="PackedScene" id=7]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/godot_logo_about.png" type="Texture" id=8]
+[ext_resource path="res://addons/scaffolder/assets/images/logos/godot_logo_about.png" type="Texture" id=8]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/about_screen.gd" type="Script" id=9]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=10]
 
