@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/about_icon_active.png-3c835bb8a8f2c091c713448039db3dd6.stex"
+path="res://.import/pause_circle_icon_active.png-a6e25a57eacdfeff4b423e85fcad9229.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/gui/about_icon_active.png"
-dest_files=[ "res://.import/about_icon_active.png-3c835bb8a8f2c091c713448039db3dd6.stex" ]
+source_file="res://addons/scaffolder/assets/images/gui/pause_circle_icon_active.png"
+dest_files=[ "res://.import/pause_circle_icon_active.png-a6e25a57eacdfeff4b423e85fcad9229.stex" ]
 
 [params]
 

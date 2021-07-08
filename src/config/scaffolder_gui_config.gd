@@ -190,25 +190,33 @@ var display_resize_throttle_interval := 0.1
 
 var recent_gesture_events_for_debugging_buffer_size := 1000
 
-# FIXME: ----------------- Make this configurable for pixel or high-res setting
-var checkbox_icon_path_prefix := \
-        "res://addons/scaffolder/assets/images/gui/checkbox_pixel/checkbox_"
-var default_checkbox_icon_size := 32
-var checkbox_icon_sizes := [8, 16, 32, 64, 128]
-#var checkbox_icon_path_prefix := \
-#        "res://addons/scaffolder/assets/images/gui/checkbox/checkbox_"
-#var default_checkbox_icon_size := 32
-#var checkbox_icon_sizes := [8, 16, 32, 64, 128]
+var checkbox_icon_path_prefix: String
+var default_checkbox_icon_size: int
+var checkbox_icon_sizes: Array
 
-# FIXME: ----------------- Make this configurable for pixel or high-res setting
-var tree_arrow_icon_path_prefix := \
+var checkbox_normal_icon_path_prefix := \
+        "res://addons/scaffolder/assets/images/gui/checkbox/checkbox_"
+var default_checkbox_normal_icon_size := 32
+var checkbox_normal_icon_sizes := [8, 16, 32, 64, 128]
+
+var checkbox_pixel_icon_path_prefix := \
+        "res://addons/scaffolder/assets/images/gui/checkbox_pixel/checkbox_"
+var default_checkbox_pixel_icon_size := 32
+var checkbox_pixel_icon_sizes := [8, 16, 32, 64, 128]
+
+var tree_arrow_icon_path_prefix: String
+var default_tree_arrow_icon_size: int
+var tree_arrow_icon_sizes: Array
+
+var tree_arrow_normal_icon_path_prefix := \
+        "res://addons/scaffolder/assets/images/gui/tree_arrow/tree_arrow_"
+var default_tree_arrow_normal_icon_size := 16
+var tree_arrow_normal_icon_sizes := [8, 16, 32, 64]
+
+var tree_arrow_pixel_icon_path_prefix := \
         "res://addons/scaffolder/assets/images/gui/tree_arrow_pixel/tree_arrow_"
-var default_tree_arrow_icon_size := 16
-var tree_arrow_icon_sizes := [4, 8, 16, 32, 64, 128]
-#var tree_arrow_icon_path_prefix := \
-#        "res://addons/scaffolder/assets/images/gui/tree_arrow/tree_arrow_"
-#var default_tree_arrow_icon_size := 16
-#var tree_arrow_icon_sizes := [8, 16, 32, 64]
+var default_tree_arrow_pixel_icon_size := 16
+var tree_arrow_pixel_icon_sizes := [4, 8, 16, 32, 64, 128]
 
 var third_party_license_text: String
 var special_thanks_text: String
@@ -391,6 +399,23 @@ func register_manifest(manifest: Dictionary) -> void:
     if manifest.has("recent_gesture_events_for_debugging_buffer_size"):
         self.recent_gesture_events_for_debugging_buffer_size = \
                 manifest.recent_gesture_events_for_debugging_buffer_size
+    
+    if manifest.is_using_pixel_icons:
+        checkbox_icon_path_prefix = checkbox_pixel_icon_path_prefix
+        default_checkbox_icon_size = default_checkbox_pixel_icon_size
+        checkbox_icon_sizes = checkbox_pixel_icon_sizes
+        
+        tree_arrow_icon_path_prefix = tree_arrow_pixel_icon_path_prefix
+        default_tree_arrow_icon_size = default_tree_arrow_pixel_icon_size
+        tree_arrow_icon_sizes = tree_arrow_pixel_icon_sizes
+    else:
+        checkbox_icon_path_prefix = checkbox_normal_icon_path_prefix
+        default_checkbox_icon_size = default_checkbox_normal_icon_size
+        checkbox_icon_sizes = checkbox_normal_icon_sizes
+        
+        tree_arrow_icon_path_prefix = tree_arrow_normal_icon_path_prefix
+        default_tree_arrow_icon_size = default_tree_arrow_normal_icon_size
+        tree_arrow_icon_sizes = tree_arrow_normal_icon_sizes
     
     if fonts_manifest.has("sizes"):
         if Gs.device.get_is_mobile_device():

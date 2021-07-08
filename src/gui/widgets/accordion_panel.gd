@@ -10,7 +10,7 @@ const CARET_LEFT_NORMAL: Texture = \
         preload("res://addons/scaffolder/assets/images/gui/left_caret_normal.png")
 
 const CARET_SIZE_DEFAULT := Vector2(23.0, 32.0)
-const CARET_SCALE := Vector2(0.5, 0.5)
+const CARET_SCALE := Vector2(3.0, 3.0)
 const CARET_ROTATION_CLOSED := 270.0
 const CARET_ROTATION_OPEN := 90.0
 
