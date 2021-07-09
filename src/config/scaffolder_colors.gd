@@ -31,7 +31,11 @@ var button_hover: Color
 var button_pressed: Color
 var button_border: Color
 
+# Only used if Gs.gui.is_suggested_button_color_pulse_shown is enabled, and
+# buttons are configured to use flat-color style-boxes.
 var button_flat_pulse: Color
+# Only used if Gs.gui.is_suggested_button_color_pulse_shown is enabled, and
+# buttons are configured to use nine-patch-texture style-boxes.
 var button_texture_modulate: Color
 
 var link_normal: Color

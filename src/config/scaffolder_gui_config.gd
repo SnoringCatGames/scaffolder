@@ -184,6 +184,9 @@ var screen_body_width := 460.0
 
 var is_data_deletion_button_shown: bool
 
+var is_suggested_button_shine_line_shown := true
+var is_suggested_button_color_pulse_shown := true
+
 var input_vibrate_duration := 0.01
 
 var display_resize_throttle_interval := 0.1
@@ -318,6 +321,10 @@ func register_manifest(manifest: Dictionary) -> void:
     self.aspect_ratio_min = manifest.aspect_ratio_min
     self.debug_window_size = manifest.debug_window_size
     self.is_data_deletion_button_shown = manifest.is_data_deletion_button_shown
+    self.is_suggested_button_shine_line_shown = \
+            manifest.is_suggested_button_shine_line_shown
+    self.is_suggested_button_color_pulse_shown = \
+            manifest.is_suggested_button_color_pulse_shown
     
     self.settings_item_manifest = manifest.settings_item_manifest
     self.pause_item_manifest = manifest.pause_item_manifest
