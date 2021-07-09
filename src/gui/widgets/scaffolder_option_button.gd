@@ -1,16 +1,15 @@
 tool
-class_name ScaffolderLabel, \
-"res://addons/scaffolder/assets/images/editor_icons/scaffolder_label.png"
-extends Label
+class_name ScaffolderOptionButton, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_option_button.png"
+extends OptionButton
 
 
 export(String, "Xs", "S", "M", "L", "Xl") var font_size := "M" \
         setget _set_font_size
-export var is_header := false setget _set_is_header
-export var is_bold := false setget _set_is_bold
-export var is_italic := false setget _set_is_italic
 export var size_override := Vector2.ZERO setget _set_size_override
 export var font_override: Font setget _set_font_override
+export var hseparation := 2.0 setget _set_hseparation
+export var arrow_margin := 2.0 setget _set_arrow_margin
 
 var _is_ready := false
 
@@ -32,37 +31,32 @@ func _update() -> void:
     if !_is_ready:
         return
     
-    rect_min_size = size_override * Gs.gui.scale
+    rect_min_size.x = \
+            (size_override.x if \
+            size_override.x != 0.0 else \
+            Gs.gui.button_width) * Gs.gui.scale
+    rect_min_size.y = \
+            (size_override.y if \
+            size_override.y != 0.0 else \
+            Gs.gui.button_height) * Gs.gui.scale
     rect_size = rect_min_size
+    
+    add_constant_override("hseparation", hseparation * Gs.gui.scale)
+    add_constant_override("arrow_margin", arrow_margin * Gs.gui.scale)
     
     if font_override != null:
         add_font_override("font", font_override)
     else:
         var font: Font = Gs.gui.get_font(
                 font_size,
-                is_header,
-                is_bold,
-                is_italic)
+                false,
+                false,
+                false)
         add_font_override("font", font)
 
 
 func _set_font_size(value: String) -> void:
     font_size = value
-    _update()
-
-
-func _set_is_header(value: bool) -> void:
-    is_header = value
-    _update()
-
-
-func _set_is_bold(value: bool) -> void:
-    is_bold = value
-    _update()
-
-
-func _set_is_italic(value: bool) -> void:
-    is_italic = value
     _update()
 
 
@@ -77,4 +71,14 @@ func _set_font_override(value: Font) -> void:
     font_override = value
     if Engine.editor_hint:
         add_font_override("font", font_override)
+    _update()
+
+
+func _set_hseparation(value: float) -> void:
+    hseparation = value
+    _update()
+
+
+func _set_arrow_margin(value: float) -> void:
+    arrow_margin = value
     _update()
