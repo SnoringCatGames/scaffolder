@@ -12,6 +12,7 @@ export var pressed := false setget _set_pressed
 export var disabled := false setget _set_disabled
 export var scale := 1.0 setget _set_scale
 export var size_override := Vector2.ZERO setget _set_size_override
+export var group: ButtonGroup setget _set_group
 
 var _is_ready := false
 
@@ -38,10 +39,20 @@ func _deferred_on_gui_scale_changed() -> void:
     $CheckBox.rect_size = Vector2(
             Gs.icons.current_checkbox_size,
             Gs.icons.current_checkbox_size)
+    
     var check_box_scale := _get_icon_scale()
     $CheckBox.rect_scale = Vector2(check_box_scale, check_box_scale)
-    rect_min_size = size_override * Gs.gui.scale * scale
+    
+    rect_min_size.x = \
+            (size_override.x if \
+            size_override.x != 0.0 else \
+            Gs.gui.button_width) * Gs.gui.scale * scale
+    rect_min_size.y = \
+            (size_override.y if \
+            size_override.y != 0.0 else \
+            Gs.gui.button_height) * Gs.gui.scale * scale
     rect_size = rect_min_size
+    
     $CheckBox.rect_position = \
             (rect_size - $CheckBox.rect_size * _get_icon_scale()) / 2.0
 
@@ -80,6 +91,11 @@ func _set_size_override(value: Vector2) -> void:
     size_override = value
     if _is_ready:
         _on_gui_scale_changed()
+
+
+func _set_group(value: ButtonGroup) -> void:
+    group = value
+    $CheckBox.group = group
 
 
 func _on_CheckBox_pressed() -> void:

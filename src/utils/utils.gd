@@ -487,7 +487,8 @@ func set_mouse_filter_recursively(
         mouse_filter: int) -> void:
     for child in node.get_children():
         if child is Control:
-            if !(child is Button):
+            if !(child is Button or \
+                    child is Slider):
                 child.mouse_filter = mouse_filter
         set_mouse_filter_recursively(child, mouse_filter)
 

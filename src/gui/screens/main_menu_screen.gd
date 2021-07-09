@@ -14,6 +14,7 @@ func _ready() -> void:
     # FIXME: ------------------- REMOVE
     for option in ["option 1", "option 2", "option 3"]:
         $VBoxContainer/OptionButton.add_item(option)
+        $VBoxContainer/ScaffolderOptionButton.add_item(option)
     
     if Gs.gui.is_main_menu_image_shown:
         projected_image = Gs.utils.add_scene(

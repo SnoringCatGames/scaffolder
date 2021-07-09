@@ -14,12 +14,13 @@ const BUTTON_HOVER_NINE_PATCH_PATH := \
 const BUTTON_NORMAL_NINE_PATCH_PATH = \
         "res://addons/scaffolder/assets/images/gui/button_normal.png"
 
+var button_content_margin := 12.0
+var button_shine_margin := 0
+
 var button_corner_radius: int
 var button_corner_detail: int
 var button_shadow_size: int
 var button_border_width: int
-
-var button_shine_margin := 0
 
 var button_active_nine_patch: Texture
 var button_disabled_nine_patch: Texture
@@ -82,6 +83,12 @@ func _init() -> void:
 func register_manifest(manifest: Dictionary) -> void:
     _validate_manifest(manifest)
     
+    if manifest.has("button_content_margin"):
+        self.button_content_margin = manifest.button_content_margin
+    
+    if manifest.has("button_shine_margin"):
+        self.button_shine_margin = manifest.button_shine_margin
+    
     if manifest.has("button_normal_nine_patch"):
         self.button_active_nine_patch = manifest.button_active_nine_patch
         self.button_disabled_nine_patch = manifest.button_disabled_nine_patch
@@ -95,9 +102,6 @@ func register_manifest(manifest: Dictionary) -> void:
         self.button_corner_detail = manifest.button_corner_detail
         self.button_shadow_size = manifest.button_shadow_size
         self.button_border_width = manifest.button_border_width
-    
-    if manifest.has("button_shine_margin"):
-        self.button_shine_margin = manifest.button_shine_margin
     
     if manifest.has("dropdown_normal_nine_patch"):
         self.dropdown_active_nine_patch = manifest.dropdown_active_nine_patch
@@ -226,30 +230,35 @@ func configure_theme() -> void:
                     texture = Gs.styles.button_disabled_nine_patch,
                     texture_scale = Gs.styles.button_nine_patch_scale,
                     margin = Gs.styles.button_nine_patch_margin,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "focused", "Button", {
                     texture = Gs.styles.button_focused_nine_patch,
                     texture_scale = Gs.styles.button_nine_patch_scale,
                     margin = Gs.styles.button_nine_patch_margin,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "hover", "Button", {
                     texture = Gs.styles.button_hover_nine_patch,
                     texture_scale = Gs.styles.button_nine_patch_scale,
                     margin = Gs.styles.button_nine_patch_margin,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "normal", "Button", {
                     texture = Gs.styles.button_normal_nine_patch,
                     texture_scale = Gs.styles.button_nine_patch_scale,
                     margin = Gs.styles.button_nine_patch_margin,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "pressed", "Button", {
                     texture = Gs.styles.button_active_nine_patch,
                     texture_scale = Gs.styles.button_nine_patch_scale,
                     margin = Gs.styles.button_nine_patch_margin,
+                    content_margin = Gs.styles.button_content_margin,
                 })
     else:
         _configure_theme_stylebox(
@@ -260,6 +269,7 @@ func configure_theme() -> void:
                     shadow_size = round(Gs.styles.button_shadow_size * 0.0),
                     border_width = round(Gs.styles.button_border_width * 0.0),
                     border_color = Gs.colors.button_border,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "focused", "Button", {
@@ -270,6 +280,7 @@ func configure_theme() -> void:
                     shadow_color = Color.from_hsv(0, 0, 0, 0.5),
                     border_width = Gs.styles.button_border_width,
                     border_color = Gs.colors.button_border,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "hover", "Button", {
@@ -280,6 +291,7 @@ func configure_theme() -> void:
                     shadow_color = Color.from_hsv(0, 0, 0, 0.5),
                     border_width = Gs.styles.button_border_width,
                     border_color = Gs.colors.button_border,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "normal", "Button", {
@@ -289,6 +301,7 @@ func configure_theme() -> void:
                     shadow_size = Gs.styles.button_shadow_size,
                     border_width = Gs.styles.button_border_width,
                     border_color = Gs.colors.button_border,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "pressed", "Button", {
@@ -298,6 +311,7 @@ func configure_theme() -> void:
                     shadow_size = round(Gs.styles.button_shadow_size * 0.2),
                     border_width = Gs.styles.button_border_width,
                     border_color = Gs.colors.button_border,
+                    content_margin = Gs.styles.button_content_margin,
                 })
     
     if is_instance_valid(Gs.styles.dropdown_normal_nine_patch):
@@ -306,30 +320,35 @@ func configure_theme() -> void:
                     texture = Gs.styles.dropdown_disabled_nine_patch,
                     texture_scale = Gs.styles.dropdown_nine_patch_scale,
                     margin = Gs.styles.dropdown_nine_patch_margin,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "focused", "OptionButton", {
                     texture = Gs.styles.dropdown_focused_nine_patch,
                     texture_scale = Gs.styles.dropdown_nine_patch_scale,
                     margin = Gs.styles.dropdown_nine_patch_margin,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "hover", "OptionButton", {
                     texture = Gs.styles.dropdown_hover_nine_patch,
                     texture_scale = Gs.styles.dropdown_nine_patch_scale,
                     margin = Gs.styles.dropdown_nine_patch_margin,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "normal", "OptionButton", {
                     texture = Gs.styles.dropdown_normal_nine_patch,
                     texture_scale = Gs.styles.dropdown_nine_patch_scale,
                     margin = Gs.styles.dropdown_nine_patch_margin,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "pressed", "OptionButton", {
                     texture = Gs.styles.dropdown_active_nine_patch,
                     texture_scale = Gs.styles.dropdown_nine_patch_scale,
                     margin = Gs.styles.dropdown_nine_patch_margin,
+                    content_margin = Gs.styles.button_content_margin,
                 })
     else:
         _configure_theme_stylebox(
@@ -340,6 +359,7 @@ func configure_theme() -> void:
                     shadow_size = Gs.styles.dropdown_shadow_size,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "focused", "OptionButton", {
@@ -349,6 +369,7 @@ func configure_theme() -> void:
                     shadow_size = Gs.styles.dropdown_shadow_size,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "hover", "OptionButton", {
@@ -358,6 +379,7 @@ func configure_theme() -> void:
                     shadow_size = Gs.styles.dropdown_shadow_size,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "normal", "OptionButton", {
@@ -367,6 +389,7 @@ func configure_theme() -> void:
                     shadow_size = Gs.styles.dropdown_shadow_size,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
+                    content_margin = Gs.styles.button_content_margin,
                 })
         _configure_theme_stylebox(
                 "pressed", "OptionButton", {
@@ -376,6 +399,7 @@ func configure_theme() -> void:
                     shadow_size = Gs.styles.dropdown_shadow_size,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
+                    content_margin = Gs.styles.button_content_margin,
                 })
     
     if is_instance_valid(Gs.styles.scroll_track_nine_patch):
