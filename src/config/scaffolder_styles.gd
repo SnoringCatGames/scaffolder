@@ -423,13 +423,13 @@ func _configure_theme_stylebox(
         type: String,
         config) -> void:
     if !Gs.gui.theme.has_stylebox(name, type):
-        var stylebox: StyleBox = Gs.utils.create_stylebox_scalable(config)
+        var stylebox: StyleBox = Gs.styles.create_stylebox_scalable(config)
         Gs.gui.theme.set_stylebox(name, type, stylebox)
     else:
         var old: StyleBox = Gs.gui.theme.get_stylebox(name, type)
         if !(old is StyleBoxFlatScalable or \
                 old is StyleBoxTextureScalable):
-            var new: StyleBox = Gs.utils.create_stylebox_scalable(old)
+            var new: StyleBox = Gs.styles.create_stylebox_scalable(old)
             Gs.gui.theme.set_stylebox(name, type, new)
 
 
@@ -439,3 +439,162 @@ func _configure_theme_stylebox_empty(
     if !Gs.gui.theme.has_stylebox(name, type):
         var stylebox := StyleBoxEmpty.new()
         Gs.gui.theme.set_stylebox(name, type, stylebox)
+
+
+func create_stylebox_scalable(config) -> StyleBox:
+    if config is Color:
+        var stylebox := StyleBoxFlatScalable.new()
+        stylebox.bg_color = config
+        stylebox.ready()
+        return stylebox
+    elif config is Dictionary:
+        if config.has("texture"):
+            return _create_stylebox_texture_scalable_from_config(config)
+        else:
+            return _create_stylebox_flat_scalable_from_config(config)
+    elif config is StyleBoxTexture:
+        return _create_stylebox_texture_scalable_from_stylebox(config)
+    elif config is StyleBox:
+        return _create_stylebox_flat_scalable_from_stylebox(config)
+    else:
+        Gs.logger.error()
+        return null
+
+
+func _create_stylebox_texture_scalable_from_config(
+        config: Dictionary) -> StyleBoxTextureScalable:
+    var stylebox := StyleBoxTextureScalable.new()
+    stylebox.texture = config.texture
+    if config.has("texture_scale"):
+        stylebox.initial_texture_scale = config.texture_scale
+    if config.has("margin"):
+        stylebox.margin_bottom = config.margin
+        stylebox.margin_left = config.margin
+        stylebox.margin_right = config.margin
+        stylebox.margin_top = config.margin
+    if config.has("expand_margin"):
+        stylebox.expand_margin_bottom = config.expand_margin
+        stylebox.expand_margin_left = config.expand_margin
+        stylebox.expand_margin_right = config.expand_margin
+        stylebox.expand_margin_top = config.expand_margin
+    stylebox.ready()
+    return stylebox
+
+
+func _create_stylebox_texture_scalable_from_stylebox(
+        old: StyleBoxTexture) -> StyleBoxTextureScalable:
+    var new := StyleBoxTextureScalable.new()
+    
+    new.texture = old.texture
+    new.normal_map = old.normal_map
+    new.region_rect = old.region_rect
+    
+    new.content_margin_left = old.content_margin_left
+    new.content_margin_top = old.content_margin_top
+    new.content_margin_right = old.content_margin_right
+    new.content_margin_bottom = old.content_margin_bottom
+    
+    new.margin_left = old.margin_left
+    new.margin_top = old.margin_top
+    new.margin_right = old.margin_right
+    new.margin_bottom = old.margin_bottom
+    
+    new.expand_margin_left = old.expand_margin_left
+    new.expand_margin_top = old.expand_margin_top
+    new.expand_margin_right = old.expand_margin_right
+    new.expand_margin_bottom = old.expand_margin_bottom
+    
+    new.modulate_color = old.modulate_color
+    new.draw_center = old.draw_center
+    
+    if old is StyleBoxTextureScalable:
+        new.texture = old.initial_texture
+        new.content_margin_top = old.initial_content_margin
+        new.expand_margin_top = old.initial_expand_margin
+        new.margin_top = old.initial_margin
+        new.initial_texture_scale = old.initial_texture_scale
+    
+    new.ready()
+    return new
+
+
+func _create_stylebox_flat_scalable_from_config(
+        config: Dictionary) -> StyleBoxFlatScalable:
+    var stylebox: StyleBoxFlatScalable
+    if config.has("stylebox"):
+        stylebox = _create_stylebox_flat_scalable_from_stylebox(
+                config.stylebox)
+    else:
+        stylebox = StyleBoxFlatScalable.new()
+    
+    if config.has("bg_color"):
+        stylebox.bg_color = config.bg_color
+    if config.has("border_width"):
+        stylebox.border_width_left = config.border_width
+        stylebox.border_width_top = config.border_width
+        stylebox.border_width_right = config.border_width
+        stylebox.border_width_bottom = config.border_width
+    if config.has("border_color"):
+        stylebox.border_color = config.border_color
+    if config.has("content_margin"):
+        stylebox.content_margin_left = config.content_margin
+        stylebox.content_margin_top = config.content_margin
+        stylebox.content_margin_right = config.content_margin
+        stylebox.content_margin_bottom = config.content_margin
+    if config.has("corner_detail"):
+        stylebox.corner_detail = config.corner_detail
+    if config.has("corner_radius"):
+        stylebox.corner_radius_top_left = config.corner_radius
+        stylebox.corner_radius_top_right = config.corner_radius
+        stylebox.corner_radius_bottom_left = config.corner_radius
+        stylebox.corner_radius_bottom_right = config.corner_radius
+    if config.has("expand_margin"):
+        stylebox.expand_margin_left = config.expand_margin
+        stylebox.expand_margin_top = config.expand_margin
+        stylebox.expand_margin_right = config.expand_margin
+        stylebox.expand_margin_bottom = config.expand_margin
+    if config.has("shadow_color"):
+        stylebox.shadow_color = config.shadow_color
+    if config.has("shadow_offset"):
+        stylebox.shadow_offset = config.shadow_offset
+    if config.has("shadow_size"):
+        stylebox.shadow_size = config.shadow_size
+    stylebox.ready()
+    return stylebox
+
+
+func _create_stylebox_flat_scalable_from_stylebox(
+        old: StyleBox) -> StyleBoxFlatScalable:
+    var new := StyleBoxFlatScalable.new()
+    
+    new.expand_margin_left = old.expand_margin_left
+    new.expand_margin_top = old.expand_margin_top
+    new.expand_margin_right = old.expand_margin_right
+    new.expand_margin_bottom = old.expand_margin_bottom
+    
+    if old is StyleBoxFlat:
+        new.anti_aliasing = old.anti_aliasing
+        new.anti_aliasing_size = old.anti_aliasing_size
+        new.bg_color = old.bg_color
+        new.border_blend = old.border_blend
+        new.border_color = old.border_color
+        new.border_width_left = old.border_width_left
+        new.border_width_top = old.border_width_top
+        new.border_width_right = old.border_width_right
+        new.border_width_bottom = old.border_width_bottom
+        new.content_margin_left = old.content_margin_left
+        new.content_margin_top = old.content_margin_top
+        new.content_margin_right = old.content_margin_right
+        new.content_margin_bottom = old.content_margin_bottom
+        new.corner_detail = old.corner_detail
+        new.corner_radius_top_left = old.corner_radius_top_left
+        new.corner_radius_top_right = old.corner_radius_top_right
+        new.corner_radius_bottom_left = old.corner_radius_bottom_left
+        new.corner_radius_bottom_right = old.corner_radius_bottom_right
+        new.draw_center = old.draw_center
+        new.shadow_color = old.shadow_color
+        new.shadow_offset = old.shadow_offset
+        new.shadow_size = old.shadow_size
+    
+    new.ready()
+    return new

@@ -369,7 +369,7 @@ func _update_game_area_region_and_gui_scale() -> void:
 func _scale_guis() -> void:
     if Gs.gui.previous_scale != Gs.gui.scale:
         for gui in Gs.gui.guis_to_scale:
-            Gs.utils._scale_gui_for_current_screen_size(gui)
+            Gs.gui._scale_gui_for_current_screen_size(gui)
 
 
 func _set_window_debug_size_and_position() -> void:

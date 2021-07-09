@@ -28,7 +28,7 @@ func init_children() -> void:
     $HBoxContainer/Caret/TextureRect.rect_rotation = \
             AccordionPanel.CARET_ROTATION_CLOSED
     
-    normal_stylebox = Gs.utils.create_stylebox_scalable({
+    normal_stylebox = Gs.styles.create_stylebox_scalable({
         bg_color = Gs.colors.dropdown_normal,
         corner_radius = Gs.styles.dropdown_corner_radius,
         corner_detail = Gs.styles.dropdown_corner_detail,
@@ -36,7 +36,7 @@ func init_children() -> void:
         border_width = Gs.styles.dropdown_border_width,
         border_color = Gs.colors.dropdown_border,
     })
-    hover_stylebox = Gs.utils.create_stylebox_scalable({
+    hover_stylebox = Gs.styles.create_stylebox_scalable({
         bg_color = Gs.colors.dropdown_hover,
         corner_radius = Gs.styles.dropdown_corner_radius,
         corner_detail = Gs.styles.dropdown_corner_detail,
@@ -44,7 +44,7 @@ func init_children() -> void:
         border_width = Gs.styles.dropdown_border_width,
         border_color = Gs.colors.dropdown_border,
     })
-    pressed_stylebox = Gs.utils.create_stylebox_scalable({
+    pressed_stylebox = Gs.styles.create_stylebox_scalable({
         bg_color = Gs.colors.dropdown_pressed,
         corner_radius = Gs.styles.dropdown_corner_radius,
         corner_detail = Gs.styles.dropdown_corner_detail,
