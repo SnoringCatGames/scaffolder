@@ -70,6 +70,16 @@ const DEFAULT_CHECKBOX_PIXEL_PATH_PREFIX := \
 const DEFAULT_CHECKBOX_PIXEL_SIZE := 32
 const DEFAULT_CHECKBOX_PIXEL_SIZES := [8, 16, 32, 64, 128]
 
+const DEFAULT_RADIO_BUTTON_NORMAL_PATH_PREFIX := \
+        "res://addons/scaffolder/assets/images/gui/radio_button/radio_button_"
+const DEFAULT_RADIO_BUTTON_NORMAL_SIZE := 32
+const DEFAULT_RADIO_BUTTON_NORMAL_SIZES := [16, 32, 64, 128]
+
+const DEFAULT_RADIO_BUTTON_PIXEL_PATH_PREFIX := \
+        "res://addons/scaffolder/assets/images/gui/radio_button_pixel/radio_button_"
+const DEFAULT_RADIO_BUTTON_PIXEL_SIZE := 32
+const DEFAULT_RADIO_BUTTON_PIXEL_SIZES := [8, 16, 32, 64, 128]
+
 const DEFAULT_TREE_ARROW_NORMAL_PATH_PREFIX := \
         "res://addons/scaffolder/assets/images/gui/tree_arrow/tree_arrow_"
 const DEFAULT_TREE_ARROW_NORMAL_SIZE := 16
@@ -79,6 +89,36 @@ const DEFAULT_TREE_ARROW_PIXEL_PATH_PREFIX := \
         "res://addons/scaffolder/assets/images/gui/tree_arrow_pixel/tree_arrow_"
 const DEFAULT_TREE_ARROW_PIXEL_SIZE := 16
 const DEFAULT_TREE_ARROW_PIXEL_SIZES := [4, 8, 16, 32, 64, 128]
+
+const DEFAULT_DROPDOWN_ARROW_NORMAL_PATH_PREFIX := \
+        "res://addons/scaffolder/assets/images/gui/dropdown_arrow/dropdown_arrow_"
+const DEFAULT_DROPDOWN_ARROW_NORMAL_SIZE := 32
+const DEFAULT_DROPDOWN_ARROW_NORMAL_SIZES := [16, 32, 64, 128]
+
+const DEFAULT_DROPDOWN_ARROW_PIXEL_PATH_PREFIX := \
+        "res://addons/scaffolder/assets/images/gui/dropdown_arrow_pixel/dropdown_arrow_"
+const DEFAULT_DROPDOWN_ARROW_PIXEL_SIZE := 20
+const DEFAULT_DROPDOWN_ARROW_PIXEL_SIZES := [5, 10, 20, 40, 80]
+
+const DEFAULT_SLIDER_GRABBER_NORMAL_PATH_PREFIX := \
+        "res://addons/scaffolder/assets/images/gui/slider/slider_grabber_"
+const DEFAULT_SLIDER_GRABBER_NORMAL_SIZE := 16
+const DEFAULT_SLIDER_GRABBER_NORMAL_SIZES := [8, 16, 32, 64]
+
+const DEFAULT_SLIDER_GRABBER_PIXEL_PATH_PREFIX := \
+        "res://addons/scaffolder/assets/images/gui/slider_pixel/slider_grabber_"
+const DEFAULT_SLIDER_GRABBER_PIXEL_SIZE := 16
+const DEFAULT_SLIDER_GRABBER_PIXEL_SIZES := [4, 8, 16, 32, 64]
+
+const DEFAULT_SLIDER_TICK_NORMAL_PATH_PREFIX := \
+        "res://addons/scaffolder/assets/images/gui/slider/slider_tick_"
+const DEFAULT_SLIDER_TICK_NORMAL_SIZE := 2
+const DEFAULT_SLIDER_TICK_NORMAL_SIZES := [1, 2, 3, 4]
+
+const DEFAULT_SLIDER_TICK_PIXEL_PATH_PREFIX := \
+        "res://addons/scaffolder/assets/images/gui/slider_pixel/slider_tick_"
+const DEFAULT_SLIDER_TICK_PIXEL_SIZE := 4
+const DEFAULT_SLIDER_TICK_PIXEL_SIZES := [1, 2, 4, 8, 16]
 
 # --- Static configuration state ---
 
@@ -121,16 +161,36 @@ var checkbox_path_prefix := DEFAULT_CHECKBOX_NORMAL_PATH_PREFIX
 var default_checkbox_size := DEFAULT_CHECKBOX_NORMAL_SIZE
 var checkbox_sizes := DEFAULT_CHECKBOX_NORMAL_SIZES
 
+var radio_button_path_prefix := DEFAULT_RADIO_BUTTON_NORMAL_PATH_PREFIX
+var default_radio_button_size := DEFAULT_RADIO_BUTTON_NORMAL_SIZE
+var radio_button_sizes := DEFAULT_RADIO_BUTTON_NORMAL_SIZES
+
 var tree_arrow_path_prefix := DEFAULT_TREE_ARROW_NORMAL_PATH_PREFIX
 var default_tree_arrow_size := DEFAULT_TREE_ARROW_NORMAL_SIZE
 var tree_arrow_sizes := DEFAULT_TREE_ARROW_NORMAL_SIZES
+
+var dropdown_arrow_path_prefix := DEFAULT_DROPDOWN_ARROW_NORMAL_PATH_PREFIX
+var default_dropdown_arrow_size := DEFAULT_DROPDOWN_ARROW_NORMAL_SIZE
+var dropdown_arrow_sizes := DEFAULT_DROPDOWN_ARROW_NORMAL_SIZES
+
+var slider_grabber_path_prefix := DEFAULT_SLIDER_GRABBER_NORMAL_PATH_PREFIX
+var default_slider_grabber_size := DEFAULT_SLIDER_GRABBER_NORMAL_SIZE
+var slider_grabber_sizes := DEFAULT_SLIDER_GRABBER_NORMAL_SIZES
+
+var slider_tick_path_prefix := DEFAULT_SLIDER_TICK_NORMAL_PATH_PREFIX
+var default_slider_tick_size := DEFAULT_SLIDER_TICK_NORMAL_SIZE
+var slider_tick_sizes := DEFAULT_SLIDER_TICK_NORMAL_SIZES
 
 # --- Derived configuration ---
 
 # --- Global state ---
 
 var current_checkbox_size := default_checkbox_size
-var current_tree_arrow_size := default_checkbox_size
+var current_radio_button_size := default_radio_button_size
+var current_tree_arrow_size := default_tree_arrow_size
+var current_dropdown_arrow_size := default_dropdown_arrow_size
+var current_slider_grabber_size := default_slider_grabber_size
+var current_slider_tick_size := default_slider_tick_size
 
 # ---
 
@@ -252,6 +312,16 @@ func register_manifest(manifest: Dictionary) -> void:
         self.checkbox_sizes = \
                 manifest.checkbox_sizes
     
+    if manifest.has("radio_button_path_prefix"):
+        self.radio_button_path_prefix = \
+                manifest.radio_button_path_prefix
+    if manifest.has("default_radio_button_size"):
+        self.default_radio_button_size = \
+                manifest.default_radio_button_size
+    if manifest.has("radio_button_sizes"):
+        self.radio_button_sizes = \
+                manifest.radio_button_sizes
+    
     if manifest.has("tree_arrow_path_prefix"):
         self.tree_arrow_path_prefix = \
                 manifest.tree_arrow_path_prefix
@@ -261,3 +331,183 @@ func register_manifest(manifest: Dictionary) -> void:
     if manifest.has("tree_arrow_sizes"):
         self.tree_arrow_sizes = \
                 manifest.tree_arrow_sizes
+    
+    if manifest.has("dropdown_arrow_path_prefix"):
+        self.dropdown_arrow_path_prefix = \
+                manifest.dropdown_arrow_path_prefix
+    if manifest.has("default_dropdown_arrow_size"):
+        self.default_dropdown_arrow_size = \
+                manifest.default_dropdown_arrow_size
+    if manifest.has("dropdown_arrow_sizes"):
+        self.dropdown_arrow_sizes = \
+                manifest.dropdown_arrow_sizes
+    
+    if manifest.has("slider_grabber_path_prefix"):
+        self.slider_grabber_path_prefix = \
+                manifest.slider_grabber_path_prefix
+    if manifest.has("default_slider_grabber_size"):
+        self.default_slider_grabber_size = \
+                manifest.default_slider_grabber_size
+    if manifest.has("slider_grabber_sizes"):
+        self.slider_grabber_sizes = \
+                manifest.slider_grabber_sizes
+    
+    if manifest.has("slider_tick_path_prefix"):
+        self.slider_tick_path_prefix = \
+                manifest.slider_tick_path_prefix
+    if manifest.has("default_slider_tick_size"):
+        self.default_slider_tick_size = \
+                manifest.default_slider_tick_size
+    if manifest.has("slider_tick_sizes"):
+        self.slider_tick_sizes = \
+                manifest.slider_tick_sizes
+
+
+func _update_icon_sizes() -> void:
+    Gs.icons._update_checkbox_size()
+    Gs.icons._update_radio_button_size()
+    Gs.icons._update_tree_arrow_size()
+    Gs.icons._update_dropdown_arrow_size()
+    Gs.icons._update_slider_grabber_size()
+    Gs.icons._update_slider_tick_size()
+
+
+func _update_checkbox_size() -> void:
+    var target_icon_size: float = \
+            Gs.icons.default_checkbox_size * Gs.gui.scale
+    var closest_icon_size: float = INF
+    for icon_size in Gs.icons.checkbox_sizes:
+        if abs(target_icon_size - icon_size) < \
+                abs(target_icon_size - closest_icon_size):
+            closest_icon_size = icon_size
+    Gs.icons.current_checkbox_size = closest_icon_size
+    
+    var checked_icon_path: String = \
+            Gs.icons.checkbox_path_prefix + "checked_" + \
+            str(Gs.icons.current_checkbox_size) + ".png"
+    var unchecked_icon_path: String = \
+            Gs.icons.checkbox_path_prefix + "unchecked_" + \
+            str(Gs.icons.current_checkbox_size) + ".png"
+    
+    var checked_icon := load(checked_icon_path)
+    var unchecked_icon := load(unchecked_icon_path)
+    
+    Gs.gui.theme.set_icon("checked", "CheckBox", checked_icon)
+    Gs.gui.theme.set_icon("unchecked", "CheckBox", unchecked_icon)
+    Gs.gui.theme.set_icon("checked", "PopupMenu", checked_icon)
+    Gs.gui.theme.set_icon("unchecked", "PopupMenu", unchecked_icon)
+
+
+func _update_radio_button_size() -> void:
+    var target_icon_size: float = \
+            Gs.icons.default_radio_button_size * Gs.gui.scale
+    var closest_icon_size: float = INF
+    for icon_size in Gs.icons.radio_button_sizes:
+        if abs(target_icon_size - icon_size) < \
+                abs(target_icon_size - closest_icon_size):
+            closest_icon_size = icon_size
+    Gs.icons.current_radio_button_size = closest_icon_size
+    
+    var checked_icon_path: String = \
+            Gs.icons.radio_button_path_prefix + "checked_" + \
+            str(Gs.icons.current_radio_button_size) + ".png"
+    var unchecked_icon_path: String = \
+            Gs.icons.radio_button_path_prefix + "unchecked_" + \
+            str(Gs.icons.current_radio_button_size) + ".png"
+    
+    var checked_icon := load(checked_icon_path)
+    var unchecked_icon := load(unchecked_icon_path)
+    
+    Gs.gui.theme.set_icon("radio_checked", "CheckBox", checked_icon)
+    Gs.gui.theme.set_icon("radio_unchecked", "CheckBox", unchecked_icon)
+    Gs.gui.theme.set_icon("radio_checked", "PopupMenu", checked_icon)
+    Gs.gui.theme.set_icon("radio_unchecked", "PopupMenu", unchecked_icon)
+
+
+func _update_tree_arrow_size() -> void:
+    var target_icon_size: float = \
+            Gs.icons.default_tree_arrow_size * Gs.gui.scale
+    var closest_icon_size: float = INF
+    for icon_size in Gs.icons.tree_arrow_sizes:
+        if abs(target_icon_size - icon_size) < \
+                abs(target_icon_size - closest_icon_size):
+            closest_icon_size = icon_size
+    Gs.icons.current_tree_arrow_size = closest_icon_size
+    
+    var open_icon_path: String = \
+            Gs.icons.tree_arrow_path_prefix + "open_" + \
+            str(Gs.icons.current_tree_arrow_size) + ".png"
+    var closed_icon_path: String = \
+            Gs.icons.tree_arrow_path_prefix + "closed_" + \
+            str(Gs.icons.current_tree_arrow_size) + ".png"
+    
+    var open_icon := load(open_icon_path)
+    var closed_icon := load(closed_icon_path)
+    
+    Gs.gui.theme.set_icon("arrow", "Tree", open_icon)
+    Gs.gui.theme.set_icon("arrow_collapsed", "Tree", closed_icon)
+    Gs.gui.theme.set_constant(
+            "item_margin", "Tree", Gs.icons.current_tree_arrow_size)
+
+
+func _update_dropdown_arrow_size() -> void:
+    var target_icon_size: float = \
+            Gs.icons.default_dropdown_arrow_size * Gs.gui.scale
+    var closest_icon_size: float = INF
+    for icon_size in Gs.icons.dropdown_arrow_sizes:
+        if abs(target_icon_size - icon_size) < \
+                abs(target_icon_size - closest_icon_size):
+            closest_icon_size = icon_size
+    Gs.icons.current_dropdown_arrow_size = closest_icon_size
+    
+    var path: String = \
+            Gs.icons.dropdown_arrow_path_prefix + \
+            str(Gs.icons.current_dropdown_arrow_size) + ".png"
+    
+    var icon := load(path)
+    
+    Gs.gui.theme.set_icon("arrow", "OptionButton", icon)
+    Gs.gui.theme.set_constant(
+            "arrow_margin",
+            "OptionButton",
+            Gs.icons.current_dropdown_arrow_size)
+
+
+func _update_slider_grabber_size() -> void:
+    var target_icon_size: float = \
+            Gs.icons.default_slider_grabber_size * Gs.gui.scale
+    var closest_icon_size: float = INF
+    for icon_size in Gs.icons.slider_grabber_sizes:
+        if abs(target_icon_size - icon_size) < \
+                abs(target_icon_size - closest_icon_size):
+            closest_icon_size = icon_size
+    Gs.icons.current_slider_grabber_size = closest_icon_size
+    
+    var path: String = \
+            Gs.icons.slider_grabber_path_prefix + \
+            str(Gs.icons.current_slider_grabber_size) + ".png"
+    
+    var icon := load(path)
+    
+    Gs.gui.theme.set_icon("grabber", "HSlider", icon)
+    Gs.gui.theme.set_icon("grabber_disabled", "HSlider", icon)
+    Gs.gui.theme.set_icon("grabber_highlight", "HSlider", icon)
+
+
+func _update_slider_tick_size() -> void:
+    var target_icon_size: float = \
+            Gs.icons.default_slider_tick_size * Gs.gui.scale
+    var closest_icon_size: float = INF
+    for icon_size in Gs.icons.slider_tick_sizes:
+        if abs(target_icon_size - icon_size) < \
+                abs(target_icon_size - closest_icon_size):
+            closest_icon_size = icon_size
+    Gs.icons.current_slider_tick_size = closest_icon_size
+    
+    var path: String = \
+            Gs.icons.slider_tick_path_prefix + \
+            str(Gs.icons.current_slider_tick_size) + ".png"
+    
+    var icon := load(path)
+    
+    Gs.gui.theme.set_icon("tick", "HSlider", icon)

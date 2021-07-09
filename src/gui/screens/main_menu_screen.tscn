@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://new_buttongroup.tres" type="ButtonGroup" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/main_menu_screen.gd" type="Script" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=7]
@@ -16,7 +17,8 @@ is_settings_button_shown = true
 is_nav_bar_logo_shown = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_bottom = 26.0
+margin_right = 113.0
+margin_bottom = 138.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -24,6 +26,8 @@ __meta__ = {
 }
 
 [node name="MainMenuImageContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_left = 56.0
+margin_right = 56.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 size_flags_stretch_ratio = 3.0
@@ -37,20 +41,78 @@ size = Vector2( 0, 30 )
 [node name="Spacer2" parent="VBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
+margin_left = 56.0
 margin_top = 4.0
+margin_right = 56.0
 margin_bottom = 4.0
 size = Vector2( 0, 60 )
 
 [node name="StartGameButton" parent="VBoxContainer" instance=ExtResource( 7 )]
+margin_left = 56.0
 margin_top = 8.0
+margin_right = 56.0
 margin_bottom = 22.0
 size_override = Vector2( 160, 80 )
 
 [node name="Spacer5" parent="VBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
+margin_left = 56.0
 margin_top = 26.0
+margin_right = 56.0
 margin_bottom = 26.0
+size = Vector2( 0, 30 )
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer"]
+margin_top = 30.0
+margin_right = 113.0
+margin_bottom = 50.0
+text = "Hello button!"
+
+[node name="Spacer6" parent="VBoxContainer" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 56.0
+margin_top = 54.0
+margin_right = 56.0
+margin_bottom = 54.0
+size = Vector2( 0, 30 )
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer"]
+margin_top = 58.0
+margin_right = 113.0
+margin_bottom = 82.0
+group = ExtResource( 1 )
+text = "Option 1"
+
+[node name="CheckBox2" type="CheckBox" parent="VBoxContainer"]
+margin_top = 86.0
+margin_right = 113.0
+margin_bottom = 110.0
+group = ExtResource( 1 )
+text = "Option 2"
+
+[node name="Spacer7" parent="VBoxContainer" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 56.0
+margin_top = 114.0
+margin_right = 56.0
+margin_bottom = 114.0
+size = Vector2( 0, 30 )
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer"]
+margin_top = 118.0
+margin_right = 113.0
+margin_bottom = 134.0
+
+[node name="Spacer8" parent="VBoxContainer" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 56.0
+margin_top = 138.0
+margin_right = 56.0
+margin_bottom = 138.0
 size = Vector2( 0, 30 )
 
 [connection signal="pressed" from="VBoxContainer/StartGameButton" to="." method="_on_StartGameButton_pressed"]

@@ -60,6 +60,14 @@ var scroll_grabber_normal_nine_patch: Texture
 var scroll_grabber_nine_patch_margin: float
 var scroll_grabber_nine_patch_scale: float
 
+var slider_corner_radius: int
+var slider_corner_detail: int
+var slider_content_margin: int
+
+var slider_track_nine_patch: Texture
+var slider_track_nine_patch_margin: float
+var slider_track_nine_patch_scale: float
+
 var screen_shadow_size: int
 var screen_shadow_offset: Vector2
 var screen_border_width: int
@@ -131,6 +139,17 @@ func register_manifest(manifest: Dictionary) -> void:
         self.scroll_grabber_corner_detail = \
                 manifest.scroll_grabber_corner_detail
     
+    if manifest.has("slider_track_nine_patch"):
+        self.slider_track_nine_patch = manifest.slider_track_nine_patch
+        self.slider_track_nine_patch_margin = \
+                manifest.slider_track_nine_patch_margin
+        self.slider_track_nine_patch_scale = \
+                manifest.slider_track_nine_patch_scale
+    else:
+        self.slider_corner_radius = manifest.slider_corner_radius
+        self.slider_corner_detail = manifest.slider_corner_detail
+        self.slider_content_margin = manifest.slider_content_margin
+    
     self.screen_shadow_size = manifest.screen_shadow_size
     self.screen_shadow_offset = manifest.screen_shadow_offset
     self.screen_border_width = manifest.screen_border_width
@@ -176,6 +195,13 @@ func _validate_manifest(manifest: Dictionary) -> void:
             manifest.has("scroll_content_margin") and \
             manifest.has("scroll_grabber_corner_radius") and \
             manifest.has("scroll_grabber_corner_detail")))
+    
+    assert((manifest.has("slider_track_nine_patch") and \
+            manifest.has("slider_track_nine_patch_margin") and \
+            manifest.has("slider_track_nine_patch_scale")) or \
+            (manifest.has("slider_corner_radius") and \
+            manifest.has("slider_corner_detail") and \
+            manifest.has("slider_content_margin")))
 
 
 func configure_theme() -> void:
@@ -454,6 +480,43 @@ func configure_theme() -> void:
                     corner_radius = Gs.styles.scroll_grabber_corner_radius,
                     corner_detail = Gs.styles.scroll_grabber_corner_detail,
                 })
+    
+    if is_instance_valid(Gs.styles.slider_track_nine_patch):
+        _configure_theme_stylebox(
+                "slider", "HSlider", {
+                    texture = Gs.styles.slider_track_nine_patch,
+                    texture_scale = Gs.styles.slider_track_nine_patch_scale,
+                    margin = Gs.styles.slider_track_nine_patch_margin,
+                })
+        _configure_theme_stylebox(
+                "slider", "VSlider", {
+                    texture = Gs.styles.slider_track_nine_patch,
+                    texture_scale = Gs.styles.slider_track_nine_patch_scale,
+                    margin = Gs.styles.slider_track_nine_patch_margin,
+                })
+    else:
+        _configure_theme_stylebox(
+                "slider", "HSlider", {
+                    bg_color = Gs.colors.slider_background,
+                    corner_radius = Gs.styles.slider_corner_radius,
+                    corner_detail = Gs.styles.slider_corner_detail,
+                    content_margin = Gs.styles.slider_content_margin,
+                })
+        _configure_theme_stylebox(
+                "slider", "VSlider", {
+                    bg_color = Gs.colors.slider_background,
+                    corner_radius = Gs.styles.slider_corner_radius,
+                    corner_detail = Gs.styles.slider_corner_detail,
+                    content_margin = Gs.styles.slider_content_margin,
+                })
+    _configure_theme_stylebox(
+            "grabber_area", "HSlider", {bg_color = Color.transparent})
+    _configure_theme_stylebox(
+            "grabber_area_highlight", "HSlider", {bg_color = Color.transparent})
+    _configure_theme_stylebox(
+            "grabber_area", "VSlider", {bg_color = Color.transparent})
+    _configure_theme_stylebox(
+            "grabber_area_highlight", "VSlider", {bg_color = Color.transparent})
     
     _configure_theme_stylebox(
             "panel", "PopupMenu", Gs.colors.popup_background)
