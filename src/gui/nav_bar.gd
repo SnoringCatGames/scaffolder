@@ -1,5 +1,6 @@
 tool
-class_name NavBar, "res://addons/scaffolder/assets/images/editor_icons/nav_bar.png"
+class_name NavBar, \
+"res://addons/scaffolder/assets/images/editor_icons/nav_bar.png"
 extends PanelContainer
 
 

@@ -1,5 +1,6 @@
 tool
-class_name ScaffolderSlider, "res://addons/scaffolder/assets/images/editor_icons/slider.png"
+class_name ScaffolderSlider, \
+"res://addons/scaffolder/assets/images/editor_icons/slider.png"
 extends HSlider
 
 

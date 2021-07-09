@@ -1,5 +1,6 @@
 tool
-class_name ScaffolderTextureButton, "res://addons/scaffolder/assets/images/editor_icons/scaffolder_texture_button.png"
+class_name ScaffolderTextureButton, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_texture_button.png"
 extends Control
 
 
