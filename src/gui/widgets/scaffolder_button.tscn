@@ -69,7 +69,13 @@ align = 1
 valign = 1
 clip_text = true
 
-[node name="ShineLineWrapper" type="Control" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+margin_right = 704.0
+margin_bottom = 328.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ShineLineWrapper" type="Control" parent="MarginContainer/MarginContainer"]
 margin_right = 704.0
 margin_bottom = 328.0
 rect_clip_content = true
@@ -77,7 +83,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ShineLine" type="Sprite" parent="MarginContainer/ShineLineWrapper"]
+[node name="ShineLine" type="Sprite" parent="MarginContainer/MarginContainer/ShineLineWrapper"]
 position = Vector2( -352, 164 )
 texture = ExtResource( 4 )
 

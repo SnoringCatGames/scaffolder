@@ -266,13 +266,8 @@ func _set_screen_is_open(
     if next_screen_container != null:
         next_screen.set_params(screen_params)
         
-        # FIXME: ---------------------
-        # - Implement a way to remember scroll position?
-#        # If opening a new screen, auto-scroll to the top. Otherwise, if
-#        # navigating back to a previous screen, maintain the scroll position,
-#        # so the user can remember where they were.
-#        if is_open:
-#            next_screen._scroll_to_top()
+        # TODO: Implement a way to remember and preserve scroll position when
+        #       re-visiting.
         
         Gs.analytics.screen(next_screen_name)
     

@@ -47,7 +47,7 @@ func set_up(contents: Screen) -> void:
             contents.background_color_override if \
             has_background_color_override else \
             Gs.colors.background
-    stylebox = Gs.utils.create_stylebox_flat_scalable({
+    stylebox = Gs.utils.create_stylebox_scalable({
         bg_color = background_color,
         shadow_size = Gs.styles.screen_shadow_size,
         shadow_offset = Gs.styles.screen_shadow_offset,

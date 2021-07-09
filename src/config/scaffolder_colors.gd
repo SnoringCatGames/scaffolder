@@ -31,7 +31,8 @@ var button_hover: Color
 var button_pressed: Color
 var button_border: Color
 
-var scaffolder_button_highlight: Color
+var button_flat_pulse: Color
+var button_texture_modulate: Color
 
 var link_normal: Color
 var link_hover: Color
@@ -99,14 +100,15 @@ var _defaults := {
     header = Color("eeeeee"),
     link_normal = Color("707070"),
     link_hover = Color("969696"),
-    link_pressed = Color("969696"),
+    link_pressed = Color("5b5b5b"),
     button_normal = Color("707070"),
     button_disabled = Color("969696"),
     button_focused = Color("969696"),
     button_hover = Color("969696"),
-    button_pressed = Color("969696"),
+    button_pressed = Color("5b5b5b"),
     button_border = Color("969696"),
-    scaffolder_button_highlight = Color("d0d0d0"),
+    button_texture_modulate = Color(2, 2, 2, 1),
+    button_flat_pulse = Color("d0d0d0"),
     dropdown_normal = Color("404040"),
     dropdown_disabled = Color("4d4d4d"),
     dropdown_focused = Color("4d4d4d"),
@@ -119,7 +121,7 @@ var _defaults := {
     scroll_bar_background = Color("4d4d4d"),
     scroll_bar_grabber_normal = Color("707070"),
     scroll_bar_grabber_hover = Color("969696"),
-    scroll_bar_grabber_pressed = Color("969696"),
+    scroll_bar_grabber_pressed = Color("5b5b5b"),
     zebra_stripe_even_row = Color("4d4d4d"),
     overlay_panel_body_background = Color("141414"),
     overlay_panel_header_background = Color("282828"),
