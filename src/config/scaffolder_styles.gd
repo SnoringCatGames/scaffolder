@@ -477,6 +477,14 @@ func _create_stylebox_texture_scalable_from_config(
         stylebox.expand_margin_left = config.expand_margin
         stylebox.expand_margin_right = config.expand_margin
         stylebox.expand_margin_top = config.expand_margin
+    
+    # Setting content-margin to 0 is important for preventing the button from
+    # forcing an undesirable min height.
+    stylebox.content_margin_bottom = 0
+    stylebox.content_margin_left = 0
+    stylebox.content_margin_right = 0
+    stylebox.content_margin_top = 0
+    
     stylebox.ready()
     return stylebox
 
