@@ -91,7 +91,7 @@ func _on_gui_scale_changed() -> bool:
     _update_visiblity()
     
     for child in get_children():
-        Gs.utils.scale_gui_recursively(child)
+        Gs.gui.scale_gui_recursively(child)
     
     return true
 

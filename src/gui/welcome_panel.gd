@@ -30,7 +30,7 @@ func _ready() -> void:
     if Engine.editor_hint:
         return
     
-    Gs.utils.record_gui_original_size_recursively(self)
+    Gs.gui.record_gui_original_size_recursively(self)
     
     theme = Gs.gui.theme
     
@@ -71,7 +71,7 @@ func _ready() -> void:
 func _on_gui_scale_changed() -> bool:
     for child in $VBoxContainer.get_children():
         if child is Control:
-            Gs.utils.scale_gui_recursively(child)
+            Gs.gui.scale_gui_recursively(child)
         # Round-up sizes to the nearest pixel, in order to prevent small gaps
         # between rows.
         child.rect_min_size = Gs.utils.ceil_vector(child.rect_min_size)

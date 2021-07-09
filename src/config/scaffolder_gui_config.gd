@@ -428,7 +428,7 @@ func register_manifest(manifest: Dictionary) -> void:
 
 func add_gui_to_scale(gui) -> void:
     guis_to_scale[gui] = true
-    Gs.utils._scale_gui_for_current_screen_size(gui)
+    Gs.gui._scale_gui_for_current_screen_size(gui)
 
 
 func remove_gui_to_scale(gui) -> void:
@@ -534,7 +534,121 @@ func get_font(
     var size_string: String = \
             size if \
             size is String else \
-            font_size_to_string(size)
+            Gs.gui.font_size_to_string(size)
     var size_part := "_" + size_string.to_lower()
     var font_key := context_part + size_part + bold_part + italic_part
     return Gs.gui.fonts[font_key]
+
+
+# Automatically resize the gui to adapt to different screen sizes.
+func _scale_gui_for_current_screen_size(gui) -> void:
+    if !is_instance_valid(gui) or \
+            !Gs.gui.guis_to_scale.has(gui):
+        Gs.logger.error()
+        return
+    
+    Gs.gui.scale_gui_recursively(gui)
+
+
+func scale_gui_recursively(gui) -> void:
+    if gui.has_method("_on_gui_scale_changed"):
+        var handled: bool = gui._on_gui_scale_changed()
+        if handled:
+            return
+    
+    assert(gui is Control)
+    var control: Control = gui
+    var scale: float = Gs.gui.scale
+    
+    Gs.gui._record_gui_original_simple_dimensions(control)
+    
+    if control is VBoxContainer or \
+            control is HBoxContainer:
+        var original_separation: float = \
+                control.get_meta("gs_separation") if \
+                control.has_meta("gs_separation") else \
+                INF
+        var separation := round(original_separation * scale)
+        control.add_constant_override("separation", separation)
+    
+    if control is MarginContainer:
+        var original_margin_right: float = \
+                control.get_meta("gs_margin_right") if \
+                control.has_meta("gs_margin_right") else \
+                INF
+        var original_margin_top: float = \
+                control.get_meta("gs_margin_top") if \
+                control.has_meta("gs_margin_top") else \
+                INF
+        var original_margin_left: float = \
+                control.get_meta("gs_margin_left") if \
+                control.has_meta("gs_margin_left") else \
+                INF
+        var original_margin_bottom: float = \
+                control.get_meta("gs_margin_bottom") if \
+                control.has_meta("gs_margin_bottom") else \
+                INF
+        var margin_right := round(original_margin_right * scale)
+        control.add_constant_override("margin_right", margin_right)
+        var margin_top := round(original_margin_top * scale)
+        control.add_constant_override("margin_top", margin_top)
+        var margin_left := round(original_margin_left * scale)
+        control.add_constant_override("margin_left", margin_left)
+        var margin_bottom := round(original_margin_bottom * scale)
+        control.add_constant_override("margin_bottom", margin_bottom)
+    
+    if control.has_meta("gs_rect_min_size"):
+        control.rect_min_size = Gs.utils \
+                .round_vector(control.get_meta("gs_rect_min_size") * scale)
+    if control.has_meta("gs_rect_size"):
+        control.rect_size = Gs.utils \
+                .round_vector(control.get_meta("gs_rect_size") * scale)
+    if control.has_meta("gs_rect_scale"):
+        control.rect_scale = Gs.utils \
+                .round_vector(control.get_meta("gs_rect_scale") * scale)
+    
+    for child in control.get_children():
+        if child is Control:
+            scale_gui_recursively(child)
+
+
+func _record_gui_original_simple_dimensions(control: Control) -> void:
+    if control is VBoxContainer or \
+            control is HBoxContainer:
+        if !control.has_meta("gs_separation"):
+            control.set_meta(
+                    "gs_separation",
+                    control.get_constant("separation"))
+    if control is MarginContainer:
+        if !control.has_meta("gs_margin_right"):
+            control.set_meta(
+                    "gs_margin_right",
+                    control.get_constant("margin_right"))
+        if !control.has_meta("gs_margin_top"):
+            control.set_meta(
+                    "gs_margin_top",
+                    control.get_constant("margin_top"))
+        if !control.has_meta("gs_margin_left"):
+            control.set_meta(
+                    "gs_margin_left",
+                    control.get_constant("margin_left"))
+        if !control.has_meta("gs_margin_bottom"):
+            control.set_meta(
+                    "gs_margin_bottom",
+                    control.get_constant("margin_bottom"))
+
+
+func record_gui_original_size_recursively(control: Control) -> void:
+    if control.rect_min_size != Vector2.ZERO:
+        control.set_meta(
+                "gs_rect_min_size",
+                control.rect_min_size)
+    if control.rect_size != Vector2.ZERO:
+        control.set_meta(
+                "gs_rect_size",
+                control.rect_size)
+    
+    for child in control.get_children():
+        if child is Control and \
+                !child.has_method("_on_gui_scale_changed"):
+            record_gui_original_size_recursively(child)

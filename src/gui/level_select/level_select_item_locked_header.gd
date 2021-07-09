@@ -33,7 +33,7 @@ func init_children() -> void:
     $HintWrapper.modulate.a = 0.0
     previous_gui_scale = Gs.gui.scale
     
-    header_stylebox = Gs.utils.create_stylebox_scalable({
+    header_stylebox = Gs.styles.create_stylebox_scalable({
         stylebox = get_stylebox("panel"),
         corner_radius = Gs.styles.dropdown_corner_radius,
         corner_detail = Gs.styles.dropdown_corner_detail,
@@ -43,7 +43,7 @@ func init_children() -> void:
     })
     add_stylebox_override("panel", header_stylebox)
     
-    hint_stylebox = Gs.utils.create_stylebox_scalable({
+    hint_stylebox = Gs.styles.create_stylebox_scalable({
         stylebox = get_stylebox("panel"),
         corner_radius = Gs.styles.dropdown_corner_radius,
         corner_detail = Gs.styles.dropdown_corner_detail,

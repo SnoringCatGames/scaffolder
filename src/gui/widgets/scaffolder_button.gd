@@ -101,7 +101,7 @@ func _update() -> void:
     
     if is_instance_valid(button_style_pulse):
         button_style_pulse.destroy()
-    button_style_pulse = Gs.utils.create_stylebox_scalable(
+    button_style_pulse = Gs.styles.create_stylebox_scalable(
             Gs.gui.theme.get_stylebox("normal", "Button"))
     pulse_property = \
             "modulate_color" if \
