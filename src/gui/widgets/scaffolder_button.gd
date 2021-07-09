@@ -4,7 +4,7 @@ class_name ScaffolderButton, \
 extends Button
 
 
-const SHINE_DURATION := 2.4
+const SHINE_DURATION := 0.4
 const SHINE_INTERVAL := 3.5
 const SHINE_SCALE := Vector2(1.0, 1.0)
 const COLOR_PULSE_DURATION := 1.2
@@ -118,8 +118,8 @@ func _update() -> void:
             "margin_bottom", Gs.styles.button_shine_margin * Gs.gui.scale)
     
     $MarginContainer.call_deferred("set", "rect_size", rect_size)
-    $MarginContainer/MarginContainer/ShineLineWrapper/ShineLine \
-            .visible = is_shiny
+    $MarginContainer/MarginContainer.visible = \
+            is_shiny and Gs.gui.is_suggested_button_shine_line_shown
     $MarginContainer/MarginContainer/ShineLineWrapper/ShineLine.position = \
             Vector2(shine_start_x, shine_base_position.y)
     $MarginContainer/ScaffolderTextureRect.visible = texture != null
@@ -137,13 +137,15 @@ func _update() -> void:
             "normal",
             button_style_normal)
     
-    if is_shiny:
+    if is_shiny and \
+            Gs.gui.is_suggested_button_shine_line_shown:
         _trigger_shine()
         shine_interval_id = Gs.time.set_interval(
                 funcref(self, "_trigger_shine"),
                 SHINE_INTERVAL)
     
-    if includes_color_pulse:
+    if includes_color_pulse and \
+            Gs.gui.is_suggested_button_color_pulse_shown:
         _trigger_color_pulse()
         color_pulse_interval_id = Gs.time.set_interval(
                 funcref(self, "_trigger_color_pulse"),
