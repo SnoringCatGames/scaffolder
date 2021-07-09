@@ -1,5 +1,6 @@
 tool
-class_name ScaffolderConfiguredImage, "res://addons/scaffolder/assets/images/editor_icons/scaffolder_placeholder.png"
+class_name ScaffolderConfiguredImage, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_placeholder.png"
 extends Control
 
 

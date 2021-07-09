@@ -1,5 +1,6 @@
 tool
-class_name ScaffolderButton, "res://addons/scaffolder/assets/images/editor_icons/scaffolder_button.png"
+class_name ScaffolderButton, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_button.png"
 extends Button
 
 

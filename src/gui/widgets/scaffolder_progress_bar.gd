@@ -1,5 +1,6 @@
 tool
-class_name ScaffolderProgressBar, "res://addons/scaffolder/assets/images/editor_icons/progress_bar.png"
+class_name ScaffolderProgressBar, \
+"res://addons/scaffolder/assets/images/editor_icons/progress_bar.png"
 extends ProgressBar
 
 

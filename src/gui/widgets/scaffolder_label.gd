@@ -1,5 +1,6 @@
 tool
-class_name ScaffolderLabel, "res://addons/scaffolder/assets/images/editor_icons/scaffolder_label.png"
+class_name ScaffolderLabel, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_label.png"
 extends Label
 
 
