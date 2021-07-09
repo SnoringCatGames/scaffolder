@@ -34,17 +34,13 @@ var dropdown_corner_detail: int
 var dropdown_shadow_size: int
 var dropdown_border_width: int
 
-var dropdown_active_nine_patch: StyleBoxTexture
-var dropdown_disabled_nine_patch: StyleBoxTexture
-var dropdown_focused_nine_patch: StyleBoxTexture
-var dropdown_hover_nine_patch: StyleBoxTexture
-var dropdown_normal_nine_patch: StyleBoxTexture
+var dropdown_active_nine_patch: Texture
+var dropdown_disabled_nine_patch: Texture
+var dropdown_focused_nine_patch: Texture
+var dropdown_hover_nine_patch: Texture
+var dropdown_normal_nine_patch: Texture
 var dropdown_nine_patch_scale: float
 var dropdown_nine_patch_margin: float
-
-var screen_shadow_size: int
-var screen_shadow_offset: Vector2
-var screen_border_width: int
 
 var scroll_corner_radius: int
 var scroll_corner_detail: int
@@ -54,6 +50,20 @@ var scroll_content_margin: int
 var scroll_grabber_corner_radius: int
 var scroll_grabber_corner_detail: int
 
+var scroll_track_nine_patch: Texture
+var scroll_track_nine_patch_margin: float
+var scroll_track_nine_patch_scale: float
+
+var scroll_grabber_active_nine_patch: Texture
+var scroll_grabber_hover_nine_patch: Texture
+var scroll_grabber_normal_nine_patch: Texture
+var scroll_grabber_nine_patch_margin: float
+var scroll_grabber_nine_patch_scale: float
+
+var screen_shadow_size: int
+var screen_shadow_offset: Vector2
+var screen_border_width: int
+
 var overlay_panel_border_width: int
 
 
@@ -62,33 +72,73 @@ func _init() -> void:
 
 
 func register_manifest(manifest: Dictionary) -> void:
-    if manifest.has("button_corner_radius"):
+    _validate_manifest(manifest)
+    
+    if manifest.has("button_normal_nine_patch"):
+        self.button_active_nine_patch = manifest.button_active_nine_patch
+        self.button_disabled_nine_patch = manifest.button_disabled_nine_patch
+        self.button_focused_nine_patch = manifest.button_focused_nine_patch
+        self.button_hover_nine_patch = manifest.button_hover_nine_patch
+        self.button_normal_nine_patch = manifest.button_normal_nine_patch
+        self.button_nine_patch_scale = manifest.button_nine_patch_scale
+        self.button_nine_patch_margin = manifest.button_nine_patch_margin
+    else:
         self.button_corner_radius = manifest.button_corner_radius
-    if manifest.has("button_corner_detail"):
         self.button_corner_detail = manifest.button_corner_detail
-    if manifest.has("button_shadow_size"):
         self.button_shadow_size = manifest.button_shadow_size
-    if manifest.has("button_border_width"):
         self.button_border_width = manifest.button_border_width
     
     if manifest.has("button_shine_margin"):
         self.button_shine_margin = manifest.button_shine_margin
     
-    if manifest.has("button_active_nine_patch"):
-        self.button_active_nine_patch = manifest.button_active_nine_patch
-    if manifest.has("button_disabled_nine_patch"):
-        self.button_disabled_nine_patch = manifest.button_disabled_nine_patch
-    if manifest.has("button_focused_nine_patch"):
-        self.button_focused_nine_patch = manifest.button_focused_nine_patch
-    if manifest.has("button_hover_nine_patch"):
-        self.button_hover_nine_patch = manifest.button_hover_nine_patch
-    if manifest.has("button_normal_nine_patch"):
-        self.button_normal_nine_patch = manifest.button_normal_nine_patch
-    if manifest.has("button_nine_patch_scale"):
-        self.button_nine_patch_scale = manifest.button_nine_patch_scale
-    if manifest.has("button_nine_patch_margin"):
-        self.button_nine_patch_margin = manifest.button_nine_patch_margin
+    if manifest.has("dropdown_normal_nine_patch"):
+        self.dropdown_active_nine_patch = manifest.dropdown_active_nine_patch
+        self.dropdown_disabled_nine_patch = \
+                manifest.dropdown_disabled_nine_patch
+        self.dropdown_focused_nine_patch = manifest.dropdown_focused_nine_patch
+        self.dropdown_hover_nine_patch = manifest.dropdown_hover_nine_patch
+        self.dropdown_normal_nine_patch = manifest.dropdown_normal_nine_patch
+        self.dropdown_nine_patch_scale = manifest.dropdown_nine_patch_scale
+        self.dropdown_nine_patch_margin = manifest.dropdown_nine_patch_margin
+    else:
+        self.dropdown_corner_radius = manifest.dropdown_corner_radius
+        self.dropdown_corner_detail = manifest.dropdown_corner_detail
+        self.dropdown_shadow_size = manifest.dropdown_shadow_size
+        self.dropdown_border_width = manifest.dropdown_border_width
     
+    if manifest.has("scroll_track_nine_patch"):
+        self.scroll_track_nine_patch = manifest.scroll_track_nine_patch
+        self.scroll_track_nine_patch_margin = \
+                manifest.scroll_track_nine_patch_margin
+        self.scroll_track_nine_patch_scale = \
+                manifest.scroll_track_nine_patch_scale
+        self.scroll_grabber_active_nine_patch = \
+                manifest.scroll_grabber_active_nine_patch
+        self.scroll_grabber_hover_nine_patch = \
+                manifest.scroll_grabber_hover_nine_patch
+        self.scroll_grabber_normal_nine_patch = \
+                manifest.scroll_grabber_normal_nine_patch
+        self.scroll_grabber_nine_patch_margin = \
+                manifest.scroll_grabber_nine_patch_margin
+        self.scroll_grabber_nine_patch_scale = \
+                manifest.scroll_grabber_nine_patch_scale
+    else:
+        self.scroll_corner_radius = manifest.scroll_corner_radius
+        self.scroll_corner_detail = manifest.scroll_corner_detail
+        self.scroll_content_margin = manifest.scroll_content_margin
+        self.scroll_grabber_corner_radius = \
+                manifest.scroll_grabber_corner_radius
+        self.scroll_grabber_corner_detail = \
+                manifest.scroll_grabber_corner_detail
+    
+    self.screen_shadow_size = manifest.screen_shadow_size
+    self.screen_shadow_offset = manifest.screen_shadow_offset
+    self.screen_border_width = manifest.screen_border_width
+    
+    self.overlay_panel_border_width = manifest.overlay_panel_border_width
+
+
+func _validate_manifest(manifest: Dictionary) -> void:
     assert((manifest.has("button_active_nine_patch") and \
             manifest.has("button_disabled_nine_patch") and \
             manifest.has("button_focused_nine_patch") and \
@@ -100,31 +150,6 @@ func register_manifest(manifest: Dictionary) -> void:
             manifest.has("button_corner_detail") and \
             manifest.has("button_shadow_size") and \
             manifest.has("button_border_width")))
-    
-    if manifest.has("dropdown_corner_radius"):
-        self.dropdown_corner_radius = manifest.dropdown_corner_radius
-    if manifest.has("dropdown_corner_detail"):
-        self.dropdown_corner_detail = manifest.dropdown_corner_detail
-    if manifest.has("dropdown_shadow_size"):
-        self.dropdown_shadow_size = manifest.dropdown_shadow_size
-    if manifest.has("dropdown_border_width"):
-        self.dropdown_border_width = manifest.dropdown_border_width
-    
-    if manifest.has("dropdown_active_nine_patch"):
-        self.dropdown_active_nine_patch = manifest.dropdown_active_nine_patch
-    if manifest.has("dropdown_disabled_nine_patch"):
-        self.dropdown_disabled_nine_patch = \
-                manifest.dropdown_disabled_nine_patch
-    if manifest.has("dropdown_focused_nine_patch"):
-        self.dropdown_focused_nine_patch = manifest.dropdown_focused_nine_patch
-    if manifest.has("dropdown_hover_nine_patch"):
-        self.dropdown_hover_nine_patch = manifest.dropdown_hover_nine_patch
-    if manifest.has("dropdown_normal_nine_patch"):
-        self.dropdown_normal_nine_patch = manifest.dropdown_normal_nine_patch
-    if manifest.has("dropdown_nine_patch_scale"):
-        self.dropdown_nine_patch_scale = manifest.dropdown_nine_patch_scale
-    if manifest.has("dropdown_nine_patch_margin"):
-        self.dropdown_nine_patch_margin = manifest.dropdown_nine_patch_margin
     
     assert((manifest.has("dropdown_active_nine_patch") and \
             manifest.has("dropdown_disabled_nine_patch") and \
@@ -138,18 +163,19 @@ func register_manifest(manifest: Dictionary) -> void:
             manifest.has("dropdown_shadow_size") and \
             manifest.has("dropdown_border_width")))
     
-    self.screen_shadow_size = manifest.screen_shadow_size
-    self.screen_shadow_offset = manifest.screen_shadow_offset
-    self.screen_border_width = manifest.screen_border_width
-    
-    self.scroll_corner_radius = manifest.scroll_corner_radius
-    self.scroll_corner_detail = manifest.scroll_corner_detail
-    self.scroll_content_margin = manifest.scroll_content_margin
-    
-    self.scroll_grabber_corner_radius = manifest.scroll_grabber_corner_radius
-    self.scroll_grabber_corner_detail = manifest.scroll_grabber_corner_detail
-    
-    self.overlay_panel_border_width = manifest.overlay_panel_border_width
+    assert((manifest.has("scroll_track_nine_patch") and \
+            manifest.has("scroll_track_nine_patch_margin") and \
+            manifest.has("scroll_track_nine_patch_scale") and \
+            manifest.has("scroll_grabber_active_nine_patch") and \
+            manifest.has("scroll_grabber_hover_nine_patch") and \
+            manifest.has("scroll_grabber_normal_nine_patch") and \
+            manifest.has("scroll_grabber_nine_patch_margin") and \
+            manifest.has("scroll_grabber_nine_patch_scale")) or \
+            (manifest.has("scroll_corner_radius") and \
+            manifest.has("scroll_corner_detail") and \
+            manifest.has("scroll_content_margin") and \
+            manifest.has("scroll_grabber_corner_radius") and \
+            manifest.has("scroll_grabber_corner_detail")))
 
 
 func configure_theme() -> void:
@@ -326,61 +352,111 @@ func configure_theme() -> void:
                     border_color = Gs.colors.dropdown_border,
                 })
     
+    if is_instance_valid(Gs.styles.scroll_track_nine_patch):
+        _configure_theme_stylebox(
+                "scroll", "HScrollBar", {
+                    texture = Gs.styles.scroll_track_nine_patch,
+                    texture_scale = Gs.styles.scroll_track_nine_patch_scale,
+                    margin = Gs.styles.scroll_track_nine_patch_margin,
+                })
+        _configure_theme_stylebox(
+                "grabber", "HScrollBar", {
+                    texture = Gs.styles.scroll_grabber_normal_nine_patch,
+                    texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
+                    margin = Gs.styles.scroll_grabber_nine_patch_margin,
+                })
+        _configure_theme_stylebox(
+                "grabber_highlight", "HScrollBar", {
+                    texture = Gs.styles.scroll_grabber_hover_nine_patch,
+                    texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
+                    margin = Gs.styles.scroll_grabber_nine_patch_margin,
+                })
+        _configure_theme_stylebox(
+                "grabber_pressed", "HScrollBar", {
+                    texture = Gs.styles.scroll_grabber_active_nine_patch,
+                    texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
+                    margin = Gs.styles.scroll_grabber_nine_patch_margin,
+                })
+        
+        _configure_theme_stylebox(
+                "scroll", "VScrollBar", {
+                    texture = Gs.styles.scroll_track_nine_patch,
+                    texture_scale = Gs.styles.scroll_track_nine_patch_scale,
+                    margin = Gs.styles.scroll_track_nine_patch_margin,
+                })
+        _configure_theme_stylebox(
+                "grabber", "VScrollBar", {
+                    texture = Gs.styles.scroll_grabber_normal_nine_patch,
+                    texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
+                    margin = Gs.styles.scroll_grabber_nine_patch_margin,
+                })
+        _configure_theme_stylebox(
+                "grabber_highlight", "VScrollBar", {
+                    texture = Gs.styles.scroll_grabber_hover_nine_patch,
+                    texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
+                    margin = Gs.styles.scroll_grabber_nine_patch_margin,
+                })
+        _configure_theme_stylebox(
+                "grabber_pressed", "VScrollBar", {
+                    texture = Gs.styles.scroll_grabber_active_nine_patch,
+                    texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
+                    margin = Gs.styles.scroll_grabber_nine_patch_margin,
+                })
+    else:
+        _configure_theme_stylebox(
+                "scroll", "HScrollBar", {
+                    bg_color = Gs.colors.scroll_bar_background,
+                    corner_radius = Gs.styles.scroll_corner_radius,
+                    corner_detail = Gs.styles.scroll_corner_detail,
+                    content_margin = Gs.styles.scroll_content_margin,
+                })
+        _configure_theme_stylebox(
+                "grabber", "HScrollBar", {
+                    bg_color = Gs.colors.scroll_bar_grabber_normal,
+                    corner_radius = Gs.styles.scroll_grabber_corner_radius,
+                    corner_detail = Gs.styles.scroll_grabber_corner_detail,
+                })
+        _configure_theme_stylebox(
+                "grabber_highlight", "HScrollBar", {
+                    bg_color = Gs.colors.scroll_bar_grabber_hover,
+                    corner_radius = Gs.styles.scroll_grabber_corner_radius,
+                    corner_detail = Gs.styles.scroll_grabber_corner_detail,
+                })
+        _configure_theme_stylebox(
+                "grabber_pressed", "HScrollBar", {
+                    bg_color = Gs.colors.scroll_bar_grabber_pressed,
+                    corner_radius = Gs.styles.scroll_grabber_corner_radius,
+                    corner_detail = Gs.styles.scroll_grabber_corner_detail,
+                })
+        
+        _configure_theme_stylebox(
+                "scroll", "VScrollBar", {
+                    bg_color = Gs.colors.scroll_bar_background,
+                    corner_radius = Gs.styles.scroll_corner_radius,
+                    corner_detail = Gs.styles.scroll_corner_detail,
+                    content_margin = Gs.styles.scroll_content_margin,
+                })
+        _configure_theme_stylebox(
+                "grabber", "VScrollBar", {
+                    bg_color = Gs.colors.scroll_bar_grabber_normal,
+                    corner_radius = Gs.styles.scroll_grabber_corner_radius,
+                    corner_detail = Gs.styles.scroll_grabber_corner_detail,
+                })
+        _configure_theme_stylebox(
+                "grabber_highlight", "VScrollBar", {
+                    bg_color = Gs.colors.scroll_bar_grabber_hover,
+                    corner_radius = Gs.styles.scroll_grabber_corner_radius,
+                    corner_detail = Gs.styles.scroll_grabber_corner_detail,
+                })
+        _configure_theme_stylebox(
+                "grabber_pressed", "VScrollBar", {
+                    bg_color = Gs.colors.scroll_bar_grabber_pressed,
+                    corner_radius = Gs.styles.scroll_grabber_corner_radius,
+                    corner_detail = Gs.styles.scroll_grabber_corner_detail,
+                })
+    
     _configure_theme_stylebox(
             "panel", "PopupMenu", Gs.colors.popup_background)
-    
-    _configure_theme_stylebox(
-            "scroll", "HScrollBar", {
-                bg_color = Gs.colors.scroll_bar_background,
-                corner_radius = Gs.styles.scroll_corner_radius,
-                corner_detail = Gs.styles.scroll_corner_detail,
-                content_margin = Gs.styles.scroll_content_margin,
-            })
-    _configure_theme_stylebox(
-            "grabber", "HScrollBar", {
-                bg_color = Gs.colors.scroll_bar_grabber_normal,
-                corner_radius = Gs.styles.scroll_grabber_corner_radius,
-                corner_detail = Gs.styles.scroll_grabber_corner_detail,
-            })
-    _configure_theme_stylebox(
-            "grabber_highlight", "HScrollBar", {
-                bg_color = Gs.colors.scroll_bar_grabber_hover,
-                corner_radius = Gs.styles.scroll_grabber_corner_radius,
-                corner_detail = Gs.styles.scroll_grabber_corner_detail,
-            })
-    _configure_theme_stylebox(
-            "grabber_pressed", "HScrollBar", {
-                bg_color = Gs.colors.scroll_bar_grabber_pressed,
-                corner_radius = Gs.styles.scroll_grabber_corner_radius,
-                corner_detail = Gs.styles.scroll_grabber_corner_detail,
-            })
-    
-    _configure_theme_stylebox(
-            "scroll", "VScrollBar", {
-                bg_color = Gs.colors.scroll_bar_background,
-                corner_radius = Gs.styles.scroll_corner_radius,
-                corner_detail = Gs.styles.scroll_corner_detail,
-                content_margin = Gs.styles.scroll_content_margin,
-            })
-    _configure_theme_stylebox(
-            "grabber", "VScrollBar", {
-                bg_color = Gs.colors.scroll_bar_grabber_normal,
-                corner_radius = Gs.styles.scroll_grabber_corner_radius,
-                corner_detail = Gs.styles.scroll_grabber_corner_detail,
-            })
-    _configure_theme_stylebox(
-            "grabber_highlight", "VScrollBar", {
-                bg_color = Gs.colors.scroll_bar_grabber_hover,
-                corner_radius = Gs.styles.scroll_grabber_corner_radius,
-                corner_detail = Gs.styles.scroll_grabber_corner_detail,
-            })
-    _configure_theme_stylebox(
-            "grabber_pressed", "VScrollBar", {
-                bg_color = Gs.colors.scroll_bar_grabber_pressed,
-                corner_radius = Gs.styles.scroll_grabber_corner_radius,
-                corner_detail = Gs.styles.scroll_grabber_corner_detail,
-            })
-    
     _configure_theme_stylebox(
             "panel", "Panel", Gs.colors.background)
     _configure_theme_stylebox(
@@ -478,12 +554,16 @@ func _create_stylebox_texture_scalable_from_config(
         stylebox.expand_margin_right = config.expand_margin
         stylebox.expand_margin_top = config.expand_margin
     
-    # Setting content-margin to 0 is important for preventing the button from
+    # Setting content-margin to 0 is important for preventing buttons from
     # forcing an undesirable min height.
-    stylebox.content_margin_bottom = 0
-    stylebox.content_margin_left = 0
-    stylebox.content_margin_right = 0
-    stylebox.content_margin_top = 0
+    var content_margin: int = \
+            config.content_margin if \
+            config.has("content_margin") else \
+            0
+    stylebox.content_margin_bottom = content_margin
+    stylebox.content_margin_left = content_margin
+    stylebox.content_margin_right = content_margin
+    stylebox.content_margin_top = content_margin
     
     stylebox.ready()
     return stylebox
