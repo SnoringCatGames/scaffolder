@@ -3,7 +3,7 @@ class_name ScaffolderButton, "res://addons/scaffolder/assets/images/editor_icons
 extends Button
 
 
-const SHINE_DURATION := 0.4
+const SHINE_DURATION := 2.4
 const SHINE_INTERVAL := 3.5
 const SHINE_SCALE := Vector2(1.0, 1.0)
 const COLOR_PULSE_DURATION := 1.2
@@ -28,7 +28,9 @@ var shine_end_x: float
 var button_style_normal: StyleBox
 var button_style_hover: StyleBox
 var button_style_pressed: StyleBox
-var button_style_pulse: StyleBoxFlat
+var button_style_pulse: StyleBox
+
+var pulse_property: String
 
 var shine_tween := ScaffolderTween.new()
 var color_pulse_tween := ScaffolderTween.new()
@@ -86,8 +88,8 @@ func _update() -> void:
             size_override.y != 0.0 else \
             Gs.gui.button_height) * Gs.gui.scale
     rect_size = rect_min_size
-
-    $MarginContainer/ShineLineWrapper/ShineLine.scale = \
+    
+    $MarginContainer/MarginContainer/ShineLineWrapper/ShineLine.scale = \
             SHINE_SCALE * Gs.gui.scale
     $MarginContainer/ScaffolderTextureRect._on_gui_scale_changed()
     
@@ -98,18 +100,26 @@ func _update() -> void:
     
     if is_instance_valid(button_style_pulse):
         button_style_pulse.destroy()
-    button_style_pulse = Gs.utils.create_stylebox_flat_scalable({
-        bg_color = Gs.colors.button_normal,
-        corner_radius = Gs.styles.button_corner_radius,
-        corner_detail = Gs.styles.button_corner_detail,
-        shadow_size = Gs.styles.button_shadow_size,
-        border_width = Gs.styles.button_border_width,
-        border_color = Gs.colors.button_border,
-    })
+    button_style_pulse = Gs.utils.create_stylebox_scalable(
+            Gs.gui.theme.get_stylebox("normal", "Button"))
+    pulse_property = \
+            "modulate_color" if \
+            button_style_pulse is StyleBoxTextureScalable else \
+            "bg_color"
+    
+    $MarginContainer/MarginContainer.add_constant_override(
+            "margin_left", Gs.styles.button_shine_margin * Gs.gui.scale)
+    $MarginContainer/MarginContainer.add_constant_override(
+            "margin_top", Gs.styles.button_shine_margin * Gs.gui.scale)
+    $MarginContainer/MarginContainer.add_constant_override(
+            "margin_right", Gs.styles.button_shine_margin * Gs.gui.scale)
+    $MarginContainer/MarginContainer.add_constant_override(
+            "margin_bottom", Gs.styles.button_shine_margin * Gs.gui.scale)
     
     $MarginContainer.call_deferred("set", "rect_size", rect_size)
-    $MarginContainer/ShineLineWrapper/ShineLine.visible = is_shiny
-    $MarginContainer/ShineLineWrapper/ShineLine.position = \
+    $MarginContainer/MarginContainer/ShineLineWrapper/ShineLine \
+            .visible = is_shiny
+    $MarginContainer/MarginContainer/ShineLineWrapper/ShineLine.position = \
             Vector2(shine_start_x, shine_base_position.y)
     $MarginContainer/ScaffolderTextureRect.visible = texture != null
     $MarginContainer/ScaffolderTextureRect.texture = texture
@@ -141,7 +151,7 @@ func _update() -> void:
 
 func _trigger_shine() -> void:
     shine_tween.interpolate_property(
-            $MarginContainer/ShineLineWrapper/ShineLine,
+            $MarginContainer/MarginContainer/ShineLineWrapper/ShineLine,
             "position:x",
             shine_start_x,
             shine_end_x,
@@ -156,27 +166,30 @@ func _trigger_color_pulse() -> void:
             $MarginContainer/TopButton.is_pressed():
         return
     
-    var color_original: Color = \
-            button_style_normal.bg_color if \
-            button_style_normal is StyleBoxFlat else \
-            Gs.colors.button_normal
-    var color_pulse: Color = Gs.colors.scaffolder_button_highlight
+    var color_original: Color
+    var color_pulse: Color
+    if button_style_pulse is StyleBoxTextureScalable:
+        color_original = Color(1, 1, 1, 1)
+        color_pulse = Gs.colors.button_texture_modulate
+    else:
+        color_original = Gs.colors.button_normal
+        color_pulse = Gs.colors.button_flat_pulse
     var pulse_half_duration := COLOR_PULSE_DURATION / 2.0
     
-    button_style_pulse.bg_color = color_original
+    button_style_pulse.set(pulse_property, color_original)
     $MarginContainer/BottomButton \
             .add_stylebox_override("normal", button_style_pulse)
     
     color_pulse_tween.interpolate_property(
             button_style_pulse,
-            "bg_color",
+            pulse_property,
             color_original,
             color_pulse,
             pulse_half_duration,
             "ease_in_out_weak")
     color_pulse_tween.interpolate_property(
             button_style_pulse,
-            "bg_color",
+            pulse_property,
             color_pulse,
             color_original,
             pulse_half_duration,

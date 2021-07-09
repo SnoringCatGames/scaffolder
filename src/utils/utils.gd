@@ -673,19 +673,81 @@ static func get_collection_from_exclusions_and_inclusions(
     return collection
 
 
-func create_stylebox_flat_scalable(config) -> StyleBoxFlatScalable:
+func create_stylebox_scalable(config) -> StyleBox:
     if config is Color:
         var stylebox := StyleBoxFlatScalable.new()
         stylebox.bg_color = config
         stylebox.ready()
         return stylebox
     elif config is Dictionary:
-        return _create_stylebox_flat_scalable_from_config(config)
+        if config.has("texture"):
+            return _create_stylebox_texture_scalable_from_config(config)
+        else:
+            return _create_stylebox_flat_scalable_from_config(config)
+    elif config is StyleBoxTexture:
+        return _create_stylebox_texture_scalable_from_stylebox(config)
     elif config is StyleBox:
         return _create_stylebox_flat_scalable_from_stylebox(config)
     else:
         Gs.logger.error()
         return null
+
+
+func _create_stylebox_texture_scalable_from_config(
+        config: Dictionary) -> StyleBoxTextureScalable:
+    var stylebox := StyleBoxTextureScalable.new()
+    stylebox.texture = config.texture
+    if config.has("texture_scale"):
+        stylebox.initial_texture_scale = config.texture_scale
+    if config.has("margin"):
+        stylebox.margin_bottom = config.margin
+        stylebox.margin_left = config.margin
+        stylebox.margin_right = config.margin
+        stylebox.margin_top = config.margin
+    if config.has("expand_margin"):
+        stylebox.expand_margin_bottom = config.expand_margin
+        stylebox.expand_margin_left = config.expand_margin
+        stylebox.expand_margin_right = config.expand_margin
+        stylebox.expand_margin_top = config.expand_margin
+    stylebox.ready()
+    return stylebox
+
+
+func _create_stylebox_texture_scalable_from_stylebox(
+        old: StyleBoxTexture) -> StyleBoxTextureScalable:
+    var new := StyleBoxTextureScalable.new()
+    
+    new.texture = old.texture
+    new.normal_map = old.normal_map
+    new.region_rect = old.region_rect
+    
+    new.content_margin_left = old.content_margin_left
+    new.content_margin_top = old.content_margin_top
+    new.content_margin_right = old.content_margin_right
+    new.content_margin_bottom = old.content_margin_bottom
+    
+    new.margin_left = old.margin_left
+    new.margin_top = old.margin_top
+    new.margin_right = old.margin_right
+    new.margin_bottom = old.margin_bottom
+    
+    new.expand_margin_left = old.expand_margin_left
+    new.expand_margin_top = old.expand_margin_top
+    new.expand_margin_right = old.expand_margin_right
+    new.expand_margin_bottom = old.expand_margin_bottom
+    
+    new.modulate_color = old.modulate_color
+    new.draw_center = old.draw_center
+    
+    if old is StyleBoxTextureScalable:
+        new.texture = old.initial_texture
+        new.content_margin_top = old.initial_content_margin
+        new.expand_margin_top = old.initial_expand_margin
+        new.margin_top = old.initial_margin
+        new.initial_texture_scale = old.initial_texture_scale
+    
+    new.ready()
+    return new
 
 
 func _create_stylebox_flat_scalable_from_config(
