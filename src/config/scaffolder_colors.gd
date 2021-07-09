@@ -65,6 +65,8 @@ var scroll_bar_grabber_normal: Color
 var scroll_bar_grabber_hover: Color
 var scroll_bar_grabber_pressed: Color
 
+var slider_background: Color
+
 var screen_border: Color
 
 # --- Optionally, you can configure some colors as relative to others. ---
@@ -92,6 +94,8 @@ var scroll_bar_background_hsv_delta: Dictionary
 var scroll_bar_grabber_normal_hsv_delta: Dictionary
 var scroll_bar_grabber_hover_hsv_delta: Dictionary
 var scroll_bar_grabber_pressed_hsv_delta: Dictionary
+
+var slider_background_hsv_delta: Dictionary
 
 var screen_border_hsv_delta: Dictionary
 
@@ -126,6 +130,7 @@ var _defaults := {
     scroll_bar_grabber_normal = Color("707070"),
     scroll_bar_grabber_hover = Color("969696"),
     scroll_bar_grabber_pressed = Color("5b5b5b"),
+    slider_background = Color("4d4d4d"),
     zebra_stripe_even_row = Color("4d4d4d"),
     overlay_panel_body_background = Color("141414"),
     overlay_panel_header_background = Color("282828"),
@@ -236,6 +241,12 @@ func _derive_colors() -> void:
                 _derive_color_from_hsva_delta(
                         Gs.colors.scroll_bar_grabber_normal,
                         Gs.colors.scroll_bar_grabber_pressed_hsv_delta)
+    
+    if !Gs.colors.slider_background_hsv_delta.empty():
+        Gs.colors.slider_background = \
+                _derive_color_from_hsva_delta(
+                        Gs.colors.background,
+                        Gs.colors.slider_background_hsv_delta)
     
     if !Gs.colors.screen_border_hsv_delta.empty():
         Gs.colors.screen_border = _derive_color_from_hsva_delta(

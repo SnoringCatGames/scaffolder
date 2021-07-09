@@ -550,6 +550,81 @@ func _scale_gui_for_current_screen_size(gui) -> void:
     Gs.gui.scale_gui_recursively(gui)
 
 
+func _update_font_sizes() -> void:
+    # First, update the fonts that don't have size overrides.
+    for font_name in Gs.gui.fonts:
+        if Gs.gui.font_size_overrides.has(font_name):
+            continue
+        _update_sizes_for_font(font_name)
+    
+    # Second, update the fonts with size overrides.
+    for font_name in Gs.gui.font_size_overrides:
+        _update_sizes_for_font(font_name)
+
+
+func _update_sizes_for_font(font_name: String) -> void:
+    var original_dimensions: Dictionary = \
+            Gs.gui.original_font_dimensions[font_name]
+    for dimension_name in original_dimensions:
+        Gs.gui.fonts[font_name].set(
+                dimension_name,
+                original_dimensions[dimension_name] * Gs.gui.scale)
+
+
+func _update_game_area_region_and_gui_scale() -> void:
+    var viewport_size := get_viewport().size
+    var aspect_ratio := viewport_size.x / viewport_size.y
+    var game_area_position := Vector2.INF
+    var game_area_size := Vector2.INF
+    
+    if !Gs.app_metadata.is_app_configured:
+        game_area_size = viewport_size
+        game_area_position = Vector2.ZERO
+    if aspect_ratio < Gs.gui.aspect_ratio_min:
+        # Show vertical margin around game area.
+        game_area_size = Vector2(
+                viewport_size.x,
+                viewport_size.x / Gs.gui.aspect_ratio_min)
+        game_area_position = Vector2(
+                0.0,
+                (viewport_size.y - game_area_size.y) * 0.5)
+    elif aspect_ratio > Gs.gui.aspect_ratio_max:
+        # Show horizontal margin around game area.
+        game_area_size = Vector2(
+                viewport_size.y * Gs.gui.aspect_ratio_max,
+                viewport_size.y)
+        game_area_position = Vector2(
+                (viewport_size.x - game_area_size.x) * 0.5,
+                0.0)
+    else:
+        # Show no margins around game area.
+        game_area_size = viewport_size
+        game_area_position = Vector2.ZERO
+    
+    Gs.gui.game_area_region = Rect2(game_area_position, game_area_size)
+    
+    if Gs.app_metadata.is_app_configured:
+        var default_game_area_size: Vector2 = \
+                Gs.gui.default_mobile_game_area_size if \
+                Gs.device.get_is_mobile_device() else \
+                Gs.gui.default_pc_game_area_size
+        var default_aspect_ratio: float = \
+                default_game_area_size.x / default_game_area_size.y
+        Gs.gui.previous_scale = Gs.gui.scale
+        Gs.gui.scale = \
+                viewport_size.x / default_game_area_size.x if \
+                aspect_ratio < default_aspect_ratio else \
+                viewport_size.y / default_game_area_size.y
+        Gs.gui.scale = \
+                max(Gs.gui.scale, Gs.gui.MIN_GUI_SCALE)
+
+
+func _scale_guis() -> void:
+    if Gs.gui.previous_scale != Gs.gui.scale:
+        for gui in Gs.gui.guis_to_scale:
+            Gs.gui._scale_gui_for_current_screen_size(gui)
+
+
 func scale_gui_recursively(gui) -> void:
     if gui.has_method("_on_gui_scale_changed"):
         var handled: bool = gui._on_gui_scale_changed()
