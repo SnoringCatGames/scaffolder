@@ -5,9 +5,21 @@ extends StyleBoxTexture
 var initial_texture_scale := 1.0
 
 var initial_texture: Texture
-var initial_content_margin: float
-var initial_expand_margin: float
-var initial_margin: float
+
+var initial_content_margin_left: float
+var initial_content_margin_top: float
+var initial_content_margin_right: float
+var initial_content_margin_bottom: float
+
+var initial_expand_margin_left: float
+var initial_expand_margin_top: float
+var initial_expand_margin_right: float
+var initial_expand_margin_bottom: float
+
+var initial_margin_left: float
+var initial_margin_top: float
+var initial_margin_right: float
+var initial_margin_bottom: float
 
 var latest_gui_scale := INF
 
@@ -19,9 +31,21 @@ func ready() -> void:
     axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
     
     initial_texture = texture
-    initial_content_margin = content_margin_top
-    initial_expand_margin = expand_margin_top
-    initial_margin = margin_top
+    
+    initial_content_margin_left = content_margin_left
+    initial_content_margin_top = content_margin_top
+    initial_content_margin_right = content_margin_right
+    initial_content_margin_bottom = content_margin_bottom
+    
+    initial_expand_margin_left = expand_margin_left
+    initial_expand_margin_top = expand_margin_top
+    initial_expand_margin_right = expand_margin_right
+    initial_expand_margin_bottom = expand_margin_bottom
+    
+    initial_margin_left = margin_left
+    initial_margin_top = margin_top
+    initial_margin_right = margin_right
+    initial_margin_bottom = margin_bottom
     
     Gs.gui.add_gui_to_scale(self)
 
@@ -48,25 +72,19 @@ func _on_gui_scale_changed() -> bool:
     
     region_rect = Rect2(Vector2.ZERO, size)
     
-    var current_margin := \
-            ceil(initial_margin * image_scale)
-    margin_left = current_margin
-    margin_top = current_margin
-    margin_right = current_margin
-    margin_bottom = current_margin
+    margin_left = initial_margin_left * image_scale
+    margin_top = initial_margin_top * image_scale
+    margin_right = initial_margin_right * image_scale
+    margin_bottom = initial_margin_bottom * image_scale
     
-    var current_content_margin := \
-            ceil(initial_content_margin * latest_gui_scale)
-    content_margin_left = current_content_margin
-    content_margin_top = current_content_margin
-    content_margin_right = current_content_margin
-    content_margin_bottom = current_content_margin
+    content_margin_left = initial_content_margin_left * latest_gui_scale
+    content_margin_top = initial_content_margin_top * latest_gui_scale
+    content_margin_right = initial_content_margin_right * latest_gui_scale
+    content_margin_bottom = initial_content_margin_bottom * latest_gui_scale
     
-    var current_expand_margin := \
-            ceil(initial_expand_margin * latest_gui_scale)
-    expand_margin_left = current_expand_margin
-    expand_margin_top = current_expand_margin
-    expand_margin_right = current_expand_margin
-    expand_margin_bottom = current_expand_margin
+    expand_margin_left = initial_expand_margin_left * latest_gui_scale
+    expand_margin_top = initial_expand_margin_top * latest_gui_scale
+    expand_margin_right = initial_expand_margin_right * latest_gui_scale
+    expand_margin_bottom = initial_expand_margin_bottom * latest_gui_scale
     
     return true

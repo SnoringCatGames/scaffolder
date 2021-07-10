@@ -53,8 +53,8 @@ size = Vector2( 0, 60 )
 [node name="StartGameButton" parent="VBoxContainer" instance=ExtResource( 7 )]
 margin_left = 58.0
 margin_top = 8.0
-margin_right = 58.0
-margin_bottom = 22.0
+margin_right = 218.0
+margin_bottom = 88.0
 size_override = Vector2( 160, 80 )
 
 [node name="Spacer5" parent="VBoxContainer" instance=ExtResource( 6 )]

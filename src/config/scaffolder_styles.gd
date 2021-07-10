@@ -14,8 +14,15 @@ const BUTTON_HOVER_NINE_PATCH_PATH := \
 const BUTTON_NORMAL_NINE_PATCH_PATH = \
         "res://addons/scaffolder/assets/images/gui/button_normal.png"
 
-var button_content_margin := 12.0
-var button_shine_margin := 0
+var button_content_margin_left := 12.0
+var button_content_margin_top := 12.0
+var button_content_margin_right := 12.0
+var button_content_margin_bottom := 12.0
+
+var button_shine_margin_left := 0
+var button_shine_margin_top := 0
+var button_shine_margin_right := 0
+var button_shine_margin_bottom := 0
 
 var button_corner_radius: int
 var button_corner_detail: int
@@ -28,7 +35,10 @@ var button_focused_nine_patch: Texture
 var button_hover_nine_patch: Texture
 var button_normal_nine_patch: Texture
 var button_nine_patch_scale: float
-var button_nine_patch_margin: float
+var button_nine_patch_margin_left: float
+var button_nine_patch_margin_top: float
+var button_nine_patch_margin_right: float
+var button_nine_patch_margin_bottom: float
 
 var dropdown_corner_radius: int
 var dropdown_corner_detail: int
@@ -41,33 +51,51 @@ var dropdown_focused_nine_patch: Texture
 var dropdown_hover_nine_patch: Texture
 var dropdown_normal_nine_patch: Texture
 var dropdown_nine_patch_scale: float
-var dropdown_nine_patch_margin: float
+var dropdown_nine_patch_margin_left: float
+var dropdown_nine_patch_margin_top: float
+var dropdown_nine_patch_margin_right: float
+var dropdown_nine_patch_margin_bottom: float
 
 var scroll_corner_radius: int
 var scroll_corner_detail: int
 # Width of the scrollbar.
-var scroll_content_margin: int
+var scroll_content_margin_left: int
+var scroll_content_margin_top: int
+var scroll_content_margin_right: int
+var scroll_content_margin_bottom: int
 
 var scroll_grabber_corner_radius: int
 var scroll_grabber_corner_detail: int
 
 var scroll_track_nine_patch: Texture
-var scroll_track_nine_patch_margin: float
 var scroll_track_nine_patch_scale: float
+var scroll_track_nine_patch_margin_left: float
+var scroll_track_nine_patch_margin_top: float
+var scroll_track_nine_patch_margin_right: float
+var scroll_track_nine_patch_margin_bottom: float
 
 var scroll_grabber_active_nine_patch: Texture
 var scroll_grabber_hover_nine_patch: Texture
 var scroll_grabber_normal_nine_patch: Texture
-var scroll_grabber_nine_patch_margin: float
 var scroll_grabber_nine_patch_scale: float
+var scroll_grabber_nine_patch_margin_left: float
+var scroll_grabber_nine_patch_margin_top: float
+var scroll_grabber_nine_patch_margin_right: float
+var scroll_grabber_nine_patch_margin_bottom: float
 
 var slider_corner_radius: int
 var slider_corner_detail: int
-var slider_content_margin: int
+var slider_content_margin_left: int
+var slider_content_margin_top: int
+var slider_content_margin_right: int
+var slider_content_margin_bottom: int
 
 var slider_track_nine_patch: Texture
-var slider_track_nine_patch_margin: float
 var slider_track_nine_patch_scale: float
+var slider_track_nine_patch_margin_left: float
+var slider_track_nine_patch_margin_top: float
+var slider_track_nine_patch_margin_right: float
+var slider_track_nine_patch_margin_bottom: float
 
 var screen_shadow_size: int
 var screen_shadow_offset: Vector2
@@ -83,11 +111,21 @@ func _init() -> void:
 func register_manifest(manifest: Dictionary) -> void:
     _validate_manifest(manifest)
     
-    if manifest.has("button_content_margin"):
-        self.button_content_margin = manifest.button_content_margin
+    if manifest.has("button_content_margin_left"):
+        self.button_content_margin_left = \
+                manifest.button_content_margin_left
+        self.button_content_margin_top = \
+                manifest.button_content_margin_top
+        self.button_content_margin_right = \
+                manifest.button_content_margin_right
+        self.button_content_margin_bottom = \
+                manifest.button_content_margin_bottom
     
-    if manifest.has("button_shine_margin"):
-        self.button_shine_margin = manifest.button_shine_margin
+    if manifest.has("button_shine_margin_left"):
+        self.button_shine_margin_left = manifest.button_shine_margin_left
+        self.button_shine_margin_top = manifest.button_shine_margin_top
+        self.button_shine_margin_right = manifest.button_shine_margin_right
+        self.button_shine_margin_bottom = manifest.button_shine_margin_bottom
     
     if manifest.has("button_normal_nine_patch"):
         self.button_active_nine_patch = manifest.button_active_nine_patch
@@ -96,7 +134,14 @@ func register_manifest(manifest: Dictionary) -> void:
         self.button_hover_nine_patch = manifest.button_hover_nine_patch
         self.button_normal_nine_patch = manifest.button_normal_nine_patch
         self.button_nine_patch_scale = manifest.button_nine_patch_scale
-        self.button_nine_patch_margin = manifest.button_nine_patch_margin
+        self.button_nine_patch_margin_left = \
+                manifest.button_nine_patch_margin_left
+        self.button_nine_patch_margin_top = \
+                manifest.button_nine_patch_margin_top
+        self.button_nine_patch_margin_right = \
+                manifest.button_nine_patch_margin_right
+        self.button_nine_patch_margin_bottom = \
+                manifest.button_nine_patch_margin_bottom
     else:
         self.button_corner_radius = manifest.button_corner_radius
         self.button_corner_detail = manifest.button_corner_detail
@@ -111,7 +156,14 @@ func register_manifest(manifest: Dictionary) -> void:
         self.dropdown_hover_nine_patch = manifest.dropdown_hover_nine_patch
         self.dropdown_normal_nine_patch = manifest.dropdown_normal_nine_patch
         self.dropdown_nine_patch_scale = manifest.dropdown_nine_patch_scale
-        self.dropdown_nine_patch_margin = manifest.dropdown_nine_patch_margin
+        self.dropdown_nine_patch_margin_left = \
+                manifest.dropdown_nine_patch_margin_left
+        self.dropdown_nine_patch_margin_top = \
+                manifest.dropdown_nine_patch_margin_top
+        self.dropdown_nine_patch_margin_right = \
+                manifest.dropdown_nine_patch_margin_right
+        self.dropdown_nine_patch_margin_bottom = \
+                manifest.dropdown_nine_patch_margin_bottom
     else:
         self.dropdown_corner_radius = manifest.dropdown_corner_radius
         self.dropdown_corner_detail = manifest.dropdown_corner_detail
@@ -120,24 +172,46 @@ func register_manifest(manifest: Dictionary) -> void:
     
     if manifest.has("scroll_track_nine_patch"):
         self.scroll_track_nine_patch = manifest.scroll_track_nine_patch
-        self.scroll_track_nine_patch_margin = \
-                manifest.scroll_track_nine_patch_margin
         self.scroll_track_nine_patch_scale = \
                 manifest.scroll_track_nine_patch_scale
+        
+        self.scroll_track_nine_patch_margin_left = \
+                manifest.scroll_track_nine_patch_margin_left
+        self.scroll_track_nine_patch_margin_top = \
+                manifest.scroll_track_nine_patch_margin_top
+        self.scroll_track_nine_patch_margin_right = \
+                manifest.scroll_track_nine_patch_margin_right
+        self.scroll_track_nine_patch_margin_bottom = \
+                manifest.scroll_track_nine_patch_margin_bottom
+        
         self.scroll_grabber_active_nine_patch = \
                 manifest.scroll_grabber_active_nine_patch
         self.scroll_grabber_hover_nine_patch = \
                 manifest.scroll_grabber_hover_nine_patch
         self.scroll_grabber_normal_nine_patch = \
                 manifest.scroll_grabber_normal_nine_patch
-        self.scroll_grabber_nine_patch_margin = \
-                manifest.scroll_grabber_nine_patch_margin
         self.scroll_grabber_nine_patch_scale = \
                 manifest.scroll_grabber_nine_patch_scale
+        
+        self.scroll_grabber_nine_patch_margin_left = \
+                manifest.scroll_grabber_nine_patch_margin_left
+        self.scroll_grabber_nine_patch_margin_top = \
+                manifest.scroll_grabber_nine_patch_margin_top
+        self.scroll_grabber_nine_patch_margin_right = \
+                manifest.scroll_grabber_nine_patch_margin_right
+        self.scroll_grabber_nine_patch_margin_bottom = \
+                manifest.scroll_grabber_nine_patch_margin_bottom
     else:
         self.scroll_corner_radius = manifest.scroll_corner_radius
         self.scroll_corner_detail = manifest.scroll_corner_detail
-        self.scroll_content_margin = manifest.scroll_content_margin
+        self.scroll_content_margin_left = \
+                manifest.scroll_content_margin_left
+        self.scroll_content_margin_top = \
+                manifest.scroll_content_margin_top
+        self.scroll_content_margin_right = \
+                manifest.scroll_content_margin_right
+        self.scroll_content_margin_bottom = \
+                manifest.scroll_content_margin_bottom
         self.scroll_grabber_corner_radius = \
                 manifest.scroll_grabber_corner_radius
         self.scroll_grabber_corner_detail = \
@@ -145,14 +219,27 @@ func register_manifest(manifest: Dictionary) -> void:
     
     if manifest.has("slider_track_nine_patch"):
         self.slider_track_nine_patch = manifest.slider_track_nine_patch
-        self.slider_track_nine_patch_margin = \
-                manifest.slider_track_nine_patch_margin
         self.slider_track_nine_patch_scale = \
                 manifest.slider_track_nine_patch_scale
+        self.slider_track_nine_patch_margin_left = \
+                manifest.slider_track_nine_patch_margin_left
+        self.slider_track_nine_patch_margin_top = \
+                manifest.slider_track_nine_patch_margin_top
+        self.slider_track_nine_patch_margin_right = \
+                manifest.slider_track_nine_patch_margin_right
+        self.slider_track_nine_patch_margin_bottom = \
+                manifest.slider_track_nine_patch_margin_bottom
     else:
         self.slider_corner_radius = manifest.slider_corner_radius
         self.slider_corner_detail = manifest.slider_corner_detail
-        self.slider_content_margin = manifest.slider_content_margin
+        self.slider_content_margin_left = \
+                manifest.slider_content_margin_left
+        self.slider_content_margin_top = \
+                manifest.slider_content_margin_top
+        self.slider_content_margin_right = \
+                manifest.slider_content_margin_right
+        self.slider_content_margin_bottom = \
+                manifest.slider_content_margin_bottom
     
     self.screen_shadow_size = manifest.screen_shadow_size
     self.screen_shadow_offset = manifest.screen_shadow_offset
@@ -168,7 +255,10 @@ func _validate_manifest(manifest: Dictionary) -> void:
             manifest.has("button_hover_nine_patch") and \
             manifest.has("button_normal_nine_patch") and \
             manifest.has("button_nine_patch_scale") and \
-            manifest.has("button_nine_patch_margin")) or \
+            manifest.has("button_nine_patch_margin_left") and \
+            manifest.has("button_nine_patch_margin_top") and \
+            manifest.has("button_nine_patch_margin_right") and \
+            manifest.has("button_nine_patch_margin_bottom")) or \
             (manifest.has("button_corner_radius") and \
             manifest.has("button_corner_detail") and \
             manifest.has("button_shadow_size") and \
@@ -180,32 +270,50 @@ func _validate_manifest(manifest: Dictionary) -> void:
             manifest.has("dropdown_hover_nine_patch") and \
             manifest.has("dropdown_normal_nine_patch") and \
             manifest.has("dropdown_nine_patch_scale") and \
-            manifest.has("dropdown_nine_patch_margin")) or \
+            manifest.has("dropdown_nine_patch_margin_left") and \
+            manifest.has("dropdown_nine_patch_margin_top") and \
+            manifest.has("dropdown_nine_patch_margin_right") and \
+            manifest.has("dropdown_nine_patch_margin_bottom")) or \
             (manifest.has("dropdown_corner_radius") and \
             manifest.has("dropdown_corner_detail") and \
             manifest.has("dropdown_shadow_size") and \
             manifest.has("dropdown_border_width")))
     
     assert((manifest.has("scroll_track_nine_patch") and \
-            manifest.has("scroll_track_nine_patch_margin") and \
             manifest.has("scroll_track_nine_patch_scale") and \
+            manifest.has("scroll_track_nine_patch_margin_left") and \
+            manifest.has("scroll_track_nine_patch_margin_top") and \
+            manifest.has("scroll_track_nine_patch_margin_right") and \
+            manifest.has("scroll_track_nine_patch_margin_bottom") and \
             manifest.has("scroll_grabber_active_nine_patch") and \
             manifest.has("scroll_grabber_hover_nine_patch") and \
             manifest.has("scroll_grabber_normal_nine_patch") and \
-            manifest.has("scroll_grabber_nine_patch_margin") and \
-            manifest.has("scroll_grabber_nine_patch_scale")) or \
+            manifest.has("scroll_grabber_nine_patch_scale") and \
+            manifest.has("scroll_grabber_nine_patch_margin_left") and \
+            manifest.has("scroll_grabber_nine_patch_margin_top") and \
+            manifest.has("scroll_grabber_nine_patch_margin_right") and \
+            manifest.has("scroll_grabber_nine_patch_margin_bottom")) or \
             (manifest.has("scroll_corner_radius") and \
             manifest.has("scroll_corner_detail") and \
-            manifest.has("scroll_content_margin") and \
+            manifest.has("scroll_content_margin_left") and \
+            manifest.has("scroll_content_margin_top") and \
+            manifest.has("scroll_content_margin_right") and \
+            manifest.has("scroll_content_margin_bottom") and \
             manifest.has("scroll_grabber_corner_radius") and \
             manifest.has("scroll_grabber_corner_detail")))
     
     assert((manifest.has("slider_track_nine_patch") and \
-            manifest.has("slider_track_nine_patch_margin") and \
-            manifest.has("slider_track_nine_patch_scale")) or \
+            manifest.has("slider_track_nine_patch_scale") and \
+            manifest.has("slider_track_nine_patch_margin_left") and \
+            manifest.has("slider_track_nine_patch_margin_top") and \
+            manifest.has("slider_track_nine_patch_margin_right") and \
+            manifest.has("slider_track_nine_patch_margin_bottom")) or \
             (manifest.has("slider_corner_radius") and \
             manifest.has("slider_corner_detail") and \
-            manifest.has("slider_content_margin")))
+            manifest.has("slider_content_margin_left") and \
+            manifest.has("slider_content_margin_top") and \
+            manifest.has("slider_content_margin_right") and \
+            manifest.has("slider_content_margin_bottom")))
 
 
 func configure_theme() -> void:
@@ -229,36 +337,66 @@ func configure_theme() -> void:
                 "disabled", "Button", {
                     texture = Gs.styles.button_disabled_nine_patch,
                     texture_scale = Gs.styles.button_nine_patch_scale,
-                    margin = Gs.styles.button_nine_patch_margin,
-                    content_margin = Gs.styles.button_content_margin,
+                    margin_left = Gs.styles.button_nine_patch_margin_left,
+                    margin_top = Gs.styles.button_nine_patch_margin_top,
+                    margin_right = Gs.styles.button_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.button_nine_patch_margin_bottom,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "focused", "Button", {
                     texture = Gs.styles.button_focused_nine_patch,
                     texture_scale = Gs.styles.button_nine_patch_scale,
-                    margin = Gs.styles.button_nine_patch_margin,
-                    content_margin = Gs.styles.button_content_margin,
+                    margin_left = Gs.styles.button_nine_patch_margin_left,
+                    margin_top = Gs.styles.button_nine_patch_margin_top,
+                    margin_right = Gs.styles.button_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.button_nine_patch_margin_bottom,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "hover", "Button", {
                     texture = Gs.styles.button_hover_nine_patch,
                     texture_scale = Gs.styles.button_nine_patch_scale,
-                    margin = Gs.styles.button_nine_patch_margin,
-                    content_margin = Gs.styles.button_content_margin,
+                    margin_left = Gs.styles.button_nine_patch_margin_left,
+                    margin_top = Gs.styles.button_nine_patch_margin_top,
+                    margin_right = Gs.styles.button_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.button_nine_patch_margin_bottom,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "normal", "Button", {
                     texture = Gs.styles.button_normal_nine_patch,
                     texture_scale = Gs.styles.button_nine_patch_scale,
-                    margin = Gs.styles.button_nine_patch_margin,
-                    content_margin = Gs.styles.button_content_margin,
+                    margin_left = Gs.styles.button_nine_patch_margin_left,
+                    margin_top = Gs.styles.button_nine_patch_margin_top,
+                    margin_right = Gs.styles.button_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.button_nine_patch_margin_bottom,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "pressed", "Button", {
                     texture = Gs.styles.button_active_nine_patch,
                     texture_scale = Gs.styles.button_nine_patch_scale,
-                    margin = Gs.styles.button_nine_patch_margin,
-                    content_margin = Gs.styles.button_content_margin,
+                    margin_left = Gs.styles.button_nine_patch_margin_left,
+                    margin_top = Gs.styles.button_nine_patch_margin_top,
+                    margin_right = Gs.styles.button_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.button_nine_patch_margin_bottom,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
     else:
         _configure_theme_stylebox(
@@ -269,7 +407,10 @@ func configure_theme() -> void:
                     shadow_size = round(Gs.styles.button_shadow_size * 0.0),
                     border_width = round(Gs.styles.button_border_width * 0.0),
                     border_color = Gs.colors.button_border,
-                    content_margin = Gs.styles.button_content_margin,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "focused", "Button", {
@@ -280,7 +421,10 @@ func configure_theme() -> void:
                     shadow_color = Color.from_hsv(0, 0, 0, 0.5),
                     border_width = Gs.styles.button_border_width,
                     border_color = Gs.colors.button_border,
-                    content_margin = Gs.styles.button_content_margin,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "hover", "Button", {
@@ -291,7 +435,10 @@ func configure_theme() -> void:
                     shadow_color = Color.from_hsv(0, 0, 0, 0.5),
                     border_width = Gs.styles.button_border_width,
                     border_color = Gs.colors.button_border,
-                    content_margin = Gs.styles.button_content_margin,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "normal", "Button", {
@@ -301,7 +448,10 @@ func configure_theme() -> void:
                     shadow_size = Gs.styles.button_shadow_size,
                     border_width = Gs.styles.button_border_width,
                     border_color = Gs.colors.button_border,
-                    content_margin = Gs.styles.button_content_margin,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "pressed", "Button", {
@@ -311,7 +461,10 @@ func configure_theme() -> void:
                     shadow_size = round(Gs.styles.button_shadow_size * 0.2),
                     border_width = Gs.styles.button_border_width,
                     border_color = Gs.colors.button_border,
-                    content_margin = Gs.styles.button_content_margin,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
     
     if is_instance_valid(Gs.styles.dropdown_normal_nine_patch):
@@ -319,36 +472,66 @@ func configure_theme() -> void:
                 "disabled", "OptionButton", {
                     texture = Gs.styles.dropdown_disabled_nine_patch,
                     texture_scale = Gs.styles.dropdown_nine_patch_scale,
-                    margin = Gs.styles.dropdown_nine_patch_margin,
-                    content_margin = Gs.styles.button_content_margin,
+                    margin_left = Gs.styles.dropdown_nine_patch_margin_left,
+                    margin_top = Gs.styles.dropdown_nine_patch_margin_top,
+                    margin_right = Gs.styles.dropdown_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.dropdown_nine_patch_margin_bottom,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "focused", "OptionButton", {
                     texture = Gs.styles.dropdown_focused_nine_patch,
                     texture_scale = Gs.styles.dropdown_nine_patch_scale,
-                    margin = Gs.styles.dropdown_nine_patch_margin,
-                    content_margin = Gs.styles.button_content_margin,
+                    margin_left = Gs.styles.dropdown_nine_patch_margin_left,
+                    margin_top = Gs.styles.dropdown_nine_patch_margin_top,
+                    margin_right = Gs.styles.dropdown_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.dropdown_nine_patch_margin_bottom,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "hover", "OptionButton", {
                     texture = Gs.styles.dropdown_hover_nine_patch,
                     texture_scale = Gs.styles.dropdown_nine_patch_scale,
-                    margin = Gs.styles.dropdown_nine_patch_margin,
-                    content_margin = Gs.styles.button_content_margin,
+                    margin_left = Gs.styles.dropdown_nine_patch_margin_left,
+                    margin_top = Gs.styles.dropdown_nine_patch_margin_top,
+                    margin_right = Gs.styles.dropdown_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.dropdown_nine_patch_margin_bottom,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "normal", "OptionButton", {
                     texture = Gs.styles.dropdown_normal_nine_patch,
                     texture_scale = Gs.styles.dropdown_nine_patch_scale,
-                    margin = Gs.styles.dropdown_nine_patch_margin,
-                    content_margin = Gs.styles.button_content_margin,
+                    margin_left = Gs.styles.dropdown_nine_patch_margin_left,
+                    margin_top = Gs.styles.dropdown_nine_patch_margin_top,
+                    margin_right = Gs.styles.dropdown_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.dropdown_nine_patch_margin_bottom,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "pressed", "OptionButton", {
                     texture = Gs.styles.dropdown_active_nine_patch,
                     texture_scale = Gs.styles.dropdown_nine_patch_scale,
-                    margin = Gs.styles.dropdown_nine_patch_margin,
-                    content_margin = Gs.styles.button_content_margin,
+                    margin_left = Gs.styles.dropdown_nine_patch_margin_left,
+                    margin_top = Gs.styles.dropdown_nine_patch_margin_top,
+                    margin_right = Gs.styles.dropdown_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.dropdown_nine_patch_margin_bottom,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
     else:
         _configure_theme_stylebox(
@@ -359,7 +542,10 @@ func configure_theme() -> void:
                     shadow_size = Gs.styles.dropdown_shadow_size,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
-                    content_margin = Gs.styles.button_content_margin,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "focused", "OptionButton", {
@@ -369,7 +555,10 @@ func configure_theme() -> void:
                     shadow_size = Gs.styles.dropdown_shadow_size,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
-                    content_margin = Gs.styles.button_content_margin,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "hover", "OptionButton", {
@@ -379,7 +568,10 @@ func configure_theme() -> void:
                     shadow_size = Gs.styles.dropdown_shadow_size,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
-                    content_margin = Gs.styles.button_content_margin,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "normal", "OptionButton", {
@@ -389,7 +581,10 @@ func configure_theme() -> void:
                     shadow_size = Gs.styles.dropdown_shadow_size,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
-                    content_margin = Gs.styles.button_content_margin,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "pressed", "OptionButton", {
@@ -399,7 +594,10 @@ func configure_theme() -> void:
                     shadow_size = Gs.styles.dropdown_shadow_size,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
-                    content_margin = Gs.styles.button_content_margin,
+                    content_margin_left = Gs.styles.button_content_margin_left,
+                    content_margin_top = Gs.styles.button_content_margin_top,
+                    content_margin_right = Gs.styles.button_content_margin_right,
+                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
                 })
     
     if is_instance_valid(Gs.styles.scroll_track_nine_patch):
@@ -407,50 +605,74 @@ func configure_theme() -> void:
                 "scroll", "HScrollBar", {
                     texture = Gs.styles.scroll_track_nine_patch,
                     texture_scale = Gs.styles.scroll_track_nine_patch_scale,
-                    margin = Gs.styles.scroll_track_nine_patch_margin,
+                    margin_left = Gs.styles.scroll_track_nine_patch_margin_left,
+                    margin_top = Gs.styles.scroll_track_nine_patch_margin_top,
+                    margin_right = Gs.styles.scroll_track_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.scroll_track_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber", "HScrollBar", {
                     texture = Gs.styles.scroll_grabber_normal_nine_patch,
                     texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
-                    margin = Gs.styles.scroll_grabber_nine_patch_margin,
+                    margin_left = Gs.styles.scroll_grabber_nine_patch_margin_left,
+                    margin_top = Gs.styles.scroll_grabber_nine_patch_margin_top,
+                    margin_right = Gs.styles.scroll_grabber_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.scroll_grabber_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber_highlight", "HScrollBar", {
                     texture = Gs.styles.scroll_grabber_hover_nine_patch,
                     texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
-                    margin = Gs.styles.scroll_grabber_nine_patch_margin,
+                    margin_left = Gs.styles.scroll_grabber_nine_patch_margin_left,
+                    margin_top = Gs.styles.scroll_grabber_nine_patch_margin_top,
+                    margin_right = Gs.styles.scroll_grabber_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.scroll_grabber_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber_pressed", "HScrollBar", {
                     texture = Gs.styles.scroll_grabber_active_nine_patch,
                     texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
-                    margin = Gs.styles.scroll_grabber_nine_patch_margin,
+                    margin_left = Gs.styles.scroll_grabber_nine_patch_margin_left,
+                    margin_top = Gs.styles.scroll_grabber_nine_patch_margin_top,
+                    margin_right = Gs.styles.scroll_grabber_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.scroll_grabber_nine_patch_margin_bottom,
                 })
         
         _configure_theme_stylebox(
                 "scroll", "VScrollBar", {
                     texture = Gs.styles.scroll_track_nine_patch,
                     texture_scale = Gs.styles.scroll_track_nine_patch_scale,
-                    margin = Gs.styles.scroll_track_nine_patch_margin,
+                    margin_left = Gs.styles.scroll_track_nine_patch_margin_left,
+                    margin_top = Gs.styles.scroll_track_nine_patch_margin_top,
+                    margin_right = Gs.styles.scroll_track_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.scroll_track_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber", "VScrollBar", {
                     texture = Gs.styles.scroll_grabber_normal_nine_patch,
                     texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
-                    margin = Gs.styles.scroll_grabber_nine_patch_margin,
+                    margin_left = Gs.styles.scroll_grabber_nine_patch_margin_left,
+                    margin_top = Gs.styles.scroll_grabber_nine_patch_margin_top,
+                    margin_right = Gs.styles.scroll_grabber_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.scroll_grabber_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber_highlight", "VScrollBar", {
                     texture = Gs.styles.scroll_grabber_hover_nine_patch,
                     texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
-                    margin = Gs.styles.scroll_grabber_nine_patch_margin,
+                    margin_left = Gs.styles.scroll_grabber_nine_patch_margin_left,
+                    margin_top = Gs.styles.scroll_grabber_nine_patch_margin_top,
+                    margin_right = Gs.styles.scroll_grabber_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.scroll_grabber_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber_pressed", "VScrollBar", {
                     texture = Gs.styles.scroll_grabber_active_nine_patch,
                     texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
-                    margin = Gs.styles.scroll_grabber_nine_patch_margin,
+                    margin_left = Gs.styles.scroll_grabber_nine_patch_margin_left,
+                    margin_top = Gs.styles.scroll_grabber_nine_patch_margin_top,
+                    margin_right = Gs.styles.scroll_grabber_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.scroll_grabber_nine_patch_margin_bottom,
                 })
     else:
         _configure_theme_stylebox(
@@ -458,7 +680,10 @@ func configure_theme() -> void:
                     bg_color = Gs.colors.scroll_bar_background,
                     corner_radius = Gs.styles.scroll_corner_radius,
                     corner_detail = Gs.styles.scroll_corner_detail,
-                    content_margin = Gs.styles.scroll_content_margin,
+                    content_margin_left = Gs.styles.scroll_content_margin_left,
+                    content_margin_top = Gs.styles.scroll_content_margin_top,
+                    content_margin_right = Gs.styles.scroll_content_margin_right,
+                    content_margin_bottom = Gs.styles.scroll_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber", "HScrollBar", {
@@ -484,7 +709,10 @@ func configure_theme() -> void:
                     bg_color = Gs.colors.scroll_bar_background,
                     corner_radius = Gs.styles.scroll_corner_radius,
                     corner_detail = Gs.styles.scroll_corner_detail,
-                    content_margin = Gs.styles.scroll_content_margin,
+                    content_margin_left = Gs.styles.scroll_content_margin_left,
+                    content_margin_top = Gs.styles.scroll_content_margin_top,
+                    content_margin_right = Gs.styles.scroll_content_margin_right,
+                    content_margin_bottom = Gs.styles.scroll_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber", "VScrollBar", {
@@ -510,13 +738,19 @@ func configure_theme() -> void:
                 "slider", "HSlider", {
                     texture = Gs.styles.slider_track_nine_patch,
                     texture_scale = Gs.styles.slider_track_nine_patch_scale,
-                    margin = Gs.styles.slider_track_nine_patch_margin,
+                    margin_left = Gs.styles.slider_track_nine_patch_margin_left,
+                    margin_top = Gs.styles.slider_track_nine_patch_margin_top,
+                    margin_right = Gs.styles.slider_track_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.slider_track_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "slider", "VSlider", {
                     texture = Gs.styles.slider_track_nine_patch,
                     texture_scale = Gs.styles.slider_track_nine_patch_scale,
-                    margin = Gs.styles.slider_track_nine_patch_margin,
+                    margin_left = Gs.styles.slider_track_nine_patch_margin_left,
+                    margin_top = Gs.styles.slider_track_nine_patch_margin_top,
+                    margin_right = Gs.styles.slider_track_nine_patch_margin_right,
+                    margin_bottom = Gs.styles.slider_track_nine_patch_margin_bottom,
                 })
     else:
         _configure_theme_stylebox(
@@ -524,14 +758,20 @@ func configure_theme() -> void:
                     bg_color = Gs.colors.slider_background,
                     corner_radius = Gs.styles.slider_corner_radius,
                     corner_detail = Gs.styles.slider_corner_detail,
-                    content_margin = Gs.styles.slider_content_margin,
+                    content_margin_left = Gs.styles.slider_content_margin_left,
+                    content_margin_top = Gs.styles.slider_content_margin_top,
+                    content_margin_right = Gs.styles.slider_content_margin_right,
+                    content_margin_bottom = Gs.styles.slider_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "slider", "VSlider", {
                     bg_color = Gs.colors.slider_background,
                     corner_radius = Gs.styles.slider_corner_radius,
                     corner_detail = Gs.styles.slider_corner_detail,
-                    content_margin = Gs.styles.slider_content_margin,
+                    content_margin_left = Gs.styles.slider_content_margin_left,
+                    content_margin_top = Gs.styles.slider_content_margin_top,
+                    content_margin_right = Gs.styles.slider_content_margin_right,
+                    content_margin_bottom = Gs.styles.slider_content_margin_bottom,
                 })
     _configure_theme_stylebox(
             "grabber_area", "HSlider", {bg_color = Color.transparent})
@@ -630,27 +870,29 @@ func _create_stylebox_texture_scalable_from_config(
     stylebox.texture = config.texture
     if config.has("texture_scale"):
         stylebox.initial_texture_scale = config.texture_scale
-    if config.has("margin"):
-        stylebox.margin_bottom = config.margin
-        stylebox.margin_left = config.margin
-        stylebox.margin_right = config.margin
-        stylebox.margin_top = config.margin
-    if config.has("expand_margin"):
-        stylebox.expand_margin_bottom = config.expand_margin
-        stylebox.expand_margin_left = config.expand_margin
-        stylebox.expand_margin_right = config.expand_margin
-        stylebox.expand_margin_top = config.expand_margin
+    if config.has("margin_left"):
+        stylebox.margin_bottom = config.margin_bottom
+        stylebox.margin_left = config.margin_left
+        stylebox.margin_right = config.margin_right
+        stylebox.margin_top = config.margin_top
+    if config.has("expand_margin_left"):
+        stylebox.expand_margin_bottom = config.expand_margin_bottom
+        stylebox.expand_margin_left = config.expand_margin_left
+        stylebox.expand_margin_right = config.expand_margin_right
+        stylebox.expand_margin_top = config.expand_margin_top
     
-    # Setting content-margin to 0 is important for preventing buttons from
-    # forcing an undesirable min height.
-    var content_margin: int = \
-            config.content_margin if \
-            config.has("content_margin") else \
-            0
-    stylebox.content_margin_bottom = content_margin
-    stylebox.content_margin_left = content_margin
-    stylebox.content_margin_right = content_margin
-    stylebox.content_margin_top = content_margin
+    if config.has("content_margin_left"):
+        stylebox.content_margin_bottom = config.content_margin_bottom
+        stylebox.content_margin_left = config.content_margin_left
+        stylebox.content_margin_right = config.content_margin_right
+        stylebox.content_margin_top = config.content_margin_top
+    else:
+        # Setting content-margin to 0 is important for preventing buttons from
+        # forcing an undesirable min height.
+        stylebox.content_margin_bottom = 0
+        stylebox.content_margin_left = 0
+        stylebox.content_margin_right = 0
+        stylebox.content_margin_top = 0
     
     stylebox.ready()
     return stylebox
@@ -684,9 +926,18 @@ func _create_stylebox_texture_scalable_from_stylebox(
     
     if old is StyleBoxTextureScalable:
         new.texture = old.initial_texture
-        new.content_margin_top = old.initial_content_margin
-        new.expand_margin_top = old.initial_expand_margin
-        new.margin_top = old.initial_margin
+        new.content_margin_left = old.initial_content_margin_left
+        new.content_margin_top = old.initial_content_margin_top
+        new.content_margin_right = old.initial_content_margin_right
+        new.content_margin_bottom = old.initial_content_margin_bottom
+        new.expand_margin_left = old.initial_expand_margin_left
+        new.expand_margin_top = old.initial_expand_margin_top
+        new.expand_margin_right = old.initial_expand_margin_right
+        new.expand_margin_bottom = old.initial_expand_margin_bottom
+        new.margin_left = old.initial_margin_left
+        new.margin_top = old.initial_margin_top
+        new.margin_right = old.initial_margin_right
+        new.margin_bottom = old.initial_margin_bottom
         new.initial_texture_scale = old.initial_texture_scale
     
     new.ready()
@@ -711,11 +962,11 @@ func _create_stylebox_flat_scalable_from_config(
         stylebox.border_width_bottom = config.border_width
     if config.has("border_color"):
         stylebox.border_color = config.border_color
-    if config.has("content_margin"):
-        stylebox.content_margin_left = config.content_margin
-        stylebox.content_margin_top = config.content_margin
-        stylebox.content_margin_right = config.content_margin
-        stylebox.content_margin_bottom = config.content_margin
+    if config.has("content_margin_left"):
+        stylebox.content_margin_left = config.content_margin_left
+        stylebox.content_margin_top = config.content_margin_top
+        stylebox.content_margin_right = config.content_margin_right
+        stylebox.content_margin_bottom = config.content_margin_bottom
     if config.has("corner_detail"):
         stylebox.corner_detail = config.corner_detail
     if config.has("corner_radius"):
@@ -723,11 +974,11 @@ func _create_stylebox_flat_scalable_from_config(
         stylebox.corner_radius_top_right = config.corner_radius
         stylebox.corner_radius_bottom_left = config.corner_radius
         stylebox.corner_radius_bottom_right = config.corner_radius
-    if config.has("expand_margin"):
-        stylebox.expand_margin_left = config.expand_margin
-        stylebox.expand_margin_top = config.expand_margin
-        stylebox.expand_margin_right = config.expand_margin
-        stylebox.expand_margin_bottom = config.expand_margin
+    if config.has("expand_margin_left"):
+        stylebox.expand_margin_left = config.expand_margin_left
+        stylebox.expand_margin_top = config.expand_margin_top
+        stylebox.expand_margin_right = config.expand_margin_right
+        stylebox.expand_margin_bottom = config.expand_margin_bottom
     if config.has("shadow_color"):
         stylebox.shadow_color = config.shadow_color
     if config.has("shadow_offset"):
