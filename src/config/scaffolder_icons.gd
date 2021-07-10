@@ -77,8 +77,11 @@ const DEFAULT_RADIO_BUTTON_NORMAL_SIZES := [16, 32, 64, 128]
 
 const DEFAULT_RADIO_BUTTON_PIXEL_PATH_PREFIX := \
         "res://addons/scaffolder/assets/images/gui/radio_button_pixel/radio_button_"
-const DEFAULT_RADIO_BUTTON_PIXEL_SIZE := 32
-const DEFAULT_RADIO_BUTTON_PIXEL_SIZES := [8, 16, 32, 64, 128]
+const DEFAULT_RADIO_BUTTON_PIXEL_SIZE := 40
+# These sizes don't include a margin.
+#const DEFAULT_RADIO_BUTTON_PIXEL_SIZES := [8, 16, 32, 64, 128]
+# These sizes include a margin.
+const DEFAULT_RADIO_BUTTON_PIXEL_SIZES := [10, 20, 40, 80, 160]
 
 const DEFAULT_TREE_ARROW_NORMAL_PATH_PREFIX := \
         "res://addons/scaffolder/assets/images/gui/tree_arrow/tree_arrow_"
