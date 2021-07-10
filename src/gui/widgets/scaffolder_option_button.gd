@@ -8,8 +8,8 @@ export(String, "Xs", "S", "M", "L", "Xl") var font_size := "M" \
         setget _set_font_size
 export var size_override := Vector2.ZERO setget _set_size_override
 export var font_override: Font setget _set_font_override
-export var hseparation := 2.0 setget _set_hseparation
-export var arrow_margin := 2.0 setget _set_arrow_margin
+export var hseparation_override := -1.0 setget _set_hseparation_override
+export var arrow_margin_override := -1.0 setget _set_arrow_margin_override
 
 var _is_ready := false
 
@@ -41,7 +41,16 @@ func _update() -> void:
             Gs.gui.button_height) * Gs.gui.scale
     rect_size = rect_min_size
     
+    var hseparation: float = \
+            hseparation_override if \
+            hseparation_override != -1.0 else \
+            Gs.styles.button_content_margin_left
     add_constant_override("hseparation", hseparation * Gs.gui.scale)
+    
+    var arrow_margin: float = \
+            arrow_margin_override if \
+            arrow_margin_override != -1.0 else \
+            Gs.styles.button_content_margin_right
     add_constant_override("arrow_margin", arrow_margin * Gs.gui.scale)
     
     if font_override != null:
@@ -74,11 +83,11 @@ func _set_font_override(value: Font) -> void:
     _update()
 
 
-func _set_hseparation(value: float) -> void:
-    hseparation = value
+func _set_hseparation_override(value: float) -> void:
+    hseparation_override = value
     _update()
 
 
-func _set_arrow_margin(value: float) -> void:
-    arrow_margin = value
+func _set_arrow_margin_override(value: float) -> void:
+    arrow_margin_override = value
     _update()

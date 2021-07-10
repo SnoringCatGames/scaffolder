@@ -22,17 +22,19 @@ func _init(
     pass
 
 
-func on_selected(selected_index: int, selected_text: String) -> void:
+func on_selected(
+        selected_index: int,
+        selected_text: String) -> void:
     Gs.logger.error(
             "Abstract DropdownLabeledControlItem.on_selected " +
             "is not implemented")
 
 
-func get_selected_index() -> bool:
+func get_selected_index() -> int:
     Gs.logger.error(
             "Abstract DropdownLabeledControlItem.get_selected_index " +
             "is not implemented")
-    return false
+    return -1
 
 
 func _update_control() -> void:
@@ -43,6 +45,7 @@ func _update_control() -> void:
 
 func create_control() -> Control:
     var dropdown := OptionButton.new()
+    dropdown.flat = true
     for option in options:
         dropdown.add_item(option)
     dropdown.select(selected_index)

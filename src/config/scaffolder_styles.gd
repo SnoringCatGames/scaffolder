@@ -773,14 +773,15 @@ func configure_theme() -> void:
                     content_margin_right = Gs.styles.slider_content_margin_right,
                     content_margin_bottom = Gs.styles.slider_content_margin_bottom,
                 })
+    
     _configure_theme_stylebox(
-            "grabber_area", "HSlider", {bg_color = Color.transparent})
+            "grabber_area", "HSlider", Color.transparent)
     _configure_theme_stylebox(
-            "grabber_area_highlight", "HSlider", {bg_color = Color.transparent})
+            "grabber_area_highlight", "HSlider", Color.transparent)
     _configure_theme_stylebox(
-            "grabber_area", "VSlider", {bg_color = Color.transparent})
+            "grabber_area", "VSlider", Color.transparent)
     _configure_theme_stylebox(
-            "grabber_area_highlight", "VSlider", {bg_color = Color.transparent})
+            "grabber_area_highlight", "VSlider", Color.transparent)
     
     _configure_theme_stylebox(
             "panel", "PopupMenu", Gs.colors.popup_background)
@@ -791,12 +792,18 @@ func configure_theme() -> void:
     _configure_theme_stylebox(
             "bg", "Tree", Color.transparent)
     
-    _configure_theme_stylebox_empty("disabled", "CheckBox")
-    _configure_theme_stylebox_empty("focus", "CheckBox")
-    _configure_theme_stylebox_empty("hover", "CheckBox")
-    _configure_theme_stylebox_empty("hover_pressed", "CheckBox")
-    _configure_theme_stylebox_empty("normal", "CheckBox")
-    _configure_theme_stylebox_empty("pressed", "CheckBox")
+    _configure_theme_stylebox(
+            "disabled", "CheckBox", Color.transparent)
+    _configure_theme_stylebox(
+            "focus", "CheckBox", Color.transparent)
+    _configure_theme_stylebox(
+            "hover", "CheckBox", Color.transparent)
+    _configure_theme_stylebox(
+            "hover_pressed", "CheckBox", Color.transparent)
+    _configure_theme_stylebox(
+            "normal", "CheckBox", Color.transparent)
+    _configure_theme_stylebox(
+            "pressed", "CheckBox", Color.transparent)
     
     if Gs.gui.theme.default_font == null:
         Gs.gui.theme.default_font = Gs.gui.fonts.main_m
@@ -834,14 +841,6 @@ func _configure_theme_stylebox(
                 old is StyleBoxTextureScalable):
             var new: StyleBox = Gs.styles.create_stylebox_scalable(old)
             Gs.gui.theme.set_stylebox(name, type, new)
-
-
-func _configure_theme_stylebox_empty(
-        name: String,
-        type: String) -> void:
-    if !Gs.gui.theme.has_stylebox(name, type):
-        var stylebox := StyleBoxEmpty.new()
-        Gs.gui.theme.set_stylebox(name, type, stylebox)
 
 
 func create_stylebox_scalable(config) -> StyleBox:
