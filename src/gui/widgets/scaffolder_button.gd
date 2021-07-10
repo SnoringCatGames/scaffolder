@@ -109,13 +109,17 @@ func _update() -> void:
             "bg_color"
     
     $MarginContainer/MarginContainer.add_constant_override(
-            "margin_left", Gs.styles.button_shine_margin * Gs.gui.scale)
+            "margin_left",
+            Gs.styles.button_shine_margin_left * Gs.gui.scale)
     $MarginContainer/MarginContainer.add_constant_override(
-            "margin_top", Gs.styles.button_shine_margin * Gs.gui.scale)
+            "margin_top",
+            Gs.styles.button_shine_margin_top * Gs.gui.scale)
     $MarginContainer/MarginContainer.add_constant_override(
-            "margin_right", Gs.styles.button_shine_margin * Gs.gui.scale)
+            "margin_right",
+            Gs.styles.button_shine_margin_right * Gs.gui.scale)
     $MarginContainer/MarginContainer.add_constant_override(
-            "margin_bottom", Gs.styles.button_shine_margin * Gs.gui.scale)
+            "margin_bottom",
+            Gs.styles.button_shine_margin_bottom * Gs.gui.scale)
     
     $MarginContainer.call_deferred("set", "rect_size", rect_size)
     $MarginContainer/MarginContainer.visible = \
