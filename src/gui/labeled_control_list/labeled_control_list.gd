@@ -10,6 +10,8 @@ export(String, "Xs", "S", "M", "L", "Xl") var font_size := "M" \
         setget _set_font_size
 export var row_height := 48.0 setget _set_row_height
 export var padding_horizontal := 10.0 setget _set_padding_horizontal
+export var is_even_odd_color_swapped := false setget \
+        _set_is_even_odd_color_swapped
 
 # Array<LabeledControlItem>
 var items := [] setget _set_items
@@ -43,7 +45,7 @@ func _update_children() -> void:
     for index in items.size():
         var style: StyleBox = \
                 _odd_row_style if \
-                index % 2 == 0 else \
+                (index % 2 == 0) == (!is_even_odd_color_swapped) else \
                 _even_row_style
         var item: LabeledControlItem = items[index]
         add_child(item.create_row(
@@ -97,6 +99,11 @@ func _set_row_height(value: float) -> void:
 
 func _set_padding_horizontal(value: float) -> void:
     padding_horizontal = value
+    _update_children()
+
+
+func _set_is_even_odd_color_swapped(value: bool) -> void:
+    is_even_odd_color_swapped = value
     _update_children()
 
 

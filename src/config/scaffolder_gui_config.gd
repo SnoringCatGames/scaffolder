@@ -39,8 +39,6 @@ const DEFAULT_HUD_KEY_VALUE_BOX_PATH := \
         "res://addons/scaffolder/src/gui/hud/hud_key_value_box.tscn"
 const DEFAULT_HUD_KEY_VALUE_LIST_PATH := \
         "res://addons/scaffolder/src/gui/hud/hud_key_value_list.tscn"
-const DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH := \
-        "res://addons/scaffolder/src/gui/hud/hud_key_value_box_nine_patch_rect.tscn"
 
 const MIN_GUI_SCALE := 0.2
 
@@ -99,8 +97,6 @@ var DEFAULT_HUD_MANIFEST := {
             preload(DEFAULT_HUD_KEY_VALUE_BOX_PATH),
     hud_key_value_list_scene = \
             preload(DEFAULT_HUD_KEY_VALUE_LIST_PATH),
-    hud_key_value_box_nine_patch_rect_scene = \
-            preload(DEFAULT_HUD_KEY_VALUE_BOX_NINE_PATCH_RECT_PATH),
     hud_key_value_list_item_manifest = [
         {
             item_class = TimeLabeledControlItem,
@@ -622,6 +618,7 @@ func _update_game_area_region_and_gui_scale() -> void:
 func _scale_guis() -> void:
     if Gs.gui.previous_scale != Gs.gui.scale:
         for gui in Gs.gui.guis_to_scale:
+            assert(is_instance_valid(gui))
             Gs.gui._scale_gui_for_current_screen_size(gui)
 
 

@@ -56,9 +56,10 @@ var tooltip_bg: Color
 
 var zebra_stripe_even_row: Color
 
-var overlay_panel_body_background: Color
-var overlay_panel_header_background: Color
+var overlay_panel_background: Color
 var overlay_panel_border: Color
+
+var header_panel_background: Color
 
 var scroll_bar_background: Color
 var scroll_bar_grabber_normal: Color
@@ -68,6 +69,8 @@ var scroll_bar_grabber_pressed: Color
 var slider_background: Color
 
 var screen_border: Color
+
+var shadow: Color
 
 # --- Optionally, you can configure some colors as relative to others. ---
 
@@ -87,8 +90,8 @@ var popup_background_hsv_delta: Dictionary
 
 var zebra_stripe_even_row_hsv_delta: Dictionary
 
-var overlay_panel_body_background_hsv_delta: Dictionary
-var overlay_panel_header_background_hsv_delta: Dictionary
+var overlay_panel_background_hsv_delta: Dictionary
+var header_panel_background_hsv_delta: Dictionary
 
 var scroll_bar_background_hsv_delta: Dictionary
 var scroll_bar_grabber_normal_hsv_delta: Dictionary
@@ -132,10 +135,11 @@ var _defaults := {
     scroll_bar_grabber_pressed = Color("5b5b5b"),
     slider_background = Color("4d4d4d"),
     zebra_stripe_even_row = Color("4d4d4d"),
-    overlay_panel_body_background = Color("141414"),
-    overlay_panel_header_background = Color("282828"),
+    overlay_panel_background = Color("141414"),
     overlay_panel_border = Color("eeeeee"),
+    header_panel_background = Color("282828"),
     screen_border = Color("404040"),
+    shadow = Color("88000000"),
 }
 
 # ---
@@ -210,16 +214,16 @@ func _derive_colors() -> void:
                         Gs.colors.background,
                         Gs.colors.zebra_stripe_even_row_hsv_delta)
     
-    if !Gs.colors.overlay_panel_body_background_hsv_delta.empty():
-        Gs.colors.overlay_panel_body_background = \
+    if !Gs.colors.overlay_panel_background_hsv_delta.empty():
+        Gs.colors.overlay_panel_background = \
                 _derive_color_from_hsva_delta(
                         Gs.colors.background,
-                        Gs.colors.overlay_panel_body_background_hsv_delta)
-    if !Gs.colors.overlay_panel_header_background_hsv_delta.empty():
-        Gs.colors.overlay_panel_header_background = \
+                        Gs.colors.overlay_panel_background_hsv_delta)
+    if !Gs.colors.header_panel_background_hsv_delta.empty():
+        Gs.colors.header_panel_background = \
                 _derive_color_from_hsva_delta(
                         Gs.colors.background,
-                        Gs.colors.overlay_panel_header_background_hsv_delta)
+                        Gs.colors.header_panel_background_hsv_delta)
     
     if !Gs.colors.scroll_bar_background_hsv_delta.empty():
         Gs.colors.scroll_bar_background = \

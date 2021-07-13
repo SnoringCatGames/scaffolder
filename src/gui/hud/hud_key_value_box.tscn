@@ -4,16 +4,19 @@
 [ext_resource path="res://addons/scaffolder/src/gui/hud/hud_key_value_box.gd" type="Script" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=4]
 
-[node name="HudKeyValueBox" type="Control"]
+[node name="HudKeyValueBox" type="PanelContainer"]
 mouse_filter = 2
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+style = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 256.0
-margin_bottom = 48.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 53.0
+margin_bottom = 21.0
 mouse_filter = 2
 custom_constants/separation = 0
 __meta__ = {
@@ -23,16 +26,15 @@ __meta__ = {
 [node name="Spacer" parent="HBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 24.0
-margin_bottom = 24.0
+margin_top = 7.0
+margin_bottom = 7.0
 size = Vector2( 8, 0 )
 
 [node name="Key" parent="HBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 17.0
-margin_right = 248.0
-margin_bottom = 31.0
+margin_right = 38.0
+margin_bottom = 14.0
 size_flags_horizontal = 3
 text = "Label:"
 align = 0
@@ -41,10 +43,9 @@ font_size = "S"
 [node name="Value" parent="HBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 248.0
-margin_top = 17.0
-margin_right = 256.0
-margin_bottom = 31.0
+margin_left = 38.0
+margin_right = 46.0
+margin_bottom = 14.0
 size_flags_horizontal = 9
 text = "0"
 align = 2
@@ -53,8 +54,8 @@ font_size = "S"
 [node name="Spacer2" parent="HBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 256.0
-margin_top = 24.0
-margin_right = 256.0
-margin_bottom = 24.0
+margin_left = 46.0
+margin_top = 7.0
+margin_right = 46.0
+margin_bottom = 7.0
 size = Vector2( 8, 0 )
