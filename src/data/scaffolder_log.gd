@@ -18,8 +18,9 @@ func print(message: String) -> void:
     else:
         _print_queue.push_back(message)
     
-    if !is_instance_valid(Gs.app_metadata) or \
-            Gs.app_metadata.also_prints_to_stdout:
+    if (!is_instance_valid(Gs.app_metadata) or \
+            Gs.app_metadata.also_prints_to_stdout) and \
+            !Engine.editor_hint:
         print(message)
 
 
@@ -47,7 +48,7 @@ func warning(message := "An warning occurred") -> void:
 
 func on_global_init(global: Node, name: String) -> void:
     global.name = name
-    print("%s._init" % name)
+    self.print("%s._init" % name)
 
 
 func _print_front_matter() -> void:

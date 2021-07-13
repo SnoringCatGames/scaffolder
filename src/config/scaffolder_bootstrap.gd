@@ -5,6 +5,8 @@ extends Node
 var app_manifest: Dictionary
 var main: Node
 
+var _framework_configs := []
+
 var _throttled_size_changed: FuncRef
 var _is_global_visibility_disabled_for_resize := false
 var _has_initial_input_happened := false
@@ -12,30 +14,42 @@ var _has_initial_input_happened := false
 
 func _init() -> void:
     name = "ScaffolderBootstrap"
+    _framework_configs.push_back(Gs)
 
 
 func run(
-        app_manifest: Dictionary,
+        app_config: Node,
         main: Node) -> void:
     Gs.logger.print("ScaffolderBootstrap.run")
+    
+    assert(app_config.get("app_manifest") != null)
+    
+    _framework_configs.push_back(app_config)
+    self.main = main
+    self.app_manifest = app_config.app_manifest
+    
     Gs.logger.print("\nApp version: %s\n" % \
             app_manifest.app_metadata.app_version)
     
-    self.main = main
-    self.app_manifest = app_manifest
     call_deferred("_amend_app_manifest")
     call_deferred("_register_app_manifest")
 
 
 func _amend_app_manifest() -> void:
-    Gs.amend_app_manifest(app_manifest)
+    for config in _framework_configs:
+        if config.has_method("amend_app_manifest"):
+            config.amend_app_manifest(app_manifest)
 
 
 func _register_app_manifest() -> void:
     Gs.logger.print("ScaffolderBootstrap._register_app_manifest")
     
-    Gs.register_app_manifest(app_manifest)
+    for config in _framework_configs:
+        if config.has_method("register_app_manifest"):
+            config.register_app_manifest(app_manifest)
+    
     Gs.initialize_app_metadata()
+    
     if _report_any_previous_crash():
         return
     else:
@@ -45,9 +59,16 @@ func _register_app_manifest() -> void:
 func _initialize_framework() -> void:
     Gs.logger.print("ScaffolderBootstrap._initialize_framework")
     
-    Gs.initialize()
+    for config in _framework_configs:
+        if config.has_method("initialize"):
+            config.initialize()
+    
     Gs.nav.connect("app_quit", self, "_on_app_quit")
-    Gs.load_state()
+    
+    for config in _framework_configs:
+        if config.has_method("load_state"):
+            config.load_state()
+    
     Gs.styles.configure_theme()
     
     if main != self:
