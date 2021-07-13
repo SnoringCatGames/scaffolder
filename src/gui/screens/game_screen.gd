@@ -56,7 +56,8 @@ func _on_transition_out_ended(next_screen: Screen) -> void:
     ._on_transition_out_ended(next_screen)
     
     if next_screen.screen_name != "pause":
-        Gs.level._destroy()
+        if is_instance_valid(Gs.level):
+            Gs.level._destroy()
 
 
 func _update_viewport_region_helper() -> void:

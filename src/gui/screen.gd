@@ -1,6 +1,6 @@
 tool
 class_name Screen, \
-"res://addons/scaffolder/assets/images/editor_icons/screen.png"
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_panel_container.png"
 extends VBoxContainer
 
 

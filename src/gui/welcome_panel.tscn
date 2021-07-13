@@ -1,62 +1,78 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/welcome_panel.gd" type="Script" id=1]
-[ext_resource path="res://addons/scaffolder/src/gui/overlay_panel_body_stylebox.tres" type="StyleBox" id=3]
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_panel_container.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/labeled_control_list/labeled_control_list.tscn" type="PackedScene" id=4]
-[ext_resource path="res://addons/scaffolder/src/gui/overlay_panel_header_stylebox.tres" type="StyleBox" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=8]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0, 0, 0, 0 )
+[sub_resource type="StyleBoxLine" id=1]
+color = Color( 1, 1, 1, 1 )
+thickness = 4
 
 [node name="WelcomePanel" type="PanelContainer"]
-modulate = Color( 1, 1, 1, 0.701961 )
+modulate = Color( 1, 1, 1, 0 )
 margin_right = 380.0
 margin_bottom = 130.0
-custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+style = 1
 size_override = Vector2( 380, 0 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 380.0
-margin_bottom = 130.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 373.0
+margin_bottom = 123.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 
-[node name="Header" parent="VBoxContainer" instance=ExtResource( 8 )]
+[node name="ScaffolderPanelContainer" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 0.0
-margin_bottom = 88.0
-custom_styles/normal = ExtResource( 5 )
+margin_right = 366.0
+margin_bottom = 42.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScaffolderPanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 359.0
+margin_bottom = 35.0
+custom_constants/separation = 0
+
+[node name="Header" parent="VBoxContainer/ScaffolderPanelContainer/VBoxContainer" instance=ExtResource( 8 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 352.0
+margin_bottom = 14.0
 text = "Welcome"
 font_size = "L"
 size_override = Vector2( 0, 88 )
 
-[node name="Subheader" parent="VBoxContainer" instance=ExtResource( 8 )]
+[node name="Subheader" parent="VBoxContainer/ScaffolderPanelContainer/VBoxContainer" instance=ExtResource( 8 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 14.0
-margin_right = 0.0
-margin_bottom = 56.0
-custom_styles/normal = ExtResource( 5 )
+margin_right = 352.0
+margin_bottom = 28.0
 text = "(Click window to give focus)"
 font_size = "S"
 size_override = Vector2( 0, 42 )
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
-margin_top = 28.0
-margin_right = 380.0
-margin_bottom = 28.0
-custom_styles/panel = ExtResource( 3 )
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+margin_top = 42.0
+margin_right = 366.0
+margin_bottom = 46.0
+custom_styles/separator = SubResource( 1 )
 
-[node name="LabeledControlList" parent="VBoxContainer/PanelContainer" instance=ExtResource( 4 )]
-margin_right = 380.0
+[node name="LabeledControlList" parent="VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 46.0
+margin_right = 366.0
+margin_bottom = 46.0
 size_flags_vertical = 4
 font_size = "S"
 row_height = 40.0
 padding_horizontal = 8.0
+is_even_odd_color_swapped = true

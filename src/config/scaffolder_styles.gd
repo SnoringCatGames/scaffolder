@@ -2,17 +2,17 @@ class_name ScaffolderStyles
 extends Node
 
 
-const OVERLAY_PANEL_BODY_STYLEBOX := \
-        preload("res://addons/scaffolder/src/gui/overlay_panel_body_stylebox.tres")
-const OVERLAY_PANEL_HEADER_STYLEBOX := \
-        preload("res://addons/scaffolder/src/gui/overlay_panel_header_stylebox.tres")
-
 const BUTTON_ACTIVE_NINE_PATCH_PATH := \
         "res://addons/scaffolder/assets/images/gui/button_active.png"
 const BUTTON_HOVER_NINE_PATCH_PATH := \
         "res://addons/scaffolder/assets/images/gui/button_hover.png"
 const BUTTON_NORMAL_NINE_PATCH_PATH = \
         "res://addons/scaffolder/assets/images/gui/button_normal.png"
+
+var transparent_panel_stylebox: StyleBox
+var overlay_panel_stylebox: StyleBox
+var header_panel_stylebox: StyleBox
+var hud_panel_stylebox: StyleBox
 
 var button_content_margin_left := 12.0
 var button_content_margin_top := 12.0
@@ -97,11 +97,51 @@ var slider_track_nine_patch_margin_top: float
 var slider_track_nine_patch_margin_right: float
 var slider_track_nine_patch_margin_bottom: float
 
+var overlay_panel_nine_patch: Texture
+var overlay_panel_nine_patch_scale: float
+var overlay_panel_nine_patch_margin_left: float
+var overlay_panel_nine_patch_margin_top: float
+var overlay_panel_nine_patch_margin_right: float
+var overlay_panel_nine_patch_margin_bottom: float
+
+var overlay_panel_corner_radius: int
+var overlay_panel_corner_detail: int
+var overlay_panel_shadow_size: int
+var overlay_panel_shadow_offset: Vector2
+
+var overlay_panel_border_width: int
+
+var overlay_panel_content_margin_left: int
+var overlay_panel_content_margin_top: int
+var overlay_panel_content_margin_right: int
+var overlay_panel_content_margin_bottom: int
+
+var header_panel_nine_patch: Texture
+var header_panel_nine_patch_scale: float
+var header_panel_nine_patch_margin_left: float
+var header_panel_nine_patch_margin_top: float
+var header_panel_nine_patch_margin_right: float
+var header_panel_nine_patch_margin_bottom: float
+
+var header_panel_content_margin_left: int
+var header_panel_content_margin_top: int
+var header_panel_content_margin_right: int
+var header_panel_content_margin_bottom: int
+
+var hud_panel_nine_patch: Texture
+var hud_panel_nine_patch_scale: float
+var hud_panel_nine_patch_margin_left: float
+var hud_panel_nine_patch_margin_top: float
+var hud_panel_nine_patch_margin_right: float
+var hud_panel_nine_patch_margin_bottom: float
+var hud_panel_content_margin_left: int
+var hud_panel_content_margin_top: int
+var hud_panel_content_margin_right: int
+var hud_panel_content_margin_bottom: int
+
 var screen_shadow_size: int
 var screen_shadow_offset: Vector2
 var screen_border_width: int
-
-var overlay_panel_border_width: int
 
 
 func _init() -> void:
@@ -241,6 +281,73 @@ func register_manifest(manifest: Dictionary) -> void:
         self.slider_content_margin_bottom = \
                 manifest.slider_content_margin_bottom
     
+    if manifest.has("overlay_panel_nine_patch"):
+        self.overlay_panel_nine_patch = manifest.overlay_panel_nine_patch
+        self.overlay_panel_nine_patch_scale = \
+                manifest.overlay_panel_nine_patch_scale
+        self.overlay_panel_nine_patch_margin_left = \
+                manifest.overlay_panel_nine_patch_margin_left
+        self.overlay_panel_nine_patch_margin_top = \
+                manifest.overlay_panel_nine_patch_margin_top
+        self.overlay_panel_nine_patch_margin_right = \
+                manifest.overlay_panel_nine_patch_margin_right
+        self.overlay_panel_nine_patch_margin_bottom = \
+                manifest.overlay_panel_nine_patch_margin_bottom
+    else:
+        self.overlay_panel_corner_radius = manifest.overlay_panel_corner_radius
+        self.overlay_panel_corner_detail = manifest.overlay_panel_corner_detail
+        self.overlay_panel_shadow_size = manifest.overlay_panel_shadow_size
+        self.overlay_panel_shadow_offset = manifest.overlay_panel_shadow_offset
+        self.overlay_panel_border_width = manifest.overlay_panel_border_width
+    self.overlay_panel_content_margin_left = \
+            manifest.overlay_panel_content_margin_left
+    self.overlay_panel_content_margin_top = \
+            manifest.overlay_panel_content_margin_top
+    self.overlay_panel_content_margin_right = \
+            manifest.overlay_panel_content_margin_right
+    self.overlay_panel_content_margin_bottom = \
+            manifest.overlay_panel_content_margin_bottom
+    
+    if manifest.has("header_panel_nine_patch"):
+        self.header_panel_nine_patch = manifest.header_panel_nine_patch
+        self.header_panel_nine_patch_scale = \
+                manifest.header_panel_nine_patch_scale
+        self.header_panel_nine_patch_margin_left = \
+                manifest.header_panel_nine_patch_margin_left
+        self.header_panel_nine_patch_margin_top = \
+                manifest.header_panel_nine_patch_margin_top
+        self.header_panel_nine_patch_margin_right = \
+                manifest.header_panel_nine_patch_margin_right
+        self.header_panel_nine_patch_margin_bottom = \
+                manifest.header_panel_nine_patch_margin_bottom
+    self.header_panel_content_margin_left = \
+            manifest.header_panel_content_margin_left
+    self.header_panel_content_margin_top = \
+            manifest.header_panel_content_margin_top
+    self.header_panel_content_margin_right = \
+            manifest.header_panel_content_margin_right
+    self.header_panel_content_margin_bottom = \
+            manifest.header_panel_content_margin_bottom
+    
+    self.hud_panel_nine_patch = manifest.hud_panel_nine_patch
+    self.hud_panel_nine_patch_scale = manifest.hud_panel_nine_patch_scale
+    self.hud_panel_nine_patch_margin_left = \
+            manifest.hud_panel_nine_patch_margin_left
+    self.hud_panel_nine_patch_margin_top = \
+            manifest.hud_panel_nine_patch_margin_top
+    self.hud_panel_nine_patch_margin_right = \
+            manifest.hud_panel_nine_patch_margin_right
+    self.hud_panel_nine_patch_margin_bottom = \
+            manifest.hud_panel_nine_patch_margin_bottom
+    self.hud_panel_content_margin_left = \
+            manifest.hud_panel_content_margin_left
+    self.hud_panel_content_margin_top = \
+            manifest.hud_panel_content_margin_top
+    self.hud_panel_content_margin_right = \
+            manifest.hud_panel_content_margin_right
+    self.hud_panel_content_margin_bottom = \
+            manifest.hud_panel_content_margin_bottom
+    
     self.screen_shadow_size = manifest.screen_shadow_size
     self.screen_shadow_offset = manifest.screen_shadow_offset
     self.screen_border_width = manifest.screen_border_width
@@ -314,9 +421,134 @@ func _validate_manifest(manifest: Dictionary) -> void:
             manifest.has("slider_content_margin_top") and \
             manifest.has("slider_content_margin_right") and \
             manifest.has("slider_content_margin_bottom")))
+    
+    assert((manifest.has("overlay_panel_nine_patch") and \
+            manifest.has("overlay_panel_nine_patch_scale") and \
+            manifest.has("overlay_panel_nine_patch_margin_left") and \
+            manifest.has("overlay_panel_nine_patch_margin_top") and \
+            manifest.has("overlay_panel_nine_patch_margin_right") and \
+            manifest.has("overlay_panel_nine_patch_margin_bottom") and \
+            manifest.has("overlay_panel_content_margin_left") and \
+            manifest.has("overlay_panel_content_margin_top") and \
+            manifest.has("overlay_panel_content_margin_right") and \
+            manifest.has("overlay_panel_content_margin_bottom")) or \
+            (manifest.has("overlay_panel_corner_radius") and \
+            manifest.has("overlay_panel_corner_detail") and \
+            manifest.has("overlay_panel_shadow_size") and \
+            manifest.has("overlay_panel_shadow_offset") and \
+            manifest.has("overlay_panel_border_width") and \
+            manifest.has("overlay_panel_content_margin_left") and \
+            manifest.has("overlay_panel_content_margin_top") and \
+            manifest.has("overlay_panel_content_margin_right") and \
+            manifest.has("overlay_panel_content_margin_bottom")))
+    
+    assert((manifest.has("header_panel_nine_patch") and \
+            manifest.has("header_panel_nine_patch_scale") and \
+            manifest.has("header_panel_nine_patch_margin_left") and \
+            manifest.has("header_panel_nine_patch_margin_top") and \
+            manifest.has("header_panel_nine_patch_margin_right") and \
+            manifest.has("header_panel_nine_patch_margin_bottom") and \
+            manifest.has("header_panel_content_margin_left") and \
+            manifest.has("header_panel_content_margin_top") and \
+            manifest.has("header_panel_content_margin_right") and \
+            manifest.has("header_panel_content_margin_bottom")) or \
+            (manifest.has("header_panel_content_margin_left") and \
+            manifest.has("header_panel_content_margin_top") and \
+            manifest.has("header_panel_content_margin_right") and \
+            manifest.has("header_panel_content_margin_bottom")))
+    
+    assert(manifest.has("hud_panel_nine_patch") and \
+            manifest.has("hud_panel_nine_patch_scale") and \
+            manifest.has("hud_panel_nine_patch_margin_left") and \
+            manifest.has("hud_panel_nine_patch_margin_top") and \
+            manifest.has("hud_panel_nine_patch_margin_right") and \
+            manifest.has("hud_panel_nine_patch_margin_bottom") and \
+            manifest.has("hud_panel_content_margin_left") and \
+            manifest.has("hud_panel_content_margin_top") and \
+            manifest.has("hud_panel_content_margin_right") and \
+            manifest.has("hud_panel_content_margin_bottom"))
 
 
 func configure_theme() -> void:
+    transparent_panel_stylebox = \
+            Gs.styles.create_stylebox_scalable(Color.transparent)
+    
+    if is_instance_valid(Gs.styles.overlay_panel_nine_patch):
+        overlay_panel_stylebox = Gs.styles.create_stylebox_scalable({
+            texture = Gs.styles.overlay_panel_nine_patch,
+            texture_scale = Gs.styles.overlay_panel_nine_patch_scale,
+            margin_left = \
+                    Gs.styles.overlay_panel_nine_patch_margin_left,
+            margin_top = \
+                    Gs.styles.overlay_panel_nine_patch_margin_top,
+            margin_right = \
+                    Gs.styles.overlay_panel_nine_patch_margin_right,
+            margin_bottom = \
+                    Gs.styles.overlay_panel_nine_patch_margin_bottom,
+            content_margin_left = \
+                    Gs.styles.overlay_panel_content_margin_left,
+            content_margin_top = \
+                    Gs.styles.overlay_panel_content_margin_top,
+            content_margin_right = \
+                    Gs.styles.overlay_panel_content_margin_right,
+            content_margin_bottom = \
+                    Gs.styles.overlay_panel_content_margin_bottom,
+        })
+    else:
+        overlay_panel_stylebox = Gs.styles.create_stylebox_scalable({
+            bg_color = Gs.colors.overlay_panel_background,
+            corner_radius = Gs.styles.overlay_panel_corner_radius,
+            corner_detail = Gs.styles.overlay_panel_corner_detail,
+            shadow_size = Gs.styles.overlay_panel_shadow_size,
+            shadow_offset = Gs.styles.overlay_panel_shadow_offset,
+            shadow_color = Gs.colors.shadow,
+            border_width = Gs.styles.overlay_panel_border_width,
+            border_color = Gs.colors.overlay_panel_border,
+            content_margin_left = \
+                    Gs.styles.overlay_panel_content_margin_left,
+            content_margin_top = \
+                    Gs.styles.overlay_panel_content_margin_top,
+            content_margin_right = \
+                    Gs.styles.overlay_panel_content_margin_right,
+            content_margin_bottom = \
+                    Gs.styles.overlay_panel_content_margin_bottom,
+        })
+    
+    if is_instance_valid(Gs.styles.header_panel_nine_patch):
+        header_panel_stylebox = Gs.styles.create_stylebox_scalable({
+            texture = Gs.styles.header_panel_nine_patch,
+            texture_scale = Gs.styles.header_panel_nine_patch_scale,
+            margin_left = Gs.styles.header_panel_nine_patch_margin_left,
+            margin_top = Gs.styles.header_panel_nine_patch_margin_top,
+            margin_right = Gs.styles.header_panel_nine_patch_margin_right,
+            margin_bottom = Gs.styles.header_panel_nine_patch_margin_bottom,
+            content_margin_left = Gs.styles.header_panel_content_margin_left,
+            content_margin_top = Gs.styles.header_panel_content_margin_top,
+            content_margin_right = Gs.styles.header_panel_content_margin_right,
+            content_margin_bottom = Gs.styles.header_panel_content_margin_bottom,
+        })
+    else:
+        header_panel_stylebox = Gs.styles.create_stylebox_scalable({
+            bg_color = Gs.colors.header_panel_background,
+            content_margin_left = Gs.styles.header_panel_content_margin_left,
+            content_margin_top = Gs.styles.header_panel_content_margin_top,
+            content_margin_right = Gs.styles.header_panel_content_margin_right,
+            content_margin_bottom = Gs.styles.header_panel_content_margin_bottom,
+        })
+    
+    hud_panel_stylebox = Gs.styles.create_stylebox_scalable({
+        texture = Gs.styles.hud_panel_nine_patch,
+        texture_scale = Gs.styles.hud_panel_nine_patch_scale,
+        margin_left = Gs.styles.hud_panel_nine_patch_margin_left,
+        margin_top = Gs.styles.hud_panel_nine_patch_margin_top,
+        margin_right = Gs.styles.hud_panel_nine_patch_margin_right,
+        margin_bottom = Gs.styles.hud_panel_nine_patch_margin_bottom,
+        content_margin_left = Gs.styles.hud_panel_content_margin_left,
+        content_margin_top = Gs.styles.hud_panel_content_margin_top,
+        content_margin_right = Gs.styles.hud_panel_content_margin_right,
+        content_margin_bottom = Gs.styles.hud_panel_content_margin_bottom,
+    })
+    
     _configure_theme_color(
             "font_color", "Label", Gs.colors.text)
     _configure_theme_color(
@@ -405,6 +637,7 @@ func configure_theme() -> void:
                     corner_radius = Gs.styles.button_corner_radius,
                     corner_detail = Gs.styles.button_corner_detail,
                     shadow_size = round(Gs.styles.button_shadow_size * 0.0),
+                    shadow_color = Gs.colors.shadow,
                     border_width = round(Gs.styles.button_border_width * 0.0),
                     border_color = Gs.colors.button_border,
                     content_margin_left = Gs.styles.button_content_margin_left,
@@ -418,7 +651,7 @@ func configure_theme() -> void:
                     corner_radius = Gs.styles.button_corner_radius,
                     corner_detail = Gs.styles.button_corner_detail,
                     shadow_size = round(Gs.styles.button_shadow_size * 1.5),
-                    shadow_color = Color.from_hsv(0, 0, 0, 0.5),
+                    shadow_color = Gs.colors.shadow,
                     border_width = Gs.styles.button_border_width,
                     border_color = Gs.colors.button_border,
                     content_margin_left = Gs.styles.button_content_margin_left,
@@ -432,7 +665,7 @@ func configure_theme() -> void:
                     corner_radius = Gs.styles.button_corner_radius,
                     corner_detail = Gs.styles.button_corner_detail,
                     shadow_size = round(Gs.styles.button_shadow_size * 1.5),
-                    shadow_color = Color.from_hsv(0, 0, 0, 0.5),
+                    shadow_color = Gs.colors.shadow,
                     border_width = Gs.styles.button_border_width,
                     border_color = Gs.colors.button_border,
                     content_margin_left = Gs.styles.button_content_margin_left,
@@ -446,6 +679,7 @@ func configure_theme() -> void:
                     corner_radius = Gs.styles.button_corner_radius,
                     corner_detail = Gs.styles.button_corner_detail,
                     shadow_size = Gs.styles.button_shadow_size,
+                    shadow_color = Gs.colors.shadow,
                     border_width = Gs.styles.button_border_width,
                     border_color = Gs.colors.button_border,
                     content_margin_left = Gs.styles.button_content_margin_left,
@@ -459,6 +693,7 @@ func configure_theme() -> void:
                     corner_radius = Gs.styles.button_corner_radius,
                     corner_detail = Gs.styles.button_corner_detail,
                     shadow_size = round(Gs.styles.button_shadow_size * 0.2),
+                    shadow_color = Gs.colors.shadow,
                     border_width = Gs.styles.button_border_width,
                     border_color = Gs.colors.button_border,
                     content_margin_left = Gs.styles.button_content_margin_left,
@@ -540,6 +775,7 @@ func configure_theme() -> void:
                     corner_radius = Gs.styles.dropdown_corner_radius,
                     corner_detail = Gs.styles.dropdown_corner_detail,
                     shadow_size = Gs.styles.dropdown_shadow_size,
+                    shadow_color = Gs.colors.shadow,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
                     content_margin_left = Gs.styles.button_content_margin_left,
@@ -553,6 +789,7 @@ func configure_theme() -> void:
                     corner_radius = Gs.styles.dropdown_corner_radius,
                     corner_detail = Gs.styles.dropdown_corner_detail,
                     shadow_size = Gs.styles.dropdown_shadow_size,
+                    shadow_color = Gs.colors.shadow,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
                     content_margin_left = Gs.styles.button_content_margin_left,
@@ -566,6 +803,7 @@ func configure_theme() -> void:
                     corner_radius = Gs.styles.dropdown_corner_radius,
                     corner_detail = Gs.styles.dropdown_corner_detail,
                     shadow_size = Gs.styles.dropdown_shadow_size,
+                    shadow_color = Gs.colors.shadow,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
                     content_margin_left = Gs.styles.button_content_margin_left,
@@ -579,6 +817,7 @@ func configure_theme() -> void:
                     corner_radius = Gs.styles.dropdown_corner_radius,
                     corner_detail = Gs.styles.dropdown_corner_detail,
                     shadow_size = Gs.styles.dropdown_shadow_size,
+                    shadow_color = Gs.colors.shadow,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
                     content_margin_left = Gs.styles.button_content_margin_left,
@@ -592,6 +831,7 @@ func configure_theme() -> void:
                     corner_radius = Gs.styles.dropdown_corner_radius,
                     corner_detail = Gs.styles.dropdown_corner_detail,
                     shadow_size = Gs.styles.dropdown_shadow_size,
+                    shadow_color = Gs.colors.shadow,
                     border_width = Gs.styles.dropdown_border_width,
                     border_color = Gs.colors.dropdown_border,
                     content_margin_left = Gs.styles.button_content_margin_left,
@@ -784,7 +1024,7 @@ func configure_theme() -> void:
             "grabber_area_highlight", "VSlider", Color.transparent)
     
     _configure_theme_stylebox(
-            "panel", "PopupMenu", Gs.colors.popup_background)
+            "panel", "PopupMenu", Gs.styles.overlay_panel_stylebox)
     _configure_theme_stylebox(
             "panel", "Panel", Gs.colors.background)
     _configure_theme_stylebox(
@@ -813,11 +1053,6 @@ func configure_theme() -> void:
             "font_color", "TooltipLabel", Gs.colors.tooltip)
     _configure_theme_stylebox( \
             "panel", "TooltipPanel", Gs.colors.tooltip_bg)
-    
-    OVERLAY_PANEL_BODY_STYLEBOX.bg_color = \
-            Gs.colors.overlay_panel_body_background
-    OVERLAY_PANEL_HEADER_STYLEBOX.bg_color = \
-            Gs.colors.overlay_panel_header_background
 
 
 func _configure_theme_color(

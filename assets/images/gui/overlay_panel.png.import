@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hud_key_value_box.png-c39c4eb7d3415ae713432b37741b6100.stex"
+path="res://.import/overlay_panel.png-1eb731304181796de0ba92918d2af3c4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/gui/hud_key_value_box.png"
-dest_files=[ "res://.import/hud_key_value_box.png-c39c4eb7d3415ae713432b37741b6100.stex" ]
+source_file="res://addons/scaffolder/assets/images/gui/overlay_panel.png"
+dest_files=[ "res://.import/overlay_panel.png-1eb731304181796de0ba92918d2af3c4.stex" ]
 
 [params]
 
