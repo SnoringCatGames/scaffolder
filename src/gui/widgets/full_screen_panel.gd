@@ -9,7 +9,7 @@ func _init() -> void:
     add_font_override("font", Gs.gui.fonts.main_m)
 
 
-func _enter_tree() -> void:
+func _ready() -> void:
     Gs.device.connect(
             "display_resized",
             self,

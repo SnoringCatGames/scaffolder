@@ -1,3 +1,4 @@
+tool
 class_name DebugPanel, \
 "res://addons/scaffolder/assets/images/editor_icons/debug_panel.png"
 extends Node2D
@@ -10,6 +11,10 @@ const MESSAGE_COUNT_LIMIT := 500
 var _is_ready := false
 var text := ""
 var _message_count := 0
+
+
+func _init() -> void:
+    name = "DebugPanel"
 
 
 func _enter_tree() -> void:
@@ -40,7 +45,7 @@ func _process(_delta: float) -> void:
 
 
 func _on_resized() -> void:
-    var viewport_size := get_viewport().size
+    var viewport_size: Vector2 = get_viewport().size
     $PanelContainer/ScrollContainer.rect_min_size = viewport_size
     $PanelContainer/ScrollContainer/Label.rect_min_size.x = viewport_size.x
 

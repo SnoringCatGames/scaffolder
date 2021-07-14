@@ -18,8 +18,12 @@ export var shows_logo := false setget _set_shows_logo
 
 var is_using_two_rows := false
 
+var _is_ready := false
+
 
 func _ready() -> void:
+    _is_ready = true
+
     set_meta("gs_rect_min_size", Vector2(0.0, HEIGHT))
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer \
             .set_meta("gs_rect_min_size", Vector2(HEIGHT, HEIGHT))
@@ -94,6 +98,9 @@ func _on_gui_scale_changed() -> bool:
 
 
 func _update_visiblity() -> void:
+    if !_is_ready:
+        return
+    
     assert(text == "" or \
             !shows_logo)
     
