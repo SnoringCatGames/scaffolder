@@ -39,7 +39,7 @@ var color_pulse_tween := ScaffolderTween.new()
 var _is_ready := false
 
 
-func _enter_tree() -> void:
+func _init() -> void:
     add_child(shine_tween)
     add_child(color_pulse_tween)
 
@@ -52,7 +52,7 @@ func _ready() -> void:
     button_style_pressed = \
             $MarginContainer/BottomButton.get_stylebox("pressed")
     
-    Gs.utils.connect(
+    Gs.device.connect(
             "display_resized", self, "_update")
     
     _on_gui_scale_changed()

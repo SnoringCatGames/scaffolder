@@ -17,7 +17,7 @@ func _on_transition_out_started(next_screen: Screen) -> void:
     _clear_groups()
     if Gs.level != null and \
             next_screen is PauseScreen and \
-            Gs.app_metadata.must_restart_level_to_change_settings:
+            Gs.metadata.must_restart_level_to_change_settings:
         Gs.level.restart()
 
 

@@ -10,7 +10,7 @@ func _init() -> void:
 
 
 func _enter_tree() -> void:
-    Gs.utils.connect(
+    Gs.device.connect(
             "display_resized",
             self,
             "_on_resized")

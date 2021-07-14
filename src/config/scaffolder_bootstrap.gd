@@ -17,7 +17,7 @@ func _init(name := "ScaffolderBootstrap") -> void:
 func run() -> void:
     Gs.logger.print("ScaffolderBootstrap.run")
     Gs.logger.print("\nApp version: %s\n" % \
-            Gs._manifest.app_metadata.app_version)
+            Gs._manifest.metadata.app_version)
     
     call_deferred("_amend_app_manifest")
     call_deferred("_register_app_manifest")
@@ -25,18 +25,16 @@ func run() -> void:
 
 func _amend_app_manifest() -> void:
     for config in Gs._framework_configs:
-        if config.has_method("amend_app_manifest"):
-            config.amend_app_manifest(Gs._manifest)
+        config.amend_app_manifest(Gs._manifest)
 
 
 func _register_app_manifest() -> void:
     Gs.logger.print("ScaffolderBootstrap._register_app_manifest")
     
     for config in Gs._framework_configs:
-        if config.has_method("register_app_manifest"):
-            config.register_app_manifest(Gs._manifest)
+        config.register_app_manifest(Gs._manifest)
     
-    Gs.initialize_app_metadata()
+    Gs.initialize_metadata()
     
     if _report_any_previous_crash():
         return
@@ -72,13 +70,13 @@ func _initialize_framework() -> void:
     Gs.gui.debug_panel.z_index = 1000
     Gs.gui.debug_panel.visible = Gs.gui.is_debug_panel_shown
     
-    if Gs.app_metadata.debug or \
-            Gs.app_metadata.playtest:
+    if Gs.metadata.debug or \
+            Gs.metadata.playtest:
         Gs.gui.gesture_record = GestureRecord.new()
         Gs.canvas_layers.layers.top \
                 .add_child(Gs.gui.gesture_record)
     
-    Gs.app_metadata.is_app_initialized = true
+    Gs.metadata.is_app_initialized = true
     
     get_tree().root.set_pause_mode(Node.PAUSE_MODE_PROCESS)
     
@@ -126,7 +124,7 @@ func _on_app_initialized() -> void:
 
 
 func _splash() -> void:
-    if !Gs.app_metadata.is_splash_skipped:
+    if !Gs.metadata.is_splash_skipped:
         Gs.nav.connect("splash_finished", self, "_on_splash_finished")
         Gs.nav.splash()
     else:
@@ -143,8 +141,8 @@ func _on_splash_finished() -> void:
     Gs.audio.play_music(Gs.audio_manifest.main_menu_music, true)
     var post_splash_screen := \
             "main_menu" if \
-            Gs.app_metadata.agreed_to_terms or \
-            !Gs.app_metadata.is_data_tracked else \
+            Gs.metadata.agreed_to_terms or \
+            !Gs.metadata.is_data_tracked else \
             "data_agreement"
     Gs.nav.open(post_splash_screen)
     
@@ -170,10 +168,10 @@ func _process(_delta: float) -> void:
     if Engine.editor_hint:
         return
     
-    if Gs.app_metadata.debug or \
-            Gs.app_metadata.playtest:
+    if Gs.metadata.debug or \
+            Gs.metadata.playtest:
         if Input.is_action_just_pressed("screenshot"):
-            Gs.app_metadata.were_screenshots_taken = true
+            Gs.metadata.were_screenshots_taken = true
             Gs.utils.take_screenshot()
 
 
@@ -184,7 +182,7 @@ func _notification(notification: int) -> void:
     if notification == MainLoop.NOTIFICATION_WM_FOCUS_OUT and \
             is_instance_valid(Gs.nav) and \
             is_instance_valid(Gs.level) and \
-            Gs.app_metadata.pauses_on_focus_out:
+            Gs.metadata.pauses_on_focus_out:
         Gs.level.pause()
 
 
@@ -248,7 +246,7 @@ func _on_gui_scale_changed(is_first_call := true) -> void:
     Gs.icons._update_icon_sizes()
     Gs.gui._scale_guis()
     
-    Gs.utils.emit_signal("display_resized")
+    Gs.device.emit_signal("display_resized")
     
     if is_first_call and \
             Gs.device.get_is_mobile_device():
@@ -274,7 +272,7 @@ func _set_global_visibility_for_resize(is_visible: bool) -> void:
 
 
 func _set_window_debug_size_and_position() -> void:
-    if Gs.app_metadata.debug and \
+    if Gs.metadata.debug and \
             (Gs.device.get_is_windows_app() or \
             Gs.device.get_is_mac_app()):
         # Show the game window on the other window, rather than over-top the

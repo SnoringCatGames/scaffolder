@@ -42,17 +42,17 @@ func _ready() -> void:
             .add_color_override("font_color", Gs.colors.header)
     
     $MarginContainer/TopRow/Logo \
-            .texture = Gs.app_metadata.app_logo
+            .texture = Gs.metadata.app_logo
     $MarginContainer/TopRow/Logo \
             .texture_scale = Vector2(
-                    Gs.app_metadata.app_logo_scale,
-                    Gs.app_metadata.app_logo_scale)
+                    Gs.metadata.app_logo_scale,
+                    Gs.metadata.app_logo_scale)
     $MarginContainer/VBoxContainer/BottomRow/Logo \
-            .texture = Gs.app_metadata.app_logo
+            .texture = Gs.metadata.app_logo
     $MarginContainer/VBoxContainer/BottomRow/Logo \
             .texture_scale = Vector2(
-                    Gs.app_metadata.app_logo_scale,
-                    Gs.app_metadata.app_logo_scale)
+                    Gs.metadata.app_logo_scale,
+                    Gs.metadata.app_logo_scale)
     
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
             .texture_pressed = Gs.icons.left_caret_active
@@ -114,8 +114,8 @@ func _update_visibility_after_setting_text() -> void:
     var min_width_for_single_row: float
     if shows_logo:
         min_width_for_single_row = \
-                (Gs.app_metadata.app_logo.get_size().x * \
-                        Gs.app_metadata.app_logo_scale + \
+                (Gs.metadata.app_logo.get_size().x * \
+                        Gs.metadata.app_logo_scale + \
                 HEIGHT * 2) * Gs.gui.scale - \
                 SINGLE_ROW_WITH_LOGO_MIN_WIDTH_WIGGLE_ROOM * Gs.gui.scale
     else:
@@ -192,7 +192,7 @@ func _on_AboutButton_pressed() -> void:
 
 func _on_SettingsButton_pressed() -> void:
     if Gs.level != null and \
-            Gs.app_metadata.must_restart_level_to_change_settings:
+            Gs.metadata.must_restart_level_to_change_settings:
         var description := (
                 "The level must be restarted in order to change settings." +
                 "\n\nAre you sure you want to restart the level?")

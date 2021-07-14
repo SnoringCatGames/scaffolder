@@ -24,7 +24,7 @@ func _enter_tree() -> void:
 func _ready() -> void:
     _is_ready = true
     Gs.time.set_timeout(funcref(self, "_delayed_init"), 0.8)
-    Gs.utils.connect(
+    Gs.device.connect(
             "display_resized",
             self,
             "_on_resized")

@@ -147,7 +147,7 @@ func _update_for_level_end(has_finished: bool) -> void:
             _id,
             _has_finished)
     
-    if Gs.app_metadata.uses_level_scores:
+    if Gs.metadata.uses_level_scores:
         _handle_new_score()
     _update_fastest_time()
     _update_new_unlocked_levels()
@@ -156,7 +156,7 @@ func _update_for_level_end(has_finished: bool) -> void:
 func _handle_new_score() -> void:
     Gs.analytics.event(
             "score",
-            "v" + Gs.app_metadata.score_version,
+            "v" + Gs.metadata.score_version,
             Gs.level_config.get_level_version_string(_id),
             int(_score))
     

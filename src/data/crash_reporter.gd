@@ -35,7 +35,7 @@ func _init() -> void:
 func report_any_previous_crash() -> bool:
     Gs.logger.print("CrashReporter.report_any_previous_crash")
     
-    if !Gs.app_metadata.are_error_logs_captured:
+    if !Gs.metadata.are_error_logs_captured:
         Gs.logger.print("CrashReporter: Error logs not captured for this app")
         return false
     
@@ -120,7 +120,7 @@ func _upload_crash_log(
         text: String,
         file_name: String) -> void:
     var url: String = \
-            Gs.app_metadata.error_logs_url + \
+            Gs.metadata.error_logs_url + \
             "?uploadType=media&name=" + file_name
     
     Gs.logger.print("CrashReporter._upload_crash_log: %s" % url)

@@ -76,7 +76,7 @@ var DEFAULT_SCREEN_SCENES := [
 ]
 
 var DEFAULT_WELCOME_PANEL_MANIFEST := {
-#    header = Gs.app_metadata.app_name,
+#    header = Gs.metadata.app_name,
 #    subheader = "(Click window to give focus)",
 #    is_header_shown = true,
     items = [
@@ -391,28 +391,28 @@ func register_manifest(manifest: Dictionary) -> void:
     self.is_special_thanks_shown = !self.special_thanks_text.empty()
     self.is_third_party_licenses_shown = !self.third_party_license_text.empty()
     self.is_rate_app_shown = \
-            !Gs.app_metadata.android_app_store_url.empty() and \
-            !Gs.app_metadata.ios_app_store_url.empty()
+            !Gs.metadata.android_app_store_url.empty() and \
+            !Gs.metadata.ios_app_store_url.empty()
     self.is_support_shown = \
-            !Gs.app_metadata.support_url.empty() and \
-            !Gs.app_metadata.app_id_query_param.empty()
-    self.is_developer_logo_shown = Gs.app_metadata.developer_logo != null
+            !Gs.metadata.support_url.empty() and \
+            !Gs.metadata.app_id_query_param.empty()
+    self.is_developer_logo_shown = Gs.metadata.developer_logo != null
     self.is_developer_splash_shown = \
-            Gs.app_metadata.developer_splash != null and \
+            Gs.metadata.developer_splash != null and \
             Gs.audio_manifest.developer_splash_sound != ""
     self.is_main_menu_image_shown = self.main_menu_image_scene != null
     self.is_game_over_image_shown = self.game_over_image_scene != null
     self.is_loading_image_shown = self.loading_image_scene != null
     self.does_app_contain_welcome_panel = self.welcome_panel_scene != null
     self.is_gesture_logging_supported = \
-            !Gs.app_metadata.log_gestures_url.empty() and \
-            !Gs.app_metadata.app_id_query_param.empty()
+            !Gs.metadata.log_gestures_url.empty() and \
+            !Gs.metadata.app_id_query_param.empty()
     
     _record_original_font_dimensions()
     
     _initialize_hud_key_value_list_item_enablement()
     
-    if !Gs.app_metadata.uses_level_scores:
+    if !Gs.metadata.uses_level_scores:
         for manifest in [
                     pause_item_manifest,
                     game_over_item_manifest,
@@ -573,7 +573,7 @@ func _update_game_area_region_and_gui_scale() -> void:
     var game_area_position := Vector2.INF
     var game_area_size := Vector2.INF
     
-    if !Gs.app_metadata.is_app_configured:
+    if !Gs.metadata.is_app_configured:
         game_area_size = viewport_size
         game_area_position = Vector2.ZERO
     if aspect_ratio < Gs.gui.aspect_ratio_min:
@@ -599,7 +599,7 @@ func _update_game_area_region_and_gui_scale() -> void:
     
     Gs.gui.game_area_region = Rect2(game_area_position, game_area_size)
     
-    if Gs.app_metadata.is_app_configured:
+    if Gs.metadata.is_app_configured:
         var default_game_area_size: Vector2 = \
                 Gs.gui.default_mobile_game_area_size if \
                 Gs.device.get_is_mobile_device() else \

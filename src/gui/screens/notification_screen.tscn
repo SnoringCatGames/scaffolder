@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres" type="DynamicFont" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/notification_screen.gd" type="Script" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label_link.tscn" type="PackedScene" id=7]
@@ -15,8 +16,8 @@ screen_name = "notification"
 nav_bar_text = "Notification"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 101.0
-margin_bottom = 132.0
+margin_right = 230.0
+margin_bottom = 1061.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -26,8 +27,9 @@ __meta__ = {
 [node name="BodyText" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 101.0
-margin_bottom = 31.0
+margin_right = 230.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 3 )
 text = "Notification message"
 valign = 0
 autowrap = true
@@ -35,43 +37,48 @@ autowrap = true
 [node name="Spacer" parent="VBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 50.0
-margin_top = 35.0
-margin_right = 50.0
-margin_bottom = 35.0
+margin_left = 115.0
+margin_top = 85.0
+margin_right = 115.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 15 )
 size = Vector2( 0, 15 )
 
 [node name="NotificationLink" parent="VBoxContainer" instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 39.0
-margin_right = 101.0
-margin_bottom = 53.0
+margin_left = 64.0
+margin_top = 104.0
+margin_right = 165.0
+margin_bottom = 118.0
+custom_colors/font_color = Color( 0.278431, 0.65098, 0.372549, 1 )
+custom_colors/font_color_hover = Color( 0.141176, 0.501961, 0.231373, 1 )
+custom_colors/font_color_pressed = Color( 0.0470588, 0.34902, 0.121569, 1 )
 text = "Notification link"
 
 [node name="Spacer2" parent="VBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 50.0
-margin_top = 57.0
-margin_right = 50.0
-margin_bottom = 57.0
+margin_left = 115.0
+margin_top = 122.0
+margin_right = 115.0
+margin_bottom = 137.0
+rect_min_size = Vector2( 0, 15 )
 size = Vector2( 0, 15 )
 
 [node name="CloseButton" parent="VBoxContainer" instance=ExtResource( 2 )]
-margin_left = 50.0
-margin_top = 61.0
-margin_right = 50.0
-margin_bottom = 75.0
+margin_top = 141.0
+margin_bottom = 197.0
 label = "Close"
 
 [node name="Spacer3" parent="VBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 50.0
-margin_top = 79.0
-margin_right = 50.0
-margin_bottom = 79.0
+margin_left = 115.0
+margin_top = 201.0
+margin_right = 115.0
+margin_bottom = 221.0
+rect_min_size = Vector2( 0, 20 )
 size = Vector2( 0, 20 )
 
 [connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]

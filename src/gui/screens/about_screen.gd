@@ -17,24 +17,24 @@ func _ready() -> void:
     var privacy_policy_link := $VBoxContainer/VBoxContainer2/PrivacyPolicyLink
     var support_link := $VBoxContainer/VBoxContainer2/SupportLink
     
-    title_logo.texture = Gs.app_metadata.app_logo
+    title_logo.texture = Gs.metadata.app_logo
     title_logo.texture_scale = Vector2(
-            Gs.app_metadata.app_logo_scale,
-            Gs.app_metadata.app_logo_scale)
+            Gs.metadata.app_logo_scale,
+            Gs.metadata.app_logo_scale)
     
     developer_logo_link.visible = Gs.gui.is_developer_logo_shown
-    developer_logo_link.texture = Gs.app_metadata.developer_logo
-    developer_logo_link.url = Gs.app_metadata.developer_url
-    developer_name_link.text = "Created by " + Gs.app_metadata.developer_name
-    developer_name_link.url = Gs.app_metadata.developer_url
-    developer_url_link.text = Gs.app_metadata.developer_url
-    developer_url_link.url = Gs.app_metadata.developer_url
+    developer_logo_link.texture = Gs.metadata.developer_logo
+    developer_logo_link.url = Gs.metadata.developer_url
+    developer_name_link.text = "Created by " + Gs.metadata.developer_name
+    developer_name_link.url = Gs.metadata.developer_url
+    developer_url_link.text = Gs.metadata.developer_url
+    developer_url_link.url = Gs.metadata.developer_url
     
     godot_logo_link.url = GODOT_URL
     godot_text_link.url = GODOT_URL
     
-    terms_and_conditions_link.url = Gs.app_metadata.terms_and_conditions_url
-    privacy_policy_link.url = Gs.app_metadata.privacy_policy_url
+    terms_and_conditions_link.url = Gs.metadata.terms_and_conditions_url
+    privacy_policy_link.url = Gs.metadata.privacy_policy_url
     support_link.url = Gs.get_support_url_with_params()
     
     $VBoxContainer/SpecialThanksContainer/SpecialThanks.text = \
@@ -43,15 +43,15 @@ func _ready() -> void:
             Gs.gui.is_special_thanks_shown
     
     $VBoxContainer/VBoxContainer2/TermsAndConditionsLink.visible = \
-            Gs.app_metadata.is_data_tracked
+            Gs.metadata.is_data_tracked
     $VBoxContainer/VBoxContainer2/PrivacyPolicyLink.visible = \
-            Gs.app_metadata.is_data_tracked
+            Gs.metadata.is_data_tracked
     $VBoxContainer/AccordionPanel/VBoxContainer/DataDeletionButton.visible = \
-                    Gs.app_metadata.is_data_tracked and \
+                    Gs.metadata.is_data_tracked and \
                     Gs.gui.is_data_deletion_button_shown
     $VBoxContainer/AccordionPanel/VBoxContainer/DataDeletionButtonPadding \
             .visible = \
-                    Gs.app_metadata.is_data_tracked and \
+                    Gs.metadata.is_data_tracked and \
                     Gs.gui.is_data_deletion_button_shown
     
     $VBoxContainer/VBoxContainer2/SupportLink.visible = \

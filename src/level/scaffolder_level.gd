@@ -6,7 +6,7 @@ const MIN_CONTROLS_DISPLAY_TIME := 0.5
 
 
 func _ready() -> void:
-    Gs.utils.connect(
+    Gs.device.connect(
             "display_resized",
             self,
             "_on_resized")

@@ -45,6 +45,9 @@ func register_sounds(
         path_prefix := _DEFAULT_SOUNDS_PATH_PREFIX,
         file_suffix := _DEFAULT_SOUND_FILE_SUFFIX,
         bus_index := _DEFAULT_SOUNDS_BUS_INDEX) -> void:
+    if Engine.editor_hint:
+        return
+    
     _fade_out_tween = ScaffolderTween.new()
     add_child(_fade_out_tween)
     _fade_in_tween = ScaffolderTween.new()
@@ -84,6 +87,9 @@ func register_music(
         path_prefix := _DEFAULT_MUSIC_PATH_PREFIX,
         file_suffix := _DEFAULT_MUSIC_FILE_SUFFIX,
         bus_index := _DEFAULT_MUSIC_BUS_INDEX) -> void:
+    if Engine.editor_hint:
+        return
+    
     AudioServer.add_bus(bus_index)
     var bus_name := AudioServer.get_bus_name(bus_index)
     
