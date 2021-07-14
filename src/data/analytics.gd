@@ -145,7 +145,7 @@ func _get_client_id() -> String:
 func _get_payload(
         hit_type: String,
         details: String) -> String:
-    var viewport_size := get_viewport().size
+    var viewport_size: Vector2 = get_viewport().size
     var viewport_size_str := str(viewport_size.x) + "x" + str(viewport_size.y)
     # See the Google Analytics Measurement Protocol Parameter Reference here:
     # https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters

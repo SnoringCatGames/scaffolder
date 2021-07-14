@@ -229,7 +229,7 @@ func _on_resized() -> void:
 
 
 func _on_throttled_size_changed() -> void:
-    var viewport_size := get_viewport().size
+    var viewport_size: Vector2 = get_viewport().size
     Gs.logger.print(
         (
             "ScaffolderBootstrap._on_throttled_size_changed: (%.1f,%.1f)"

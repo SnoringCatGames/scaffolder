@@ -151,6 +151,10 @@ func get_viewport_ppi() -> float:
     return get_screen_ppi() / get_screen_scale()
 
 
+func get_viewport_size() -> Vector2:
+    return get_viewport().size
+
+
 func get_viewport_size_inches() -> Vector2:
     return get_viewport().size / get_viewport_ppi()
 
