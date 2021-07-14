@@ -16,7 +16,7 @@ func _init() -> void:
 
 
 func _ready() -> void:
-    Gs.utils.connect(
+    Gs.device.connect(
             "display_resized",
             self,
             "_on_resized")

@@ -40,7 +40,7 @@ func _ready() -> void:
     
     _set_cutoff(0)
     
-    Gs.utils.connect(
+    Gs.device.connect(
             "display_resized",
             self,
             "_on_resized")

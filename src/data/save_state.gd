@@ -38,9 +38,9 @@ func _init() -> void:
     Gs.logger.on_global_init(self, "SaveState")
     _load_config()
     
-    if Gs._manifest.app_metadata.has(
+    if Gs._manifest.metadata.has(
                 "is_save_state_cleared_for_debugging") and \
-            Gs._manifest.app_metadata.is_save_state_cleared_for_debugging:
+            Gs._manifest.metadata.is_save_state_cleared_for_debugging:
         erase_all_state()
 
 
@@ -294,7 +294,7 @@ func get_level_is_unlocked(level_id: String) -> bool:
             IS_UNLOCKED_SECTION_KEY,
             level_id,
             false) as bool or \
-            Gs.app_metadata.are_all_levels_unlocked
+            Gs.metadata.are_all_levels_unlocked
 
 
 func set_new_unlocked_levels(new_unlocked_levels: Array) -> void:

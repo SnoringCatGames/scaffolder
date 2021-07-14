@@ -11,7 +11,7 @@ var utils: Utils
 var device: DeviceUtils
 
 var crash_reporter: CrashReporter
-var app_metadata: ScaffolderAppMetadata
+var metadata: ScaffolderAppMetadata
 var audio_manifest: ScaffolderAudioManifest
 var audio: Audio
 var colors: ScaffolderColors
@@ -88,18 +88,18 @@ func amend_app_manifest(manifest: Dictionary) -> void:
 func register_app_manifest(manifest: Dictionary) -> void:
     self._manifest = manifest
     
-    assert((_manifest.app_metadata.developer_splash == null) == \
+    assert((_manifest.metadata.developer_splash == null) == \
             _manifest.audio_manifest.developer_splash_sound.empty())
 
 
-func initialize_app_metadata() -> void:
-    if _manifest.has("app_metadata_class"):
-        self.app_metadata = _manifest.app_metadata_class.new()
-        assert(self.app_metadata is ScaffolderAppMetadata)
+func initialize_metadata() -> void:
+    if _manifest.has("metadata_class"):
+        self.metadata = _manifest.metadata_class.new()
+        assert(self.metadata is ScaffolderAppMetadata)
     else:
-        self.app_metadata = ScaffolderAppMetadata.new()
-    add_child(self.app_metadata)
-    self.app_metadata.register_manifest(_manifest.app_metadata)
+        self.metadata = ScaffolderAppMetadata.new()
+    add_child(self.metadata)
+    self.metadata.register_manifest(_manifest.metadata)
 
 
 func initialize_crash_reporter() -> void:
@@ -265,14 +265,14 @@ func initialize() -> void:
     self.gui.register_manifest(_manifest.gui_manifest)
     self.slow_motion.register_manifest(_manifest.slow_motion_manifest)
     
-    self.app_metadata.is_app_configured = true
+    self.metadata.is_app_configured = true
 
     _validate_project_config()
 
 
 func load_state() -> void:
     _clear_old_data_agreement_version()
-    Gs.app_metadata.agreed_to_terms = Gs.save_state.get_setting(
+    Gs.metadata.agreed_to_terms = Gs.save_state.get_setting(
             SaveState.AGREED_TO_TERMS_SETTINGS_KEY,
             false)
     Gs.gui.is_giving_haptic_feedback = Gs.save_state.get_setting(
@@ -302,15 +302,15 @@ func load_state() -> void:
 
 
 func _clear_old_data_agreement_version() -> void:
-    if Gs.app_metadata.data_agreement_version != \
+    if Gs.metadata.data_agreement_version != \
             Gs.save_state.get_data_agreement_version():
         Gs.save_state.set_data_agreement_version(
-                Gs.app_metadata.data_agreement_version)
+                Gs.metadata.data_agreement_version)
         set_agreed_to_terms(false)
 
 
 func set_agreed_to_terms(value := true) -> void:
-    Gs.app_metadata.agreed_to_terms = value
+    Gs.metadata.agreed_to_terms = value
     Gs.save_state.set_setting(
             SaveState.AGREED_TO_TERMS_SETTINGS_KEY,
             value)
@@ -357,11 +357,11 @@ func _validate_project_config() -> void:
 
 func get_support_url_with_params() -> String:
     var params := "?source=" + OS.get_name()
-    params += "&app=" + Gs.app_metadata.app_id_query_param
-    return Gs.app_metadata.support_url + params
+    params += "&app=" + Gs.metadata.app_id_query_param
+    return Gs.metadata.support_url + params
 
 
 func get_log_gestures_url_with_params() -> String:
     var params := "?source=" + OS.get_name()
-    params += "&app=" + Gs.app_metadata.app_id_query_param
+    params += "&app=" + Gs.metadata.app_id_query_param
     return Gs.logger_gestures_url + params

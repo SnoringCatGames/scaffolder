@@ -4,8 +4,6 @@ extends Node
 
 const MAX_INT := 9223372036854775807
 
-signal display_resized
-
 var _focus_releaser: Control
 
 

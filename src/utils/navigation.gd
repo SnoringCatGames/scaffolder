@@ -65,7 +65,7 @@ func close_app() -> void:
 
 
 func _on_session_end() -> void:
-    if Gs.app_metadata.were_screenshots_taken:
+    if Gs.metadata.were_screenshots_taken:
         Gs.utils.open_screenshot_folder()
     _on_app_quit()
 
@@ -299,7 +299,7 @@ func _splash_helper() -> void:
     open("godot_splash")
     Gs.audio.play_sound(Gs.audio_manifest.godot_splash_sound)
     yield(get_tree() \
-            .create_timer(Gs.app_metadata.godot_splash_screen_duration),
+            .create_timer(Gs.metadata.godot_splash_screen_duration),
             "timeout")
     
     if Gs.gui.is_developer_splash_shown:
@@ -307,7 +307,7 @@ func _splash_helper() -> void:
         Gs.audio.play_sound(Gs.audio_manifest.developer_splash_sound)
         yield(get_tree() \
                 .create_timer(
-                        Gs.app_metadata.developer_splash_screen_duration),
+                        Gs.metadata.developer_splash_screen_duration),
                 "timeout")
     
     emit_signal("splash_finished")

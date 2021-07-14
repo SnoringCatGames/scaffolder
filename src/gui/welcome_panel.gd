@@ -52,7 +52,7 @@ func _ready() -> void:
             !Gs.gui.welcome_panel_manifest.header.empty():
         header.text = Gs.gui.welcome_panel_manifest.header
     else:
-        header.text = Gs.app_metadata.app_name
+        header.text = Gs.metadata.app_name
     
     if Gs.gui.welcome_panel_manifest.has("subheader") and \
             !Gs.gui.welcome_panel_manifest.subheader.empty():

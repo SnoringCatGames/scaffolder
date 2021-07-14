@@ -4,4 +4,4 @@ extends SplashScreen
 
 
 func _ready() -> void:
-    _set_texture(Gs.app_metadata.developer_splash)
+    _set_texture(Gs.metadata.developer_splash)

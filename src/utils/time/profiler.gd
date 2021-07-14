@@ -38,7 +38,7 @@ func init_thread(thread_id: String) -> void:
 func start(
         metric: String,
         thread_id := DEFAULT_THREAD_ID) -> void:
-    if !Gs.app_metadata.is_profiler_enabled:
+    if !Gs.metadata.is_profiler_enabled:
         return
     _stopwatches[thread_id].start(metric)
 
@@ -48,7 +48,7 @@ func stop(
         thread_id := DEFAULT_THREAD_ID,
         records := true,
         additional_timings_storage = null) -> float:
-    if !Gs.app_metadata.is_profiler_enabled:
+    if !Gs.metadata.is_profiler_enabled:
         return -1.0
     
     var duration: float = _stopwatches[thread_id].stop(metric)
@@ -110,7 +110,7 @@ func increment_count(
 func get_timing(
         metric: String,
         metadata_container = null) -> float:
-    assert(Gs.app_metadata.is_profiler_enabled)
+    assert(Gs.metadata.is_profiler_enabled)
     if metadata_container != null:
         var list: Array = metadata_container.timings[metric]
         assert(list.size() == 1)
@@ -125,7 +125,7 @@ func get_timing(
 func get_timing_list(
         metric: String,
         metadata_container = null) -> Array:
-    assert(Gs.app_metadata.is_profiler_enabled)
+    assert(Gs.metadata.is_profiler_enabled)
     if metadata_container != null:
         var timings: Dictionary = metadata_container.timings
         return timings[metric] if \
@@ -144,7 +144,7 @@ func get_timing_list(
 func get_mean(
         metric: String,
         metadata_container = null) -> float:
-    assert(Gs.app_metadata.is_profiler_enabled)
+    assert(Gs.metadata.is_profiler_enabled)
     var count := get_count(
             metric,
             metadata_container)
@@ -159,7 +159,7 @@ func get_mean(
 func get_min(
         metric: String,
         metadata_container = null) -> float:
-    assert(Gs.app_metadata.is_profiler_enabled)
+    assert(Gs.metadata.is_profiler_enabled)
     if get_count(
             metric,
             metadata_container) == 0:
@@ -173,7 +173,7 @@ func get_min(
 func get_max(
         metric: String,
         metadata_container = null) -> float:
-    assert(Gs.app_metadata.is_profiler_enabled)
+    assert(Gs.metadata.is_profiler_enabled)
     if get_count(
             metric,
             metadata_container) == 0:
@@ -187,7 +187,7 @@ func get_max(
 func get_sum(
         metric: String,
         metadata_container = null) -> float:
-    assert(Gs.app_metadata.is_profiler_enabled)
+    assert(Gs.metadata.is_profiler_enabled)
     var sum := 0.0
     for timing in get_timing_list(
             metric,
@@ -199,7 +199,7 @@ func get_sum(
 func get_count(
         metric: String,
         metadata_container = null) -> int:
-    assert(Gs.app_metadata.is_profiler_enabled)
+    assert(Gs.metadata.is_profiler_enabled)
     
     var is_timing := is_timing(
             metric,

@@ -6,9 +6,8 @@ var _print_queue := []
 
 
 func _enter_tree() -> void:
-    name = "ScaffolderLog"
     _print_front_matter()
-    self.print("ScaffolderLog._enter_tree")
+    self.on_global_init(self, "ScaffolderLog")
 
 
 func print(message: String) -> void:
@@ -18,8 +17,8 @@ func print(message: String) -> void:
     else:
         _print_queue.push_back(message)
     
-    if (!is_instance_valid(Gs.app_metadata) or \
-            Gs.app_metadata.also_prints_to_stdout) and \
+    if (!is_instance_valid(Gs.metadata) or \
+            Gs.metadata.also_prints_to_stdout) and \
             !Engine.editor_hint:
         print(message)
 
@@ -52,14 +51,6 @@ func on_global_init(global: Node, name: String) -> void:
 
 
 func _print_front_matter() -> void:
-    self.print(
-            "**THIS SHOULD BE THE FIRST LINE PRINTED FROM GDSCRIPT IN " +
-            "THE APP**")
-    self.print(
-            "If not, then you should refactor how you're using the " +
-            "Scaffolder framework, so that your custom classes are " +
-            "instantiated later.")
-    self.print("")
     self.print(get_datetime_string())
     self.print((
         "%s " +

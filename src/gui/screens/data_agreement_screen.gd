@@ -4,9 +4,9 @@ extends Screen
 
 func _ready() -> void:
     $VBoxContainer/VBoxContainer/HBoxContainer/TermsAndConditionsLink.url = \
-            Gs.app_metadata.terms_and_conditions_url
+            Gs.metadata.terms_and_conditions_url
     $VBoxContainer/VBoxContainer/HBoxContainer/PrivacyPolicyLink.url = \
-            Gs.app_metadata.privacy_policy_url
+            Gs.metadata.privacy_policy_url
 
 
 func _get_focused_button() -> ScaffolderButton:

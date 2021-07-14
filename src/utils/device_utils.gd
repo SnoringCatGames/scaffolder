@@ -2,6 +2,8 @@ class_name DeviceUtils
 extends Node
 
 
+signal display_resized
+
 const JAVASCRIPT_IS_MOBILE_CHECK := """
 (function () {
     // This mobile/tablet check is based off of the approach here:

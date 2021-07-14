@@ -18,9 +18,9 @@ func _on_RateAppButton_pressed() -> void:
     Gs.save_state.set_gave_feedback(true)
     Gs.nav.open(NEXT_SCREEN_TYPE)
     var app_store_url: String = \
-            Gs.app_metadata.ios_app_store_url if \
+            Gs.metadata.ios_app_store_url if \
             Gs.device.get_is_ios_app() else \
-            Gs.app_metadata.android_app_store_url
+            Gs.metadata.android_app_store_url
     OS.shell_open(app_store_url)
 
 

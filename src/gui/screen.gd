@@ -25,7 +25,7 @@ var _configuration_warning := ""
 
 
 func _ready() -> void:
-    Gs.utils.connect(
+    Gs.device.connect(
             "display_resized",
             self,
             "_on_resized")
