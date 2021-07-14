@@ -18,9 +18,6 @@ var _is_ready := false
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     _is_ready = true
     
     _set_text(text)

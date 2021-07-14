@@ -52,15 +52,10 @@ var _start_scroll_vertical: int
 
 var _debounced_update_children: FuncRef = Gs.time.debounce(
         funcref(self, "_update_children_debounced"),
-        0.02) if \
-        !Engine.editor_hint else \
-        null
+        0.02)
 
 
 func _enter_tree() -> void:
-    if Engine.editor_hint:
-        return
-    
     _is_open_tween = ScaffolderTween.new()
     _is_open_tween.connect(
             "tween_completed",
@@ -70,9 +65,6 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     _is_ready = true
     rect_clip_content = true
     

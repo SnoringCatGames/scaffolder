@@ -19,9 +19,6 @@ var _configuration_warning := ""
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     _is_ready = true
     _update()
 

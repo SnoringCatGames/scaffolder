@@ -15,8 +15,4 @@ func _on_gui_scale_changed() -> bool:
 
 func _set_size(value: Vector2) -> void:
     size = value
-    
-    if Engine.editor_hint:
-        return
-    
     _on_gui_scale_changed()

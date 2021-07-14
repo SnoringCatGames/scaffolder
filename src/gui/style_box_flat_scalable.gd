@@ -75,3 +75,7 @@ func _on_gui_scale_changed() -> bool:
     shadow_size = round(initial_shadow_size * Gs.gui.scale)
     
     return true
+
+
+func duplicate(subresources := false) -> Resource:
+    return Gs.styles._create_stylebox_flat_scalable_from_stylebox(self)

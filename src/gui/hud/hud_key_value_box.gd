@@ -8,9 +8,6 @@ var item: TextLabeledControlItem
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     _on_gui_scale_changed()
 
 

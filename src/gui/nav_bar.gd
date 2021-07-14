@@ -20,9 +20,6 @@ var is_using_two_rows := false
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     set_meta("gs_rect_min_size", Vector2(0.0, HEIGHT))
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer \
             .set_meta("gs_rect_min_size", Vector2(HEIGHT, HEIGHT))

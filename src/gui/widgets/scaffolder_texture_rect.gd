@@ -13,9 +13,6 @@ var _is_ready := false
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     _is_ready = true
     _set_texture(texture)
     _set_texture_scale(texture_scale)
@@ -27,9 +24,6 @@ func _on_gui_scale_changed() -> bool:
 
 
 func get_custom_size() -> Vector2:
-    if Engine.editor_hint:
-        return Vector2.ZERO
-    
     return texture.get_size() * texture_scale * Gs.gui.scale if \
             is_instance_valid(texture) else \
             Vector2.ZERO

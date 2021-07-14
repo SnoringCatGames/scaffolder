@@ -16,9 +16,6 @@ var _new_unlocked_item: LevelSelectItem
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     for level_number in Gs.level_config.get_level_numbers():
         var level_config: Dictionary = \
                 Gs.level_config.get_level_config_by_number(level_number)

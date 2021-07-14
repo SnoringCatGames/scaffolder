@@ -11,9 +11,6 @@ var projected_image: ScaffolderConfiguredImage
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     if Gs.gui.is_game_over_image_shown:
         projected_image = Gs.utils.add_scene(
                 $VBoxContainer/GameOverImageContainer,
