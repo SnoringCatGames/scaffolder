@@ -8,9 +8,6 @@ export var url: String
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     add_color_override("font_color", Gs.colors.link_normal)
     add_color_override("font_color_hover", Gs.colors.link_hover)
     add_color_override("font_color_pressed", Gs.colors.link_pressed)

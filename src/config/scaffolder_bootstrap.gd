@@ -2,51 +2,39 @@ class_name ScaffolderBootstrap
 extends Node
 
 
-var app_manifest: Dictionary
-var main: Node
-
-var _framework_configs := []
+signal initialized
+signal splashed
 
 var _throttled_size_changed: FuncRef
 var _is_global_visibility_disabled_for_resize := false
 var _has_initial_input_happened := false
 
 
-func _init() -> void:
-    name = "ScaffolderBootstrap"
-    _framework_configs.push_back(Gs)
+func _init(name := "ScaffolderBootstrap") -> void:
+    Gs.logger.on_global_init(self, name)
 
 
-func run(
-        app_config: Node,
-        main: Node) -> void:
+func run() -> void:
     Gs.logger.print("ScaffolderBootstrap.run")
-    
-    assert(app_config.get("app_manifest") != null)
-    
-    _framework_configs.push_back(app_config)
-    self.main = main
-    self.app_manifest = app_config.app_manifest
-    
     Gs.logger.print("\nApp version: %s\n" % \
-            app_manifest.app_metadata.app_version)
+            Gs._manifest.app_metadata.app_version)
     
     call_deferred("_amend_app_manifest")
     call_deferred("_register_app_manifest")
 
 
 func _amend_app_manifest() -> void:
-    for config in _framework_configs:
+    for config in Gs._framework_configs:
         if config.has_method("amend_app_manifest"):
-            config.amend_app_manifest(app_manifest)
+            config.amend_app_manifest(Gs._manifest)
 
 
 func _register_app_manifest() -> void:
     Gs.logger.print("ScaffolderBootstrap._register_app_manifest")
     
-    for config in _framework_configs:
+    for config in Gs._framework_configs:
         if config.has_method("register_app_manifest"):
-            config.register_app_manifest(app_manifest)
+            config.register_app_manifest(Gs._manifest)
     
     Gs.initialize_app_metadata()
     
@@ -59,22 +47,22 @@ func _register_app_manifest() -> void:
 func _initialize_framework() -> void:
     Gs.logger.print("ScaffolderBootstrap._initialize_framework")
     
-    for config in _framework_configs:
+    for config in Gs._framework_configs:
         if config.has_method("initialize"):
             config.initialize()
     
     Gs.nav.connect("app_quit", self, "_on_app_quit")
     
-    for config in _framework_configs:
+    for config in Gs._framework_configs:
         if config.has_method("load_state"):
             config.load_state()
     
     Gs.styles.configure_theme()
     
-    if main != self:
-        main.add_child(self)
+    Gs.nav.register_manifest(Gs._manifest.gui_manifest.screen_manifest)
     
-    Gs.nav.register_manifest(Gs.manifest.gui_manifest.screen_manifest)
+    if Engine.editor_hint:
+        return
     
     Gs.gui.debug_panel = Gs.utils.add_scene(
             Gs.canvas_layers.layers.top,
@@ -132,6 +120,12 @@ func _on_window_size_set() -> void:
 func _on_app_initialized() -> void:
     Gs.logger.print("ScaffolderBootstrap._on_app_initialized")
     
+    emit_signal("initialized")
+    
+    call_deferred("_splash")
+
+
+func _splash() -> void:
     if !Gs.app_metadata.is_splash_skipped:
         Gs.nav.connect("splash_finished", self, "_on_splash_finished")
         Gs.nav.splash()
@@ -153,6 +147,8 @@ func _on_splash_finished() -> void:
             !Gs.app_metadata.is_data_tracked else \
             "data_agreement"
     Gs.nav.open(post_splash_screen)
+    
+    emit_signal("splashed")
 
 
 func _on_app_quit() -> void:
@@ -171,13 +167,20 @@ func _report_any_previous_crash() -> bool:
 
 
 func _process(_delta: float) -> void:
-    if Gs.app_metadata.debug or Gs.app_metadata.playtest:
+    if Engine.editor_hint:
+        return
+    
+    if Gs.app_metadata.debug or \
+            Gs.app_metadata.playtest:
         if Input.is_action_just_pressed("screenshot"):
             Gs.app_metadata.were_screenshots_taken = true
             Gs.utils.take_screenshot()
 
 
 func _notification(notification: int) -> void:
+    if Engine.editor_hint:
+        return
+    
     if notification == MainLoop.NOTIFICATION_WM_FOCUS_OUT and \
             is_instance_valid(Gs.nav) and \
             is_instance_valid(Gs.level) and \
@@ -186,6 +189,9 @@ func _notification(notification: int) -> void:
 
 
 func _input(event: InputEvent) -> void:
+    if Engine.editor_hint:
+        return
+    
     # Listen for a touch event, which indicates that the device definitely
     # supports touch.
     if !Gs.device._is_definitely_touch_device and \

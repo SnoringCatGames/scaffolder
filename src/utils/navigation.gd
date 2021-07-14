@@ -30,6 +30,9 @@ func _init() -> void:
 
 
 func _ready() -> void:
+    if Engine.editor_hint:
+        return
+    
     get_tree().set_auto_accept_quit(false)
     Gs.analytics.connect(
             "session_ended",
@@ -39,6 +42,9 @@ func _ready() -> void:
 
 
 func _notification(notification: int) -> void:
+    if Engine.editor_hint:
+        return
+    
     if notification == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
         # Handle the Android back button to navigate within the app instead of
         # quitting the app.
@@ -82,6 +88,9 @@ func _create_screen_container(screen_name: String) -> ScreenContainer:
 
 
 func register_manifest(screen_manifest: Dictionary) -> void:
+    if Engine.editor_hint:
+        return
+    
     var screen_scenes: Array = \
             Gs.utils.get_collection_from_exclusions_and_inclusions(
                     Gs.gui.DEFAULT_SCREEN_SCENES,

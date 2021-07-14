@@ -1102,6 +1102,7 @@ func _create_stylebox_texture_scalable_from_config(
         config: Dictionary) -> StyleBoxTextureScalable:
     var stylebox := StyleBoxTextureScalable.new()
     stylebox.texture = config.texture
+    
     if config.has("texture_scale"):
         stylebox.initial_texture_scale = config.texture_scale
     if config.has("margin_left"):
@@ -1114,7 +1115,6 @@ func _create_stylebox_texture_scalable_from_config(
         stylebox.expand_margin_left = config.expand_margin_left
         stylebox.expand_margin_right = config.expand_margin_right
         stylebox.expand_margin_top = config.expand_margin_top
-    
     if config.has("content_margin_left"):
         stylebox.content_margin_bottom = config.content_margin_bottom
         stylebox.content_margin_left = config.content_margin_left
@@ -1129,6 +1129,7 @@ func _create_stylebox_texture_scalable_from_config(
         stylebox.content_margin_top = 0
     
     stylebox.ready()
+    
     return stylebox
 
 
@@ -1159,22 +1160,25 @@ func _create_stylebox_texture_scalable_from_stylebox(
     new.draw_center = old.draw_center
     
     if old is StyleBoxTextureScalable:
-        new.texture = old.initial_texture
-        new.content_margin_left = old.initial_content_margin_left
-        new.content_margin_top = old.initial_content_margin_top
-        new.content_margin_right = old.initial_content_margin_right
-        new.content_margin_bottom = old.initial_content_margin_bottom
-        new.expand_margin_left = old.initial_expand_margin_left
-        new.expand_margin_top = old.initial_expand_margin_top
-        new.expand_margin_right = old.initial_expand_margin_right
-        new.expand_margin_bottom = old.initial_expand_margin_bottom
-        new.margin_left = old.initial_margin_left
-        new.margin_top = old.initial_margin_top
-        new.margin_right = old.initial_margin_right
-        new.margin_bottom = old.initial_margin_bottom
-        new.initial_texture_scale = old.initial_texture_scale
+        var old_scalable := old as StyleBoxTextureScalable
+        if is_instance_valid(old_scalable.initial_texture):
+            new.texture = old_scalable.initial_texture
+            new.content_margin_left = old_scalable.initial_content_margin_left
+            new.content_margin_top = old_scalable.initial_content_margin_top
+            new.content_margin_right = old_scalable.initial_content_margin_right
+            new.content_margin_bottom = old_scalable.initial_content_margin_bottom
+            new.expand_margin_left = old_scalable.initial_expand_margin_left
+            new.expand_margin_top = old_scalable.initial_expand_margin_top
+            new.expand_margin_right = old_scalable.initial_expand_margin_right
+            new.expand_margin_bottom = old_scalable.initial_expand_margin_bottom
+            new.margin_left = old_scalable.initial_margin_left
+            new.margin_top = old_scalable.initial_margin_top
+            new.margin_right = old_scalable.initial_margin_right
+            new.margin_bottom = old_scalable.initial_margin_bottom
+            new.initial_texture_scale = old_scalable.initial_texture_scale
     
     new.ready()
+    
     return new
 
 
@@ -1219,7 +1223,9 @@ func _create_stylebox_flat_scalable_from_config(
         stylebox.shadow_offset = config.shadow_offset
     if config.has("shadow_size"):
         stylebox.shadow_size = config.shadow_size
+    
     stylebox.ready()
+    
     return stylebox
 
 
@@ -1257,4 +1263,5 @@ func _create_stylebox_flat_scalable_from_stylebox(
         new.shadow_size = old.shadow_size
     
     new.ready()
+    
     return new

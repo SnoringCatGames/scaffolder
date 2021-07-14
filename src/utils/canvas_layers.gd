@@ -38,6 +38,9 @@ func _init() -> void:
 
 
 func _enter_tree() -> void:
+    if Engine.editor_hint:
+        return
+    
     for config in _DEFAULT_LAYERS_CONFIG:
         create_layer(config.name, config.z_index, config.pause_mode)
 

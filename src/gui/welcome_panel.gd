@@ -14,9 +14,6 @@ func _init() -> void:
 
 
 func _enter_tree() -> void:
-    if Engine.editor_hint:
-        return
-    
     Gs.time.tween_property(
             self,
             "modulate:a",
@@ -26,9 +23,6 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     Gs.gui.record_gui_original_size_recursively(self)
     
     theme = Gs.gui.theme

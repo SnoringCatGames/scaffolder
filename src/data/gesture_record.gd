@@ -7,7 +7,7 @@ var recent_gesture_events_for_debugging := []
 
 
 func _init() -> void:
-    name = "GestureRecord"
+    Gs.logger.on_global_init(self, "GestureRecord")
 
 
 func _input(event: InputEvent) -> void:

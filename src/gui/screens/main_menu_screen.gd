@@ -8,9 +8,6 @@ var projected_image: ScaffolderConfiguredImage
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     if Gs.gui.is_main_menu_image_shown:
         projected_image = Gs.utils.add_scene(
                 $VBoxContainer/MainMenuImageContainer,

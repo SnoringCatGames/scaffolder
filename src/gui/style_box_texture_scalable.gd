@@ -88,3 +88,7 @@ func _on_gui_scale_changed() -> bool:
     expand_margin_bottom = initial_expand_margin_bottom * latest_gui_scale
     
     return true
+
+
+func duplicate(subresources := false) -> Resource:
+    return Gs.styles._create_stylebox_texture_scalable_from_stylebox(self)

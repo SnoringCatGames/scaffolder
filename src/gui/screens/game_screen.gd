@@ -6,9 +6,6 @@ var _is_first_activation_with_level := true
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     move_canvas_layer_to_game_viewport("annotation")
     
     _on_resized()

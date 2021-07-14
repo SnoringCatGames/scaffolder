@@ -11,11 +11,6 @@ var scroll_container: ScrollContainer
 var stylebox: StyleBoxFlatScalable
 
 
-func _ready() -> void:
-    if Engine.editor_hint:
-        $FullScreenPanel.rect_size = Vector2(1024, 768)
-
-
 func set_up(contents: Screen) -> void:
     self.outer_panel = $FullScreenPanel
     var vbox_container := $FullScreenPanel/VBoxContainer
@@ -100,9 +95,6 @@ func _destroy() -> void:
 
 
 func _exit_tree() -> void:
-    if Engine.editor_hint:
-        return
-    
     _destroy()
 
 

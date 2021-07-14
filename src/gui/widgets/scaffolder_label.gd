@@ -16,9 +16,6 @@ var _is_ready := false
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     _is_ready = true
     _update()
 
@@ -68,13 +65,9 @@ func _set_is_italic(value: bool) -> void:
 
 func _set_size_override(value: Vector2) -> void:
     size_override = value
-    if Engine.editor_hint:
-        rect_size = size_override
     _update()
 
 
 func _set_font_override(value: Font) -> void:
     font_override = value
-    if Engine.editor_hint:
-        add_font_override("font", font_override)
     _update()

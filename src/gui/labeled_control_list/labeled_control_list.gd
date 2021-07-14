@@ -22,9 +22,6 @@ var _even_row_style: StyleBoxFlat
 
 
 func _init() -> void:
-    if Engine.editor_hint:
-        return
-    
     _odd_row_style = StyleBoxEmpty.new()
     
     _even_row_style = StyleBoxFlat.new()
@@ -36,9 +33,6 @@ func _ready() -> void:
 
 
 func _update_children() -> void:
-    if Engine.editor_hint:
-        return
-    
     for child in get_children():
         child.queue_free()
     

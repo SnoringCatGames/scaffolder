@@ -10,9 +10,6 @@ var _scaffolder_texture_rect: ScaffolderTextureRect
 
 
 func _ready() -> void:
-    if Engine.editor_hint:
-        return
-    
     _is_ready = true
     
     _scaffolder_texture_rect = Gs.utils.add_scene(
