@@ -568,7 +568,7 @@ func _update_sizes_for_font(font_name: String) -> void:
 
 
 func _update_game_area_region_and_gui_scale() -> void:
-    var viewport_size: Vector2 = get_viewport().size
+    var viewport_size: Vector2 = Gs.device.get_viewport_size()
     var aspect_ratio := viewport_size.x / viewport_size.y
     var game_area_position := Vector2.INF
     var game_area_size := Vector2.INF

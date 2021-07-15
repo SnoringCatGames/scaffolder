@@ -58,7 +58,7 @@ func _on_transition_out_ended(next_screen: Screen) -> void:
 
 
 func _update_viewport_region_helper() -> void:
-    var viewport_size: Vector2 = get_viewport().size
+    var viewport_size: Vector2 = Gs.device.get_viewport_size()
     var game_area_position: Vector2 = \
             (viewport_size - Gs.gui.game_area_region.size) * 0.5
     

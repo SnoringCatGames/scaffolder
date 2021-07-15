@@ -26,7 +26,7 @@ func _update() -> void:
         return
     
     var scale: Vector2 = \
-            get_viewport().size / texture.get_size() / Gs.gui.scale
+            Gs.device.get_viewport_size() / texture.get_size() / Gs.gui.scale
     if scale.x > scale.y:
         scale.x = scale.y
     else:

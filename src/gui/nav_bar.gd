@@ -133,7 +133,7 @@ func _update_visibility_after_setting_text() -> void:
                 -INF
         min_width_for_single_row -= \
                 SINGLE_ROW_WITH_TEXT_MIN_WIDTH_WIGGLE_ROOM * Gs.gui.scale
-    is_using_two_rows = get_viewport().size.x < min_width_for_single_row
+    is_using_two_rows = Gs.device.get_viewport_size().x < min_width_for_single_row
     
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
             .visible = shows_back

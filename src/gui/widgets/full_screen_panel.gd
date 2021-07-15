@@ -18,4 +18,4 @@ func _ready() -> void:
 
 
 func _on_resized() -> void:
-    rect_size = get_viewport().size
+    rect_size = Gs.device.get_viewport_size()

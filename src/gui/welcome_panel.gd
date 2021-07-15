@@ -82,6 +82,6 @@ func _on_gui_scale_changed() -> bool:
             $VBoxContainer/ScaffolderPanelContainer/VBoxContainer/Subheader \
                     .rect_size.y + \
             $VBoxContainer/LabeledControlList.rect_size.y
-    rect_position = (get_viewport().size - rect_size) / 2.0
+    rect_position = (Gs.device.get_viewport_size() - rect_size) / 2.0
     
     return true
