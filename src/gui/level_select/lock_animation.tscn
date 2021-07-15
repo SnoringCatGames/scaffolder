@@ -54,7 +54,8 @@ tracks/0/keys = {
 [node name="LockAnimation" type="Control"]
 script = ExtResource( 2 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"gs_rect_min_size": Vector2( 0, 0 )
 }
 
 [node name="Control" type="Control" parent="."]

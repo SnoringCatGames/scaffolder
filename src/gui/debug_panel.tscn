@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://src/config/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/debug_panel.gd" type="Script" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.0941176 )
@@ -15,14 +17,16 @@ script = ExtResource( 2 )
 margin_right = 214.0
 margin_bottom = 214.0
 mouse_filter = 2
+theme = ExtResource( 1 )
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer"]
-margin_right = 214.0
-margin_bottom = 214.0
+margin_right = 1920.0
+margin_bottom = 1001.0
+rect_min_size = Vector2( 1920, 1001 )
 mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -31,8 +35,55 @@ __meta__ = {
 [node name="Label" parent="PanelContainer/ScrollContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 1.0
-margin_bottom = 14.0
+margin_right = 1920.0
+margin_bottom = 1141.0
+rect_min_size = Vector2( 1920, 0 )
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.772549, 1, 0.368627, 1 )
+text = "> 2021-7-15_12.35.26
+> Windows GenericDevice (1920,1001) 
+> 
+> ScaffolderLog._init
+> Sc._init
+> Utils._init
+> DeviceUtils._init
+> Su._init
+> SurfacerBootstrap._init
+> App._init
+> ScaffolderBootstrap.run
+> 
+App version: 0.0.1
+
+> ScaffolderBootstrap._register_app_manifest
+> ScaffolderAppMetadata._init
+> CrashReporter._init
+> CrashReporter.report_any_previous_crash
+> CrashReporter: There did not seem to be an error in the previous session
+> ScaffolderBootstrap._initialize_framework
+> ScaffolderAudioManifest._init
+> Audio._init
+> ScaffolderColors._init
+> ScaffolderStyles._init
+> ScaffolderIcons._init
+> ScaffolderGuiConfig._init
+> JsonUtils._init
+> SaveState._init
+> Analytics._init
+> Analytics client ID: fef81dd0-78ff-4ab0-be08-54a4169788e4
+> GestureReporter._init
+> Time._init
+> Profiler._init
+> Geometry._init
+> ScaffolderDrawUtils._init
+> Navigation._init
+> LevelInput._init
+> SlowMotionController._init
+> BeatTracker._init
+> CameraController._init
+> CanvasLayers._init
+> ScaffolderLevelConfig._init
+> Annotators._init
+"
 align = 0
 valign = 0
 autowrap = true
@@ -41,9 +92,11 @@ font_size = "S"
 [node name="Time" parent="PanelContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 214.0
-margin_bottom = 14.0
+margin_right = 1920.0
+margin_bottom = 23.0
 size_flags_vertical = 0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.772549, 1, 0.368627, 1 )
 align = 2
 valign = 0
 font_size = "S"

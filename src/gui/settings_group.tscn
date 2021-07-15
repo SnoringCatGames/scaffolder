@@ -21,15 +21,21 @@ margin_right = 1024.0
 
 [node name="AccordionPanel" parent="." instance=ExtResource( 2 )]
 margin_left = 0.0
-margin_right = 1024.0
+margin_right = 460.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 460, 56 )
 uses_header_color = true
 is_header_text_centered = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AccordionPanel"]
-margin_right = 40.0
-margin_bottom = 40.0
+visible = false
+margin_top = 42.0
+margin_right = 460.0
+margin_bottom = 56.0
+custom_constants/separation = 4
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"gs_separation": 4
 }
 
 [node name="Spacer2" parent="AccordionPanel/VBoxContainer" instance=ExtResource( 4 )]
@@ -37,6 +43,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 20.0
 margin_right = 20.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
 size = Vector2( 0, 10 )
 
 [node name="LabeledControlList" parent="AccordionPanel/VBoxContainer" instance=ExtResource( 1 )]
@@ -48,5 +56,8 @@ margin_bottom = 4.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 512.0
+margin_top = 56.0
 margin_right = 512.0
+margin_bottom = 86.0
+rect_min_size = Vector2( 0, 30 )
 size = Vector2( 0, 30 )
