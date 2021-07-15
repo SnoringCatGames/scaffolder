@@ -199,7 +199,7 @@ var current_slider_tick_size := default_slider_tick_size
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "ScaffolderIcons")
+    Sc.logger.on_global_init(self, "ScaffolderIcons")
 
 
 func register_manifest(manifest: Dictionary) -> void:
@@ -367,150 +367,150 @@ func register_manifest(manifest: Dictionary) -> void:
 
 
 func _update_icon_sizes() -> void:
-    Gs.icons._update_checkbox_size()
-    Gs.icons._update_radio_button_size()
-    Gs.icons._update_tree_arrow_size()
-    Gs.icons._update_dropdown_arrow_size()
-    Gs.icons._update_slider_grabber_size()
-    Gs.icons._update_slider_tick_size()
+    Sc.icons._update_checkbox_size()
+    Sc.icons._update_radio_button_size()
+    Sc.icons._update_tree_arrow_size()
+    Sc.icons._update_dropdown_arrow_size()
+    Sc.icons._update_slider_grabber_size()
+    Sc.icons._update_slider_tick_size()
 
 
 func _update_checkbox_size() -> void:
     var target_icon_size: float = \
-            Gs.icons.default_checkbox_size * Gs.gui.scale
+            Sc.icons.default_checkbox_size * Sc.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Gs.icons.checkbox_sizes:
+    for icon_size in Sc.icons.checkbox_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Gs.icons.current_checkbox_size = closest_icon_size
+    Sc.icons.current_checkbox_size = closest_icon_size
     
     var checked_icon_path: String = \
-            Gs.icons.checkbox_path_prefix + "checked_" + \
-            str(Gs.icons.current_checkbox_size) + ".png"
+            Sc.icons.checkbox_path_prefix + "checked_" + \
+            str(Sc.icons.current_checkbox_size) + ".png"
     var unchecked_icon_path: String = \
-            Gs.icons.checkbox_path_prefix + "unchecked_" + \
-            str(Gs.icons.current_checkbox_size) + ".png"
+            Sc.icons.checkbox_path_prefix + "unchecked_" + \
+            str(Sc.icons.current_checkbox_size) + ".png"
     
     var checked_icon := load(checked_icon_path)
     var unchecked_icon := load(unchecked_icon_path)
     
-    Gs.gui.theme.set_icon("checked", "CheckBox", checked_icon)
-    Gs.gui.theme.set_icon("unchecked", "CheckBox", unchecked_icon)
-    Gs.gui.theme.set_icon("checked", "PopupMenu", checked_icon)
-    Gs.gui.theme.set_icon("unchecked", "PopupMenu", unchecked_icon)
+    Sc.gui.theme.set_icon("checked", "CheckBox", checked_icon)
+    Sc.gui.theme.set_icon("unchecked", "CheckBox", unchecked_icon)
+    Sc.gui.theme.set_icon("checked", "PopupMenu", checked_icon)
+    Sc.gui.theme.set_icon("unchecked", "PopupMenu", unchecked_icon)
 
 
 func _update_radio_button_size() -> void:
     var target_icon_size: float = \
-            Gs.icons.default_radio_button_size * Gs.gui.scale
+            Sc.icons.default_radio_button_size * Sc.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Gs.icons.radio_button_sizes:
+    for icon_size in Sc.icons.radio_button_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Gs.icons.current_radio_button_size = closest_icon_size
+    Sc.icons.current_radio_button_size = closest_icon_size
     
     var checked_icon_path: String = \
-            Gs.icons.radio_button_path_prefix + "checked_" + \
-            str(Gs.icons.current_radio_button_size) + ".png"
+            Sc.icons.radio_button_path_prefix + "checked_" + \
+            str(Sc.icons.current_radio_button_size) + ".png"
     var unchecked_icon_path: String = \
-            Gs.icons.radio_button_path_prefix + "unchecked_" + \
-            str(Gs.icons.current_radio_button_size) + ".png"
+            Sc.icons.radio_button_path_prefix + "unchecked_" + \
+            str(Sc.icons.current_radio_button_size) + ".png"
     
     var checked_icon := load(checked_icon_path)
     var unchecked_icon := load(unchecked_icon_path)
     
-    Gs.gui.theme.set_icon("radio_checked", "CheckBox", checked_icon)
-    Gs.gui.theme.set_icon("radio_unchecked", "CheckBox", unchecked_icon)
-    Gs.gui.theme.set_icon("radio_checked", "PopupMenu", checked_icon)
-    Gs.gui.theme.set_icon("radio_unchecked", "PopupMenu", unchecked_icon)
+    Sc.gui.theme.set_icon("radio_checked", "CheckBox", checked_icon)
+    Sc.gui.theme.set_icon("radio_unchecked", "CheckBox", unchecked_icon)
+    Sc.gui.theme.set_icon("radio_checked", "PopupMenu", checked_icon)
+    Sc.gui.theme.set_icon("radio_unchecked", "PopupMenu", unchecked_icon)
 
 
 func _update_tree_arrow_size() -> void:
     var target_icon_size: float = \
-            Gs.icons.default_tree_arrow_size * Gs.gui.scale
+            Sc.icons.default_tree_arrow_size * Sc.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Gs.icons.tree_arrow_sizes:
+    for icon_size in Sc.icons.tree_arrow_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Gs.icons.current_tree_arrow_size = closest_icon_size
+    Sc.icons.current_tree_arrow_size = closest_icon_size
     
     var open_icon_path: String = \
-            Gs.icons.tree_arrow_path_prefix + "open_" + \
-            str(Gs.icons.current_tree_arrow_size) + ".png"
+            Sc.icons.tree_arrow_path_prefix + "open_" + \
+            str(Sc.icons.current_tree_arrow_size) + ".png"
     var closed_icon_path: String = \
-            Gs.icons.tree_arrow_path_prefix + "closed_" + \
-            str(Gs.icons.current_tree_arrow_size) + ".png"
+            Sc.icons.tree_arrow_path_prefix + "closed_" + \
+            str(Sc.icons.current_tree_arrow_size) + ".png"
     
     var open_icon := load(open_icon_path)
     var closed_icon := load(closed_icon_path)
     
-    Gs.gui.theme.set_icon("arrow", "Tree", open_icon)
-    Gs.gui.theme.set_icon("arrow_collapsed", "Tree", closed_icon)
-    Gs.gui.theme.set_constant(
-            "item_margin", "Tree", Gs.icons.current_tree_arrow_size)
+    Sc.gui.theme.set_icon("arrow", "Tree", open_icon)
+    Sc.gui.theme.set_icon("arrow_collapsed", "Tree", closed_icon)
+    Sc.gui.theme.set_constant(
+            "item_margin", "Tree", Sc.icons.current_tree_arrow_size)
 
 
 func _update_dropdown_arrow_size() -> void:
     var target_icon_size: float = \
-            Gs.icons.default_dropdown_arrow_size * Gs.gui.scale
+            Sc.icons.default_dropdown_arrow_size * Sc.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Gs.icons.dropdown_arrow_sizes:
+    for icon_size in Sc.icons.dropdown_arrow_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Gs.icons.current_dropdown_arrow_size = closest_icon_size
+    Sc.icons.current_dropdown_arrow_size = closest_icon_size
     
     var path: String = \
-            Gs.icons.dropdown_arrow_path_prefix + \
-            str(Gs.icons.current_dropdown_arrow_size) + ".png"
+            Sc.icons.dropdown_arrow_path_prefix + \
+            str(Sc.icons.current_dropdown_arrow_size) + ".png"
     
     var icon := load(path)
     
-    Gs.gui.theme.set_icon("arrow", "OptionButton", icon)
-    Gs.gui.theme.set_constant(
+    Sc.gui.theme.set_icon("arrow", "OptionButton", icon)
+    Sc.gui.theme.set_constant(
             "arrow_margin",
             "OptionButton",
-            Gs.icons.current_dropdown_arrow_size)
+            Sc.icons.current_dropdown_arrow_size)
 
 
 func _update_slider_grabber_size() -> void:
     var target_icon_size: float = \
-            Gs.icons.default_slider_grabber_size * Gs.gui.scale
+            Sc.icons.default_slider_grabber_size * Sc.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Gs.icons.slider_grabber_sizes:
+    for icon_size in Sc.icons.slider_grabber_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Gs.icons.current_slider_grabber_size = closest_icon_size
+    Sc.icons.current_slider_grabber_size = closest_icon_size
     
     var path: String = \
-            Gs.icons.slider_grabber_path_prefix + \
-            str(Gs.icons.current_slider_grabber_size) + ".png"
+            Sc.icons.slider_grabber_path_prefix + \
+            str(Sc.icons.current_slider_grabber_size) + ".png"
     
     var icon := load(path)
     
-    Gs.gui.theme.set_icon("grabber", "HSlider", icon)
-    Gs.gui.theme.set_icon("grabber_disabled", "HSlider", icon)
-    Gs.gui.theme.set_icon("grabber_highlight", "HSlider", icon)
+    Sc.gui.theme.set_icon("grabber", "HSlider", icon)
+    Sc.gui.theme.set_icon("grabber_disabled", "HSlider", icon)
+    Sc.gui.theme.set_icon("grabber_highlight", "HSlider", icon)
 
 
 func _update_slider_tick_size() -> void:
     var target_icon_size: float = \
-            Gs.icons.default_slider_tick_size * Gs.gui.scale
+            Sc.icons.default_slider_tick_size * Sc.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Gs.icons.slider_tick_sizes:
+    for icon_size in Sc.icons.slider_tick_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Gs.icons.current_slider_tick_size = closest_icon_size
+    Sc.icons.current_slider_tick_size = closest_icon_size
     
     var path: String = \
-            Gs.icons.slider_tick_path_prefix + \
-            str(Gs.icons.current_slider_tick_size) + ".png"
+            Sc.icons.slider_tick_path_prefix + \
+            str(Sc.icons.current_slider_tick_size) + ".png"
     
     var icon := load(path)
     
-    Gs.gui.theme.set_icon("tick", "HSlider", icon)
+    Sc.gui.theme.set_icon("tick", "HSlider", icon)

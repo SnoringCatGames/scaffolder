@@ -31,7 +31,7 @@ var _debounced_callbacks := {}
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "Time")
+    Sc.logger.on_global_init(self, "Time")
     pause_mode = Node.PAUSE_MODE_PROCESS
 
 
@@ -130,7 +130,7 @@ func _get_time_tracker_for_time_type(time_type: int) -> _TimeTracker:
         TimeType.PLAY_RENDER_SCALED:
             return _play_time
         _:
-            Gs.logger.error("Unrecognized time_type: %d" % time_type)
+            Sc.logger.error("Unrecognized time_type: %d" % time_type)
             return null
 
 
@@ -151,7 +151,7 @@ func _get_elapsed_time_key_for_time_type(time_type: int) -> String:
         TimeType.PLAY_RENDER_SCALED:
             return "elapsed_render_scaled_time"
         _:
-            Gs.logger.error("Unrecognized time_type: %d" % time_type)
+            Sc.logger.error("Unrecognized time_type: %d" % time_type)
             return ""
 
 
@@ -435,13 +435,13 @@ class _Timeout extends Reference:
             callback: FuncRef,
             delay: float,
             arguments: Array) -> void:
-        self.time_tracker = Gs.time._get_time_tracker_for_time_type(time_type)
+        self.time_tracker = Sc.time._get_time_tracker_for_time_type(time_type)
         self.elapsed_time_key = \
-                Gs.time._get_elapsed_time_key_for_time_type(time_type)
+                Sc.time._get_elapsed_time_key_for_time_type(time_type)
         self.callback = callback
         self.time = time_tracker.get(elapsed_time_key) + delay
         self.arguments = arguments
-        self.id = Gs.time.get_next_task_id()
+        self.id = Sc.time.get_next_task_id()
     
     
     func get_has_expired() -> bool:
@@ -472,15 +472,15 @@ class _Interval extends Reference:
             callback: FuncRef,
             interval: float,
             arguments: Array) -> void:
-        self.time_tracker = Gs.time._get_time_tracker_for_time_type(time_type)
+        self.time_tracker = Sc.time._get_time_tracker_for_time_type(time_type)
         self.elapsed_time_key = \
-                Gs.time._get_elapsed_time_key_for_time_type(time_type)
+                Sc.time._get_elapsed_time_key_for_time_type(time_type)
         self.callback = callback
         self.interval = interval
         self.arguments = arguments
         self.next_trigger_time = \
                 time_tracker.get(elapsed_time_key) + interval
-        self.id = Gs.time.get_next_task_id()
+        self.id = Sc.time.get_next_task_id()
     
     
     func get_has_reached_next_trigger_time() -> bool:
@@ -519,9 +519,9 @@ class _Throttler extends Reference:
             interval: float,
             invokes_at_end: bool) -> void:
         self.time_type = time_type
-        self.time_tracker = Gs.time._get_time_tracker_for_time_type(time_type)
+        self.time_tracker = Sc.time._get_time_tracker_for_time_type(time_type)
         self.elapsed_time_key = \
-                Gs.time._get_elapsed_time_key_for_time_type(time_type)
+                Sc.time._get_elapsed_time_key_for_time_type(time_type)
         self.callback = callback
         self.interval = interval
         self.invokes_at_end = invokes_at_end
@@ -535,7 +535,7 @@ class _Throttler extends Reference:
             if current_call_time > next_call_time:
                 _trigger_callback()
             elif invokes_at_end:
-                last_timeout_id = Gs.time.set_timeout(
+                last_timeout_id = Sc.time.set_timeout(
                         trigger_callback_callback,
                         next_call_time - current_call_time,
                         [],
@@ -544,7 +544,7 @@ class _Throttler extends Reference:
     
     
     func cancel() -> void:
-        Gs.time.clear_timeout(last_timeout_id)
+        Sc.time.clear_timeout(last_timeout_id)
         is_callback_scheduled = false
     
     
@@ -578,9 +578,9 @@ class _Debouncer extends Reference:
             interval: float,
             invokes_at_start: bool) -> void:
         self.time_type = time_type
-        self.time_tracker = Gs.time._get_time_tracker_for_time_type(time_type)
+        self.time_tracker = Sc.time._get_time_tracker_for_time_type(time_type)
         self.elapsed_time_key = \
-                Gs.time._get_elapsed_time_key_for_time_type(time_type)
+                Sc.time._get_elapsed_time_key_for_time_type(time_type)
         self.callback = callback
         self.interval = interval
         self.invokes_at_start = invokes_at_start
@@ -594,8 +594,8 @@ class _Debouncer extends Reference:
                 current_call_time > last_call_time + interval:
             _trigger_callback()
         
-        Gs.time.clear_timeout(last_timeout_id)
-        last_timeout_id = Gs.time.set_timeout(
+        Sc.time.clear_timeout(last_timeout_id)
+        last_timeout_id = Sc.time.set_timeout(
                 trigger_callback_callback,
                 interval,
                 [],
@@ -604,7 +604,7 @@ class _Debouncer extends Reference:
     
     
     func cancel() -> void:
-        Gs.time.clear_timeout(last_timeout_id)
+        Sc.time.clear_timeout(last_timeout_id)
         is_callback_scheduled = false
     
     

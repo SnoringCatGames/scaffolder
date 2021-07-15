@@ -16,7 +16,7 @@ func _init(item_config: Dictionary).(
 
 func on_pressed(pressed: bool) -> void:
     item_config.enabled = pressed
-    Gs.save_state.set_setting(
+    Sc.save_state.set_setting(
             item_config.settings_key,
             item_config.enabled)
 

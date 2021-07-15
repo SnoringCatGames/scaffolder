@@ -31,10 +31,10 @@ var button_hover: Color
 var button_pressed: Color
 var button_border: Color
 
-# Only used if Gs.gui.is_suggested_button_color_pulse_shown is enabled, and
+# Only used if Sc.gui.is_suggested_button_color_pulse_shown is enabled, and
 # buttons are configured to use flat-color style-boxes.
 var button_flat_pulse: Color
-# Only used if Gs.gui.is_suggested_button_color_pulse_shown is enabled, and
+# Only used if Sc.gui.is_suggested_button_color_pulse_shown is enabled, and
 # buttons are configured to use nine-patch-texture style-boxes.
 var button_texture_modulate: Color
 
@@ -146,7 +146,7 @@ var _defaults := {
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "ScaffolderColors")
+    Sc.logger.on_global_init(self, "ScaffolderColors")
 
 
 func register_manifest(manifest: Dictionary) -> void:
@@ -161,101 +161,101 @@ func register_manifest(manifest: Dictionary) -> void:
 
 
 func _derive_colors() -> void:
-    if !Gs.colors.button_disabled_hsv_delta.empty():
-        Gs.colors.button_disabled = _derive_color_from_hsva_delta(
-                Gs.colors.button_normal,
-                Gs.colors.button_disabled_hsv_delta)
-    if !Gs.colors.button_focused_hsv_delta.empty():
-        Gs.colors.button_focused = _derive_color_from_hsva_delta(
-                Gs.colors.button_normal,
-                Gs.colors.button_focused_hsv_delta)
-    if !Gs.colors.button_hover_hsv_delta.empty():
-        Gs.colors.button_hover = _derive_color_from_hsva_delta(
-                Gs.colors.button_normal,
-                Gs.colors.button_hover_hsv_delta)
-    if !Gs.colors.button_pressed_hsv_delta.empty():
-        Gs.colors.button_pressed = _derive_color_from_hsva_delta(
-                Gs.colors.button_normal,
-                Gs.colors.button_pressed_hsv_delta)
-    if !Gs.colors.button_border_hsv_delta.empty():
-        Gs.colors.button_border = _derive_color_from_hsva_delta(
-                Gs.colors.button_normal,
-                Gs.colors.button_border_hsv_delta)
+    if !Sc.colors.button_disabled_hsv_delta.empty():
+        Sc.colors.button_disabled = _derive_color_from_hsva_delta(
+                Sc.colors.button_normal,
+                Sc.colors.button_disabled_hsv_delta)
+    if !Sc.colors.button_focused_hsv_delta.empty():
+        Sc.colors.button_focused = _derive_color_from_hsva_delta(
+                Sc.colors.button_normal,
+                Sc.colors.button_focused_hsv_delta)
+    if !Sc.colors.button_hover_hsv_delta.empty():
+        Sc.colors.button_hover = _derive_color_from_hsva_delta(
+                Sc.colors.button_normal,
+                Sc.colors.button_hover_hsv_delta)
+    if !Sc.colors.button_pressed_hsv_delta.empty():
+        Sc.colors.button_pressed = _derive_color_from_hsva_delta(
+                Sc.colors.button_normal,
+                Sc.colors.button_pressed_hsv_delta)
+    if !Sc.colors.button_border_hsv_delta.empty():
+        Sc.colors.button_border = _derive_color_from_hsva_delta(
+                Sc.colors.button_normal,
+                Sc.colors.button_border_hsv_delta)
     
-    if !Gs.colors.dropdown_disabled_hsv_delta.empty():
-        Gs.colors.dropdown_disabled = _derive_color_from_hsva_delta(
-                Gs.colors.dropdown_normal,
-                Gs.colors.dropdown_disabled_hsv_delta)
-    if !Gs.colors.dropdown_focused_hsv_delta.empty():
-        Gs.colors.dropdown_focused = _derive_color_from_hsva_delta(
-                Gs.colors.dropdown_normal,
-                Gs.colors.dropdown_focused_hsv_delta)
-    if !Gs.colors.dropdown_hover_hsv_delta.empty():
-        Gs.colors.dropdown_hover = _derive_color_from_hsva_delta(
-                Gs.colors.dropdown_normal,
-                Gs.colors.dropdown_hover_hsv_delta)
-    if !Gs.colors.dropdown_pressed_hsv_delta.empty():
-        Gs.colors.dropdown_pressed = _derive_color_from_hsva_delta(
-                Gs.colors.dropdown_normal,
-                Gs.colors.dropdown_pressed_hsv_delta)
-    if !Gs.colors.dropdown_border_hsv_delta.empty():
-        Gs.colors.dropdown_border = _derive_color_from_hsva_delta(
-                Gs.colors.dropdown_normal,
-                Gs.colors.dropdown_border_hsv_delta)
+    if !Sc.colors.dropdown_disabled_hsv_delta.empty():
+        Sc.colors.dropdown_disabled = _derive_color_from_hsva_delta(
+                Sc.colors.dropdown_normal,
+                Sc.colors.dropdown_disabled_hsv_delta)
+    if !Sc.colors.dropdown_focused_hsv_delta.empty():
+        Sc.colors.dropdown_focused = _derive_color_from_hsva_delta(
+                Sc.colors.dropdown_normal,
+                Sc.colors.dropdown_focused_hsv_delta)
+    if !Sc.colors.dropdown_hover_hsv_delta.empty():
+        Sc.colors.dropdown_hover = _derive_color_from_hsva_delta(
+                Sc.colors.dropdown_normal,
+                Sc.colors.dropdown_hover_hsv_delta)
+    if !Sc.colors.dropdown_pressed_hsv_delta.empty():
+        Sc.colors.dropdown_pressed = _derive_color_from_hsva_delta(
+                Sc.colors.dropdown_normal,
+                Sc.colors.dropdown_pressed_hsv_delta)
+    if !Sc.colors.dropdown_border_hsv_delta.empty():
+        Sc.colors.dropdown_border = _derive_color_from_hsva_delta(
+                Sc.colors.dropdown_normal,
+                Sc.colors.dropdown_border_hsv_delta)
     
-    if !Gs.colors.popup_background_hsv_delta.empty():
-        Gs.colors.popup_background = _derive_color_from_hsva_delta(
-                Gs.colors.background,
-                Gs.colors.popup_background_hsv_delta)
+    if !Sc.colors.popup_background_hsv_delta.empty():
+        Sc.colors.popup_background = _derive_color_from_hsva_delta(
+                Sc.colors.background,
+                Sc.colors.popup_background_hsv_delta)
     
-    if !Gs.colors.zebra_stripe_even_row_hsv_delta.empty():
-        Gs.colors.zebra_stripe_even_row = \
+    if !Sc.colors.zebra_stripe_even_row_hsv_delta.empty():
+        Sc.colors.zebra_stripe_even_row = \
                 _derive_color_from_hsva_delta(
-                        Gs.colors.background,
-                        Gs.colors.zebra_stripe_even_row_hsv_delta)
+                        Sc.colors.background,
+                        Sc.colors.zebra_stripe_even_row_hsv_delta)
     
-    if !Gs.colors.overlay_panel_background_hsv_delta.empty():
-        Gs.colors.overlay_panel_background = \
+    if !Sc.colors.overlay_panel_background_hsv_delta.empty():
+        Sc.colors.overlay_panel_background = \
                 _derive_color_from_hsva_delta(
-                        Gs.colors.background,
-                        Gs.colors.overlay_panel_background_hsv_delta)
-    if !Gs.colors.header_panel_background_hsv_delta.empty():
-        Gs.colors.header_panel_background = \
+                        Sc.colors.background,
+                        Sc.colors.overlay_panel_background_hsv_delta)
+    if !Sc.colors.header_panel_background_hsv_delta.empty():
+        Sc.colors.header_panel_background = \
                 _derive_color_from_hsva_delta(
-                        Gs.colors.background,
-                        Gs.colors.header_panel_background_hsv_delta)
+                        Sc.colors.background,
+                        Sc.colors.header_panel_background_hsv_delta)
     
-    if !Gs.colors.scroll_bar_background_hsv_delta.empty():
-        Gs.colors.scroll_bar_background = \
+    if !Sc.colors.scroll_bar_background_hsv_delta.empty():
+        Sc.colors.scroll_bar_background = \
                 _derive_color_from_hsva_delta(
-                        Gs.colors.background,
-                        Gs.colors.scroll_bar_background_hsv_delta)
-    if !Gs.colors.scroll_bar_grabber_normal_hsv_delta.empty():
-        Gs.colors.scroll_bar_grabber_normal = \
+                        Sc.colors.background,
+                        Sc.colors.scroll_bar_background_hsv_delta)
+    if !Sc.colors.scroll_bar_grabber_normal_hsv_delta.empty():
+        Sc.colors.scroll_bar_grabber_normal = \
                 _derive_color_from_hsva_delta(
-                        Gs.colors.button_normal,
-                        Gs.colors.scroll_bar_grabber_normal_hsv_delta)
-    if !Gs.colors.scroll_bar_grabber_hover_hsv_delta.empty():
-        Gs.colors.scroll_bar_grabber_hover = \
+                        Sc.colors.button_normal,
+                        Sc.colors.scroll_bar_grabber_normal_hsv_delta)
+    if !Sc.colors.scroll_bar_grabber_hover_hsv_delta.empty():
+        Sc.colors.scroll_bar_grabber_hover = \
                 _derive_color_from_hsva_delta(
-                        Gs.colors.scroll_bar_grabber_normal,
-                        Gs.colors.scroll_bar_grabber_hover_hsv_delta)
-    if !Gs.colors.scroll_bar_grabber_pressed_hsv_delta.empty():
-        Gs.colors.scroll_bar_grabber_pressed = \
+                        Sc.colors.scroll_bar_grabber_normal,
+                        Sc.colors.scroll_bar_grabber_hover_hsv_delta)
+    if !Sc.colors.scroll_bar_grabber_pressed_hsv_delta.empty():
+        Sc.colors.scroll_bar_grabber_pressed = \
                 _derive_color_from_hsva_delta(
-                        Gs.colors.scroll_bar_grabber_normal,
-                        Gs.colors.scroll_bar_grabber_pressed_hsv_delta)
+                        Sc.colors.scroll_bar_grabber_normal,
+                        Sc.colors.scroll_bar_grabber_pressed_hsv_delta)
     
-    if !Gs.colors.slider_background_hsv_delta.empty():
-        Gs.colors.slider_background = \
+    if !Sc.colors.slider_background_hsv_delta.empty():
+        Sc.colors.slider_background = \
                 _derive_color_from_hsva_delta(
-                        Gs.colors.background,
-                        Gs.colors.slider_background_hsv_delta)
+                        Sc.colors.background,
+                        Sc.colors.slider_background_hsv_delta)
     
-    if !Gs.colors.screen_border_hsv_delta.empty():
-        Gs.colors.screen_border = _derive_color_from_hsva_delta(
-                Gs.colors.background,
-                Gs.colors.screen_border_hsv_delta)
+    if !Sc.colors.screen_border_hsv_delta.empty():
+        Sc.colors.screen_border = _derive_color_from_hsva_delta(
+                Sc.colors.background,
+                Sc.colors.screen_border_hsv_delta)
 
 
 func _derive_color_from_hsva_delta(
@@ -274,7 +274,7 @@ func opacify(base_color_or_name, opacity: float) -> Color:
     var color: Color = \
             base_color_or_name if \
             base_color_or_name is Color else \
-            Gs.colors[base_color_or_name]
+            Sc.colors[base_color_or_name]
     color.a = opacity
     return color
 

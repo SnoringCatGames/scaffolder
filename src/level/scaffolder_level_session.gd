@@ -108,7 +108,7 @@ func _get_level_play_time_unscaled() -> float:
             return _level_end_play_time_unscaled - \
                     _level_start_play_time_unscaled
         else:
-            return Gs.time.get_play_time() - _level_start_play_time_unscaled
+            return Sc.time.get_play_time() - _level_start_play_time_unscaled
     else:
         return 0.0
 
@@ -143,38 +143,38 @@ func _update_for_level_end(has_finished: bool) -> void:
     if !has_finished:
         return
     
-    Gs.save_state.set_level_has_finished(
+    Sc.save_state.set_level_has_finished(
             _id,
             _has_finished)
     
-    if Gs.metadata.uses_level_scores:
+    if Sc.metadata.uses_level_scores:
         _handle_new_score()
     _update_fastest_time()
     _update_new_unlocked_levels()
 
 
 func _handle_new_score() -> void:
-    Gs.analytics.event(
+    Sc.analytics.event(
             "score",
-            "v" + Gs.metadata.score_version,
-            Gs.level_config.get_level_version_string(_id),
+            "v" + Sc.metadata.score_version,
+            Sc.level_config.get_level_version_string(_id),
             int(_score))
     
-    var all_scores: Array = Gs.save_state.get_level_all_scores(_id)
+    var all_scores: Array = Sc.save_state.get_level_all_scores(_id)
     all_scores.push_back(_score)
-    Gs.save_state.set_level_all_scores(_id, all_scores)
+    Sc.save_state.set_level_all_scores(_id, all_scores)
     
     _update_high_score()
 
 
 func _update_high_score() -> void:
-    _high_score = Gs.save_state.get_level_high_score(_id)
+    _high_score = Sc.save_state.get_level_high_score(_id)
     _is_new_high_score = \
             _has_finished and \
             _score > _high_score
     if _is_new_high_score:
         _high_score = _score
-        Gs.save_state.set_level_high_score(
+        Sc.save_state.set_level_high_score(
                 _id,
                 _score)
 
@@ -182,7 +182,7 @@ func _update_high_score() -> void:
 func _update_fastest_time() -> void:
     var current_time := _get_level_play_time_unscaled()
     var save_state_fastest_time: float = \
-            Gs.save_state.get_level_fastest_time(_id)
+            Sc.save_state.get_level_fastest_time(_id)
     _fastest_time = \
             save_state_fastest_time if \
             save_state_fastest_time != Utils.MAX_INT and \
@@ -194,18 +194,18 @@ func _update_fastest_time() -> void:
             current_time < _fastest_time
     if _is_new_fastest_time:
         _fastest_time = current_time
-        Gs.save_state.set_level_fastest_time(
+        Sc.save_state.set_level_fastest_time(
                 _id,
                 current_time)
 
 
 func _update_new_unlocked_levels() -> void:
-    _new_unlocked_levels = Gs.level_config.get_new_unlocked_levels()
-    Gs.save_state.set_new_unlocked_levels(_new_unlocked_levels)
+    _new_unlocked_levels = Sc.level_config.get_new_unlocked_levels()
+    Sc.save_state.set_new_unlocked_levels(_new_unlocked_levels)
     for other_level_id in _new_unlocked_levels:
-        Gs.save_state.set_level_is_unlocked(other_level_id, true)
-        Gs.analytics.event(
+        Sc.save_state.set_level_is_unlocked(other_level_id, true)
+        Sc.analytics.event(
                 "level",
                 "unlocked",
-                Gs.level_config.get_level_version_string(other_level_id),
-                Gs.level_config.get_level_config(other_level_id).number)
+                Sc.level_config.get_level_version_string(other_level_id),
+                Sc.level_config.get_level_config(other_level_id).number)

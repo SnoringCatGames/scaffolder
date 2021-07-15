@@ -16,10 +16,10 @@ var _new_unlocked_item: LevelSelectItem
 
 
 func _ready() -> void:
-    for level_number in Gs.level_config.get_level_numbers():
+    for level_number in Sc.level_config.get_level_numbers():
         var level_config: Dictionary = \
-                Gs.level_config.get_level_config_by_number(level_number)
-        var item: LevelSelectItem = Gs.utils.add_scene(
+                Sc.level_config.get_level_config_by_number(level_number)
+        var item: LevelSelectItem = Sc.utils.add_scene(
                 $VBoxContainer/LevelSelectItems,
                 LEVEL_SELECT_ITEM_SCENE,
                 true,
@@ -53,7 +53,7 @@ func _deferred_update() -> void:
     if _new_unlocked_item == null:
         if previous_open_item == null:
             var suggested_level_id: String = \
-                    Gs.level_config.get_recorded_suggested_next_level()
+                    Sc.level_config.get_recorded_suggested_next_level()
             var item_to_open: LevelSelectItem
             for item in level_items:
                 if item.level_id == suggested_level_id:
@@ -73,7 +73,7 @@ func _deferred_update() -> void:
 
 
 func _process(_delta: float) -> void:
-    if Gs.nav.current_screen != self:
+    if Sc.nav.current_screen != self:
         return
     
     var item_to_expand: LevelSelectItem
@@ -87,7 +87,7 @@ func _process(_delta: float) -> void:
     
     if is_up_or_down_pressed:
         if item_to_expand != null:
-            Gs.utils.give_button_press_feedback()
+            Sc.utils.give_button_press_feedback()
             item_to_expand.focus()
             _on_item_pressed(item_to_expand)
         elif expanded_item != null:
@@ -97,8 +97,8 @@ func _process(_delta: float) -> void:
 
 
 func _calculate_new_unlocked_item() -> void:
-    var new_unlocked_levels: Array = Gs.save_state.get_new_unlocked_levels()
-    Gs.save_state.set_new_unlocked_levels([])
+    var new_unlocked_levels: Array = Sc.save_state.get_new_unlocked_levels()
+    Sc.save_state.set_new_unlocked_levels([])
     
     if new_unlocked_levels.empty():
         _new_unlocked_item = null
@@ -152,7 +152,7 @@ func _scroll_to_item(
             AccordionPanel.SCROLL_TWEEN_DURATION if \
             include_delay_for_accordion_scroll else \
             0.0
-    Gs.time.tween_method(
+    Sc.time.tween_method(
             self,
             "_interpolate_scroll",
             0.0,
@@ -168,7 +168,7 @@ func _scroll_to_item(
 func _interpolate_scroll(scroll_ratio: float) -> void:
     var scroll_start: int = \
             container.scroll_container.get_v_scrollbar().min_value
-    var scroll_end: int = Gs.utils.get_node_vscroll_position(
+    var scroll_end: int = Sc.utils.get_node_vscroll_position(
             container.scroll_container,
             _scroll_target)
     container.scroll_container.scroll_vertical = lerp(
@@ -199,7 +199,7 @@ func _on_item_pressed(item: LevelSelectItem) -> void:
     elif expanded_item == item:
         previous_expanded_item = expanded_item
         expanded_item = null
-    Gs.time.set_timeout(funcref(item, "toggle"), delay)
+    Sc.time.set_timeout(funcref(item, "toggle"), delay)
 
 
 func _on_item_toggled(item: LevelSelectItem) -> void:

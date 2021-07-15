@@ -15,16 +15,16 @@ func _on_transition_in_started(previous_screen: Screen) -> void:
 func _on_transition_out_started(next_screen: Screen) -> void:
     ._on_transition_out_started(next_screen)
     _clear_groups()
-    if Gs.level != null and \
+    if Sc.level != null and \
             next_screen is PauseScreen and \
-            Gs.metadata.must_restart_level_to_change_settings:
-        Gs.level.restart()
+            Sc.metadata.must_restart_level_to_change_settings:
+        Sc.level.restart()
 
 
 func _instantiate_settings_groups() -> void:
     _clear_groups()
-    for group_name in Gs.gui.settings_item_manifest.groups:
-        var group: SettingsGroup = Gs.utils.add_scene(
+    for group_name in Sc.gui.settings_item_manifest.groups:
+        var group: SettingsGroup = Sc.utils.add_scene(
                 null,
                 SETTINGS_GROUP_SCENE,
                 false,

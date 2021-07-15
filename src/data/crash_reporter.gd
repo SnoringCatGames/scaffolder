@@ -29,20 +29,20 @@ const ERROR_EXCLUSION_PATTERNS := [
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "CrashReporter")
+    Sc.logger.on_global_init(self, "CrashReporter")
 
 
 func report_any_previous_crash() -> bool:
-    Gs.logger.print("CrashReporter.report_any_previous_crash")
+    Sc.logger.print("CrashReporter.report_any_previous_crash")
     
-    if !Gs.metadata.are_error_logs_captured:
-        Gs.logger.print("CrashReporter: Error logs not captured for this app")
+    if !Sc.metadata.are_error_logs_captured:
+        Sc.logger.print("CrashReporter: Error logs not captured for this app")
         return false
     
     var log_file_name := _get_most_recent_log_file_name()
     if log_file_name == "":
         # There are no logs.
-        Gs.logger.print(
+        Sc.logger.print(
                 "CrashReporter: There are no previous logs to check")
         return false
     
@@ -51,7 +51,7 @@ func report_any_previous_crash() -> bool:
             log_file_path,
             ERROR_LOG_REPORTING_MAX_LINE_COUNT)
     if lines.empty():
-        Gs.logger.error(
+        Sc.logger.error(
                 "An error occurred reading the log file: " + log_file_path)
         return false
     
@@ -69,7 +69,7 @@ func report_any_previous_crash() -> bool:
             # We found an indication of a crash, so report recent logs.
             var text := Utils.join(lines, "\n")
             _upload_crash_log(text, log_file_name)
-            Gs.logger.print(
+            Sc.logger.print(
                     "CrashReporter: Uploading a previous error log")
             return true
         
@@ -80,7 +80,7 @@ func report_any_previous_crash() -> bool:
             main_lines_count += 1
     
     # We didn't find any indication of a crash.
-    Gs.logger.print(
+    Sc.logger.print(
             "CrashReporter: There did not seem to be an error in the " +
             "previous session")
     return false
@@ -100,7 +100,7 @@ func _get_most_recent_log_file_name() -> String:
         return ""
     var status := directory.open(LOGS_DIRECTORY_PATH)
     if status != OK:
-        Gs.logger.error(
+        Sc.logger.error(
                 "Unable to open directory: %s" % LOGS_DIRECTORY_PATH)
         return ""
     
@@ -120,10 +120,10 @@ func _upload_crash_log(
         text: String,
         file_name: String) -> void:
     var url: String = \
-            Gs.metadata.error_logs_url + \
+            Sc.metadata.error_logs_url + \
             "?uploadType=media&name=" + file_name
     
-    Gs.logger.print("CrashReporter._upload_crash_log: %s" % url)
+    Sc.logger.print("CrashReporter._upload_crash_log: %s" % url)
     
     var request := HTTPRequest.new()
     # We specifically don't want to use threads, since the crash we're
@@ -144,7 +144,7 @@ func _upload_crash_log(
             text)
     
     if status != OK:
-        Gs.logger.error(
+        Sc.logger.error(
                 "CrashReporter._upload_crash_log failed: status=%d" % status)
 
 
@@ -154,17 +154,17 @@ func _on_upload_crash_log_completed(
         headers: PoolStringArray,
         body: PoolByteArray,
         request: HTTPRequest) -> void:
-    Gs.logger.print(
+    Sc.logger.print(
             ("CrashReporter._on_upload_crash_log_completed: " +
             "result=%d, code=%d") % \
             [result, response_code])
     if result != HTTPRequest.RESULT_SUCCESS or \
             response_code < 200 or \
             response_code >= 300:
-        Gs.logger.print("  Body:\n    " + body.get_string_from_utf8())
-        Gs.logger.print(
+        Sc.logger.print("  Body:\n    " + body.get_string_from_utf8())
+        Sc.logger.print(
                 "  Headers:\n    " + Utils.join(headers, ",\n    "))
     emit_signal("upload_finished")
     request.queue_free()
     self.queue_free()
-    Gs.crash_reporter = null
+    Sc.crash_reporter = null

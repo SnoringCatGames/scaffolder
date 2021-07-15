@@ -25,8 +25,8 @@ func get_text() -> String:
         return TimeLabeledControlItem.BLANK_TIME_STRING
     else:
         var fastest_time: float = \
-                Gs.save_state.get_level_fastest_time(level_id)
+                Sc.save_state.get_level_fastest_time(level_id)
         if fastest_time == Utils.MAX_INT:
             return TimeLabeledControlItem.BLANK_TIME_STRING
         else:
-            return Gs.utils.get_time_string_from_seconds(fastest_time)
+            return Sc.utils.get_time_string_from_seconds(fastest_time)

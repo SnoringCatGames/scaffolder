@@ -49,7 +49,7 @@ func _on_CloseButton_pressed() -> void:
         params["close_callback"].call_func()
     
     if params.has("next_screen"):
-        Gs.nav.close_current_screen()
-        Gs.nav.open(params["next_screen"])
+        Sc.nav.close_current_screen()
+        Sc.nav.open(params["next_screen"])
     else:
-        Gs.nav.close_current_screen()
+        Sc.nav.close_current_screen()

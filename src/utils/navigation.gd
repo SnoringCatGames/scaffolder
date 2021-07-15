@@ -26,7 +26,7 @@ var current_screen: Screen
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "Navigation")
+    Sc.logger.on_global_init(self, "Navigation")
 
 
 func _ready() -> void:
@@ -34,11 +34,11 @@ func _ready() -> void:
         return
     
     get_tree().set_auto_accept_quit(false)
-    Gs.analytics.connect(
+    Sc.analytics.connect(
             "session_ended",
             self,
             "_on_session_end")
-    Gs.analytics.start_session()
+    Sc.analytics.start_session()
 
 
 func _notification(notification: int) -> void:
@@ -58,15 +58,15 @@ func _notification(notification: int) -> void:
 
 func close_app() -> void:
     transitions.clear_transitions()
-    Gs.analytics.end_session()
-    Gs.time.set_timeout(
+    Sc.analytics.end_session()
+    Sc.time.set_timeout(
             funcref(self, "_on_session_end"),
             SESSION_END_TIMEOUT)
 
 
 func _on_session_end() -> void:
-    if Gs.metadata.were_screenshots_taken:
-        Gs.utils.open_screenshot_folder()
+    if Sc.metadata.were_screenshots_taken:
+        Sc.utils.open_screenshot_folder()
     _on_app_quit()
 
 
@@ -82,7 +82,7 @@ func _create_screen_container(screen_name: String) -> ScreenContainer:
         screen_container = SCREEN_CONTAINER_SCENE.instance()
         screen_container.pause_mode = Node.PAUSE_MODE_STOP
         var screen: Screen = _screen_scenes[screen_name].instance()
-        Gs.canvas_layers.layers[screen.layer].add_child(screen_container)
+        Sc.canvas_layers.layers[screen.layer].add_child(screen_container)
         screen_container.set_up(screen)
     return screen_container
 
@@ -92,8 +92,8 @@ func register_manifest(screen_manifest: Dictionary) -> void:
         return
     
     var screen_scenes: Array = \
-            Gs.utils.get_collection_from_exclusions_and_inclusions(
-                    Gs.gui.DEFAULT_SCREEN_SCENES,
+            Sc.utils.get_collection_from_exclusions_and_inclusions(
+                    Sc.gui.DEFAULT_SCREEN_SCENES,
                     screen_manifest.exclusions,
                     screen_manifest.inclusions)
     
@@ -139,7 +139,7 @@ func open(
             current_screen.screen_name if \
             is_instance_valid(current_screen) else \
             "_"
-    Gs.logger.print("Nav.open: %s => %s (%s)" % [
+    Sc.logger.print("Nav.open: %s => %s (%s)" % [
         previous_name,
         screen_name,
         ScreenTransition.type_to_string(transition_type),
@@ -156,7 +156,7 @@ func open(
     
     if _is_debugging_active_screen_stack:
         var new_stack_string := get_active_screen_stack_string()
-        Gs.logger.print(
+        Sc.logger.print(
                 "Nav._active_screen_name_stack: BEFORE=%s, AFTER=%s" % [
                     old_stack_string,
                     new_stack_string,
@@ -175,7 +175,7 @@ func close_current_screen(
             _active_screen_name_stack[previous_index - 1] if \
             previous_index > 0 else \
             "_"
-    Gs.logger.print("Nav.close_current_screen: %s => %s (%s)" % [
+    Sc.logger.print("Nav.close_current_screen: %s => %s (%s)" % [
         previous_name,
         next_name,
         ScreenTransition.type_to_string(transition_type),
@@ -192,7 +192,7 @@ func close_current_screen(
     
     if _is_debugging_active_screen_stack:
         var new_stack_string := get_active_screen_stack_string()
-        Gs.logger.print(
+        Sc.logger.print(
                 "Nav._active_screen_name_stack: BEFORE=%s, AFTER=%s" % [
                     old_stack_string,
                     new_stack_string,
@@ -278,7 +278,7 @@ func _set_screen_is_open(
         # TODO: Implement a way to remember and preserve scroll position when
         #       re-visiting.
         
-        Gs.analytics.screen(next_screen_name)
+        Sc.analytics.screen(next_screen_name)
     
     if is_first_screen:
         transitions.show_first_screen(next_screen_container)
@@ -297,17 +297,17 @@ func splash() -> void:
 
 func _splash_helper() -> void:
     open("godot_splash")
-    Gs.audio.play_sound(Gs.audio_manifest.godot_splash_sound)
+    Sc.audio.play_sound(Sc.audio_manifest.godot_splash_sound)
     yield(get_tree() \
-            .create_timer(Gs.metadata.godot_splash_screen_duration),
+            .create_timer(Sc.metadata.godot_splash_screen_duration),
             "timeout")
     
-    if Gs.gui.is_developer_splash_shown:
+    if Sc.gui.is_developer_splash_shown:
         open("developer_splash")
-        Gs.audio.play_sound(Gs.audio_manifest.developer_splash_sound)
+        Sc.audio.play_sound(Sc.audio_manifest.developer_splash_sound)
         yield(get_tree() \
                 .create_timer(
-                        Gs.metadata.developer_splash_screen_duration),
+                        Sc.metadata.developer_splash_screen_duration),
                 "timeout")
     
     emit_signal("splash_finished")

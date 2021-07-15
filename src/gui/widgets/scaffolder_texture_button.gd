@@ -42,9 +42,9 @@ func _update() -> void:
     $TextureButton.texture_click_mask = texture_click_mask
     $TextureButton.expand = expands_texture
     
-    rect_min_size = size_override * Gs.gui.scale
-    rect_size = size_override * Gs.gui.scale
-    $TextureButton.rect_scale = texture_scale * Gs.gui.scale
+    rect_min_size = size_override * Sc.gui.scale
+    rect_size = size_override * Sc.gui.scale
+    $TextureButton.rect_scale = texture_scale * Sc.gui.scale
     $TextureButton.rect_size = size_override / texture_scale
 
 
@@ -94,5 +94,5 @@ func _set_size_override(value: Vector2) -> void:
 
 
 func _on_TextureButton_pressed() -> void:
-    Gs.utils.give_button_press_feedback()
+    Sc.utils.give_button_press_feedback()
     emit_signal("pressed")

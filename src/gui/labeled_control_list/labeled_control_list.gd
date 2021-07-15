@@ -48,7 +48,7 @@ func _update_children() -> void:
                 padding_horizontal,
                 padding_horizontal))
     
-    Gs.utils.set_mouse_filter_recursively(
+    Sc.utils.set_mouse_filter_recursively(
             self,
             Control.MOUSE_FILTER_PASS)
     
@@ -59,7 +59,7 @@ func find_index(label: String) -> int:
     for index in items.size():
         if items[index].label == label:
             return index
-    Gs.logger.error()
+    Sc.logger.error()
     return -1
 
 
@@ -106,7 +106,7 @@ func _set_even_row_color_override(value: Color) -> void:
     _even_row_style.bg_color = \
             even_row_color_override if \
             even_row_color_override != Color.black else \
-            Gs.colors.zebra_stripe_even_row
+            Sc.colors.zebra_stripe_even_row
 
 
 func _set_font_size(value: String) -> void:

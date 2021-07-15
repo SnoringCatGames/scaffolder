@@ -21,6 +21,6 @@ func _init(level_session_or_id).(
 
 
 func get_text() -> String:
-    return Gs.level_config.get_level_config(level_id).name if \
+    return Sc.level_config.get_level_config(level_id).name if \
             level_id != "" else \
             "—"

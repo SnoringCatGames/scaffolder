@@ -20,14 +20,14 @@ func _init(__ = null).(
 
 
 func on_pressed(pressed: bool) -> void:
-    Gs.gui.is_debug_panel_shown = pressed
-    Gs.save_state.set_setting(
+    Sc.gui.is_debug_panel_shown = pressed
+    Sc.save_state.set_setting(
             SaveState.IS_DEBUG_PANEL_SHOWN_SETTINGS_KEY,
-            Gs.gui.is_debug_panel_shown)
+            Sc.gui.is_debug_panel_shown)
 
 
 func get_is_pressed() -> bool:
-    return Gs.gui.is_debug_panel_shown
+    return Sc.gui.is_debug_panel_shown
 
 
 func get_is_enabled() -> bool:

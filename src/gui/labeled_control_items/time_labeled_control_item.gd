@@ -15,7 +15,7 @@ func _init(__ = null).(
 
 
 func get_text() -> String:
-    return Gs.utils.get_time_string_from_seconds(
-            Gs.level_session.level_play_time_unscaled) if \
-            Gs.level_session.has_started else \
+    return Sc.utils.get_time_string_from_seconds(
+            Sc.level_session.level_play_time_unscaled) if \
+            Sc.level_session.has_started else \
             BLANK_TIME_STRING

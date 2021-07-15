@@ -25,7 +25,7 @@ func get_is_enabled() -> bool:
 
 
 func get_text() -> String:
-    Gs.logger.error(
+    Sc.logger.error(
             "Abstract TextLabeledControlItem.get_text is not implemented")
     return ""
 
@@ -37,8 +37,8 @@ func _update_control() -> void:
 
 
 func create_control() -> Control:
-    var label: ScaffolderLabel = Gs.utils.add_scene(
-            null, Gs.gui.SCAFFOLDER_LABEL_SCENE, false, true)
+    var label: ScaffolderLabel = Sc.utils.add_scene(
+            null, Sc.gui.SCAFFOLDER_LABEL_SCENE, false, true)
     label.text = text
     label.modulate.a = _get_alpha()
     label.align = Label.ALIGN_RIGHT

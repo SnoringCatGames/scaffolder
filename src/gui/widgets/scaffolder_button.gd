@@ -56,7 +56,7 @@ func _ready() -> void:
     button_style_pressed = \
             $MarginContainer/BottomButton.get_stylebox("pressed")
     
-    Gs.device.connect(
+    Sc.device.connect(
             "display_resized", self, "_update")
     
     _on_gui_scale_changed()
@@ -71,8 +71,8 @@ func _destroy() -> void:
     color_pulse_tween.stop_all()
     if is_instance_valid(button_style_pulse):
         button_style_pulse._destroy()
-    Gs.time.clear_interval(shine_interval_id)
-    Gs.time.clear_interval(color_pulse_interval_id)
+    Sc.time.clear_interval(shine_interval_id)
+    Sc.time.clear_interval(color_pulse_interval_id)
 
 
 func _on_gui_scale_changed() -> bool:
@@ -86,15 +86,15 @@ func _update() -> void:
     rect_min_size.x = \
             (size_override.x if \
             size_override.x != 0.0 else \
-            Gs.gui.button_width) * Gs.gui.scale
+            Sc.gui.button_width) * Sc.gui.scale
     rect_min_size.y = \
             (size_override.y if \
             size_override.y != 0.0 else \
-            Gs.gui.button_height) * Gs.gui.scale
+            Sc.gui.button_height) * Sc.gui.scale
     rect_size = rect_min_size
     
     $MarginContainer/MarginContainer/ShineLineWrapper/ShineLine.scale = \
-            SHINE_SCALE * Gs.gui.scale
+            SHINE_SCALE * Sc.gui.scale
     $MarginContainer/ScaffolderTextureRect._on_gui_scale_changed()
     
     var half_size := rect_size / 2.0
@@ -102,8 +102,8 @@ func _update() -> void:
     shine_start_x = shine_base_position.x - rect_size.x
     shine_end_x = shine_base_position.x + rect_size.x
     
-    button_style_pulse = Gs.styles.create_stylebox_scalable(
-            Gs.gui.theme.get_stylebox("normal", "Button"))
+    button_style_pulse = Sc.styles.create_stylebox_scalable(
+            Sc.gui.theme.get_stylebox("normal", "Button"))
     pulse_property = \
             "modulate_color" if \
             button_style_pulse is StyleBoxTextureScalable else \
@@ -111,26 +111,26 @@ func _update() -> void:
     
     $MarginContainer/MarginContainer.add_constant_override(
             "margin_left",
-            Gs.styles.button_shine_margin_left * Gs.gui.scale)
+            Sc.styles.button_shine_margin_left * Sc.gui.scale)
     $MarginContainer/MarginContainer.add_constant_override(
             "margin_top",
-            Gs.styles.button_shine_margin_top * Gs.gui.scale)
+            Sc.styles.button_shine_margin_top * Sc.gui.scale)
     $MarginContainer/MarginContainer.add_constant_override(
             "margin_right",
-            Gs.styles.button_shine_margin_right * Gs.gui.scale)
+            Sc.styles.button_shine_margin_right * Sc.gui.scale)
     $MarginContainer/MarginContainer.add_constant_override(
             "margin_bottom",
-            Gs.styles.button_shine_margin_bottom * Gs.gui.scale)
+            Sc.styles.button_shine_margin_bottom * Sc.gui.scale)
     
     $MarginContainer.call_deferred("set", "rect_size", rect_size)
     $MarginContainer/MarginContainer.visible = \
-            is_shiny and Gs.gui.is_suggested_button_shine_line_shown
+            is_shiny and Sc.gui.is_suggested_button_shine_line_shown
     $MarginContainer/MarginContainer/ShineLineWrapper/ShineLine.position = \
             Vector2(shine_start_x, shine_base_position.y)
     $MarginContainer/ScaffolderTextureRect.visible = texture != null
     $MarginContainer/ScaffolderTextureRect.texture = texture
     $MarginContainer/ScaffolderTextureRect.texture_scale = texture_scale
-    var font: Font = Gs.gui.get_font(font_size)
+    var font: Font = Sc.gui.get_font(font_size)
     $MarginContainer/Label.add_font_override("font", font)
     
     $MarginContainer/BottomButton.add_stylebox_override(
@@ -138,16 +138,16 @@ func _update() -> void:
             button_style_normal)
     
     if is_shiny and \
-            Gs.gui.is_suggested_button_shine_line_shown:
+            Sc.gui.is_suggested_button_shine_line_shown:
         _trigger_shine()
-        shine_interval_id = Gs.time.set_interval(
+        shine_interval_id = Sc.time.set_interval(
                 funcref(self, "_trigger_shine"),
                 SHINE_INTERVAL)
     
     if includes_color_pulse and \
-            Gs.gui.is_suggested_button_color_pulse_shown:
+            Sc.gui.is_suggested_button_color_pulse_shown:
         _trigger_color_pulse()
-        color_pulse_interval_id = Gs.time.set_interval(
+        color_pulse_interval_id = Sc.time.set_interval(
                 funcref(self, "_trigger_color_pulse"),
                 COLOR_PULSE_INTERVAL)
 
@@ -173,10 +173,10 @@ func _trigger_color_pulse() -> void:
     var color_pulse: Color
     if button_style_pulse is StyleBoxTextureScalable:
         color_original = Color(1, 1, 1, 1)
-        color_pulse = Gs.colors.button_texture_modulate
+        color_pulse = Sc.colors.button_texture_modulate
     else:
-        color_original = Gs.colors.button_normal
-        color_pulse = Gs.colors.button_flat_pulse
+        color_original = Sc.colors.button_normal
+        color_pulse = Sc.colors.button_flat_pulse
     var pulse_half_duration := COLOR_PULSE_DURATION / 2.0
     
     button_style_pulse.set(pulse_property, color_original)
@@ -250,7 +250,7 @@ func press() -> void:
 
 
 func _on_TopButton_pressed() -> void:
-    Gs.utils.give_button_press_feedback()
+    Sc.utils.give_button_press_feedback()
     emit_signal("pressed")
 
 

@@ -7,11 +7,11 @@ var recent_gesture_events_for_debugging := []
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "GestureRecord")
+    Sc.logger.on_global_init(self, "GestureRecord")
 
 
 func _input(event: InputEvent) -> void:
-    if (Gs.metadata.debug or Gs.metadata.playtest) and \
+    if (Sc.metadata.debug or Sc.metadata.playtest) and \
             (event is InputEventScreenTouch or event is InputEventScreenDrag):
         _record_new_gesture_event(event)
 
@@ -23,15 +23,15 @@ func _record_new_gesture_event(event: InputEvent) -> void:
     elif event is InputEventScreenDrag:
         gesture_name = "dr"
     else:
-        Gs.logger.error()
+        Sc.logger.error()
         return
     var gesture_event := GestureEventForDebugging.new(
             event.position,
             gesture_name,
-            Gs.time.get_play_time())
+            Sc.time.get_play_time())
     recent_gesture_events_for_debugging.push_front(gesture_event)
     while recent_gesture_events_for_debugging.size() > \
-            Gs.gui.recent_gesture_events_for_debugging_buffer_size:
+            Sc.gui.recent_gesture_events_for_debugging_buffer_size:
         recent_gesture_events_for_debugging.pop_back()
 
 

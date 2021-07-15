@@ -29,14 +29,14 @@ func _init(__ = null).(
 
 func on_value_changed(control_value: float) -> void:
     var result_value := _control_value_to_result_value(control_value)
-    Gs.time.additional_debug_time_scale = result_value
-    Gs.save_state.set_setting(
+    Sc.time.additional_debug_time_scale = result_value
+    Sc.save_state.set_setting(
             SaveState.ADDITIONAL_DEBUG_TIME_SCALE_SETTINGS_KEY,
             result_value)
 
 
 func get_value() -> float:
-    return _result_value_to_control_value(Gs.time.additional_debug_time_scale)
+    return _result_value_to_control_value(Sc.time.additional_debug_time_scale)
 
 
 func get_is_enabled() -> bool:

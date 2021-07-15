@@ -8,8 +8,8 @@ export var size := Vector2.ZERO setget _set_size
 
 
 func _on_gui_scale_changed() -> bool:
-    rect_min_size = size * Gs.gui.scale
-    rect_size = size * Gs.gui.scale
+    rect_min_size = size * Sc.gui.scale
+    rect_size = size * Sc.gui.scale
     return true
 
 

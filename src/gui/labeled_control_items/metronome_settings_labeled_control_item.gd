@@ -15,14 +15,14 @@ func _init(__ = null).(
 
 
 func on_pressed(pressed: bool) -> void:
-    Gs.audio.is_metronome_enabled = pressed
-    Gs.save_state.set_setting(
+    Sc.audio.is_metronome_enabled = pressed
+    Sc.save_state.set_setting(
             SaveState.IS_METRONOME_ENABLED_SETTINGS_KEY,
             pressed)
 
 
 func get_is_pressed() -> bool:
-    return Gs.audio.is_metronome_enabled
+    return Sc.audio.is_metronome_enabled
 
 
 func get_is_enabled() -> bool:

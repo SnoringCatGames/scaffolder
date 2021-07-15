@@ -21,13 +21,13 @@ func _init(
 
 
 func on_pressed(pressed: bool) -> void:
-    Gs.logger.error(
+    Sc.logger.error(
             "Abstract CheckboxLabeledControlItem.on_pressed " +
             "is not implemented")
 
 
 func get_is_pressed() -> bool:
-    Gs.logger.error(
+    Sc.logger.error(
             "Abstract CheckboxLabeledControlItem.get_is_pressed " +
             "is not implemented")
     return false
@@ -40,9 +40,9 @@ func _update_control() -> void:
 
 
 func create_control() -> Control:
-    var checkbox: ScaffolderCheckBox = Gs.utils.add_scene(
+    var checkbox: ScaffolderCheckBox = Sc.utils.add_scene(
             null,
-            Gs.gui.SCAFFOLDER_CHECK_BOX_SCENE,
+            Sc.gui.SCAFFOLDER_CHECK_BOX_SCENE,
             false,
             true)
     checkbox.pressed = pressed
@@ -50,7 +50,7 @@ func create_control() -> Control:
     checkbox.modulate.a = _get_alpha()
     checkbox.size_flags_horizontal = 0
     checkbox.size_flags_vertical = 0
-    checkbox.size_override = Vector2.ONE * Gs.icons.default_checkbox_size
+    checkbox.size_override = Vector2.ONE * Sc.icons.default_checkbox_size
     checkbox.connect(
             "pressed",
             self,

@@ -13,7 +13,7 @@ var _active_sub_tweens := []
 
 func _init() -> void:
     name = "ScaffolderTween"
-    self.id = Gs.time.get_next_task_id()
+    self.id = Sc.time.get_next_task_id()
 
 
 func _process(_delta: float) -> void:
@@ -98,7 +98,7 @@ func trigger_completed() -> void:
     var connection: Dictionary = connections[0]
     
     var args := [sub_tween.object, sub_tween.key]
-    Gs.utils.concat(args, connection.binds)
+    Sc.utils.concat(args, connection.binds)
     
     connection.target.callv(connection.method, args)
 
@@ -209,13 +209,13 @@ class _SubTween extends Reference:
     
     
     func get_is_finished() -> bool:
-        return Gs.time.get_elapsed_time(time_type) >= \
+        return Sc.time.get_elapsed_time(time_type) >= \
                 start_time + duration + delay or \
                 !is_instance_valid(object)
     
     
     func start() -> void:
-        start_time = Gs.time.get_elapsed_time(time_type)
+        start_time = Sc.time.get_elapsed_time(time_type)
     
     
     func end() -> void:
@@ -224,7 +224,7 @@ class _SubTween extends Reference:
     
     
     func step() -> void:
-        var current_time: float = Gs.time.get_elapsed_time(time_type)
+        var current_time: float = Sc.time.get_elapsed_time(time_type)
         var elapsed_time := current_time - start_time
         if elapsed_time < delay:
             return
@@ -232,7 +232,7 @@ class _SubTween extends Reference:
                 (elapsed_time - delay) / duration,
                 0,
                 1)
-        progress = Gs.utils.ease_by_name(progress, ease_name)
+        progress = Sc.utils.ease_by_name(progress, ease_name)
         _update_with_value(lerp(initial_val, final_val, progress))
     
     

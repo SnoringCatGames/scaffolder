@@ -9,9 +9,9 @@ var level_id: String
 
 
 func _ready() -> void:
-    $PlayButton.texture = Gs.icons.go_normal
+    $PlayButton.texture = Sc.icons.go_normal
     $PlayButton.texture_scale = \
-            Vector2(Gs.icons.go_scale, Gs.icons.go_scale) * \
+            Vector2(Sc.icons.go_scale, Sc.icons.go_scale) * \
             go_scale_multiplier
 
 
@@ -21,7 +21,7 @@ func update() -> void:
 
 func _get_items() -> Array:
     var items := []
-    for item_class in Gs.gui.level_select_item_manifest:
+    for item_class in Sc.gui.level_select_item_manifest:
         items.push_back(item_class.new(level_id))
     return items
 
@@ -31,7 +31,7 @@ func get_button() -> ScaffolderButton:
 
 
 func _on_PlayButton_pressed() -> void:
-    Gs.nav.open(
+    Sc.nav.open(
             "loading",
             ScreenTransition.DEFAULT,
             {level_id = level_id})

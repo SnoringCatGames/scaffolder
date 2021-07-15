@@ -28,7 +28,7 @@ func set_up(contents: Screen) -> void:
     var contents_width := \
             contents.width_override if \
             contents.width_override != 0.0 else \
-            Gs.gui.screen_body_width
+            Sc.gui.screen_body_width
     var original_rect_min_size := Vector2(
             contents_width,
             0.0)
@@ -36,22 +36,22 @@ func set_up(contents: Screen) -> void:
     
     center_container.add_child(contents)
     
-    outer_panel.theme = Gs.gui.theme
+    outer_panel.theme = Sc.gui.theme
     var has_background_color_override := \
             contents.background_color_override != Color.black
     var background_color := \
             contents.background_color_override if \
             has_background_color_override else \
-            Gs.colors.background
-    stylebox = Gs.styles.create_stylebox_scalable({
+            Sc.colors.background
+    stylebox = Sc.styles.create_stylebox_scalable({
         bg_color = background_color,
-        shadow_size = Gs.styles.screen_shadow_size,
-        shadow_offset = Gs.styles.screen_shadow_offset,
-        border_width = Gs.styles.screen_border_width,
-        border_color = Gs.colors.screen_border,
+        shadow_size = Sc.styles.screen_shadow_size,
+        shadow_offset = Sc.styles.screen_shadow_offset,
+        border_width = Sc.styles.screen_border_width,
+        border_color = Sc.colors.screen_border,
     })
     outer_panel.add_stylebox_override("panel", stylebox)
-    Gs.gui.add_gui_to_scale(outer_panel)
+    Sc.gui.add_gui_to_scale(outer_panel)
     
     if has_background_color_override:
         var centered_panel_stylebox := StyleBoxFlat.new()
@@ -89,15 +89,15 @@ func _destroy() -> void:
     if is_instance_valid(stylebox):
         stylebox._destroy()
     if is_instance_valid(outer_panel):
-        Gs.gui.remove_gui_to_scale(outer_panel)
+        Sc.gui.remove_gui_to_scale(outer_panel)
     if !is_queued_for_deletion():
         queue_free()
 
 
 func _update() -> void:
     var contents_size: Vector2 = \
-            contents.get_meta("gs_rect_min_size") * Gs.gui.scale
-    contents_size.x = min(contents_size.x, Gs.device.get_viewport_size().x)
+            contents.get_meta("gs_rect_min_size") * Sc.gui.scale
+    contents_size.x = min(contents_size.x, Sc.device.get_viewport_size().x)
     contents.rect_min_size = contents_size
 
 
@@ -140,4 +140,4 @@ func _on_transition_out_ended(
 func set_visible(value: bool) -> void:
     .set_visible(value)
     if value:
-        Gs.utils.notify_on_screen_visible_recursively(self)
+        Sc.utils.notify_on_screen_visible_recursively(self)

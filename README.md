@@ -42,7 +42,7 @@ Some of these are just my personal preference, some are important for the framew
     -   Main Scene
 -   Application > Boot Splash:
     -   Image
-    -   Bg Color: Must match `Gs.screen_background_color`
+    -   Bg Color: Must match `Sc.screen_background_color`
 -   Logging > File Logging:
     -   Enable File Logging: true
 -   Rendering > Quality:
@@ -50,10 +50,10 @@ Some of these are just my personal preference, some are important for the framew
     -   Framebuffer Allocation: 2D Without Sampling
     -   Framebuffer Allocation.mobile: 2D Without Sampling
 -   Rendering > Environment:
-    -   Default Clear Color: Match `Gs.screen_background_color`
+    -   Default Clear Color: Match `Sc.screen_background_color`
     -   Default Environment: I usually move this out from the top-level directory.
 -   Display > Window:
-    -   Size > Width/Height: Must match `Gs.default_game_area_size`.
+    -   Size > Width/Height: Must match `Sc.default_game_area_size`.
     -   Handheld > Orientation: sensor
     -   Stretch > Mode: disabled
     -   Stretch > Aspect: expand
@@ -63,16 +63,16 @@ Some of these are just my personal preference, some are important for the framew
 -   Layer Names:
     -   Name these!
 
-### `Gs` AutoLoad and app setup
+### `Sc` AutoLoad and app setup
 
-All of the Scaffolder functionality is globally accessible through properties on the `Gs` AutoLoad.
+All of the Scaffolder functionality is globally accessible through properties on the `Sc` AutoLoad.
 
--   Define `Gs` as an AutoLoad (in Project Settings).
-    -   It should point to the path `res://addons/scaffolder/src/scaffolder_config.gd`.
+-   Define `Sc` as an AutoLoad (in Project Settings).
+    -   It should point to the path `res://addons/scaffolder/src/sc.gd`.
     -   It should be the first AutoLoad in the list.
 -   Configure the Scaffolder framework by calling `ScaffolderBootstrap.on_app_ready` at the start of your Main Scene.
 
-> **NOTE:** `Gs` stands for "Scaffolder", in case that's helful to know!
+> **NOTE:** `Sc` stands for "Scaffolder", in case that's helful to know!
 
 #### DO NOT INSTANTIATE ANYTHING UNTIL AFTER Scaffolder IS READY
 
@@ -91,9 +91,9 @@ Unfortunately, since these errors so often occur during app initialization, you 
 Here are some guidelines to minimize app crashes before we can report any previous crashes:
 -   Include as few AutoLoads as possible.
 -   Do as little in your "Main Scene" as possible.
--   Do not call `.new()` on anything from any of your AutoLoads or your "Main Scene", until after you know `ScaffolderConfig` is ready. You can use `call_deferred()` for this.
+-   Do not call `.new()` on anything from any of your AutoLoads or your "Main Scene", until after you know `Sc` is ready. You can use `call_deferred()` for this.
 
-#### Overriding `ScaffolderConfig` defaults
+#### Overriding `Sc` defaults
 
 If you want to override or extend any Scaffolder functionality, you should be able to configure a replacement for the corresponding object. But make sure that your replacement `extends` the underlying Scaffolder class!
 
@@ -109,11 +109,11 @@ class MyCustomUtils extends ScaffolderUtils:
     ...
 ```
 
-#### `ScaffolderConfig` properties
+#### `Sc` properties
 
-[scaffolder_config.gd](./src/config/scaffolder_config.gd) contains a list of interesting app-level parameters you can adjust.
+[sc.gd](./src/config/sc.gd) contains a list of interesting app-level parameters you can adjust.
 
-> TODO: Enumerate and describe each `ScaffolderConfig` property.
+> TODO: Enumerate and describe each `Sc` property.
 
 ## Features
 
@@ -200,7 +200,7 @@ This feature currently depends on the proprietary third-party **[Google Cloud St
 
 ### Screen layout and navigation
 
--   You can control transitions through `Gs.nav`.
+-   You can control transitions through `Sc.nav`.
 -   It is easy to include custom screens and exclude default screens.
 -   Here are some of the default screns included:
     -   Main menu

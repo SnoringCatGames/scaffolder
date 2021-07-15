@@ -8,17 +8,17 @@ var graph_load_start_time := INF
 
 func _ready() -> void:
     var loading_image_wrapper := $VBoxContainer/LoadingImageWrapper
-    loading_image_wrapper.visible = Gs.gui.is_loading_image_shown
-    if Gs.gui.is_loading_image_shown:
-        var loading_image: ScaffolderConfiguredImage = Gs.utils.add_scene(
+    loading_image_wrapper.visible = Sc.gui.is_loading_image_shown
+    if Sc.gui.is_loading_image_shown:
+        var loading_image: ScaffolderConfiguredImage = Sc.utils.add_scene(
                 loading_image_wrapper,
-                Gs.gui.loading_image_scene,
+                Sc.gui.loading_image_scene,
                 true,
                 true, \
                 0)
-        loading_image.original_scale = Gs.gui.loading_image_scale
+        loading_image.original_scale = Sc.gui.loading_image_scale
     
-    $VBoxContainer.rect_min_size.x = Gs.gui.screen_body_width
+    $VBoxContainer.rect_min_size.x = Sc.gui.screen_body_width
     
     _on_resized()
 
@@ -37,24 +37,24 @@ func get_is_nav_bar_shown() -> bool:
 
 func _on_transition_in_ended(previous_screen: Screen) -> void:
     ._on_transition_in_ended(previous_screen)
-    if Gs.device.get_is_browser_app():
-        Gs.audio.stop_music()
-    Gs.time.set_timeout(funcref(self, "_load_level"), 0.05)
+    if Sc.device.get_is_browser_app():
+        Sc.audio.stop_music()
+    Sc.time.set_timeout(funcref(self, "_load_level"), 0.05)
 
 
 func _load_level() -> void:
-    Gs.level_session.reset(level_id)
+    Sc.level_session.reset(level_id)
     
-    Gs.save_state.set_last_level_played(level_id)
+    Sc.save_state.set_last_level_played(level_id)
     
-    Gs.utils.add_scene(
+    Sc.utils.add_scene(
             null,
-            Gs.level_config.get_level_config(level_id).scene_path,
+            Sc.level_config.get_level_config(level_id).scene_path,
             false,
             true)
     
-    Gs.nav.screens["game"].add_level(Gs.level)
+    Sc.nav.screens["game"].add_level(Sc.level)
     
-    Gs.level._load()
+    Sc.level._load()
     
-    Gs.nav.open("game", ScreenTransition.FANCY)
+    Sc.nav.open("game", ScreenTransition.FANCY)

@@ -34,7 +34,7 @@ var layers := {}
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "CanvasLayers")
+    Sc.logger.on_global_init(self, "CanvasLayers")
 
 
 func _ready() -> void:
@@ -60,7 +60,7 @@ func create_layer(
     canvas_layer.name = name
     canvas_layer.layer = z_index
     canvas_layer.pause_mode = pause_mode
-    Gs.utils.add_overlay_to_current_scene(canvas_layer)
+    Sc.utils.add_overlay_to_current_scene(canvas_layer)
     layers[name] = canvas_layer
     return canvas_layer
 

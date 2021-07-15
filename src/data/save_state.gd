@@ -35,12 +35,12 @@ var config: ConfigFile
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "SaveState")
+    Sc.logger.on_global_init(self, "SaveState")
     _load_config()
     
-    if Gs._manifest.metadata.has(
+    if Sc._manifest.metadata.has(
                 "is_save_state_cleared_for_debugging") and \
-            Gs._manifest.metadata.is_save_state_cleared_for_debugging:
+            Sc._manifest.metadata.is_save_state_cleared_for_debugging:
         erase_all_state()
 
 
@@ -49,13 +49,13 @@ func _load_config() -> void:
     var status := config.load(CONFIG_FILE_PATH)
     if status != OK and \
             status != ERR_FILE_NOT_FOUND:
-        Gs.logger.error("An error occurred loading game state: %s" % status)
+        Sc.logger.error("An error occurred loading game state: %s" % status)
 
 
 func _save_config() -> void:
     var status := config.save(CONFIG_FILE_PATH)
     if status != OK:
-        Gs.logger.error("An error occurred saving game state: %s" % status)
+        Sc.logger.error("An error occurred saving game state: %s" % status)
 
 
 func set_setting(
@@ -294,7 +294,7 @@ func get_level_is_unlocked(level_id: String) -> bool:
             IS_UNLOCKED_SECTION_KEY,
             level_id,
             false) as bool or \
-            Gs.metadata.are_all_levels_unlocked
+            Sc.metadata.are_all_levels_unlocked
 
 
 func set_new_unlocked_levels(new_unlocked_levels: Array) -> void:

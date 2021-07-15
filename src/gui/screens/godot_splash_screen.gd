@@ -7,4 +7,4 @@ extends SplashScreen
 
 
 func _ready() -> void:
-    background_color_override = Gs.colors.boot_splash_background
+    background_color_override = Sc.colors.boot_splash_background
