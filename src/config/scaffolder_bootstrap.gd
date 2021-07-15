@@ -46,14 +46,12 @@ func _initialize_framework() -> void:
     Gs.logger.print("ScaffolderBootstrap._initialize_framework")
     
     for config in Gs._framework_configs:
-        if config.has_method("initialize"):
-            config.initialize()
+        config.set_up()
     
     Gs.nav.connect("app_quit", self, "_on_app_quit")
     
     for config in Gs._framework_configs:
-        if config.has_method("load_state"):
-            config.load_state()
+        config.load_state()
     
     Gs.styles.configure_theme()
     

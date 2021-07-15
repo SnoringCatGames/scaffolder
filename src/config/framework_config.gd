@@ -11,7 +11,7 @@ func register_app_manifest(manifest: Dictionary) -> void:
     pass
 
 
-func initialize() -> void:
+func set_up() -> void:
     pass
 
 
