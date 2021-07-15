@@ -7,6 +7,10 @@ var group_name: String
 
 
 func _ready() -> void:
+    if Engine.editor_hint and \
+            group_name == "":
+        return
+    
     var group_config: Dictionary = \
             Gs.gui.settings_item_manifest.groups[group_name]
     

@@ -87,15 +87,11 @@ func _destroy() -> void:
     if is_instance_valid(contents):
         contents._destroy()
     if is_instance_valid(stylebox):
-        stylebox.destroy()
+        stylebox._destroy()
     if is_instance_valid(outer_panel):
         Gs.gui.remove_gui_to_scale(outer_panel)
     if !is_queued_for_deletion():
         queue_free()
-
-
-func _exit_tree() -> void:
-    _destroy()
 
 
 func _update() -> void:

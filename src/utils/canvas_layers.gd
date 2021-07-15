@@ -37,7 +37,7 @@ func _init() -> void:
     Gs.logger.on_global_init(self, "CanvasLayers")
 
 
-func _enter_tree() -> void:
+func _ready() -> void:
     if Engine.editor_hint:
         return
     
@@ -45,9 +45,11 @@ func _enter_tree() -> void:
         create_layer(config.name, config.z_index, config.pause_mode)
 
 
-func _exit_tree() -> void:
+func _destroy() -> void:
     for layer_name in layers:
         layers[layer_name].queue_free()
+    if !is_queued_for_deletion():
+        queue_free()
 
 
 func create_layer(

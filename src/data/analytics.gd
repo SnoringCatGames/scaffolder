@@ -44,6 +44,11 @@ func _init() -> void:
     Gs.logger.on_global_init(self, "Analytics")
 
 
+func _ready() -> void:
+    client_id = _get_client_id()
+    Gs.logger.print("Analytics client ID: " + client_id)
+
+
 func _process(_delta: float) -> void:
     if _has_session_started and \
             Gs.time.get_app_time() - _last_ping_time > \
@@ -125,11 +130,6 @@ func _ping(
             true,
             extra_details,
             is_session_end)
-
-
-func _enter_tree() -> void:
-    client_id = _get_client_id()
-    Gs.logger.print("Analytics client ID: " + client_id)
 
 
 func _get_client_id() -> String:

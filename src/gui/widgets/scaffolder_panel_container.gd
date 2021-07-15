@@ -25,7 +25,7 @@ export var content_margin_bottom_override := -1 setget \
 var _stylebox: StyleBox
 
 
-func _ready() -> void:
+func _enter_tree() -> void:
     if !is_instance_valid(_stylebox):
         _set_style(style)
 
@@ -38,7 +38,7 @@ func _clear_style() -> void:
     if is_instance_valid(_stylebox) and \
             _stylebox != Gs.styles.overlay_panel_stylebox and \
             _stylebox != Gs.styles.header_panel_stylebox:
-        _stylebox.destroy()
+        _stylebox._destroy()
 
 
 func _set_style(value: int) -> void:

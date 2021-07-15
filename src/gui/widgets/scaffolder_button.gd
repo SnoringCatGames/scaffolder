@@ -44,6 +44,10 @@ func _init() -> void:
     add_child(color_pulse_tween)
 
 
+func _enter_tree() -> void:
+    _on_gui_scale_changed()
+
+
 func _ready() -> void:
     _is_ready = true
     
@@ -59,8 +63,14 @@ func _ready() -> void:
 
 
 func _exit_tree() -> void:
+    _destroy()
+
+
+func _destroy() -> void:
+    shine_tween.stop_all()
+    color_pulse_tween.stop_all()
     if is_instance_valid(button_style_pulse):
-        button_style_pulse.destroy()
+        button_style_pulse._destroy()
     Gs.time.clear_interval(shine_interval_id)
     Gs.time.clear_interval(color_pulse_interval_id)
 
@@ -71,6 +81,8 @@ func _on_gui_scale_changed() -> bool:
 
 
 func _update() -> void:
+    _destroy()
+    
     rect_min_size.x = \
             (size_override.x if \
             size_override.x != 0.0 else \
@@ -90,8 +102,6 @@ func _update() -> void:
     shine_start_x = shine_base_position.x - rect_size.x
     shine_end_x = shine_base_position.x + rect_size.x
     
-    if is_instance_valid(button_style_pulse):
-        button_style_pulse.destroy()
     button_style_pulse = Gs.styles.create_stylebox_scalable(
             Gs.gui.theme.get_stylebox("normal", "Button"))
     pulse_property = \
@@ -123,11 +133,6 @@ func _update() -> void:
     var font: Font = Gs.gui.get_font(font_size)
     $MarginContainer/Label.add_font_override("font", font)
     
-    shine_tween.stop_all()
-    Gs.time.clear_interval(shine_interval_id)
-    
-    color_pulse_tween.stop_all()
-    Gs.time.clear_interval(color_pulse_interval_id)
     $MarginContainer/BottomButton.add_stylebox_override(
             "normal",
             button_style_normal)

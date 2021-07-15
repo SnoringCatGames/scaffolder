@@ -12,16 +12,26 @@ var hover_stylebox: StyleBoxFlatScalable
 var pressed_stylebox: StyleBoxFlatScalable
 
 
+func _enter_tree() -> void:
+    _init_children()
+
+
 func _exit_tree() -> void:
+    _destroy()
+
+
+func _destroy() -> void:
     if is_instance_valid(normal_stylebox):
-        normal_stylebox.destroy()
+        normal_stylebox._destroy()
     if is_instance_valid(hover_stylebox):
-        hover_stylebox.destroy()
+        hover_stylebox._destroy()
     if is_instance_valid(pressed_stylebox):
-        pressed_stylebox.destroy()
+        pressed_stylebox._destroy()
 
 
-func init_children() -> void:
+func _init_children() -> void:
+    _destroy()
+    
     $HBoxContainer/Caret.texture = Gs.icons.left_caret_normal
     $HBoxContainer/Caret.texture_scale = Vector2(3.0, 3.0)
     $HBoxContainer/Caret/TextureRect.rect_pivot_offset = \

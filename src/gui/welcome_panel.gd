@@ -13,21 +13,19 @@ func _init() -> void:
     modulate.a = 0.0
 
 
-func _enter_tree() -> void:
-    Gs.time.tween_property(
-            self,
-            "modulate:a",
-            0.0,
-            _OPACITY,
-            _FADE_IN_DURATION)
-
-
 func _ready() -> void:
     Gs.gui.record_gui_original_size_recursively(self)
     
     theme = Gs.gui.theme
     
     Gs.gui.add_gui_to_scale(self)
+    
+    Gs.time.tween_property(
+            self,
+            "modulate:a",
+            0.0,
+            _OPACITY,
+            _FADE_IN_DURATION)
     
     var faded_color: Color = Gs.colors.zebra_stripe_even_row
     faded_color.a *= 0.3
@@ -65,6 +63,12 @@ func _ready() -> void:
     _on_gui_scale_changed()
 
 
+func _destroy() -> void:
+    Gs.gui.remove_gui_to_scale(self)
+    if !is_queued_for_deletion():
+        queue_free()
+
+
 func _on_gui_scale_changed() -> bool:
     for child in .get_children():
         if child is Control:
@@ -81,7 +85,3 @@ func _on_gui_scale_changed() -> bool:
     rect_position = (get_viewport().size - rect_size) / 2.0
     
     return true
-
-
-func _exit_tree() -> void:
-    Gs.gui.remove_gui_to_scale(self)

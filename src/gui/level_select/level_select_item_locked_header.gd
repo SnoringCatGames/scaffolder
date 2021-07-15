@@ -19,18 +19,28 @@ var hint_stylebox: StyleBoxFlatScalable
 
 
 func _enter_tree() -> void:
+    _init_children()
+
+
+func _ready() -> void:
     hint_tween = ScaffolderTween.new()
     $HintWrapper/Hint.add_child(hint_tween)
 
 
 func _exit_tree() -> void:
+    _destroy()
+
+
+func _destroy() -> void:
     if is_instance_valid(header_stylebox):
-        header_stylebox.destroy()
+        header_stylebox._destroy()
     if is_instance_valid(hint_stylebox):
-        hint_stylebox.destroy()
+        hint_stylebox._destroy()
 
 
-func init_children() -> void:
+func _init_children() -> void:
+    _destroy()
+    
     $HintWrapper.modulate.a = 0.0
     previous_gui_scale = Gs.gui.scale
     

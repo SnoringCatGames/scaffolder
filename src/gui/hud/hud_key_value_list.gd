@@ -15,7 +15,8 @@ func _ready() -> void:
 
 func _destroy() -> void:
     Gs.gui.remove_gui_to_scale(self)
-    queue_free()
+    if !is_queued_for_deletion():
+        queue_free()
 
 
 func _on_gui_scale_changed() -> bool:

@@ -62,11 +62,13 @@ func _init() -> void:
 
 
 func _destroy() -> void:
+    clear_transitions()
     if is_instance_valid(_overlay_mask_transition):
         _overlay_mask_transition.queue_free()
     if is_instance_valid(_screen_mask_transition):
         _screen_mask_transition.queue_free()
-    queue_free()
+    if !is_queued_for_deletion():
+        queue_free()
 
 
 func register_manifest(screen_manifest: Dictionary) -> void:

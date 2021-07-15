@@ -17,18 +17,21 @@ func _init() -> void:
     name = "DebugPanel"
 
 
-func _enter_tree() -> void:
-    _log_print_queue()
-    $PanelContainer.theme = Gs.gui.theme
-    position.y = max(CORNER_OFFSET.y, Gs.device.get_safe_area_margin_top())
-    position.x = max(CORNER_OFFSET.x, Gs.device.get_safe_area_margin_left())
-    $PanelContainer/ScrollContainer/Label.add_color_override("font_color", FONT_COLOR)
-    $PanelContainer/Time.add_color_override("font_color", FONT_COLOR)
-
-
 func _ready() -> void:
     _is_ready = true
+    
+    _log_print_queue()
+    
+    $PanelContainer.theme = Gs.gui.theme
+    
+    position.y = max(CORNER_OFFSET.y, Gs.device.get_safe_area_margin_top())
+    position.x = max(CORNER_OFFSET.x, Gs.device.get_safe_area_margin_left())
+    
+    $PanelContainer/ScrollContainer/Label.add_color_override("font_color", FONT_COLOR)
+    $PanelContainer/Time.add_color_override("font_color", FONT_COLOR)
+    
     Gs.time.set_timeout(funcref(self, "_delayed_init"), 0.8)
+    
     Gs.device.connect(
             "display_resized",
             self,
@@ -37,6 +40,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+    if Engine.editor_hint:
+        return
+    
     $PanelContainer/Time.text = Gs.utils.get_time_string_from_seconds(
             Gs.time.get_app_time(),
             true,

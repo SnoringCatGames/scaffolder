@@ -38,9 +38,6 @@ func _init_children() -> void:
     accordion = $AccordionPanel
     body = $AccordionPanel/LevelSelectItemBody
     
-    locked_header.init_children()
-    unlocked_header.init_children()
-    
     accordion.extra_scroll_height_for_custom_header = HEADER_HEIGHT
     
     rect_min_size.x = Gs.gui.screen_body_width

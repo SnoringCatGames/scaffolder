@@ -27,4 +27,5 @@ func _ready() -> void:
 
 func _destroy() -> void:
     hud_key_value_list._destroy()
-    queue_free()
+    if !is_queued_for_deletion():
+        queue_free()
