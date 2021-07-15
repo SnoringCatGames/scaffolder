@@ -66,6 +66,7 @@ func _on_resized() -> void:
         _configuration_warning = ""
         if screen_name == "":
             _configuration_warning = "screen_name must be defined."
+        rect_min_size = Sc.gui.default_pc_game_area_size
     _on_gui_scale_changed()
 
 

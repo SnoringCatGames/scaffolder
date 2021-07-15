@@ -1,3 +1,4 @@
+tool
 class_name GameScreen
 extends Screen
 
@@ -12,6 +13,9 @@ func _ready() -> void:
 
 
 func move_canvas_layer_to_game_viewport(name: String) -> void:
+    if Engine.editor_hint:
+        return
+    
     var layer: CanvasLayer = Sc.canvas_layers.layers[name]
     layer.get_parent().remove_child(layer)
     $ViewportContainer/Viewport.add_child(layer)

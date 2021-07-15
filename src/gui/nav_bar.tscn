@@ -1,67 +1,117 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/nav_bar.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_xl.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/about_circle_hover.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/logo.png" type="Texture" id=4]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/left_caret_active.png" type="Texture" id=5]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/gear_circle_hover.png" type="Texture" id=6]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/left_caret_hover.png" type="Texture" id=7]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/left_caret_normal.png" type="Texture" id=8]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/about_circle_normal.png" type="Texture" id=9]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/gear_circle_active.png" type="Texture" id=10]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/gear_circle_normal.png" type="Texture" id=11]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=12]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_button.tscn" type="PackedScene" id=13]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=14]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=15]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/about_circle_active.png" type="Texture" id=16]
 
 [node name="NavBar" type="PanelContainer"]
 size_flags_horizontal = 3
 size_flags_vertical = 0
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"gs_rect_min_size": Vector2( 0, 160 )
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 7.0
-margin_bottom = 7.0
+margin_right = 327.0
+margin_bottom = 167.0
 size_flags_horizontal = 3
 custom_constants/margin_right = 0
 custom_constants/margin_top = 0
 custom_constants/margin_left = 0
 custom_constants/margin_bottom = 0
+__meta__ = {
+"gs_margin_bottom": 0,
+"gs_margin_left": 0,
+"gs_margin_right": 0,
+"gs_margin_top": 0
+}
 
 [node name="TopRow" type="CenterContainer" parent="MarginContainer"]
-visible = false
-margin_bottom = 14.0
+margin_right = 320.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Header" parent="MarginContainer/TopRow" instance=ExtResource( 15 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 0.0
-margin_bottom = 14.0
+margin_left = 160.0
+margin_top = 49.0
+margin_right = 160.0
+margin_bottom = 111.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.945098, 0.180392, 1 )
 font_size = "Xl"
 is_header = true
 
 [node name="Logo" parent="MarginContainer/TopRow" instance=ExtResource( 14 )]
-margin_top = 7.0
-margin_bottom = 7.0
+visible = false
+margin_left = 3.0
+margin_top = 61.0
+margin_right = 317.0
+margin_bottom = 98.0
+rect_min_size = Vector2( 314, 37 )
+texture = ExtResource( 4 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 320.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
+__meta__ = {
+"gs_separation": 0
+}
 
 [node name="ButtonRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_right = 320.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
+__meta__ = {
+"gs_separation": 0
+}
 
 [node name="RightContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ButtonRow"]
+margin_right = 160.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 160, 160 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
+custom_constants/separation = 4
+__meta__ = {
+"gs_rect_min_size": Vector2( 160, 160 ),
+"gs_separation": 4
+}
 
 [node name="BackButton" parent="MarginContainer/VBoxContainer/ButtonRow/RightContainer" instance=ExtResource( 13 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 0.0
-margin_bottom = 0.0
+margin_right = 160.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 160, 160 )
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 5 )
+texture_hover = ExtResource( 7 )
+texture_scale = Vector2( 8, 8 )
 size_override = Vector2( 160, 160 )
 
 [node name="AboutButton" parent="MarginContainer/VBoxContainer/ButtonRow/RightContainer" instance=ExtResource( 13 )]
@@ -70,26 +120,49 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = -1.0
 margin_top = -31.0
-margin_right = -1.0
-margin_bottom = -31.0
+margin_right = 159.0
+margin_bottom = 129.0
+rect_min_size = Vector2( 160, 160 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 16 )
+texture_hover = ExtResource( 3 )
+texture_scale = Vector2( 4, 4 )
 size_override = Vector2( 160, 160 )
 
 [node name="Spacer" parent="MarginContainer/VBoxContainer/ButtonRow" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
+margin_left = 160.0
+margin_top = 80.0
+margin_right = 160.0
+margin_bottom = 80.0
 size_flags_horizontal = 3
 
 [node name="LeftContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ButtonRow"]
+margin_left = 160.0
+margin_right = 320.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 160, 160 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
+custom_constants/separation = 4
+__meta__ = {
+"gs_rect_min_size": Vector2( 160, 160 ),
+"gs_separation": 4
+}
 
 [node name="SettingsButton" parent="MarginContainer/VBoxContainer/ButtonRow/LeftContainer" instance=ExtResource( 13 )]
 visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = -31.0
-margin_right = 0.0
-margin_bottom = -31.0
+margin_right = 160.0
+margin_bottom = 129.0
+rect_min_size = Vector2( 160, 160 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 6 )
+texture_scale = Vector2( 4, 4 )
 size_override = Vector2( 160, 160 )
 
 [node name="BottomRow" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
@@ -102,19 +175,28 @@ size_flags_vertical = 3
 [node name="Header" parent="MarginContainer/VBoxContainer/BottomRow" instance=ExtResource( 15 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 24.0
 margin_right = 0.0
-margin_bottom = 38.0
+margin_bottom = 62.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.945098, 0.180392, 1 )
 font_size = "Xl"
 is_header = true
 
 [node name="Logo" parent="MarginContainer/VBoxContainer/BottomRow" instance=ExtResource( 14 )]
-margin_top = 31.0
-margin_bottom = 31.0
+visible = false
+margin_left = -157.0
+margin_top = 12.0
+margin_right = 157.0
+margin_bottom = 49.0
+rect_min_size = Vector2( 314, 37 )
+texture = ExtResource( 4 )
 
 [node name="Spacer" parent="MarginContainer/VBoxContainer" instance=ExtResource( 12 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 16 )
 size = Vector2( 0, 16 )
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton" to="." method="_on_BackButton_pressed"]
