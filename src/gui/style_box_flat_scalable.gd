@@ -42,7 +42,7 @@ func ready() -> void:
     Gs.gui.add_gui_to_scale(self)
 
 
-func destroy() -> void:
+func _destroy() -> void:
     Gs.gui.remove_gui_to_scale(self)
 
 

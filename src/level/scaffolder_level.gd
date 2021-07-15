@@ -41,21 +41,19 @@ func _create_hud() -> void:
     Gs.canvas_layers.layers.hud.add_child(Gs.gui.hud)
 
 
-func _exit_tree() -> void:
-    if Gs.level_session.is_restarting:
-        Gs.nav.open(
-                "loading",
-                ScreenTransition.DEFAULT,
-                {level_id = Gs.level_session.id})
-
-
 func _destroy() -> void:
     _hide_welcome_panel()
     if is_instance_valid(Gs.gui.hud):
         Gs.gui.hud._destroy()
     Gs.level = null
     Gs.level_session._is_destroyed = true
-    queue_free()
+    if Gs.level_session.is_restarting:
+        Gs.nav.open(
+                "loading",
+                ScreenTransition.DEFAULT,
+                {level_id = Gs.level_session.id})
+    if !is_queued_for_deletion():
+        queue_free()
 
 
 func quit(
@@ -147,7 +145,7 @@ func _show_welcome_panel() -> void:
 
 func _hide_welcome_panel() -> void:
     if is_instance_valid(Gs.gui.welcome_panel):
-        Gs.gui.welcome_panel.queue_free()
+        Gs.gui.welcome_panel._destroy()
         Gs.gui.welcome_panel = null
 
 

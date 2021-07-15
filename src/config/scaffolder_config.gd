@@ -47,7 +47,7 @@ var _manifest: Dictionary
 # - Update READMEs.
 
 
-func _enter_tree() -> void:
+func _ready() -> void:
     self.logger = ScaffolderLog.new()
     add_child(self.logger)
     

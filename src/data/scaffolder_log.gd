@@ -5,7 +5,7 @@ extends Node
 var _print_queue := []
 
 
-func _enter_tree() -> void:
+func _ready() -> void:
     _print_front_matter()
     self.on_global_init(self, "ScaffolderLog")
 

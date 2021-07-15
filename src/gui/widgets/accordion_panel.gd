@@ -56,34 +56,42 @@ var _debounced_update_children: FuncRef = Gs.time.debounce(
 
 
 func _enter_tree() -> void:
-    _is_open_tween = ScaffolderTween.new()
-    _is_open_tween.connect(
-            "tween_completed",
-            self,
-            "_on_is_open_tween_completed")
-    add_child(_is_open_tween)
+    _update_children()
 
 
 func _ready() -> void:
     _is_ready = true
     rect_clip_content = true
     
+    _is_open_tween = ScaffolderTween.new()
+    _is_open_tween.connect(
+            "tween_completed",
+            self,
+            "_on_is_open_tween_completed")
+    add_child(_is_open_tween)
     move_child(_is_open_tween, 0)
     
     _update_children()
 
 
 func _exit_tree() -> void:
+    _destroy()
+
+
+func _destroy() -> void:
+    if is_instance_valid(_header):
+        _header.queue_free()
+        _header = null
     if is_instance_valid(_header_normal_stylebox):
-        _header_normal_stylebox.destroy()
+        _header_normal_stylebox._destroy()
     if is_instance_valid(_header_hover_stylebox):
-        _header_hover_stylebox.destroy()
+        _header_hover_stylebox._destroy()
     if is_instance_valid(_header_pressed_stylebox):
-        _header_pressed_stylebox.destroy()
+        _header_pressed_stylebox._destroy()
 
 
 func _on_gui_scale_changed() -> bool:
-    _debounced_update_children.call_func()
+    _update_children()
     Gs.time.set_timeout(funcref(self, "_trigger_open_change"), 0.2, [false])
     return true
 
@@ -132,10 +140,7 @@ func remove_child(child: Node) -> void:
 
 
 func _create_header() -> void:
-    # TODO: For some reason, when running in-editor, there can be extra
-    #       children created?
-    if is_instance_valid(_header):
-        _header.queue_free()
+    _destroy()
     
     _header = Button.new()
     _header.mouse_filter = Control.MOUSE_FILTER_STOP

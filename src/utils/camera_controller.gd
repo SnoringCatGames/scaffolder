@@ -23,7 +23,7 @@ func _init() -> void:
     Gs.logger.on_global_init(self, "CameraController")
 
 
-func _enter_tree() -> void:
+func _ready() -> void:
     zoom_tween = ScaffolderTween.new()
     add_child(zoom_tween)
 

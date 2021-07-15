@@ -35,7 +35,7 @@ func _init() -> void:
     pause_mode = Node.PAUSE_MODE_PROCESS
 
 
-func _enter_tree() -> void:
+func _ready() -> void:
     _app_time = _TimeTracker.new()
     _app_time.pause_mode = Node.PAUSE_MODE_PROCESS
     add_child(_app_time)
