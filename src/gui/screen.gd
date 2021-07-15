@@ -25,7 +25,7 @@ var _configuration_warning := ""
 
 
 func _ready() -> void:
-    Gs.device.connect(
+    Sc.device.connect(
             "display_resized",
             self,
             "_on_resized")
@@ -44,7 +44,7 @@ func _on_gui_scale_changed() -> bool:
 func _on_transition_in_started(previous_screen: Screen) -> void:
     _give_button_focus(_get_focused_button())
     if get_is_mouse_handled_by_gui():
-        Gs.utils.set_mouse_filter_recursively(
+        Sc.utils.set_mouse_filter_recursively(
                 self,
                 Control.MOUSE_FILTER_PASS)
 
@@ -74,16 +74,16 @@ func _unhandled_key_input(event: InputEventKey) -> void:
             event.scancode == KEY_ENTER) and \
             event.pressed and \
             focused_button != null and \
-            Gs.nav.current_screen == self:
+            Sc.nav.current_screen == self:
         # Press the currently designated main button.
         focused_button.press()
     elif (event.scancode == KEY_ESCAPE) and \
             event.pressed and \
             is_instance_valid(container.nav_bar) and \
             container.nav_bar.shows_back and \
-            Gs.nav.current_screen == self:
+            Sc.nav.current_screen == self:
         # Go back when pressing escape.
-        Gs.nav.close_current_screen()
+        Sc.nav.close_current_screen()
 
 
 func _input(event: InputEvent) -> void:
@@ -92,9 +92,9 @@ func _input(event: InputEvent) -> void:
             event.button_index == BUTTON_XBUTTON1 and \
             is_instance_valid(container.nav_bar) and \
             container.nav_bar.shows_back and \
-            Gs.nav.current_screen == self:
+            Sc.nav.current_screen == self:
         # Go back when pressing the mouse-back button.
-        Gs.nav.close_current_screen()
+        Sc.nav.close_current_screen()
 
 
 func _get_focused_button() -> ScaffolderButton:

@@ -48,23 +48,23 @@ func ready() -> void:
     initial_margin_right = margin_right
     initial_margin_bottom = margin_bottom
     
-    Gs.gui.add_gui_to_scale(self)
+    Sc.gui.add_gui_to_scale(self)
 
 
 func _destroy() -> void:
-    Gs.gui.remove_gui_to_scale(self)
+    Sc.gui.remove_gui_to_scale(self)
 
 
 func _on_gui_scale_changed() -> bool:
-    if latest_gui_scale == Gs.gui.scale:
+    if latest_gui_scale == Sc.gui.scale:
         return true
     
-    latest_gui_scale = Gs.gui.scale
+    latest_gui_scale = Sc.gui.scale
     
     var image_scale := initial_texture_scale * latest_gui_scale
     
     var image: Image = initial_texture.duplicate().get_data()
-    var size: Vector2 = Gs.utils.floor_vector(image.get_size() * image_scale)
+    var size: Vector2 = Sc.utils.floor_vector(image.get_size() * image_scale)
     image.resize(size.x, size.y, Image.INTERPOLATE_NEAREST)
     var resized_texture := ImageTexture.new()
     resized_texture.create_from_image(image)
@@ -92,4 +92,4 @@ func _on_gui_scale_changed() -> bool:
 
 
 func duplicate(subresources := false) -> Resource:
-    return Gs.styles._create_stylebox_texture_scalable_from_stylebox(self)
+    return Sc.styles._create_stylebox_texture_scalable_from_stylebox(self)

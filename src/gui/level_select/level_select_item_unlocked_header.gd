@@ -32,43 +32,43 @@ func _destroy() -> void:
 func _init_children() -> void:
     _destroy()
     
-    $HBoxContainer/Caret.texture = Gs.icons.left_caret_normal
+    $HBoxContainer/Caret.texture = Sc.icons.left_caret_normal
     $HBoxContainer/Caret.texture_scale = Vector2(3.0, 3.0)
     $HBoxContainer/Caret/TextureRect.rect_pivot_offset = \
             AccordionPanel.CARET_SIZE_DEFAULT / 2.0
     $HBoxContainer/Caret/TextureRect.rect_rotation = \
             AccordionPanel.CARET_ROTATION_CLOSED
     
-    normal_stylebox = Gs.styles.create_stylebox_scalable({
-        bg_color = Gs.colors.dropdown_normal,
-        corner_radius = Gs.styles.dropdown_corner_radius,
-        corner_detail = Gs.styles.dropdown_corner_detail,
-        shadow_size = Gs.styles.dropdown_shadow_size,
-        border_width = Gs.styles.dropdown_border_width,
-        border_color = Gs.colors.dropdown_border,
+    normal_stylebox = Sc.styles.create_stylebox_scalable({
+        bg_color = Sc.colors.dropdown_normal,
+        corner_radius = Sc.styles.dropdown_corner_radius,
+        corner_detail = Sc.styles.dropdown_corner_detail,
+        shadow_size = Sc.styles.dropdown_shadow_size,
+        border_width = Sc.styles.dropdown_border_width,
+        border_color = Sc.colors.dropdown_border,
     })
-    hover_stylebox = Gs.styles.create_stylebox_scalable({
-        bg_color = Gs.colors.dropdown_hover,
-        corner_radius = Gs.styles.dropdown_corner_radius,
-        corner_detail = Gs.styles.dropdown_corner_detail,
-        shadow_size = Gs.styles.dropdown_shadow_size,
-        border_width = Gs.styles.dropdown_border_width,
-        border_color = Gs.colors.dropdown_border,
+    hover_stylebox = Sc.styles.create_stylebox_scalable({
+        bg_color = Sc.colors.dropdown_hover,
+        corner_radius = Sc.styles.dropdown_corner_radius,
+        corner_detail = Sc.styles.dropdown_corner_detail,
+        shadow_size = Sc.styles.dropdown_shadow_size,
+        border_width = Sc.styles.dropdown_border_width,
+        border_color = Sc.colors.dropdown_border,
     })
-    pressed_stylebox = Gs.styles.create_stylebox_scalable({
-        bg_color = Gs.colors.dropdown_pressed,
-        corner_radius = Gs.styles.dropdown_corner_radius,
-        corner_detail = Gs.styles.dropdown_corner_detail,
-        shadow_size = Gs.styles.dropdown_shadow_size,
-        border_width = Gs.styles.dropdown_border_width,
-        border_color = Gs.colors.dropdown_border,
+    pressed_stylebox = Sc.styles.create_stylebox_scalable({
+        bg_color = Sc.colors.dropdown_pressed,
+        corner_radius = Sc.styles.dropdown_corner_radius,
+        corner_detail = Sc.styles.dropdown_corner_detail,
+        shadow_size = Sc.styles.dropdown_shadow_size,
+        border_width = Sc.styles.dropdown_border_width,
+        border_color = Sc.colors.dropdown_border,
     })
     
     add_stylebox_override("normal", normal_stylebox)
     add_stylebox_override("hover", hover_stylebox)
     add_stylebox_override("pressed", pressed_stylebox)
     
-    Gs.utils.set_mouse_filter_recursively(
+    Sc.utils.set_mouse_filter_recursively(
             self,
             Control.MOUSE_FILTER_IGNORE)
 
@@ -78,7 +78,7 @@ func update_size(header_size: Vector2) -> void:
     
     $HBoxContainer.add_constant_override(
             "separation",
-            PADDING.x * Gs.gui.scale)
+            PADDING.x * Sc.gui.scale)
     $HBoxContainer.rect_min_size = header_size
     $HBoxContainer.rect_size = header_size
     
@@ -91,11 +91,11 @@ func update_is_unlocked(is_unlocked: bool) -> void:
     visible = is_unlocked
     
     var config: Dictionary = \
-            Gs.level_config.get_level_config(level_id)
+            Sc.level_config.get_level_config(level_id)
     var display_number_offset: int = \
-            -Gs.level_config.test_level_count - 1 if \
+            -Sc.level_config.test_level_count - 1 if \
             config.is_test_level else \
-            -Gs.level_config.test_level_count
+            -Sc.level_config.test_level_count
     var display_number: int = config.number + display_number_offset
     $HBoxContainer/LevelNumber.text = str(display_number) + "."
     $HBoxContainer/LevelName.text = config.name

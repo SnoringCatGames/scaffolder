@@ -8,8 +8,8 @@ export var size_override := Vector2.ZERO setget _set_size_override
 
 
 func _on_gui_scale_changed() -> bool:
-    rect_min_size = size_override * Gs.gui.scale
-    rect_size = size_override * Gs.gui.scale
+    rect_min_size = size_override * Sc.gui.scale
+    rect_size = size_override * Sc.gui.scale
     return true
 
 

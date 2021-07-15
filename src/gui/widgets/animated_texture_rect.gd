@@ -39,14 +39,14 @@ func _update() -> void:
         return
     
     $AnimatedSprite.frames = frames
-    $AnimatedSprite.scale = Vector2.ONE * texture_scale * Gs.gui.scale
+    $AnimatedSprite.scale = Vector2.ONE * texture_scale * Sc.gui.scale
     $AnimatedSprite.speed_scale = speed_scale
     $AnimatedSprite.playing = playing
     $AnimatedSprite.offset = offset
     $AnimatedSprite.flip_h = flip_h
     $AnimatedSprite.flip_v = flip_v
     
-    var size: Vector2 = original_frame_size * texture_scale * Gs.gui.scale
+    var size: Vector2 = original_frame_size * texture_scale * Sc.gui.scale
     rect_min_size = size
     rect_size = size
 

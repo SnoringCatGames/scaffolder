@@ -13,8 +13,8 @@ func _ready() -> void:
 
 func _on_gui_scale_changed() -> bool:
     var size: Vector2 = \
-            Gs.gui.hud_manifest.hud_key_value_box_size * Gs.gui.scale
-    var spacer_size: float = SEPARATION * Gs.gui.scale
+            Sc.gui.hud_manifest.hud_key_value_box_size * Sc.gui.scale
+    var spacer_size: float = SEPARATION * Sc.gui.scale
     rect_min_size = size
     rect_size = size
     $HBoxContainer.rect_min_size = size
@@ -27,7 +27,7 @@ func _on_gui_scale_changed() -> bool:
 
 
 func _process(_delta: float) -> void:
-    if !is_instance_valid(Gs.level):
+    if !is_instance_valid(Sc.level):
         return
     _update_display()
 

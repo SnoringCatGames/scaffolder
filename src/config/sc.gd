@@ -1,5 +1,4 @@
 tool
-class_name ScaffolderConfig
 extends FrameworkConfig
 
 
@@ -10,7 +9,6 @@ var logger: ScaffolderLog
 var utils: Utils
 var device: DeviceUtils
 
-var crash_reporter: CrashReporter
 var metadata: ScaffolderAppMetadata
 var audio_manifest: ScaffolderAudioManifest
 var audio: Audio
@@ -19,22 +17,24 @@ var styles: ScaffolderStyles
 var icons: ScaffolderIcons
 var gui: ScaffolderGuiConfig
 var json: JsonUtils
-var nav: ScaffolderNavigation
 var save_state: SaveState
-var analytics: Analytics
-var gesture_reporter: GestureReporter
 var time: Time
 var profiler: Profiler
 var geometry: ScaffolderGeometry
 var draw: ScaffolderDrawUtils
-var level_input: LevelInput
 var slow_motion: SlowMotionController
 var beats: BeatTracker
-var level_config: ScaffolderLevelConfig
 var canvas_layers: CanvasLayers
 var camera_controller: CameraController
+var level_input: LevelInput
+var level_config: ScaffolderLevelConfig
 var level: ScaffolderLevel
 var level_session: ScaffolderLevelSession
+
+var nav: ScaffolderNavigation
+var analytics: Analytics
+var crash_reporter: CrashReporter
+var gesture_reporter: GestureReporter
 
 # Array<FrameworkConfig>
 var _framework_configs := []
@@ -42,16 +42,11 @@ var _bootstrap: ScaffolderBootstrap
 var _manifest: Dictionary
 
 
-# FIXME: LEFT OFF HERE: ---------------------------------------
-# - Refactor MommaDuckConfig to then trigger ScaffolderBootstrap.
-# - Update READMEs.
-
-
 func _ready() -> void:
     self.logger = ScaffolderLog.new()
     add_child(self.logger)
     
-    self.logger.on_global_init(self, "ScaffolderConfig")
+    self.logger.on_global_init(self, "Sc")
     
     register_framework_config(self)
     
@@ -272,46 +267,46 @@ func set_up() -> void:
 
 func load_state() -> void:
     _clear_old_data_agreement_version()
-    Gs.metadata.agreed_to_terms = Gs.save_state.get_setting(
+    Sc.metadata.agreed_to_terms = Sc.save_state.get_setting(
             SaveState.AGREED_TO_TERMS_SETTINGS_KEY,
             false)
-    Gs.gui.is_giving_haptic_feedback = Gs.save_state.get_setting(
+    Sc.gui.is_giving_haptic_feedback = Sc.save_state.get_setting(
             SaveState.IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY,
-            Gs.device.get_is_android_app())
-    Gs.gui.is_debug_panel_shown = Gs.save_state.get_setting(
+            Sc.device.get_is_android_app())
+    Sc.gui.is_debug_panel_shown = Sc.save_state.get_setting(
             SaveState.IS_DEBUG_PANEL_SHOWN_SETTINGS_KEY,
             false)
-    Gs.gui.is_welcome_panel_shown = Gs.save_state.get_setting(
+    Sc.gui.is_welcome_panel_shown = Sc.save_state.get_setting(
             SaveState.IS_WELCOME_PANEL_SHOWN_SETTINGS_KEY,
             true)
-    Gs.gui.is_debug_time_shown = Gs.save_state.get_setting(
+    Sc.gui.is_debug_time_shown = Sc.save_state.get_setting(
             SaveState.IS_DEBUG_TIME_SHOWN_SETTINGS_KEY,
             false)
-    Gs.audio.is_music_enabled = Gs.save_state.get_setting(
+    Sc.audio.is_music_enabled = Sc.save_state.get_setting(
             SaveState.IS_MUSIC_ENABLED_SETTINGS_KEY,
             true)
-    Gs.audio.is_sound_effects_enabled = Gs.save_state.get_setting(
+    Sc.audio.is_sound_effects_enabled = Sc.save_state.get_setting(
             SaveState.IS_SOUND_EFFECTS_ENABLED_SETTINGS_KEY,
             true)
-    Gs.time.additional_debug_time_scale = Gs.save_state.get_setting(
+    Sc.time.additional_debug_time_scale = Sc.save_state.get_setting(
             SaveState.ADDITIONAL_DEBUG_TIME_SCALE_SETTINGS_KEY,
             1.0)
-    Gs.camera_controller.zoom_factor = Gs.save_state.get_setting(
+    Sc.camera_controller.zoom_factor = Sc.save_state.get_setting(
             SaveState.ZOOM_FACTOR_SETTINGS_KEY,
             1.0)
 
 
 func _clear_old_data_agreement_version() -> void:
-    if Gs.metadata.data_agreement_version != \
-            Gs.save_state.get_data_agreement_version():
-        Gs.save_state.set_data_agreement_version(
-                Gs.metadata.data_agreement_version)
+    if Sc.metadata.data_agreement_version != \
+            Sc.save_state.get_data_agreement_version():
+        Sc.save_state.set_data_agreement_version(
+                Sc.metadata.data_agreement_version)
         set_agreed_to_terms(false)
 
 
 func set_agreed_to_terms(value := true) -> void:
-    Gs.metadata.agreed_to_terms = value
-    Gs.save_state.set_setting(
+    Sc.metadata.agreed_to_terms = value
+    Sc.save_state.set_setting(
             SaveState.AGREED_TO_TERMS_SETTINGS_KEY,
             value)
 
@@ -324,10 +319,10 @@ func _validate_project_config() -> void:
             ProjectSettings.get_setting("application/boot_splash/bg_color"),
             colors.boot_splash_background,
             0.0001))
-    assert(Gs.geometry.are_colors_equal_with_epsilon(
+    assert(Sc.geometry.are_colors_equal_with_epsilon(
             ProjectSettings.get_setting(
                     "rendering/environment/default_clear_color"),
-            Gs.colors.background,
+            Sc.colors.background,
             0.0001))
     
     var window_stretch_mode_disabled := "disabled"
@@ -357,11 +352,11 @@ func _validate_project_config() -> void:
 
 func get_support_url_with_params() -> String:
     var params := "?source=" + OS.get_name()
-    params += "&app=" + Gs.metadata.app_id_query_param
-    return Gs.metadata.support_url + params
+    params += "&app=" + Sc.metadata.app_id_query_param
+    return Sc.metadata.support_url + params
 
 
 func get_log_gestures_url_with_params() -> String:
     var params := "?source=" + OS.get_name()
-    params += "&app=" + Gs.metadata.app_id_query_param
-    return Gs.logger_gestures_url + params
+    params += "&app=" + Sc.metadata.app_id_query_param
+    return Sc.logger_gestures_url + params

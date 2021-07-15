@@ -8,7 +8,7 @@ var _an_active_overlay_has_focus := false
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "LevelInput")
+    Sc.logger.on_global_init(self, "LevelInput")
     
     _control = Control.new()
     add_child(_control)
@@ -18,9 +18,9 @@ func _process(_delta: float) -> void:
     var next_focused_control := _control.get_focus_owner()
     if _focused_control != next_focused_control:
         _focused_control = next_focused_control
-        for overlay in Gs.gui.active_overlays:
+        for overlay in Sc.gui.active_overlays:
             assert(is_instance_valid(overlay) and overlay is Control)
-            if Gs.utils.does_control_have_focus_recursively(overlay):
+            if Sc.utils.does_control_have_focus_recursively(overlay):
                 _an_active_overlay_has_focus = true
                 return
         _an_active_overlay_has_focus = false
@@ -52,5 +52,5 @@ func is_key_pressed(code: int) -> bool:
 
 
 func _get_is_level_ready_for_input() -> bool:
-    return Gs.gui.is_user_interaction_enabled and \
+    return Sc.gui.is_user_interaction_enabled and \
             !_an_active_overlay_has_focus

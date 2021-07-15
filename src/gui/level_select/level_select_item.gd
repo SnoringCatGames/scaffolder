@@ -40,7 +40,7 @@ func _init_children() -> void:
     
     accordion.extra_scroll_height_for_custom_header = HEADER_HEIGHT
     
-    rect_min_size.x = Gs.gui.screen_body_width
+    rect_min_size.x = Sc.gui.screen_body_width
     set_meta("gs_rect_min_size", rect_min_size)
     
     _on_gui_scale_changed()
@@ -49,19 +49,19 @@ func _init_children() -> void:
 func _on_gui_scale_changed() -> bool:
     var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
     
-    rect_min_size = original_rect_min_size * Gs.gui.scale
+    rect_min_size = original_rect_min_size * Sc.gui.scale
     rect_size = rect_min_size
     
     var header_size := Vector2(
             rect_min_size.x,
-            HEADER_HEIGHT * Gs.gui.scale)
+            HEADER_HEIGHT * Sc.gui.scale)
     $HeaderWrapper.rect_min_size = header_size
     $HeaderWrapper.rect_size = header_size
     locked_header.update_size(header_size)
     unlocked_header.update_size(header_size)
     
-    accordion.rect_min_size.x = Gs.gui.screen_body_width
-    body.rect_min_size.x = Gs.gui.screen_body_width
+    accordion.rect_min_size.x = Sc.gui.screen_body_width
+    body.rect_min_size.x = Sc.gui.screen_body_width
     accordion.set_meta("gs_rect_min_size", accordion.rect_min_size)
     body.set_meta("gs_rect_min_size", accordion.rect_min_size)
     
@@ -79,7 +79,7 @@ func update() -> void:
     body.level_id = level_id
     
     is_unlocked = \
-            Gs.save_state.get_level_is_unlocked(level_id) and \
+            Sc.save_state.get_level_is_unlocked(level_id) and \
             !is_new_unlocked_item
     
     locked_header.update_is_unlocked(is_unlocked)
@@ -96,7 +96,7 @@ func focus() -> void:
 
 
 func toggle() -> void:
-    if Gs.nav.get_current_screen_name() == "level_select":
+    if Sc.nav.get_current_screen_name() == "level_select":
         accordion.toggle()
 
 
@@ -139,7 +139,7 @@ func get_button() -> ScaffolderButton:
 
 
 func _on_LevelSelectItemUnlockedHeader_pressed() -> void:
-    Gs.utils.give_button_press_feedback()
+    Sc.utils.give_button_press_feedback()
     emit_signal("pressed")
 
 
@@ -176,4 +176,4 @@ func _on_LevelSelectItemLockedHeader_unlock_finished() -> void:
             FADE_TWEEN_DURATION,
             "ease_in_out")
     fade_tween.start()
-    Gs.time.set_timeout(funcref(Gs.audio, "play_sound"), 0.3, ["achievement"])
+    Sc.time.set_timeout(funcref(Sc.audio, "play_sound"), 0.3, ["achievement"])

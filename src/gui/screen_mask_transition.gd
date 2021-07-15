@@ -40,7 +40,7 @@ func _ready() -> void:
     
     _set_cutoff(0)
     
-    Gs.device.connect(
+    Sc.device.connect(
             "display_resized",
             self,
             "_on_resized")
@@ -51,7 +51,7 @@ func _on_resized() -> void:
     if !is_instance_valid(mask_texture):
         return
     
-    var viewport_size: Vector2 = Gs.device.get_viewport_size()
+    var viewport_size: Vector2 = Sc.device.get_viewport_size()
     var mask_size := mask_texture.get_size()
     
     var viewport_aspect := viewport_size.x / viewport_size.y
@@ -95,8 +95,8 @@ func start(
     sprite.material = material
     sprite.centered = false
     sprite.flip_v = true
-    sprite.scale = Gs.device.get_viewport_size() / sprite.texture.get_size()
-    Gs.canvas_layers.layers.top.add_child(sprite)
+    sprite.scale = Sc.device.get_viewport_size() / sprite.texture.get_size()
+    Sc.canvas_layers.layers.top.add_child(sprite)
     
     # Fading-in isn't currently supported (we would need to get a screenshot of
     # the new screen that has yet to be shown).
@@ -104,9 +104,9 @@ func start(
     var start_cutoff := 0.0
     var end_cutoff := 1.0
     
-    Gs.time.clear_tween(_tween_id)
+    Sc.time.clear_tween(_tween_id)
     
-    _tween_id = Gs.time.tween_method(
+    _tween_id = Sc.time.tween_method(
             self,
             "_set_cutoff",
             start_cutoff,
@@ -127,7 +127,7 @@ func _set_cutoff(value: float) -> void:
 func stop(triggers_completed := false) -> bool:
     if !is_transitioning:
         return false
-    Gs.time.clear_tween(_tween_id)
+    Sc.time.clear_tween(_tween_id)
     is_transitioning = false
     if is_instance_valid(sprite):
         sprite.queue_free()

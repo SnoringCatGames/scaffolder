@@ -8,16 +8,16 @@ var projected_image: ScaffolderConfiguredImage
 
 
 func _ready() -> void:
-    if Gs.gui.is_main_menu_image_shown:
-        projected_image = Gs.utils.add_scene(
+    if Sc.gui.is_main_menu_image_shown:
+        projected_image = Sc.utils.add_scene(
                 $VBoxContainer/MainMenuImageContainer,
-                Gs.gui.main_menu_image_scene,
+                Sc.gui.main_menu_image_scene,
                 true,
                 true)
-        projected_image.original_scale = Gs.gui.main_menu_image_scale
-    $VBoxContainer/StartGameButton.texture = Gs.icons.go_normal
+        projected_image.original_scale = Sc.gui.main_menu_image_scale
+    $VBoxContainer/StartGameButton.texture = Sc.icons.go_normal
     $VBoxContainer/StartGameButton.texture_scale = \
-            Vector2(Gs.icons.go_scale, Gs.icons.go_scale) * \
+            Vector2(Sc.icons.go_scale, Sc.icons.go_scale) * \
             go_scale_multiplier
     
     _on_resized()
@@ -28,4 +28,4 @@ func _get_focused_button() -> ScaffolderButton:
 
 
 func _on_StartGameButton_pressed() -> void:
-    Gs.nav.open("level_select")
+    Sc.nav.open("level_select")

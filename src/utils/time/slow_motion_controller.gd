@@ -29,7 +29,7 @@ var _desaturation_material: ShaderMaterial
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "SlowMotionController")
+    Sc.logger.on_global_init(self, "SlowMotionController")
     
     music = SlowMotionMusic.new()
     add_child(music)
@@ -90,7 +90,7 @@ func set_slow_motion_enabled(value: bool) -> void:
     _tween.interpolate_method(
             self,
             "_set_time_scale",
-            Gs.time.time_scale,
+            Sc.time.time_scale,
             next_time_scale,
             time_scale_duration,
             ease_name,
@@ -98,7 +98,7 @@ func set_slow_motion_enabled(value: bool) -> void:
             TimeType.PLAY_PHYSICS)
     
     # Update desaturation.
-    var desaturatables: Array = Gs.utils.get_all_nodes_in_group(
+    var desaturatables: Array = Sc.utils.get_all_nodes_in_group(
             GROUP_NAME_DESATURATABLES)
     for node in desaturatables:
         node.material = _desaturation_material
@@ -132,12 +132,12 @@ func _set_saturation(saturation: float) -> void:
 
 
 func _get_time_scale() -> float:
-    return Gs.time.time_scale
+    return Sc.time.time_scale
 
 
 func _set_time_scale(value: float) -> void:
     # Update the main time_scale.
-    Gs.time.time_scale = value
+    Sc.time.time_scale = value
     
     # Update PlayerAnimators.
     for animator in _slow_motionable_animators:

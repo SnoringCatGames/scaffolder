@@ -50,7 +50,7 @@ var _is_emulating_mouse_from_touch := false
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "DeviceUtils")
+    Sc.logger.on_global_init(self, "DeviceUtils")
     
     _ios_model_names = IosModelNames.new()
     _ios_resolutions = IosResolutions.new()

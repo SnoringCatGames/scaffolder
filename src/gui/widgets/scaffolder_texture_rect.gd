@@ -24,7 +24,7 @@ func _on_gui_scale_changed() -> bool:
 
 
 func get_custom_size() -> Vector2:
-    return texture.get_size() * texture_scale * Gs.gui.scale if \
+    return texture.get_size() * texture_scale * Sc.gui.scale if \
             is_instance_valid(texture) else \
             Vector2.ZERO
 
@@ -32,7 +32,7 @@ func get_custom_size() -> Vector2:
 func _update_size() -> void:
     if texture != null:
         $TextureRect.rect_pivot_offset = texture.get_size() / 2.0
-    $TextureRect.rect_scale = texture_scale * Gs.gui.scale
+    $TextureRect.rect_scale = texture_scale * Sc.gui.scale
     var size: Vector2 = get_custom_size()
     rect_min_size = size
     rect_size = size

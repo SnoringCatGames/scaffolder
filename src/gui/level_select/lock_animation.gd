@@ -22,12 +22,12 @@ func _ready() -> void:
 func _on_gui_scale_changed() -> bool:
     var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
 
-    rect_min_size = original_rect_min_size * Gs.gui.scale
+    rect_min_size = original_rect_min_size * Sc.gui.scale
     rect_size = rect_min_size
-    $Control.rect_position = -LOCK_SIZE * LOCK_SCALE * 0.5 * Gs.gui.scale
-    $Control/Node2D.position = LOCK_SIZE * LOCK_SCALE * 0.5 * Gs.gui.scale
+    $Control.rect_position = -LOCK_SIZE * LOCK_SCALE * 0.5 * Sc.gui.scale
+    $Control/Node2D.position = LOCK_SIZE * LOCK_SCALE * 0.5 * Sc.gui.scale
     $Control/Node2D/Lock.scale = \
-            Vector2(LOCK_SCALE * Gs.gui.scale, LOCK_SCALE * Gs.gui.scale)
+            Vector2(LOCK_SCALE * Sc.gui.scale, LOCK_SCALE * Sc.gui.scale)
     return true
 
 

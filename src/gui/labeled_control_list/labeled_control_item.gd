@@ -40,18 +40,18 @@ func _init(
 
 
 func get_is_enabled() -> bool:
-    Gs.logger.error(
+    Sc.logger.error(
             "Abstract LabeledControlItem.get_is_enabled is not implemented")
     return false
 
 
 func _update_control() -> void:
-    Gs.logger.error(
+    Sc.logger.error(
             "Abstract LabeledControlItem._update_control is not implemented")
 
 
 func create_control() -> Control:
-    Gs.logger.error(
+    Sc.logger.error(
             "Abstract LabeledControlItem.create_control is not implemented")
     return null
 
@@ -74,12 +74,12 @@ func create_row(
     hbox.add_constant_override("separation", 0)
     row.add_child(hbox)
     
-    var spacer1: Spacer = Gs.utils.add_scene(
-            hbox, Gs.gui.SPACER_SCENE, true, true)
+    var spacer1: Spacer = Sc.utils.add_scene(
+            hbox, Sc.gui.SPACER_SCENE, true, true)
     spacer1.size = Vector2(outer_padding_horizontal, height)
     
-    label_control = Gs.utils.add_scene(
-            null, Gs.gui.SCAFFOLDER_LABEL_SCENE, false, true)
+    label_control = Sc.utils.add_scene(
+            null, Sc.gui.SCAFFOLDER_LABEL_SCENE, false, true)
     label_control.text = label
     label_control.modulate.a = \
             ENABLED_ALPHA if \
@@ -91,14 +91,14 @@ func create_row(
     
     if description != "" and \
             includes_description:
-        description_button = Gs.utils.add_scene(
-                null, Gs.gui.SCAFFOLDER_TEXTURE_BUTTON_SCENE, false, true)
-        description_button.texture_normal = Gs.icons.about_circle_normal
-        description_button.texture_hover = Gs.icons.about_circle_hover
-        description_button.texture_pressed = Gs.icons.about_circle_active
+        description_button = Sc.utils.add_scene(
+                null, Sc.gui.SCAFFOLDER_TEXTURE_BUTTON_SCENE, false, true)
+        description_button.texture_normal = Sc.icons.about_circle_normal
+        description_button.texture_hover = Sc.icons.about_circle_hover
+        description_button.texture_pressed = Sc.icons.about_circle_active
         description_button.texture_scale = Vector2(2.0, 2.0)
         description_button.size_override = \
-                Gs.icons.about_circle_normal.get_size() * \
+                Sc.icons.about_circle_normal.get_size() * \
                 description_button.texture_scale
         description_button.expands_texture = false
         description_button.connect(
@@ -113,8 +113,8 @@ func create_row(
                 Control.SIZE_SHRINK_CENTER
         description_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     
-    var spacer3: Spacer = Gs.utils.add_scene(
-            null, Gs.gui.SPACER_SCENE, false, true)
+    var spacer3: Spacer = Sc.utils.add_scene(
+            null, Sc.gui.SPACER_SCENE, false, true)
     spacer3.size = Vector2(inner_padding_horizontal * 2.0, height)
     
     if self.type != HEADER:
@@ -141,8 +141,8 @@ func create_row(
         if is_instance_valid(description_button):
             hbox.add_child(description_button)
     
-    var spacer2: Spacer = Gs.utils.add_scene(
-            hbox, Gs.gui.SPACER_SCENE, true, true)
+    var spacer2: Spacer = Sc.utils.add_scene(
+            hbox, Sc.gui.SPACER_SCENE, true, true)
     spacer2.size = Vector2(outer_padding_horizontal, height)
     
     # Set mouse-filter to pass, so the user can still scroll with dragging.
@@ -170,7 +170,7 @@ func _on_control_pressed() -> void:
 func _on_description_button_pressed(
         label: String,
         description: String) -> void:
-    Gs.nav.open(
+    Sc.nav.open(
             "notification",
             ScreenTransition.DEFAULT,
             {
@@ -191,7 +191,7 @@ func _get_alpha() -> float:
 func _set_font_size(value: String) -> void:
     font_size = value
     
-    var font: Font = Gs.gui.get_font(
+    var font: Font = Sc.gui.get_font(
             font_size,
             false,
             false,

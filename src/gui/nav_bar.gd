@@ -32,56 +32,56 @@ func _ready() -> void:
     
     $MarginContainer.set(
             "custom_constants/margin_top",
-            Gs.device.get_safe_area_margin_top())
+            Sc.device.get_safe_area_margin_top())
     $MarginContainer.set(
             "custom_constants/margin_left",
-            Gs.device.get_safe_area_margin_left())
+            Sc.device.get_safe_area_margin_left())
     $MarginContainer.set(
             "custom_constants/margin_right",
-            Gs.device.get_safe_area_margin_right())
+            Sc.device.get_safe_area_margin_right())
     
     $MarginContainer/TopRow/Header \
-            .add_color_override("font_color", Gs.colors.header)
+            .add_color_override("font_color", Sc.colors.header)
     $MarginContainer/VBoxContainer/BottomRow/Header \
-            .add_color_override("font_color", Gs.colors.header)
+            .add_color_override("font_color", Sc.colors.header)
     
     $MarginContainer/TopRow/Logo \
-            .texture = Gs.metadata.app_logo
+            .texture = Sc.metadata.app_logo
     $MarginContainer/TopRow/Logo \
             .texture_scale = Vector2(
-                    Gs.metadata.app_logo_scale,
-                    Gs.metadata.app_logo_scale)
+                    Sc.metadata.app_logo_scale,
+                    Sc.metadata.app_logo_scale)
     $MarginContainer/VBoxContainer/BottomRow/Logo \
-            .texture = Gs.metadata.app_logo
+            .texture = Sc.metadata.app_logo
     $MarginContainer/VBoxContainer/BottomRow/Logo \
             .texture_scale = Vector2(
-                    Gs.metadata.app_logo_scale,
-                    Gs.metadata.app_logo_scale)
+                    Sc.metadata.app_logo_scale,
+                    Sc.metadata.app_logo_scale)
     
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
-            .texture_pressed = Gs.icons.left_caret_active
+            .texture_pressed = Sc.icons.left_caret_active
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
-            .texture_hover = Gs.icons.left_caret_hover
+            .texture_hover = Sc.icons.left_caret_hover
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
-            .texture_normal = Gs.icons.left_caret_normal
+            .texture_normal = Sc.icons.left_caret_normal
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
             .texture_scale = Vector2(8.0, 8.0)
     
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
-            .texture_pressed = Gs.icons.about_circle_active
+            .texture_pressed = Sc.icons.about_circle_active
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
-            .texture_hover = Gs.icons.about_circle_hover
+            .texture_hover = Sc.icons.about_circle_hover
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
-            .texture_normal = Gs.icons.about_circle_normal
+            .texture_normal = Sc.icons.about_circle_normal
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
             .texture_scale = Vector2(4.0, 4.0)
     
     $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
-            .texture_pressed = Gs.icons.gear_circle_active
+            .texture_pressed = Sc.icons.gear_circle_active
     $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
-            .texture_hover = Gs.icons.gear_circle_hover
+            .texture_hover = Sc.icons.gear_circle_hover
     $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
-            .texture_normal = Gs.icons.gear_circle_normal
+            .texture_normal = Sc.icons.gear_circle_normal
     $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
             .texture_scale = Vector2(4.0, 4.0)
     
@@ -92,7 +92,7 @@ func _on_gui_scale_changed() -> bool:
     _update_visiblity()
     
     for child in get_children():
-        Gs.gui.scale_gui_recursively(child)
+        Sc.gui.scale_gui_recursively(child)
     
     return true
 
@@ -121,19 +121,19 @@ func _update_visibility_after_setting_text() -> void:
     var min_width_for_single_row: float
     if shows_logo:
         min_width_for_single_row = \
-                (Gs.metadata.app_logo.get_size().x * \
-                        Gs.metadata.app_logo_scale + \
-                HEIGHT * 2) * Gs.gui.scale - \
-                SINGLE_ROW_WITH_LOGO_MIN_WIDTH_WIGGLE_ROOM * Gs.gui.scale
+                (Sc.metadata.app_logo.get_size().x * \
+                        Sc.metadata.app_logo_scale + \
+                HEIGHT * 2) * Sc.gui.scale - \
+                SINGLE_ROW_WITH_LOGO_MIN_WIDTH_WIGGLE_ROOM * Sc.gui.scale
     else:
         min_width_for_single_row = \
                 $MarginContainer/TopRow/Header.rect_size.x + \
-                        HEIGHT * 2 * Gs.gui.scale if \
+                        HEIGHT * 2 * Sc.gui.scale if \
                 shows_back or shows_about or shows_settings else \
                 -INF
         min_width_for_single_row -= \
-                SINGLE_ROW_WITH_TEXT_MIN_WIDTH_WIGGLE_ROOM * Gs.gui.scale
-    is_using_two_rows = Gs.device.get_viewport_size().x < min_width_for_single_row
+                SINGLE_ROW_WITH_TEXT_MIN_WIDTH_WIGGLE_ROOM * Sc.gui.scale
+    is_using_two_rows = Sc.device.get_viewport_size().x < min_width_for_single_row
     
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
             .visible = shows_back
@@ -190,20 +190,20 @@ func _set_shows_logo(value: bool) -> void:
 
 
 func _on_BackButton_pressed() -> void:
-    Gs.nav.close_current_screen()
+    Sc.nav.close_current_screen()
 
 
 func _on_AboutButton_pressed() -> void:
-    Gs.nav.open("about")
+    Sc.nav.open("about")
 
 
 func _on_SettingsButton_pressed() -> void:
-    if Gs.level != null and \
-            Gs.metadata.must_restart_level_to_change_settings:
+    if Sc.level != null and \
+            Sc.metadata.must_restart_level_to_change_settings:
         var description := (
                 "The level must be restarted in order to change settings." +
                 "\n\nAre you sure you want to restart the level?")
-        Gs.nav.open(
+        Sc.nav.open(
                 "notification",
                 ScreenTransition.DEFAULT,
                 {
@@ -215,4 +215,4 @@ func _on_SettingsButton_pressed() -> void:
                     next_screen = "settings",
                 })
     else:
-        Gs.nav.open("settings")
+        Sc.nav.open("settings")

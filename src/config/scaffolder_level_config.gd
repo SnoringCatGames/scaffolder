@@ -33,7 +33,7 @@ var _level_numbers := []
 func _init(
         are_levels_scene_based: bool,
         level_manifest: Dictionary) -> void:
-    Gs.logger.on_global_init(self, "ScaffolderLevelConfig")
+    Sc.logger.on_global_init(self, "ScaffolderLevelConfig")
     self.are_levels_scene_based = are_levels_scene_based
     self._level_configs_by_id = level_manifest
 
@@ -47,7 +47,7 @@ func _ready() -> void:
     for level_id in get_level_ids():
         if get_level_config(level_id).unlock_conditions == "unlocked":
             is_a_level_unlocked_at_the_start = true
-            Gs.save_state.set_level_is_unlocked(level_id, true)
+            Sc.save_state.set_level_is_unlocked(level_id, true)
     assert(is_a_level_unlocked_at_the_start)
 
 
@@ -59,7 +59,7 @@ func _sanitize_level_configs() -> void:
         var config := get_level_config(level_id)
         _sanitize_level_config(config)
         if config.is_test_level:
-            if !Gs.metadata.are_test_levels_included:
+            if !Sc.metadata.are_test_levels_included:
                 continue
             test_level_count += 1
         config.id = level_id
@@ -117,15 +117,15 @@ func get_level_version_string(level_id: String) -> String:
 
 
 func _clear_old_version_level_state() -> void:
-    if Gs.metadata.score_version != Gs.save_state.get_score_version():
-        Gs.save_state.set_score_version(Gs.metadata.score_version)
-        Gs.save_state.erase_all_scores()
+    if Sc.metadata.score_version != Sc.save_state.get_score_version():
+        Sc.save_state.set_score_version(Sc.metadata.score_version)
+        Sc.save_state.erase_all_scores()
     
     for level_id in get_level_ids():
         var config := get_level_config(level_id)
-        if config.version != Gs.save_state.get_level_version(level_id):
-            Gs.save_state.erase_level_state(level_id)
-            Gs.save_state.set_level_version(level_id, config.version)
+        if config.version != Sc.save_state.get_level_version(level_id):
+            Sc.save_state.erase_level_state(level_id)
+            Sc.save_state.set_level_version(level_id, config.version)
 
 
 func _get_number_from_version(version: String) -> int:
@@ -144,7 +144,7 @@ func get_previous_level_id(level_id: String) -> String:
             else:
                 return _level_configs_by_number[_level_numbers[i - 1]].id
     
-    Gs.logger.error("The given level_id is invalid: %s" % level_id)
+    Sc.logger.error("The given level_id is invalid: %s" % level_id)
     
     return ""
 
@@ -159,7 +159,7 @@ func get_next_level_id(level_id: String) -> String:
             else:
                 return _level_configs_by_number[_level_numbers[i + 1]].id
     
-    Gs.logger.error("The given level_id is invalid: %s" % level_id)
+    Sc.logger.error("The given level_id is invalid: %s" % level_id)
     
     return ""
 
@@ -167,7 +167,7 @@ func get_next_level_id(level_id: String) -> String:
 func get_old_unlocked_levels() -> Array:
     var old_unlocked_levels := []
     for level_id in get_level_ids():
-        if Gs.save_state.get_level_is_unlocked(level_id):
+        if Sc.save_state.get_level_is_unlocked(level_id):
             old_unlocked_levels.push_back(level_id)
     return old_unlocked_levels
 
@@ -175,7 +175,7 @@ func get_old_unlocked_levels() -> Array:
 func get_new_unlocked_levels() -> Array:
     var new_unlocked_levels := []
     for level_id in get_level_ids():
-        if !Gs.save_state.get_level_is_unlocked(level_id) and \
+        if !Sc.save_state.get_level_is_unlocked(level_id) and \
                 _check_if_level_meets_unlock_conditions(level_id):
             new_unlocked_levels.push_back(level_id)
     return new_unlocked_levels
@@ -188,7 +188,7 @@ func _check_if_level_meets_unlock_conditions(level_id: String) -> bool:
 func get_next_level_to_unlock() -> String:
     var locked_level_numbers := []
     for level_id in get_level_ids():
-        if !Gs.save_state.get_level_is_unlocked(level_id):
+        if !Sc.save_state.get_level_is_unlocked(level_id):
             var config := get_level_config(level_id)
             locked_level_numbers.push_back(config.number)
     locked_level_numbers.sort()
@@ -201,48 +201,48 @@ func get_next_level_to_unlock() -> String:
 
 
 func get_unlock_hint(level_id: String) -> String:
-    if Gs.save_state.get_level_is_unlocked(level_id):
+    if Sc.save_state.get_level_is_unlocked(level_id):
         return ""
     
     var unlock_conditions = get_level_config(level_id).unlock_conditions
     if unlock_conditions == "finish_previous_level":
         var previous_level_id := get_previous_level_id(level_id)
         if previous_level_id == "":
-            Gs.logger.error("No previous level")
+            Sc.logger.error("No previous level")
             return ""
         
-        if Gs.save_state.get_level_has_finished(previous_level_id):
+        if Sc.save_state.get_level_has_finished(previous_level_id):
             return ""
         
         return "Finish %s" % get_level_config(previous_level_id).name
     elif unlock_conditions is Object:
-        Gs.logger.error("App must override get_unlock_hint if defining custom " +
+        Sc.logger.error("App must override get_unlock_hint if defining custom " +
                     "unlock_conditions")
         return ""
     else:
-        Gs.logger.error("Invalid value for unlock_conditions: %s" % \
+        Sc.logger.error("Invalid value for unlock_conditions: %s" % \
                 unlock_conditions)
         return ""
 
 
 func calculate_suggested_next_level() -> String:
-    var last_level_played_id: String = Gs.save_state.get_last_level_played()
+    var last_level_played_id: String = Sc.save_state.get_last_level_played()
     if last_level_played_id == "" or \
             !_level_configs_by_id.has(last_level_played_id):
         # If we haven't ever played any level, then suggest the first level.
         return get_first_always_unlocked_level()
         
-    elif Gs.level_session.has_finished:
+    elif Sc.level_session.has_finished:
         # If we have already finished a level during this play session, then
         # suggest the next level.
-        var next_level_id := get_next_level_id(Gs.level_session.id)
+        var next_level_id := get_next_level_id(Sc.level_session.id)
         if next_level_id != "" and \
-                Gs.save_state.get_level_is_unlocked(next_level_id):
+                Sc.save_state.get_level_is_unlocked(next_level_id):
             # The next level is available, so suggest it.
             return next_level_id
         else:
             # The next level isn't available, so suggest the same level.
-            return Gs.level_session.id
+            return Sc.level_session.id
         
     else:
         # If we haven't yet finished a level during this play session, then
@@ -251,7 +251,7 @@ func calculate_suggested_next_level() -> String:
 
 
 func get_recorded_suggested_next_level() -> String:
-    var recorded_suggested_next_level: String = Gs.save_state.get_setting(
+    var recorded_suggested_next_level: String = Sc.save_state.get_setting(
             SaveState.SUGGESTED_NEXT_LEVEL_SETTINGS_KEY,
             "")
     if recorded_suggested_next_level != "":
@@ -266,6 +266,6 @@ func get_first_always_unlocked_level() -> String:
                 _level_configs_by_number[level_number]
         if level_config.unlock_conditions == "unlocked":
             return level_config.id
-    Gs.logger.error("No level is unlocked at the start??")
+    Sc.logger.error("No level is unlocked at the start??")
     return get_level_ids().front()
     

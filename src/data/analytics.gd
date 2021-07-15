@@ -41,19 +41,19 @@ var _retry_queue := []
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "Analytics")
+    Sc.logger.on_global_init(self, "Analytics")
 
 
 func _ready() -> void:
     client_id = _get_client_id()
-    Gs.logger.print("Analytics client ID: " + client_id)
+    Sc.logger.print("Analytics client ID: " + client_id)
 
 
 func _process(_delta: float) -> void:
     if _has_session_started and \
-            Gs.time.get_app_time() - _last_ping_time > \
+            Sc.time.get_app_time() - _last_ping_time > \
                     PING_INTERVAL:
-        _last_ping_time = Gs.time.get_app_time()
+        _last_ping_time = Sc.time.get_app_time()
         _ping()
 
 
@@ -114,8 +114,8 @@ func _log_device_info() -> void:
     event(
             "device",
             OS.get_name(),
-            Gs.device.get_model_name(),
-            int(Gs.device.get_viewport_diagonal_inches() * 1000),
+            Sc.device.get_model_name(),
+            int(Sc.device.get_viewport_diagonal_inches() * 1000),
             true)
 
 
@@ -126,17 +126,17 @@ func _ping(
             "ping",
             "ping",
             "ping",
-            Gs.time.get_app_time(),
+            Sc.time.get_app_time(),
             true,
             extra_details,
             is_session_end)
 
 
 func _get_client_id() -> String:
-    var id = Gs.save_state.get_setting(CLIENT_ID_SAVE_KEY)
+    var id = Sc.save_state.get_setting(CLIENT_ID_SAVE_KEY)
     if id == null:
         id = str(UUID.new())
-        Gs.save_state.set_setting(
+        Sc.save_state.set_setting(
                 CLIENT_ID_SAVE_KEY,
                 id)
     return id
@@ -145,7 +145,7 @@ func _get_client_id() -> String:
 func _get_payload(
         hit_type: String,
         details: String) -> String:
-    var viewport_size: Vector2 = Gs.device.get_viewport_size()
+    var viewport_size: Vector2 = Sc.device.get_viewport_size()
     var viewport_size_str := str(viewport_size.x) + "x" + str(viewport_size.y)
     # See the Google Analytics Measurement Protocol Parameter Reference here:
     # https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
@@ -177,15 +177,15 @@ func _get_payload(
         # Cache buster
         "&z=%s"
     ) % [
-        Gs.metadata.google_analytics_id,
+        Sc.metadata.google_analytics_id,
         client_id,
         hit_type,
         details,
         viewport_size_str,
         OS.get_locale(),
-        Gs.metadata.app_name.http_escape(),
-        Gs.metadata.app_id.http_escape(),
-        Gs.metadata.app_version.http_escape(),
+        Sc.metadata.app_name.http_escape(),
+        Sc.metadata.app_id.http_escape(),
+        Sc.metadata.app_version.http_escape(),
         str(randi()),
     ]
 
@@ -194,12 +194,12 @@ func _trigger_collect(
         payload: String,
         details: String,
         is_session_end := false) -> void:
-    Gs.logger.print("Analytics._trigger_collect: " + details)
+    Sc.logger.print("Analytics._trigger_collect: " + details)
     if VERBOSE:
-        Gs.logger.print("  Payload (readable):\n    " + \
+        Sc.logger.print("  Payload (readable):\n    " + \
                 payload.replace("&", "\n    &"))
     
-    if Gs.metadata.debug:
+    if Sc.metadata.debug:
         # Skipping Analytics collection in debug environment
         if is_session_end:
             emit_signal("session_ended")
@@ -209,8 +209,8 @@ func _trigger_collect(
     var body := payload
     var entry := _AnalyticsEntry.new(payload)
     
-    if !Gs.metadata.agreed_to_terms or \
-            !Gs.metadata.is_data_tracked:
+    if !Sc.metadata.agreed_to_terms or \
+            !Sc.metadata.is_data_tracked:
         # User hasn't agreed to data collection. Try again later.
         _retry_queue.push_back(entry)
         return
@@ -232,7 +232,7 @@ func _trigger_collect(
             body)
     
     if status != OK:
-        Gs.logger.error(
+        Sc.logger.error(
                 "Analytics._trigger_collect failed: status=%d, url=%s" % \
                         [status, url],
                 false)
@@ -248,11 +248,11 @@ func _on_collect_request_completed(
         url: String,
         is_session_end: bool) -> void:
     if VERBOSE:
-        Gs.logger.print(
+        Sc.logger.print(
                 "Analytics._on_collect_request_completed: result=%d, code=%d" % \
                 [result, response_code])
-        Gs.logger.print("  Body:\n    " + body.get_string_from_utf8())
-        Gs.logger.print("  Headers:\n    " + Gs.utils.join(headers, ",\n    "))
+        Sc.logger.print("  Body:\n    " + body.get_string_from_utf8())
+        Sc.logger.print("  Headers:\n    " + Sc.utils.join(headers, ",\n    "))
     
     request.queue_free()
     
@@ -272,12 +272,12 @@ func _on_collect_request_completed(
             result == HTTPRequest.RESULT_TIMEOUT or \
             (response_code >= 500 and response_code < 600):
         # Probably a temporary failure! Try again later.
-        if Gs.metadata.debug:
-            Gs.logger.print("Analytics._on_collect_request_completed: " +
+        if Sc.metadata.debug:
+            Sc.logger.print("Analytics._on_collect_request_completed: " +
                     "Queuing entry for re-attempt")
         _retry_queue.push_back(entry)
     else:
-        Gs.logger.error(
+        Sc.logger.error(
                 "Analytics._on_collect_request_completed failed: " +
                 "result=%d, code=%d, url=%s, body=%s" % [
                     result, 
@@ -311,15 +311,15 @@ func _trigger_batch(batch: Array) -> void:
     var payload := ""
     for entry in batch:
         var queue_time_ms := \
-                int((Gs.time.get_app_time() - entry.time) * 1000)
+                int((Sc.time.get_app_time() - entry.time) * 1000)
         var entry_payload: String = \
                 "qt=%d&%s\n" % [queue_time_ms, entry.payload]
         payload += entry_payload
     
     if VERBOSE:
-        Gs.logger.print("Analytics._trigger_batch")
-        Gs.logger.print("  Payload:\n    " + payload)
-        Gs.logger.print("  Payload (readable):\n    " + \
+        Sc.logger.print("Analytics._trigger_batch")
+        Sc.logger.print("  Payload:\n    " + payload)
+        Sc.logger.print("  Payload (readable):\n    " + \
                 payload.replace("&", "\n    &"))
     
     var url := GOOGLE_ANALYTICS_BATCH_URL
@@ -342,7 +342,7 @@ func _trigger_batch(batch: Array) -> void:
             body)
     
     if status != OK:
-        Gs.logger.error(
+        Sc.logger.error(
                 "Analytics._trigger_batch failed: status=%d, url=%s" % \
                         [status, url],
                 false)
@@ -357,11 +357,11 @@ func _on_batch_request_completed(
         request: HTTPRequest,
         url: String) -> void:
     if VERBOSE:
-        Gs.logger.print(
+        Sc.logger.print(
                 "Analytics._on_batch_request_completed: result=%d, code=%d" % \
                 [result, response_code])
-        Gs.logger.print("  Body:\n    " + body.get_string_from_utf8())
-        Gs.logger.print("  Headers:\n    " + Gs.utils.join(headers, ",\n    "))
+        Sc.logger.print("  Body:\n    " + body.get_string_from_utf8())
+        Sc.logger.print("  Headers:\n    " + Sc.utils.join(headers, ",\n    "))
     
     request.queue_free()
     
@@ -379,13 +379,13 @@ func _on_batch_request_completed(
             result == HTTPRequest.RESULT_TIMEOUT or \
             (response_code >= 500 and response_code < 600):
         # Probably a temporary failure! Try again later.
-        if Gs.metadata.debug:
-            Gs.logger.print("Analytics._on_batch_request_completed: " +
+        if Sc.metadata.debug:
+            Sc.logger.print("Analytics._on_batch_request_completed: " +
                     "Queuing batch for re-attempt")
         for entry in batch:
             _retry_queue.push_back(entry)
     else:
-        Gs.logger.error(
+        Sc.logger.error(
                 ("Analytics._on_batch_request_completed failed: " +
                 "result=%d, code=%d, url=%s, body=%s") % [
                     result, 
@@ -405,4 +405,4 @@ class _AnalyticsEntry extends Reference:
     
     func _init(payload: String) -> void:
         self.payload = payload
-        self.time = Gs.time.get_app_time()
+        self.time = Sc.time.get_app_time()

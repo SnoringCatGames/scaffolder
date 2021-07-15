@@ -31,29 +31,29 @@ func _update() -> void:
     rect_min_size.x = \
             (size_override.x if \
             size_override.x != 0.0 else \
-            Gs.gui.button_width) * Gs.gui.scale
+            Sc.gui.button_width) * Sc.gui.scale
     rect_min_size.y = \
             (size_override.y if \
             size_override.y != 0.0 else \
-            Gs.gui.button_height) * Gs.gui.scale
+            Sc.gui.button_height) * Sc.gui.scale
     rect_size = rect_min_size
     
     var hseparation: float = \
             hseparation_override if \
             hseparation_override != -1.0 else \
-            Gs.styles.button_content_margin_left
-    add_constant_override("hseparation", hseparation * Gs.gui.scale)
+            Sc.styles.button_content_margin_left
+    add_constant_override("hseparation", hseparation * Sc.gui.scale)
     
     var arrow_margin: float = \
             arrow_margin_override if \
             arrow_margin_override != -1.0 else \
-            Gs.styles.button_content_margin_right
-    add_constant_override("arrow_margin", arrow_margin * Gs.gui.scale)
+            Sc.styles.button_content_margin_right
+    add_constant_override("arrow_margin", arrow_margin * Sc.gui.scale)
     
     if font_override != null:
         add_font_override("font", font_override)
     else:
-        var font: Font = Gs.gui.get_font(
+        var font: Font = Sc.gui.get_font(
                 font_size,
                 false,
                 false,

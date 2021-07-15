@@ -39,44 +39,44 @@ func ready() -> void:
     initial_corner_radius = corner_radius_top_left
     initial_shadow_offset = shadow_offset
     initial_shadow_size = shadow_size
-    Gs.gui.add_gui_to_scale(self)
+    Sc.gui.add_gui_to_scale(self)
 
 
 func _destroy() -> void:
-    Gs.gui.remove_gui_to_scale(self)
+    Sc.gui.remove_gui_to_scale(self)
 
 
 func _on_gui_scale_changed() -> bool:
-    var current_border_width := round(initial_border_width * Gs.gui.scale)
+    var current_border_width := round(initial_border_width * Sc.gui.scale)
     border_width_left = current_border_width
     border_width_top = current_border_width
     border_width_right = current_border_width
     border_width_bottom = current_border_width
     
-    content_margin_left = initial_content_margin_left * Gs.gui.scale
-    content_margin_top = initial_content_margin_top * Gs.gui.scale
-    content_margin_right = initial_content_margin_right * Gs.gui.scale
-    content_margin_bottom = initial_content_margin_bottom * Gs.gui.scale
+    content_margin_left = initial_content_margin_left * Sc.gui.scale
+    content_margin_top = initial_content_margin_top * Sc.gui.scale
+    content_margin_right = initial_content_margin_right * Sc.gui.scale
+    content_margin_bottom = initial_content_margin_bottom * Sc.gui.scale
     
-    expand_margin_left = initial_expand_margin_left * Gs.gui.scale
-    expand_margin_top = initial_expand_margin_top * Gs.gui.scale
-    expand_margin_right = initial_expand_margin_right * Gs.gui.scale
-    expand_margin_bottom = initial_expand_margin_bottom * Gs.gui.scale
+    expand_margin_left = initial_expand_margin_left * Sc.gui.scale
+    expand_margin_top = initial_expand_margin_top * Sc.gui.scale
+    expand_margin_right = initial_expand_margin_right * Sc.gui.scale
+    expand_margin_bottom = initial_expand_margin_bottom * Sc.gui.scale
     
-    corner_detail = round(initial_corner_detail * Gs.gui.scale)
+    corner_detail = round(initial_corner_detail * Sc.gui.scale)
     
-    var current_corner_radius := round(initial_corner_radius * Gs.gui.scale)
+    var current_corner_radius := round(initial_corner_radius * Sc.gui.scale)
     corner_radius_top_left = current_corner_radius
     corner_radius_top_right = current_corner_radius
     corner_radius_bottom_left = current_corner_radius
     corner_radius_bottom_right = current_corner_radius
     
-    shadow_offset = initial_shadow_offset * Gs.gui.scale
+    shadow_offset = initial_shadow_offset * Sc.gui.scale
     
-    shadow_size = round(initial_shadow_size * Gs.gui.scale)
+    shadow_size = round(initial_shadow_size * Sc.gui.scale)
     
     return true
 
 
 func duplicate(subresources := false) -> Resource:
-    return Gs.styles._create_stylebox_flat_scalable_from_stylebox(self)
+    return Sc.styles._create_stylebox_flat_scalable_from_stylebox(self)

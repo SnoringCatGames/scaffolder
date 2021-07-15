@@ -40,7 +40,7 @@ func _ready() -> void:
     
     _set_cutoff(0)
     
-    Gs.device.connect(
+    Sc.device.connect(
             "display_resized",
             self,
             "_on_resized")
@@ -51,7 +51,7 @@ func _on_resized() -> void:
     if !is_instance_valid(fade_in_texture):
         return
     
-    var viewport_size: Vector2 = Gs.device.get_viewport_size()
+    var viewport_size: Vector2 = Sc.device.get_viewport_size()
     var mask_size: Vector2 = fade_in_texture.get_size()
     
     var viewport_aspect := viewport_size.x / viewport_size.y
@@ -84,17 +84,17 @@ func start(
     self.next_screen_container = next_screen_container
     is_transitioning = true
     color_rect = ColorRect.new()
-    color_rect.rect_size = Gs.device.get_viewport_size()
+    color_rect.rect_size = Sc.device.get_viewport_size()
     color_rect.color = color
     color_rect.material = material
-    Gs.canvas_layers.layers.top.add_child(color_rect)
+    Sc.canvas_layers.layers.top.add_child(color_rect)
     _fade_out()
 
 
 func _fade_out() -> void:
-    Gs.time.clear_tween(_tween_id)
+    Sc.time.clear_tween(_tween_id)
     _set_mask(fade_out_texture)
-    _tween_id = Gs.time.tween_method(
+    _tween_id = Sc.time.tween_method(
             self,
             "_set_cutoff",
             1.0,
@@ -109,9 +109,9 @@ func _fade_out() -> void:
 func _fade_in(
         _object: Object,
         _key: NodePath) -> void:
-    Gs.time.clear_tween(_tween_id)
+    Sc.time.clear_tween(_tween_id)
     _set_mask(fade_in_texture)
-    _tween_id = Gs.time.tween_method(
+    _tween_id = Sc.time.tween_method(
             self,
             "_set_cutoff",
             0.0,
@@ -135,7 +135,7 @@ func _set_cutoff(value: float) -> void:
 func stop(triggers_completed := false) -> bool:
     if !is_transitioning:
         return false
-    Gs.time.clear_tween(_tween_id)
+    Sc.time.clear_tween(_tween_id)
     is_transitioning = false
     if is_instance_valid(color_rect):
         color_rect.queue_free()

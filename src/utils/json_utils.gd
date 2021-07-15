@@ -6,7 +6,7 @@ var REGEX_TO_MATCH_TRAILING_ZEROS_AFTER_DECIMAL := RegEx.new()
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "JsonUtils")
+    Sc.logger.on_global_init(self, "JsonUtils")
     REGEX_TO_MATCH_TRAILING_ZEROS_AFTER_DECIMAL.compile("\\.0*$")
 
 
@@ -65,7 +65,7 @@ func to_json_object(value):
                 value[key] = to_json_object(value[key])
             return value
         _:
-            Gs.logger.error("Unsupported data type for JSON: " + value)
+            Sc.logger.error("Unsupported data type for JSON: " + value)
 
 
 # JSON decoding with custom syntax for vector values.

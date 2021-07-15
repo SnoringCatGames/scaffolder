@@ -22,17 +22,17 @@ func _ready() -> void:
     
     _log_print_queue()
     
-    $PanelContainer.theme = Gs.gui.theme
+    $PanelContainer.theme = Sc.gui.theme
     
-    position.y = max(CORNER_OFFSET.y, Gs.device.get_safe_area_margin_top())
-    position.x = max(CORNER_OFFSET.x, Gs.device.get_safe_area_margin_left())
+    position.y = max(CORNER_OFFSET.y, Sc.device.get_safe_area_margin_top())
+    position.x = max(CORNER_OFFSET.x, Sc.device.get_safe_area_margin_left())
     
     $PanelContainer/ScrollContainer/Label.add_color_override("font_color", FONT_COLOR)
     $PanelContainer/Time.add_color_override("font_color", FONT_COLOR)
     
-    Gs.time.set_timeout(funcref(self, "_delayed_init"), 0.8)
+    Sc.time.set_timeout(funcref(self, "_delayed_init"), 0.8)
     
-    Gs.device.connect(
+    Sc.device.connect(
             "display_resized",
             self,
             "_on_resized")
@@ -43,22 +43,22 @@ func _process(_delta: float) -> void:
     if Engine.editor_hint:
         return
     
-    $PanelContainer/Time.text = Gs.utils.get_time_string_from_seconds(
-            Gs.time.get_app_time(),
+    $PanelContainer/Time.text = Sc.utils.get_time_string_from_seconds(
+            Sc.time.get_app_time(),
             true,
             false,
             false) + " "
 
 
 func _on_resized() -> void:
-    var viewport_size: Vector2 = Gs.device.get_viewport_size()
+    var viewport_size: Vector2 = Sc.device.get_viewport_size()
     $PanelContainer/ScrollContainer.rect_min_size = viewport_size
     $PanelContainer/ScrollContainer/Label.rect_min_size.x = viewport_size.x
 
 
 func _delayed_init() -> void:
     $PanelContainer/ScrollContainer/Label.text = text
-    Gs.time.set_timeout(funcref(self, "_scroll_to_bottom"), 0.2)
+    Sc.time.set_timeout(funcref(self, "_scroll_to_bottom"), 0.2)
 
 
 func add_message(message: String) -> void:
@@ -67,7 +67,7 @@ func add_message(message: String) -> void:
     _remove_surplus_message()
     if _is_ready:
         $PanelContainer/ScrollContainer/Label.text = text
-        Gs.time.set_timeout(funcref(self, "_scroll_to_bottom"), 0.2)
+        Sc.time.set_timeout(funcref(self, "_scroll_to_bottom"), 0.2)
 
 
 func _remove_surplus_message() -> void:
@@ -83,9 +83,9 @@ func _scroll_to_bottom() -> void:
 
 
 func _log_print_queue() -> void:
-    for entry in Gs.logger._print_queue:
+    for entry in Sc.logger._print_queue:
         add_message(entry)
-    Gs.logger._print_queue.clear()
+    Sc.logger._print_queue.clear()
 
 
 func _on_PanelContainer_gui_input(event: InputEvent) -> void:

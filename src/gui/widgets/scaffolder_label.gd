@@ -29,13 +29,13 @@ func _update() -> void:
     if !_is_ready:
         return
     
-    rect_min_size = size_override * Gs.gui.scale
+    rect_min_size = size_override * Sc.gui.scale
     rect_size = rect_min_size
     
     if font_override != null:
         add_font_override("font", font_override)
     else:
-        var font: Font = Gs.gui.get_font(
+        var font: Font = Sc.gui.get_font(
                 font_size,
                 is_header,
                 is_bold,

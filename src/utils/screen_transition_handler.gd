@@ -58,7 +58,7 @@ var _current_duration := INF
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "ScreenTransitionHandler")
+    Sc.logger.on_global_init(self, "ScreenTransitionHandler")
 
 
 func _destroy() -> void:
@@ -225,7 +225,7 @@ func start_transition(
             default_duration = screen_mask_transition_duration
             default_easing = screen_mask_transition_easing
         _:
-            Gs.logger.error()
+            Sc.logger.error()
             transition_method_name = "_start_immediate_transition"
             default_duration = INF
             default_easing = ""
@@ -283,7 +283,7 @@ func _start_immediate_transition(
         delay: float,
         easing: String) -> void:
     if delay > 0.0:
-        _start_immediate_transition_timeout_id = Gs.time.set_timeout( \
+        _start_immediate_transition_timeout_id = Sc.time.set_timeout( \
                 funcref(self, "_start_immediate_transition"), \
                 delay,
                 [
@@ -324,24 +324,24 @@ func _start_slide_transition(
         if is_forward:
             start_position = Vector2.ZERO
             end_position = Vector2(
-                    -Gs.device.get_viewport_size().x,
+                    -Sc.device.get_viewport_size().x,
                     0.0)
         else:
             start_position = Vector2.ZERO
             end_position = Vector2(
-                    Gs.device.get_viewport_size().x,
+                    Sc.device.get_viewport_size().x,
                     0.0)
     elif is_forward:
         tween_screen_container = next_screen_container
         start_position = Vector2(
-                Gs.device.get_viewport_size().x,
+                Sc.device.get_viewport_size().x,
                 0.0)
         end_position = Vector2.ZERO
     else:
         tween_screen_container = previous_screen_container
         start_position = Vector2.ZERO
         end_position = Vector2(
-                Gs.device.get_viewport_size().x,
+                Sc.device.get_viewport_size().x,
                 0.0)
     
     _update_visibilities(
@@ -355,7 +355,7 @@ func _start_slide_transition(
             is_forward)
     
     tween_screen_container.position = start_position
-    _slide_transition_tween_id = Gs.time.tween_property(
+    _slide_transition_tween_id = Sc.time.tween_property(
             tween_screen_container,
             "position",
             start_position,
@@ -404,7 +404,7 @@ func _start_fade_transition(
             is_forward)
     
     tween_screen_container.modulate.a = start_opacity
-    _fade_transition_tween_id = Gs.time.tween_property(
+    _fade_transition_tween_id = Sc.time.tween_property(
             tween_screen_container,
             "modulate:a",
             start_opacity,
@@ -469,7 +469,7 @@ func _start_overlay_mask_transition(
             true,
             false)
     
-    _start_transition_helper_timeout_id = Gs.time.set_timeout( \
+    _start_transition_helper_timeout_id = Sc.time.set_timeout( \
             funcref(_overlay_mask_transition, "start"), \
             delay,
             [
@@ -478,7 +478,7 @@ func _start_overlay_mask_transition(
                 next_screen_container,
             ])
     
-    _start_immediate_transition_timeout_id = Gs.time.set_timeout( \
+    _start_immediate_transition_timeout_id = Sc.time.set_timeout( \
             funcref(self, "_on_overlay_mask_transition_middle"), \
             duration / 2.0 + delay,
             [
@@ -560,7 +560,7 @@ func _start_screen_mask_transition(
             next_screen_container,
             is_forward)
     
-    _start_transition_helper_timeout_id = Gs.time.set_timeout( \
+    _start_transition_helper_timeout_id = Sc.time.set_timeout( \
             funcref(self, "_on_screen_mask_transition_start"), \
             delay, \
             [
@@ -646,7 +646,7 @@ func _on_transition_completed(
         if !previous_screen_container.contents.is_always_alive:
             previous_screen_container._destroy()
     if is_instance_valid(next_screen_container):
-        if next_screen_container == Gs.nav.current_screen_container:
+        if next_screen_container == Sc.nav.current_screen_container:
             next_screen_container.set_visible(true)
             next_screen_container.z_index = 0
             next_screen_container.position = Vector2.ZERO
@@ -661,10 +661,10 @@ func _on_transition_completed(
 
 
 func clear_transitions() -> void:
-    Gs.time.clear_timeout(_start_transition_helper_timeout_id, true)
-    Gs.time.clear_timeout(_start_immediate_transition_timeout_id, true)
-    Gs.time.clear_tween(_slide_transition_tween_id, true)
-    Gs.time.clear_tween(_fade_transition_tween_id, true)
+    Sc.time.clear_timeout(_start_transition_helper_timeout_id, true)
+    Sc.time.clear_timeout(_start_immediate_transition_timeout_id, true)
+    Sc.time.clear_tween(_slide_transition_tween_id, true)
+    Sc.time.clear_tween(_fade_transition_tween_id, true)
     _overlay_mask_transition.stop(true)
     _screen_mask_transition.stop(true)
     _current_duration = INF

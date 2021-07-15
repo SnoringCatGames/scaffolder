@@ -16,4 +16,4 @@ func _init(level_id: String).(
 
 
 func get_text() -> String:
-    return str(Gs.save_state.get_level_total_plays(level_id))
+    return str(Sc.save_state.get_level_total_plays(level_id))

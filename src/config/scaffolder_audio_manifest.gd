@@ -36,7 +36,7 @@ var is_slow_motion_start_stop_sound_effect_played := true
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "ScaffolderAudioManifest")
+    Sc.logger.on_global_init(self, "ScaffolderAudioManifest")
 
 
 func register_manifest(manifest: Dictionary) -> void:
@@ -90,15 +90,15 @@ func register_manifest(manifest: Dictionary) -> void:
         self.is_slow_motion_start_stop_sound_effect_played = \
                 manifest.is_slow_motion_start_stop_sound_effect_played
     
-    assert(Gs.audio_manifest.pauses_level_music_on_pause or \
-            Gs.audio_manifest.pause_menu_music == "")
+    assert(Sc.audio_manifest.pauses_level_music_on_pause or \
+            Sc.audio_manifest.pause_menu_music == "")
     
-    Gs.audio.register_sounds(
+    Sc.audio.register_sounds(
             self.sounds_manifest,
             self.default_sounds_path_prefix,
             self.default_sounds_file_suffix,
             self.default_sounds_bus_index)
-    Gs.audio.register_music(
+    Sc.audio.register_music(
             self.music_manifest,
             self.default_music_path_prefix,
             self.default_music_file_suffix,

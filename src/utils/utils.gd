@@ -8,7 +8,7 @@ var _focus_releaser: Control
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "Utils")
+    Sc.logger.on_global_init(self, "Utils")
     
     _focus_releaser = Button.new()
     _focus_releaser.modulate.a = 0.0
@@ -150,8 +150,8 @@ static func _get_floor_collision(
     if body.is_on_floor():
         for i in body.get_slide_count():
             var collision := body.get_slide_collision(i)
-            if abs(collision.normal.angle_to(Gs.geometry.UP)) <= \
-                    Gs.geometry.FLOOR_MAX_ANGLE:
+            if abs(collision.normal.angle_to(Sc.geometry.UP)) <= \
+                    Sc.geometry.FLOOR_MAX_ANGLE:
                 return collision
     return null
 
@@ -168,7 +168,7 @@ func add_scene(
     else:
         scene = path_or_packed_scene
     if scene == null:
-        Gs.logger.error("Invalid scene path: %s" % path_or_packed_scene)
+        Sc.logger.error("Invalid scene path: %s" % path_or_packed_scene)
     
     var node: Node = scene.instance()
     if node is CanvasItem:
@@ -192,7 +192,7 @@ func add_scene(
 
 
 static func get_level_touch_position(input_event: InputEvent) -> Vector2:
-    return Gs.level.make_input_local(input_event).position
+    return Sc.level.make_input_local(input_event).position
 
 
 func add_overlay_to_current_scene(node: Node) -> void:
@@ -200,17 +200,17 @@ func add_overlay_to_current_scene(node: Node) -> void:
 
 
 func vibrate() -> void:
-    if Gs.gui.is_giving_haptic_feedback:
+    if Sc.gui.is_giving_haptic_feedback:
         Input.vibrate_handheld(
-                Gs.gui.input_vibrate_duration * 1000)
+                Sc.gui.input_vibrate_duration * 1000)
 
 
 func give_button_press_feedback(is_fancy := false) -> void:
     vibrate()
     if is_fancy:
-        Gs.audio.play_sound("menu_select_fancy")
+        Sc.audio.play_sound("menu_select_fancy")
     else:
-        Gs.audio.play_sound("menu_select")
+        Sc.audio.play_sound("menu_select")
 
 
 # TODO: Replace this with better built-in EaseType/TransType easing support
@@ -414,12 +414,12 @@ func take_screenshot() -> void:
     var path := "user://screenshots/screenshot-%s.png" % get_datetime_string()
     var status := image.save_png(path)
     if status != OK:
-        Gs.logger.error()
+        Sc.logger.error()
 
 
 func open_screenshot_folder() -> void:
     var path := OS.get_user_data_dir() + "/screenshots"
-    Gs.logger.print("Opening screenshot folder: " + path)
+    Sc.logger.print("Opening screenshot folder: " + path)
     OS.shell_open(path)
 
 
@@ -427,7 +427,7 @@ func ensure_directory_exists(path: String) -> bool:
     var directory := Directory.new()
     var status := directory.make_dir_recursive(path)
     if status != OK:
-        Gs.logger.error("make_dir_recursive failed: " + str(status))
+        Sc.logger.error("make_dir_recursive failed: " + str(status))
         return false
     return true
 
@@ -439,7 +439,7 @@ func clear_directory(
     var directory := Directory.new()
     var status := directory.open(path)
     if status != OK:
-        Gs.logger.error()
+        Sc.logger.error()
         return
     
     # Delete children.
@@ -455,14 +455,14 @@ func clear_directory(
         else:
             status = directory.remove(file_name)
             if status != OK:
-                Gs.logger.error("Failed to delete file", false)
+                Sc.logger.error("Failed to delete file", false)
         file_name = directory.get_next()
     
     # Delete directory.
     if also_deletes_directory:
         status = directory.remove(path)
         if status != OK:
-            Gs.logger.error("Failed to delete directory", false)
+            Sc.logger.error("Failed to delete directory", false)
 
 
 static func get_last_x_lines_from_file(

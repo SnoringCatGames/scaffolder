@@ -11,14 +11,14 @@ func _ready() -> void:
 
 
 func print(message: String) -> void:
-    if is_instance_valid(Gs.gui) and \
-            is_instance_valid(Gs.gui.debug_panel):
-        Gs.gui.debug_panel.add_message(message)
+    if is_instance_valid(Sc.gui) and \
+            is_instance_valid(Sc.gui.debug_panel):
+        Sc.gui.debug_panel.add_message(message)
     else:
         _print_queue.push_back(message)
     
-    if (!is_instance_valid(Gs.metadata) or \
-            Gs.metadata.also_prints_to_stdout) and \
+    if (!is_instance_valid(Sc.metadata) or \
+            Sc.metadata.also_prints_to_stdout) and \
             !Engine.editor_hint:
         print(message)
 

@@ -12,7 +12,7 @@ const FLOAT_EPSILON := 0.00001
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "Geometry")
+    Sc.logger.on_global_init(self, "Geometry")
 
 
 # Calculates the minimum squared distance between a line segment and a point.
@@ -342,7 +342,7 @@ static func do_segment_and_polygon_intersect(
         var d := polygon_segment.y * segment_diff.x - \
                 polygon_segment.x * segment_diff.y
         
-        if abs(d) < Gs.geometry.FLOAT_EPSILON:
+        if abs(d) < Sc.geometry.FLOAT_EPSILON:
             if n < 0:
                 return false
             else:
@@ -453,7 +453,7 @@ static func is_float_integer_aligned_with_epsilon(
 static func snap_float_to_integer(
         number: float,
         epsilon := FLOAT_EPSILON) -> float:
-    if Gs.geometry.is_float_integer_aligned_with_epsilon(number, epsilon):
+    if Sc.geometry.is_float_integer_aligned_with_epsilon(number, epsilon):
         return round(number)
     else:
         return number
@@ -626,7 +626,7 @@ static func do_shapes_match(
         return b is RectangleShape2D and \
                 a.extents == b.extents
     else:
-        Gs.logger.error(
+        Sc.logger.error(
                 "Invalid Shape2D provided for do_shapes_match: %s. The " +
                 "supported shapes are: CircleShape2D, CapsuleShape2D, " +
                 "RectangleShape2D." % a)
@@ -638,10 +638,10 @@ static func calculate_half_width_height(
         shape: Shape2D,
         rotation: float) -> Vector2:
     var is_rotated_90_degrees = abs(fmod(rotation + PI * 2, PI) - PI / 2.0) < \
-            Gs.geometry.FLOAT_EPSILON
+            Sc.geometry.FLOAT_EPSILON
     
     # Ensure that collision boundaries are only ever axially aligned.
-    assert(is_rotated_90_degrees or abs(rotation) < Gs.geometry.FLOAT_EPSILON)
+    assert(is_rotated_90_degrees or abs(rotation) < Sc.geometry.FLOAT_EPSILON)
     
     var half_width_height: Vector2
     if shape is CircleShape2D:
@@ -655,7 +655,7 @@ static func calculate_half_width_height(
     elif shape is RectangleShape2D:
         half_width_height = shape.extents
     else:
-        Gs.logger.error(
+        Sc.logger.error(
                 "Invalid Shape2D provided to calculate_half_width_height: " +
                 "%s. The upported shapes are: CircleShape2D, " +
                 "CapsuleShape2D, RectangleShape2D." % shape)

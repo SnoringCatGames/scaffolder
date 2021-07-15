@@ -146,7 +146,7 @@ var screen_border_width: int
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "ScaffolderStyles")
+    Sc.logger.on_global_init(self, "ScaffolderStyles")
 
 
 func register_manifest(manifest: Dictionary) -> void:
@@ -472,547 +472,547 @@ func _validate_manifest(manifest: Dictionary) -> void:
 
 func configure_theme() -> void:
     transparent_panel_stylebox = \
-            Gs.styles.create_stylebox_scalable(Color.transparent)
+            Sc.styles.create_stylebox_scalable(Color.transparent)
     
-    if is_instance_valid(Gs.styles.overlay_panel_nine_patch):
-        overlay_panel_stylebox = Gs.styles.create_stylebox_scalable({
-            texture = Gs.styles.overlay_panel_nine_patch,
-            texture_scale = Gs.styles.overlay_panel_nine_patch_scale,
+    if is_instance_valid(Sc.styles.overlay_panel_nine_patch):
+        overlay_panel_stylebox = Sc.styles.create_stylebox_scalable({
+            texture = Sc.styles.overlay_panel_nine_patch,
+            texture_scale = Sc.styles.overlay_panel_nine_patch_scale,
             margin_left = \
-                    Gs.styles.overlay_panel_nine_patch_margin_left,
+                    Sc.styles.overlay_panel_nine_patch_margin_left,
             margin_top = \
-                    Gs.styles.overlay_panel_nine_patch_margin_top,
+                    Sc.styles.overlay_panel_nine_patch_margin_top,
             margin_right = \
-                    Gs.styles.overlay_panel_nine_patch_margin_right,
+                    Sc.styles.overlay_panel_nine_patch_margin_right,
             margin_bottom = \
-                    Gs.styles.overlay_panel_nine_patch_margin_bottom,
+                    Sc.styles.overlay_panel_nine_patch_margin_bottom,
             content_margin_left = \
-                    Gs.styles.overlay_panel_content_margin_left,
+                    Sc.styles.overlay_panel_content_margin_left,
             content_margin_top = \
-                    Gs.styles.overlay_panel_content_margin_top,
+                    Sc.styles.overlay_panel_content_margin_top,
             content_margin_right = \
-                    Gs.styles.overlay_panel_content_margin_right,
+                    Sc.styles.overlay_panel_content_margin_right,
             content_margin_bottom = \
-                    Gs.styles.overlay_panel_content_margin_bottom,
+                    Sc.styles.overlay_panel_content_margin_bottom,
         })
     else:
-        overlay_panel_stylebox = Gs.styles.create_stylebox_scalable({
-            bg_color = Gs.colors.overlay_panel_background,
-            corner_radius = Gs.styles.overlay_panel_corner_radius,
-            corner_detail = Gs.styles.overlay_panel_corner_detail,
-            shadow_size = Gs.styles.overlay_panel_shadow_size,
-            shadow_offset = Gs.styles.overlay_panel_shadow_offset,
-            shadow_color = Gs.colors.shadow,
-            border_width = Gs.styles.overlay_panel_border_width,
-            border_color = Gs.colors.overlay_panel_border,
+        overlay_panel_stylebox = Sc.styles.create_stylebox_scalable({
+            bg_color = Sc.colors.overlay_panel_background,
+            corner_radius = Sc.styles.overlay_panel_corner_radius,
+            corner_detail = Sc.styles.overlay_panel_corner_detail,
+            shadow_size = Sc.styles.overlay_panel_shadow_size,
+            shadow_offset = Sc.styles.overlay_panel_shadow_offset,
+            shadow_color = Sc.colors.shadow,
+            border_width = Sc.styles.overlay_panel_border_width,
+            border_color = Sc.colors.overlay_panel_border,
             content_margin_left = \
-                    Gs.styles.overlay_panel_content_margin_left,
+                    Sc.styles.overlay_panel_content_margin_left,
             content_margin_top = \
-                    Gs.styles.overlay_panel_content_margin_top,
+                    Sc.styles.overlay_panel_content_margin_top,
             content_margin_right = \
-                    Gs.styles.overlay_panel_content_margin_right,
+                    Sc.styles.overlay_panel_content_margin_right,
             content_margin_bottom = \
-                    Gs.styles.overlay_panel_content_margin_bottom,
+                    Sc.styles.overlay_panel_content_margin_bottom,
         })
     
-    if is_instance_valid(Gs.styles.header_panel_nine_patch):
-        header_panel_stylebox = Gs.styles.create_stylebox_scalable({
-            texture = Gs.styles.header_panel_nine_patch,
-            texture_scale = Gs.styles.header_panel_nine_patch_scale,
-            margin_left = Gs.styles.header_panel_nine_patch_margin_left,
-            margin_top = Gs.styles.header_panel_nine_patch_margin_top,
-            margin_right = Gs.styles.header_panel_nine_patch_margin_right,
-            margin_bottom = Gs.styles.header_panel_nine_patch_margin_bottom,
-            content_margin_left = Gs.styles.header_panel_content_margin_left,
-            content_margin_top = Gs.styles.header_panel_content_margin_top,
-            content_margin_right = Gs.styles.header_panel_content_margin_right,
-            content_margin_bottom = Gs.styles.header_panel_content_margin_bottom,
+    if is_instance_valid(Sc.styles.header_panel_nine_patch):
+        header_panel_stylebox = Sc.styles.create_stylebox_scalable({
+            texture = Sc.styles.header_panel_nine_patch,
+            texture_scale = Sc.styles.header_panel_nine_patch_scale,
+            margin_left = Sc.styles.header_panel_nine_patch_margin_left,
+            margin_top = Sc.styles.header_panel_nine_patch_margin_top,
+            margin_right = Sc.styles.header_panel_nine_patch_margin_right,
+            margin_bottom = Sc.styles.header_panel_nine_patch_margin_bottom,
+            content_margin_left = Sc.styles.header_panel_content_margin_left,
+            content_margin_top = Sc.styles.header_panel_content_margin_top,
+            content_margin_right = Sc.styles.header_panel_content_margin_right,
+            content_margin_bottom = Sc.styles.header_panel_content_margin_bottom,
         })
     else:
-        header_panel_stylebox = Gs.styles.create_stylebox_scalable({
-            bg_color = Gs.colors.header_panel_background,
-            content_margin_left = Gs.styles.header_panel_content_margin_left,
-            content_margin_top = Gs.styles.header_panel_content_margin_top,
-            content_margin_right = Gs.styles.header_panel_content_margin_right,
-            content_margin_bottom = Gs.styles.header_panel_content_margin_bottom,
+        header_panel_stylebox = Sc.styles.create_stylebox_scalable({
+            bg_color = Sc.colors.header_panel_background,
+            content_margin_left = Sc.styles.header_panel_content_margin_left,
+            content_margin_top = Sc.styles.header_panel_content_margin_top,
+            content_margin_right = Sc.styles.header_panel_content_margin_right,
+            content_margin_bottom = Sc.styles.header_panel_content_margin_bottom,
         })
     
-    hud_panel_stylebox = Gs.styles.create_stylebox_scalable({
-        texture = Gs.styles.hud_panel_nine_patch,
-        texture_scale = Gs.styles.hud_panel_nine_patch_scale,
-        margin_left = Gs.styles.hud_panel_nine_patch_margin_left,
-        margin_top = Gs.styles.hud_panel_nine_patch_margin_top,
-        margin_right = Gs.styles.hud_panel_nine_patch_margin_right,
-        margin_bottom = Gs.styles.hud_panel_nine_patch_margin_bottom,
-        content_margin_left = Gs.styles.hud_panel_content_margin_left,
-        content_margin_top = Gs.styles.hud_panel_content_margin_top,
-        content_margin_right = Gs.styles.hud_panel_content_margin_right,
-        content_margin_bottom = Gs.styles.hud_panel_content_margin_bottom,
+    hud_panel_stylebox = Sc.styles.create_stylebox_scalable({
+        texture = Sc.styles.hud_panel_nine_patch,
+        texture_scale = Sc.styles.hud_panel_nine_patch_scale,
+        margin_left = Sc.styles.hud_panel_nine_patch_margin_left,
+        margin_top = Sc.styles.hud_panel_nine_patch_margin_top,
+        margin_right = Sc.styles.hud_panel_nine_patch_margin_right,
+        margin_bottom = Sc.styles.hud_panel_nine_patch_margin_bottom,
+        content_margin_left = Sc.styles.hud_panel_content_margin_left,
+        content_margin_top = Sc.styles.hud_panel_content_margin_top,
+        content_margin_right = Sc.styles.hud_panel_content_margin_right,
+        content_margin_bottom = Sc.styles.hud_panel_content_margin_bottom,
     })
     
     _configure_theme_color(
-            "font_color", "Label", Gs.colors.text)
+            "font_color", "Label", Sc.colors.text)
     _configure_theme_color(
-            "font_color", "Button", Gs.colors.text)
+            "font_color", "Button", Sc.colors.text)
     _configure_theme_color(
-            "font_color", "CheckBox", Gs.colors.text)
+            "font_color", "CheckBox", Sc.colors.text)
     _configure_theme_color(
-            "font_color", "ItemList", Gs.colors.text)
+            "font_color", "ItemList", Sc.colors.text)
     _configure_theme_color(
-            "font_color", "OptionButton", Gs.colors.text)
+            "font_color", "OptionButton", Sc.colors.text)
     _configure_theme_color(
-            "font_color", "PopupMenu", Gs.colors.text)
+            "font_color", "PopupMenu", Sc.colors.text)
     _configure_theme_color(
-            "font_color", "Tree", Gs.colors.text)
+            "font_color", "Tree", Sc.colors.text)
     
-    if is_instance_valid(Gs.styles.button_normal_nine_patch):
+    if is_instance_valid(Sc.styles.button_normal_nine_patch):
         _configure_theme_stylebox(
                 "disabled", "Button", {
-                    texture = Gs.styles.button_disabled_nine_patch,
-                    texture_scale = Gs.styles.button_nine_patch_scale,
-                    margin_left = Gs.styles.button_nine_patch_margin_left,
-                    margin_top = Gs.styles.button_nine_patch_margin_top,
-                    margin_right = Gs.styles.button_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.button_nine_patch_margin_bottom,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    texture = Sc.styles.button_disabled_nine_patch,
+                    texture_scale = Sc.styles.button_nine_patch_scale,
+                    margin_left = Sc.styles.button_nine_patch_margin_left,
+                    margin_top = Sc.styles.button_nine_patch_margin_top,
+                    margin_right = Sc.styles.button_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.button_nine_patch_margin_bottom,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "focused", "Button", {
-                    texture = Gs.styles.button_focused_nine_patch,
-                    texture_scale = Gs.styles.button_nine_patch_scale,
-                    margin_left = Gs.styles.button_nine_patch_margin_left,
-                    margin_top = Gs.styles.button_nine_patch_margin_top,
-                    margin_right = Gs.styles.button_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.button_nine_patch_margin_bottom,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    texture = Sc.styles.button_focused_nine_patch,
+                    texture_scale = Sc.styles.button_nine_patch_scale,
+                    margin_left = Sc.styles.button_nine_patch_margin_left,
+                    margin_top = Sc.styles.button_nine_patch_margin_top,
+                    margin_right = Sc.styles.button_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.button_nine_patch_margin_bottom,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "hover", "Button", {
-                    texture = Gs.styles.button_hover_nine_patch,
-                    texture_scale = Gs.styles.button_nine_patch_scale,
-                    margin_left = Gs.styles.button_nine_patch_margin_left,
-                    margin_top = Gs.styles.button_nine_patch_margin_top,
-                    margin_right = Gs.styles.button_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.button_nine_patch_margin_bottom,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    texture = Sc.styles.button_hover_nine_patch,
+                    texture_scale = Sc.styles.button_nine_patch_scale,
+                    margin_left = Sc.styles.button_nine_patch_margin_left,
+                    margin_top = Sc.styles.button_nine_patch_margin_top,
+                    margin_right = Sc.styles.button_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.button_nine_patch_margin_bottom,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "normal", "Button", {
-                    texture = Gs.styles.button_normal_nine_patch,
-                    texture_scale = Gs.styles.button_nine_patch_scale,
-                    margin_left = Gs.styles.button_nine_patch_margin_left,
-                    margin_top = Gs.styles.button_nine_patch_margin_top,
-                    margin_right = Gs.styles.button_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.button_nine_patch_margin_bottom,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    texture = Sc.styles.button_normal_nine_patch,
+                    texture_scale = Sc.styles.button_nine_patch_scale,
+                    margin_left = Sc.styles.button_nine_patch_margin_left,
+                    margin_top = Sc.styles.button_nine_patch_margin_top,
+                    margin_right = Sc.styles.button_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.button_nine_patch_margin_bottom,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "pressed", "Button", {
-                    texture = Gs.styles.button_active_nine_patch,
-                    texture_scale = Gs.styles.button_nine_patch_scale,
-                    margin_left = Gs.styles.button_nine_patch_margin_left,
-                    margin_top = Gs.styles.button_nine_patch_margin_top,
-                    margin_right = Gs.styles.button_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.button_nine_patch_margin_bottom,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    texture = Sc.styles.button_active_nine_patch,
+                    texture_scale = Sc.styles.button_nine_patch_scale,
+                    margin_left = Sc.styles.button_nine_patch_margin_left,
+                    margin_top = Sc.styles.button_nine_patch_margin_top,
+                    margin_right = Sc.styles.button_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.button_nine_patch_margin_bottom,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
     else:
         _configure_theme_stylebox(
                 "disabled", "Button", {
-                    bg_color = Gs.colors.button_disabled,
-                    corner_radius = Gs.styles.button_corner_radius,
-                    corner_detail = Gs.styles.button_corner_detail,
-                    shadow_size = round(Gs.styles.button_shadow_size * 0.0),
-                    shadow_color = Gs.colors.shadow,
-                    border_width = round(Gs.styles.button_border_width * 0.0),
-                    border_color = Gs.colors.button_border,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    bg_color = Sc.colors.button_disabled,
+                    corner_radius = Sc.styles.button_corner_radius,
+                    corner_detail = Sc.styles.button_corner_detail,
+                    shadow_size = round(Sc.styles.button_shadow_size * 0.0),
+                    shadow_color = Sc.colors.shadow,
+                    border_width = round(Sc.styles.button_border_width * 0.0),
+                    border_color = Sc.colors.button_border,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "focused", "Button", {
-                    bg_color = Gs.colors.button_focused,
-                    corner_radius = Gs.styles.button_corner_radius,
-                    corner_detail = Gs.styles.button_corner_detail,
-                    shadow_size = round(Gs.styles.button_shadow_size * 1.5),
-                    shadow_color = Gs.colors.shadow,
-                    border_width = Gs.styles.button_border_width,
-                    border_color = Gs.colors.button_border,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    bg_color = Sc.colors.button_focused,
+                    corner_radius = Sc.styles.button_corner_radius,
+                    corner_detail = Sc.styles.button_corner_detail,
+                    shadow_size = round(Sc.styles.button_shadow_size * 1.5),
+                    shadow_color = Sc.colors.shadow,
+                    border_width = Sc.styles.button_border_width,
+                    border_color = Sc.colors.button_border,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "hover", "Button", {
-                    bg_color = Gs.colors.button_hover,
-                    corner_radius = Gs.styles.button_corner_radius,
-                    corner_detail = Gs.styles.button_corner_detail,
-                    shadow_size = round(Gs.styles.button_shadow_size * 1.5),
-                    shadow_color = Gs.colors.shadow,
-                    border_width = Gs.styles.button_border_width,
-                    border_color = Gs.colors.button_border,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    bg_color = Sc.colors.button_hover,
+                    corner_radius = Sc.styles.button_corner_radius,
+                    corner_detail = Sc.styles.button_corner_detail,
+                    shadow_size = round(Sc.styles.button_shadow_size * 1.5),
+                    shadow_color = Sc.colors.shadow,
+                    border_width = Sc.styles.button_border_width,
+                    border_color = Sc.colors.button_border,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "normal", "Button", {
-                    bg_color = Gs.colors.button_normal,
-                    corner_radius = Gs.styles.button_corner_radius,
-                    corner_detail = Gs.styles.button_corner_detail,
-                    shadow_size = Gs.styles.button_shadow_size,
-                    shadow_color = Gs.colors.shadow,
-                    border_width = Gs.styles.button_border_width,
-                    border_color = Gs.colors.button_border,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    bg_color = Sc.colors.button_normal,
+                    corner_radius = Sc.styles.button_corner_radius,
+                    corner_detail = Sc.styles.button_corner_detail,
+                    shadow_size = Sc.styles.button_shadow_size,
+                    shadow_color = Sc.colors.shadow,
+                    border_width = Sc.styles.button_border_width,
+                    border_color = Sc.colors.button_border,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "pressed", "Button", {
-                    bg_color = Gs.colors.button_pressed,
-                    corner_radius = Gs.styles.button_corner_radius,
-                    corner_detail = Gs.styles.button_corner_detail,
-                    shadow_size = round(Gs.styles.button_shadow_size * 0.2),
-                    shadow_color = Gs.colors.shadow,
-                    border_width = Gs.styles.button_border_width,
-                    border_color = Gs.colors.button_border,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    bg_color = Sc.colors.button_pressed,
+                    corner_radius = Sc.styles.button_corner_radius,
+                    corner_detail = Sc.styles.button_corner_detail,
+                    shadow_size = round(Sc.styles.button_shadow_size * 0.2),
+                    shadow_color = Sc.colors.shadow,
+                    border_width = Sc.styles.button_border_width,
+                    border_color = Sc.colors.button_border,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
     
-    if is_instance_valid(Gs.styles.dropdown_normal_nine_patch):
+    if is_instance_valid(Sc.styles.dropdown_normal_nine_patch):
         _configure_theme_stylebox(
                 "disabled", "OptionButton", {
-                    texture = Gs.styles.dropdown_disabled_nine_patch,
-                    texture_scale = Gs.styles.dropdown_nine_patch_scale,
-                    margin_left = Gs.styles.dropdown_nine_patch_margin_left,
-                    margin_top = Gs.styles.dropdown_nine_patch_margin_top,
-                    margin_right = Gs.styles.dropdown_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.dropdown_nine_patch_margin_bottom,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    texture = Sc.styles.dropdown_disabled_nine_patch,
+                    texture_scale = Sc.styles.dropdown_nine_patch_scale,
+                    margin_left = Sc.styles.dropdown_nine_patch_margin_left,
+                    margin_top = Sc.styles.dropdown_nine_patch_margin_top,
+                    margin_right = Sc.styles.dropdown_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.dropdown_nine_patch_margin_bottom,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "focused", "OptionButton", {
-                    texture = Gs.styles.dropdown_focused_nine_patch,
-                    texture_scale = Gs.styles.dropdown_nine_patch_scale,
-                    margin_left = Gs.styles.dropdown_nine_patch_margin_left,
-                    margin_top = Gs.styles.dropdown_nine_patch_margin_top,
-                    margin_right = Gs.styles.dropdown_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.dropdown_nine_patch_margin_bottom,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    texture = Sc.styles.dropdown_focused_nine_patch,
+                    texture_scale = Sc.styles.dropdown_nine_patch_scale,
+                    margin_left = Sc.styles.dropdown_nine_patch_margin_left,
+                    margin_top = Sc.styles.dropdown_nine_patch_margin_top,
+                    margin_right = Sc.styles.dropdown_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.dropdown_nine_patch_margin_bottom,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "hover", "OptionButton", {
-                    texture = Gs.styles.dropdown_hover_nine_patch,
-                    texture_scale = Gs.styles.dropdown_nine_patch_scale,
-                    margin_left = Gs.styles.dropdown_nine_patch_margin_left,
-                    margin_top = Gs.styles.dropdown_nine_patch_margin_top,
-                    margin_right = Gs.styles.dropdown_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.dropdown_nine_patch_margin_bottom,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    texture = Sc.styles.dropdown_hover_nine_patch,
+                    texture_scale = Sc.styles.dropdown_nine_patch_scale,
+                    margin_left = Sc.styles.dropdown_nine_patch_margin_left,
+                    margin_top = Sc.styles.dropdown_nine_patch_margin_top,
+                    margin_right = Sc.styles.dropdown_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.dropdown_nine_patch_margin_bottom,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "normal", "OptionButton", {
-                    texture = Gs.styles.dropdown_normal_nine_patch,
-                    texture_scale = Gs.styles.dropdown_nine_patch_scale,
-                    margin_left = Gs.styles.dropdown_nine_patch_margin_left,
-                    margin_top = Gs.styles.dropdown_nine_patch_margin_top,
-                    margin_right = Gs.styles.dropdown_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.dropdown_nine_patch_margin_bottom,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    texture = Sc.styles.dropdown_normal_nine_patch,
+                    texture_scale = Sc.styles.dropdown_nine_patch_scale,
+                    margin_left = Sc.styles.dropdown_nine_patch_margin_left,
+                    margin_top = Sc.styles.dropdown_nine_patch_margin_top,
+                    margin_right = Sc.styles.dropdown_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.dropdown_nine_patch_margin_bottom,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "pressed", "OptionButton", {
-                    texture = Gs.styles.dropdown_active_nine_patch,
-                    texture_scale = Gs.styles.dropdown_nine_patch_scale,
-                    margin_left = Gs.styles.dropdown_nine_patch_margin_left,
-                    margin_top = Gs.styles.dropdown_nine_patch_margin_top,
-                    margin_right = Gs.styles.dropdown_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.dropdown_nine_patch_margin_bottom,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    texture = Sc.styles.dropdown_active_nine_patch,
+                    texture_scale = Sc.styles.dropdown_nine_patch_scale,
+                    margin_left = Sc.styles.dropdown_nine_patch_margin_left,
+                    margin_top = Sc.styles.dropdown_nine_patch_margin_top,
+                    margin_right = Sc.styles.dropdown_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.dropdown_nine_patch_margin_bottom,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
     else:
         _configure_theme_stylebox(
                 "disabled", "OptionButton", {
-                    bg_color = Gs.colors.dropdown_disabled,
-                    corner_radius = Gs.styles.dropdown_corner_radius,
-                    corner_detail = Gs.styles.dropdown_corner_detail,
-                    shadow_size = Gs.styles.dropdown_shadow_size,
-                    shadow_color = Gs.colors.shadow,
-                    border_width = Gs.styles.dropdown_border_width,
-                    border_color = Gs.colors.dropdown_border,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    bg_color = Sc.colors.dropdown_disabled,
+                    corner_radius = Sc.styles.dropdown_corner_radius,
+                    corner_detail = Sc.styles.dropdown_corner_detail,
+                    shadow_size = Sc.styles.dropdown_shadow_size,
+                    shadow_color = Sc.colors.shadow,
+                    border_width = Sc.styles.dropdown_border_width,
+                    border_color = Sc.colors.dropdown_border,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "focused", "OptionButton", {
-                    bg_color = Gs.colors.dropdown_focused,
-                    corner_radius = Gs.styles.dropdown_corner_radius,
-                    corner_detail = Gs.styles.dropdown_corner_detail,
-                    shadow_size = Gs.styles.dropdown_shadow_size,
-                    shadow_color = Gs.colors.shadow,
-                    border_width = Gs.styles.dropdown_border_width,
-                    border_color = Gs.colors.dropdown_border,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    bg_color = Sc.colors.dropdown_focused,
+                    corner_radius = Sc.styles.dropdown_corner_radius,
+                    corner_detail = Sc.styles.dropdown_corner_detail,
+                    shadow_size = Sc.styles.dropdown_shadow_size,
+                    shadow_color = Sc.colors.shadow,
+                    border_width = Sc.styles.dropdown_border_width,
+                    border_color = Sc.colors.dropdown_border,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "hover", "OptionButton", {
-                    bg_color = Gs.colors.dropdown_hover,
-                    corner_radius = Gs.styles.dropdown_corner_radius,
-                    corner_detail = Gs.styles.dropdown_corner_detail,
-                    shadow_size = Gs.styles.dropdown_shadow_size,
-                    shadow_color = Gs.colors.shadow,
-                    border_width = Gs.styles.dropdown_border_width,
-                    border_color = Gs.colors.dropdown_border,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    bg_color = Sc.colors.dropdown_hover,
+                    corner_radius = Sc.styles.dropdown_corner_radius,
+                    corner_detail = Sc.styles.dropdown_corner_detail,
+                    shadow_size = Sc.styles.dropdown_shadow_size,
+                    shadow_color = Sc.colors.shadow,
+                    border_width = Sc.styles.dropdown_border_width,
+                    border_color = Sc.colors.dropdown_border,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "normal", "OptionButton", {
-                    bg_color = Gs.colors.dropdown_normal,
-                    corner_radius = Gs.styles.dropdown_corner_radius,
-                    corner_detail = Gs.styles.dropdown_corner_detail,
-                    shadow_size = Gs.styles.dropdown_shadow_size,
-                    shadow_color = Gs.colors.shadow,
-                    border_width = Gs.styles.dropdown_border_width,
-                    border_color = Gs.colors.dropdown_border,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    bg_color = Sc.colors.dropdown_normal,
+                    corner_radius = Sc.styles.dropdown_corner_radius,
+                    corner_detail = Sc.styles.dropdown_corner_detail,
+                    shadow_size = Sc.styles.dropdown_shadow_size,
+                    shadow_color = Sc.colors.shadow,
+                    border_width = Sc.styles.dropdown_border_width,
+                    border_color = Sc.colors.dropdown_border,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "pressed", "OptionButton", {
-                    bg_color = Gs.colors.dropdown_pressed,
-                    corner_radius = Gs.styles.dropdown_corner_radius,
-                    corner_detail = Gs.styles.dropdown_corner_detail,
-                    shadow_size = Gs.styles.dropdown_shadow_size,
-                    shadow_color = Gs.colors.shadow,
-                    border_width = Gs.styles.dropdown_border_width,
-                    border_color = Gs.colors.dropdown_border,
-                    content_margin_left = Gs.styles.button_content_margin_left,
-                    content_margin_top = Gs.styles.button_content_margin_top,
-                    content_margin_right = Gs.styles.button_content_margin_right,
-                    content_margin_bottom = Gs.styles.button_content_margin_bottom,
+                    bg_color = Sc.colors.dropdown_pressed,
+                    corner_radius = Sc.styles.dropdown_corner_radius,
+                    corner_detail = Sc.styles.dropdown_corner_detail,
+                    shadow_size = Sc.styles.dropdown_shadow_size,
+                    shadow_color = Sc.colors.shadow,
+                    border_width = Sc.styles.dropdown_border_width,
+                    border_color = Sc.colors.dropdown_border,
+                    content_margin_left = Sc.styles.button_content_margin_left,
+                    content_margin_top = Sc.styles.button_content_margin_top,
+                    content_margin_right = Sc.styles.button_content_margin_right,
+                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
     
-    if is_instance_valid(Gs.styles.scroll_track_nine_patch):
+    if is_instance_valid(Sc.styles.scroll_track_nine_patch):
         _configure_theme_stylebox(
                 "scroll", "HScrollBar", {
-                    texture = Gs.styles.scroll_track_nine_patch,
-                    texture_scale = Gs.styles.scroll_track_nine_patch_scale,
-                    margin_left = Gs.styles.scroll_track_nine_patch_margin_left,
-                    margin_top = Gs.styles.scroll_track_nine_patch_margin_top,
-                    margin_right = Gs.styles.scroll_track_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.scroll_track_nine_patch_margin_bottom,
+                    texture = Sc.styles.scroll_track_nine_patch,
+                    texture_scale = Sc.styles.scroll_track_nine_patch_scale,
+                    margin_left = Sc.styles.scroll_track_nine_patch_margin_left,
+                    margin_top = Sc.styles.scroll_track_nine_patch_margin_top,
+                    margin_right = Sc.styles.scroll_track_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.scroll_track_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber", "HScrollBar", {
-                    texture = Gs.styles.scroll_grabber_normal_nine_patch,
-                    texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
-                    margin_left = Gs.styles.scroll_grabber_nine_patch_margin_left,
-                    margin_top = Gs.styles.scroll_grabber_nine_patch_margin_top,
-                    margin_right = Gs.styles.scroll_grabber_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.scroll_grabber_nine_patch_margin_bottom,
+                    texture = Sc.styles.scroll_grabber_normal_nine_patch,
+                    texture_scale = Sc.styles.scroll_grabber_nine_patch_scale,
+                    margin_left = Sc.styles.scroll_grabber_nine_patch_margin_left,
+                    margin_top = Sc.styles.scroll_grabber_nine_patch_margin_top,
+                    margin_right = Sc.styles.scroll_grabber_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.scroll_grabber_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber_highlight", "HScrollBar", {
-                    texture = Gs.styles.scroll_grabber_hover_nine_patch,
-                    texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
-                    margin_left = Gs.styles.scroll_grabber_nine_patch_margin_left,
-                    margin_top = Gs.styles.scroll_grabber_nine_patch_margin_top,
-                    margin_right = Gs.styles.scroll_grabber_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.scroll_grabber_nine_patch_margin_bottom,
+                    texture = Sc.styles.scroll_grabber_hover_nine_patch,
+                    texture_scale = Sc.styles.scroll_grabber_nine_patch_scale,
+                    margin_left = Sc.styles.scroll_grabber_nine_patch_margin_left,
+                    margin_top = Sc.styles.scroll_grabber_nine_patch_margin_top,
+                    margin_right = Sc.styles.scroll_grabber_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.scroll_grabber_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber_pressed", "HScrollBar", {
-                    texture = Gs.styles.scroll_grabber_active_nine_patch,
-                    texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
-                    margin_left = Gs.styles.scroll_grabber_nine_patch_margin_left,
-                    margin_top = Gs.styles.scroll_grabber_nine_patch_margin_top,
-                    margin_right = Gs.styles.scroll_grabber_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.scroll_grabber_nine_patch_margin_bottom,
+                    texture = Sc.styles.scroll_grabber_active_nine_patch,
+                    texture_scale = Sc.styles.scroll_grabber_nine_patch_scale,
+                    margin_left = Sc.styles.scroll_grabber_nine_patch_margin_left,
+                    margin_top = Sc.styles.scroll_grabber_nine_patch_margin_top,
+                    margin_right = Sc.styles.scroll_grabber_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.scroll_grabber_nine_patch_margin_bottom,
                 })
         
         _configure_theme_stylebox(
                 "scroll", "VScrollBar", {
-                    texture = Gs.styles.scroll_track_nine_patch,
-                    texture_scale = Gs.styles.scroll_track_nine_patch_scale,
-                    margin_left = Gs.styles.scroll_track_nine_patch_margin_left,
-                    margin_top = Gs.styles.scroll_track_nine_patch_margin_top,
-                    margin_right = Gs.styles.scroll_track_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.scroll_track_nine_patch_margin_bottom,
+                    texture = Sc.styles.scroll_track_nine_patch,
+                    texture_scale = Sc.styles.scroll_track_nine_patch_scale,
+                    margin_left = Sc.styles.scroll_track_nine_patch_margin_left,
+                    margin_top = Sc.styles.scroll_track_nine_patch_margin_top,
+                    margin_right = Sc.styles.scroll_track_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.scroll_track_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber", "VScrollBar", {
-                    texture = Gs.styles.scroll_grabber_normal_nine_patch,
-                    texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
-                    margin_left = Gs.styles.scroll_grabber_nine_patch_margin_left,
-                    margin_top = Gs.styles.scroll_grabber_nine_patch_margin_top,
-                    margin_right = Gs.styles.scroll_grabber_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.scroll_grabber_nine_patch_margin_bottom,
+                    texture = Sc.styles.scroll_grabber_normal_nine_patch,
+                    texture_scale = Sc.styles.scroll_grabber_nine_patch_scale,
+                    margin_left = Sc.styles.scroll_grabber_nine_patch_margin_left,
+                    margin_top = Sc.styles.scroll_grabber_nine_patch_margin_top,
+                    margin_right = Sc.styles.scroll_grabber_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.scroll_grabber_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber_highlight", "VScrollBar", {
-                    texture = Gs.styles.scroll_grabber_hover_nine_patch,
-                    texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
-                    margin_left = Gs.styles.scroll_grabber_nine_patch_margin_left,
-                    margin_top = Gs.styles.scroll_grabber_nine_patch_margin_top,
-                    margin_right = Gs.styles.scroll_grabber_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.scroll_grabber_nine_patch_margin_bottom,
+                    texture = Sc.styles.scroll_grabber_hover_nine_patch,
+                    texture_scale = Sc.styles.scroll_grabber_nine_patch_scale,
+                    margin_left = Sc.styles.scroll_grabber_nine_patch_margin_left,
+                    margin_top = Sc.styles.scroll_grabber_nine_patch_margin_top,
+                    margin_right = Sc.styles.scroll_grabber_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.scroll_grabber_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber_pressed", "VScrollBar", {
-                    texture = Gs.styles.scroll_grabber_active_nine_patch,
-                    texture_scale = Gs.styles.scroll_grabber_nine_patch_scale,
-                    margin_left = Gs.styles.scroll_grabber_nine_patch_margin_left,
-                    margin_top = Gs.styles.scroll_grabber_nine_patch_margin_top,
-                    margin_right = Gs.styles.scroll_grabber_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.scroll_grabber_nine_patch_margin_bottom,
+                    texture = Sc.styles.scroll_grabber_active_nine_patch,
+                    texture_scale = Sc.styles.scroll_grabber_nine_patch_scale,
+                    margin_left = Sc.styles.scroll_grabber_nine_patch_margin_left,
+                    margin_top = Sc.styles.scroll_grabber_nine_patch_margin_top,
+                    margin_right = Sc.styles.scroll_grabber_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.scroll_grabber_nine_patch_margin_bottom,
                 })
     else:
         _configure_theme_stylebox(
                 "scroll", "HScrollBar", {
-                    bg_color = Gs.colors.scroll_bar_background,
-                    corner_radius = Gs.styles.scroll_corner_radius,
-                    corner_detail = Gs.styles.scroll_corner_detail,
-                    content_margin_left = Gs.styles.scroll_content_margin_left,
-                    content_margin_top = Gs.styles.scroll_content_margin_top,
-                    content_margin_right = Gs.styles.scroll_content_margin_right,
-                    content_margin_bottom = Gs.styles.scroll_content_margin_bottom,
+                    bg_color = Sc.colors.scroll_bar_background,
+                    corner_radius = Sc.styles.scroll_corner_radius,
+                    corner_detail = Sc.styles.scroll_corner_detail,
+                    content_margin_left = Sc.styles.scroll_content_margin_left,
+                    content_margin_top = Sc.styles.scroll_content_margin_top,
+                    content_margin_right = Sc.styles.scroll_content_margin_right,
+                    content_margin_bottom = Sc.styles.scroll_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber", "HScrollBar", {
-                    bg_color = Gs.colors.scroll_bar_grabber_normal,
-                    corner_radius = Gs.styles.scroll_grabber_corner_radius,
-                    corner_detail = Gs.styles.scroll_grabber_corner_detail,
+                    bg_color = Sc.colors.scroll_bar_grabber_normal,
+                    corner_radius = Sc.styles.scroll_grabber_corner_radius,
+                    corner_detail = Sc.styles.scroll_grabber_corner_detail,
                 })
         _configure_theme_stylebox(
                 "grabber_highlight", "HScrollBar", {
-                    bg_color = Gs.colors.scroll_bar_grabber_hover,
-                    corner_radius = Gs.styles.scroll_grabber_corner_radius,
-                    corner_detail = Gs.styles.scroll_grabber_corner_detail,
+                    bg_color = Sc.colors.scroll_bar_grabber_hover,
+                    corner_radius = Sc.styles.scroll_grabber_corner_radius,
+                    corner_detail = Sc.styles.scroll_grabber_corner_detail,
                 })
         _configure_theme_stylebox(
                 "grabber_pressed", "HScrollBar", {
-                    bg_color = Gs.colors.scroll_bar_grabber_pressed,
-                    corner_radius = Gs.styles.scroll_grabber_corner_radius,
-                    corner_detail = Gs.styles.scroll_grabber_corner_detail,
+                    bg_color = Sc.colors.scroll_bar_grabber_pressed,
+                    corner_radius = Sc.styles.scroll_grabber_corner_radius,
+                    corner_detail = Sc.styles.scroll_grabber_corner_detail,
                 })
         
         _configure_theme_stylebox(
                 "scroll", "VScrollBar", {
-                    bg_color = Gs.colors.scroll_bar_background,
-                    corner_radius = Gs.styles.scroll_corner_radius,
-                    corner_detail = Gs.styles.scroll_corner_detail,
-                    content_margin_left = Gs.styles.scroll_content_margin_left,
-                    content_margin_top = Gs.styles.scroll_content_margin_top,
-                    content_margin_right = Gs.styles.scroll_content_margin_right,
-                    content_margin_bottom = Gs.styles.scroll_content_margin_bottom,
+                    bg_color = Sc.colors.scroll_bar_background,
+                    corner_radius = Sc.styles.scroll_corner_radius,
+                    corner_detail = Sc.styles.scroll_corner_detail,
+                    content_margin_left = Sc.styles.scroll_content_margin_left,
+                    content_margin_top = Sc.styles.scroll_content_margin_top,
+                    content_margin_right = Sc.styles.scroll_content_margin_right,
+                    content_margin_bottom = Sc.styles.scroll_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "grabber", "VScrollBar", {
-                    bg_color = Gs.colors.scroll_bar_grabber_normal,
-                    corner_radius = Gs.styles.scroll_grabber_corner_radius,
-                    corner_detail = Gs.styles.scroll_grabber_corner_detail,
+                    bg_color = Sc.colors.scroll_bar_grabber_normal,
+                    corner_radius = Sc.styles.scroll_grabber_corner_radius,
+                    corner_detail = Sc.styles.scroll_grabber_corner_detail,
                 })
         _configure_theme_stylebox(
                 "grabber_highlight", "VScrollBar", {
-                    bg_color = Gs.colors.scroll_bar_grabber_hover,
-                    corner_radius = Gs.styles.scroll_grabber_corner_radius,
-                    corner_detail = Gs.styles.scroll_grabber_corner_detail,
+                    bg_color = Sc.colors.scroll_bar_grabber_hover,
+                    corner_radius = Sc.styles.scroll_grabber_corner_radius,
+                    corner_detail = Sc.styles.scroll_grabber_corner_detail,
                 })
         _configure_theme_stylebox(
                 "grabber_pressed", "VScrollBar", {
-                    bg_color = Gs.colors.scroll_bar_grabber_pressed,
-                    corner_radius = Gs.styles.scroll_grabber_corner_radius,
-                    corner_detail = Gs.styles.scroll_grabber_corner_detail,
+                    bg_color = Sc.colors.scroll_bar_grabber_pressed,
+                    corner_radius = Sc.styles.scroll_grabber_corner_radius,
+                    corner_detail = Sc.styles.scroll_grabber_corner_detail,
                 })
     
-    if is_instance_valid(Gs.styles.slider_track_nine_patch):
+    if is_instance_valid(Sc.styles.slider_track_nine_patch):
         _configure_theme_stylebox(
                 "slider", "HSlider", {
-                    texture = Gs.styles.slider_track_nine_patch,
-                    texture_scale = Gs.styles.slider_track_nine_patch_scale,
-                    margin_left = Gs.styles.slider_track_nine_patch_margin_left,
-                    margin_top = Gs.styles.slider_track_nine_patch_margin_top,
-                    margin_right = Gs.styles.slider_track_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.slider_track_nine_patch_margin_bottom,
+                    texture = Sc.styles.slider_track_nine_patch,
+                    texture_scale = Sc.styles.slider_track_nine_patch_scale,
+                    margin_left = Sc.styles.slider_track_nine_patch_margin_left,
+                    margin_top = Sc.styles.slider_track_nine_patch_margin_top,
+                    margin_right = Sc.styles.slider_track_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.slider_track_nine_patch_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "slider", "VSlider", {
-                    texture = Gs.styles.slider_track_nine_patch,
-                    texture_scale = Gs.styles.slider_track_nine_patch_scale,
-                    margin_left = Gs.styles.slider_track_nine_patch_margin_left,
-                    margin_top = Gs.styles.slider_track_nine_patch_margin_top,
-                    margin_right = Gs.styles.slider_track_nine_patch_margin_right,
-                    margin_bottom = Gs.styles.slider_track_nine_patch_margin_bottom,
+                    texture = Sc.styles.slider_track_nine_patch,
+                    texture_scale = Sc.styles.slider_track_nine_patch_scale,
+                    margin_left = Sc.styles.slider_track_nine_patch_margin_left,
+                    margin_top = Sc.styles.slider_track_nine_patch_margin_top,
+                    margin_right = Sc.styles.slider_track_nine_patch_margin_right,
+                    margin_bottom = Sc.styles.slider_track_nine_patch_margin_bottom,
                 })
     else:
         _configure_theme_stylebox(
                 "slider", "HSlider", {
-                    bg_color = Gs.colors.slider_background,
-                    corner_radius = Gs.styles.slider_corner_radius,
-                    corner_detail = Gs.styles.slider_corner_detail,
-                    content_margin_left = Gs.styles.slider_content_margin_left,
-                    content_margin_top = Gs.styles.slider_content_margin_top,
-                    content_margin_right = Gs.styles.slider_content_margin_right,
-                    content_margin_bottom = Gs.styles.slider_content_margin_bottom,
+                    bg_color = Sc.colors.slider_background,
+                    corner_radius = Sc.styles.slider_corner_radius,
+                    corner_detail = Sc.styles.slider_corner_detail,
+                    content_margin_left = Sc.styles.slider_content_margin_left,
+                    content_margin_top = Sc.styles.slider_content_margin_top,
+                    content_margin_right = Sc.styles.slider_content_margin_right,
+                    content_margin_bottom = Sc.styles.slider_content_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "slider", "VSlider", {
-                    bg_color = Gs.colors.slider_background,
-                    corner_radius = Gs.styles.slider_corner_radius,
-                    corner_detail = Gs.styles.slider_corner_detail,
-                    content_margin_left = Gs.styles.slider_content_margin_left,
-                    content_margin_top = Gs.styles.slider_content_margin_top,
-                    content_margin_right = Gs.styles.slider_content_margin_right,
-                    content_margin_bottom = Gs.styles.slider_content_margin_bottom,
+                    bg_color = Sc.colors.slider_background,
+                    corner_radius = Sc.styles.slider_corner_radius,
+                    corner_detail = Sc.styles.slider_corner_detail,
+                    content_margin_left = Sc.styles.slider_content_margin_left,
+                    content_margin_top = Sc.styles.slider_content_margin_top,
+                    content_margin_right = Sc.styles.slider_content_margin_right,
+                    content_margin_bottom = Sc.styles.slider_content_margin_bottom,
                 })
     
     _configure_theme_stylebox(
@@ -1025,11 +1025,11 @@ func configure_theme() -> void:
             "grabber_area_highlight", "VSlider", Color.transparent)
     
     _configure_theme_stylebox(
-            "panel", "PopupMenu", Gs.styles.overlay_panel_stylebox)
+            "panel", "PopupMenu", Sc.styles.overlay_panel_stylebox)
     _configure_theme_stylebox(
-            "panel", "Panel", Gs.colors.background)
+            "panel", "Panel", Sc.colors.background)
     _configure_theme_stylebox(
-            "panel", "PanelContainer", Gs.colors.background)
+            "panel", "PanelContainer", Sc.colors.background)
     _configure_theme_stylebox(
             "bg", "Tree", Color.transparent)
     
@@ -1046,37 +1046,37 @@ func configure_theme() -> void:
     _configure_theme_stylebox(
             "pressed", "CheckBox", Color.transparent)
     
-    if Gs.gui.theme.default_font == null:
-        Gs.gui.theme.default_font = Gs.gui.fonts.main_m
+    if Sc.gui.theme.default_font == null:
+        Sc.gui.theme.default_font = Sc.gui.fonts.main_m
     
-    Gs.gui.theme.set_font("font", "TooltipLabel", Gs.gui.fonts.main_xs)
+    Sc.gui.theme.set_font("font", "TooltipLabel", Sc.gui.fonts.main_xs)
     _configure_theme_color( \
-            "font_color", "TooltipLabel", Gs.colors.tooltip)
+            "font_color", "TooltipLabel", Sc.colors.tooltip)
     _configure_theme_stylebox( \
-            "panel", "TooltipPanel", Gs.colors.tooltip_bg)
+            "panel", "TooltipPanel", Sc.colors.tooltip_bg)
 
 
 func _configure_theme_color(
         name: String,
         type: String,
         color: Color) -> void:
-    if !Gs.gui.theme.has_color(name, type):
-        Gs.gui.theme.set_color(name, type, color)
+    if !Sc.gui.theme.has_color(name, type):
+        Sc.gui.theme.set_color(name, type, color)
 
 
 func _configure_theme_stylebox(
         name: String,
         type: String,
         config) -> void:
-    if !Gs.gui.theme.has_stylebox(name, type):
-        var stylebox: StyleBox = Gs.styles.create_stylebox_scalable(config)
-        Gs.gui.theme.set_stylebox(name, type, stylebox)
+    if !Sc.gui.theme.has_stylebox(name, type):
+        var stylebox: StyleBox = Sc.styles.create_stylebox_scalable(config)
+        Sc.gui.theme.set_stylebox(name, type, stylebox)
     else:
-        var old: StyleBox = Gs.gui.theme.get_stylebox(name, type)
+        var old: StyleBox = Sc.gui.theme.get_stylebox(name, type)
         if !(old is StyleBoxFlatScalable or \
                 old is StyleBoxTextureScalable):
-            var new: StyleBox = Gs.styles.create_stylebox_scalable(old)
-            Gs.gui.theme.set_stylebox(name, type, new)
+            var new: StyleBox = Sc.styles.create_stylebox_scalable(old)
+            Sc.gui.theme.set_stylebox(name, type, new)
 
 
 func create_stylebox_scalable(config) -> StyleBox:
@@ -1095,7 +1095,7 @@ func create_stylebox_scalable(config) -> StyleBox:
     elif config is StyleBox:
         return _create_stylebox_flat_scalable_from_stylebox(config)
     else:
-        Gs.logger.error()
+        Sc.logger.error()
         return null
 
 

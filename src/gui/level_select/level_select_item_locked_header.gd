@@ -42,25 +42,25 @@ func _init_children() -> void:
     _destroy()
     
     $HintWrapper.modulate.a = 0.0
-    previous_gui_scale = Gs.gui.scale
+    previous_gui_scale = Sc.gui.scale
     
-    header_stylebox = Gs.styles.create_stylebox_scalable({
+    header_stylebox = Sc.styles.create_stylebox_scalable({
         stylebox = get_stylebox("panel"),
-        corner_radius = Gs.styles.dropdown_corner_radius,
-        corner_detail = Gs.styles.dropdown_corner_detail,
-        shadow_size = Gs.styles.dropdown_shadow_size,
-        border_width = Gs.styles.dropdown_border_width,
-        border_color = Gs.colors.dropdown_border,
+        corner_radius = Sc.styles.dropdown_corner_radius,
+        corner_detail = Sc.styles.dropdown_corner_detail,
+        shadow_size = Sc.styles.dropdown_shadow_size,
+        border_width = Sc.styles.dropdown_border_width,
+        border_color = Sc.colors.dropdown_border,
     })
     add_stylebox_override("panel", header_stylebox)
     
-    hint_stylebox = Gs.styles.create_stylebox_scalable({
+    hint_stylebox = Sc.styles.create_stylebox_scalable({
         stylebox = get_stylebox("panel"),
-        corner_radius = Gs.styles.dropdown_corner_radius,
-        corner_detail = Gs.styles.dropdown_corner_detail,
-        shadow_size = Gs.styles.dropdown_shadow_size,
-        border_width = Gs.styles.dropdown_border_width,
-        border_color = Gs.colors.dropdown_border,
+        corner_radius = Sc.styles.dropdown_corner_radius,
+        corner_detail = Sc.styles.dropdown_corner_detail,
+        shadow_size = Sc.styles.dropdown_shadow_size,
+        border_width = Sc.styles.dropdown_border_width,
+        border_color = Sc.colors.dropdown_border,
     })
     $HintWrapper.add_stylebox_override("panel", hint_stylebox)
 
@@ -75,7 +75,7 @@ func update_size(header_size: Vector2) -> bool:
     rect_min_size = header_size
     
     $HintWrapper/Hint.rect_min_size = \
-            original_hint_rect_min_size * Gs.gui.scale
+            original_hint_rect_min_size * Sc.gui.scale
     $HintWrapper/Hint.rect_size = header_size
     $HintWrapper.rect_size = header_size
     $LockAnimation._on_gui_scale_changed()
@@ -87,9 +87,9 @@ func update_size(header_size: Vector2) -> bool:
 
 func update_is_unlocked(is_unlocked: bool) -> void:
     var unlock_hint_message: String = \
-            Gs.level_config.get_unlock_hint(level_id)
+            Sc.level_config.get_unlock_hint(level_id)
     var is_next_level_to_unlock: bool = \
-            Gs.level_config.get_next_level_to_unlock() == level_id
+            Sc.level_config.get_next_level_to_unlock() == level_id
     
     $HintWrapper/Hint.text = unlock_hint_message
     visible = !is_unlocked
@@ -105,27 +105,27 @@ func update_is_unlocked(is_unlocked: bool) -> void:
         var delay := 0.0
 #        var delay := \
 #                0.0 if \
-#                !Gs.save_state.get_new_unlocked_levels().empty() else \
+#                !Sc.save_state.get_new_unlocked_levels().empty() else \
 #                (0.3 + \
 #                LOCK_LOW_PART_DELAY + \
 #                LockAnimation.UNLOCK_DURATION + \
 #                FADE_TWEEN_DURATION)
-        Gs.time.set_timeout(funcref(self, "pulse_unlock_hint"), delay)
+        Sc.time.set_timeout(funcref(self, "pulse_unlock_hint"), delay)
 
 
 func unlock() -> void:
     visible = true
     
-    Gs.time.set_timeout(
+    Sc.time.set_timeout(
             funcref($LockAnimation, "unlock"),
             LOCK_LOW_PART_DELAY)
     
-    Gs.time.set_timeout(
-            funcref(Gs.audio, "play_sound"),
+    Sc.time.set_timeout(
+            funcref(Sc.audio, "play_sound"),
             LOCK_LOW_PART_DELAY,
             ["lock_low"])
-    Gs.time.set_timeout(
-            funcref(Gs.audio, "play_sound"),
+    Sc.time.set_timeout(
+            funcref(Sc.audio, "play_sound"),
             LOCK_LOW_PART_DELAY + LOCK_HIGH_PART_DELAY,
             ["lock_high"])
 

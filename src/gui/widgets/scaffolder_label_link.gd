@@ -8,12 +8,12 @@ export var url: String
 
 
 func _ready() -> void:
-    add_color_override("font_color", Gs.colors.link_normal)
-    add_color_override("font_color_hover", Gs.colors.link_hover)
-    add_color_override("font_color_pressed", Gs.colors.link_pressed)
+    add_color_override("font_color", Sc.colors.link_normal)
+    add_color_override("font_color_hover", Sc.colors.link_hover)
+    add_color_override("font_color_pressed", Sc.colors.link_pressed)
 
 
 func _on_ScaffolderLabelLink_pressed() -> void:
     assert(!url.empty())
-    Gs.utils.give_button_press_feedback()
+    Sc.utils.give_button_press_feedback()
     OS.shell_open(url)

@@ -14,14 +14,14 @@ func _init(__ = null).(
 
 
 func on_pressed(pressed: bool) -> void:
-    Gs.audio.is_music_enabled = pressed
-    Gs.save_state.set_setting(
+    Sc.audio.is_music_enabled = pressed
+    Sc.save_state.set_setting(
             SaveState.IS_MUSIC_ENABLED_SETTINGS_KEY,
-            Gs.audio.is_music_enabled)
+            Sc.audio.is_music_enabled)
 
 
 func get_is_pressed() -> bool:
-    return Gs.audio.is_music_enabled
+    return Sc.audio.is_music_enabled
 
 
 func get_is_enabled() -> bool:

@@ -34,8 +34,8 @@ func _on_gui_scale_changed() -> bool:
 
 func _deferred_on_gui_scale_changed() -> void:
     $CheckBox.rect_size = Vector2(
-            Gs.icons.current_checkbox_size,
-            Gs.icons.current_checkbox_size)
+            Sc.icons.current_checkbox_size,
+            Sc.icons.current_checkbox_size)
     
     var check_box_scale := _get_icon_scale()
     $CheckBox.rect_scale = Vector2(check_box_scale, check_box_scale)
@@ -43,11 +43,11 @@ func _deferred_on_gui_scale_changed() -> void:
     rect_min_size.x = \
             (size_override.x if \
             size_override.x != 0.0 else \
-            Gs.gui.button_width) * Gs.gui.scale * scale
+            Sc.gui.button_width) * Sc.gui.scale * scale
     rect_min_size.y = \
             (size_override.y if \
             size_override.y != 0.0 else \
-            Gs.gui.button_height) * Gs.gui.scale * scale
+            Sc.gui.button_height) * Sc.gui.scale * scale
     rect_size = rect_min_size
     
     $CheckBox.rect_position = \
@@ -56,8 +56,8 @@ func _deferred_on_gui_scale_changed() -> void:
 
 func _get_icon_scale() -> float:
     var target_icon_size: float = \
-            Gs.icons.default_checkbox_size * Gs.gui.scale * scale
-    return target_icon_size / Gs.icons.current_checkbox_size
+            Sc.icons.default_checkbox_size * Sc.gui.scale * scale
+    return target_icon_size / Sc.icons.current_checkbox_size
 
 
 func _set_text(value: String) -> void:
@@ -96,7 +96,7 @@ func _set_group(value: ButtonGroup) -> void:
 
 
 func _on_CheckBox_pressed() -> void:
-    Gs.utils.give_button_press_feedback()
+    Sc.utils.give_button_press_feedback()
     emit_signal("pressed")
 
 

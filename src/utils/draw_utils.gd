@@ -10,7 +10,7 @@ const EXCLAMATION_MARK_DOT_WIDTH_RATIO := 1.0
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "ScaffolderDrawUtils")
+    Sc.logger.on_global_init(self, "ScaffolderDrawUtils")
 
 
 # Godot's CanvasItem.draw_polyline function draws the ends of the polyline with
@@ -467,10 +467,10 @@ static func draw_shape_outline(
         thickness: float) -> void:
     var is_rotated_90_degrees = \
             abs(fmod(rotation + PI * 2, PI) - PI / 2) < \
-            Gs.geometry.FLOAT_EPSILON
+            Sc.geometry.FLOAT_EPSILON
     
     # Ensure that collision boundaries are only ever axially aligned.
-    assert(is_rotated_90_degrees or abs(rotation) < Gs.geometry.FLOAT_EPSILON)
+    assert(is_rotated_90_degrees or abs(rotation) < Sc.geometry.FLOAT_EPSILON)
     
     if shape is CircleShape2D:
         draw_circle_outline(
@@ -497,7 +497,7 @@ static func draw_shape_outline(
                 color,
                 thickness)
     else:
-        Gs.logger.error(
+        Sc.logger.error(
                 "Invalid Shape2D provided for draw_shape: %s. The " +
                 "supported shapes are: CircleShape2D, CapsuleShape2D, " +
                 "RectangleShape2D." % shape)

@@ -44,13 +44,13 @@ func _init(
 
 
 func on_value_changed(value: float) -> void:
-    Gs.logger.error(
+    Sc.logger.error(
             "Abstract SliderLabeledControlItem.on_value_changed " +
             "is not implemented")
 
 
 func get_value() -> float:
-    Gs.logger.error(
+    Sc.logger.error(
             "Abstract SliderLabeledControlItem.get_value " +
             "is not implemented")
     return INF
@@ -63,9 +63,9 @@ func _update_control() -> void:
 
 
 func create_control() -> Control:
-    var slider: ScaffolderSlider = Gs.utils.add_scene(
+    var slider: ScaffolderSlider = Sc.utils.add_scene(
             null,
-            Gs.gui.SCAFFOLDER_SLIDER_SCENE,
+            Sc.gui.SCAFFOLDER_SLIDER_SCENE,
             false,
             true)
     slider.editable = enabled
@@ -84,7 +84,7 @@ func create_control() -> Control:
 
 func _on_slider_value_changed(_value: float) -> void:
     if !_is_change_triggered_indirectly:
-        Gs.utils.give_button_press_feedback()
+        Sc.utils.give_button_press_feedback()
     _is_change_triggered_indirectly = false
     value = control.value
     on_value_changed(value)

@@ -21,6 +21,6 @@ func _init(level_session_or_id).(
 
 
 func get_text() -> String:
-    return str(Gs.save_state.get_level_high_score(level_id)) if \
+    return str(Sc.save_state.get_level_high_score(level_id)) if \
             level_id != "" else \
             "—"

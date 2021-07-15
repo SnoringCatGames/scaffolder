@@ -50,7 +50,7 @@ var _header_pressed_stylebox: StyleBoxFlatScalable
 
 var _start_scroll_vertical: int
 
-var _debounced_update_children: FuncRef = Gs.time.debounce(
+var _debounced_update_children: FuncRef = Sc.time.debounce(
         funcref(self, "_update_children_debounced"),
         0.02)
 
@@ -92,7 +92,7 @@ func _destroy() -> void:
 
 func _on_gui_scale_changed() -> bool:
     _update_children()
-    Gs.time.set_timeout(funcref(self, "_trigger_open_change"), 0.2, [false])
+    Sc.time.set_timeout(funcref(self, "_trigger_open_change"), 0.2, [false])
     return true
 
 
@@ -100,27 +100,27 @@ func _on_gui_scale_changed_debounced() -> void:
     rect_min_size.x = \
             (header_size_override.x if \
             header_size_override.x != 0.0 else \
-            Gs.gui.screen_body_width) * Gs.gui.scale
+            Sc.gui.screen_body_width) * Sc.gui.scale
     rect_size = rect_min_size
     
     if is_instance_valid(_header):
         if includes_header:
             _header_hbox.add_constant_override(
                     "separation",
-                    padding.x * Gs.gui.scale)
+                    padding.x * Sc.gui.scale)
             
             _caret.texture_scale = CARET_SCALE
             
             var header_height: float = \
                     (header_size_override.y if \
                     header_size_override.y != 0.0 else \
-                    Gs.gui.button_height) * Gs.gui.scale
+                    Sc.gui.button_height) * Sc.gui.scale
             _header.rect_size = Vector2(rect_min_size.x, header_height)
             _header_hbox.rect_size = _header.rect_size
         else:
-            Gs.gui.scale_gui_recursively(_header)
+            Sc.gui.scale_gui_recursively(_header)
     
-    Gs.gui.scale_gui_recursively(_projected_control)
+    Sc.gui.scale_gui_recursively(_projected_control)
     _projected_control.rect_size.x = rect_size.x
     if is_instance_valid(_header):
         _projected_control.rect_position.y = _header.rect_size.y
@@ -146,29 +146,29 @@ func _create_header() -> void:
     _header.mouse_filter = Control.MOUSE_FILTER_STOP
     _header.connect("pressed", self, "_on_header_pressed")
     
-    _header_normal_stylebox = Gs.styles.create_stylebox_scalable({
-        bg_color = Gs.colors.dropdown_normal,
-        corner_radius = Gs.styles.dropdown_corner_radius,
-        corner_detail = Gs.styles.dropdown_corner_detail,
-        shadow_size = Gs.styles.dropdown_shadow_size,
-        border_width = Gs.styles.dropdown_border_width,
-        border_color = Gs.colors.dropdown_border,
+    _header_normal_stylebox = Sc.styles.create_stylebox_scalable({
+        bg_color = Sc.colors.dropdown_normal,
+        corner_radius = Sc.styles.dropdown_corner_radius,
+        corner_detail = Sc.styles.dropdown_corner_detail,
+        shadow_size = Sc.styles.dropdown_shadow_size,
+        border_width = Sc.styles.dropdown_border_width,
+        border_color = Sc.colors.dropdown_border,
     })
-    _header_hover_stylebox = Gs.styles.create_stylebox_scalable({
-        bg_color = Gs.colors.dropdown_hover,
-        corner_radius = Gs.styles.dropdown_corner_radius,
-        corner_detail = Gs.styles.dropdown_corner_detail,
-        shadow_size = Gs.styles.dropdown_shadow_size,
-        border_width = Gs.styles.dropdown_border_width,
-        border_color = Gs.colors.dropdown_border,
+    _header_hover_stylebox = Sc.styles.create_stylebox_scalable({
+        bg_color = Sc.colors.dropdown_hover,
+        corner_radius = Sc.styles.dropdown_corner_radius,
+        corner_detail = Sc.styles.dropdown_corner_detail,
+        shadow_size = Sc.styles.dropdown_shadow_size,
+        border_width = Sc.styles.dropdown_border_width,
+        border_color = Sc.colors.dropdown_border,
     })
-    _header_pressed_stylebox = Gs.styles.create_stylebox_scalable({
-        bg_color = Gs.colors.dropdown_pressed,
-        corner_radius = Gs.styles.dropdown_corner_radius,
-        corner_detail = Gs.styles.dropdown_corner_detail,
-        shadow_size = Gs.styles.dropdown_shadow_size,
-        border_width = Gs.styles.dropdown_border_width,
-        border_color = Gs.colors.dropdown_border,
+    _header_pressed_stylebox = Sc.styles.create_stylebox_scalable({
+        bg_color = Sc.colors.dropdown_pressed,
+        corner_radius = Sc.styles.dropdown_corner_radius,
+        corner_detail = Sc.styles.dropdown_corner_detail,
+        shadow_size = Sc.styles.dropdown_shadow_size,
+        border_width = Sc.styles.dropdown_border_width,
+        border_color = Sc.colors.dropdown_border,
     })
     
     _header.add_stylebox_override("normal", _header_normal_stylebox)
@@ -178,38 +178,38 @@ func _create_header() -> void:
     _header_hbox = HBoxContainer.new()
     _header.add_child(_header_hbox)
     
-    _spacer1 = Gs.utils.add_scene(
-            null, Gs.gui.SPACER_SCENE, false, true)
+    _spacer1 = Sc.utils.add_scene(
+            null, Sc.gui.SPACER_SCENE, false, true)
     _spacer1.size = Vector2.ZERO
     
-    _caret = Gs.utils.add_scene(
+    _caret = Sc.utils.add_scene(
             null,
-            Gs.gui.SCAFFOLDER_TEXTURE_RECT_SCENE,
+            Sc.gui.SCAFFOLDER_TEXTURE_RECT_SCENE,
             false,
             true)
     _caret.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
     _caret.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-    _caret.texture = Gs.icons.left_caret_normal
+    _caret.texture = Sc.icons.left_caret_normal
     _caret.mouse_filter = MOUSE_FILTER_IGNORE
     var inner_texture_rect := _caret.get_node("TextureRect")
     inner_texture_rect.rect_pivot_offset = CARET_SIZE_DEFAULT / 2.0
     inner_texture_rect.rect_rotation = CARET_ROTATION_CLOSED
     
-    _header_label = Gs.utils.add_scene(
-            null, Gs.gui.SCAFFOLDER_LABEL_SCENE, false, true)
+    _header_label = Sc.utils.add_scene(
+            null, Sc.gui.SCAFFOLDER_LABEL_SCENE, false, true)
     _header_label.text = header_text
     _header_label.align = Label.ALIGN_LEFT
     _header_label.valign = Label.VALIGN_CENTER
     _header_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     _header_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     
-    _spacer2 = Gs.utils.add_scene(
-            null, Gs.gui.SPACER_SCENE, false, true)
+    _spacer2 = Sc.utils.add_scene(
+            null, Sc.gui.SPACER_SCENE, false, true)
     _spacer2.size = Vector2.ZERO
     
     if uses_header_color:
-        _header.add_color_override("font_color", Gs.colors.header)
-        _header_label.add_color_override("font_color", Gs.colors.header)
+        _header.add_color_override("font_color", Sc.colors.header)
+        _header_label.add_color_override("font_color", Sc.colors.header)
     
     _update_header_arrangement()
     
@@ -283,7 +283,7 @@ func _update_children_debounced() -> void:
     _projected_control.size_flags_vertical = Control.SIZE_FILL
     
     if includes_header:
-        var header_font: Font = Gs.gui.get_font(header_font_size)
+        var header_font: Font = Sc.gui.get_font(header_font_size)
         _header.add_font_override("font", header_font)
     
     configuration_warning = ""
@@ -329,7 +329,7 @@ func _trigger_open_change(is_tweening: bool) -> void:
                 "ease_in_out")
         if is_open:
             var scroll_container: ScrollContainer = \
-                    Gs.nav.current_screen_container.scroll_container
+                    Sc.nav.current_screen_container.scroll_container
             _start_scroll_vertical = scroll_container.scroll_vertical
             _is_open_tween.interpolate_method(
                     self,
@@ -369,12 +369,12 @@ func _interpolate_caret_rotation(rotation: float) -> void:
 # off the top of the screen!
 func _interpolate_scroll(open_ratio: float) -> void:
     var scroll_container: ScrollContainer = \
-            Gs.nav.current_screen_container.scroll_container
+            Sc.nav.current_screen_container.scroll_container
     if scroll_container == null:
         return
     
     var accordion_position_y_in_scroll_container: int = \
-            Gs.utils.get_node_vscroll_position(scroll_container, self)
+            Sc.utils.get_node_vscroll_position(scroll_container, self)
     var accordion_height := _projected_control.rect_size.y
     if includes_header:
         accordion_height += _header.rect_size.y
@@ -385,7 +385,7 @@ func _interpolate_scroll(open_ratio: float) -> void:
             scroll_container.rect_size.y
     var max_scroll_vertical_to_show_accordion_top: float = \
             accordion_position_y_in_scroll_container - \
-            extra_scroll_height_for_custom_header * Gs.gui.scale
+            extra_scroll_height_for_custom_header * Sc.gui.scale
     
     var is_scrolling_upward := \
             scroll_container.scroll_vertical > \
@@ -443,7 +443,7 @@ func _get_configuration_warning() -> String:
 
 
 func _on_header_pressed() -> void:
-    Gs.utils.give_button_press_feedback()
+    Sc.utils.give_button_press_feedback()
     toggle()
 
 

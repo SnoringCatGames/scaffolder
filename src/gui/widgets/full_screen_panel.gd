@@ -5,12 +5,12 @@ extends PanelContainer
 
 
 func _init() -> void:
-    theme = Gs.gui.theme
-    add_font_override("font", Gs.gui.fonts.main_m)
+    theme = Sc.gui.theme
+    add_font_override("font", Sc.gui.fonts.main_m)
 
 
 func _ready() -> void:
-    Gs.device.connect(
+    Sc.device.connect(
             "display_resized",
             self,
             "_on_resized")
@@ -18,4 +18,4 @@ func _ready() -> void:
 
 
 func _on_resized() -> void:
-    rect_size = Gs.device.get_viewport_size()
+    rect_size = Sc.device.get_viewport_size()

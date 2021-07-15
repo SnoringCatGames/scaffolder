@@ -6,33 +6,33 @@ const HEADERS := ["Content-Type: application/json"]
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "GestureReporter")
+    Sc.logger.on_global_init(self, "GestureReporter")
 
 
 func record_recent_gestures() -> void:
-    assert(Gs.gui.is_gesture_logging_supported)
+    assert(Sc.gui.is_gesture_logging_supported)
     
     var recent_top_level_events_raw_str := ""
     
-    if is_instance_valid(Gs.gui.gesture_record):
-        var events: Array = Gs.gui.gesture_record \
+    if is_instance_valid(Sc.gui.gesture_record):
+        var events: Array = Sc.gui.gesture_record \
                 .recent_gesture_events_for_debugging
         for event in events:
             recent_top_level_events_raw_str += event.to_string()
     
-    var url: String = Gs.get_log_gestures_url_with_params()
+    var url: String = Sc.get_log_gestures_url_with_params()
     
     var body_object := {
         recent_top_level_gesture_events = recent_top_level_events_raw_str,
     }
     var body_str := JSON.print(body_object)
     
-    Gs.logger.print("GestureReporter.record_recent_gestures: %s" % url)
+    Sc.logger.print("GestureReporter.record_recent_gestures: %s" % url)
     
-    if !Gs.metadata.agreed_to_terms or \
-            !Gs.metadata.is_data_tracked:
+    if !Sc.metadata.agreed_to_terms or \
+            !Sc.metadata.is_data_tracked:
         # User hasn't agreed to data collection.
-        Gs.logger.error()
+        Sc.logger.error()
         return
     
     var request := HTTPRequest.new()
@@ -52,7 +52,7 @@ func record_recent_gestures() -> void:
             body_str)
     
     if status != OK:
-        Gs.logger.error(
+        Sc.logger.error(
                 ("GestureReporter.record_recent_gestures failed: " +
                 "status=%d") % status,
                 false)
@@ -64,14 +64,14 @@ func _on_record_recent_gestures_request_completed(
         headers: PoolStringArray,
         body: PoolByteArray,
         request: HTTPRequest) -> void:
-    Gs.logger.print(
+    Sc.logger.print(
             ("GestureReporter._on_record_recent_gestures_request_completed: " +
             "result=%d, code=%d") % \
             [result, response_code])
     if result != HTTPRequest.RESULT_SUCCESS or \
             response_code < 200 or \
             response_code >= 300:
-        Gs.logger.print("  Body:\n    " + body.get_string_from_utf8())
-        Gs.logger.print(
-                "  Headers:\n    " + Gs.utils.join(headers, ",\n    "))
+        Sc.logger.print("  Body:\n    " + body.get_string_from_utf8())
+        Sc.logger.print(
+                "  Headers:\n    " + Sc.utils.join(headers, ",\n    "))
     request.queue_free()

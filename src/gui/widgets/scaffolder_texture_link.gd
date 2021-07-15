@@ -52,5 +52,5 @@ func _get_texture_scale() -> Vector2:
 
 func _on_ScaffolderTextureLink_pressed() -> void:
     assert(!url.empty())
-    Gs.utils.give_button_press_feedback()
+    Sc.utils.give_button_press_feedback()
     OS.shell_open(url)

@@ -76,7 +76,7 @@ var DEFAULT_SCREEN_SCENES := [
 ]
 
 var DEFAULT_WELCOME_PANEL_MANIFEST := {
-#    header = Gs.metadata.app_name,
+#    header = Sc.metadata.app_name,
 #    subheader = "(Click window to give focus)",
 #    is_header_shown = true,
     items = [
@@ -257,7 +257,7 @@ var active_overlays := []
 
 
 func _init() -> void:
-    Gs.logger.on_global_init(self, "ScaffolderGuiConfig")
+    Sc.logger.on_global_init(self, "ScaffolderGuiConfig")
 
 
 func amend_manifest(manifest: Dictionary) -> void:
@@ -374,14 +374,14 @@ func register_manifest(manifest: Dictionary) -> void:
                 manifest.recent_gesture_events_for_debugging_buffer_size
     
     if fonts_manifest.has("sizes"):
-        if Gs.device.get_is_mobile_device():
+        if Sc.device.get_is_mobile_device():
             if fonts_manifest.sizes.has("mobile"):
                 self.font_size_overrides = fonts_manifest.sizes.mobile
         else:
             if fonts_manifest.sizes.has("pc"):
                 self.font_size_overrides = fonts_manifest.sizes.pc
     
-    if Gs.device.get_is_mobile_device():
+    if Sc.device.get_is_mobile_device():
         if manifest.has("splash_scale_mobile"):
             self.splash_scale = manifest.splash_scale_mobile
     else:
@@ -391,28 +391,28 @@ func register_manifest(manifest: Dictionary) -> void:
     self.is_special_thanks_shown = !self.special_thanks_text.empty()
     self.is_third_party_licenses_shown = !self.third_party_license_text.empty()
     self.is_rate_app_shown = \
-            !Gs.metadata.android_app_store_url.empty() and \
-            !Gs.metadata.ios_app_store_url.empty()
+            !Sc.metadata.android_app_store_url.empty() and \
+            !Sc.metadata.ios_app_store_url.empty()
     self.is_support_shown = \
-            !Gs.metadata.support_url.empty() and \
-            !Gs.metadata.app_id_query_param.empty()
-    self.is_developer_logo_shown = Gs.metadata.developer_logo != null
+            !Sc.metadata.support_url.empty() and \
+            !Sc.metadata.app_id_query_param.empty()
+    self.is_developer_logo_shown = Sc.metadata.developer_logo != null
     self.is_developer_splash_shown = \
-            Gs.metadata.developer_splash != null and \
-            Gs.audio_manifest.developer_splash_sound != ""
+            Sc.metadata.developer_splash != null and \
+            Sc.audio_manifest.developer_splash_sound != ""
     self.is_main_menu_image_shown = self.main_menu_image_scene != null
     self.is_game_over_image_shown = self.game_over_image_scene != null
     self.is_loading_image_shown = self.loading_image_scene != null
     self.does_app_contain_welcome_panel = self.welcome_panel_scene != null
     self.is_gesture_logging_supported = \
-            !Gs.metadata.log_gestures_url.empty() and \
-            !Gs.metadata.app_id_query_param.empty()
+            !Sc.metadata.log_gestures_url.empty() and \
+            !Sc.metadata.app_id_query_param.empty()
     
     _record_original_font_dimensions()
     
     _initialize_hud_key_value_list_item_enablement()
     
-    if !Gs.metadata.uses_level_scores:
+    if !Sc.metadata.uses_level_scores:
         for manifest in [
                     pause_item_manifest,
                     game_over_item_manifest,
@@ -424,7 +424,7 @@ func register_manifest(manifest: Dictionary) -> void:
 
 func add_gui_to_scale(gui) -> void:
     guis_to_scale[gui] = true
-    Gs.gui._scale_gui_for_current_screen_size(gui)
+    Sc.gui._scale_gui_for_current_screen_size(gui)
 
 
 func remove_gui_to_scale(gui) -> void:
@@ -466,7 +466,7 @@ func _initialize_hud_key_value_list_item_enablement() -> void:
     for item_config in hud_manifest.hud_key_value_list_item_manifest:
         item_config.settings_key = _get_key_value_item_enabled_settings_key(
                 item_config.settings_enablement_label)
-        item_config.enabled = Gs.save_state.get_setting(
+        item_config.enabled = Sc.save_state.get_setting(
                 item_config.settings_key,
                 item_config.enabled_by_default)
 
@@ -489,7 +489,7 @@ func font_size_to_string(size: int) -> String:
         FontSize.XL:
             return "Xl"
         _:
-            Gs.logger.error()
+            Sc.logger.error()
             return ""
 
 
@@ -506,7 +506,7 @@ func string_to_font_size(string: String) -> int:
         "Xl":
             return FontSize.XL
         _:
-            Gs.logger.error()
+            Sc.logger.error()
             return FontSize.M
 
 
@@ -530,64 +530,64 @@ func get_font(
     var size_string: String = \
             size if \
             size is String else \
-            Gs.gui.font_size_to_string(size)
+            Sc.gui.font_size_to_string(size)
     var size_part := "_" + size_string.to_lower()
     var font_key := context_part + size_part + bold_part + italic_part
-    return Gs.gui.fonts[font_key]
+    return Sc.gui.fonts[font_key]
 
 
 # Automatically resize the gui to adapt to different screen sizes.
 func _scale_gui_for_current_screen_size(gui) -> void:
     if !is_instance_valid(gui) or \
-            !Gs.gui.guis_to_scale.has(gui):
-        Gs.logger.error()
+            !Sc.gui.guis_to_scale.has(gui):
+        Sc.logger.error()
         return
     
-    Gs.gui.scale_gui_recursively(gui)
+    Sc.gui.scale_gui_recursively(gui)
 
 
 func _update_font_sizes() -> void:
     # First, update the fonts that don't have size overrides.
-    for font_name in Gs.gui.fonts:
-        if Gs.gui.font_size_overrides.has(font_name):
+    for font_name in Sc.gui.fonts:
+        if Sc.gui.font_size_overrides.has(font_name):
             continue
         _update_sizes_for_font(font_name)
     
     # Second, update the fonts with size overrides.
-    for font_name in Gs.gui.font_size_overrides:
+    for font_name in Sc.gui.font_size_overrides:
         _update_sizes_for_font(font_name)
 
 
 func _update_sizes_for_font(font_name: String) -> void:
     var original_dimensions: Dictionary = \
-            Gs.gui.original_font_dimensions[font_name]
+            Sc.gui.original_font_dimensions[font_name]
     for dimension_name in original_dimensions:
-        Gs.gui.fonts[font_name].set(
+        Sc.gui.fonts[font_name].set(
                 dimension_name,
-                original_dimensions[dimension_name] * Gs.gui.scale)
+                original_dimensions[dimension_name] * Sc.gui.scale)
 
 
 func _update_game_area_region_and_gui_scale() -> void:
-    var viewport_size: Vector2 = Gs.device.get_viewport_size()
+    var viewport_size: Vector2 = Sc.device.get_viewport_size()
     var aspect_ratio := viewport_size.x / viewport_size.y
     var game_area_position := Vector2.INF
     var game_area_size := Vector2.INF
     
-    if !Gs.metadata.is_app_configured:
+    if !Sc.metadata.is_app_configured:
         game_area_size = viewport_size
         game_area_position = Vector2.ZERO
-    if aspect_ratio < Gs.gui.aspect_ratio_min:
+    if aspect_ratio < Sc.gui.aspect_ratio_min:
         # Show vertical margin around game area.
         game_area_size = Vector2(
                 viewport_size.x,
-                viewport_size.x / Gs.gui.aspect_ratio_min)
+                viewport_size.x / Sc.gui.aspect_ratio_min)
         game_area_position = Vector2(
                 0.0,
                 (viewport_size.y - game_area_size.y) * 0.5)
-    elif aspect_ratio > Gs.gui.aspect_ratio_max:
+    elif aspect_ratio > Sc.gui.aspect_ratio_max:
         # Show horizontal margin around game area.
         game_area_size = Vector2(
-                viewport_size.y * Gs.gui.aspect_ratio_max,
+                viewport_size.y * Sc.gui.aspect_ratio_max,
                 viewport_size.y)
         game_area_position = Vector2(
                 (viewport_size.x - game_area_size.x) * 0.5,
@@ -597,29 +597,29 @@ func _update_game_area_region_and_gui_scale() -> void:
         game_area_size = viewport_size
         game_area_position = Vector2.ZERO
     
-    Gs.gui.game_area_region = Rect2(game_area_position, game_area_size)
+    Sc.gui.game_area_region = Rect2(game_area_position, game_area_size)
     
-    if Gs.metadata.is_app_configured:
+    if Sc.metadata.is_app_configured:
         var default_game_area_size: Vector2 = \
-                Gs.gui.default_mobile_game_area_size if \
-                Gs.device.get_is_mobile_device() else \
-                Gs.gui.default_pc_game_area_size
+                Sc.gui.default_mobile_game_area_size if \
+                Sc.device.get_is_mobile_device() else \
+                Sc.gui.default_pc_game_area_size
         var default_aspect_ratio: float = \
                 default_game_area_size.x / default_game_area_size.y
-        Gs.gui.previous_scale = Gs.gui.scale
-        Gs.gui.scale = \
+        Sc.gui.previous_scale = Sc.gui.scale
+        Sc.gui.scale = \
                 viewport_size.x / default_game_area_size.x if \
                 aspect_ratio < default_aspect_ratio else \
                 viewport_size.y / default_game_area_size.y
-        Gs.gui.scale = \
-                max(Gs.gui.scale, Gs.gui.MIN_GUI_SCALE)
+        Sc.gui.scale = \
+                max(Sc.gui.scale, Sc.gui.MIN_GUI_SCALE)
 
 
 func _scale_guis() -> void:
-    if Gs.gui.previous_scale != Gs.gui.scale:
-        for gui in Gs.gui.guis_to_scale:
+    if Sc.gui.previous_scale != Sc.gui.scale:
+        for gui in Sc.gui.guis_to_scale:
             assert(is_instance_valid(gui))
-            Gs.gui._scale_gui_for_current_screen_size(gui)
+            Sc.gui._scale_gui_for_current_screen_size(gui)
 
 
 func scale_gui_recursively(gui) -> void:
@@ -630,9 +630,9 @@ func scale_gui_recursively(gui) -> void:
     
     assert(gui is Control)
     var control: Control = gui
-    var scale: float = Gs.gui.scale
+    var scale: float = Sc.gui.scale
     
-    Gs.gui._record_gui_original_simple_dimensions(control)
+    Sc.gui._record_gui_original_simple_dimensions(control)
     
     if control is VBoxContainer or \
             control is HBoxContainer:
@@ -670,13 +670,13 @@ func scale_gui_recursively(gui) -> void:
         control.add_constant_override("margin_bottom", margin_bottom)
     
     if control.has_meta("gs_rect_min_size"):
-        control.rect_min_size = Gs.utils \
+        control.rect_min_size = Sc.utils \
                 .round_vector(control.get_meta("gs_rect_min_size") * scale)
     if control.has_meta("gs_rect_size"):
-        control.rect_size = Gs.utils \
+        control.rect_size = Sc.utils \
                 .round_vector(control.get_meta("gs_rect_size") * scale)
     if control.has_meta("gs_rect_scale"):
-        control.rect_scale = Gs.utils \
+        control.rect_scale = Sc.utils \
                 .round_vector(control.get_meta("gs_rect_scale") * scale)
     
     for child in control.get_children():

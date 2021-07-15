@@ -36,8 +36,8 @@ func _exit_tree() -> void:
 
 func _clear_style() -> void:
     if is_instance_valid(_stylebox) and \
-            _stylebox != Gs.styles.overlay_panel_stylebox and \
-            _stylebox != Gs.styles.header_panel_stylebox:
+            _stylebox != Sc.styles.overlay_panel_stylebox and \
+            _stylebox != Sc.styles.header_panel_stylebox:
         _stylebox._destroy()
 
 
@@ -53,20 +53,20 @@ func _set_style(value: int) -> void:
     
     match style:
         PanelStyle.TRANSPARENT:
-            _stylebox = Gs.styles.transparent_panel_stylebox
+            _stylebox = Sc.styles.transparent_panel_stylebox
         PanelStyle.OVERLAY:
-            _stylebox = Gs.styles.overlay_panel_stylebox
+            _stylebox = Sc.styles.overlay_panel_stylebox
         PanelStyle.HEADER:
-            _stylebox = Gs.styles.header_panel_stylebox
+            _stylebox = Sc.styles.header_panel_stylebox
         PanelStyle.HUD:
-            _stylebox = Gs.styles.hud_panel_stylebox
+            _stylebox = Sc.styles.hud_panel_stylebox
         _:
-            Gs.logger.error()
+            Sc.logger.error()
             _stylebox = null
     
     if is_instance_valid(_stylebox):
         if is_unique:
-            _stylebox = Gs.styles.create_stylebox_scalable(_stylebox)
+            _stylebox = Sc.styles.create_stylebox_scalable(_stylebox)
     
     add_stylebox_override("panel", _stylebox)
 
@@ -110,10 +110,10 @@ func _update_content_margin() -> void:
         return
     
     _stylebox.content_margin_left = \
-            content_margin_left_override * Gs.gui.scale
+            content_margin_left_override * Sc.gui.scale
     _stylebox.content_margin_top = \
-            content_margin_top_override * Gs.gui.scale
+            content_margin_top_override * Sc.gui.scale
     _stylebox.content_margin_right = \
-            content_margin_right_override * Gs.gui.scale
+            content_margin_right_override * Sc.gui.scale
     _stylebox.content_margin_bottom = \
-            content_margin_bottom_override * Gs.gui.scale
+            content_margin_bottom_override * Sc.gui.scale

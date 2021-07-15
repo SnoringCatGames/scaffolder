@@ -26,19 +26,19 @@ var _is_transition_complete_timeout_id := -1
 
 
 func _init() -> void:
-    Gs.audio.connect("music_changed", self, "_on_music_changed")
+    Sc.audio.connect("music_changed", self, "_on_music_changed")
 
 
 func _process(_delta: float) -> void:
     if _is_active and \
-            Gs.beats.is_tracking_beat:
+            Sc.beats.is_tracking_beat:
         _update_beat_state()
 
 
 func start(time_scale_duration: float) -> void:
     _is_active = true
     
-    _start_time_scaled = Gs.time.get_scaled_play_time()
+    _start_time_scaled = Sc.time.get_scaled_play_time()
     
     if !_is_transition_complete:
         # We didn't finish transitioning out of the previous slow-motion mode.
@@ -46,41 +46,41 @@ func start(time_scale_duration: float) -> void:
         pass
     else:
         # Update music.
-        meter = Gs.beats.get_meter()
-        _start_playback_position = Gs.audio.get_playback_position()
-        _music_bpm_unscaled = Gs.beats.get_bpm_unscaled()
-        _start_music_name = Gs.audio.get_music_name()
+        meter = Sc.beats.get_meter()
+        _start_playback_position = Sc.audio.get_playback_position()
+        _music_bpm_unscaled = Sc.beats.get_bpm_unscaled()
+        _start_music_name = Sc.audio.get_music_name()
     
-    if Gs.audio_manifest.is_music_paused_in_slow_motion:
+    if Sc.audio_manifest.is_music_paused_in_slow_motion:
         var slow_motion_music_name: String = \
-                Gs.level.get_slow_motion_music_name() if \
-                is_instance_valid(Gs.level) else \
+                Sc.level.get_slow_motion_music_name() if \
+                is_instance_valid(Sc.level) else \
                 ""
-        Gs.audio.cross_fade_music(slow_motion_music_name, time_scale_duration)
-        Gs.beats.is_beat_event_emission_paused = true
+        Sc.audio.cross_fade_music(slow_motion_music_name, time_scale_duration)
+        Sc.beats.is_beat_event_emission_paused = true
     
-    if Gs.audio_manifest.is_slow_motion_start_stop_sound_effect_played:
-        Gs.audio.play_sound("slow_down")
+    if Sc.audio_manifest.is_slow_motion_start_stop_sound_effect_played:
+        Sc.audio.play_sound("slow_down")
     
-    if Gs.beats.is_tracking_beat:
+    if Sc.beats.is_tracking_beat:
         _update_beat_state()
     
     _is_transition_complete = false
-    Gs.time.clear_timeout(_is_transition_complete_timeout_id)
-    _is_transition_complete_timeout_id = Gs.time.set_timeout(
+    Sc.time.clear_timeout(_is_transition_complete_timeout_id)
+    _is_transition_complete_timeout_id = Sc.time.set_timeout(
             funcref(self, "_on_transition_complete"),
             time_scale_duration)
 
 
 func stop(time_scale_duration: float) -> void:
     _is_transition_complete = false
-    Gs.time.clear_timeout(_is_transition_complete_timeout_id)
-    _is_transition_complete_timeout_id = Gs.time.set_timeout(
+    Sc.time.clear_timeout(_is_transition_complete_timeout_id)
+    _is_transition_complete_timeout_id = Sc.time.set_timeout(
             funcref(self, "_on_transition_complete"),
             time_scale_duration)
     
-    if Gs.audio_manifest.is_slow_motion_start_stop_sound_effect_played:
-        Gs.audio.play_sound("speed_up")
+    if Sc.audio_manifest.is_slow_motion_start_stop_sound_effect_played:
+        Sc.audio.play_sound("speed_up")
     
     _is_active = false
 
@@ -89,21 +89,21 @@ func _on_transition_complete() -> void:
     _is_transition_complete = true
     
     if !_is_active:
-        if Gs.audio_manifest.is_music_paused_in_slow_motion:
+        if Sc.audio_manifest.is_music_paused_in_slow_motion:
             # Resume music playback at the correct position given the elapsed
             # scaled-time during slow-motion mode and the transitions into and
             # out of slow-motion mode.
             var music_name: String = \
-                    Gs.level.get_music_name() if \
-                    is_instance_valid(Gs.level) else \
+                    Sc.level.get_music_name() if \
+                    is_instance_valid(Sc.level) else \
                     ""
-            Gs.audio.cross_fade_music(music_name, 0.01)
+            Sc.audio.cross_fade_music(music_name, 0.01)
             var slow_motion_duration_scaled: float = \
-                    Gs.time.get_scaled_play_time() - _start_time_scaled
+                    Sc.time.get_scaled_play_time() - _start_time_scaled
             var playback_position := \
                     _start_playback_position + slow_motion_duration_scaled
-            Gs.audio.seek(playback_position)
-            Gs.beats.is_beat_event_emission_paused = false
+            Sc.audio.seek(playback_position)
+            Sc.beats.is_beat_event_emission_paused = false
         
         _start_time_scaled = INF
         _start_playback_position = INF
@@ -124,13 +124,13 @@ func _on_transition_complete() -> void:
 func _update_beat_state() -> void:
     music_beat_duration_unscaled = \
             60.0 / _music_bpm_unscaled / \
-            Gs.audio.playback_speed_multiplier
+            Sc.audio.playback_speed_multiplier
     tick_tock_beat_duration_unscaled = \
             music_beat_duration_unscaled / \
-            Gs.slow_motion.tick_tock_tempo_multiplier
+            Sc.slow_motion.tick_tock_tempo_multiplier
     
     var slow_motion_duration_scaled: float = \
-            Gs.time.get_scaled_play_time() - _start_time_scaled
+            Sc.time.get_scaled_play_time() - _start_time_scaled
     playback_position = _start_playback_position + slow_motion_duration_scaled
     
     var current_music_beat_progress := \
@@ -161,7 +161,7 @@ func _update_beat_state() -> void:
                     meter)
         
         if previous_tick_tock_beat_index != next_tick_tock_beat_index and \
-                Gs.audio_manifest.is_tick_tock_played_in_slow_motion:
+                Sc.audio_manifest.is_tick_tock_played_in_slow_motion:
             var is_downbeat := (next_tick_tock_beat_index - 1) % meter == 0
             _on_tick_tock_beat(is_downbeat, next_tick_tock_beat_index - 1)
             emit_signal(
@@ -191,10 +191,10 @@ func _on_tick_tock_beat(
             is_downbeat else \
             -16.0
     
-    Gs.audio.play_sound(sound_name, volume_offset)
+    Sc.audio.play_sound(sound_name, volume_offset)
 
 
 func _on_music_changed(music_name: String) -> void:
     # Changing the music while slow-motion is active isn't supported.
     assert(music_name == "" or \
-            !Gs.slow_motion.is_enabled)
+            !Sc.slow_motion.is_enabled)

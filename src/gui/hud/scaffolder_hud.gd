@@ -6,21 +6,21 @@ var hud_key_value_list: HudKeyValueList
 
 
 func _ready() -> void:
-    assert(Gs.gui.hud_manifest.has("hud_key_value_box_size"))
-    assert(Gs.gui.hud_manifest.has("hud_key_value_list_item_manifest"))
-    assert(Gs.gui.hud_manifest.has("hud_key_value_box_scene"))
-    assert(Gs.gui.hud_manifest.has("hud_key_value_list_scene"))
+    assert(Sc.gui.hud_manifest.has("hud_key_value_box_size"))
+    assert(Sc.gui.hud_manifest.has("hud_key_value_list_item_manifest"))
+    assert(Sc.gui.hud_manifest.has("hud_key_value_box_scene"))
+    assert(Sc.gui.hud_manifest.has("hud_key_value_list_scene"))
     
     var is_hud_key_value_list_shown: bool = false
-    for item_config in Gs.gui.hud_manifest.hud_key_value_list_item_manifest:
+    for item_config in Sc.gui.hud_manifest.hud_key_value_list_item_manifest:
         if item_config.enabled:
             is_hud_key_value_list_shown = true
             break
     
     if is_hud_key_value_list_shown:
-        hud_key_value_list = Gs.utils.add_scene(
+        hud_key_value_list = Sc.utils.add_scene(
                 self,
-                Gs.gui.hud_manifest.hud_key_value_list_scene,
+                Sc.gui.hud_manifest.hud_key_value_list_scene,
                 true,
                 true)
 

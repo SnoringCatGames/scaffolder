@@ -14,24 +14,24 @@ func _init() -> void:
 
 
 func _ready() -> void:
-    Gs.gui.record_gui_original_size_recursively(self)
+    Sc.gui.record_gui_original_size_recursively(self)
     
-    theme = Gs.gui.theme
+    theme = Sc.gui.theme
     
-    Gs.gui.add_gui_to_scale(self)
+    Sc.gui.add_gui_to_scale(self)
     
-    Gs.time.tween_property(
+    Sc.time.tween_property(
             self,
             "modulate:a",
             0.0,
             _OPACITY,
             _FADE_IN_DURATION)
     
-    var faded_color: Color = Gs.colors.zebra_stripe_even_row
+    var faded_color: Color = Sc.colors.zebra_stripe_even_row
     faded_color.a *= 0.3
     
     var items := []
-    for item in Gs.gui.welcome_panel_manifest.items:
+    for item in Sc.gui.welcome_panel_manifest.items:
         if item.size() == 1:
             items.push_back(HeaderLabeledControlItem.new(item[0]))
         else:
@@ -46,25 +46,25 @@ func _ready() -> void:
     list.even_row_color_override = faded_color
     list.items = items
     
-    if Gs.gui.welcome_panel_manifest.has("header") and \
-            !Gs.gui.welcome_panel_manifest.header.empty():
-        header.text = Gs.gui.welcome_panel_manifest.header
+    if Sc.gui.welcome_panel_manifest.has("header") and \
+            !Sc.gui.welcome_panel_manifest.header.empty():
+        header.text = Sc.gui.welcome_panel_manifest.header
     else:
-        header.text = Gs.metadata.app_name
+        header.text = Sc.metadata.app_name
     
-    if Gs.gui.welcome_panel_manifest.has("subheader") and \
-            !Gs.gui.welcome_panel_manifest.subheader.empty():
-        subheader.text = Gs.gui.welcome_panel_manifest.subheader
+    if Sc.gui.welcome_panel_manifest.has("subheader") and \
+            !Sc.gui.welcome_panel_manifest.subheader.empty():
+        subheader.text = Sc.gui.welcome_panel_manifest.subheader
     
-    if Gs.gui.welcome_panel_manifest.has("is_subheader_shown") and \
-            !Gs.gui.welcome_panel_manifest.is_subheader_shown:
+    if Sc.gui.welcome_panel_manifest.has("is_subheader_shown") and \
+            !Sc.gui.welcome_panel_manifest.is_subheader_shown:
         subheader.visible = false
     
     _on_gui_scale_changed()
 
 
 func _destroy() -> void:
-    Gs.gui.remove_gui_to_scale(self)
+    Sc.gui.remove_gui_to_scale(self)
     if !is_queued_for_deletion():
         queue_free()
 
@@ -72,9 +72,9 @@ func _destroy() -> void:
 func _on_gui_scale_changed() -> bool:
     for child in .get_children():
         if child is Control:
-            Gs.gui.scale_gui_recursively(child)
+            Sc.gui.scale_gui_recursively(child)
     
-    rect_min_size = size_override * Gs.gui.scale
+    rect_min_size = size_override * Sc.gui.scale
     rect_size.x = rect_min_size.x
     rect_size.y = \
             $VBoxContainer/ScaffolderPanelContainer/VBoxContainer/Header \
@@ -82,6 +82,6 @@ func _on_gui_scale_changed() -> bool:
             $VBoxContainer/ScaffolderPanelContainer/VBoxContainer/Subheader \
                     .rect_size.y + \
             $VBoxContainer/LabeledControlList.rect_size.y
-    rect_position = (Gs.device.get_viewport_size() - rect_size) / 2.0
+    rect_position = (Sc.device.get_viewport_size() - rect_size) / 2.0
     
     return true
