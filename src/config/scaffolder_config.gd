@@ -110,7 +110,7 @@ func initialize_crash_reporter() -> void:
         self.crash_reporter = CrashReporter.new()
 
 
-func initialize() -> void:
+func set_up() -> void:
     self.level_session = _manifest.level_session_class.new()
     assert(self.level_session is ScaffolderLevelSession)
     
