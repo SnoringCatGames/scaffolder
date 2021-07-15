@@ -229,7 +229,7 @@ func _on_resized() -> void:
 
 
 func _on_throttled_size_changed() -> void:
-    var viewport_size: Vector2 = get_viewport().size
+    var viewport_size: Vector2 = Gs.device.get_viewport_size()
     Gs.logger.print(
         (
             "ScaffolderBootstrap._on_throttled_size_changed: (%.1f,%.1f)"
@@ -308,7 +308,7 @@ func _log_device_settings() -> void:
             "\n    Gs.device.get_model_name()=%s" +
             "\n    Gs.device.get_is_mobile_device()=%s" +
             "\n    Gs.device.get_is_definitely_touch_device()=%s" +
-            "\n    get_viewport().size=(%4d,%4d)" +
+            "\n    Gs.device.get_viewport_size()=(%4d,%4d)" +
             "\n    OS.window_size=%s" +
             "\n    OS.get_real_window_size()=%s" +
             "\n    OS.get_screen_size()=%s" +
@@ -332,8 +332,8 @@ func _log_device_settings() -> void:
                 device_model_name,
                 is_mobile_device,
                 is_definitely_touch_device,
-                get_viewport().size.x,
-                get_viewport().size.y,
+                Gs.device.get_viewport_size().x,
+                Gs.device.get_viewport_size().y,
                 OS.window_size,
                 OS.get_real_window_size(),
                 OS.get_screen_size(),

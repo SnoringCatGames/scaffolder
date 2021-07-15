@@ -324,24 +324,24 @@ func _start_slide_transition(
         if is_forward:
             start_position = Vector2.ZERO
             end_position = Vector2(
-                    -get_viewport().size.x,
+                    -Gs.device.get_viewport_size().x,
                     0.0)
         else:
             start_position = Vector2.ZERO
             end_position = Vector2(
-                    get_viewport().size.x,
+                    Gs.device.get_viewport_size().x,
                     0.0)
     elif is_forward:
         tween_screen_container = next_screen_container
         start_position = Vector2(
-                get_viewport().size.x,
+                Gs.device.get_viewport_size().x,
                 0.0)
         end_position = Vector2.ZERO
     else:
         tween_screen_container = previous_screen_container
         start_position = Vector2.ZERO
         end_position = Vector2(
-                get_viewport().size.x,
+                Gs.device.get_viewport_size().x,
                 0.0)
     
     _update_visibilities(

@@ -51,7 +51,7 @@ func _process(_delta: float) -> void:
 
 
 func _on_resized() -> void:
-    var viewport_size: Vector2 = get_viewport().size
+    var viewport_size: Vector2 = Gs.device.get_viewport_size()
     $PanelContainer/ScrollContainer.rect_min_size = viewport_size
     $PanelContainer/ScrollContainer/Label.rect_min_size.x = viewport_size.x
 

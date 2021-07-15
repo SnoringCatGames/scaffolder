@@ -97,7 +97,7 @@ func _destroy() -> void:
 func _update() -> void:
     var contents_size: Vector2 = \
             contents.get_meta("gs_rect_min_size") * Gs.gui.scale
-    contents_size.x = min(contents_size.x, get_viewport().size.x)
+    contents_size.x = min(contents_size.x, Gs.device.get_viewport_size().x)
     contents.rect_min_size = contents_size
 
 

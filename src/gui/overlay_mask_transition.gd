@@ -51,7 +51,7 @@ func _on_resized() -> void:
     if !is_instance_valid(fade_in_texture):
         return
     
-    var viewport_size: Vector2 = get_viewport().size
+    var viewport_size: Vector2 = Gs.device.get_viewport_size()
     var mask_size: Vector2 = fade_in_texture.get_size()
     
     var viewport_aspect := viewport_size.x / viewport_size.y
@@ -84,7 +84,7 @@ func start(
     self.next_screen_container = next_screen_container
     is_transitioning = true
     color_rect = ColorRect.new()
-    color_rect.rect_size = get_viewport().size
+    color_rect.rect_size = Gs.device.get_viewport_size()
     color_rect.color = color
     color_rect.material = material
     Gs.canvas_layers.layers.top.add_child(color_rect)
