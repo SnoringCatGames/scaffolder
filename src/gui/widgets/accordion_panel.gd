@@ -5,7 +5,7 @@ extends Control
 
 
 signal toggled
-signal caret_rotated
+signal caret_rotated(rotation)
 
 const CARET_SIZE_DEFAULT := Vector2(23.0, 32.0)
 const CARET_SCALE := Vector2(3.0, 3.0)
@@ -423,6 +423,11 @@ func _on_is_open_tween_completed(
     
     var open_ratio := 1.0 if is_open else 0.0
     _interpolate_height(open_ratio)
+    
+    var caret_rotation := \
+            CARET_ROTATION_OPEN if is_open else CARET_ROTATION_CLOSED
+    _interpolate_caret_rotation(caret_rotation)
+    
     _projected_control.visible = is_open
     rect_clip_content = !is_open
 

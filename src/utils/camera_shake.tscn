@@ -2,8 +2,5 @@
 
 [ext_resource path="res://addons/scaffolder/src/utils/camera_shake.gd" type="Script" id=1]
 
-
-
-
 [node name="CameraShake" type="Node2D"]
 script = ExtResource( 1 )
