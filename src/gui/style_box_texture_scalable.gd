@@ -62,12 +62,9 @@ func _on_gui_scale_changed() -> bool:
     latest_gui_scale = Sc.gui.scale
     
     var image_scale := initial_texture_scale * latest_gui_scale
-    
-    var image: Image = initial_texture.duplicate().get_data()
-    var size: Vector2 = Sc.utils.floor_vector(image.get_size() * image_scale)
-    image.resize(size.x, size.y, Image.INTERPOLATE_NEAREST)
-    var resized_texture := ImageTexture.new()
-    resized_texture.create_from_image(image)
+    var resized_texture: Texture = \
+            Sc.gui.get_scaled_texture(initial_texture, image_scale)
+    var size := resized_texture.get_data().get_size()
     
     texture = resized_texture
     
