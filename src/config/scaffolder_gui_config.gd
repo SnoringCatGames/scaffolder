@@ -250,8 +250,12 @@ var hud: ScaffolderHud
 var welcome_panel: WelcomePanel
 var gesture_record: GestureRecord
 
+# Dictionary<Object, bool>
 var guis_to_scale := {}
+# Array<Node>
 var active_overlays := []
+# Dictionary<Texture, Dictionary<Vector2, Texture>>
+var original_texture_to_size_to_scaled_texture := {}
 
 # ---
 
@@ -536,16 +540,6 @@ func get_font(
     return Sc.gui.fonts[font_key]
 
 
-# Automatically resize the gui to adapt to different screen sizes.
-func _scale_gui_for_current_screen_size(gui) -> void:
-    if !is_instance_valid(gui) or \
-            !Sc.gui.guis_to_scale.has(gui):
-        Sc.logger.error()
-        return
-    
-    Sc.gui.scale_gui_recursively(gui)
-
-
 func _update_font_sizes() -> void:
     # First, update the fonts that don't have size overrides.
     for font_name in Sc.gui.fonts:
@@ -617,9 +611,21 @@ func _update_game_area_region_and_gui_scale() -> void:
 
 func _scale_guis() -> void:
     if Sc.gui.previous_scale != Sc.gui.scale:
+        original_texture_to_size_to_scaled_texture.clear()
+        
         for gui in Sc.gui.guis_to_scale:
             assert(is_instance_valid(gui))
             Sc.gui._scale_gui_for_current_screen_size(gui)
+
+
+# Automatically resize the gui to adapt to different screen sizes.
+func _scale_gui_for_current_screen_size(gui) -> void:
+    if !is_instance_valid(gui) or \
+            !Sc.gui.guis_to_scale.has(gui):
+        Sc.logger.error()
+        return
+    
+    Sc.gui.scale_gui_recursively(gui)
 
 
 func scale_gui_recursively(gui) -> void:
@@ -724,3 +730,26 @@ func record_gui_original_size_recursively(control: Control) -> void:
         if child is Control and \
                 !child.has_method("_on_gui_scale_changed"):
             record_gui_original_size_recursively(child)
+
+
+func get_scaled_texture(
+        original_texture: Texture,
+        scale: float) -> Texture:
+    if !original_texture_to_size_to_scaled_texture.has(original_texture):
+        original_texture_to_size_to_scaled_texture[original_texture] = {}
+    var size_to_scaled_texture: Dictionary = \
+            original_texture_to_size_to_scaled_texture[original_texture]
+    
+    var original_image: Image = original_texture.get_data()
+    var new_size: Vector2 = \
+            Sc.utils.floor_vector(original_image.get_size() * scale)
+    
+    if !size_to_scaled_texture.has(new_size):
+        var new_image: Image = original_texture.duplicate().get_data()
+        new_image.resize(new_size.x, new_size.y, Image.INTERPOLATE_NEAREST)
+        var new_texture := ImageTexture.new()
+        new_texture.create_from_image(new_image)
+        
+        size_to_scaled_texture[new_size] = new_texture
+    
+    return size_to_scaled_texture[new_size]
