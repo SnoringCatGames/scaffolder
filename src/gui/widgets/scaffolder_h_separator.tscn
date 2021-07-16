@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_h_separator.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxLine" id=1]
+color = Color( 0.933333, 0.933333, 0.933333, 1 )
+thickness = 2
+
+[node name="ScaffolderHSeparator" type="HSeparator"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1021.0
+margin_bottom = -764.0
+custom_styles/separator = SubResource( 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

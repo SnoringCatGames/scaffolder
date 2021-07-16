@@ -25,17 +25,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="-24.101087"
-     inkscape:cy="-448.20308"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="11.630794"
+     inkscape:cy="-458.24848"
      inkscape:document-units="px"
      inkscape:current-layer="g1112"
      showgrid="false"
      units="px"
-     inkscape:window-width="3840"
-     inkscape:window-height="2035"
-     inkscape:window-x="3827"
-     inkscape:window-y="-13"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1"
      inkscape:lockguides="false" />
   <metadata
@@ -262,6 +262,90 @@
          inkscape:export-xdpi="192.05"
          inkscape:export-ydpi="192.05"
          inkscape:export-filename="C:\Users\lsl\scaffolder_label.png" />
+      <path
+         id="path976"
+         d="m -36.52822,1059.0957 v 3 h 6.000001 v -3 z m -4.000004,5 v 2 h 14.000005 v -2 z m 4.000004,4 v 3 h 6.000001 v -3 z"
+         inkscape:connector-curvature="0"
+         style="fill:#8eef97" />
+      <path
+         id="path987"
+         d="m -38.279525,1086.2664 h 3.000004 v -6 h -3.000004 z m 5.000005,4 h 2 v -14 h -2 z m 4,-4 h 3 v -6 h -3 z"
+         inkscape:connector-curvature="0"
+         style="fill:#8eef97" />
+      <path
+         id="path976-5"
+         d="m 47.365628,1495.4684 v 3 h 6.000002 v -3 z m -4.000004,5 v 2 H 57.36563 v -2 z m 4.000004,4 v 3 h 6.000002 v -3 z"
+         inkscape:connector-curvature="0"
+         style="fill:#f6ed7a;fill-opacity:1"
+         inkscape:export-filename="C:\Users\lsl\scaffolder_h_separator.png"
+         inkscape:export-xdpi="192.05"
+         inkscape:export-ydpi="192.05" />
+      <path
+         id="path987-9"
+         d="m 44.365624,1528.4684 h 3.000004 v -6 h -3.000004 z m 5.000006,4 h 2 v -14 h -2 z m 4,-4 h 3 v -6 h -3 z"
+         inkscape:connector-curvature="0"
+         style="fill:#f6ed7a;fill-opacity:1"
+         inkscape:export-filename="C:\Users\lsl\scaffolder_v_separator.png"
+         inkscape:export-xdpi="192.05"
+         inkscape:export-ydpi="192.05" />
+      <rect
+         style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:238.41506958;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect5342-3-5-9-2-6-42-1-8-6-2-6"
+         width="16"
+         height="16"
+         x="42.365627"
+         y="1493.4684"
+         rx="0"
+         ry="0"
+         inkscape:export-xdpi="192.05"
+         inkscape:export-ydpi="192.05"
+         inkscape:export-filename="C:\Users\lsl\scaffolder_h_separator.png" />
+      <rect
+         inkscape:export-filename="C:\Users\lsl\scaffolder_v_separator.png"
+         inkscape:export-ydpi="192.05"
+         inkscape:export-xdpi="192.05"
+         ry="0"
+         rx="0"
+         y="1517.4684"
+         x="42.365627"
+         height="16"
+         width="16"
+         id="rect1046"
+         style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:238.41506958;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         id="path976-5-3"
+         d="m 98.94153,1936.3151 v 6 h 12 v -6 z m -8.00002,10 v 4 h 28.00002 v -4 z m 8.00002,8 v 6 h 12 v -6 z"
+         inkscape:connector-curvature="0"
+         style="fill:#f6ed7a;fill-opacity:1;stroke-width:2" />
+      <rect
+         style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:476.83013916;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect5342-3-5-9-2-6-42-1-8-6-2-6-1"
+         width="32"
+         height="32"
+         x="88.941528"
+         y="1932.3151"
+         rx="0"
+         ry="0"
+         inkscape:export-xdpi="192.05"
+         inkscape:export-ydpi="192.05"
+         inkscape:export-filename="C:\Users\lsl\scaffolder_option_button.png" />
+      <path
+         id="path987-9-5"
+         d="m 93.29507,1998.1141 h 6.00002 v -12 h -6.00002 z m 10.00002,8 h 4 v -28 h -4 z m 8,-8 h 6 v -12 h -6 z"
+         inkscape:connector-curvature="0"
+         style="fill:#f6ed7a;fill-opacity:1;stroke-width:2" />
+      <rect
+         inkscape:export-filename="C:\Users\lsl\scaffolder_option_button.png"
+         inkscape:export-ydpi="192.05"
+         inkscape:export-xdpi="192.05"
+         ry="0"
+         rx="0"
+         y="1976.114"
+         x="89.29509"
+         height="32"
+         width="32"
+         id="rect1046-8"
+         style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:476.83013916;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     </g>
     <path
        id="path1097-6"
