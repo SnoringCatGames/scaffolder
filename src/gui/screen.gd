@@ -78,12 +78,28 @@ func _process(_delta: float) -> void:
         # Press the currently designated main button.
         focused_button.press()
         
-    elif (Input.is_action_just_pressed("ui_cancel") or \
-            Input.is_action_just_pressed("ui_back")) and \
+    # TODO: Use Input.is_action_just_pressed("sc_back") instead of checking
+    #       button key directly. Currently, Godot reports an error in the
+    #       editor when we try to use this: "ERROR: Request for nonexistent
+    #       InputMap action 'sc_back'."
+    elif Input.is_action_just_pressed("ui_cancel") and \
             is_instance_valid(container.nav_bar) and \
             container.nav_bar.shows_back and \
             Sc.nav.current_screen == self:
         # Go back when pressing escape or the mouse-back button.
+        Sc.nav.close_current_screen()
+
+# TODO: Use Input.is_action_just_pressed("sc_back") in _process instead of
+#       checking button key directly. Currently, Godot reports an error in the
+#       editor when we try to use this: "ERROR: Request for nonexistent
+#       InputMap action 'sc_back'."
+func _input(event: InputEvent) -> void:
+    if event is InputEventMouseButton and \
+            event.pressed and \
+            event.button_index == BUTTON_XBUTTON1 and \
+            is_instance_valid(container.nav_bar) and \
+            container.nav_bar.shows_back and \
+            Sc.nav.current_screen == self:
         Sc.nav.close_current_screen()
 
 
