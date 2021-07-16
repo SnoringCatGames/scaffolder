@@ -13,12 +13,11 @@ _An opinionated framework providing a bunch of general-purpose application scaff
 
 --------
 
-> **NOTE:** _Consider this an alpha release. This framework is still in development and still has some rough edges._
+> **NOTE:** _Consider this a pre-alpha release. This framework still has many rough edges and is still changing a lot._
 
 --------
 
-Some features include (see more details below):
-
+Some features include:
 -   Configurable UI and camera scaling to adapt to the current viewport.
 -   Optional analytics based on the proprietary third-party Google Analytics service.
 -   Optional automatic crash log reporting based on the proprietary third-party Google Cloud Storage service.
@@ -28,92 +27,7 @@ Some features include (see more details below):
 
 ## Getting set up
 
-Probably the easiest way to get set up is to copy the [Squirrel Away example app](https://github.com/snoringcatgames/squirrel-away), and then adjust it to fit your needs.
-
-### Project Settings
-
-Some of these are just my personal preference, some are important for the framework to run correctly.
-
--   Application > Config:
-    -   Name
-    -   Icon
-    -   Quit On Go Back: false
--   Application > Run:
-    -   Main Scene
--   Application > Boot Splash:
-    -   Image
-    -   Bg Color: Must match `Sc.screen_background_color`
--   Logging > File Logging:
-    -   Enable File Logging: true
--   Rendering > Quality:
-    -   Use Pixel Snap: true
-    -   Framebuffer Allocation: 2D Without Sampling
-    -   Framebuffer Allocation.mobile: 2D Without Sampling
--   Rendering > Environment:
-    -   Default Clear Color: Match `Sc.screen_background_color`
-    -   Default Environment: I usually move this out from the top-level directory.
--   Display > Window:
-    -   Size > Width/Height: Must match `Sc.default_game_area_size`.
-    -   Handheld > Orientation: sensor
-    -   Stretch > Mode: disabled
-    -   Stretch > Aspect: expand
--   Input Devices > Pointing:
-    -   Emulate Touch From Mouse: true
-    -   Ios > Touch Delay: 0.005
--   Layer Names:
-    -   Name these!
-
-### `Sc` AutoLoad and app setup
-
-All of the Scaffolder functionality is globally accessible through properties on the `Sc` AutoLoad.
-
--   Define `Sc` as an AutoLoad (in Project Settings).
-    -   It should point to the path `res://addons/scaffolder/src/sc.gd`.
-    -   It should be the first AutoLoad in the list.
--   Configure the Scaffolder framework by calling `ScaffolderBootstrap.on_app_ready` at the start of your Main Scene.
-
-> **NOTE:** `Sc` stands for "Scaffolder", in case that's helful to know!
-
-#### DO NOT INSTANTIATE ANYTHING UNTIL AFTER Scaffolder IS READY
-
-> NOTE: This is important for the automatic crash reporting system to work correctly. If you don't care about crash reporting, then yolo, do whatever you want!
-
-##### About app crashes...
-
-It is very common for an application to work fine on your dev machine, but then fail on someone else's device. And most often, this failure will occur during app initialization.
-
-Pretty much the only way to debug these errors is to upload and look at the console logs. These logs hopefully contain some interesting error messages or, at the very least, help you to understand roughly when/where in the application runtime the error occurred.
-
-Unfortunately, since these errors so often occur during app initialization, you must try to handle them _before_ the rest of your app is initialized. This means that you need to be _very_ careful with any AutoLoads you register and with anything you do in your "Main Scene", since any logic in these places will likely run, and could crash the app, before we have a chance to report any previous crashes.
-
-##### Guidelines for how you initialize app state 
-
-Here are some guidelines to minimize app crashes before we can report any previous crashes:
--   Include as few AutoLoads as possible.
--   Do as little in your "Main Scene" as possible.
--   Do not call `.new()` on anything from any of your AutoLoads or your "Main Scene", until after you know `Sc` is ready. You can use `call_deferred()` for this.
-
-#### Overriding `Sc` defaults
-
-If you want to override or extend any Scaffolder functionality, you should be able to configure a replacement for the corresponding object. But make sure that your replacement `extends` the underlying Scaffolder class!
-
-Here's an example of overriding some Scaffolder functionality:
-```
-var my_app_manifest := {
-    ...
-    utils = MyCustomUtils.new(),
-}
-ScaffolderBootstrap.new().on_app_ready(my_app_manifest, self)
-
-class MyCustomUtils extends ScaffolderUtils:
-    ...
-```
-
-#### `Sc` properties
-
-[sc.gd](./src/config/sc.gd) contains a list of interesting app-level parameters you can adjust.
-
-> TODO: Enumerate and describe each `Sc` property.
+[See this separate doc](./docs/getting_set_up.md) for getting your project set up to work with Scaffolder.
 
 ## Features
 

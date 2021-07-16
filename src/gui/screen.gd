@@ -70,31 +70,20 @@ func _on_resized() -> void:
     _on_gui_scale_changed()
 
 
-func _unhandled_key_input(event: InputEventKey) -> void:
-    if (event.scancode == KEY_SPACE or \
-            event.scancode == KEY_ENTER) and \
-            event.pressed and \
+func _process(_delta: float) -> void:
+    if (Input.is_action_just_pressed("ui_accept") or \
+            Input.is_action_just_pressed("ui_select")) and \
             focused_button != null and \
             Sc.nav.current_screen == self:
         # Press the currently designated main button.
         focused_button.press()
-    elif (event.scancode == KEY_ESCAPE) and \
-            event.pressed and \
+        
+    elif (Input.is_action_just_pressed("ui_cancel") or \
+            Input.is_action_just_pressed("ui_back")) and \
             is_instance_valid(container.nav_bar) and \
             container.nav_bar.shows_back and \
             Sc.nav.current_screen == self:
-        # Go back when pressing escape.
-        Sc.nav.close_current_screen()
-
-
-func _input(event: InputEvent) -> void:
-    if event is InputEventMouseButton and \
-            event.pressed and \
-            event.button_index == BUTTON_XBUTTON1 and \
-            is_instance_valid(container.nav_bar) and \
-            container.nav_bar.shows_back and \
-            Sc.nav.current_screen == self:
-        # Go back when pressing the mouse-back button.
+        # Go back when pressing escape or the mouse-back button.
         Sc.nav.close_current_screen()
 
 
