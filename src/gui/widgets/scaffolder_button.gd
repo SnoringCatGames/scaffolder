@@ -28,8 +28,6 @@ var shine_end_x: float
 
 var button_style_pulse: StyleBox
 
-var pulse_property: String
-
 var shine_tween := ScaffolderTween.new()
 var color_pulse_tween := ScaffolderTween.new()
 
@@ -96,7 +94,6 @@ func _update() -> void:
     
     button_style_pulse = \
             Sc.gui.theme.get_stylebox("normal", "Button").duplicate()
-    pulse_property = "modulate_color"
     
     $MarginContainer/MarginContainer.add_constant_override(
             "margin_left",
@@ -158,30 +155,24 @@ func _trigger_color_pulse() -> void:
             $MarginContainer/TopButton.is_pressed():
         return
     
-    var color_original: Color
-    var color_pulse: Color
-    if button_style_pulse is StyleBoxTextureScalable:
-        color_original = Color(1, 1, 1, 1)
-        color_pulse = Sc.colors.button_texture_modulate
-    else:
-        color_original = Sc.colors.button_normal
-        color_pulse = Sc.colors.button_flat_pulse
+    var color_original := Color(1.0, 1.0, 1.0, 1.0)
+    var color_pulse: Color = Sc.colors.button_pulse_modulate
     var pulse_half_duration := COLOR_PULSE_DURATION / 2.0
     
-    button_style_pulse.set(pulse_property, color_original)
+    button_style_pulse.set("modulate_color", color_original)
     $MarginContainer/BottomButton \
             .add_stylebox_override("normal", button_style_pulse)
     
     color_pulse_tween.interpolate_property(
             button_style_pulse,
-            pulse_property,
+            "modulate_color",
             color_original,
             color_pulse,
             pulse_half_duration,
             "ease_in_out_weak")
     color_pulse_tween.interpolate_property(
             button_style_pulse,
-            pulse_property,
+            "modulate_color",
             color_pulse,
             color_original,
             pulse_half_duration,
