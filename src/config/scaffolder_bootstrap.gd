@@ -25,14 +25,14 @@ func run() -> void:
 
 func _amend_app_manifest() -> void:
     for config in Sc._framework_configs:
-        config.amend_app_manifest(Sc._manifest)
+        config._amend_app_manifest(Sc._manifest)
 
 
 func _register_app_manifest() -> void:
     Sc.logger.print("ScaffolderBootstrap._register_app_manifest")
     
     for config in Sc._framework_configs:
-        config.register_app_manifest(Sc._manifest)
+        config._register_app_manifest(Sc._manifest)
     
     Sc.initialize_metadata()
     
@@ -46,12 +46,12 @@ func _initialize_framework() -> void:
     Sc.logger.print("ScaffolderBootstrap._initialize_framework")
     
     for config in Sc._framework_configs:
-        config.set_up()
+        config._set_up()
     
     Sc.nav.connect("app_quit", self, "_on_app_quit")
     
     for config in Sc._framework_configs:
-        config.load_state()
+        config._load_state()
     
     Sc.styles.configure_theme()
     

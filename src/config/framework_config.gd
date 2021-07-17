@@ -3,17 +3,17 @@ class_name FrameworkConfig
 extends Node
 
 
-func amend_app_manifest(manifest: Dictionary) -> void:
+func _amend_app_manifest(manifest: Dictionary) -> void:
     pass
 
 
-func register_app_manifest(manifest: Dictionary) -> void:
+func _register_app_manifest(manifest: Dictionary) -> void:
     pass
 
 
-func set_up() -> void:
+func _set_up() -> void:
     pass
 
 
-func load_state() -> void:
+func _load_state() -> void:
     pass

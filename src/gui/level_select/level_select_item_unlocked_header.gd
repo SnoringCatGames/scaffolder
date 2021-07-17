@@ -39,34 +39,21 @@ func _init_children() -> void:
     $HBoxContainer/Caret/TextureRect.rect_rotation = \
             AccordionPanel.CARET_ROTATION_CLOSED
     
-    normal_stylebox = Sc.styles.create_stylebox_scalable({
-        bg_color = Sc.colors.dropdown_normal,
-        corner_radius = Sc.styles.dropdown_corner_radius,
-        corner_detail = Sc.styles.dropdown_corner_detail,
-        shadow_size = Sc.styles.dropdown_shadow_size,
-        border_width = Sc.styles.dropdown_border_width,
-        border_color = Sc.colors.dropdown_border,
-    })
-    hover_stylebox = Sc.styles.create_stylebox_scalable({
-        bg_color = Sc.colors.dropdown_hover,
-        corner_radius = Sc.styles.dropdown_corner_radius,
-        corner_detail = Sc.styles.dropdown_corner_detail,
-        shadow_size = Sc.styles.dropdown_shadow_size,
-        border_width = Sc.styles.dropdown_border_width,
-        border_color = Sc.colors.dropdown_border,
-    })
-    pressed_stylebox = Sc.styles.create_stylebox_scalable({
-        bg_color = Sc.colors.dropdown_pressed,
-        corner_radius = Sc.styles.dropdown_corner_radius,
-        corner_detail = Sc.styles.dropdown_corner_detail,
-        shadow_size = Sc.styles.dropdown_shadow_size,
-        border_width = Sc.styles.dropdown_border_width,
-        border_color = Sc.colors.dropdown_border,
-    })
-    
-    add_stylebox_override("normal", normal_stylebox)
-    add_stylebox_override("hover", hover_stylebox)
-    add_stylebox_override("pressed", pressed_stylebox)
+    add_stylebox_override(
+            "normal",
+            Sc.gui.theme.get_stylebox("normal", "OptionButton"))
+    add_stylebox_override(
+            "hover",
+            Sc.gui.theme.get_stylebox("hover", "OptionButton"))
+    add_stylebox_override(
+            "pressed",
+            Sc.gui.theme.get_stylebox("pressed", "OptionButton"))
+    add_stylebox_override(
+            "disabled",
+            Sc.gui.theme.get_stylebox("disabled", "OptionButton"))
+    add_stylebox_override(
+            "focus",
+            Sc.gui.theme.get_stylebox("focus", "OptionButton"))
     
     Sc.utils.set_mouse_filter_recursively(
             self,

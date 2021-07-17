@@ -76,11 +76,11 @@ func register_framework_config(config: FrameworkConfig) -> void:
     _framework_configs.push_back(config)
 
 
-func amend_app_manifest(manifest: Dictionary) -> void:
+func _amend_app_manifest(manifest: Dictionary) -> void:
     pass
 
 
-func register_app_manifest(manifest: Dictionary) -> void:
+func _register_app_manifest(manifest: Dictionary) -> void:
     self._manifest = manifest
     
     assert((_manifest.metadata.developer_splash == null) == \
@@ -105,7 +105,7 @@ func initialize_crash_reporter() -> void:
         self.crash_reporter = CrashReporter.new()
 
 
-func set_up() -> void:
+func _set_up() -> void:
     self.level_session = _manifest.level_session_class.new()
     assert(self.level_session is ScaffolderLevelSession)
     
@@ -265,7 +265,7 @@ func set_up() -> void:
     _validate_project_config()
 
 
-func load_state() -> void:
+func _load_state() -> void:
     _clear_old_data_agreement_version()
     Sc.metadata.agreed_to_terms = Sc.save_state.get_setting(
             SaveState.AGREED_TO_TERMS_SETTINGS_KEY,
