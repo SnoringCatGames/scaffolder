@@ -24,6 +24,8 @@ var text: Color
 
 var header: Color
 
+var focus_border: Color
+
 var button_normal: Color
 var button_disabled: Color
 var button_focused: Color
@@ -109,6 +111,7 @@ var _defaults := {
     background = Color("404040"),
     text = Color("eeeeee"),
     header = Color("eeeeee"),
+    focus_border = Color("eeeeee"),
     link_normal = Color("707070"),
     link_hover = Color("969696"),
     link_pressed = Color("5b5b5b"),

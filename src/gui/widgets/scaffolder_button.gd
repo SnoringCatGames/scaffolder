@@ -26,9 +26,6 @@ var color_pulse_interval_id := -1
 var shine_start_x: float
 var shine_end_x: float
 
-var button_style_normal: StyleBox
-var button_style_hover: StyleBox
-var button_style_pressed: StyleBox
 var button_style_pulse: StyleBox
 
 var pulse_property: String
@@ -50,11 +47,6 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
     _is_ready = true
-    
-    button_style_normal = $MarginContainer/BottomButton.get_stylebox("normal")
-    button_style_hover = $MarginContainer/BottomButton.get_stylebox("hover")
-    button_style_pressed = \
-            $MarginContainer/BottomButton.get_stylebox("pressed")
     
     Sc.device.connect(
             "display_resized", self, "_update")
@@ -102,12 +94,9 @@ func _update() -> void:
     shine_start_x = shine_base_position.x - rect_size.x
     shine_end_x = shine_base_position.x + rect_size.x
     
-    button_style_pulse = Sc.styles.create_stylebox_scalable(
-            Sc.gui.theme.get_stylebox("normal", "Button"))
-    pulse_property = \
-            "modulate_color" if \
-            button_style_pulse is StyleBoxTextureScalable else \
-            "bg_color"
+    button_style_pulse = \
+            Sc.gui.theme.get_stylebox("normal", "Button").duplicate()
+    pulse_property = "modulate_color"
     
     $MarginContainer/MarginContainer.add_constant_override(
             "margin_left",
@@ -135,7 +124,7 @@ func _update() -> void:
     
     $MarginContainer/BottomButton.add_stylebox_override(
             "normal",
-            button_style_normal)
+            Sc.gui.theme.get_stylebox("normal", "Button"))
     
     if is_shiny and \
             Sc.gui.is_suggested_button_shine_line_shown:
@@ -246,29 +235,33 @@ func _set_size_override(value: Vector2) -> void:
 
 
 func press() -> void:
-    _on_TopButton_pressed()
-
-
-func _on_TopButton_pressed() -> void:
     Sc.utils.give_button_press_feedback()
     emit_signal("pressed")
 
 
+func _on_TopButton_pressed() -> void:
+    press()
+
+
 func _on_TopButton_mouse_entered() -> void:
-    $MarginContainer/BottomButton \
-            .add_stylebox_override("normal", button_style_hover)
+    $MarginContainer/BottomButton.add_stylebox_override(
+            "normal",
+            Sc.gui.theme.get_stylebox("hover", "Button"))
 
 
 func _on_TopButton_mouse_exited() -> void:
-    $MarginContainer/BottomButton \
-            .add_stylebox_override("normal", button_style_normal)
+    $MarginContainer/BottomButton.add_stylebox_override(
+            "normal",
+            Sc.gui.theme.get_stylebox("normal", "Button"))
 
 
 func _on_TopButton_button_down() -> void:
-    $MarginContainer/BottomButton \
-            .add_stylebox_override("normal", button_style_pressed)
+    $MarginContainer/BottomButton.add_stylebox_override(
+            "normal",
+            Sc.gui.theme.get_stylebox("pressed", "Button"))
 
 
 func _on_TopButton_button_up() -> void:
-    $MarginContainer/BottomButton \
-            .add_stylebox_override("normal", button_style_hover)
+    $MarginContainer/BottomButton.add_stylebox_override(
+            "normal",
+            Sc.gui.theme.get_stylebox("hover", "Button"))

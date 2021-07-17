@@ -44,10 +44,6 @@ var _is_open_tween: ScaffolderTween
 var _spacer1: Spacer
 var _spacer2: Spacer
 
-var _header_normal_stylebox: StyleBoxFlatScalable
-var _header_hover_stylebox: StyleBoxFlatScalable
-var _header_pressed_stylebox: StyleBoxFlatScalable
-
 var _start_scroll_vertical: int
 
 var _debounced_update_children: FuncRef = Sc.time.debounce(
@@ -82,12 +78,6 @@ func _destroy() -> void:
     if is_instance_valid(_header):
         _header.queue_free()
         _header = null
-    if is_instance_valid(_header_normal_stylebox):
-        _header_normal_stylebox._destroy()
-    if is_instance_valid(_header_hover_stylebox):
-        _header_hover_stylebox._destroy()
-    if is_instance_valid(_header_pressed_stylebox):
-        _header_pressed_stylebox._destroy()
 
 
 func _on_gui_scale_changed() -> bool:
@@ -146,34 +136,21 @@ func _create_header() -> void:
     _header.mouse_filter = Control.MOUSE_FILTER_STOP
     _header.connect("pressed", self, "_on_header_pressed")
     
-    _header_normal_stylebox = Sc.styles.create_stylebox_scalable({
-        bg_color = Sc.colors.dropdown_normal,
-        corner_radius = Sc.styles.dropdown_corner_radius,
-        corner_detail = Sc.styles.dropdown_corner_detail,
-        shadow_size = Sc.styles.dropdown_shadow_size,
-        border_width = Sc.styles.dropdown_border_width,
-        border_color = Sc.colors.dropdown_border,
-    })
-    _header_hover_stylebox = Sc.styles.create_stylebox_scalable({
-        bg_color = Sc.colors.dropdown_hover,
-        corner_radius = Sc.styles.dropdown_corner_radius,
-        corner_detail = Sc.styles.dropdown_corner_detail,
-        shadow_size = Sc.styles.dropdown_shadow_size,
-        border_width = Sc.styles.dropdown_border_width,
-        border_color = Sc.colors.dropdown_border,
-    })
-    _header_pressed_stylebox = Sc.styles.create_stylebox_scalable({
-        bg_color = Sc.colors.dropdown_pressed,
-        corner_radius = Sc.styles.dropdown_corner_radius,
-        corner_detail = Sc.styles.dropdown_corner_detail,
-        shadow_size = Sc.styles.dropdown_shadow_size,
-        border_width = Sc.styles.dropdown_border_width,
-        border_color = Sc.colors.dropdown_border,
-    })
-    
-    _header.add_stylebox_override("normal", _header_normal_stylebox)
-    _header.add_stylebox_override("hover", _header_hover_stylebox)
-    _header.add_stylebox_override("pressed", _header_pressed_stylebox)
+    _header.add_stylebox_override(
+            "normal",
+            Sc.gui.theme.get_stylebox("normal", "OptionButton"))
+    _header.add_stylebox_override(
+            "hover",
+            Sc.gui.theme.get_stylebox("hover", "OptionButton"))
+    _header.add_stylebox_override(
+            "pressed",
+            Sc.gui.theme.get_stylebox("pressed", "OptionButton"))
+    _header.add_stylebox_override(
+            "disabled",
+            Sc.gui.theme.get_stylebox("disabled", "OptionButton"))
+    _header.add_stylebox_override(
+            "focus",
+            Sc.gui.theme.get_stylebox("focus", "OptionButton"))
     
     _header_hbox = HBoxContainer.new()
     _header.add_child(_header_hbox)

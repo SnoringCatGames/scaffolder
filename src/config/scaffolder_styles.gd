@@ -3,17 +3,27 @@ class_name ScaffolderStyles
 extends Node
 
 
-const BUTTON_ACTIVE_NINE_PATCH_PATH := \
-        "res://addons/scaffolder/assets/images/gui/button_active.png"
-const BUTTON_HOVER_NINE_PATCH_PATH := \
-        "res://addons/scaffolder/assets/images/gui/button_hover.png"
-const BUTTON_NORMAL_NINE_PATCH_PATH = \
-        "res://addons/scaffolder/assets/images/gui/button_normal.png"
-
 var transparent_panel_stylebox: StyleBox
 var overlay_panel_stylebox: StyleBox
 var header_panel_stylebox: StyleBox
 var hud_panel_stylebox: StyleBox
+
+var focus_border_corner_radius: int
+var focus_border_corner_detail: int
+var focus_border_shadow_size: int
+var focus_border_border_width: int
+
+var focus_border_nine_patch: Texture
+var focus_border_nine_patch_margin_left: float
+var focus_border_nine_patch_margin_top: float
+var focus_border_nine_patch_margin_right: float
+var focus_border_nine_patch_margin_bottom: float
+var focus_border_nine_patch_scale: float
+
+var focus_border_expand_margin_left: float
+var focus_border_expand_margin_top: float
+var focus_border_expand_margin_right: float
+var focus_border_expand_margin_bottom: float
 
 var button_content_margin_left := 12.0
 var button_content_margin_top := 12.0
@@ -32,7 +42,6 @@ var button_border_width: int
 
 var button_active_nine_patch: Texture
 var button_disabled_nine_patch: Texture
-var button_focused_nine_patch: Texture
 var button_hover_nine_patch: Texture
 var button_normal_nine_patch: Texture
 var button_nine_patch_scale: float
@@ -48,7 +57,6 @@ var dropdown_border_width: int
 
 var dropdown_active_nine_patch: Texture
 var dropdown_disabled_nine_patch: Texture
-var dropdown_focused_nine_patch: Texture
 var dropdown_hover_nine_patch: Texture
 var dropdown_normal_nine_patch: Texture
 var dropdown_nine_patch_scale: float
@@ -152,6 +160,32 @@ func _init() -> void:
 func register_manifest(manifest: Dictionary) -> void:
     _validate_manifest(manifest)
     
+    if manifest.has("focus_border_nine_patch"):
+        self.focus_border_nine_patch = manifest.focus_border_nine_patch
+        self.focus_border_nine_patch_scale = \
+                manifest.focus_border_nine_patch_scale
+        self.focus_border_nine_patch_margin_left = \
+                manifest.focus_border_nine_patch_margin_left
+        self.focus_border_nine_patch_margin_top = \
+                manifest.focus_border_nine_patch_margin_top
+        self.focus_border_nine_patch_margin_right = \
+                manifest.focus_border_nine_patch_margin_right
+        self.focus_border_nine_patch_margin_bottom = \
+                manifest.focus_border_nine_patch_margin_bottom
+    else:
+        self.focus_border_corner_radius = manifest.focus_border_corner_radius
+        self.focus_border_corner_detail = manifest.focus_border_corner_detail
+        self.focus_border_shadow_size = manifest.focus_border_shadow_size
+        self.focus_border_border_width = manifest.focus_border_border_width
+    self.focus_border_expand_margin_left = \
+            manifest.focus_border_expand_margin_left
+    self.focus_border_expand_margin_top = \
+            manifest.focus_border_expand_margin_top
+    self.focus_border_expand_margin_right = \
+            manifest.focus_border_expand_margin_right
+    self.focus_border_expand_margin_bottom = \
+            manifest.focus_border_expand_margin_bottom
+    
     if manifest.has("button_content_margin_left"):
         self.button_content_margin_left = \
                 manifest.button_content_margin_left
@@ -171,7 +205,6 @@ func register_manifest(manifest: Dictionary) -> void:
     if manifest.has("button_normal_nine_patch"):
         self.button_active_nine_patch = manifest.button_active_nine_patch
         self.button_disabled_nine_patch = manifest.button_disabled_nine_patch
-        self.button_focused_nine_patch = manifest.button_focused_nine_patch
         self.button_hover_nine_patch = manifest.button_hover_nine_patch
         self.button_normal_nine_patch = manifest.button_normal_nine_patch
         self.button_nine_patch_scale = manifest.button_nine_patch_scale
@@ -193,7 +226,6 @@ func register_manifest(manifest: Dictionary) -> void:
         self.dropdown_active_nine_patch = manifest.dropdown_active_nine_patch
         self.dropdown_disabled_nine_patch = \
                 manifest.dropdown_disabled_nine_patch
-        self.dropdown_focused_nine_patch = manifest.dropdown_focused_nine_patch
         self.dropdown_hover_nine_patch = manifest.dropdown_hover_nine_patch
         self.dropdown_normal_nine_patch = manifest.dropdown_normal_nine_patch
         self.dropdown_nine_patch_scale = manifest.dropdown_nine_patch_scale
@@ -357,9 +389,23 @@ func register_manifest(manifest: Dictionary) -> void:
 
 
 func _validate_manifest(manifest: Dictionary) -> void:
+    assert(((manifest.has("focus_border_nine_patch") and \
+            manifest.has("focus_border_nine_patch_scale") and \
+            manifest.has("focus_border_nine_patch_margin_left") and \
+            manifest.has("focus_border_nine_patch_margin_top") and \
+            manifest.has("focus_border_nine_patch_margin_right") and \
+            manifest.has("focus_border_nine_patch_margin_bottom")) or \
+            (manifest.has("focus_border_corner_radius") and \
+            manifest.has("focus_border_corner_detail") and \
+            manifest.has("focus_border_shadow_size") and \
+            manifest.has("focus_border_border_width"))) and \
+            manifest.has("focus_border_expand_margin_left") and \
+            manifest.has("focus_border_expand_margin_top") and \
+            manifest.has("focus_border_expand_margin_right") and \
+            manifest.has("focus_border_expand_margin_bottom"))
+    
     assert((manifest.has("button_active_nine_patch") and \
             manifest.has("button_disabled_nine_patch") and \
-            manifest.has("button_focused_nine_patch") and \
             manifest.has("button_hover_nine_patch") and \
             manifest.has("button_normal_nine_patch") and \
             manifest.has("button_nine_patch_scale") and \
@@ -374,7 +420,6 @@ func _validate_manifest(manifest: Dictionary) -> void:
     
     assert((manifest.has("dropdown_active_nine_patch") and \
             manifest.has("dropdown_disabled_nine_patch") and \
-            manifest.has("dropdown_focused_nine_patch") and \
             manifest.has("dropdown_hover_nine_patch") and \
             manifest.has("dropdown_normal_nine_patch") and \
             manifest.has("dropdown_nine_patch_scale") and \
@@ -580,17 +625,25 @@ func configure_theme() -> void:
                     content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
-                "focused", "Button", {
-                    texture = Sc.styles.button_focused_nine_patch,
-                    texture_scale = Sc.styles.button_nine_patch_scale,
-                    margin_left = Sc.styles.button_nine_patch_margin_left,
-                    margin_top = Sc.styles.button_nine_patch_margin_top,
-                    margin_right = Sc.styles.button_nine_patch_margin_right,
-                    margin_bottom = Sc.styles.button_nine_patch_margin_bottom,
-                    content_margin_left = Sc.styles.button_content_margin_left,
-                    content_margin_top = Sc.styles.button_content_margin_top,
-                    content_margin_right = Sc.styles.button_content_margin_right,
-                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
+                "focus", "Button", {
+                    texture = Sc.styles.focus_border_nine_patch,
+                    texture_scale = Sc.styles.focus_border_nine_patch_scale,
+                    margin_left = \
+                            Sc.styles.focus_border_nine_patch_margin_left,
+                    margin_top = \
+                            Sc.styles.focus_border_nine_patch_margin_top,
+                    margin_right = \
+                            Sc.styles.focus_border_nine_patch_margin_right,
+                    margin_bottom = \
+                            Sc.styles.focus_border_nine_patch_margin_bottom,
+                    expand_margin_left = \
+                            Sc.styles.focus_border_expand_margin_left,
+                    expand_margin_top = \
+                            Sc.styles.focus_border_expand_margin_top,
+                    expand_margin_right = \
+                            Sc.styles.focus_border_expand_margin_right,
+                    expand_margin_bottom = \
+                            Sc.styles.focus_border_expand_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "hover", "Button", {
@@ -647,18 +700,22 @@ func configure_theme() -> void:
                     content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
-                "focused", "Button", {
-                    bg_color = Sc.colors.button_focused,
-                    corner_radius = Sc.styles.button_corner_radius,
-                    corner_detail = Sc.styles.button_corner_detail,
-                    shadow_size = round(Sc.styles.button_shadow_size * 1.5),
+                "focus", "Button", {
+                    bg_color = Color.transparent,
+                    corner_radius = Sc.styles.focus_border_corner_radius,
+                    corner_detail = Sc.styles.focus_border_corner_detail,
+                    shadow_size = Sc.styles.focus_border_shadow_size,
                     shadow_color = Sc.colors.shadow,
-                    border_width = Sc.styles.button_border_width,
-                    border_color = Sc.colors.button_border,
-                    content_margin_left = Sc.styles.button_content_margin_left,
-                    content_margin_top = Sc.styles.button_content_margin_top,
-                    content_margin_right = Sc.styles.button_content_margin_right,
-                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
+                    border_width = Sc.styles.focus_border_border_width,
+                    border_color = Sc.colors.focus_border,
+                    expand_margin_left = \
+                            Sc.styles.focus_border_expand_margin_left,
+                    expand_margin_top = \
+                            Sc.styles.focus_border_expand_margin_top,
+                    expand_margin_right = \
+                            Sc.styles.focus_border_expand_margin_right,
+                    expand_margin_bottom = \
+                            Sc.styles.focus_border_expand_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "hover", "Button", {
@@ -718,17 +775,25 @@ func configure_theme() -> void:
                     content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
-                "focused", "OptionButton", {
-                    texture = Sc.styles.dropdown_focused_nine_patch,
-                    texture_scale = Sc.styles.dropdown_nine_patch_scale,
-                    margin_left = Sc.styles.dropdown_nine_patch_margin_left,
-                    margin_top = Sc.styles.dropdown_nine_patch_margin_top,
-                    margin_right = Sc.styles.dropdown_nine_patch_margin_right,
-                    margin_bottom = Sc.styles.dropdown_nine_patch_margin_bottom,
-                    content_margin_left = Sc.styles.button_content_margin_left,
-                    content_margin_top = Sc.styles.button_content_margin_top,
-                    content_margin_right = Sc.styles.button_content_margin_right,
-                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
+                "focus", "OptionButton", {
+                    texture = Sc.styles.focus_border_nine_patch,
+                    texture_scale = Sc.styles.focus_border_nine_patch_scale,
+                    margin_left = \
+                            Sc.styles.focus_border_nine_patch_margin_left,
+                    margin_top = \
+                            Sc.styles.focus_border_nine_patch_margin_top,
+                    margin_right = \
+                            Sc.styles.focus_border_nine_patch_margin_right,
+                    margin_bottom = \
+                            Sc.styles.focus_border_nine_patch_margin_bottom,
+                    expand_margin_left = \
+                            Sc.styles.focus_border_expand_margin_left,
+                    expand_margin_top = \
+                            Sc.styles.focus_border_expand_margin_top,
+                    expand_margin_right = \
+                            Sc.styles.focus_border_expand_margin_right,
+                    expand_margin_bottom = \
+                            Sc.styles.focus_border_expand_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "hover", "OptionButton", {
@@ -785,18 +850,22 @@ func configure_theme() -> void:
                     content_margin_bottom = Sc.styles.button_content_margin_bottom,
                 })
         _configure_theme_stylebox(
-                "focused", "OptionButton", {
-                    bg_color = Sc.colors.dropdown_focused,
-                    corner_radius = Sc.styles.dropdown_corner_radius,
-                    corner_detail = Sc.styles.dropdown_corner_detail,
-                    shadow_size = Sc.styles.dropdown_shadow_size,
+                "focus", "OptionButton", {
+                    bg_color = Color.transparent,
+                    corner_radius = Sc.styles.focus_border_corner_radius,
+                    corner_detail = Sc.styles.focus_border_corner_detail,
+                    shadow_size = Sc.styles.focus_border_shadow_size,
                     shadow_color = Sc.colors.shadow,
-                    border_width = Sc.styles.dropdown_border_width,
-                    border_color = Sc.colors.dropdown_border,
-                    content_margin_left = Sc.styles.button_content_margin_left,
-                    content_margin_top = Sc.styles.button_content_margin_top,
-                    content_margin_right = Sc.styles.button_content_margin_right,
-                    content_margin_bottom = Sc.styles.button_content_margin_bottom,
+                    border_width = Sc.styles.focus_border_border_width,
+                    border_color = Sc.colors.focus_border,
+                    expand_margin_left = \
+                            Sc.styles.focus_border_expand_margin_left,
+                    expand_margin_top = \
+                            Sc.styles.focus_border_expand_margin_top,
+                    expand_margin_right = \
+                            Sc.styles.focus_border_expand_margin_right,
+                    expand_margin_bottom = \
+                            Sc.styles.focus_border_expand_margin_bottom,
                 })
         _configure_theme_stylebox(
                 "hover", "OptionButton", {
