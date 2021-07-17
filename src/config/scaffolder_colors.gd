@@ -33,12 +33,7 @@ var button_hover: Color
 var button_pressed: Color
 var button_border: Color
 
-# Only used if Sc.gui.is_suggested_button_color_pulse_shown is enabled, and
-# buttons are configured to use flat-color style-boxes.
-var button_flat_pulse: Color
-# Only used if Sc.gui.is_suggested_button_color_pulse_shown is enabled, and
-# buttons are configured to use nine-patch-texture style-boxes.
-var button_texture_modulate: Color
+var button_pulse_modulate: Color
 
 var link_normal: Color
 var link_hover: Color
@@ -121,8 +116,7 @@ var _defaults := {
     button_hover = Color("969696"),
     button_pressed = Color("5b5b5b"),
     button_border = Color("969696"),
-    button_texture_modulate = Color(2, 2, 2, 1),
-    button_flat_pulse = Color("d0d0d0"),
+    button_pulse_modulate = Color(2.0, 2.0, 2.0, 1.0),
     dropdown_normal = Color("404040"),
     dropdown_disabled = Color("4d4d4d"),
     dropdown_focused = Color("4d4d4d"),
