@@ -20,7 +20,7 @@ func record_recent_gestures() -> void:
         for event in events:
             recent_top_level_events_raw_str += event.to_string()
     
-    var url: String = Sc.get_log_gestures_url_with_params()
+    var url: String = Sc.metadata.get_log_gestures_url_with_params()
     
     var body_object := {
         recent_top_level_gesture_events = recent_top_level_events_raw_str,

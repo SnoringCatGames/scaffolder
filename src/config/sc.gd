@@ -266,7 +266,7 @@ func _set_up() -> void:
 
 
 func _load_state() -> void:
-    _clear_old_data_agreement_version()
+    Sc.metadata._clear_old_data_agreement_version()
     Sc.metadata.agreed_to_terms = Sc.save_state.get_setting(
             SaveState.AGREED_TO_TERMS_SETTINGS_KEY,
             false)
@@ -294,21 +294,6 @@ func _load_state() -> void:
     Sc.camera_controller.zoom_factor = Sc.save_state.get_setting(
             SaveState.ZOOM_FACTOR_SETTINGS_KEY,
             1.0)
-
-
-func _clear_old_data_agreement_version() -> void:
-    if Sc.metadata.data_agreement_version != \
-            Sc.save_state.get_data_agreement_version():
-        Sc.save_state.set_data_agreement_version(
-                Sc.metadata.data_agreement_version)
-        set_agreed_to_terms(false)
-
-
-func set_agreed_to_terms(value := true) -> void:
-    Sc.metadata.agreed_to_terms = value
-    Sc.save_state.set_setting(
-            SaveState.AGREED_TO_TERMS_SETTINGS_KEY,
-            value)
 
 
 func _validate_project_config() -> void:
@@ -348,15 +333,3 @@ func _validate_project_config() -> void:
     
     assert(ProjectSettings.get_setting("physics/common/physics_fps") == \
             Time.PHYSICS_FPS)
-
-
-func get_support_url_with_params() -> String:
-    var params := "?source=" + OS.get_name()
-    params += "&app=" + Sc.metadata.app_id_query_param
-    return Sc.metadata.support_url + params
-
-
-func get_log_gestures_url_with_params() -> String:
-    var params := "?source=" + OS.get_name()
-    params += "&app=" + Sc.metadata.app_id_query_param
-    return Sc.logger_gestures_url + params

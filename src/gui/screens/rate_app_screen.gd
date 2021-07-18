@@ -36,4 +36,4 @@ func _on_KeepPlayingButton_pressed() -> void:
 
 func _on_SendFeedbackButton_pressed() -> void:
     Sc.nav.open(NEXT_SCREEN_TYPE)
-    OS.shell_open(Sc.get_support_url_with_params())
+    OS.shell_open(Sc.metadata.get_support_url_with_params())
