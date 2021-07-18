@@ -25,6 +25,7 @@ var draw: ScaffolderDrawUtils
 var slow_motion: SlowMotionController
 var beats: BeatTracker
 var canvas_layers: CanvasLayers
+var project_settings: ScaffolderProjectSettings
 var camera_controller: CameraController
 var level_input: LevelInput
 var level_config: ScaffolderLevelConfig
@@ -43,6 +44,10 @@ var _manifest: Dictionary
 
 
 func _ready() -> void:
+    var root := get_node("/root")
+    var children := root.get_children()
+    assert(children[0] == self, "Sc should be the first AutoLoad")
+    
     self.logger = ScaffolderLog.new()
     add_child(self.logger)
     
@@ -249,6 +254,13 @@ func _set_up() -> void:
         self.canvas_layers = CanvasLayers.new()
     add_child(self.canvas_layers)
     
+    if _manifest.has("project_settings_class"):
+        self.project_settings = _manifest.project_settings_class.new()
+        assert(self.project_settings is ScaffolderProjectSettings)
+    else:
+        self.project_settings = ScaffolderProjectSettings.new()
+    add_child(self.project_settings)
+    
     # This depends on SaveState, and must be instantiated after.
     self.level_config = _manifest.level_config_class.new()
     add_child(self.level_config)
@@ -261,8 +273,9 @@ func _set_up() -> void:
     self.slow_motion.register_manifest(_manifest.slow_motion_manifest)
     
     self.metadata.is_app_configured = true
-
-    _validate_project_config()
+    
+    self.project_settings._override_project_settings()
+    self.project_settings._override_input_map(_manifest.input_map)
 
 
 func _load_state() -> void:
@@ -294,42 +307,3 @@ func _load_state() -> void:
     Sc.camera_controller.zoom_factor = Sc.save_state.get_setting(
             SaveState.ZOOM_FACTOR_SETTINGS_KEY,
             1.0)
-
-
-func _validate_project_config() -> void:
-    assert(ProjectSettings.get_setting(
-            "logging/file_logging/enable_file_logging") == true)
-    
-    assert(geometry.are_colors_equal_with_epsilon(
-            ProjectSettings.get_setting("application/boot_splash/bg_color"),
-            colors.boot_splash_background,
-            0.0001))
-    assert(Sc.geometry.are_colors_equal_with_epsilon(
-            ProjectSettings.get_setting(
-                    "rendering/environment/default_clear_color"),
-            Sc.colors.background,
-            0.0001))
-    
-    var window_stretch_mode_disabled := "disabled"
-    assert(ProjectSettings.get_setting("display/window/stretch/mode") == \
-            window_stretch_mode_disabled)
-    var window_stretch_aspect_expanded := "expand"
-    assert(ProjectSettings.get_setting("display/window/stretch/aspect") == \
-            window_stretch_aspect_expanded)
-    
-    # TODO: Figure out if this actually matters...
-#    var physics_2d_thread_model_single_unsafe := 0
-#    var physics_2d_thread_model_multi_threaded := 2
-#    assert(!uses_threads or \
-#            ProjectSettings.get_setting("physics/2d/thread_model") == \
-#            physics_2d_thread_model_multi_threaded)
-    
-    assert(ProjectSettings.get_setting(
-                    "input_devices/pointing/emulate_touch_from_mouse") == \
-            true)
-    assert(ProjectSettings.get_setting(
-                    "input_devices/pointing/emulate_mouse_from_touch") == \
-            true)
-    
-    assert(ProjectSettings.get_setting("physics/common/physics_fps") == \
-            Time.PHYSICS_FPS)

@@ -80,6 +80,19 @@ static func concat(
             result[i] = other[i]
 
 
+static func merge(
+        result: Dictionary,
+        other: Dictionary,
+        overrides_preexisting_properties := true) -> void:
+    if overrides_preexisting_properties:
+        for key in other:
+            result[key] = other[key]
+    else:
+        for key in other:
+            if !result.has(key):
+                result[key] = other[key]
+
+
 static func join(
         array,
         delimiter := ",") -> String:

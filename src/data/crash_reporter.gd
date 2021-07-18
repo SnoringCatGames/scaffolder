@@ -94,6 +94,10 @@ func _does_line_match_an_exclusion_pattern(line: String) -> bool:
 
 
 func _get_most_recent_log_file_name() -> String:
+    if ProjectSettings.get_setting("application/config/name") == "":
+        # If the app name isn't configured, then accessing log files will fail.
+        return ""
+    
     var directory := Directory.new()
     if !directory.dir_exists(LOGS_DIRECTORY_PATH):
         # There are no logs.

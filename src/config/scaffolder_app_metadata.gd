@@ -14,6 +14,8 @@ var are_test_levels_included := true
 var is_save_state_cleared_for_debugging := false
 var is_splash_skipped := false
 var also_prints_to_stdout := true
+var overrides_project_settings := true
+var overrides_input_map := true
 
 # Should match Project Settings > Physics > 2d > Thread Model
 var uses_threads: bool
@@ -86,6 +88,8 @@ func register_manifest(manifest: Dictionary) -> void:
                 manifest.is_save_state_cleared_for_debugging
     self.pauses_on_focus_out = manifest.pauses_on_focus_out
     self.also_prints_to_stdout = manifest.also_prints_to_stdout
+    self.overrides_project_settings = manifest.overrides_project_settings
+    self.overrides_input_map = manifest.overrides_input_map
     self.is_profiler_enabled = manifest.is_profiler_enabled
     self.uses_threads = manifest.uses_threads
     self.thread_count = manifest.thread_count
