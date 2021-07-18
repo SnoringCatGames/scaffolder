@@ -36,7 +36,7 @@ func _ready() -> void:
     
     terms_and_conditions_link.url = Sc.metadata.terms_and_conditions_url
     privacy_policy_link.url = Sc.metadata.privacy_policy_url
-    support_link.url = Sc.get_support_url_with_params()
+    support_link.url = Sc.metadata.get_support_url_with_params()
     
     $VBoxContainer/SpecialThanksContainer/SpecialThanks.text = \
             Sc.gui.special_thanks_text

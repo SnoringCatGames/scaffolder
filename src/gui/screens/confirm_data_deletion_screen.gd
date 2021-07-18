@@ -19,7 +19,7 @@ func _on_ConfirmButton_pressed() -> void:
     # Erase user files.
     Sc.utils.clear_directory("user://")
     
-    var url: String = Sc.get_support_url_with_params()
+    var url: String = Sc.metadata.get_support_url_with_params()
     url += "&request-data-deletion=true&client-id=" + \
             str(Sc.analytics.client_id)
     OS.shell_open(url)

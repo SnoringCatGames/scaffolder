@@ -15,5 +15,5 @@ func _get_focused_button() -> ScaffolderButton:
 
 
 func _on_AgreeButton_pressed() -> void:
-    Sc.set_agreed_to_terms()
+    Sc.metadata.set_agreed_to_terms()
     Sc.nav.open("main_menu")
