@@ -54,7 +54,7 @@ For example:
 
 ### Viewport scaling
 
-This framework handles viewport scaling directly. You will need to turn off Godot's built-in viewport scaling (`Display > Window > Stretch > Mode = disabled`).
+This framework handles viewport scaling directly.
 
 This provides some powerful benefits over Godot's standard behaviors, but requires you to be careful with how you define your GUI layouts.
 
@@ -72,7 +72,7 @@ This provides limited flexibility in how far the camera is zoomed. That is, you 
 #### Handling GUI scale
 
 -   At runtime, a `gui_scale` value is calculated according to how the current screen resolution compares to the expected default screen resolution, as described above.
--   Then all fonts—which are registered with the scaffold configuration—are resized according to this `gui_scale`.
+-   Then all fonts, styleboxes, and icons—which are registered with the scaffold configuration—are resized according to this `gui_scale`.
 -   Then the size, position, and scale of all GUI nodes are also updated accordingly.
 
 #### Constraints for how you define your GUI layouts

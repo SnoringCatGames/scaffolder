@@ -33,7 +33,6 @@ func _ready() -> void:
     if Engine.editor_hint:
         return
     
-    get_tree().set_auto_accept_quit(false)
     Sc.analytics.connect(
             "session_ended",
             self,

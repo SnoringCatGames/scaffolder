@@ -6,64 +6,8 @@ Probably the easiest way to get set up is to copy the [Squirrel Away example app
     -   Add the Scaffolder library to your `addons/` folder.
 -   `addons/crypto_uuid_v4`
     -   Add the [Crypto UUID v4](https://godotengine.org/asset-library/asset/748) library to your `addons/` folder.
--   Project Settings
-    -   Some of these are just my personal preference, some are important for the framework to run correctly.
-    -   Application > Config:
-        -   Name
-        -   Icon
-        -   Quit On Go Back: false
-    -   Application > Run:
-        -   Main Scene
-    -   Application > Boot Splash:
-        -   Image
-        -   Bg Color: Must match `Sc.screen_background_color`
-    -   Logging > File Logging:
-        -   Enable File Logging: true
-    -   Rendering > Quality:
-        -   Use Pixel Snap: true
-        -   Framebuffer Allocation: 2D Without Sampling
-        -   Framebuffer Allocation.mobile: 2D Without Sampling
-    -   Rendering > Environment:
-        -   Default Clear Color: Match `Sc.screen_background_color`
-        -   Default Environment: I usually move this out from the top-level directory.
-    -   Display > Window:
-        -   Size > Width/Height: Must match `Sc.default_game_area_size`.
-        -   Handheld > Orientation: sensor
-        -   Stretch > Mode: disabled
-        -   Stretch > Aspect: expand
-    -   Input Devices > Pointing:
-        -   Emulate Touch From Mouse: true
-        -   Ios > Touch Delay: 0.005
-    -   Layer Names:
-        -   Name these!
--   Input Map
-    -   Define the following input keys in Project Settings > Input Map:
-        -   ui_accept
-        -   ui_select
-        -   ui_cancel
-        -   ui_back
-        -   ui_left
-        -   ui_right
-        -   ui_up
-        -   ui_down
-        -   zoom_in
-        -   zoom_out
-        -   pan_left
-        -   pan_right
-        -   pan_up
-        -   pan_down
-        -   screenshot
-        -   jump
-        -   move_left
-        -   move_right
-        -   move_up
-        -   move_down
-        -   dash
-        -   face_left
-        -   face_right
-        -   grab_wall
 -   `Sc`
-    -   Define `Sc` as an AutoLoad (in Project Settings).
+    -   Define `Sc` as an AutoLoad (in Project Settings > AutoLoad).
     -   All of the Scaffolder functionality is globally accessible through properties on the `Sc` AutoLoad.
     -   "Sc" is short for "Scaffolder."
     -   It should point to the path `res://addons/scaffolder/src/sc.gd`.
@@ -117,10 +61,16 @@ class MyCustomAudio extends Audio:
 
 > TODO: Enumerate and describe each `Sc` property.
 
+## Automatic Project Settings and Input Map overrides
+
+> **Note**: Scaffolder will automatically define various Project Settings fields and many Input Map actions. You can see which fields and actions are defined in [scaffolder_project_settings.gd](./src/config/scaffolder_project_settings.gd).
+
 ## Expected console errors
 
-When closing your game, you may see the following errors printed in the console. These are due to an underlying bug in Godot's type system. Godot improperly handles circular type references, and this leads to false-positives in Godot's memory-leak detection system.
-
+-   "Invalid get index 'foo'" and "Invalid call. Nonexistent function 'foo'"
+    -   These are an artifact of how Godot handles AutoLoads with in-editor `tool` scripts.
+    -   Hopefully, these will have been fixed by the time you're reading this...
+-   When closing your game, you may see the following errors printed in the console. These are due to an underlying bug in Godot's type system. Godot improperly handles circular type references, and this leads to false-positives in Godot's memory-leak detection system.
 ```
 ERROR: ~List: Condition "_first != __null" is true.
    At: ./core/self_list.h:112

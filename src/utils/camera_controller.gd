@@ -1,3 +1,4 @@
+tool
 class_name CameraController
 extends Node2D
 
