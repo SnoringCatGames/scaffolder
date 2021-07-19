@@ -2,7 +2,7 @@ class_name OverlayMaskTransition
 extends Node
 
 
-signal completed(previous_screen_container, next_screen_container)
+signal completed(transition)
 
 var SHADER := \
         preload("res://addons/scaffolder/src/gui/overlay_mask_transition.shader")
@@ -23,8 +23,7 @@ var smooth_size := 0.0 setget _set_smooth_size
 var color_rect: ColorRect
 var material: ShaderMaterial
 
-var previous_screen_container: ScreenContainer
-var next_screen_container: ScreenContainer
+var transition: ScreenTransition
 
 
 func _init() -> void:
@@ -75,13 +74,9 @@ func _on_resized() -> void:
         color_rect.rect_size = viewport_size
 
 
-func start(
-        duration: float,
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer) -> void:
-    self.duration = duration
-    self.previous_screen_container = previous_screen_container
-    self.next_screen_container = next_screen_container
+func start(transition: ScreenTransition) -> void:
+    self.duration = transition.duration
+    self.transition = transition
     is_transitioning = true
     color_rect = ColorRect.new()
     color_rect.rect_size = Sc.device.get_viewport_size()
@@ -141,10 +136,7 @@ func stop(triggers_completed := false) -> bool:
         color_rect.queue_free()
         color_rect = null
     if triggers_completed:
-        emit_signal(
-                "completed",
-                previous_screen_container,
-                next_screen_container)
+        emit_signal("completed", transition)
     return true
 
 
@@ -155,10 +147,7 @@ func _on_tween_complete(
     if is_instance_valid(color_rect):
         color_rect.queue_free()
         color_rect = null
-    emit_signal(
-            "completed",
-            previous_screen_container,
-            next_screen_container)
+    emit_signal("completed", transition)
 
 
 func _set_fade_in_texture(value: Texture) -> void:
