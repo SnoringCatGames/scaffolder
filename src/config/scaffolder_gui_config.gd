@@ -314,7 +314,8 @@ func amend_manifest(manifest: Dictionary) -> void:
 func register_manifest(manifest: Dictionary) -> void:
     amend_manifest(manifest)
     
-    self.theme = manifest.theme
+    # Duplicate the theme, so that we don't save changes to a file.
+    self.theme = manifest.theme.duplicate()
     self.cell_size = manifest.cell_size
     self.default_pc_game_area_size = manifest.default_pc_game_area_size
     self.default_mobile_game_area_size = manifest.default_mobile_game_area_size
