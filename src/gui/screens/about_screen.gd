@@ -47,10 +47,13 @@ func _ready() -> void:
             Sc.metadata.is_data_tracked
     $VBoxContainer/VBoxContainer2/PrivacyPolicyLink.visible = \
             Sc.metadata.is_data_tracked
-    $VBoxContainer/AccordionPanel/VBoxContainer/DataDeletionButton.visible = \
+    $VBoxContainer/AccordionPanel/AccordionBody/VBoxContainer/ \
+            DataDeletionButton \
+            .visible = \
                     Sc.metadata.is_data_tracked and \
                     Sc.gui.is_data_deletion_button_shown
-    $VBoxContainer/AccordionPanel/VBoxContainer/DataDeletionButtonPadding \
+    $VBoxContainer/AccordionPanel/AccordionBody/VBoxContainer/ \
+            DataDeletionButtonPadding \
             .visible = \
                     Sc.metadata.is_data_tracked and \
                     Sc.gui.is_data_deletion_button_shown
@@ -58,7 +61,8 @@ func _ready() -> void:
     $VBoxContainer/VBoxContainer2/SupportLink.visible = \
             Sc.gui.is_support_shown
     
-    $VBoxContainer/AccordionPanel/VBoxContainer/ThirdPartyLicensesButton \
+    $VBoxContainer/AccordionPanel/AccordionBody/VBoxContainer/ \
+            ThirdPartyLicensesButton \
             .visible = Sc.gui.is_third_party_licenses_shown
 
 

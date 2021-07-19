@@ -1,12 +1,18 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_option_button.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres" type="DynamicFont" id=2]
 
 [node name="ScaffolderOptionButton" type="OptionButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -995.0
-margin_bottom = -748.0
+margin_right = -794.0
+margin_bottom = -712.0
+rect_min_size = Vector2( 230, 56 )
+mouse_default_cursor_shape = 2
+custom_fonts/font = ExtResource( 2 )
+custom_constants/hseparation = 16
+custom_constants/arrow_margin = 16
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

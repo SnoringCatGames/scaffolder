@@ -2,11 +2,12 @@
 
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_panel.gd" type="Script" id=1]
 
-[node name="AccordionPanel" type="Control"]
+[node name="AccordionPanel" type="VBoxContainer"]
 margin_left = -0.314972
 margin_right = -0.314972
-rect_clip_content = true
-mouse_filter = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_constants/separation = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

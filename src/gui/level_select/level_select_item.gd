@@ -1,12 +1,12 @@
 tool
-class_name LevelSelectItem
+class_name LevelSelectItem, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_placeholder.png"
 extends Control
 
 
 signal toggled
 signal pressed
 
-const HEADER_HEIGHT := 56.0
 const FADE_TWEEN_DURATION := 0.3
 
 export var level_id := "" setget _set_level_id,_get_level_id
@@ -28,44 +28,32 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
     rect_min_size.y = \
-            $HeaderWrapper.rect_min_size.y + \
-            $AccordionPanel.rect_min_size.y
+            $AccordionPanel.rect_size.y if \
+            is_unlocked else \
+            $LevelSelectItemLockedHeader.rect_size.y
+    rect_size = rect_min_size
 
 
 func _init_children() -> void:
-    locked_header = $HeaderWrapper/LevelSelectItemLockedHeader
-    unlocked_header = $HeaderWrapper/LevelSelectItemUnlockedHeader
+    locked_header = $LevelSelectItemLockedHeader
+    unlocked_header = \
+            $AccordionPanel/AccordionHeader/LevelSelectItemUnlockedHeader
     accordion = $AccordionPanel
-    body = $AccordionPanel/LevelSelectItemBody
-    
-    accordion.extra_scroll_height_for_custom_header = HEADER_HEIGHT
-    
-    rect_min_size.x = Sc.gui.screen_body_width
-    set_meta("gs_rect_min_size", rect_min_size)
-    
+    body = $AccordionPanel/AccordionBody/LevelSelectItemBody
     _on_gui_scale_changed()
 
 
 func _on_gui_scale_changed() -> bool:
-    var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
-    
-    rect_min_size = original_rect_min_size * Sc.gui.scale
+    rect_min_size.x = Sc.gui.screen_body_width * Sc.gui.scale
     rect_size = rect_min_size
     
+    accordion._on_gui_scale_changed()
+    
     var header_size := Vector2(
-            rect_min_size.x,
-            HEADER_HEIGHT * Sc.gui.scale)
-    $HeaderWrapper.rect_min_size = header_size
-    $HeaderWrapper.rect_size = header_size
+            Sc.gui.screen_body_width * Sc.gui.scale,
+            Sc.gui.button_height * Sc.gui.scale)
     locked_header.update_size(header_size)
     unlocked_header.update_size(header_size)
-    
-    accordion.rect_min_size.x = Sc.gui.screen_body_width
-    body.rect_min_size.x = Sc.gui.screen_body_width
-    accordion.set_meta("gs_rect_min_size", accordion.rect_min_size)
-    body.set_meta("gs_rect_min_size", accordion.rect_min_size)
-    
-    accordion._on_gui_scale_changed()
     
     return true
 
@@ -86,13 +74,16 @@ func update() -> void:
     unlocked_header.update_is_unlocked(is_unlocked)
     accordion.update()
     body.update()
+    
+    locked_header.visible = !is_unlocked
+    accordion.visible = is_unlocked
 
 
 func focus() -> void:
     if is_unlocked:
-        $HeaderWrapper/LevelSelectItemUnlockedHeader.grab_focus()
+        unlocked_header.grab_focus()
     else:
-        $HeaderWrapper/LevelSelectItemLockedHeader.grab_focus()
+        locked_header.grab_focus()
 
 
 func toggle() -> void:
@@ -101,7 +92,7 @@ func toggle() -> void:
 
 
 func unlock() -> void:
-    unlocked_header.visible = false
+    accordion.visible = false
     unlocked_header.modulate.a = 0.0
     locked_header.unlock()
 
@@ -112,7 +103,7 @@ func _on_unlock_fade_finished(
         fade_tween: ScaffolderTween) -> void:
     fade_tween.queue_free()
     locked_header.visible = false
-    unlocked_header.visible = true
+    accordion.visible = true
     emit_signal("pressed")
 
 
@@ -138,7 +129,7 @@ func get_button() -> ScaffolderButton:
     return body.get_button()
 
 
-func _on_LevelSelectItemUnlockedHeader_pressed() -> void:
+func _on_AccordionHeader_pressed() -> void:
     Sc.utils.give_button_press_feedback()
     emit_signal("pressed")
 
@@ -153,7 +144,7 @@ func _on_AccordionPanel_caret_rotated(rotation: float) -> void:
 
 func _on_LevelSelectItemLockedHeader_unlock_finished() -> void:
     locked_header.visible = true
-    unlocked_header.visible = true
+    accordion.visible = true
     var fade_tween := ScaffolderTween.new()
     locked_header.add_child(fade_tween)
     fade_tween.connect(

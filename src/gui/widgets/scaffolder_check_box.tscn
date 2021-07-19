@@ -3,6 +3,10 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_check_box.gd" type="Script" id=1]
 
 [node name="ScaffolderCheckBox" type="Control"]
+margin_right = 230.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 230, 56 )
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource( 1 )
@@ -11,6 +15,10 @@ __meta__ = {
 }
 
 [node name="CheckBox" type="CheckBox" parent="."]
+margin_left = 99.0
+margin_top = 12.0
+margin_right = 131.0
+margin_bottom = 44.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 align = 1
