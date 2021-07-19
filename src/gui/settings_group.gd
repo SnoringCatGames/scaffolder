@@ -1,5 +1,6 @@
 tool
-class_name SettingsGroup
+class_name SettingsGroup, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_placeholder.png"
 extends VBoxContainer
 
 
@@ -28,9 +29,9 @@ func _ready() -> void:
     var list: LabeledControlList
     if group_config.is_collapsible:
         $LabeledControlList.queue_free()
-        list = $AccordionPanel/VBoxContainer/LabeledControlList
+        list = $AccordionPanel/AccordionBody/VBoxContainer/LabeledControlList
         
-        $AccordionPanel.header_text = group_config.label
+        $AccordionPanel/AccordionHeader.header_text = group_config.label
     else:
         $AccordionPanel.queue_free()
         list = $LabeledControlList

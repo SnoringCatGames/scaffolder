@@ -60,7 +60,8 @@ func _update_stats() -> void:
             $VBoxContainer/VBoxContainer2/WasBestPlaythroughLabel
     var was_fastest_playthrough_label := \
             $VBoxContainer/VBoxContainer2/WasFastestPlaythroughLabel
-    var control_list := $VBoxContainer/AccordionPanel/LabeledControlList
+    var control_list := \
+            $VBoxContainer/AccordionPanel/AccordionBody/LabeledControlList
     
     unlocked_new_level_label.visible = \
             !Sc.level_session.new_unlocked_levels.empty()

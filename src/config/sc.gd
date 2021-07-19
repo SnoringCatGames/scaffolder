@@ -44,10 +44,6 @@ var _manifest: Dictionary
 
 
 func _ready() -> void:
-    var root := get_node("/root")
-    var children := root.get_children()
-    assert(children[0] == self, "Sc should be the first AutoLoad")
-    
     self.logger = ScaffolderLog.new()
     add_child(self.logger)
     

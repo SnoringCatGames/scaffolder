@@ -1,5 +1,6 @@
 tool
-class_name LevelSelectItemLockedHeader
+class_name LevelSelectItemLockedHeader, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_placeholder.png"
 extends Control
 
 
