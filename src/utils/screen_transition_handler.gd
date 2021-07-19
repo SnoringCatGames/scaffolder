@@ -49,12 +49,7 @@ var screen_mask_transition_smooth_size := 0.0
 var _overlay_mask_transition: OverlayMaskTransition
 var _screen_mask_transition: ScreenMaskTransition
 
-var _start_transition_helper_timeout_id := -1
-var _start_immediate_transition_timeout_id := -1
-var _slide_transition_tween_id := -1
-var _fade_transition_tween_id := -1
-
-var _current_duration := INF
+var _current_transition: ScreenTransition
 
 
 func _init() -> void:
@@ -171,11 +166,14 @@ func show_first_screen(screen_container: ScreenContainer) -> void:
     screen_container._on_transition_in_started(null)
     screen_container.pause_mode = Node.PAUSE_MODE_STOP
     
+    var transition := ScreenTransition.new()
+    transition.next_screen_container = screen_container
+    _current_transition = transition
+    
     _on_transition_completed(
             null,
             "",
-            null,
-            screen_container)
+            transition)
 
 
 func start_transition(
@@ -250,78 +248,65 @@ func start_transition(
     
     clear_transitions()
     
-    _current_duration = duration
+    var transition := ScreenTransition.new()
+    transition.previous_screen_container = previous_screen_container
+    transition.next_screen_container = next_screen_container
+    transition.transition_params = transition_params
+    transition.is_forward = is_forward
+    transition.is_game_screen_next = is_game_screen_next
+    transition.duration = duration
+    transition.delay = delay
+    transition.easing = easing
+    
+    _current_transition = transition
     
     if is_instance_valid(previous_screen_container):
         previous_screen_container \
                 ._on_transition_out_started(next_screen_container)
         previous_screen_container.pause_mode = Node.PAUSE_MODE_STOP
     
+    if transition != _current_transition:
+        # Abort the previous transition, since there is now a later one.
+        _on_transition_aborted(transition)
+        return
+    
     if is_instance_valid(next_screen_container):
         next_screen_container \
                 ._on_transition_in_started(previous_screen_container)
         next_screen_container.pause_mode = Node.PAUSE_MODE_STOP
     
-    call(transition_method_name,
-            previous_screen_container,
-            next_screen_container,
-            transition_params,
-            is_forward,
-            is_game_screen_next,
-            duration,
-            delay,
-            easing)
+    if transition != _current_transition:
+        # Abort the previous transition, since there is now a later one.
+        _on_transition_aborted(transition)
+        return
+    
+    call(transition_method_name, transition)
 
 
-func _start_immediate_transition(
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer,
-        transition_params: Dictionary,
-        is_forward: bool,
-        is_game_screen_next: bool,
-        duration: float,
-        delay: float,
-        easing: String) -> void:
-    if delay > 0.0:
-        _start_immediate_transition_timeout_id = Sc.time.set_timeout( \
-                funcref(self, "_start_immediate_transition"), \
-                delay,
-                [
-                    previous_screen_container,
-                    next_screen_container,
-                    transition_params,
-                    is_forward,
-                    is_game_screen_next,
-                    duration,
-                    0.0,
-                ])
+func _start_immediate_transition(transition: ScreenTransition) -> void:
+    if transition.delay > 0.0:
+        transition.start_immediate_transition_timeout_id = \
+                Sc.time.set_timeout( \
+                        funcref(self, "_start_immediate_transition"), \
+                        transition.delay,
+                        [transition])
     else:
         _update_z_indices(
-                previous_screen_container,
-                next_screen_container,
-                is_forward)
+                transition,
+                transition.is_forward)
         _on_transition_completed(
                 null,
                 "",
-                previous_screen_container,
-                next_screen_container)
+                transition)
 
 
-func _start_slide_transition(
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer,
-        transition_params: Dictionary,
-        is_forward: bool,
-        is_game_screen_next: bool,
-        duration: float,
-        delay: float,
-        easing: String) -> void:
+func _start_slide_transition(transition: ScreenTransition) -> void:
     var tween_screen_container: ScreenContainer
     var start_position: Vector2
     var end_position: Vector2
-    if is_game_screen_next:
-        tween_screen_container = previous_screen_container
-        if is_forward:
+    if transition.is_game_screen_next:
+        tween_screen_container = transition.previous_screen_container
+        if transition.is_forward:
             start_position = Vector2.ZERO
             end_position = Vector2(
                     -Sc.device.get_viewport_size().x,
@@ -331,101 +316,82 @@ func _start_slide_transition(
             end_position = Vector2(
                     Sc.device.get_viewport_size().x,
                     0.0)
-    elif is_forward:
-        tween_screen_container = next_screen_container
+    elif transition.is_forward:
+        tween_screen_container = transition.next_screen_container
         start_position = Vector2(
                 Sc.device.get_viewport_size().x,
                 0.0)
         end_position = Vector2.ZERO
     else:
-        tween_screen_container = previous_screen_container
+        tween_screen_container = transition.previous_screen_container
         start_position = Vector2.ZERO
         end_position = Vector2(
                 Sc.device.get_viewport_size().x,
                 0.0)
     
     _update_visibilities(
-            previous_screen_container,
-            next_screen_container,
+            transition,
             true,
             true)
     _update_z_indices(
-            previous_screen_container,
-            next_screen_container,
-            is_forward)
+            transition,
+            transition.is_forward)
     
     tween_screen_container.position = start_position
-    _slide_transition_tween_id = Sc.time.tween_property(
+    transition.slide_transition_tween_id = Sc.time.tween_property(
             tween_screen_container,
             "position",
             start_position,
             end_position,
-            duration,
-            easing,
-            delay,
+            transition.duration,
+            transition.easing,
+            transition.delay,
             TimeType.APP_PHYSICS,
             funcref(self, "_on_transition_completed"),
-            [previous_screen_container, next_screen_container])
+            [transition])
 
 
-func _start_fade_transition(
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer,
-        transition_params: Dictionary,
-        is_forward: bool,
-        is_game_screen_next: bool,
-        duration: float,
-        delay: float,
-        easing: String) -> void:
+func _start_fade_transition(transition: ScreenTransition) -> void:
     var tween_screen_container: ScreenContainer
     var start_opacity: float
     var end_opacity: float
-    if is_game_screen_next:
-        tween_screen_container = previous_screen_container
+    if transition.is_game_screen_next:
+        tween_screen_container = transition.previous_screen_container
         start_opacity = 1.0
         end_opacity = 0.0
-    elif is_forward:
-        tween_screen_container = next_screen_container
+    elif transition.is_forward:
+        tween_screen_container = transition.next_screen_container
         start_opacity = 0.0
         end_opacity = 1.0
     else:
-        tween_screen_container = previous_screen_container
+        tween_screen_container = transition.previous_screen_container
         start_opacity = 1.0
         end_opacity = 0.0
     
     _update_visibilities(
-            previous_screen_container,
-            next_screen_container,
+            transition,
             true,
             true)
     _update_z_indices(
-            previous_screen_container,
-            next_screen_container,
-            is_forward)
+            transition,
+            transition.is_forward)
     
     tween_screen_container.modulate.a = start_opacity
-    _fade_transition_tween_id = Sc.time.tween_property(
+    transition.fade_transition_tween_id = Sc.time.tween_property(
             tween_screen_container,
             "modulate:a",
             start_opacity,
             end_opacity,
-            duration,
-            easing,
-            delay,
+            transition.duration,
+            transition.easing,
+            transition.delay,
             TimeType.APP_PHYSICS,
             funcref(self, "_on_transition_completed"),
-            [previous_screen_container, next_screen_container])
+            [transition])
 
 
-func _start_overlay_mask_transition(
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer,
-        transition_params: Dictionary,
-        is_forward: bool,
-        is_game_screen_next: bool,
-        duration: float,
-        delay: float,
-        easing: String) -> void:
+func _start_overlay_mask_transition(transition: ScreenTransition) -> void:
+    var transition_params := transition.transition_params
     var fade_out_texture: Texture = \
             transition_params.fade_out_texture if \
             transition_params.has("fade_out_texture") else \
@@ -464,74 +430,60 @@ func _start_overlay_mask_transition(
     _overlay_mask_transition.fade_out_easing = fade_out_easing
     
     _update_visibilities(
-            previous_screen_container,
-            next_screen_container,
+            transition,
             true,
             false)
     
-    _start_transition_helper_timeout_id = Sc.time.set_timeout( \
+    transition.start_transition_helper_timeout_id = Sc.time.set_timeout( \
             funcref(_overlay_mask_transition, "start"), \
-            delay,
+            transition.delay,
             [
-                duration,
-                previous_screen_container,
-                next_screen_container,
+                transition.duration,
+                transition.previous_screen_container,
+                transition.next_screen_container,
             ])
     
-    _start_immediate_transition_timeout_id = Sc.time.set_timeout( \
+    transition.start_immediate_transition_timeout_id = Sc.time.set_timeout( \
             funcref(self, "_on_overlay_mask_transition_middle"), \
-            duration / 2.0 + delay,
+            transition.duration / 2.0 + transition.delay,
             [
-                previous_screen_container,
-                next_screen_container,
-                is_forward,
+                transition,
+                transition.is_forward,
             ])
 
 
 func _on_overlay_mask_transition_middle(
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer,
+        transition: ScreenTransition,
         is_forward: bool) -> void:
     _update_visibilities(
-            previous_screen_container,
-            next_screen_container,
+            transition,
             false,
             true)
 
 
-func _on_overlay_mask_transition_complete(
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer) -> void:
+func _on_overlay_mask_transition_complete(transition: ScreenTransition) -> void:
     _on_transition_completed(
             null,
             "",
-            previous_screen_container,
-            next_screen_container)
+            transition)
 
 
-func _start_screen_mask_transition(
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer,
-        transition_params: Dictionary,
-        is_forward: bool,
-        is_game_screen_next: bool,
-        duration: float,
-        delay: float,
-        easing: String) -> void:
+func _start_screen_mask_transition(transition: ScreenTransition) -> void:
     var tween_screen_container: ScreenContainer
     var is_fading_in: bool
-    if is_game_screen_next:
-        tween_screen_container = previous_screen_container
+    if transition.is_game_screen_next:
+        tween_screen_container = transition.previous_screen_container
         is_fading_in = false
-    elif is_forward:
-#        tween_screen_container = next_screen_container
+    elif transition.is_forward:
+#        tween_screen_container = transition.next_screen_container
 #        is_fading_in = true
-        tween_screen_container = previous_screen_container
+        tween_screen_container = transition.previous_screen_container
         is_fading_in = false
     else:
-        tween_screen_container = previous_screen_container
+        tween_screen_container = transition.previous_screen_container
         is_fading_in = false
     
+    var transition_params := transition.transition_params
     var texture: Texture = \
             transition_params.texture if \
             transition_params.has("texture") else \
@@ -548,75 +500,63 @@ func _start_screen_mask_transition(
     _screen_mask_transition.texture = texture
     _screen_mask_transition.pixel_snap = pixel_snap
     _screen_mask_transition.smooth_size = smooth_size
-    _screen_mask_transition.easing = easing
+    _screen_mask_transition.easing = transition.easing
     
     _update_visibilities(
-            previous_screen_container,
-            next_screen_container,
+            transition,
             true,
             false)
     _update_z_indices(
-            previous_screen_container,
-            next_screen_container,
-            is_forward)
+            transition,
+            transition.is_forward)
     
-    _start_transition_helper_timeout_id = Sc.time.set_timeout( \
+    transition.start_transition_helper_timeout_id = Sc.time.set_timeout( \
             funcref(self, "_on_screen_mask_transition_start"), \
-            delay, \
+            transition.delay, \
             [
                 tween_screen_container,
                 is_fading_in,
-                duration,
-                previous_screen_container,
-                next_screen_container,
+                transition,
             ])
 
 
 func _on_screen_mask_transition_start(
             tween_screen_container: ScreenContainer,
             is_fading_in: bool,
-            duration: float,
-            previous_screen_container: ScreenContainer,
-            next_screen_container: ScreenContainer) -> void:
+            transition: ScreenTransition) -> void:
     _screen_mask_transition.start(
             tween_screen_container,
             is_fading_in,
-            duration,
-            previous_screen_container,
-            next_screen_container)
+            transition)
     _update_visibilities(
-            previous_screen_container,
-            next_screen_container,
+            transition,
             false,
             true)
 
 
-func _on_screen_mask_transition_complete(
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer) -> void:
+func _on_screen_mask_transition_complete(transition: ScreenTransition) -> void:
     _on_transition_completed(
             null,
             "",
-            previous_screen_container,
-            next_screen_container)
+            transition)
 
 
 func _update_visibilities(
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer,
+        transition: ScreenTransition,
         is_previous_screen_visible: bool,
         is_next_screen_visible: bool) -> void:
-    if is_instance_valid(previous_screen_container):
-        previous_screen_container.set_visible(is_previous_screen_visible)
-    if is_instance_valid(next_screen_container):
-        next_screen_container.set_visible(is_next_screen_visible)
+    if is_instance_valid(transition.previous_screen_container):
+        transition.previous_screen_container \
+                .set_visible(is_previous_screen_visible)
+    if is_instance_valid(transition.next_screen_container):
+        transition.next_screen_container \
+                .set_visible(is_next_screen_visible)
 
 
 # Assign z-indices according to whether we're transitioning "forward" or
 # "backward" between screens.
 func _update_z_indices(
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer,
+        transition: ScreenTransition,
         is_forward: bool) -> void:
     var previous_z_index: int
     var next_z_index: int
@@ -626,53 +566,82 @@ func _update_z_indices(
     else:
         previous_z_index = 1
         next_z_index = 0
-    if is_instance_valid(previous_screen_container):
-        previous_screen_container.z_index = previous_z_index
-    if is_instance_valid(next_screen_container):
-        next_screen_container.z_index = next_z_index
+    if is_instance_valid(transition.previous_screen_container):
+        transition.previous_screen_container.z_index = previous_z_index
+    if is_instance_valid(transition.next_screen_container):
+        transition.next_screen_container.z_index = next_z_index
 
 
 func _on_transition_completed(
         _object: Object,
         _key: NodePath,
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer) -> void:
-    _current_duration = INF
-    if is_instance_valid(previous_screen_container):
-        previous_screen_container.set_visible(false)
-        previous_screen_container.position = Vector2.ZERO
-        previous_screen_container \
-                ._on_transition_out_ended(next_screen_container)
-        if !previous_screen_container.contents.is_always_alive:
-            previous_screen_container._destroy()
-    if is_instance_valid(next_screen_container):
-        if next_screen_container == Sc.nav.current_screen_container:
-            next_screen_container.set_visible(true)
-            next_screen_container.z_index = 0
-            next_screen_container.position = Vector2.ZERO
-            next_screen_container.pause_mode = Node.PAUSE_MODE_PROCESS
-            next_screen_container \
-                    ._on_transition_in_ended(previous_screen_container)
+        transition: ScreenTransition) -> void:
+    if _current_transition == transition:
+        _current_transition = null
+    
+    var previous: ScreenContainer = transition.previous_screen_container
+    var next: ScreenContainer = transition.next_screen_container
+    
+    if is_instance_valid(previous):
+        previous.set_visible(false)
+        previous.position = Vector2.ZERO
+        previous._on_transition_out_ended(next)
+        if !previous.contents.is_always_alive:
+            previous._destroy()
+    
+    if is_instance_valid(next):
+        if next == Sc.nav.current_screen_container:
+            next.set_visible(true)
+            next.z_index = 0
+            next.position = Vector2.ZERO
+            next.pause_mode = Node.PAUSE_MODE_PROCESS
+            next._on_transition_in_ended(previous)
         else:
             # We already navigated to a different screen while this one was
             # activating.
-            if !next_screen_container.contents.is_always_alive:
-                next_screen_container._destroy()
+            if !next.contents.is_always_alive:
+                next._destroy()
+
+
+func _on_transition_aborted(transition: ScreenTransition) -> void:
+    if _current_transition == transition:
+        _current_transition = null
+    
+    var previous: ScreenContainer = transition.previous_screen_container
+    var next: ScreenContainer = transition.next_screen_container
+    
+    if is_instance_valid(previous):
+        previous.set_visible(false)
+        previous.position = Vector2.ZERO
+        previous._on_transition_out_ended(next)
+        if !previous.contents.is_always_alive:
+            previous._destroy()
 
 
 func clear_transitions() -> void:
-    Sc.time.clear_timeout(_start_transition_helper_timeout_id, true)
-    Sc.time.clear_timeout(_start_immediate_transition_timeout_id, true)
-    Sc.time.clear_tween(_slide_transition_tween_id, true)
-    Sc.time.clear_tween(_fade_transition_tween_id, true)
+    if is_instance_valid(_current_transition):
+        Sc.time.clear_timeout(
+                _current_transition.start_transition_helper_timeout_id,
+                true)
+        Sc.time.clear_timeout(
+                _current_transition.start_immediate_transition_timeout_id,
+                true)
+        Sc.time.clear_tween(
+                _current_transition.slide_transition_tween_id,
+                true)
+        Sc.time.clear_tween(
+                _current_transition.fade_transition_tween_id,
+                true)
+        _current_transition = null
     _overlay_mask_transition.stop(true)
     _screen_mask_transition.stop(true)
-    _current_duration = INF
 
 
 func get_current_duration() -> float:
-    return _current_duration
+    return _current_transition.duration if \
+            is_instance_valid(_current_transition) else \
+            INF
 
 
 func get_is_transition_active() -> bool:
-    return _current_duration != INF
+    return is_instance_valid(_current_transition)

@@ -2,7 +2,7 @@ class_name ScreenMaskTransition
 extends Node
 
 
-signal completed(previous_screen_container, next_screen_container)
+signal completed(transition)
 
 var SHADER := \
         preload("res://addons/scaffolder/src/gui/screen_mask_transition.shader")
@@ -20,8 +20,7 @@ var material: ShaderMaterial
 var mask_texture: ImageTexture
 
 var active_screen_container: ScreenContainer
-var previous_screen_container: ScreenContainer
-var next_screen_container: ScreenContainer
+var transition: ScreenTransition
 
 
 func _init() -> void:
@@ -78,12 +77,9 @@ func _on_resized() -> void:
 func start(
         active_screen_container: ScreenContainer,
         is_fading_in: bool,
-        duration: float,
-        previous_screen_container: ScreenContainer,
-        next_screen_container: ScreenContainer) -> void:
+        transition: ScreenTransition) -> void:
     self.active_screen_container = active_screen_container
-    self.previous_screen_container = previous_screen_container
-    self.next_screen_container = next_screen_container
+    self.transition = transition
     
     is_transitioning = true
     
@@ -111,7 +107,7 @@ func start(
             "_set_cutoff",
             start_cutoff,
             end_cutoff,
-            duration,
+            transition.duration,
             easing,
             0.0,
             TimeType.APP_PHYSICS,
@@ -133,10 +129,7 @@ func stop(triggers_completed := false) -> bool:
         sprite.queue_free()
         sprite = null
     if triggers_completed:
-        emit_signal(
-                "completed",
-                previous_screen_container,
-                next_screen_container)
+        emit_signal("completed", transition)
     return true
 
 
@@ -147,10 +140,7 @@ func _on_tween_complete(
     if is_instance_valid(sprite):
         sprite.queue_free()
         sprite = null
-    emit_signal(
-            "completed",
-            previous_screen_container,
-            next_screen_container)
+    emit_signal("completed", transition)
 
 
 func _set_texture(value: Texture) -> void:
