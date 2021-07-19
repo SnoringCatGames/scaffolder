@@ -165,14 +165,14 @@ rect_min_size = Vector2( 460, 0 )
 [node name="AccordionHeader" parent="AccordionPanel" instance=ExtResource( 8 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 460.0
-margin_bottom = 56.0
-rect_min_size = Vector2( 460, 56 )
 custom_styles/hover = SubResource( 3 )
 custom_styles/pressed = SubResource( 6 )
 custom_styles/focus = SubResource( 9 )
 custom_styles/disabled = SubResource( 12 )
 custom_styles/normal = SubResource( 15 )
+custom_colors/font_color = Color( 1, 0.945098, 0.180392, 1 )
+uses_header_color = true
+is_text_centered = true
 
 [node name="AccordionBody" parent="AccordionPanel" instance=ExtResource( 7 )]
 anchor_right = 0.0
@@ -184,9 +184,8 @@ rect_min_size = Vector2( 460, 0 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AccordionPanel/AccordionBody"]
 visible = false
-margin_top = 42.0
+margin_top = -14.0
 margin_right = 460.0
-margin_bottom = 56.0
 custom_constants/separation = 4
 __meta__ = {
 "_edit_use_anchors_": false,

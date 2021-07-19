@@ -1,9 +1,8 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_panel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=3]
-[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres" type="DynamicFont" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label_link.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_link.tscn" type="PackedScene" id=7]
@@ -151,7 +150,6 @@ margin_bottom = 10.5
 script = ExtResource( 11 )
 
 [node name="AboutScreen" type="VBoxContainer"]
-rect_min_size = Vector2( 1024, 768 )
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -160,8 +158,8 @@ screen_name = "about"
 nav_bar_text = "About"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 1024.0
-margin_bottom = 770.0
+margin_right = 460.0
+margin_bottom = 492.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -169,8 +167,8 @@ __meta__ = {
 }
 
 [node name="Title" parent="VBoxContainer" instance=ExtResource( 3 )]
-margin_left = 355.0
-margin_right = 669.0
+margin_left = 73.0
+margin_right = 387.0
 margin_bottom = 37.0
 rect_min_size = Vector2( 314, 37 )
 texture = ExtResource( 12 )
@@ -178,18 +176,18 @@ texture = ExtResource( 12 )
 [node name="Spacer2" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 512.0
+margin_left = 230.0
 margin_top = 41.0
-margin_right = 512.0
+margin_right = 230.0
 margin_bottom = 71.0
 rect_min_size = Vector2( 0, 30 )
 size = Vector2( 0, 30 )
 
 [node name="VBoxContainer4" type="VBoxContainer" parent="VBoxContainer"]
-margin_left = 396.0
+margin_left = 145.0
 margin_top = 75.0
-margin_right = 628.0
-margin_bottom = 240.0
+margin_right = 314.0
+margin_bottom = 151.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 4
@@ -198,6 +196,7 @@ __meta__ = {
 }
 
 [node name="DeveloperLogoLink" parent="VBoxContainer/VBoxContainer4" instance=ExtResource( 7 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 232.0
@@ -210,10 +209,8 @@ url = "https://snoringcat.games"
 [node name="DeveloperNameLink" parent="VBoxContainer/VBoxContainer4" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 31.0
-margin_top = 89.0
-margin_right = 200.0
-margin_bottom = 103.0
+margin_right = 169.0
+margin_bottom = 14.0
 custom_colors/font_color = Color( 0.278431, 0.65098, 0.372549, 1 )
 custom_colors/font_color_hover = Color( 0.141176, 0.501961, 0.231373, 1 )
 custom_colors/font_color_pressed = Color( 0.0470588, 0.34902, 0.121569, 1 )
@@ -223,10 +220,10 @@ url = "https://snoringcat.games"
 [node name="DeveloperUrlLink" parent="VBoxContainer/VBoxContainer4" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 36.0
-margin_top = 107.0
-margin_right = 195.0
-margin_bottom = 121.0
+margin_left = 5.0
+margin_top = 18.0
+margin_right = 164.0
+margin_bottom = 32.0
 focus_mode = 2
 custom_colors/font_color = Color( 0.278431, 0.65098, 0.372549, 1 )
 custom_colors/font_color_hover = Color( 0.141176, 0.501961, 0.231373, 1 )
@@ -237,18 +234,18 @@ url = "https://snoringcat.games"
 [node name="Spacer4" parent="VBoxContainer/VBoxContainer4" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 116.0
-margin_top = 125.0
-margin_right = 116.0
-margin_bottom = 165.0
+margin_left = 84.0
+margin_top = 36.0
+margin_right = 84.0
+margin_bottom = 76.0
 rect_min_size = Vector2( 0, 40 )
 size = Vector2( 0, 40 )
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer"]
-margin_left = 395.0
-margin_top = 244.0
-margin_right = 629.0
-margin_bottom = 391.0
+margin_left = 113.0
+margin_top = 155.0
+margin_right = 347.0
+margin_bottom = 302.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 4
@@ -307,7 +304,6 @@ margin_left = 37.0
 margin_right = 260.0
 margin_bottom = 39.0
 size_flags_horizontal = 4
-custom_fonts/font = ExtResource( 4 )
 text = "Special thanks:"
 
 [node name="SpecialThanks" parent="VBoxContainer/SpecialThanksContainer" instance=ExtResource( 10 )]
@@ -318,7 +314,6 @@ margin_top = 26.0
 margin_right = 84.0
 margin_bottom = 65.0
 size_flags_horizontal = 4
-custom_fonts/font = ExtResource( 4 )
 
 [node name="Spacer6" parent="VBoxContainer/SpecialThanksContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -331,9 +326,9 @@ rect_min_size = Vector2( 0, 40 )
 size = Vector2( 0, 40 )
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 395.0
-margin_right = 1024.0
-margin_bottom = 503.0
+margin_top = 306.0
+margin_right = 460.0
+margin_bottom = 388.0
 custom_constants/separation = 12
 __meta__ = {
 "_edit_use_anchors_": false
@@ -342,8 +337,8 @@ __meta__ = {
 [node name="TermsAndConditionsLink" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 449.0
-margin_right = 575.0
+margin_left = 167.0
+margin_right = 293.0
 margin_bottom = 14.0
 custom_colors/font_color = Color( 0.278431, 0.65098, 0.372549, 1 )
 custom_colors/font_color_hover = Color( 0.141176, 0.501961, 0.231373, 1 )
@@ -354,9 +349,9 @@ url = "https://docs.google.com/document/d/1qHZQiJnVJGHMWR0FzwBMCV_9NlMYWRhJKL-7I
 [node name="PrivacyPolicyLink" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 468.0
+margin_left = 186.0
 margin_top = 26.0
-margin_right = 555.0
+margin_right = 273.0
 margin_bottom = 40.0
 focus_mode = 2
 custom_colors/font_color = Color( 0.278431, 0.65098, 0.372549, 1 )
@@ -366,6 +361,7 @@ text = "Privacy Policy"
 url = "https://docs.google.com/document/d/1G90Hna_3ZlXYie3CDPne8vjdP7b3mq1Vqj8agbDsKJ8/preview"
 
 [node name="SupportLink" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 6 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 487.0
@@ -382,44 +378,44 @@ url = "https://snoringcat.games/support?source=Windows&app=momma-duck"
 [node name="Spacer7" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 512.0
-margin_top = 78.0
-margin_right = 512.0
-margin_bottom = 108.0
+margin_left = 230.0
+margin_top = 52.0
+margin_right = 230.0
+margin_bottom = 82.0
 rect_min_size = Vector2( 0, 30 )
 size = Vector2( 0, 30 )
 
 [node name="AccordionPanel" parent="VBoxContainer" instance=ExtResource( 2 )]
-margin_left = 282.0
-margin_top = 507.0
-margin_right = 742.0
-margin_bottom = 726.0
+margin_left = 0.0
+margin_top = 392.0
+margin_right = 460.0
+margin_bottom = 448.0
 rect_min_size = Vector2( 460, 0 )
 
 [node name="AccordionHeader" parent="VBoxContainer/AccordionPanel" instance=ExtResource( 15 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 460.0
-margin_bottom = 56.0
-rect_min_size = Vector2( 460, 56 )
 custom_styles/hover = SubResource( 3 )
 custom_styles/pressed = SubResource( 6 )
 custom_styles/focus = SubResource( 9 )
 custom_styles/disabled = SubResource( 12 )
 custom_styles/normal = SubResource( 15 )
+text = "More details"
 header_text = "More details"
+is_text_centered = true
 
 [node name="AccordionBody" parent="VBoxContainer/AccordionPanel" instance=ExtResource( 14 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 55.0
+margin_top = 56.0
 margin_right = 460.0
-margin_bottom = 219.0
+margin_bottom = 56.0
 rect_min_size = Vector2( 460, 0 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/AccordionPanel/AccordionBody"]
+visible = false
+margin_top = -10.0
 margin_right = 460.0
-margin_bottom = 164.0
 custom_constants/separation = 4
 __meta__ = {
 "_edit_use_anchors_": false,
@@ -436,6 +432,7 @@ rect_min_size = Vector2( 0, 10 )
 size = Vector2( 0, 10 )
 
 [node name="DataDeletionButton" parent="VBoxContainer/AccordionPanel/AccordionBody/VBoxContainer" instance=ExtResource( 1 )]
+visible = false
 margin_left = 50.0
 margin_top = 14.0
 margin_right = 410.0
@@ -445,6 +442,7 @@ label = "Delete data"
 size_override = Vector2( 360, 0 )
 
 [node name="DataDeletionButtonPadding" parent="VBoxContainer/AccordionPanel/AccordionBody/VBoxContainer" instance=ExtResource( 5 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 230.0
@@ -455,6 +453,7 @@ rect_min_size = Vector2( 0, 30 )
 size = Vector2( 0, 30 )
 
 [node name="ThirdPartyLicensesButton" parent="VBoxContainer/AccordionPanel/AccordionBody/VBoxContainer" instance=ExtResource( 1 )]
+visible = false
 margin_left = 50.0
 margin_top = 108.0
 margin_right = 410.0
@@ -466,10 +465,10 @@ size_override = Vector2( 360, 0 )
 [node name="PaddingBottom" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 512.0
-margin_top = 730.0
-margin_right = 512.0
-margin_bottom = 770.0
+margin_left = 230.0
+margin_top = 452.0
+margin_right = 230.0
+margin_bottom = 492.0
 rect_min_size = Vector2( 0, 40 )
 size = Vector2( 0, 40 )
 
