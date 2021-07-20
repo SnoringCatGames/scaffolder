@@ -101,9 +101,7 @@ func _fade_out() -> void:
             funcref(self, "_fade_in"))
 
 
-func _fade_in(
-        _object: Object,
-        _key: NodePath) -> void:
+func _fade_in() -> void:
     Sc.time.clear_tween(_tween_id)
     _set_mask(fade_in_texture)
     _tween_id = Sc.time.tween_method(
@@ -140,9 +138,7 @@ func stop(triggers_completed := false) -> bool:
     return true
 
 
-func _on_tween_complete(
-        _object: Object,
-        _key: NodePath) -> void:
+func _on_tween_complete() -> void:
     is_transitioning = false
     if is_instance_valid(color_rect):
         color_rect.queue_free()

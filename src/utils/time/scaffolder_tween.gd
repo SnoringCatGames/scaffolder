@@ -3,7 +3,9 @@ extends Node
 
 
 signal tween_all_completed
-signal tween_completed(object, key)
+# NOTE: Using this is almost never what you want.
+#       Use tween_all_completed instead.
+signal _tween_completed(object, key)
 
 var id := -1
 
@@ -32,7 +34,7 @@ func step() -> void:
     for sub_tween in finished_sub_tweens:
         sub_tween.end()
         _stop_sub_tween(sub_tween)
-        emit_signal("tween_completed", sub_tween.object, sub_tween.key)
+        emit_signal("_tween_completed", sub_tween.object, sub_tween.key)
     
     # Update all in-progress tweens.
     for sub_tween in _active_sub_tweens:
@@ -92,12 +94,13 @@ func trigger_completed() -> void:
         return
     var sub_tween: _SubTween = _active_sub_tweens[0]
     
-    var connections := get_signal_connection_list("tween_completed")
+    var connections := get_signal_connection_list("tween_all_completed")
     if connections.empty():
         return
     var connection: Dictionary = connections[0]
     
-    var args := [sub_tween.object, sub_tween.key]
+#    var args := [sub_tween.object, sub_tween.key]
+    var args := []
     Sc.utils.concat(args, connection.binds)
     
     connection.target.callv(connection.method, args)

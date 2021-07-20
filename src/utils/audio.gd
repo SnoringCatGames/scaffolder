@@ -53,7 +53,7 @@ func register_sounds(
     _fade_in_tween = ScaffolderTween.new()
     add_child(_fade_in_tween)
     _fade_in_tween.connect(
-            "tween_completed",
+            "tween_all_completed",
             self,
             "_on_cross_fade_music_finished")
     
@@ -272,9 +272,7 @@ func cross_fade_music(
     emit_signal("music_changed", _current_music_name)
 
 
-func _on_cross_fade_music_finished(
-        _object = null,
-        _key = null) -> void:
+func _on_cross_fade_music_finished() -> void:
     _fade_out_tween.stop_all()
     _fade_in_tween.stop_all()
     

@@ -97,15 +97,10 @@ func unlock() -> void:
     locked_header.unlock()
 
 
-func _on_unlock_fade_finished(
-        _object: Object,
-        _key: NodePath,
-        fade_tween: ScaffolderTween) -> void:
+func _on_unlock_fade_finished(fade_tween: ScaffolderTween) -> void:
     fade_tween.queue_free()
     locked_header.visible = false
     accordion.visible = true
-    is_new_unlocked_item = false
-    update()
     emit_signal("pressed")
 
 
@@ -145,12 +140,15 @@ func _on_AccordionPanel_caret_rotated(rotation: float) -> void:
 
 
 func _on_LevelSelectItemLockedHeader_unlock_finished() -> void:
+    is_new_unlocked_item = false
+    update()
     locked_header.visible = true
     accordion.visible = true
+    
     var fade_tween := ScaffolderTween.new()
     locked_header.add_child(fade_tween)
     fade_tween.connect(
-            "tween_completed",
+            "tween_all_completed",
             self,
             "_on_unlock_fade_finished",
             [fade_tween])

@@ -177,10 +177,7 @@ func _interpolate_scroll(scroll_ratio: float) -> void:
             scroll_ratio)
 
 
-func _on_scroll_finished(
-        _object: Object,
-        _key: NodePath,
-        item: LevelSelectItem) -> void:
+func _on_scroll_finished(item: LevelSelectItem) -> void:
     item.unlock()
 
 

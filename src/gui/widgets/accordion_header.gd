@@ -42,7 +42,7 @@ func _ready() -> void:
 
 
 func _on_gui_scale_changed() -> bool:
-    _update_children()
+    _update_children_debounced()
     return true
 
 

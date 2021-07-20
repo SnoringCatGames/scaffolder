@@ -250,7 +250,7 @@ func _tween(
             time_type)
     if on_completed_callback != null:
         tween.connect(
-                "tween_completed",
+                "tween_all_completed",
                 self,
                 "_call_tween_completed_callback",
                 [on_completed_callback, arguments])
@@ -260,12 +260,8 @@ func _tween(
 
 
 func _call_tween_completed_callback(
-        _object: Object,
-        _key: String,
         on_completed_callback: FuncRef,
         arguments: Array) -> void:
-    arguments.push_front(_key)
-    arguments.push_front(_object)
     on_completed_callback.call_funcv(arguments)
 
 
