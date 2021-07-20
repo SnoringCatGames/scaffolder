@@ -43,5 +43,7 @@ func update_list() -> void:
                 false,
                 true)
         box.item = item_config.item_class.new(Sc.level_session)
+        if item_config.has("animation"):
+            box.animation_config = item_config.animation
         add_child(box)
         boxes.push_back(box)
