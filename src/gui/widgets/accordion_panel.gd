@@ -84,7 +84,7 @@ func _update_children_debounced() -> void:
     if !is_instance_valid(_tween):
         _tween = ScaffolderTween.new()
         _tween.connect(
-                "tween_completed",
+                "tween_all_completed",
                 self,
                 "_on_is_open_tween_completed")
         add_child(_tween)
@@ -170,9 +170,7 @@ func _tween_scroll(
             "ease_in_out")
 
 
-func _on_is_open_tween_completed(
-        _object = null,
-        _key = null) -> void:
+func _on_is_open_tween_completed() -> void:
     if !_get_is_projection_valid():
         return
     

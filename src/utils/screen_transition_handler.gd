@@ -170,10 +170,7 @@ func show_first_screen(screen_container: ScreenContainer) -> void:
     transition.next_screen_container = screen_container
     _current_transition = transition
     
-    _on_transition_completed(
-            null,
-            "",
-            transition)
+    _on_transition_completed(transition)
 
 
 func start_transition(
@@ -294,10 +291,7 @@ func _start_immediate_transition(transition: ScreenTransition) -> void:
         _update_z_indices(
                 transition,
                 transition.is_forward)
-        _on_transition_completed(
-                null,
-                "",
-                transition)
+        _on_transition_completed(transition)
 
 
 func _start_slide_transition(transition: ScreenTransition) -> void:
@@ -462,10 +456,7 @@ func _on_overlay_mask_transition_middle(
 
 
 func _on_overlay_mask_transition_complete(transition: ScreenTransition) -> void:
-    _on_transition_completed(
-            null,
-            "",
-            transition)
+    _on_transition_completed(transition)
 
 
 func _start_screen_mask_transition(transition: ScreenTransition) -> void:
@@ -535,10 +526,7 @@ func _on_screen_mask_transition_start(
 
 
 func _on_screen_mask_transition_complete(transition: ScreenTransition) -> void:
-    _on_transition_completed(
-            null,
-            "",
-            transition)
+    _on_transition_completed(transition)
 
 
 func _update_visibilities(
@@ -572,10 +560,7 @@ func _update_z_indices(
         transition.next_screen_container.z_index = next_z_index
 
 
-func _on_transition_completed(
-        _object: Object,
-        _key: NodePath,
-        transition: ScreenTransition) -> void:
+func _on_transition_completed(transition: ScreenTransition) -> void:
     if _current_transition == transition:
         _current_transition = null
     

@@ -133,9 +133,7 @@ func stop(triggers_completed := false) -> bool:
     return true
 
 
-func _on_tween_complete(
-        _object: Object,
-        _key: NodePath) -> void:
+func _on_tween_complete() -> void:
     is_transitioning = false
     if is_instance_valid(sprite):
         sprite.queue_free()
