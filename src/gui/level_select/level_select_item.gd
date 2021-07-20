@@ -104,6 +104,8 @@ func _on_unlock_fade_finished(
     fade_tween.queue_free()
     locked_header.visible = false
     accordion.visible = true
+    is_new_unlocked_item = false
+    update()
     emit_signal("pressed")
 
 
