@@ -314,8 +314,15 @@ func amend_manifest(manifest: Dictionary) -> void:
 func register_manifest(manifest: Dictionary) -> void:
     amend_manifest(manifest)
     
-    # Duplicate the theme, so that we don't save changes to a file.
-    self.theme = manifest.theme.duplicate()
+    if Engine.editor_hint:
+        # Duplicate the theme, so that we don't save changes to a file.
+        # NOTE: This has a strange side-effect of messing-up scroll-bar
+        #       positioning. For some reason, the scrollbar will be resized
+        #       correctly, but not repositioned for it's new size.
+        self.theme = manifest.theme.duplicate()
+    else:
+        self.theme = manifest.theme
+    
     self.cell_size = manifest.cell_size
     self.default_pc_game_area_size = manifest.default_pc_game_area_size
     self.default_mobile_game_area_size = manifest.default_mobile_game_area_size
