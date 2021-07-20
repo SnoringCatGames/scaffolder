@@ -5,6 +5,8 @@ extends FrameworkConfig
 signal initialized
 signal splashed
 
+var is_initialized := false
+
 var logger: ScaffolderLog
 var utils: Utils
 var device: DeviceUtils

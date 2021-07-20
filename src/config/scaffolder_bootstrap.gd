@@ -116,6 +116,7 @@ func _on_window_size_set() -> void:
 func _on_app_initialized() -> void:
     Sc.logger.print("ScaffolderBootstrap._on_app_initialized")
     
+    Sc.is_initialized = true
     emit_signal("initialized")
     
     call_deferred("_splash")
@@ -166,6 +167,9 @@ func _process(_delta: float) -> void:
     if Engine.editor_hint:
         return
     
+    if !Sc.is_initialized:
+        return
+    
     if Sc.metadata.debug or \
             Sc.metadata.playtest:
         if Input.is_action_just_pressed("screenshot"):
@@ -177,6 +181,9 @@ func _notification(notification: int) -> void:
     if Engine.editor_hint:
         return
     
+    if !Sc.is_initialized:
+        return
+    
     if notification == MainLoop.NOTIFICATION_WM_FOCUS_OUT and \
             is_instance_valid(Sc.nav) and \
             is_instance_valid(Sc.level) and \
@@ -186,6 +193,9 @@ func _notification(notification: int) -> void:
 
 func _input(event: InputEvent) -> void:
     if Engine.editor_hint:
+        return
+    
+    if !Sc.is_initialized:
         return
     
     # Listen for a touch event, which indicates that the device definitely
