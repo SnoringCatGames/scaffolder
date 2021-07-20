@@ -148,6 +148,7 @@ __meta__ = {
 "_edit_use_anchors_": false,
 "gs_rect_min_size": Vector2( 460, 56 )
 }
+is_open = null
 
 [node name="LevelSelectItemLockedHeader" parent="." instance=ExtResource( 4 )]
 margin_right = 460.0
