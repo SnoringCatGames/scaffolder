@@ -231,8 +231,8 @@ func _on_screen_visible() -> void:
     _body.update_height()
 
 
-func _on_caret_rotated() -> void:
-    emit_signal("caret_rotated")
+func _on_caret_rotated(rotation: float) -> void:
+    emit_signal("caret_rotated", rotation)
 
 
 func _get_configuration_warning() -> String:
