@@ -24,7 +24,9 @@ const HEADERS := ["Content-Type: text/plain"]
 
 const ERROR_EXCLUSION_PATTERNS := [
     "Condition \"_first != __null\" is true",
+    "cleanup: ObjectDB instances leaked at exit",
     "Resources still in use at exit",
+    "There are still MemoryPool allocs in use at exit!",
 ]
 
 
