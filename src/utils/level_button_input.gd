@@ -1,5 +1,5 @@
 tool
-class_name LevelInput
+class_name LevelButtonInput
 extends Node
 
 
@@ -9,7 +9,7 @@ var _an_active_overlay_has_focus := false
 
 
 func _init() -> void:
-    Sc.logger.on_global_init(self, "LevelInput")
+    Sc.logger.on_global_init(self, "LevelButtonInput")
     
     _control = Control.new()
     add_child(_control)
@@ -29,26 +29,25 @@ func _process(_delta: float) -> void:
 
 func is_action_pressed(name: String) -> bool:
     return _get_is_level_ready_for_input() and \
+            Sc.metadata.are_button_controls_enabled and \
             Input.is_action_pressed(name)
-
-
-func is_action_released(name: String) -> bool:
-    return _get_is_level_ready_for_input() and \
-            Input.is_action_released(name)
 
 
 func is_action_just_pressed(name: String) -> bool:
     return _get_is_level_ready_for_input() and \
+            Sc.metadata.are_button_controls_enabled and \
             Input.is_action_just_pressed(name)
 
 
 func is_action_just_released(name: String) -> bool:
     return _get_is_level_ready_for_input() and \
+            Sc.metadata.are_button_controls_enabled and \
             Input.is_action_just_released(name)
 
 
 func is_key_pressed(code: int) -> bool:
     return _get_is_level_ready_for_input() and \
+            Sc.metadata.are_button_controls_enabled and \
             Input.is_key_pressed(code)
 
 

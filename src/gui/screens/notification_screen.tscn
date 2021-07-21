@@ -17,7 +17,7 @@ nav_bar_text = "Notification"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 230.0
-margin_bottom = 1061.0
+margin_bottom = 221.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {

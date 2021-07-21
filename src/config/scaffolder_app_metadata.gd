@@ -16,6 +16,7 @@ var is_splash_skipped := false
 var also_prints_to_stdout := true
 var overrides_project_settings := true
 var overrides_input_map := true
+var are_button_controls_enabled_by_default := false
 
 # Should match Project Settings > Physics > 2d > Thread Model
 var uses_threads: bool
@@ -66,6 +67,7 @@ var is_app_configured := false
 var is_app_initialized := false
 var were_screenshots_taken := false
 var agreed_to_terms: bool
+var are_button_controls_enabled: bool
 
 # ---
 
@@ -90,6 +92,8 @@ func register_manifest(manifest: Dictionary) -> void:
     self.also_prints_to_stdout = manifest.also_prints_to_stdout
     self.overrides_project_settings = manifest.overrides_project_settings
     self.overrides_input_map = manifest.overrides_input_map
+    self.are_button_controls_enabled_by_default = \
+            manifest.are_button_controls_enabled_by_default
     self.is_profiler_enabled = manifest.is_profiler_enabled
     self.uses_threads = manifest.uses_threads
     self.thread_count = manifest.thread_count

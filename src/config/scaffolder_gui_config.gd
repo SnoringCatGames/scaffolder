@@ -129,6 +129,7 @@ var DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST := {
             label = "Miscellaneous",
             is_collapsible = true,
             item_classes = [
+                ButtonControlsSettingsLabeledControlItem,
                 WelcomePanelSettingsLabeledControlItem,
                 CameraZoomSettingsLabeledControlItem,
                 TimeScaleSettingsLabeledControlItem,

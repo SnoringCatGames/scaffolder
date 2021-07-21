@@ -34,19 +34,19 @@ func _process(_delta: float) -> void:
         return
     
     # Handle zooming.
-    if Sc.level_input.is_action_pressed("zoom_in"):
+    if Sc.level_button_input.is_action_pressed("zoom_in"):
         _set_zoom_factor(zoom_factor * (1 - ZOOM_FACTOR_STEP_RATIO))
-    elif Sc.level_input.is_action_pressed("zoom_out"):
+    elif Sc.level_button_input.is_action_pressed("zoom_out"):
         _set_zoom_factor(zoom_factor * (1 + ZOOM_FACTOR_STEP_RATIO))
     
     # Handle Panning.
-    if Sc.level_input.is_action_pressed("pan_up"):
+    if Sc.level_button_input.is_action_pressed("pan_up"):
         _current_camera.offset.y -= PAN_STEP
-    elif Sc.level_input.is_action_pressed("pan_down"):
+    elif Sc.level_button_input.is_action_pressed("pan_down"):
         _current_camera.offset.y += PAN_STEP
-    elif Sc.level_input.is_action_pressed("pan_left"):
+    elif Sc.level_button_input.is_action_pressed("pan_left"):
         _current_camera.offset.x -= PAN_STEP
-    elif Sc.level_input.is_action_pressed("pan_right"):
+    elif Sc.level_button_input.is_action_pressed("pan_right"):
         _current_camera.offset.x += PAN_STEP
 
 
