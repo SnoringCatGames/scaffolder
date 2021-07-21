@@ -29,7 +29,7 @@ var beats: BeatTracker
 var canvas_layers: CanvasLayers
 var project_settings: ScaffolderProjectSettings
 var camera_controller: CameraController
-var level_input: LevelInput
+var level_button_input: LevelButtonInput
 var level_config: ScaffolderLevelConfig
 var level: ScaffolderLevel
 var level_session: ScaffolderLevelSession
@@ -217,12 +217,12 @@ func _set_up() -> void:
         self.nav = ScaffolderNavigation.new()
     add_child(self.nav)
     
-    if _manifest.has("level_input_class"):
-        self.level_input = _manifest.level_input_class.new()
-        assert(self.level_input is LevelInput)
+    if _manifest.has("level_button_input_class"):
+        self.level_button_input = _manifest.level_button_input_class.new()
+        assert(self.level_button_input is LevelButtonInput)
     else:
-        self.level_input = LevelInput.new()
-    add_child(self.level_input)
+        self.level_button_input = LevelButtonInput.new()
+    add_child(self.level_button_input)
     
     if _manifest.has("slow_motion_class"):
         self.slow_motion = _manifest.slow_motion_class.new()
@@ -281,6 +281,9 @@ func _load_state() -> void:
     Sc.metadata.agreed_to_terms = Sc.save_state.get_setting(
             SaveState.AGREED_TO_TERMS_SETTINGS_KEY,
             false)
+    Sc.metadata.are_button_controls_enabled = Sc.save_state.get_setting(
+            SaveState.ARE_BUTTON_CONTROLS_ENABLED_SETTINGS_KEY,
+            Sc.metadata.are_button_controls_enabled_by_default)
     Sc.gui.is_giving_haptic_feedback = Sc.save_state.get_setting(
             SaveState.IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY,
             Sc.device.get_is_android_app())

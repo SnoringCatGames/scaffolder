@@ -20,7 +20,7 @@ func set_params(params) -> void:
     assert(params.has("body_text"))
     body_text.text = params["body_text"]
     assert(params.has("close_button_text"))
-    close_button.text = params["close_button_text"]
+    close_button.label = params["close_button_text"]
     
     if params.has("header_font_size"):
         container.nav_bar.font_size = params["header_font_size"]
