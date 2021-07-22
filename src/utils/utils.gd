@@ -588,12 +588,36 @@ func get_node_in_group(group_name: String) -> Node:
 
 
 func get_render_layer_bitmask_from_name(layer_name: String) -> int:
-    return Sc.metadata._render_layer_names_to_bitmask[layer_name] if \
-            Sc.metadata._render_layer_names_to_bitmask.has(layer_name) else \
+    return Sc.metadata._render_layer_name_to_bitmask[layer_name] if \
+            Sc.metadata._render_layer_name_to_bitmask.has(layer_name) else \
             -1
 
 
 func get_physics_layer_bitmask_from_name(layer_name: String) -> int:
-    return Sc.metadata._physics_layer_names_to_bitmask[layer_name] if \
-            Sc.metadata._physics_layer_names_to_bitmask.has(layer_name) else \
+    return Sc.metadata._physics_layer_name_to_bitmask[layer_name] if \
+            Sc.metadata._physics_layer_name_to_bitmask.has(layer_name) else \
             -1
+
+
+func get_render_layer_names_from_bitmask(combined_bitmask: int) -> Array:
+    var layer_names := []
+    for i in 20:
+        var index_bitmask := int(pow(2, i))
+        var is_bit_enabled := (combined_bitmask & index_bitmask) != 0
+        if is_bit_enabled:
+            var layer_name: String = \
+                    Sc.metadata._render_layer_bitmask_to_name[index_bitmask]
+            layer_names.push_back(layer_name)
+    return layer_names
+
+
+func get_physics_layer_names_from_bitmask(combined_bitmask: int) -> Array:
+    var layer_names := []
+    for i in 20:
+        var index_bitmask := int(pow(2, i))
+        var is_bit_enabled := (combined_bitmask & index_bitmask) != 0
+        if is_bit_enabled:
+            var layer_name: String = \
+                    Sc.metadata._physics_layer_bitmask_to_name[index_bitmask]
+            layer_names.push_back(layer_name)
+    return layer_names
