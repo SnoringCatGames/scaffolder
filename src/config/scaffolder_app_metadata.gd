@@ -70,9 +70,14 @@ var agreed_to_terms: bool
 var are_button_controls_enabled: bool
 
 # Dictionary<String, int>
-var _render_layer_names_to_bitmask := {}
+var _render_layer_name_to_bitmask := {}
 # Dictionary<String, int>
-var _physics_layer_names_to_bitmask := {}
+var _physics_layer_name_to_bitmask := {}
+
+# Dictionary<int, String>
+var _render_layer_bitmask_to_name := {}
+# Dictionary<int, String>
+var _physics_layer_bitmask_to_name := {}
 
 # ---
 
@@ -170,11 +175,16 @@ func _record_layer_names() -> void:
     for i in 20:
         var layer_name: String = ProjectSettings.get_setting(
                 "layer_names/2d_render/layer_%d" % (i + 1))
-        _render_layer_names_to_bitmask[layer_name] = pow(2, i)
+        var layer_bitmask := int(pow(2, i))
+        _render_layer_name_to_bitmask[layer_name] = layer_bitmask
+        _render_layer_bitmask_to_name[layer_bitmask] = layer_name
+    
     for i in 20:
         var layer_name: String = ProjectSettings.get_setting(
                 "layer_names/2d_physics/layer_%d" % (i + 1))
-        _physics_layer_names_to_bitmask[layer_name] = pow(2, i)
+        var layer_bitmask := int(pow(2, i))
+        _physics_layer_name_to_bitmask[layer_name] = layer_bitmask
+        _physics_layer_bitmask_to_name[layer_bitmask] = layer_name
 
 
 func _clear_old_data_agreement_version() -> void:
