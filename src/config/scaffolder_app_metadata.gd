@@ -69,6 +69,11 @@ var were_screenshots_taken := false
 var agreed_to_terms: bool
 var are_button_controls_enabled: bool
 
+# Dictionary<String, int>
+var _render_layer_names_to_bitmask := {}
+# Dictionary<String, int>
+var _physics_layer_names_to_bitmask := {}
+
 # ---
 
 
@@ -157,6 +162,19 @@ func register_manifest(manifest: Dictionary) -> void:
     self.are_error_logs_captured = \
             self.is_data_tracked and \
             !self.error_logs_url.empty()
+    
+    _record_layer_names()
+
+
+func _record_layer_names() -> void:
+    for i in 20:
+        var layer_name: String = ProjectSettings.get_setting(
+                "layer_names/2d_render/layer_%d" % (i + 1))
+        _render_layer_names_to_bitmask[layer_name] = pow(2, i)
+    for i in 20:
+        var layer_name: String = ProjectSettings.get_setting(
+                "layer_names/2d_physics/layer_%d" % (i + 1))
+        _physics_layer_names_to_bitmask[layer_name] = pow(2, i)
 
 
 func _clear_old_data_agreement_version() -> void:

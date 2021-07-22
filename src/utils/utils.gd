@@ -585,3 +585,15 @@ func get_node_in_group(group_name: String) -> Node:
     var nodes := get_tree().get_nodes_in_group(group_name)
     assert(nodes.size() == 1)
     return nodes[0]
+
+
+func get_render_layer_bitmask_from_name(layer_name: String) -> int:
+    return Sc.metadata._render_layer_names_to_bitmask[layer_name] if \
+            Sc.metadata._render_layer_names_to_bitmask.has(layer_name) else \
+            -1
+
+
+func get_physics_layer_bitmask_from_name(layer_name: String) -> int:
+    return Sc.metadata._physics_layer_names_to_bitmask[layer_name] if \
+            Sc.metadata._physics_layer_names_to_bitmask.has(layer_name) else \
+            -1
