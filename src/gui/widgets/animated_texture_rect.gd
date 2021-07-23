@@ -29,14 +29,16 @@ func _on_gui_scale_changed() -> bool:
 
 
 func _update() -> void:
-    _configuration_warning = ""
-    
     if !_is_ready:
         return
     
     if !is_instance_valid(frames):
         _configuration_warning = "A SpriteFrames property must be defined"
+        update_configuration_warning()
         return
+    else:
+        _configuration_warning = ""
+        update_configuration_warning()
     
     $AnimatedSprite.frames = frames
     $AnimatedSprite.scale = Vector2.ONE * texture_scale * Sc.gui.scale
@@ -49,6 +51,7 @@ func _update() -> void:
     var size: Vector2 = original_frame_size * texture_scale * Sc.gui.scale
     rect_min_size = size
     rect_size = size
+
 
 func _set_frames(value: SpriteFrames) -> void:
     frames = value

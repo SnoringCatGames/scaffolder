@@ -63,9 +63,11 @@ func _on_transition_out_ended(next_screen: Screen) -> void:
 
 func _on_resized() -> void:
     if Engine.editor_hint:
-        _configuration_warning = ""
         if screen_name == "":
             _configuration_warning = "screen_name must be defined."
+        else:
+            _configuration_warning = ""
+        update_configuration_warning()
         rect_min_size = Sc.gui.default_pc_game_area_size
     _on_gui_scale_changed()
 

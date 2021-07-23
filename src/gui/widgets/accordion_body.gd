@@ -6,7 +6,7 @@ extends Control
 
 const HEIGHT_TWEEN_DURATION := 0.2
 
-var configuration_warning := ""
+var _configuration_warning := ""
 
 var _is_open := false
 
@@ -36,7 +36,7 @@ func _on_gui_scale_changed() -> bool:
     return true
 
 
-func add_child(child: Node, legible_unique_name=false) -> void:
+func add_child(child: Node, legible_unique_name := false) -> void:
     .add_child(child, legible_unique_name)
     _update_children()
 
@@ -56,7 +56,7 @@ func _update_children_debounced() -> void:
     
     var children := get_children()
     if children.size() != 1:
-        configuration_warning = \
+        _configuration_warning = \
                 "Must define a child node." if \
                 children.size() < 1 else \
                 "Must define only one child node."
@@ -65,9 +65,12 @@ func _update_children_debounced() -> void:
     
     var projected_node: Node = children[0]
     if !(projected_node is Control):
-        configuration_warning = "Child node must be of type 'Control'."
+        _configuration_warning = "Child node must be of type 'Control'."
         update_configuration_warning()
         return
+    
+    _configuration_warning = ""
+    update_configuration_warning()
     
     _projected_control = projected_node
     _projected_control.size_flags_vertical = Control.SIZE_FILL
@@ -147,4 +150,4 @@ func _set_is_open(
 
 
 func _get_configuration_warning() -> String:
-    return configuration_warning
+    return _configuration_warning

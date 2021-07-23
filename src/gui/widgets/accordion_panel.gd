@@ -11,7 +11,7 @@ const SCROLL_TWEEN_DURATION := 0.3
 
 export var is_open := false setget _set_is_open,_get_is_open
 
-var configuration_warning := ""
+var _configuration_warning := ""
 
 var _is_ready := false
 var _scroll_container: ScrollContainer
@@ -63,7 +63,7 @@ func update_height() -> void:
     rect_size.y = _header.rect_size.y + _body.rect_size.y
 
 
-func add_child(child: Node, legible_unique_name=false) -> void:
+func add_child(child: Node, legible_unique_name := false) -> void:
     .add_child(child, legible_unique_name)
     _update_children()
 
@@ -92,14 +92,14 @@ func _update_children_debounced() -> void:
     
     var children := get_children()
     if children.size() < 3:
-        configuration_warning = (
+        _configuration_warning = (
             "Must define both a child AccordionHeader " +
             "and a child AccordionBody."
         )
         update_configuration_warning()
         return
     if children.size() > 3:
-        configuration_warning = (
+        _configuration_warning = (
             "Must define only a child AccordionHeader " +
             "and a child AccordionBody."
         )
@@ -107,20 +107,20 @@ func _update_children_debounced() -> void:
         return
     elif !(children[1] is AccordionHeader) and \
             !(children[2] is AccordionHeader):
-        configuration_warning = "Must define a child AccordionHeader."
+        _configuration_warning = "Must define a child AccordionHeader."
         update_configuration_warning()
         return
     elif !(children[1] is AccordionBody) and \
             !(children[2] is AccordionBody):
-        configuration_warning = "Must define a child AccordionBody."
+        _configuration_warning = "Must define a child AccordionBody."
         update_configuration_warning()
         return
     elif children[1] is AccordionBody:
-        configuration_warning = "AccordionHeader must be before AccordionBody."
+        _configuration_warning = "AccordionHeader must be before AccordionBody."
         update_configuration_warning()
         return
     else:
-        configuration_warning = ""
+        _configuration_warning = ""
         update_configuration_warning()
     
     _header = children[1]
@@ -234,7 +234,7 @@ func _on_caret_rotated(rotation: float) -> void:
 
 
 func _get_configuration_warning() -> String:
-    return configuration_warning
+    return _configuration_warning
 
 
 func toggle() -> void:

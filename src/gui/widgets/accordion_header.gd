@@ -23,7 +23,7 @@ export var padding := Vector2(16.0, 8.0) setget _set_padding
 export var size_override := Vector2.ZERO setget _set_size_override
 export var toggles_on_click := true
 
-var configuration_warning := ""
+var _configuration_warning := ""
 
 var _is_ready := false
 
@@ -125,7 +125,7 @@ func _update_default_header() -> void:
         label.add_color_override("font_color", Sc.colors.header)
 
 
-func add_child(child: Node, legible_unique_name=false) -> void:
+func add_child(child: Node, legible_unique_name := false) -> void:
     .add_child(child, legible_unique_name)
     _update_children()
 
@@ -145,18 +145,21 @@ func _update_children_debounced() -> void:
     
     var children := get_children()
     if children.size() > 2:
-        configuration_warning = "Must define 0 or 1 children."
+        _configuration_warning = "Must define 0 or 1 children."
         update_configuration_warning()
         return
     
     if children.size() == 2:
         var projected_node: Node = children[1]
         if !(projected_node is Control):
-            configuration_warning = "Child node must be of type 'Control'."
+            _configuration_warning = "Child node must be of type 'Control'."
             update_configuration_warning()
             return
         
         _projected_header = projected_node
+    
+    _configuration_warning = ""
+    update_configuration_warning()
     
     _update_default_header()
     _on_gui_scale_changed_debounced()
@@ -237,4 +240,4 @@ func _set_size_override(value: Vector2) -> void:
 
 
 func _get_configuration_warning() -> String:
-    return configuration_warning
+    return _configuration_warning
