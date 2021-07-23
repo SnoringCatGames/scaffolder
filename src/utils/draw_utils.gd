@@ -75,14 +75,14 @@ static func draw_dashed_line(
         color: Color,
         dash_length: float,
         dash_gap: float,
-        dash_offset: float = 0.0,
-        width: float = 1.0,
-        antialiased: bool = false) -> void:
+        dash_offset := 0.0,
+        width := 1.0,
+        antialiased := false) -> void:
     var segment_length := from.distance_to(to)
     var direction_normalized: Vector2 = (to - from).normalized()
     
     var current_length := dash_offset
-
+    
     while current_length < segment_length:
         var current_dash_length := \
                 dash_length if \
@@ -110,9 +110,9 @@ static func draw_dashed_polyline(
         color: Color,
         dash_length: float,
         dash_gap: float,
-        dash_offset: float = 0.0,
-        width: float = 1.0,
-        antialiased: bool = false) -> void:
+        dash_offset := 0.0,
+        width := 1.0,
+        antialiased := false) -> void:
     for i in vertices.size() - 1:
         var from := vertices[i]
         var to := vertices[i + 1]
@@ -136,9 +136,9 @@ static func draw_dashed_rectangle(
         color: Color,
         dash_length: float,
         dash_gap: float,
-        dash_offset: float = 0.0,
-        stroke_width: float = 1.0,
-        antialiased: bool = false) -> void:
+        dash_offset := 0.0,
+        stroke_width := 1.0,
+        antialiased := false) -> void:
     var half_width := \
             half_width_height.y if \
             is_rotated_90_degrees else \
@@ -192,6 +192,161 @@ static func draw_dashed_rectangle(
             dash_gap,
             dash_offset,
             stroke_width,
+            antialiased)
+
+
+static func draw_dashed_circle(
+        canvas: CanvasItem,
+        center: Vector2,
+        radius: float,
+        color: Color,
+        dash_length: float,
+        dash_gap: float,
+        dash_offset := 0.0,
+        width := 1.0,
+        antialiased := false) -> void:
+    draw_dashed_arc(
+            canvas,
+            center,
+            radius,
+            0.0,
+            2.0 * PI,
+            color,
+            dash_length,
+            dash_gap,
+            dash_offset,
+            width,
+            antialiased)
+
+
+static func draw_dashed_arc(
+        canvas: CanvasItem,
+        center: Vector2,
+        radius: float,
+        start_angle: float,
+        end_angle: float,
+        color: Color,
+        dash_length: float,
+        dash_gap: float,
+        dash_offset := 0.0,
+        width := 1.0,
+        antialiased := false) -> void:
+    assert(dash_length > 0.0)
+    assert(dash_gap > 0.0)
+    
+    var offset_angle := asin(dash_offset / radius / 2.0) * 2.0
+    start_angle += offset_angle
+    var dash_angle_diff := asin(dash_length / radius / 2.0) * 2.0
+    var gap_angle_diff := asin(dash_gap / radius / 2.0) * 2.0
+    
+    var angle_diff := end_angle - start_angle
+    var sector_count := ceil(2.0 * PI / (dash_angle_diff + gap_angle_diff))
+    var theta := start_angle
+    
+    while theta < end_angle - 0.0001:
+        var from := Vector2(cos(theta), sin(theta)) * radius + center
+        theta += dash_angle_diff
+        var to := Vector2(cos(theta), sin(theta)) * radius + center
+        theta += gap_angle_diff
+        theta = min(theta, end_angle)
+        
+        canvas.draw_line(
+                from,
+                to,
+                color,
+                width,
+                antialiased)
+
+
+static func draw_dashed_capsule(
+        canvas: CanvasItem,
+        center: Vector2,
+        radius: float,
+        height: float,
+        is_rotated_90_degrees: bool,
+        color: Color,
+        dash_length: float,
+        dash_gap: float,
+        dash_offset := 0.0,
+        thickness := 1.0,
+        antialiased := false) -> void:
+    var capsule_end_start_angle := \
+            PI / 2.0 if \
+            is_rotated_90_degrees else \
+            0.0
+    var capsule_end_offset := \
+            Vector2(height / 2.0, 0.0) if \
+            is_rotated_90_degrees else \
+            Vector2(0.0, height / 2.0)
+    var end_center := center - capsule_end_offset
+    
+    draw_dashed_arc(
+            canvas,
+            end_center,
+            radius,
+            capsule_end_start_angle,
+            capsule_end_start_angle + PI,
+            color,
+            dash_length,
+            dash_gap,
+            dash_offset,
+            thickness,
+            antialiased)
+    
+    end_center = center + capsule_end_offset
+    capsule_end_start_angle += PI
+    
+    draw_dashed_arc(
+            canvas,
+            end_center,
+            radius,
+            capsule_end_start_angle,
+            capsule_end_start_angle + PI,
+            color,
+            dash_length,
+            dash_gap,
+            dash_offset,
+            thickness,
+            antialiased)
+    
+    var from := \
+            Vector2(-height / 2.0, -radius) if \
+            is_rotated_90_degrees else \
+            Vector2(-radius, height / 2.0)
+    var to := \
+            Vector2(height / 2.0, -radius) if \
+            is_rotated_90_degrees else \
+            Vector2(-radius, -height / 2.0)
+    
+    draw_dashed_line(
+            canvas,
+            from,
+            to,
+            color,
+            dash_length,
+            dash_gap,
+            dash_offset,
+            thickness,
+            antialiased)
+    
+    from = \
+            Vector2(height / 2.0, radius) if \
+            is_rotated_90_degrees else \
+            Vector2(radius, -height / 2.0)
+    to = \
+            Vector2(-height / 2.0, radius) if \
+            is_rotated_90_degrees else \
+            Vector2(radius, height / 2.0)
+    
+    draw_dashed_line(
+            canvas,
+            from,
+            to,
+            color,
+            dash_length,
+            dash_gap,
+            dash_offset,
+            thickness,
             antialiased)
 
 
@@ -499,9 +654,67 @@ static func draw_shape_outline(
                 thickness)
     else:
         Sc.logger.error(
-                "Invalid Shape2D provided for draw_shape: %s. The " +
+                "Invalid Shape2D provided for draw_shape_outline: %s. The " +
                 "supported shapes are: CircleShape2D, CapsuleShape2D, " +
                 "RectangleShape2D." % shape)
+
+
+static func draw_dashed_shape(
+        canvas: CanvasItem,
+        position: Vector2,
+        shape: Shape2D,
+        rotation: float,
+        color: Color,
+        dash_length: float,
+        dash_gap: float,
+        dash_offset: float = 0.0,
+        thickness: float = 1.0) -> void:
+    var is_rotated_90_degrees: bool = \
+            abs(fmod(rotation + PI * 2, PI) - PI / 2) < \
+            Sc.geometry.FLOAT_EPSILON
+    
+    # Ensure that collision boundaries are only ever axially aligned.
+    assert(is_rotated_90_degrees or \
+            abs(rotation) < Sc.geometry.FLOAT_EPSILON)
+    
+    if shape is CircleShape2D:
+        draw_dashed_circle(
+                canvas,
+                position,
+                shape.radius,
+                color,
+                dash_length,
+                dash_gap,
+                dash_offset,
+                thickness)
+    elif shape is CapsuleShape2D:
+        draw_dashed_capsule(
+                canvas,
+                position,
+                shape.radius,
+                shape.height,
+                is_rotated_90_degrees,
+                color,
+                dash_length,
+                dash_gap,
+                dash_offset,
+                thickness)
+    elif shape is RectangleShape2D:
+        draw_dashed_rectangle(
+                canvas,
+                position,
+                shape.extents,
+                is_rotated_90_degrees,
+                color,
+                dash_length,
+                dash_gap,
+                dash_offset,
+                thickness)
+    else:
+        Sc.logger.error(
+                "Invalid Shape2D provided for draw_shape_dashed_outline: " + 
+                "%s. The supported shapes are: CircleShape2D, " +
+                "CapsuleShape2D, RectangleShape2D." % shape)
 
 
 static func draw_circle_outline(

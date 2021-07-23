@@ -22,16 +22,18 @@ func _on_gui_scale_changed() -> bool:
 
 
 func _update() -> void:
-    _configuration_warning = ""
-    
     if !_is_ready:
         return
     
     var children := get_children()
     if children.size() != 1:
         _configuration_warning = "Exactly one child must be defined."
+        update_configuration_warning()
         return
     var child: Node = children[0]
+    
+    _configuration_warning = ""
+    update_configuration_warning()
     
     Sc.gui.scale_gui_recursively(child)
     
