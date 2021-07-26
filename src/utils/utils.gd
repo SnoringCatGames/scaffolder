@@ -621,3 +621,15 @@ func get_physics_layer_names_from_bitmask(combined_bitmask: int) -> Array:
                     Sc.metadata._physics_layer_bitmask_to_name[index_bitmask]
             layer_names.push_back(layer_name)
     return layer_names
+
+
+func get_property_value_from_scene_state_node(
+        state: SceneState,
+        node_index: int,
+        property_name: String,
+        expects_a_result := false):
+    for property_index in state.get_node_property_count(node_index):
+        if state.get_node_property_name(node_index, property_index) == \
+                property_name:
+            return state.get_node_property_value(node_index, property_index)
+    assert(!expects_a_result)
