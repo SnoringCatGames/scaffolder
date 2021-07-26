@@ -7,7 +7,6 @@ const DOWN := Vector2.DOWN
 const LEFT := Vector2.LEFT
 const RIGHT := Vector2.RIGHT
 const FLOOR_MAX_ANGLE := PI / 4.0
-const GRAVITY := 5000.0
 const FLOAT_EPSILON := 0.00001
 
 
