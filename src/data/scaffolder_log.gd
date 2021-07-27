@@ -46,9 +46,16 @@ func warning(message := "An warning occurred") -> void:
     self.print("**WARNING**: %s" % message)
 
 
-func on_global_init(global: Node, name: String) -> void:
+func on_global_init(
+        global: Node,
+        name: String,
+        expect_is_tool := true) -> void:
     global.name = name
     self.print("%s._init" % name)
+    if Engine.editor_hint and \
+            expect_is_tool and \
+            is_instance_valid(Sc.utils):
+        assert(Sc.utils.check_whether_sub_classes_are_tools(global))
 
 
 func _print_front_matter() -> void:
