@@ -634,3 +634,12 @@ func get_property_value_from_scene_state_node(
                 property_name:
             return state.get_node_property_value(node_index, property_index)
     assert(!expects_a_result)
+
+
+func check_whether_sub_classes_are_tools(object: Object) -> bool:
+    var script: Script = object.get_script()
+    while script != null:
+        if !script.is_tool():
+            return false
+        script = script.get_base_script()
+    return true

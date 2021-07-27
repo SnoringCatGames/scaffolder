@@ -1,3 +1,4 @@
+tool
 class_name Profiler
 extends Node
 # Measures and records timings.
