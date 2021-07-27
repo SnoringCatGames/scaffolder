@@ -1,3 +1,4 @@
+tool
 class_name GestureRecord
 extends Node2D
 

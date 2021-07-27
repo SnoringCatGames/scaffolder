@@ -287,7 +287,7 @@ func amend_manifest(manifest: Dictionary) -> void:
             screen_mask_transition_class = ScreenMaskTransition,
             default_transition_type = ScreenTransition.FADE,
             fancy_transition_type = ScreenTransition.SCREEN_MASK,
-            overlay_mask_transition_color = Color("#111111"),
+            overlay_mask_transition_color = Color("111111"),
             overlay_mask_transition_uses_pixel_snap = false,
             overlay_mask_transition_smooth_size = 0.2,
             screen_mask_transition_uses_pixel_snap = true,
