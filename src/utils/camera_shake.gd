@@ -1,3 +1,4 @@
+tool
 class_name CameraShake
 extends Node2D
 

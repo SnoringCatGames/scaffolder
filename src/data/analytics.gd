@@ -1,3 +1,4 @@
+tool
 class_name Analytics
 extends Node
 # This class depends on the proprietary third-party Google Analytics service.
