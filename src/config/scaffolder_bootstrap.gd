@@ -59,6 +59,7 @@ func _initialize_framework() -> void:
     Sc.nav.register_manifest(Sc._manifest.gui_manifest.screen_manifest)
     
     if Engine.editor_hint:
+        print("\n** Initialized Scaffolder for the in-editor environment. **\n")
         return
     
     Sc.gui.debug_panel = Sc.utils.add_scene(
