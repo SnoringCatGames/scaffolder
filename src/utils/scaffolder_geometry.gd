@@ -656,9 +656,9 @@ static func calculate_half_width_height(
         half_width_height = shape.extents
     else:
         Sc.logger.error(
-                "Invalid Shape2D provided to calculate_half_width_height: " +
+                ("Invalid Shape2D provided to calculate_half_width_height: " +
                 "%s. The upported shapes are: CircleShape2D, " +
-                "CapsuleShape2D, RectangleShape2D." % shape)
+                "CapsuleShape2D, RectangleShape2D.") % str(shape))
     
     if is_rotated_90_degrees:
         var swap := half_width_height.x

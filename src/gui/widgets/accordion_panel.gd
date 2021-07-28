@@ -24,7 +24,8 @@ var _start_scroll_vertical: int
 
 var _debounced_update_children: FuncRef = Sc.time.debounce(
         funcref(self, "_update_children_debounced"),
-        0.02)
+        0.02,
+        true)
 
 
 func _ready() -> void:
