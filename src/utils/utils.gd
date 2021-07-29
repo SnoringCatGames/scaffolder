@@ -5,6 +5,17 @@ extends Node
 
 const MAX_INT := 9223372036854775807
 
+const PROPERTY_USAGE_GROUPED_ITEM := \
+        PROPERTY_USAGE_STORAGE | \
+        PROPERTY_USAGE_EDITOR | \
+        PROPERTY_USAGE_NETWORK | \
+        PROPERTY_USAGE_SCRIPT_VARIABLE
+
+const PROPERTY_USAGE_GROUP_HEADER := \
+        PROPERTY_USAGE_EDITOR | \
+        PROPERTY_USAGE_SCRIPT_VARIABLE | \
+        PROPERTY_USAGE_GROUP
+
 var _focus_releaser: Control
 
 
@@ -643,3 +654,118 @@ func check_whether_sub_classes_are_tools(object: Object) -> bool:
             return false
         script = script.get_base_script()
     return true
+
+
+## Creates a property_list array for the given node with the given groups.
+## -   Queries the default property list from the given node
+##     (from get_property_list()).
+## -   Groups will contain properties at and after the given
+##     `first_property_name`
+## -   Groups will contain properties up to one of the following:
+##     -   `last_property_name`, if given
+##     -   The next group
+##     -   The end of the property list
+## -   Properties starting with an underscore will be skipped.
+## -   The result is suitable for returning from _get_property_list.
+## -   **NOTE**: You will probably want to remove the `export` keyword from any
+##     property you are grouping, since they would otherwise be shown twice.
+func get_property_list_for_inspector_groups(
+        node: Node,
+        groups: Array) -> Array:
+    for group in groups:
+        assert(group is Dictionary)
+        assert(group.has("group_name"))
+        assert(group.has("first_property_name"))
+    
+    var default_property_list := node.get_property_list()
+    var first_property_index_to_group := {}
+    
+    for group in groups:
+        group.first_property_index = _get_property_index(
+                group.first_property_name,
+                default_property_list)
+        if group.first_property_index < 0:
+            Sc.logger.error()
+            return []
+        if group.has("last_property_name"):
+            group.last_property_index = _get_property_index(
+                    group.last_property_name,
+                    default_property_list)
+            if group.last_property_index < 0:
+                Sc.logger.error()
+                return []
+        first_property_index_to_group[group.first_property_index] = group
+    
+    var first_property_indices := first_property_index_to_group.keys()
+    first_property_indices.sort()
+    
+    var property_list_amendment := []
+    
+    for group_index in first_property_indices.size():
+        var first_property_index: int = first_property_indices[group_index]
+        var group: Dictionary = \
+                first_property_index_to_group[first_property_index]
+        var group_overrides: Dictionary = \
+                group.overrides if \
+                group.has("overrides") else \
+                {}
+        
+        var last_property_index: int
+        if group.has("last_property_index"):
+            last_property_index = group.last_property_index
+        elif group_index + 1 < first_property_indices.size():
+            last_property_index = first_property_indices[group_index + 1] - 1
+        else:
+            last_property_index = default_property_list.size() - 1
+        
+        property_list_amendment.push_back({
+            name = group.group_name,
+            type = TYPE_NIL,
+            usage = PROPERTY_USAGE_GROUP_HEADER,
+        })
+        
+        for property_index in \
+                range(first_property_index, last_property_index + 1):
+            var original_property_config: Dictionary = \
+                    default_property_list[property_index]
+            var name: String = original_property_config.name
+            # Skip "private" properties that start with an underscore.
+            if name.begins_with("_"):
+                continue
+            var property_overrides: Dictionary = \
+                    group_overrides[name] if \
+                    group_overrides.has(name) else \
+                    {}
+            var type: int = \
+                    property_overrides.type if \
+                    property_overrides.has("type") else \
+                    original_property_config.type
+            var hint: int = \
+                    property_overrides.hint if \
+                    property_overrides.has("hint") else \
+                    original_property_config.hint
+            var hint_string: String = \
+                    property_overrides.hint_string if \
+                    property_overrides.has("hint_string") else \
+                    original_property_config.hint_string
+            property_list_amendment.push_back({
+                name = name,
+                type = type,
+                hint = hint,
+                hint_string = hint_string,
+                usage = PROPERTY_USAGE_GROUPED_ITEM,
+            })
+    
+    return property_list_amendment
+
+
+func _get_property_index(
+        property_name: String,
+        property_list: Array) -> int:
+    var i := property_list.size() - 1
+    while i >= 0:
+        var property_config: Dictionary = property_list[i]
+        if property_config.name == property_name:
+            return i
+        i -= 1
+    return -1
