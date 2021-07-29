@@ -5,7 +5,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=6]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/left_caret_normal.png" type="Texture" id=7]
+[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/left_caret_normal.png" type="Texture" id=7]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
