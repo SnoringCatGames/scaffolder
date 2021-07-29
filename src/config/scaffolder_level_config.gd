@@ -5,7 +5,7 @@ extends Node
 # -   name: String: Try to keep this short and memorable.
 # -   version: String: Of the form "0.0.1".
 # -   is_test_level: bool
-# -   priority: int: Must be unique. Earlier levels have lower values.
+# -   sort_priority: int: Must be unique. Earlier levels have lower values.
 # -   unlock_conditions: String|Object:
 #     -   "unlocked": This level is always unlocked.
 #     -   "finish_previous_level": This level is unlocked by finishing the
@@ -54,7 +54,7 @@ func _ready() -> void:
 
 func _sanitize_level_configs() -> void:
     var level_configs_by_priority := {}
-    var priorities := []
+    var sort_priorities := []
     test_level_count = 0
     for level_id in get_level_ids():
         var config := get_level_config(level_id)
@@ -64,13 +64,13 @@ func _sanitize_level_configs() -> void:
                 continue
             test_level_count += 1
         config.id = level_id
-        level_configs_by_priority[config.priority] = config
-        priorities.push_back(config.priority)
+        level_configs_by_priority[config.sort_priority] = config
+        sort_priorities.push_back(config.sort_priority)
     
-    priorities.sort()
+    sort_priorities.sort()
     var number := 1
-    for priority in priorities:
-        var config: Dictionary = level_configs_by_priority[priority]
+    for sort_priority in sort_priorities:
+        var config: Dictionary = level_configs_by_priority[sort_priority]
         config.number = number
         _level_configs_by_number[number] = config
         _level_numbers.push_back(number)
@@ -82,8 +82,8 @@ func _sanitize_level_config(config: Dictionary) -> void:
     assert(config.has("version") and config.version is String)
     assert(config.has("is_test_level") and \
             config.is_test_level is bool and \
-            (config.is_test_level == (config.priority <= 0)))
-    assert(config.has("priority") and config.priority is int)
+            (config.is_test_level == (config.sort_priority <= 0)))
+    assert(config.has("sort_priority") and config.sort_priority is int)
     assert(config.has("unlock_conditions") and \
             (config.unlock_conditions == "unlocked" or \
             config.unlock_conditions == "finish_previous_level" or \
