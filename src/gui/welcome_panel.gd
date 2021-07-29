@@ -70,9 +70,8 @@ func _destroy() -> void:
 
 
 func _on_gui_scale_changed() -> bool:
-    for child in .get_children():
-        if child is Control:
-            Sc.gui.scale_gui_recursively(child)
+    for child in Sc.utils.get_children_by_type(self, Control):
+        Sc.gui.scale_gui_recursively(child)
     
     rect_min_size = size_override * Sc.gui.scale
     rect_size.x = rect_min_size.x
