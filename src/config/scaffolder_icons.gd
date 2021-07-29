@@ -6,60 +6,60 @@ extends Node
 # --- Constants ---
 
 const ABOUT_CIRCLE_ACTIVE_PATH := \
-        "res://addons/scaffolder/assets/images/gui/about_circle_active.png"
+        "res://addons/scaffolder/assets/images/gui/icons/about_circle_active.png"
 const ABOUT_CIRCLE_HOVER_PATH := \
-        "res://addons/scaffolder/assets/images/gui/about_circle_hover.png"
+        "res://addons/scaffolder/assets/images/gui/icons/about_circle_hover.png"
 const ABOUT_CIRCLE_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/about_circle_normal.png"
+        "res://addons/scaffolder/assets/images/gui/icons/about_circle_normal.png"
 
 const ALERT_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/alert_normal.png"
+        "res://addons/scaffolder/assets/images/gui/icons/alert_normal.png"
 
 const CLOSE_ACTIVE_PATH := \
-        "res://addons/scaffolder/assets/images/gui/close_active.png"
+        "res://addons/scaffolder/assets/images/gui/icons/close_active.png"
 const CLOSE_HOVER_PATH := \
-        "res://addons/scaffolder/assets/images/gui/close_hover.png"
+        "res://addons/scaffolder/assets/images/gui/icons/close_hover.png"
 const CLOSE_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/close_normal.png"
+        "res://addons/scaffolder/assets/images/gui/icons/close_normal.png"
 
 const GEAR_CIRCLE_ACTIVE_PATH := \
-        "res://addons/scaffolder/assets/images/gui/gear_circle_active.png"
+        "res://addons/scaffolder/assets/images/gui/icons/gear_circle_active.png"
 const GEAR_CIRCLE_HOVER_PATH := \
-        "res://addons/scaffolder/assets/images/gui/gear_circle_hover.png"
+        "res://addons/scaffolder/assets/images/gui/icons/gear_circle_hover.png"
 const GEAR_CIRCLE_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/gear_circle_normal.png"
+        "res://addons/scaffolder/assets/images/gui/icons/gear_circle_normal.png"
 
 const GO_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/go_normal.png"
+        "res://addons/scaffolder/assets/images/gui/icons/go_normal.png"
 
 const HOME_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/home_normal.png"
+        "res://addons/scaffolder/assets/images/gui/icons/home_normal.png"
 
 const LEFT_CARET_ACTIVE_PATH := \
-        "res://addons/scaffolder/assets/images/gui/left_caret_active.png"
+        "res://addons/scaffolder/assets/images/gui/icons/left_caret_active.png"
 const LEFT_CARET_HOVER_PATH := \
-        "res://addons/scaffolder/assets/images/gui/left_caret_hover.png"
+        "res://addons/scaffolder/assets/images/gui/icons/left_caret_hover.png"
 const LEFT_CARET_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/left_caret_normal.png"
+        "res://addons/scaffolder/assets/images/gui/icons/left_caret_normal.png"
 
 const PAUSE_CIRCLE_ACTIVE_PATH := \
-        "res://addons/scaffolder/assets/images/gui/pause_circle_active.png"
+        "res://addons/scaffolder/assets/images/gui/icons/pause_circle_active.png"
 const PAUSE_CIRCLE_HOVER_PATH := \
-        "res://addons/scaffolder/assets/images/gui/pause_circle_hover.png"
+        "res://addons/scaffolder/assets/images/gui/icons/pause_circle_hover.png"
 const PAUSE_CIRCLE_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/pause_circle_normal.png"
+        "res://addons/scaffolder/assets/images/gui/icons/pause_circle_normal.png"
 
 const PAUSE_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/pause_normal.png"
+        "res://addons/scaffolder/assets/images/gui/icons/pause_normal.png"
 
 const PLAY_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/play_normal.png"
+        "res://addons/scaffolder/assets/images/gui/icons/play_normal.png"
 
 const RETRY_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/retry_normal.png"
+        "res://addons/scaffolder/assets/images/gui/icons/retry_normal.png"
 
 const STOP_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/stop_normal.png"
+        "res://addons/scaffolder/assets/images/gui/icons/stop_normal.png"
 
 const DEFAULT_CHECKBOX_NORMAL_PATH_PREFIX := \
         "res://addons/scaffolder/assets/images/gui/checkbox/checkbox_"
