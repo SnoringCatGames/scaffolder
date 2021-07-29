@@ -278,7 +278,7 @@ static func draw_dashed_capsule(
             Vector2(height / 2.0, 0.0) if \
             is_rotated_90_degrees else \
             Vector2(0.0, height / 2.0)
-    var end_center := center - capsule_end_offset
+    var end_center := center + capsule_end_offset
     
     draw_dashed_arc(
             canvas,
@@ -293,7 +293,7 @@ static func draw_dashed_capsule(
             thickness,
             antialiased)
     
-    end_center = center + capsule_end_offset
+    end_center = center - capsule_end_offset
     capsule_end_start_angle += PI
     
     draw_dashed_arc(
