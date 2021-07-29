@@ -270,22 +270,25 @@ static func draw_dashed_capsule(
         dash_offset := 0.0,
         thickness := 1.0,
         antialiased := false) -> void:
-    var capsule_end_start_angle := \
-            PI / 2.0 if \
-            is_rotated_90_degrees else \
-            0.0
-    var capsule_end_offset := \
-            Vector2(height / 2.0, 0.0) if \
-            is_rotated_90_degrees else \
-            Vector2(0.0, height / 2.0)
-    var end_center := center + capsule_end_offset
+    var capsule_end_start_angle: float
+    var capsule_end_end_angle: float
+    var capsule_end_offset: Vector2
+    if is_rotated_90_degrees:
+        capsule_end_start_angle = PI
+        capsule_end_end_angle = 2 * PI
+        capsule_end_offset = Vector2(0.0, height / 2.0)
+    else:
+        capsule_end_start_angle = PI / 2.0
+        capsule_end_end_angle = PI / 2.0 + PI
+        capsule_end_offset = Vector2(height / 2.0, 0.0)
+    var end_center := center - capsule_end_offset
     
     draw_dashed_arc(
             canvas,
             end_center,
             radius,
             capsule_end_start_angle,
-            capsule_end_start_angle + PI,
+            capsule_end_end_angle,
             color,
             dash_length,
             dash_gap,
@@ -293,15 +296,16 @@ static func draw_dashed_capsule(
             thickness,
             antialiased)
     
-    end_center = center - capsule_end_offset
+    end_center = center + capsule_end_offset
     capsule_end_start_angle += PI
+    capsule_end_end_angle += PI
     
     draw_dashed_arc(
             canvas,
             end_center,
             radius,
             capsule_end_start_angle,
-            capsule_end_start_angle + PI,
+            capsule_end_end_angle,
             color,
             dash_length,
             dash_gap,
@@ -309,14 +313,14 @@ static func draw_dashed_capsule(
             thickness,
             antialiased)
     
-    var from := \
-            Vector2(-height / 2.0, -radius) if \
-            is_rotated_90_degrees else \
-            Vector2(-radius, height / 2.0)
-    var to := \
-            Vector2(height / 2.0, -radius) if \
-            is_rotated_90_degrees else \
-            Vector2(-radius, -height / 2.0)
+    var from: Vector2
+    var to: Vector2
+    if is_rotated_90_degrees:
+        from = Vector2(-radius, height / 2.0)
+        to = Vector2(-radius, -height / 2.0)
+    else:
+        from = Vector2(-height / 2.0, -radius)
+        to = Vector2(height / 2.0, -radius)
     
     draw_dashed_line(
             canvas,
@@ -329,14 +333,12 @@ static func draw_dashed_capsule(
             thickness,
             antialiased)
     
-    from = \
-            Vector2(height / 2.0, radius) if \
-            is_rotated_90_degrees else \
-            Vector2(radius, -height / 2.0)
-    to = \
-            Vector2(-height / 2.0, radius) if \
-            is_rotated_90_degrees else \
-            Vector2(radius, height / 2.0)
+    if is_rotated_90_degrees:
+        from = Vector2(radius, -height / 2.0)
+        to = Vector2(radius, height / 2.0)
+    else:
+        from = Vector2(height / 2.0, radius)
+        to = Vector2(-height / 2.0, radius)
     
     draw_dashed_line(
             canvas,
