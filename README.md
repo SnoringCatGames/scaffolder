@@ -13,7 +13,7 @@ _An opinionated framework providing a bunch of general-purpose application scaff
 
 --------
 
-> **NOTE:** _Consider this a pre-alpha release. This framework still has many rough edges and is still changing a lot._
+> **NOTE:** _Consider this a **pre-alpha** release. This framework still has many rough edges and is still changing a lot._
 
 --------
 

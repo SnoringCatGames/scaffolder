@@ -1,8 +1,16 @@
-class_name ScaffolderLevel
+tool
+class_name ScaffolderLevel, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_level.png"
 extends Node2D
 
 
 const MIN_CONTROLS_DISPLAY_TIME := 0.5
+
+var _configuration_warning := ""
+
+
+func _enter_tree() -> void:
+    _update_editor_configuration()
 
 
 func _ready() -> void:
@@ -81,6 +89,28 @@ func quit(
         Sc.audio.play_sound(sound_name)
 
 
+func _update_editor_configuration() -> void:
+    if !Sc.utils.check_whether_sub_classes_are_tools(self):
+        _set_configuration_warning(
+                "Subclasses of ScaffolderLevel must be marked as tool.")
+        return
+    
+    _set_configuration_warning("")
+
+
+func _set_configuration_warning(value: String) -> void:
+    _configuration_warning = value
+    update_configuration_warning()
+    property_list_changed_notify()
+    if value != "" and \
+            !Engine.editor_hint:
+        Sc.logger.error(value)
+
+
+func _get_configuration_warning() -> String:
+    return _configuration_warning
+
+
 func _record_suggested_next_level() -> void:
     var suggested_next_level_id: String = \
             Sc.level_config.calculate_suggested_next_level()
@@ -95,6 +125,9 @@ func restart() -> void:
 
 
 func _input(event: InputEvent) -> void:
+    if Engine.editor_hint:
+        return
+    
     if !Sc.level_session.has_initial_input_happened and \
             Sc.gui.is_user_interaction_enabled and \
             Sc.level_session.level_play_time_unscaled > \
