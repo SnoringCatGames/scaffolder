@@ -7,16 +7,12 @@
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres" type="DynamicFont" id=5]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/nine_patch/focus_border.png" type="Texture" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/style_box_texture_scalable.gd" type="Script" id=7]
-[ext_resource path="res://assets/images/nine_patch/dropdown_pressed.png" type="Texture" id=8]
-[ext_resource path="res://assets/images/nine_patch/dropdown_normal.png" type="Texture" id=9]
-[ext_resource path="res://assets/images/nine_patch/dropdown_hover.png" type="Texture" id=10]
 
 [sub_resource type="StyleBoxTexture" id=1]
 content_margin_left = 16.0
 content_margin_right = 16.0
 content_margin_top = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource( 10 )
 region_rect = Rect2( 0, 0, 9, 9 )
 margin_left = 3.5
 margin_right = 3.5
@@ -29,7 +25,6 @@ content_margin_left = 16.0
 content_margin_right = 16.0
 content_margin_top = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource( 8 )
 region_rect = Rect2( 0, 0, 9, 9 )
 margin_left = 3.5
 margin_right = 3.5
@@ -42,7 +37,6 @@ content_margin_left = 0.0
 content_margin_right = 0.0
 content_margin_top = 0.0
 content_margin_bottom = 0.0
-texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 9, 9 )
 margin_left = 3.5
 margin_right = 3.5
@@ -59,7 +53,6 @@ content_margin_left = 16.0
 content_margin_right = 16.0
 content_margin_top = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource( 10 )
 region_rect = Rect2( 0, 0, 9, 9 )
 margin_left = 3.5
 margin_right = 3.5
@@ -72,7 +65,6 @@ content_margin_left = 16.0
 content_margin_right = 16.0
 content_margin_top = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource( 9 )
 region_rect = Rect2( 0, 0, 9, 9 )
 margin_left = 3.5
 margin_right = 3.5

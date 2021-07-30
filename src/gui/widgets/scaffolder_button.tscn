@@ -1,28 +1,26 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres" type="DynamicFont" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.gd" type="Script" id=3]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/shine_line.png" type="Texture" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/style_box_texture_scalable.gd" type="Script" id=5]
-[ext_resource path="res://assets/images/nine_patch/button_normal.png" type="Texture" id=6]
 
-[sub_resource type="StyleBoxEmpty" id=10]
+[sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="StyleBoxEmpty" id=11]
+[sub_resource type="StyleBoxEmpty" id=2]
 
-[sub_resource type="StyleBoxEmpty" id=12]
+[sub_resource type="StyleBoxEmpty" id=3]
 
-[sub_resource type="StyleBoxEmpty" id=13]
+[sub_resource type="StyleBoxEmpty" id=4]
 
-[sub_resource type="StyleBoxEmpty" id=14]
+[sub_resource type="StyleBoxEmpty" id=5]
 
-[sub_resource type="StyleBoxTexture" id=9]
+[sub_resource type="StyleBoxTexture" id=6]
 content_margin_left = 16.0
 content_margin_right = 16.0
 content_margin_top = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 9, 9 )
 margin_left = 3.5
 margin_right = 3.5
@@ -30,13 +28,13 @@ margin_top = 3.5
 margin_bottom = 3.5
 script = ExtResource( 5 )
 
-[sub_resource type="StyleBoxEmpty" id=15]
+[sub_resource type="StyleBoxEmpty" id=7]
 
-[sub_resource type="StyleBoxEmpty" id=16]
+[sub_resource type="StyleBoxEmpty" id=8]
 
-[sub_resource type="StyleBoxEmpty" id=17]
+[sub_resource type="StyleBoxEmpty" id=9]
 
-[sub_resource type="StyleBoxEmpty" id=18]
+[sub_resource type="StyleBoxEmpty" id=10]
 
 [node name="ScaffolderButton" type="Button"]
 margin_right = 230.0
@@ -45,11 +43,11 @@ rect_min_size = Vector2( 230, 56 )
 mouse_filter = 1
 size_flags_horizontal = 4
 size_flags_vertical = 4
-custom_styles/hover = SubResource( 10 )
-custom_styles/pressed = SubResource( 11 )
-custom_styles/focus = SubResource( 12 )
-custom_styles/disabled = SubResource( 13 )
-custom_styles/normal = SubResource( 14 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -69,7 +67,7 @@ margin_bottom = 56.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 9 )
+custom_styles/normal = SubResource( 6 )
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -110,7 +108,6 @@ size_flags_vertical = 3
 
 [node name="ShineLine" type="Sprite" parent="MarginContainer/MarginContainer/ShineLineWrapper"]
 position = Vector2( -115, 28 )
-texture = ExtResource( 4 )
 
 [node name="ScaffolderTextureRect" parent="MarginContainer" instance=ExtResource( 1 )]
 visible = false
@@ -125,10 +122,10 @@ margin_bottom = 56.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/hover = SubResource( 15 )
-custom_styles/pressed = SubResource( 16 )
-custom_styles/disabled = SubResource( 17 )
-custom_styles/normal = SubResource( 18 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/disabled = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
