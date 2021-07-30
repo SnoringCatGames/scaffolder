@@ -18,17 +18,11 @@ func _ready() -> void:
                 true,
                 true)
         projected_image.original_scale = Sc.gui.game_over_image_scale
-    $VBoxContainer/VBoxContainer/SelectLevelButton \
-            .texture = Sc.images.go_normal
     $VBoxContainer/VBoxContainer/SelectLevelButton.texture_scale = \
             Vector2(Sc.images.go_scale, Sc.images.go_scale) * \
                     go_scale_multiplier
     $VBoxContainer/VBoxContainer/HBoxContainer/HomeButton \
-            .texture = Sc.images.home_normal
-    $VBoxContainer/VBoxContainer/HBoxContainer/HomeButton \
             .texture_scale = Vector2(2.0, 2.0)
-    $VBoxContainer/VBoxContainer/HBoxContainer/RetryButton \
-            .texture = Sc.images.retry_normal
     $VBoxContainer/VBoxContainer/HBoxContainer/RetryButton \
             .texture_scale = Vector2(2.0, 2.0)
     

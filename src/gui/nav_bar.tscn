@@ -1,16 +1,6 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/nav_bar.gd" type="Script" id=1]
-[ext_resource path="res://assets/images/logo.png" type="Texture" id=2]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/gear_circle_pressed.png" type="Texture" id=3]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/left_caret_pressed.png" type="Texture" id=4]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/gear_circle_normal.png" type="Texture" id=5]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/gear_circle_hover.png" type="Texture" id=6]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/left_caret_normal.png" type="Texture" id=7]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/about_circle_hover.png" type="Texture" id=8]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/about_circle_pressed.png" type="Texture" id=9]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/about_circle_normal.png" type="Texture" id=10]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/left_caret_hover.png" type="Texture" id=11]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=12]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_button.tscn" type="PackedScene" id=13]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=14]
@@ -53,9 +43,9 @@ size_flags_vertical = 3
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 160.0
-margin_top = 47.0
+margin_top = 49.0
 margin_right = 160.0
-margin_bottom = 109.0
+margin_bottom = 111.0
 custom_fonts/font = ExtResource( 16 )
 custom_colors/font_color = Color( 1, 0.945098, 0.180392, 1 )
 font_size = "Xl"
@@ -68,7 +58,6 @@ margin_top = 61.0
 margin_right = 317.0
 margin_bottom = 98.0
 rect_min_size = Vector2( 314, 37 )
-texture = ExtResource( 2 )
 texture_key = "app_logo"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
@@ -109,9 +98,6 @@ anchor_bottom = 0.0
 margin_right = 160.0
 margin_bottom = 160.0
 rect_min_size = Vector2( 160, 160 )
-texture_normal = ExtResource( 7 )
-texture_pressed = ExtResource( 4 )
-texture_hover = ExtResource( 11 )
 texture_key = "left_caret"
 texture_scale = Vector2( 8, 8 )
 size_override = Vector2( 160, 160 )
@@ -125,9 +111,6 @@ margin_top = -31.0
 margin_right = 159.0
 margin_bottom = 129.0
 rect_min_size = Vector2( 160, 160 )
-texture_normal = ExtResource( 10 )
-texture_pressed = ExtResource( 9 )
-texture_hover = ExtResource( 8 )
 texture_key = "about_circle"
 texture_scale = Vector2( 4, 4 )
 size_override = Vector2( 160, 160 )
@@ -162,9 +145,6 @@ margin_top = -31.0
 margin_right = 160.0
 margin_bottom = 129.0
 rect_min_size = Vector2( 160, 160 )
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 3 )
-texture_hover = ExtResource( 6 )
 texture_key = "gear_circle"
 texture_scale = Vector2( 4, 4 )
 size_override = Vector2( 160, 160 )
@@ -189,11 +169,10 @@ is_header = true
 [node name="Logo" parent="MarginContainer/VBoxContainer/BottomRow" instance=ExtResource( 14 )]
 visible = false
 margin_left = -157.0
-margin_top = 14.0
+margin_top = 12.0
 margin_right = 157.0
-margin_bottom = 51.0
+margin_bottom = 49.0
 rect_min_size = Vector2( 314, 37 )
-texture = ExtResource( 2 )
 texture_key = "app_logo"
 
 [node name="Spacer" parent="MarginContainer/VBoxContainer" instance=ExtResource( 12 )]

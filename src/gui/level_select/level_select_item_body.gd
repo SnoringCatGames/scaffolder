@@ -9,7 +9,6 @@ var level_id: String
 
 
 func _ready() -> void:
-    $PlayButton.texture = Sc.images.go_normal
     $PlayButton.texture_scale = \
             Vector2(Sc.images.go_scale, Sc.images.go_scale) * \
             go_scale_multiplier

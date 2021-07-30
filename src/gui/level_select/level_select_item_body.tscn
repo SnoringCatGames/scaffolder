@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/level_select/level_select_item_body.gd" type="Script" id=1]
-[ext_resource path="res://assets/images/go_icon.png" type="Texture" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/labeled_control_list/labeled_control_list.tscn" type="PackedScene" id=5]
@@ -26,7 +25,7 @@ margin_top = 16.0
 margin_right = 260.0
 margin_bottom = 76.0
 rect_min_size = Vector2( 120, 60 )
-texture = ExtResource( 2 )
+texture_key = "go_normal"
 texture_scale = Vector2( 1.125, 1.125 )
 is_shiny = true
 includes_color_pulse = true

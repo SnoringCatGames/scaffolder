@@ -14,7 +14,6 @@ func _ready() -> void:
 
 
 func _init_children() -> void:
-    $HBoxContainer/Caret.texture = Sc.images.left_caret_normal
     $HBoxContainer/Caret.texture_scale = Vector2(3.0, 3.0)
     $HBoxContainer/Caret/TextureRect.rect_pivot_offset = \
             AccordionHeader.CARET_SIZE_DEFAULT / 2.0

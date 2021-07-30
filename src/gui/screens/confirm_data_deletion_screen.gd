@@ -4,7 +4,6 @@ extends Screen
 
 
 func _ready() -> void:
-    $VBoxContainer/AlertIcon.texture = Sc.images.alert_normal
     $VBoxContainer/AlertIcon.texture_scale = Vector2(4.0, 4.0)
     $VBoxContainer/ClientIdNumber.text = str(Sc.analytics.client_id)
 
