@@ -34,8 +34,8 @@ func _on_gui_scale_changed() -> bool:
 
 func _deferred_on_gui_scale_changed() -> void:
     $CheckBox.rect_size = Vector2(
-            Sc.icons.current_checkbox_size,
-            Sc.icons.current_checkbox_size)
+            Sc.images.current_checkbox_size,
+            Sc.images.current_checkbox_size)
     
     var check_box_scale := _get_icon_scale()
     $CheckBox.rect_scale = Vector2(check_box_scale, check_box_scale)
@@ -56,8 +56,8 @@ func _deferred_on_gui_scale_changed() -> void:
 
 func _get_icon_scale() -> float:
     var target_icon_size: float = \
-            Sc.icons.default_checkbox_size * Sc.gui.scale * scale
-    return target_icon_size / Sc.icons.current_checkbox_size
+            Sc.images.default_checkbox_size * Sc.gui.scale * scale
+    return target_icon_size / Sc.images.current_checkbox_size
 
 
 func _set_text(value: String) -> void:

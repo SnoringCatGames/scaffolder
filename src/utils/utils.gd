@@ -759,6 +759,34 @@ func get_property_list_for_inspector_groups(
     return property_list_amendment
 
 
+# **NOTE**: This doesn't work!
+#           -   Godot doesn't support removing the storage flag from the
+#               _get_property_list() amendment.
+#           -   Maybe they will in the future?
+func amend_property_list_to_not_store(
+        default_property_list: Array,
+        first_property_name: String,
+        last_property_name := "") -> Array:
+    var first_property_index := \
+            _get_property_index(first_property_name, default_property_list)
+    var last_property_index := \
+            _get_property_index(last_property_name, default_property_list) if \
+            last_property_name != "" else \
+            default_property_list.size() - 1
+    
+    if first_property_index < 0 or \
+            last_property_index < 0:
+        Sc.logger.error()
+        return []
+    
+    var property_list_amendment := []
+    for i in range(first_property_index, last_property_index + 1):
+        var original_property_config: Dictionary = default_property_list[i]
+        original_property_config.usage &= ~PROPERTY_USAGE_STORAGE
+        property_list_amendment.push_back(original_property_config)
+    return property_list_amendment
+
+
 func _get_property_index(
         property_name: String,
         property_list: Array) -> int:

@@ -1,9 +1,18 @@
 tool
-class_name ScaffolderIcons
+class_name ScaffolderImages
 extends Node
 
 
 # --- Constants ---
+
+const SCAFFOLDER_LOGO_PATH := \
+        "res://addons/scaffolder/assets/images/logos/scaffolder_logo.png"
+const SNORING_CAT_LOGO_PATH := \
+        "res://addons/scaffolder/assets/images/logos/snoring_cat_logo_about.png"
+const SNORING_CAT_SPLASH_PATH := \
+        "res://addons/scaffolder/assets/images/logos/snoring_cat_logo_splash.png"
+const GO_NORMAL_PATH := \
+        "res://addons/scaffolder/assets/images/gui/icons/go_normal.png"
 
 const ABOUT_CIRCLE_ACTIVE_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/about_circle_active.png"
@@ -28,9 +37,6 @@ const GEAR_CIRCLE_HOVER_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/gear_circle_hover.png"
 const GEAR_CIRCLE_NORMAL_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/gear_circle_normal.png"
-
-const GO_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/icons/go_normal.png"
 
 const HOME_NORMAL_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/home_normal.png"
@@ -126,6 +132,15 @@ const DEFAULT_SLIDER_TICK_PIXEL_SIZES := [1, 2, 4, 8, 16]
 
 # --- Static configuration state ---
 
+var app_logo: Texture
+var app_logo_scale: float
+
+var developer_logo: Texture
+var developer_splash: Texture
+
+var go_normal: Texture
+var go_scale := 1.0
+
 var about_circle_active: Texture
 var about_circle_hover: Texture
 var about_circle_normal: Texture
@@ -139,9 +154,6 @@ var close_normal: Texture
 var gear_circle_active: Texture
 var gear_circle_hover: Texture
 var gear_circle_normal: Texture
-
-var go_normal: Texture
-var go_scale := 1.0
 
 var home_normal: Texture
 
@@ -200,10 +212,33 @@ var current_slider_tick_size := default_slider_tick_size
 
 
 func _init() -> void:
-    Sc.logger.on_global_init(self, "ScaffolderIcons")
+    Sc.logger.on_global_init(self, "ScaffolderImages")
 
 
 func register_manifest(manifest: Dictionary) -> void:
+    if manifest.has("app_logo"):
+        self.app_logo = manifest.app_logo
+    else:
+        self.app_logo = load(SCAFFOLDER_LOGO_PATH)
+    if manifest.has("app_logo_scale"):
+        self.app_logo_scale = manifest.app_logo_scale
+    
+    if manifest.has("developer_logo"):
+        self.developer_logo = manifest.developer_logo
+    else:
+        self.developer_logo = load(SNORING_CAT_LOGO_PATH)
+    if manifest.has("developer_splash"):
+        self.developer_splash = manifest.developer_splash
+    else:
+        self.developer_splash = load(SNORING_CAT_SPLASH_PATH)
+    
+    if manifest.has("go_normal"):
+        self.go_normal = manifest.go_normal
+    else:
+        self.go_normal = load(GO_NORMAL_PATH)
+    if manifest.has("go_scale"):
+        self.go_scale = manifest.go_scale
+    
     if manifest.has("about_circle_active"):
         self.about_circle_active = manifest.about_circle_active
     else:
@@ -247,13 +282,6 @@ func register_manifest(manifest: Dictionary) -> void:
         self.gear_circle_normal = manifest.gear_circle_normal
     else:
         self.gear_circle_normal = load(GEAR_CIRCLE_NORMAL_PATH)
-    
-    if manifest.has("go_normal"):
-        self.go_normal = manifest.go_normal
-    else:
-        self.go_normal = load(GO_NORMAL_PATH)
-    if manifest.has("go_scale"):
-        self.go_scale = manifest.go_scale
     
     if manifest.has("home_normal"):
         self.home_normal = manifest.home_normal
@@ -368,30 +396,30 @@ func register_manifest(manifest: Dictionary) -> void:
 
 
 func _update_icon_sizes() -> void:
-    Sc.icons._update_checkbox_size()
-    Sc.icons._update_radio_button_size()
-    Sc.icons._update_tree_arrow_size()
-    Sc.icons._update_dropdown_arrow_size()
-    Sc.icons._update_slider_grabber_size()
-    Sc.icons._update_slider_tick_size()
+    Sc.images._update_checkbox_size()
+    Sc.images._update_radio_button_size()
+    Sc.images._update_tree_arrow_size()
+    Sc.images._update_dropdown_arrow_size()
+    Sc.images._update_slider_grabber_size()
+    Sc.images._update_slider_tick_size()
 
 
 func _update_checkbox_size() -> void:
     var target_icon_size: float = \
-            Sc.icons.default_checkbox_size * Sc.gui.scale
+            Sc.images.default_checkbox_size * Sc.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Sc.icons.checkbox_sizes:
+    for icon_size in Sc.images.checkbox_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Sc.icons.current_checkbox_size = closest_icon_size
+    Sc.images.current_checkbox_size = closest_icon_size
     
     var checked_icon_path: String = \
-            Sc.icons.checkbox_path_prefix + "checked_" + \
-            str(Sc.icons.current_checkbox_size) + ".png"
+            Sc.images.checkbox_path_prefix + "checked_" + \
+            str(Sc.images.current_checkbox_size) + ".png"
     var unchecked_icon_path: String = \
-            Sc.icons.checkbox_path_prefix + "unchecked_" + \
-            str(Sc.icons.current_checkbox_size) + ".png"
+            Sc.images.checkbox_path_prefix + "unchecked_" + \
+            str(Sc.images.current_checkbox_size) + ".png"
     
     var checked_icon := load(checked_icon_path)
     var unchecked_icon := load(unchecked_icon_path)
@@ -404,20 +432,20 @@ func _update_checkbox_size() -> void:
 
 func _update_radio_button_size() -> void:
     var target_icon_size: float = \
-            Sc.icons.default_radio_button_size * Sc.gui.scale
+            Sc.images.default_radio_button_size * Sc.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Sc.icons.radio_button_sizes:
+    for icon_size in Sc.images.radio_button_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Sc.icons.current_radio_button_size = closest_icon_size
+    Sc.images.current_radio_button_size = closest_icon_size
     
     var checked_icon_path: String = \
-            Sc.icons.radio_button_path_prefix + "checked_" + \
-            str(Sc.icons.current_radio_button_size) + ".png"
+            Sc.images.radio_button_path_prefix + "checked_" + \
+            str(Sc.images.current_radio_button_size) + ".png"
     var unchecked_icon_path: String = \
-            Sc.icons.radio_button_path_prefix + "unchecked_" + \
-            str(Sc.icons.current_radio_button_size) + ".png"
+            Sc.images.radio_button_path_prefix + "unchecked_" + \
+            str(Sc.images.current_radio_button_size) + ".png"
     
     var checked_icon := load(checked_icon_path)
     var unchecked_icon := load(unchecked_icon_path)
@@ -430,20 +458,20 @@ func _update_radio_button_size() -> void:
 
 func _update_tree_arrow_size() -> void:
     var target_icon_size: float = \
-            Sc.icons.default_tree_arrow_size * Sc.gui.scale
+            Sc.images.default_tree_arrow_size * Sc.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Sc.icons.tree_arrow_sizes:
+    for icon_size in Sc.images.tree_arrow_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Sc.icons.current_tree_arrow_size = closest_icon_size
+    Sc.images.current_tree_arrow_size = closest_icon_size
     
     var open_icon_path: String = \
-            Sc.icons.tree_arrow_path_prefix + "open_" + \
-            str(Sc.icons.current_tree_arrow_size) + ".png"
+            Sc.images.tree_arrow_path_prefix + "open_" + \
+            str(Sc.images.current_tree_arrow_size) + ".png"
     var closed_icon_path: String = \
-            Sc.icons.tree_arrow_path_prefix + "closed_" + \
-            str(Sc.icons.current_tree_arrow_size) + ".png"
+            Sc.images.tree_arrow_path_prefix + "closed_" + \
+            str(Sc.images.current_tree_arrow_size) + ".png"
     
     var open_icon := load(open_icon_path)
     var closed_icon := load(closed_icon_path)
@@ -451,22 +479,22 @@ func _update_tree_arrow_size() -> void:
     Sc.gui.theme.set_icon("arrow", "Tree", open_icon)
     Sc.gui.theme.set_icon("arrow_collapsed", "Tree", closed_icon)
     Sc.gui.theme.set_constant(
-            "item_margin", "Tree", Sc.icons.current_tree_arrow_size)
+            "item_margin", "Tree", Sc.images.current_tree_arrow_size)
 
 
 func _update_dropdown_arrow_size() -> void:
     var target_icon_size: float = \
-            Sc.icons.default_dropdown_arrow_size * Sc.gui.scale
+            Sc.images.default_dropdown_arrow_size * Sc.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Sc.icons.dropdown_arrow_sizes:
+    for icon_size in Sc.images.dropdown_arrow_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Sc.icons.current_dropdown_arrow_size = closest_icon_size
+    Sc.images.current_dropdown_arrow_size = closest_icon_size
     
     var path: String = \
-            Sc.icons.dropdown_arrow_path_prefix + \
-            str(Sc.icons.current_dropdown_arrow_size) + ".png"
+            Sc.images.dropdown_arrow_path_prefix + \
+            str(Sc.images.current_dropdown_arrow_size) + ".png"
     
     var icon := load(path)
     
@@ -474,22 +502,22 @@ func _update_dropdown_arrow_size() -> void:
     Sc.gui.theme.set_constant(
             "arrow_margin",
             "OptionButton",
-            Sc.icons.current_dropdown_arrow_size)
+            Sc.images.current_dropdown_arrow_size)
 
 
 func _update_slider_grabber_size() -> void:
     var target_icon_size: float = \
-            Sc.icons.default_slider_grabber_size * Sc.gui.scale
+            Sc.images.default_slider_grabber_size * Sc.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Sc.icons.slider_grabber_sizes:
+    for icon_size in Sc.images.slider_grabber_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Sc.icons.current_slider_grabber_size = closest_icon_size
+    Sc.images.current_slider_grabber_size = closest_icon_size
     
     var path: String = \
-            Sc.icons.slider_grabber_path_prefix + \
-            str(Sc.icons.current_slider_grabber_size) + ".png"
+            Sc.images.slider_grabber_path_prefix + \
+            str(Sc.images.current_slider_grabber_size) + ".png"
     
     var icon := load(path)
     
@@ -500,17 +528,17 @@ func _update_slider_grabber_size() -> void:
 
 func _update_slider_tick_size() -> void:
     var target_icon_size: float = \
-            Sc.icons.default_slider_tick_size * Sc.gui.scale
+            Sc.images.default_slider_tick_size * Sc.gui.scale
     var closest_icon_size: float = INF
-    for icon_size in Sc.icons.slider_tick_sizes:
+    for icon_size in Sc.images.slider_tick_sizes:
         if abs(target_icon_size - icon_size) < \
                 abs(target_icon_size - closest_icon_size):
             closest_icon_size = icon_size
-    Sc.icons.current_slider_tick_size = closest_icon_size
+    Sc.images.current_slider_tick_size = closest_icon_size
     
     var path: String = \
-            Sc.icons.slider_tick_path_prefix + \
-            str(Sc.icons.current_slider_tick_size) + ".png"
+            Sc.images.slider_tick_path_prefix + \
+            str(Sc.images.current_slider_tick_size) + ".png"
     
     var icon := load(path)
     

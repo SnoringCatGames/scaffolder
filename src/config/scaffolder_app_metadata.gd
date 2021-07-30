@@ -35,13 +35,8 @@ var uses_level_scores: bool
 
 var must_restart_level_to_change_settings: bool
 
-var app_logo: Texture
-var app_logo_scale: float
 var developer_name: String
 var developer_url: String
-
-var developer_logo: Texture
-var developer_splash: Texture
 
 var godot_splash_screen_duration := 0.8
 var developer_splash_screen_duration := 1.0
@@ -120,14 +115,8 @@ func register_manifest(manifest: Dictionary) -> void:
     self.app_version = manifest.app_version
     self.score_version = manifest.score_version
     
-    self.app_logo = manifest.app_logo
-    self.app_logo_scale = manifest.app_logo_scale
     self.developer_name = manifest.developer_name
     self.developer_url = manifest.developer_url
-    if manifest.has("developer_logo"):
-        self.developer_logo = manifest.developer_logo
-    if manifest.has("developer_splash"):
-        self.developer_splash = manifest.developer_splash
     if manifest.has("godot_splash_screen_duration"):
         self.godot_splash_screen_duration = \
                 manifest.godot_splash_screen_duration

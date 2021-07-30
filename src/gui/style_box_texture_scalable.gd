@@ -48,7 +48,8 @@ func ready() -> void:
     initial_margin_right = margin_right
     initial_margin_bottom = margin_bottom
     
-    Sc.gui.add_gui_to_scale(self)
+    if !Engine.editor_hint:
+        Sc.gui.add_gui_to_scale(self)
 
 
 func _destroy() -> void:

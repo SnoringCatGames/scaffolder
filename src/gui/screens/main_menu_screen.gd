@@ -16,9 +16,9 @@ func _ready() -> void:
                 true,
                 true)
         projected_image.original_scale = Sc.gui.main_menu_image_scale
-    $VBoxContainer/StartGameButton.texture = Sc.icons.go_normal
+    $VBoxContainer/StartGameButton.texture = Sc.images.go_normal
     $VBoxContainer/StartGameButton.texture_scale = \
-            Vector2(Sc.icons.go_scale, Sc.icons.go_scale) * \
+            Vector2(Sc.images.go_scale, Sc.images.go_scale) * \
             go_scale_multiplier
     
     _on_resized()

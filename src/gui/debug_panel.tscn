@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://src/config/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://addons/scaffolder/src/config/scaffolder_default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/debug_panel.gd" type="Script" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=4]
@@ -64,7 +64,7 @@ App version: 0.0.1
 > Audio._init
 > ScaffolderColors._init
 > ScaffolderStyles._init
-> ScaffolderIcons._init
+> ScaffolderImages._init
 > ScaffolderGuiConfig._init
 > JsonUtils._init
 > SaveState._init
