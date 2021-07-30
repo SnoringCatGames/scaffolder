@@ -43,8 +43,8 @@ func _update() -> void:
         var texture_pressed: Texture
         var texture_hover: Texture
         
-        if is_instance_valid(Sc.images.get(texture_key + "_active")):
-            texture_pressed = Sc.images.get(texture_key + "_active")
+        if is_instance_valid(Sc.images.get(texture_key + "_pressed")):
+            texture_pressed = Sc.images.get(texture_key + "_pressed")
         else:
             texture_pressed = texture_normal
         

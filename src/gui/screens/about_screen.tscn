@@ -15,7 +15,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_body.tscn" type="PackedScene" id=14]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_header.tscn" type="PackedScene" id=15]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/nine_patch/focus_border.png" type="Texture" id=16]
-[ext_resource path="res://assets/images/nine_patch/dropdown_active.png" type="Texture" id=17]
+[ext_resource path="res://assets/images/nine_patch/dropdown_pressed.png" type="Texture" id=17]
 [ext_resource path="res://assets/images/nine_patch/dropdown_hover.png" type="Texture" id=18]
 [ext_resource path="res://assets/images/nine_patch/dropdown_normal.png" type="Texture" id=19]
 
