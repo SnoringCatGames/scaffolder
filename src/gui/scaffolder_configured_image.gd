@@ -5,6 +5,7 @@ extends Control
 
 
 export var original_scale := 1.0 setget _set_original_scale
+export var original_offset := Vector2.ZERO setget _set_original_offset
 
 var _is_ready := false
 
@@ -38,13 +39,21 @@ func _update() -> void:
     Sc.gui.scale_gui_recursively(child)
     
     var scale: Vector2 = Vector2.ONE * original_scale
+    var offset: Vector2 = original_offset * Sc.gui.scale * original_scale
+    
     child.rect_scale = scale
+    child.rect_position = offset
     rect_min_size = child.rect_size * scale
     rect_size = child.rect_size * scale
 
 
 func _set_original_scale(value: float) -> void:
     original_scale = value
+    _update()
+
+
+func _set_original_offset(value: Vector2) -> void:
+    original_offset = value
     _update()
 
 
