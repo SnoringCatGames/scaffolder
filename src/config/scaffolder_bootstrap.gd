@@ -253,7 +253,7 @@ func _on_throttled_size_changed() -> void:
 func _on_gui_scale_changed(is_first_call := true) -> void:
     Sc.gui._update_game_area_region_and_gui_scale()
     Sc.gui._update_font_sizes()
-    Sc.icons._update_icon_sizes()
+    Sc.images._update_icon_sizes()
     Sc.gui._scale_guis()
     
     Sc.device.emit_signal("display_resized")

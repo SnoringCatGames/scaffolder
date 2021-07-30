@@ -410,9 +410,9 @@ func register_manifest(manifest: Dictionary) -> void:
     self.is_support_shown = \
             !Sc.metadata.support_url.empty() and \
             !Sc.metadata.app_id_query_param.empty()
-    self.is_developer_logo_shown = Sc.metadata.developer_logo != null
+    self.is_developer_logo_shown = Sc.images.developer_logo != null
     self.is_developer_splash_shown = \
-            Sc.metadata.developer_splash != null and \
+            Sc.images.developer_splash != null and \
             Sc.audio_manifest.developer_splash_sound != ""
     self.is_main_menu_image_shown = self.main_menu_image_scene != null
     self.is_game_over_image_shown = self.game_over_image_scene != null

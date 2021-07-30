@@ -16,7 +16,7 @@ var audio_manifest: ScaffolderAudioManifest
 var audio: Audio
 var colors: ScaffolderColors
 var styles: ScaffolderStyles
-var icons: ScaffolderIcons
+var images: ScaffolderImages
 var gui: ScaffolderGuiConfig
 var json: JsonUtils
 var save_state: SaveState
@@ -86,7 +86,7 @@ func _amend_app_manifest(manifest: Dictionary) -> void:
 func _register_app_manifest(manifest: Dictionary) -> void:
     self._manifest = manifest
     
-    assert((_manifest.metadata.developer_splash == null) == \
+    assert((_manifest.images_manifest.developer_splash == null) == \
             _manifest.audio_manifest.developer_splash_sound.empty())
 
 
@@ -140,12 +140,12 @@ func _set_up() -> void:
         self.styles = ScaffolderStyles.new()
     add_child(self.styles)
     
-    if _manifest.has("icons_class"):
-        self.icons = _manifest.icons_class.new()
-        assert(self.icons is ScaffolderIcons)
+    if _manifest.has("images_class"):
+        self.images = _manifest.images_class.new()
+        assert(self.images is ScaffolderImages)
     else:
-        self.icons = ScaffolderIcons.new()
-    add_child(self.icons)
+        self.images = ScaffolderImages.new()
+    add_child(self.images)
     
     if _manifest.has("gui_class"):
         self.gui = _manifest.gui_class.new()
@@ -266,7 +266,7 @@ func _set_up() -> void:
     self.audio_manifest.register_manifest(_manifest.audio_manifest)
     self.colors.register_manifest(_manifest.colors_manifest)
     self.styles.register_manifest(_manifest.styles_manifest)
-    self.icons.register_manifest(_manifest.icons_manifest)
+    self.images.register_manifest(_manifest.images_manifest)
     self.gui.register_manifest(_manifest.gui_manifest)
     self.slow_motion.register_manifest(_manifest.slow_motion_manifest)
     

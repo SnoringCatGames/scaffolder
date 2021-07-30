@@ -46,42 +46,42 @@ func _ready() -> void:
             .add_color_override("font_color", Sc.colors.header)
     
     $MarginContainer/TopRow/Logo \
-            .texture = Sc.metadata.app_logo
+            .texture = Sc.images.app_logo
     $MarginContainer/TopRow/Logo \
             .texture_scale = Vector2(
-                    Sc.metadata.app_logo_scale,
-                    Sc.metadata.app_logo_scale)
+                    Sc.images.app_logo_scale,
+                    Sc.images.app_logo_scale)
     $MarginContainer/VBoxContainer/BottomRow/Logo \
-            .texture = Sc.metadata.app_logo
+            .texture = Sc.images.app_logo
     $MarginContainer/VBoxContainer/BottomRow/Logo \
             .texture_scale = Vector2(
-                    Sc.metadata.app_logo_scale,
-                    Sc.metadata.app_logo_scale)
+                    Sc.images.app_logo_scale,
+                    Sc.images.app_logo_scale)
     
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
-            .texture_pressed = Sc.icons.left_caret_active
+            .texture_pressed = Sc.images.left_caret_active
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
-            .texture_hover = Sc.icons.left_caret_hover
+            .texture_hover = Sc.images.left_caret_hover
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
-            .texture_normal = Sc.icons.left_caret_normal
+            .texture_normal = Sc.images.left_caret_normal
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
             .texture_scale = Vector2(8.0, 8.0)
     
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
-            .texture_pressed = Sc.icons.about_circle_active
+            .texture_pressed = Sc.images.about_circle_active
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
-            .texture_hover = Sc.icons.about_circle_hover
+            .texture_hover = Sc.images.about_circle_hover
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
-            .texture_normal = Sc.icons.about_circle_normal
+            .texture_normal = Sc.images.about_circle_normal
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
             .texture_scale = Vector2(4.0, 4.0)
     
     $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
-            .texture_pressed = Sc.icons.gear_circle_active
+            .texture_pressed = Sc.images.gear_circle_active
     $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
-            .texture_hover = Sc.icons.gear_circle_hover
+            .texture_hover = Sc.images.gear_circle_hover
     $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
-            .texture_normal = Sc.icons.gear_circle_normal
+            .texture_normal = Sc.images.gear_circle_normal
     $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
             .texture_scale = Vector2(4.0, 4.0)
     
@@ -121,8 +121,8 @@ func _update_visibility_after_setting_text() -> void:
     var min_width_for_single_row: float
     if shows_logo:
         min_width_for_single_row = \
-                (Sc.metadata.app_logo.get_size().x * \
-                        Sc.metadata.app_logo_scale + \
+                (Sc.images.app_logo.get_size().x * \
+                        Sc.images.app_logo_scale + \
                 HEIGHT * 2) * Sc.gui.scale - \
                 SINGLE_ROW_WITH_LOGO_MIN_WIDTH_WIGGLE_ROOM * Sc.gui.scale
     else:

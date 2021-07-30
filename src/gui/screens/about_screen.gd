@@ -18,13 +18,13 @@ func _ready() -> void:
     var privacy_policy_link := $VBoxContainer/VBoxContainer2/PrivacyPolicyLink
     var support_link := $VBoxContainer/VBoxContainer2/SupportLink
     
-    title_logo.texture = Sc.metadata.app_logo
+    title_logo.texture = Sc.images.app_logo
     title_logo.texture_scale = Vector2(
-            Sc.metadata.app_logo_scale,
-            Sc.metadata.app_logo_scale)
+            Sc.images.app_logo_scale,
+            Sc.images.app_logo_scale)
     
     developer_logo_link.visible = Sc.gui.is_developer_logo_shown
-    developer_logo_link.texture = Sc.metadata.developer_logo
+    developer_logo_link.texture = Sc.images.developer_logo
     developer_logo_link.url = Sc.metadata.developer_url
     developer_name_link.text = "Created by " + Sc.metadata.developer_name
     developer_name_link.url = Sc.metadata.developer_url

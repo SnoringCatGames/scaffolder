@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/nav_bar.gd" type="Script" id=1]
-[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_xl.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/scaffolder/assets/fonts/nunito_font_xl.tres" type="DynamicFont" id=2]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/icons/about_circle_hover.png" type="Texture" id=3]
 [ext_resource path="res://assets/images/logo.png" type="Texture" id=4]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/icons/left_caret_active.png" type="Texture" id=5]
@@ -16,7 +16,6 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=14]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=15]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/icons/about_circle_active.png" type="Texture" id=16]
-
 
 [node name="NavBar" type="PanelContainer"]
 size_flags_horizontal = 3
@@ -54,9 +53,9 @@ size_flags_vertical = 3
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 160.0
-margin_top = 49.0
+margin_top = 47.0
 margin_right = 160.0
-margin_bottom = 111.0
+margin_bottom = 113.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 0.945098, 0.180392, 1 )
 font_size = "Xl"
@@ -177,7 +176,7 @@ size_flags_vertical = 3
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 0.0
-margin_bottom = 62.0
+margin_bottom = 66.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 0.945098, 0.180392, 1 )
 font_size = "Xl"
@@ -186,9 +185,9 @@ is_header = true
 [node name="Logo" parent="MarginContainer/VBoxContainer/BottomRow" instance=ExtResource( 14 )]
 visible = false
 margin_left = -157.0
-margin_top = 12.0
+margin_top = 14.0
 margin_right = 157.0
-margin_bottom = 49.0
+margin_bottom = 51.0
 rect_min_size = Vector2( 314, 37 )
 texture = ExtResource( 4 )
 

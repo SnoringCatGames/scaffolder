@@ -39,7 +39,9 @@ func ready() -> void:
     initial_corner_radius = corner_radius_top_left
     initial_shadow_offset = shadow_offset
     initial_shadow_size = shadow_size
-    Sc.gui.add_gui_to_scale(self)
+    
+    if !Engine.editor_hint:
+        Sc.gui.add_gui_to_scale(self)
 
 
 func _destroy() -> void:

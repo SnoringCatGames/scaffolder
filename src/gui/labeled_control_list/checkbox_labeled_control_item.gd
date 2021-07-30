@@ -50,7 +50,7 @@ func create_control() -> Control:
     checkbox.modulate.a = _get_alpha()
     checkbox.size_flags_horizontal = 0
     checkbox.size_flags_vertical = 0
-    checkbox.size_override = Vector2.ONE * Sc.icons.default_checkbox_size
+    checkbox.size_override = Vector2.ONE * Sc.images.default_checkbox_size
     checkbox.connect(
             "pressed",
             self,

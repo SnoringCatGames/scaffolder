@@ -5,15 +5,15 @@ extends Screen
 
 func _ready() -> void:
     $VBoxContainer/VBoxContainer/ResumeButton \
-            .texture = Sc.icons.play_normal
+            .texture = Sc.images.play_normal
     $VBoxContainer/VBoxContainer/ResumeButton \
             .texture_scale = Vector2(2.0, 2.0)
     $VBoxContainer/VBoxContainer/HBoxContainer/ExitLevelButton \
-            .texture = Sc.icons.stop_normal
+            .texture = Sc.images.stop_normal
     $VBoxContainer/VBoxContainer/HBoxContainer/ExitLevelButton \
             .texture_scale = Vector2(2.0, 2.0)
     $VBoxContainer/VBoxContainer/HBoxContainer/RestartButton \
-            .texture = Sc.icons.retry_normal
+            .texture = Sc.images.retry_normal
     $VBoxContainer/VBoxContainer/HBoxContainer/RestartButton \
             .texture_scale = Vector2(2.0, 2.0)
 
