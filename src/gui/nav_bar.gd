@@ -59,7 +59,7 @@ func _ready() -> void:
                     Sc.images.app_logo_scale)
     
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
-            .texture_pressed = Sc.images.left_caret_active
+            .texture_pressed = Sc.images.left_caret_pressed
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
             .texture_hover = Sc.images.left_caret_hover
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
@@ -68,7 +68,7 @@ func _ready() -> void:
             .texture_scale = Vector2(8.0, 8.0)
     
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
-            .texture_pressed = Sc.images.about_circle_active
+            .texture_pressed = Sc.images.about_circle_pressed
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
             .texture_hover = Sc.images.about_circle_hover
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
@@ -77,7 +77,7 @@ func _ready() -> void:
             .texture_scale = Vector2(4.0, 4.0)
     
     $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
-            .texture_pressed = Sc.images.gear_circle_active
+            .texture_pressed = Sc.images.gear_circle_pressed
     $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
             .texture_hover = Sc.images.gear_circle_hover
     $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \

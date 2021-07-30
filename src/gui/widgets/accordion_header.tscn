@@ -7,7 +7,7 @@
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres" type="DynamicFont" id=5]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/nine_patch/focus_border.png" type="Texture" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/style_box_texture_scalable.gd" type="Script" id=7]
-[ext_resource path="res://assets/images/nine_patch/dropdown_active.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/nine_patch/dropdown_pressed.png" type="Texture" id=8]
 [ext_resource path="res://assets/images/nine_patch/dropdown_normal.png" type="Texture" id=9]
 [ext_resource path="res://assets/images/nine_patch/dropdown_hover.png" type="Texture" id=10]
 

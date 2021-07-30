@@ -21,8 +21,8 @@ const GODOT_LOGO_PATH := \
 const GODOT_SPLASH_PATH := \
         "res://addons/scaffolder/assets/images/logos/godot_logo_splash.png"
 
-const ABOUT_CIRCLE_ACTIVE_PATH := \
-        "res://addons/scaffolder/assets/images/gui/icons/about_circle_active.png"
+const ABOUT_CIRCLE_PRESSED_PATH := \
+        "res://addons/scaffolder/assets/images/gui/icons/about_circle_pressed.png"
 const ABOUT_CIRCLE_HOVER_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/about_circle_hover.png"
 const ABOUT_CIRCLE_NORMAL_PATH := \
@@ -31,15 +31,15 @@ const ABOUT_CIRCLE_NORMAL_PATH := \
 const ALERT_NORMAL_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/alert_normal.png"
 
-const CLOSE_ACTIVE_PATH := \
-        "res://addons/scaffolder/assets/images/gui/icons/close_active.png"
+const CLOSE_PRESSED_PATH := \
+        "res://addons/scaffolder/assets/images/gui/icons/close_pressed.png"
 const CLOSE_HOVER_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/close_hover.png"
 const CLOSE_NORMAL_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/close_normal.png"
 
-const GEAR_CIRCLE_ACTIVE_PATH := \
-        "res://addons/scaffolder/assets/images/gui/icons/gear_circle_active.png"
+const GEAR_CIRCLE_PRESSED_PATH := \
+        "res://addons/scaffolder/assets/images/gui/icons/gear_circle_pressed.png"
 const GEAR_CIRCLE_HOVER_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/gear_circle_hover.png"
 const GEAR_CIRCLE_NORMAL_PATH := \
@@ -48,15 +48,15 @@ const GEAR_CIRCLE_NORMAL_PATH := \
 const HOME_NORMAL_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/home_normal.png"
 
-const LEFT_CARET_ACTIVE_PATH := \
-        "res://addons/scaffolder/assets/images/gui/icons/left_caret_active.png"
+const LEFT_CARET_PRESSED_PATH := \
+        "res://addons/scaffolder/assets/images/gui/icons/left_caret_pressed.png"
 const LEFT_CARET_HOVER_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/left_caret_hover.png"
 const LEFT_CARET_NORMAL_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/left_caret_normal.png"
 
-const PAUSE_CIRCLE_ACTIVE_PATH := \
-        "res://addons/scaffolder/assets/images/gui/icons/pause_circle_active.png"
+const PAUSE_CIRCLE_PRESSED_PATH := \
+        "res://addons/scaffolder/assets/images/gui/icons/pause_circle_pressed.png"
 const PAUSE_CIRCLE_HOVER_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/pause_circle_hover.png"
 const PAUSE_CIRCLE_NORMAL_PATH := \
@@ -151,27 +151,27 @@ var godot_splash := preload(GODOT_SPLASH_PATH)
 var go_normal: Texture
 var go_scale := 1.0
 
-var about_circle_active: Texture
+var about_circle_pressed: Texture
 var about_circle_hover: Texture
 var about_circle_normal: Texture
 
 var alert_normal: Texture
 
-var close_active: Texture
+var close_pressed: Texture
 var close_hover: Texture
 var close_normal: Texture
 
-var gear_circle_active: Texture
+var gear_circle_pressed: Texture
 var gear_circle_hover: Texture
 var gear_circle_normal: Texture
 
 var home_normal: Texture
 
-var left_caret_active: Texture
+var left_caret_pressed: Texture
 var left_caret_hover: Texture
 var left_caret_normal: Texture
 
-var pause_circle_active: Texture
+var pause_circle_pressed: Texture
 var pause_circle_hover: Texture
 var pause_circle_normal: Texture
 
@@ -249,10 +249,10 @@ func register_manifest(manifest: Dictionary) -> void:
     if manifest.has("go_scale"):
         self.go_scale = manifest.go_scale
     
-    if manifest.has("about_circle_active"):
-        self.about_circle_active = manifest.about_circle_active
+    if manifest.has("about_circle_pressed"):
+        self.about_circle_pressed = manifest.about_circle_pressed
     else:
-        self.about_circle_active = load(ABOUT_CIRCLE_ACTIVE_PATH)
+        self.about_circle_pressed = load(ABOUT_CIRCLE_PRESSED_PATH)
     if manifest.has("about_circle_hover"):
         self.about_circle_hover = manifest.about_circle_hover
     else:
@@ -267,10 +267,10 @@ func register_manifest(manifest: Dictionary) -> void:
     else:
         self.alert_normal = load(ALERT_NORMAL_PATH)
     
-    if manifest.has("close_active"):
-        self.close_active = manifest.close_active
+    if manifest.has("close_pressed"):
+        self.close_pressed = manifest.close_pressed
     else:
-        self.close_active = load(CLOSE_ACTIVE_PATH)
+        self.close_pressed = load(CLOSE_PRESSED_PATH)
     if manifest.has("close_hover"):
         self.close_hover = manifest.close_hover
     else:
@@ -280,10 +280,10 @@ func register_manifest(manifest: Dictionary) -> void:
     else:
         self.close_normal = load(CLOSE_NORMAL_PATH)
     
-    if manifest.has("gear_circle_active"):
-        self.gear_circle_active = manifest.gear_circle_active
+    if manifest.has("gear_circle_pressed"):
+        self.gear_circle_pressed = manifest.gear_circle_pressed
     else:
-        self.gear_circle_active = load(GEAR_CIRCLE_ACTIVE_PATH)
+        self.gear_circle_pressed = load(GEAR_CIRCLE_PRESSED_PATH)
     if manifest.has("gear_circle_hover"):
         self.gear_circle_hover = manifest.gear_circle_hover
     else:
@@ -298,10 +298,10 @@ func register_manifest(manifest: Dictionary) -> void:
     else:
         self.home_normal = load(HOME_NORMAL_PATH)
     
-    if manifest.has("left_caret_active"):
-        self.left_caret_active = manifest.left_caret_active
+    if manifest.has("left_caret_pressed"):
+        self.left_caret_pressed = manifest.left_caret_pressed
     else:
-        self.left_caret_active = load(LEFT_CARET_ACTIVE_PATH)
+        self.left_caret_pressed = load(LEFT_CARET_PRESSED_PATH)
     if manifest.has("left_caret_hover"):
         self.left_caret_hover = manifest.left_caret_hover
     else:
@@ -311,10 +311,10 @@ func register_manifest(manifest: Dictionary) -> void:
     else:
         self.left_caret_normal = load(LEFT_CARET_NORMAL_PATH)
     
-    if manifest.has("pause_circle_active"):
-        self.pause_circle_active = manifest.pause_circle_active
+    if manifest.has("pause_circle_pressed"):
+        self.pause_circle_pressed = manifest.pause_circle_pressed
     else:
-        self.pause_circle_active = load(PAUSE_CIRCLE_ACTIVE_PATH)
+        self.pause_circle_pressed = load(PAUSE_CIRCLE_PRESSED_PATH)
     if manifest.has("pause_circle_hover"):
         self.pause_circle_hover = manifest.pause_circle_hover
     else:

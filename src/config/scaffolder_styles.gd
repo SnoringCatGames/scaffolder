@@ -40,7 +40,7 @@ var button_corner_detail: int
 var button_shadow_size: int
 var button_border_width: int
 
-var button_active_nine_patch: Texture
+var button_pressed_nine_patch: Texture
 var button_disabled_nine_patch: Texture
 var button_hover_nine_patch: Texture
 var button_normal_nine_patch: Texture
@@ -55,7 +55,7 @@ var dropdown_corner_detail: int
 var dropdown_shadow_size: int
 var dropdown_border_width: int
 
-var dropdown_active_nine_patch: Texture
+var dropdown_pressed_nine_patch: Texture
 var dropdown_disabled_nine_patch: Texture
 var dropdown_hover_nine_patch: Texture
 var dropdown_normal_nine_patch: Texture
@@ -83,7 +83,7 @@ var scroll_track_nine_patch_margin_top: float
 var scroll_track_nine_patch_margin_right: float
 var scroll_track_nine_patch_margin_bottom: float
 
-var scroll_grabber_active_nine_patch: Texture
+var scroll_grabber_pressed_nine_patch: Texture
 var scroll_grabber_hover_nine_patch: Texture
 var scroll_grabber_normal_nine_patch: Texture
 var scroll_grabber_nine_patch_scale: float
@@ -203,7 +203,7 @@ func register_manifest(manifest: Dictionary) -> void:
         self.button_shine_margin_bottom = manifest.button_shine_margin_bottom
     
     if manifest.has("button_normal_nine_patch"):
-        self.button_active_nine_patch = manifest.button_active_nine_patch
+        self.button_pressed_nine_patch = manifest.button_pressed_nine_patch
         self.button_disabled_nine_patch = manifest.button_disabled_nine_patch
         self.button_hover_nine_patch = manifest.button_hover_nine_patch
         self.button_normal_nine_patch = manifest.button_normal_nine_patch
@@ -223,7 +223,7 @@ func register_manifest(manifest: Dictionary) -> void:
         self.button_border_width = manifest.button_border_width
     
     if manifest.has("dropdown_normal_nine_patch"):
-        self.dropdown_active_nine_patch = manifest.dropdown_active_nine_patch
+        self.dropdown_pressed_nine_patch = manifest.dropdown_pressed_nine_patch
         self.dropdown_disabled_nine_patch = \
                 manifest.dropdown_disabled_nine_patch
         self.dropdown_hover_nine_patch = manifest.dropdown_hover_nine_patch
@@ -257,8 +257,8 @@ func register_manifest(manifest: Dictionary) -> void:
         self.scroll_track_nine_patch_margin_bottom = \
                 manifest.scroll_track_nine_patch_margin_bottom
         
-        self.scroll_grabber_active_nine_patch = \
-                manifest.scroll_grabber_active_nine_patch
+        self.scroll_grabber_pressed_nine_patch = \
+                manifest.scroll_grabber_pressed_nine_patch
         self.scroll_grabber_hover_nine_patch = \
                 manifest.scroll_grabber_hover_nine_patch
         self.scroll_grabber_normal_nine_patch = \
@@ -404,7 +404,7 @@ func _validate_manifest(manifest: Dictionary) -> void:
             manifest.has("focus_border_expand_margin_right") and \
             manifest.has("focus_border_expand_margin_bottom"))
     
-    assert((manifest.has("button_active_nine_patch") and \
+    assert((manifest.has("button_pressed_nine_patch") and \
             manifest.has("button_disabled_nine_patch") and \
             manifest.has("button_hover_nine_patch") and \
             manifest.has("button_normal_nine_patch") and \
@@ -418,7 +418,7 @@ func _validate_manifest(manifest: Dictionary) -> void:
             manifest.has("button_shadow_size") and \
             manifest.has("button_border_width")))
     
-    assert((manifest.has("dropdown_active_nine_patch") and \
+    assert((manifest.has("dropdown_pressed_nine_patch") and \
             manifest.has("dropdown_disabled_nine_patch") and \
             manifest.has("dropdown_hover_nine_patch") and \
             manifest.has("dropdown_normal_nine_patch") and \
@@ -438,7 +438,7 @@ func _validate_manifest(manifest: Dictionary) -> void:
             manifest.has("scroll_track_nine_patch_margin_top") and \
             manifest.has("scroll_track_nine_patch_margin_right") and \
             manifest.has("scroll_track_nine_patch_margin_bottom") and \
-            manifest.has("scroll_grabber_active_nine_patch") and \
+            manifest.has("scroll_grabber_pressed_nine_patch") and \
             manifest.has("scroll_grabber_hover_nine_patch") and \
             manifest.has("scroll_grabber_normal_nine_patch") and \
             manifest.has("scroll_grabber_nine_patch_scale") and \
@@ -673,7 +673,7 @@ func configure_theme() -> void:
                 })
         _configure_theme_stylebox(
                 "pressed", "Button", {
-                    texture = Sc.styles.button_active_nine_patch,
+                    texture = Sc.styles.button_pressed_nine_patch,
                     texture_scale = Sc.styles.button_nine_patch_scale,
                     margin_left = Sc.styles.button_nine_patch_margin_left,
                     margin_top = Sc.styles.button_nine_patch_margin_top,
@@ -823,7 +823,7 @@ func configure_theme() -> void:
                 })
         _configure_theme_stylebox(
                 "pressed", "OptionButton", {
-                    texture = Sc.styles.dropdown_active_nine_patch,
+                    texture = Sc.styles.dropdown_pressed_nine_patch,
                     texture_scale = Sc.styles.dropdown_nine_patch_scale,
                     margin_left = Sc.styles.dropdown_nine_patch_margin_left,
                     margin_top = Sc.styles.dropdown_nine_patch_margin_top,
@@ -940,7 +940,7 @@ func configure_theme() -> void:
                 })
         _configure_theme_stylebox(
                 "grabber_pressed", "HScrollBar", {
-                    texture = Sc.styles.scroll_grabber_active_nine_patch,
+                    texture = Sc.styles.scroll_grabber_pressed_nine_patch,
                     texture_scale = Sc.styles.scroll_grabber_nine_patch_scale,
                     margin_left = Sc.styles.scroll_grabber_nine_patch_margin_left,
                     margin_top = Sc.styles.scroll_grabber_nine_patch_margin_top,
@@ -977,7 +977,7 @@ func configure_theme() -> void:
                 })
         _configure_theme_stylebox(
                 "grabber_pressed", "VScrollBar", {
-                    texture = Sc.styles.scroll_grabber_active_nine_patch,
+                    texture = Sc.styles.scroll_grabber_pressed_nine_patch,
                     texture_scale = Sc.styles.scroll_grabber_nine_patch_scale,
                     margin_left = Sc.styles.scroll_grabber_nine_patch_margin_left,
                     margin_top = Sc.styles.scroll_grabber_nine_patch_margin_top,
