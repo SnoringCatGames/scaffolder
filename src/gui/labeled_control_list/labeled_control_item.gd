@@ -93,9 +93,7 @@ func create_row(
             includes_description:
         description_button = Sc.utils.add_scene(
                 null, Sc.gui.SCAFFOLDER_TEXTURE_BUTTON_SCENE, false, true)
-        description_button.texture_normal = Sc.images.about_circle_normal
-        description_button.texture_hover = Sc.images.about_circle_hover
-        description_button.texture_pressed = Sc.images.about_circle_active
+        description_button.texture_key = "about_circle"
         description_button.texture_scale = Vector2(2.0, 2.0)
         description_button.size_override = \
                 Sc.images.about_circle_normal.get_size() * \

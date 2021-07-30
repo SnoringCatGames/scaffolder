@@ -3,7 +3,7 @@ class_name SplashScreen
 extends Screen
 
 
-export var texture: Texture
+export var texture_key: String setget _set_texture_key
 
 var _is_ready := false
 var _scaffolder_texture_rect: ScaffolderTextureRect
@@ -25,6 +25,7 @@ func _update() -> void:
     if !_is_ready:
         return
     
+    var texture: Texture = Sc.images.get(texture_key)
     var scale: Vector2 = \
             Sc.device.get_viewport_size() / texture.get_size() / Sc.gui.scale
     if scale.x > scale.y:
@@ -36,6 +37,7 @@ func _update() -> void:
     _scaffolder_texture_rect.texture_scale = scale * Sc.gui.splash_scale
 
 
-func _set_texture(value: Texture) -> void:
-    texture = value
+func _set_texture_key(value: String) -> void:
+    texture_key = value
+    assert(Sc.images.get(texture_key) is Texture)
     _update()

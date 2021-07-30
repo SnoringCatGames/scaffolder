@@ -4,10 +4,9 @@ class_name ScaffolderTextureLink, \
 extends LinkButton
 
 
-export var texture: Texture setget \
-        _set_texture,_get_texture
-export var texture_scale := Vector2.ONE setget \
-        _set_texture_scale,_get_texture_scale
+export var texture: Texture setget _set_texture
+export var texture_key: String setget _set_texture_key
+export var texture_scale := Vector2.ONE setget _set_texture_scale
 export var url: String
 
 var _is_ready := false
@@ -33,21 +32,21 @@ func _update_size() -> void:
 
 
 func _set_texture(value: Texture) -> void:
+    texture = value
     $ScaffolderTextureRect.texture = value
     _update_size()
 
 
-func _get_texture() -> Texture:
-    return $ScaffolderTextureRect.texture
-
-
-func _set_texture_scale(value: Vector2) -> void:
-    $ScaffolderTextureRect.texture_scale = value
+func _set_texture_key(value: String) -> void:
+    texture_key = value
+    $ScaffolderTextureRect.texture_key = value
     _update_size()
 
 
-func _get_texture_scale() -> Vector2:
-    return $ScaffolderTextureRect.texture_scale
+func _set_texture_scale(value: Vector2) -> void:
+    texture_scale = value
+    $ScaffolderTextureRect.texture_scale = value
+    _update_size()
 
 
 func _on_ScaffolderTextureLink_pressed() -> void:
