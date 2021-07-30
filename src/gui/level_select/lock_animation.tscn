@@ -71,7 +71,6 @@ __meta__ = {
 position = Vector2( 16, 16 )
 
 [node name="Lock" type="Sprite" parent="Control/Node2D"]
-texture = ExtResource( 1 )
 hframes = 7
 frame = 6
 

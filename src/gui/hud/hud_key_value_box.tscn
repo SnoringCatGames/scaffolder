@@ -20,7 +20,6 @@ image = SubResource( 1 )
 size = Vector2( 21, 21 )
 
 [sub_resource type="StyleBoxTexture" id=3]
-texture = SubResource( 2 )
 region_rect = Rect2( 0, 0, 21, 21 )
 margin_left = 10.5
 margin_right = 10.5
