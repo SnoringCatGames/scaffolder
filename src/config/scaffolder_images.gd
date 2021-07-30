@@ -7,12 +7,19 @@ extends Node
 
 const SCAFFOLDER_LOGO_PATH := \
         "res://addons/scaffolder/assets/images/logos/scaffolder_logo.png"
+
+const GO_NORMAL_PATH := \
+        "res://addons/scaffolder/assets/images/gui/icons/go_normal.png"
+
 const SNORING_CAT_LOGO_PATH := \
         "res://addons/scaffolder/assets/images/logos/snoring_cat_logo_about.png"
 const SNORING_CAT_SPLASH_PATH := \
         "res://addons/scaffolder/assets/images/logos/snoring_cat_logo_splash.png"
-const GO_NORMAL_PATH := \
-        "res://addons/scaffolder/assets/images/gui/icons/go_normal.png"
+
+const GODOT_LOGO_PATH := \
+        "res://addons/scaffolder/assets/images/logos/godot_logo_about.png"
+const GODOT_SPLASH_PATH := \
+        "res://addons/scaffolder/assets/images/logos/godot_logo_splash.png"
 
 const ABOUT_CIRCLE_ACTIVE_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/about_circle_active.png"
@@ -137,6 +144,9 @@ var app_logo_scale: float
 
 var developer_logo: Texture
 var developer_splash: Texture
+
+var godot_logo := preload(GODOT_LOGO_PATH)
+var godot_splash := preload(GODOT_SPLASH_PATH)
 
 var go_normal: Texture
 var go_scale := 1.0

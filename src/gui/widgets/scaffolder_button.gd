@@ -13,6 +13,7 @@ const MIN_PADDING := 8.0
 
 export(String, MULTILINE) var label: String setget _set_label,_get_label
 export var texture: Texture setget _set_texture
+export var texture_key: String setget _set_texture_key
 export var texture_scale := Vector2(1.0, 1.0) setget _set_texture_scale
 export var is_shiny := false setget _set_is_shiny
 export var includes_color_pulse := false setget _set_includes_color_pulse
@@ -113,9 +114,15 @@ func _update() -> void:
             is_shiny and Sc.gui.is_suggested_button_shine_line_shown
     $MarginContainer/MarginContainer/ShineLineWrapper/ShineLine.position = \
             Vector2(shine_start_x, shine_base_position.y)
-    $MarginContainer/ScaffolderTextureRect.visible = texture != null
-    $MarginContainer/ScaffolderTextureRect.texture = texture
+    
+    $MarginContainer/ScaffolderTextureRect.visible = \
+            is_instance_valid(texture) or texture_key != ""
+    if is_instance_valid(texture):
+        $MarginContainer/ScaffolderTextureRect.texture = texture
+    else:
+        $MarginContainer/ScaffolderTextureRect.texture_key = texture_key
     $MarginContainer/ScaffolderTextureRect.texture_scale = texture_scale
+    
     var font: Font = Sc.gui.get_font(font_size)
     $MarginContainer/Label.add_font_override("font", font)
     
@@ -191,6 +198,14 @@ func _get_label() -> String:
 
 func _set_texture(value: Texture) -> void:
     texture = value
+    if _is_ready:
+        _update()
+
+
+func _set_texture_key(value: String) -> void:
+    texture_key = value
+    assert(texture_key == "" or \
+            Sc.images.get(texture_key) is Texture)
     if _is_ready:
         _update()
 

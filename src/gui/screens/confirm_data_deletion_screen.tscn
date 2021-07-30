@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/alert_normal.png" type="Texture" id=3]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen.gd" type="Script" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=6]
@@ -32,7 +31,7 @@ margin_left = 480.0
 margin_right = 544.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
-texture = ExtResource( 3 )
+texture_key = "alert_normal"
 texture_scale = Vector2( 4, 4 )
 
 [node name="Spacer" parent="VBoxContainer" instance=ExtResource( 2 )]
