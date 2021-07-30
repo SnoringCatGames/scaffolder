@@ -1,9 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/play_normal.png" type="Texture" id=1]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/retry_normal.png" type="Texture" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/pause_screen.gd" type="Script" id=3]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/stop_normal.png" type="Texture" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=8]
 [ext_resource path="res://addons/scaffolder/src/gui/labeled_control_list/labeled_control_list.tscn" type="PackedScene" id=9]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=10]
@@ -55,7 +52,7 @@ custom_constants/separation = 16
 margin_right = 128.0
 margin_bottom = 88.0
 rect_min_size = Vector2( 128, 88 )
-texture = ExtResource( 1 )
+texture_key = "play_normal"
 texture_scale = Vector2( 2, 2 )
 size_override = Vector2( 128, 88 )
 
@@ -68,7 +65,7 @@ custom_constants/separation = 16
 [node name="ExitLevelButton" parent="VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
 margin_right = 56.0
 rect_min_size = Vector2( 56, 56 )
-texture = ExtResource( 4 )
+texture_key = "stop_normal"
 texture_scale = Vector2( 2, 2 )
 size_override = Vector2( 56, 56 )
 
@@ -76,7 +73,7 @@ size_override = Vector2( 56, 56 )
 margin_left = 72.0
 margin_right = 128.0
 rect_min_size = Vector2( 56, 56 )
-texture = ExtResource( 2 )
+texture_key = "retry_normal"
 texture_scale = Vector2( 2, 2 )
 size_override = Vector2( 56, 56 )
 

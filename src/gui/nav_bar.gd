@@ -46,42 +46,17 @@ func _ready() -> void:
             .add_color_override("font_color", Sc.colors.header)
     
     $MarginContainer/TopRow/Logo \
-            .texture = Sc.images.app_logo
-    $MarginContainer/TopRow/Logo \
             .texture_scale = Vector2(
                     Sc.images.app_logo_scale,
                     Sc.images.app_logo_scale)
     $MarginContainer/VBoxContainer/BottomRow/Logo \
-            .texture = Sc.images.app_logo
-    $MarginContainer/VBoxContainer/BottomRow/Logo \
             .texture_scale = Vector2(
                     Sc.images.app_logo_scale,
                     Sc.images.app_logo_scale)
-    
-    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
-            .texture_pressed = Sc.images.left_caret_pressed
-    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
-            .texture_hover = Sc.images.left_caret_hover
-    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
-            .texture_normal = Sc.images.left_caret_normal
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/BackButton \
             .texture_scale = Vector2(8.0, 8.0)
-    
-    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
-            .texture_pressed = Sc.images.about_circle_pressed
-    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
-            .texture_hover = Sc.images.about_circle_hover
-    $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
-            .texture_normal = Sc.images.about_circle_normal
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer/AboutButton \
             .texture_scale = Vector2(4.0, 4.0)
-    
-    $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
-            .texture_pressed = Sc.images.gear_circle_pressed
-    $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
-            .texture_hover = Sc.images.gear_circle_hover
-    $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
-            .texture_normal = Sc.images.gear_circle_normal
     $MarginContainer/VBoxContainer/ButtonRow/LeftContainer/SettingsButton \
             .texture_scale = Vector2(4.0, 4.0)
     

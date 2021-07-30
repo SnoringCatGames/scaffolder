@@ -33,7 +33,7 @@ func _update() -> void:
     else:
         scale.y = scale.x
     
-    _scaffolder_texture_rect.texture = texture
+    _scaffolder_texture_rect.texture_key = texture_key
     _scaffolder_texture_rect.texture_scale = scale * Sc.gui.splash_scale
 
 

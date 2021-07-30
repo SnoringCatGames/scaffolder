@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/level_select/level_select_item_unlocked_header.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres" type="DynamicFont" id=2]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/icons/left_caret_normal.png" type="Texture" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=6]
@@ -77,7 +76,6 @@ margin_right = 93.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 15, 24 )
 mouse_filter = 2
-texture = ExtResource( 3 )
 texture_key = "left_caret_normal"
 texture_scale = Vector2( 3, 3 )
 

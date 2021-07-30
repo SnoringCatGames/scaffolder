@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/images/go_icon.png" type="Texture" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/main_menu_screen.gd" type="Script" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=7]
@@ -60,7 +59,7 @@ margin_top = 194.0
 margin_right = 592.0
 margin_bottom = 274.0
 rect_min_size = Vector2( 160, 80 )
-texture = ExtResource( 1 )
+texture_key = "go_normal"
 texture_scale = Vector2( 1.5, 1.5 )
 size_override = Vector2( 160, 80 )
 
