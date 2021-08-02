@@ -58,24 +58,6 @@ const SCREEN_RESOLUTIONS := {
     google_ads_portrait = Vector2(768, 1024),
 }
 
-var DEFAULT_SCREEN_SCENES := [
-    preload("res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/about_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/data_agreement_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/developer_splash_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/game_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/game_over_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/godot_splash_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/level_select_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/main_menu_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/notification_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/pause_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/rate_app_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/scaffolder_loading_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/settings_screen.tscn"),
-    preload("res://addons/scaffolder/src/gui/screens/third_party_licenses_screen.tscn"),
-]
-
 var DEFAULT_WELCOME_PANEL_MANIFEST := {
 #    header = Sc.metadata.app_name,
 #    subheader = "(Click window to give focus)",
@@ -281,8 +263,7 @@ func amend_manifest(manifest: Dictionary) -> void:
                 DEFAULT_SCAFFOLDER_LEVEL_SELECT_ITEM_MANIFEST
     if !manifest.has("screen_manifest"):
         manifest.screen_manifest = {
-            inclusions = [],
-            exclusions = [],
+            screens = [],
             overlay_mask_transition_class = OverlayMaskTransition,
             screen_mask_transition_class = ScreenMaskTransition,
             default_transition_type = ScreenTransition.FADE,
