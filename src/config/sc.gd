@@ -1,5 +1,12 @@
 tool
 extends FrameworkConfig
+## -   This is a global singleton that defines a bunch of app parameters.[br]
+## -   All of these parameters can be configured when bootstrapping the
+##     app.[br]
+## -   You will need to provide an `app_manifest` dictionary which defines some
+##     of these parameters.[br]
+## -   Define `Sc` as an AutoLoad (in Project Settings).[br]
+## -   "Sc" is short for "Scaffolder."[br]
 
 
 signal initialized
