@@ -91,13 +91,7 @@ func register_manifest(screen_manifest: Dictionary) -> void:
     if Engine.editor_hint:
         return
     
-    var screen_scenes: Array = \
-            Sc.utils.get_collection_from_exclusions_and_inclusions(
-                    Sc.gui.DEFAULT_SCREEN_SCENES,
-                    screen_manifest.exclusions,
-                    screen_manifest.inclusions)
-    
-    for screen_scene in screen_scenes:
+    for screen_scene in screen_manifest.screens:
         assert(screen_scene is PackedScene)
         var scene_state: SceneState = screen_scene.get_state()
         assert(scene_state.get_node_type(0) == "VBoxContainer")

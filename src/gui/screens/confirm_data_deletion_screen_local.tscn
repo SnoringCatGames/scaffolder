@@ -1,0 +1,112 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen_local.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_l.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=6]
+
+[node name="ConfirmDataDeletionScreenLocal" type="VBoxContainer"]
+rect_min_size = Vector2( 1024, 768 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+screen_name = "confirm_data_deletion"
+nav_bar_text = "Are you sure?"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 768.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AlertIcon" parent="VBoxContainer" instance=ExtResource( 5 )]
+margin_left = 464.0
+margin_right = 560.0
+margin_bottom = 96.0
+rect_min_size = Vector2( 96, 96 )
+texture_key = "alert_normal"
+texture_scale = Vector2( 6, 6 )
+
+[node name="Spacer" parent="VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 512.0
+margin_top = 96.0
+margin_right = 512.0
+margin_bottom = 116.0
+rect_min_size = Vector2( 0, 20 )
+size = Vector2( 0, 20 )
+
+[node name="Label" parent="VBoxContainer" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 116.0
+margin_right = 1024.0
+margin_bottom = 227.0
+custom_fonts/font = ExtResource( 2 )
+text = "This will erase all game settings and progress on this device."
+valign = 0
+autowrap = true
+font_size = "L"
+
+[node name="Spacer2" parent="VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 512.0
+margin_top = 227.0
+margin_right = 512.0
+margin_bottom = 247.0
+rect_min_size = Vector2( 0, 20 )
+size = Vector2( 0, 20 )
+
+[node name="ConfirmButton" parent="VBoxContainer" instance=ExtResource( 4 )]
+margin_left = 362.0
+margin_top = 247.0
+margin_right = 662.0
+margin_bottom = 327.0
+rect_min_size = Vector2( 300, 80 )
+label = "I'm sure.
+Please delete my data."
+font_size = "S"
+size_override = Vector2( 300, 80 )
+
+[node name="Spacer11" parent="VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 512.0
+margin_top = 327.0
+margin_right = 512.0
+margin_bottom = 337.0
+rect_min_size = Vector2( 0, 10 )
+size = Vector2( 0, 10 )
+
+[node name="CancelButton" parent="VBoxContainer" instance=ExtResource( 4 )]
+margin_left = 312.0
+margin_top = 337.0
+margin_right = 712.0
+margin_bottom = 457.0
+rect_min_size = Vector2( 400, 120 )
+label = "Cancel!"
+is_shiny = true
+font_size = "Xl"
+size_override = Vector2( 400, 120 )
+
+[node name="Spacer12" parent="VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 512.0
+margin_top = 457.0
+margin_right = 512.0
+margin_bottom = 507.0
+rect_min_size = Vector2( 0, 50 )
+size = Vector2( 0, 50 )
+
+[connection signal="pressed" from="VBoxContainer/ConfirmButton" to="." method="_on_ConfirmButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]
