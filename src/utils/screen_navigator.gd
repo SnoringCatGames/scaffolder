@@ -1,5 +1,5 @@
 tool
-class_name ScaffolderNavigation
+class_name ScreenNavigator
 extends Node
 
 

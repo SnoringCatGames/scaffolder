@@ -41,7 +41,7 @@ var level_config: ScaffolderLevelConfig
 var level: ScaffolderLevel
 var level_session: ScaffolderLevelSession
 
-var nav: ScaffolderNavigation
+var nav: ScreenNavigator
 var analytics: Analytics
 var crash_reporter: CrashReporter
 var gesture_reporter: GestureReporter
@@ -219,9 +219,9 @@ func _set_up() -> void:
     
     if _manifest.has("nav_class"):
         self.nav = _manifest.nav_class.new()
-        assert(self.nav is ScaffolderNavigation)
+        assert(self.nav is ScreenNavigator)
     else:
-        self.nav = ScaffolderNavigation.new()
+        self.nav = ScreenNavigator.new()
     add_child(self.nav)
     
     if _manifest.has("level_button_input_class"):
