@@ -48,7 +48,8 @@ func _notification(notification: int) -> void:
     if notification == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
         # Handle the Android back button to navigate within the app instead of
         # quitting the app.
-        if get_current_screen_name() == "main_menu":
+        if get_current_screen_name() == "main_menu" or \
+                get_current_screen_name() == "data_agreement":
             close_app()
         else:
             call_deferred("close_current_screen")
