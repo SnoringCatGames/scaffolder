@@ -162,25 +162,6 @@ static func get_child_by_type(
     return children[0]
 
 
-static func get_floor_friction_multiplier(body: KinematicBody2D) -> float:
-    var collision := _get_floor_collision(body)
-    # Collision friction is a property of the TileMap node.
-    if collision != null and collision.collider.collision_friction != null:
-        return collision.collider.collision_friction
-    return 0.0
-
-
-static func _get_floor_collision(
-        body: KinematicBody2D) -> KinematicCollision2D:
-    if body.is_on_floor():
-        for i in body.get_slide_count():
-            var collision := body.get_slide_collision(i)
-            if abs(collision.normal.angle_to(Sc.geometry.UP)) <= \
-                    Sc.geometry.FLOOR_MAX_ANGLE:
-                return collision
-    return null
-
-
 func add_scene(
         parent: Node,
         path_or_packed_scene,
