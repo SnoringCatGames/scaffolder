@@ -140,12 +140,18 @@ func _on_splash_finished() -> void:
     
     # Start playing the default music for the menu screen.
     Sc.audio.play_music(Sc.audio_manifest.main_menu_music, true)
-    var post_splash_screen := \
-            "main_menu" if \
-            Sc.metadata.agreed_to_terms or \
-            !Sc.metadata.is_data_tracked else \
-            "data_agreement"
-    Sc.nav.open(post_splash_screen)
+    if Sc.metadata.opens_directly_to_level_id != "":
+        Sc.nav.open(
+                "loading",
+                ScreenTransition.DEFAULT,
+                {level_id = Sc.metadata.opens_directly_to_level_id})
+    else:
+        var post_splash_screen := \
+                "main_menu" if \
+                Sc.metadata.agreed_to_terms or \
+                !Sc.metadata.is_data_tracked else \
+                "data_agreement"
+        Sc.nav.open(post_splash_screen)
     
     emit_signal("splashed")
 

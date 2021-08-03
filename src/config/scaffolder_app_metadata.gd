@@ -14,6 +14,7 @@ var are_all_levels_unlocked := false
 var are_test_levels_included := true
 var is_save_state_cleared_for_debugging := false
 var is_splash_skipped := false
+var opens_directly_to_level_id := ""
 var also_prints_to_stdout := true
 var overrides_project_settings := true
 var overrides_input_map := true
@@ -109,6 +110,8 @@ func register_manifest(manifest: Dictionary) -> void:
             manifest.must_restart_level_to_change_settings
     if manifest.has("is_splash_skipped"):
         self.is_splash_skipped = manifest.is_splash_skipped
+    if manifest.has("opens_directly_to_level_id"):
+        self.opens_directly_to_level_id = manifest.opens_directly_to_level_id
     
     self.app_name = manifest.app_name
     self.app_id = manifest.app_id
