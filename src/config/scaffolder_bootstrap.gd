@@ -17,7 +17,9 @@ func _init(name := "ScaffolderBootstrap") -> void:
 
 func run() -> void:
     Sc.logger.print("ScaffolderBootstrap.run")
-    Sc.logger.print("\nApp version: %s\n" % \
+    Sc.logger.print("\nApp name: %s" % \
+            Sc._manifest.metadata.app_name)
+    Sc.logger.print("App version: %s\n" % \
             Sc._manifest.metadata.app_version)
     
     call_deferred("_amend_app_manifest")
