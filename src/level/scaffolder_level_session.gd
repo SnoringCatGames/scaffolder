@@ -1,8 +1,11 @@
 class_name ScaffolderLevelSession
 extends Reference
-# NOTE: Don't store references to nodes that should be destroyed with the
-#       level, because this session-state will persist after the level is
-#       destroyed.
+## -   State for single playthrough in a given level.
+## -   This state kept alive independent of the level, which makes this useful
+##     for things like showing playthrough state in the game-over screen.
+## **NOTE**: Don't store references to nodes that should be destroyed with the
+##           level, because this session-state will persist after the level is
+##           destroyed.[br]
 
 
 var _id: String
