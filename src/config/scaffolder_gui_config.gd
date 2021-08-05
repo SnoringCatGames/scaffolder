@@ -116,6 +116,7 @@ var DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST := {
                 CameraZoomSettingsLabeledControlItem,
                 TimeScaleSettingsLabeledControlItem,
                 MetronomeSettingsLabeledControlItem,
+                IsLoggingLowLevelPlayerFrameworkEventsSettingsLabeledControlItem,
             ],
         },
     },
