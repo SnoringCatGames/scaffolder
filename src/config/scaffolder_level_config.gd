@@ -23,6 +23,8 @@ extends Node
 # -   number: int
 
 
+const PLAYER_START_POSITION_GROUP_NAME := "player_start_position"
+
 var are_levels_scene_based: bool
 var test_level_count := 0
 

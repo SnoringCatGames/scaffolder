@@ -6,6 +6,10 @@ extends Node2D
 
 const MIN_CONTROLS_DISPLAY_TIME := 0.5
 
+# Array<ScaffolderPlayer>
+var all_players: Array
+var human_player: ScaffolderPlayer
+
 var _configuration_warning := ""
 
 
@@ -36,6 +40,10 @@ func _start() -> void:
             "start",
             Sc.level_config.get_level_version_string(Sc.level_session.id))
     Sc.gui.hud.visible = true
+    add_player(
+            Sc.players.player_scenes[Sc.players.default_player_name],
+            _get_player_start_position(),
+            true)
     call_deferred("_on_started")
 
 
@@ -53,6 +61,12 @@ func _destroy() -> void:
     _hide_welcome_panel()
     if is_instance_valid(Sc.gui.hud):
         Sc.gui.hud._destroy()
+    for group in [
+            Sc.players.GROUP_NAME_HUMAN_PLAYERS,
+            Sc.players.GROUP_NAME_COMPUTER_PLAYERS]:
+        for player in Sc.utils.get_all_nodes_in_group(group):
+            player._destroy()
+    self.human_player = null
     Sc.level = null
     Sc.level_session._is_destroyed = true
     if Sc.level_session.is_restarting:
@@ -87,6 +101,39 @@ func quit(
                         "_on_level_quit_sound_finished",
                         [has_finished])
         Sc.audio.play_sound(sound_name)
+
+
+func add_player(
+        path_or_packed_scene,
+        position: Vector2,
+        is_human_player: bool,
+        is_attached := true) -> ScaffolderPlayer:
+    var player: ScaffolderPlayer = Sc.utils.add_scene(
+            null,
+            path_or_packed_scene,
+            false,
+            true)
+    player.set_position(position)
+    
+    player.set_is_human_player(is_human_player)
+    if is_human_player:
+        human_player = player
+    
+    all_players.push_back(player)
+    
+    add_child(player)
+    
+    return player
+
+
+func remove_player(player: SurfacerPlayer) -> void:
+    var group: String = \
+            Sc.players.GROUP_NAME_HUMAN_PLAYERS if \
+            player.is_human_player else \
+            Sc.players.GROUP_NAME_COMPUTER_PLAYERS
+    player.remove_from_group(group)
+    Su.annotators.destroy_player_annotator(player)
+    player._destroy()
 
 
 func _update_editor_configuration() -> void:
@@ -137,6 +184,17 @@ func _input(event: InputEvent) -> void:
                     event is InputEventKey) and \
             Sc.level_session.has_started:
         _on_initial_input()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+    if Engine.editor_hint:
+        return
+    
+    if event is InputEventMouseButton or \
+            event is InputEventScreenTouch:
+        # This ensures that pressing arrow keys won't change selections in any
+        # overlay UI.
+        Sc.utils.release_focus()
 
 
 func _on_initial_input() -> void:
@@ -201,6 +259,19 @@ func _on_level_quit_sound_finished(level_finished: bool) -> void:
 
 func get_music_name() -> String:
     return Sc.audio_manifest.default_level_music
+
+
+func get_slow_motion_music_name() -> String:
+    return ""
+
+
+func _get_player_start_position() -> Vector2:
+    var nodes: Array = Sc.utils.get_all_nodes_in_group(
+            ScaffolderLevelConfig.PLAYER_START_POSITION_GROUP_NAME)
+    if nodes.empty():
+        return Vector2.ZERO
+    else:
+        return nodes[0].position
 
 
 func _get_is_rate_app_screen_next() -> bool:

@@ -37,6 +37,7 @@ var canvas_layers: CanvasLayers
 var project_settings: ScaffolderProjectSettings
 var camera_controller: CameraController
 var level_button_input: LevelButtonInput
+var players: ScaffolderPlayerManifest
 var level_config: ScaffolderLevelConfig
 var level: ScaffolderLevel
 var level_session: ScaffolderLevelSession
@@ -115,7 +116,7 @@ func initialize_crash_reporter() -> void:
         self.crash_reporter = CrashReporter.new()
 
 
-func _set_up() -> void:
+func _instantiate_sub_modules() -> void:
     self.level_session = _manifest.level_session_class.new()
     assert(self.level_session is ScaffolderLevelSession)
     
@@ -266,16 +267,26 @@ func _set_up() -> void:
         self.project_settings = ScaffolderProjectSettings.new()
     add_child(self.project_settings)
     
+    if _manifest.has("player_manifest_class"):
+        self.players = _manifest.player_manifest_class.new()
+        assert(self.players is ScaffolderPlayerManifest)
+    else:
+        self.players = ScaffolderPlayerManifest.new()
+    add_child(self.players)
+    
     # This depends on SaveState, and must be instantiated after.
     self.level_config = _manifest.level_config_class.new()
     add_child(self.level_config)
-    
+
+
+func _configure_sub_modules() -> void:
     self.audio_manifest.register_manifest(_manifest.audio_manifest)
     self.colors.register_manifest(_manifest.colors_manifest)
     self.styles.register_manifest(_manifest.styles_manifest)
     self.images.register_manifest(_manifest.images_manifest)
     self.gui.register_manifest(_manifest.gui_manifest)
     self.slow_motion.register_manifest(_manifest.slow_motion_manifest)
+    self.players.register_manifest(_manifest.player_manifest)
     
     self.metadata.is_app_configured = true
     

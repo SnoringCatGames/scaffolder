@@ -11,7 +11,11 @@ func _register_app_manifest(manifest: Dictionary) -> void:
     pass
 
 
-func _set_up() -> void:
+func _instantiate_sub_modules() -> void:
+    pass
+
+
+func _configure_sub_modules() -> void:
     pass
 
 
