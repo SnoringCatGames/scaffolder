@@ -36,19 +36,19 @@ Some features include:
 It might just be easiest to scroll through some of the following files to see what sorts of functions are included:
 -   [`Audio`](./src/utils/audio.gd)
 -   [`CameraShake`](./src/utils/camera_shake.gd)
--   [`DrawUtils`](./src/utils/draw_utils.gd)
--   [`Geometry`](./src/utils/geometry.gd)
--   [`Profiler`](./src/utils/profiler.gd)
+-   [`DrawUtils`](./src/utils/scaffolder_draw_utils.gd)
+-   [`Geometry`](./src/utils/scaffolder_geometry.gd)
+-   [`Profiler`](./src/utils/time/profiler.gd)
 -   [`SaveState`](./src/data/save_state.gd)
--   [`Time`](./src/utils/time.gd)
+-   [`Time`](./src/utils/time/time.gd)
 -   [`Utils`](./src/utils/utils.gd)
 
-### 
+### A widget library
 
 For example:
--   [`AccordionPanel`](./src/gui/accordion_panel.gd)
+-   [`AccordionPanel`](./src/gui/widgets/accordion_panel.gd)
 -   [`ControlRowList`](./src/gui/control_row_list/control_row_list.gd)
--   [`ScaffolderButton`](./src/gui/scaffolder_button.gd)
+-   [`ScaffolderButton`](./src/gui/widgets/scaffolder_button.gd)
 -   [`NavBar`](./src/gui/nav_bar.gd)
 
 
@@ -127,26 +127,6 @@ This feature currently depends on the proprietary third-party **[Google Cloud St
     -   Notification
         -   Configurable to display custom text and buttons as needed.
     -   Game over
-
-### Lots of useful utility functions
-
-It might just be easiest to scroll through some of the following files to see what sorts of functions are included:
--   [`Audio`](./src/utils/audio.gd)
--   [`CameraShake`](./src/utils/camera_shake.gd)
--   [`DrawUtils`](./src/utils/draw_utils.gd)
--   [`Geometry`](./src/utils/geometry.gd)
--   [`Profiler`](./src/utils/profiler.gd)
--   [`SaveState`](./src/data/save_state.gd)
--   [`Time`](./src/utils/time.gd)
--   [`Utils`](./src/utils/utils.gd)
-
-### A widget library
-
-For example:
--   [`AccordionPanel`](./src/gui/accordion_panel.gd)
--   [`LabeledControlList`](./src/gui/control_row_list/control_row_list.gd)
--   [`ScaffolderButton`](./src/gui/scaffolder_button.gd)
--   [`NavBar`](./src/gui/nav_bar.gd)
 
 ## Licenses
 
