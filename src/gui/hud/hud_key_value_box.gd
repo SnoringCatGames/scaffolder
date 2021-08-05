@@ -5,7 +5,7 @@ extends ScaffolderPanelContainer
 
 const SEPARATION := 12.0
 
-var item: TextLabeledControlItem
+var item: TextControlRow
 var animation_config: Dictionary
 
 var _tween: ScaffolderTween
