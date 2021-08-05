@@ -140,7 +140,7 @@ func _set_time_scale(value: float) -> void:
     # Update the main time_scale.
     Sc.time.time_scale = value
     
-    # Update SurfacerPlayerAnimators.
+    # Update ScaffolderPlayerAnimators.
     for animator in _slow_motionable_animators:
         animator.match_rate_to_time_scale()
 
