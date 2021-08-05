@@ -17,10 +17,12 @@ func _init(name := "ScaffolderBootstrap") -> void:
 
 func run() -> void:
     Sc.logger.print("ScaffolderBootstrap.run")
-    Sc.logger.print("\nApp name: %s" % \
+    Sc.logger.print("")
+    Sc.logger.print("App name: %s" % \
             Sc._manifest.metadata.app_name)
-    Sc.logger.print("App version: %s\n" % \
+    Sc.logger.print("App version: %s" % \
             Sc._manifest.metadata.app_version)
+    Sc.logger.print("")
     
     call_deferred("_amend_app_manifest")
     call_deferred("_register_app_manifest")
@@ -61,7 +63,12 @@ func _initialize_framework() -> void:
     Sc.nav.register_manifest(Sc._manifest.gui_manifest.screen_manifest)
     
     if Engine.editor_hint:
-        print("\n** Initialized Scaffolder for the in-editor environment. **\n")
+        print("")
+        print("** Initialized Scaffolder for the in-editor environment. **")
+        print("   (Errors above this line are likely due to already-open" +
+              "\n   scenes trying to access AutoLoads before Godot has" +
+              "\n   instantiated them.)")
+        print("")
         return
     
     Sc.gui.debug_panel = Sc.utils.add_scene(
