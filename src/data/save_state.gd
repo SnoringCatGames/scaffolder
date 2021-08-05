@@ -22,6 +22,8 @@ const SCORE_VERSION_KEY := "score_v"
 
 const AGREED_TO_TERMS_SETTINGS_KEY := "agreed_to_terms"
 const ARE_BUTTON_CONTROLS_ENABLED_SETTINGS_KEY := "are_button_controls_enabled"
+const IS_LOGGING_LOW_LEVEL_PLAYER_FRAMEWORK_EVENTS_SETTINGS_KEY := \
+        "is_logging_low_level_player_framework_events"
 const IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY := "is_giving_haptic_feedback"
 const IS_DEBUG_PANEL_SHOWN_SETTINGS_KEY := "is_debug_panel_shown"
 const IS_WELCOME_PANEL_SHOWN_SETTINGS_KEY := "is_welcome_panel_shown"
