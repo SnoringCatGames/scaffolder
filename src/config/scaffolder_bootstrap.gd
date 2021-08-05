@@ -51,7 +51,10 @@ func _initialize_framework() -> void:
     Sc.logger.print("ScaffolderBootstrap._initialize_framework")
     
     for config in Sc._framework_configs:
-        config._set_up()
+        config._instantiate_sub_modules()
+    
+    for config in Sc._framework_configs:
+        config._configure_sub_modules()
     
     Sc.nav.connect("app_quit", self, "_on_app_quit")
     

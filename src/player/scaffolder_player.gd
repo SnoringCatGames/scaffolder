@@ -4,9 +4,6 @@ class_name ScaffolderPlayer, \
 extends KinematicBody2D
 
 
-const GROUP_NAME_HUMAN_PLAYERS := "human_players"
-const GROUP_NAME_COMPUTER_PLAYERS := "computer_players"
-
 export var player_name := ""
 
 ## -   This helps your `ScaffolderPlayer` detect when other areas or bodies
@@ -108,6 +105,10 @@ func _on_resized() -> void:
     Sc.camera_controller._on_resized()
 
 
+func _on_annotators_ready() -> void:
+    pass
+
+
 func add_child(child: Node, legible_unique_name := false) -> void:
     .add_child(child, legible_unique_name)
     _update_editor_configuration()
@@ -189,6 +190,13 @@ func _initialize_children_proximity_detectors() -> void:
 
 func set_is_human_player(value: bool) -> void:
     is_human_player = value
+    
+    var group: String = \
+            Sc.players.GROUP_NAME_HUMAN_PLAYERS if \
+            is_human_player else \
+            Sc.players.GROUP_NAME_COMPUTER_PLAYERS
+    self.add_to_group(group)
+    
     if is_human_player:
         # Only a single, user-controlled player should have a camera.
         _set_camera()
