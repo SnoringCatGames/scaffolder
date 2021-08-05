@@ -29,7 +29,7 @@ export var exclamation_mark_stroke_width_start := 1.2
 export var exclamation_mark_duration := 1.8
 export var exclamation_mark_throttle_interval := 1.0
 
-export var logs_player_actions := false
+export var logs_player_events := false
 export var logs_computer_player_events := false
 
 var is_human_player := false
@@ -230,7 +230,7 @@ func _log_player_event(
         message_template: String,
         message_args = null,
         is_low_level_framework_event = false) -> void:
-    if logs_player_actions and \
+    if logs_player_events and \
             (!is_low_level_framework_event or \
                 Sc.metadata.is_logging_low_level_player_framework_events) and \
             (is_human_player or \
