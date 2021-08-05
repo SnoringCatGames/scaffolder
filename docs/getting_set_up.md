@@ -57,13 +57,13 @@ class MyCustomAudio extends Audio:
 
 ## `Sc` and `app_manifest` properties
 
-[sc.gd](./src/config/sc.gd) contains a list of interesting app-level parameters you can adjust.
+[sc.gd](/src/config/sc.gd) contains a list of interesting app-level parameters you can adjust.
 
 > TODO: Enumerate and describe each `Sc` property.
 
 ## Automatic Project Settings and Input Map overrides
 
-> **Note**: Scaffolder will automatically define various Project Settings fields and many Input Map actions. You can see which fields and actions are defined in [scaffolder_project_settings.gd](./src/config/scaffolder_project_settings.gd).
+> **Note**: Scaffolder will automatically define various Project Settings fields and many Input Map actions. You can see which fields and actions are defined in [scaffolder_project_settings.gd](/src/config/scaffolder_project_settings.gd).
 
 ## Expected console errors
 
