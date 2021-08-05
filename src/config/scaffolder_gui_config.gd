@@ -82,7 +82,7 @@ var DEFAULT_HUD_MANIFEST := {
             preload(DEFAULT_HUD_KEY_VALUE_LIST_PATH),
     hud_key_value_list_item_manifest = [
         {
-            item_class = TimeLabeledControlItem,
+            item_class = TimeControlRow,
             settings_enablement_label = "Time",
             enabled_by_default = true,
             settings_group_key = "hud",
@@ -96,9 +96,9 @@ var DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST := {
             label = "",
             is_collapsible = false,
             item_classes = [
-                MusicSettingsLabeledControlItem,
-                SoundEffectsSettingsLabeledControlItem,
-                HapticFeedbackSettingsLabeledControlItem,
+                MusicControlRow,
+                SoundEffectsControlRow,
+                HapticFeedbackControlRow,
             ],
         },
         hud = {
@@ -111,37 +111,37 @@ var DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST := {
             label = "Miscellaneous",
             is_collapsible = true,
             item_classes = [
-                ButtonControlsSettingsLabeledControlItem,
-                WelcomePanelSettingsLabeledControlItem,
-                CameraZoomSettingsLabeledControlItem,
-                TimeScaleSettingsLabeledControlItem,
-                MetronomeSettingsLabeledControlItem,
-                IsLoggingLowLevelPlayerFrameworkEventsSettingsLabeledControlItem,
+                ButtonControlsControlRow,
+                WelcomePanelControlRow,
+                CameraZoomControlRow,
+                TimeScaleControlRow,
+                MetronomeControlRow,
+                IsLoggingLowLevelPlayerFrameworkEventsControlRow,
             ],
         },
     },
 }
 
 var DEFAULT_SCAFFOLDER_PAUSE_ITEM_MANIFEST := [
-    LevelLabeledControlItem,
-    TimeLabeledControlItem,
-    FastestTimeLabeledControlItem,
-    ScoreLabeledControlItem,
-    HighScoreLabeledControlItem,
+    LevelControlRow,
+    TimeControlRow,
+    FastestTimeControlRow,
+    ScoreControlRow,
+    HighScoreControlRow,
 ]
 
 var DEFAULT_SCAFFOLDER_GAME_OVER_ITEM_MANIFEST := [
-    LevelLabeledControlItem,
-    TimeLabeledControlItem,
-    FastestTimeLabeledControlItem,
-    ScoreLabeledControlItem,
-    HighScoreLabeledControlItem,
+    LevelControlRow,
+    TimeControlRow,
+    FastestTimeControlRow,
+    ScoreControlRow,
+    HighScoreControlRow,
 ]
 
 var DEFAULT_SCAFFOLDER_LEVEL_SELECT_ITEM_MANIFEST := [
-    TotalPlaysLabeledControlItem,
-    FastestTimeLabeledControlItem,
-    HighScoreLabeledControlItem,
+    TotalPlaysControlRow,
+    FastestTimeControlRow,
+    HighScoreControlRow,
 ]
 
 # --- Static configuration state ---
@@ -414,8 +414,8 @@ func register_manifest(manifest: Dictionary) -> void:
                     game_over_item_manifest,
                     level_select_item_manifest,
                 ]:
-            manifest.erase(ScoreLabeledControlItem)
-            manifest.erase(HighScoreLabeledControlItem)
+            manifest.erase(ScoreControlRow)
+            manifest.erase(HighScoreControlRow)
 
 
 func add_gui_to_scale(gui) -> void:
