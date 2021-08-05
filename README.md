@@ -27,29 +27,29 @@ Some features include:
 
 ## Getting set up
 
-[See this separate doc](./docs/getting_set_up.md) for getting your project set up to work with Scaffolder.
+[See this separate doc](/docs/getting_set_up.md) for getting your project set up to work with Scaffolder.
 
 ## Features
 
 ### Lots of useful utility functions
 
 It might just be easiest to scroll through some of the following files to see what sorts of functions are included:
--   [`Audio`](./src/utils/audio.gd)
--   [`CameraShake`](./src/utils/camera_shake.gd)
--   [`DrawUtils`](./src/utils/scaffolder_draw_utils.gd)
--   [`Geometry`](./src/utils/scaffolder_geometry.gd)
--   [`Profiler`](./src/utils/time/profiler.gd)
--   [`SaveState`](./src/data/save_state.gd)
--   [`Time`](./src/utils/time/time.gd)
--   [`Utils`](./src/utils/utils.gd)
+-   [`Audio`](/src/utils/audio.gd)
+-   [`CameraShake`](/src/utils/camera_shake.gd)
+-   [`DrawUtils`](/src/utils/scaffolder_draw_utils.gd)
+-   [`Geometry`](/src/utils/scaffolder_geometry.gd)
+-   [`Profiler`](/src/utils/time/profiler.gd)
+-   [`SaveState`](/src/data/save_state.gd)
+-   [`Time`](/src/utils/time/time.gd)
+-   [`Utils`](/src/utils/utils.gd)
 
 ### A widget library
 
 For example:
--   [`AccordionPanel`](./src/gui/widgets/accordion_panel.gd)
--   [`ControlRowList`](./src/gui/control_row_list/control_row_list.gd)
--   [`ScaffolderButton`](./src/gui/widgets/scaffolder_button.gd)
--   [`NavBar`](./src/gui/nav_bar.gd)
+-   [`AccordionPanel`](/src/gui/widgets/accordion_panel.gd)
+-   [`ControlRowList`](/src/gui/control_row_list/control_row_list.gd)
+-   [`ScaffolderButton`](/src/gui/widgets/scaffolder_button.gd)
+-   [`NavBar`](/src/gui/nav_bar.gd)
 
 
 ### Viewport scaling
@@ -132,7 +132,7 @@ This feature currently depends on the proprietary third-party **[Google Cloud St
 
 -   All code is published under the [MIT license](LICENSE).
 -   All art assets (files under `assets/images/`, `assets/music/`, and `assets/sounds/`) are published under the [CC0 1.0 Universal license](https://creativecommons.org/publicdomain/zero/1.0/deed.en).
--   This project depends on various pieces of third-party code that are licensed separately. [Here is a list of these third-party licenses](./src/config/scaffolder_third_party_licenses.gd).
+-   This project depends on various pieces of third-party code that are licensed separately. [Here is a list of these third-party licenses](/src/config/scaffolder_third_party_licenses.gd).
 
 <p align="center">
   <img src="assets/images/device_icons/icon_128.png"
