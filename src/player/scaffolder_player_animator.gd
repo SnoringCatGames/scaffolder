@@ -328,7 +328,9 @@ func _animation_name_to_sprite(specific_name: String) -> Sprite:
 
 
 func animation_name_to_playback_rate(standard_name: String) -> float:
-    return animations[standard_name].speed
+    var specific_name := \
+            _standand_animation_name_to_specific_animation_name(standard_name)
+    return animations[specific_name].speed
 
 
 # By default, this does nothing.
