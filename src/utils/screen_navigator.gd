@@ -302,7 +302,7 @@ func _splash_helper() -> void:
         Sc.audio.play_sound(Sc.audio_manifest.developer_splash_sound)
         yield(get_tree() \
                 .create_timer(
-                        Sc.images.developer_splash_screen_duration),
+                        Sc.metadata.developer_splash_screen_duration),
                 "timeout")
     
     emit_signal("splash_finished")
