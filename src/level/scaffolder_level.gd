@@ -126,13 +126,13 @@ func add_player(
     return player
 
 
-func remove_player(player: SurfacerPlayer) -> void:
+func remove_player(player: ScaffolderPlayer) -> void:
     var group: String = \
             Sc.players.GROUP_NAME_HUMAN_PLAYERS if \
             player.is_human_player else \
             Sc.players.GROUP_NAME_COMPUTER_PLAYERS
     player.remove_from_group(group)
-    Su.annotators.destroy_player_annotator(player)
+    Sc.annotators.destroy_player_annotator(player)
     player._destroy()
 
 

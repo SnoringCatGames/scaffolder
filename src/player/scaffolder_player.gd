@@ -35,9 +35,11 @@ var _is_destroyed := false
 
 var _configuration_warning := ""
 
-var start_position := Vector2.INF
 var velocity := Vector2.ZERO
 var collider_half_width_height := Vector2.INF
+var start_position := Vector2.INF
+var previous_position := Vector2.INF
+var did_move_last_frame := false
 
 var collider: CollisionShape2D
 var animator: ScaffolderPlayerAnimator
@@ -216,7 +218,10 @@ func _physics_process(delta: float) -> void:
             _is_destroyed or \
             Engine.editor_hint:
         return
+    
+    previous_position = position
     _process_physics_frame(delta)
+    did_move_last_frame = previous_position != position
 
 
 func _process_physics_frame(delta: float) -> void:
@@ -255,7 +260,7 @@ func show_exclamation_mark() -> void:
 
 func _show_exclamation_mark_throttled() -> void:
     # FIXME: ---------------------------------------------
-    Su.annotators.add_transient(ExclamationMarkAnnotator.new(
+    Sc.annotators.add_transient(ExclamationMarkAnnotator.new(
             self,
             collider_half_width_height.y,
             primary_annotation_color,

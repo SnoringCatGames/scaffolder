@@ -38,6 +38,8 @@ var project_settings: ScaffolderProjectSettings
 var camera_controller: CameraController
 var level_button_input: LevelButtonInput
 var players: ScaffolderPlayerManifest
+# TODO: Cleanup the annotator system.
+var annotators: ScaffolderAnnotators
 var level_config: ScaffolderLevelConfig
 var level: ScaffolderLevel
 var level_session: ScaffolderLevelSession
@@ -273,6 +275,13 @@ func _instantiate_sub_modules() -> void:
     else:
         self.players = ScaffolderPlayerManifest.new()
     add_child(self.players)
+    
+    if _manifest.has("annotators_class"):
+        self.annotators = _manifest.annotators_class.new()
+        assert(self.annotators is ScaffolderAnnotators)
+    else:
+        self.annotators = ScaffolderAnnotators.new()
+    add_child(self.annotators)
     
     # This depends on SaveState, and must be instantiated after.
     self.level_config = _manifest.level_config_class.new()

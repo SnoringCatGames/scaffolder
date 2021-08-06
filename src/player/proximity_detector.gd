@@ -2,9 +2,9 @@ tool
 class_name ProximityDetector, \
 "res://addons/scaffolder/assets/images/editor_icons/proximity_detector.png"
 extends Node2D
-## -   This helps your `SurfacerPlayer` detect when other areas or bodies enter
-##     or exit the proximity of your player.[br]
-## -   You can declare these as children in your SurfacerPlayer scenes.[br]
+## -   This helps your `ScaffolderPlayer` detect when other areas or bodies
+##     enter or exit the proximity of your player.[br]
+## -   You can declare these as children in your ScaffolderPlayer scenes.[br]
 ## -   You can configure the shape used to define the proximity range.[br]
 
 ## The shape to detect other bodies within.

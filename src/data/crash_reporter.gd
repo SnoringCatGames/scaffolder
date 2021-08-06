@@ -11,7 +11,7 @@ const ACTIVE_LOG_FILE_NAME := "godot.log"
 # Don't report too much data.
 const ERROR_LOG_REPORTING_MAX_LINE_COUNT := 500
 
-## We know the app has been initialized once the SurfaceNavigator class has
+## We know the app has been initialized once the ScreenNavigator class has
 ## successfully opened a screen.
 #var APP_LOADED_SUCCESSFULLY_LOG_TOKEN_INDICATOR := "Nav.open:"
 
