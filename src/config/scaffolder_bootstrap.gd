@@ -67,10 +67,12 @@ func _initialize_framework() -> void:
     
     if Engine.editor_hint:
         print("")
-        print("** Initialized Scaffolder for the in-editor environment. **")
-        print("   (Errors above this line are likely due to already-open" +
-              "\n   scenes trying to access AutoLoads before Godot has" +
-              "\n   instantiated them.)")
+        print("***************************************************************")
+        print("**** Initialized Scaffolder for the in-editor environment. ****")
+        print("* (Any errors above this line are likely due to already-open  *")
+        print("* scenes trying to access AutoLoads before Godot has          *")
+        print("* instantiated them.)                                         *")
+        print("***************************************************************")
         print("")
         return
     
