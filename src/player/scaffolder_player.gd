@@ -139,26 +139,28 @@ func _update_editor_configuration_debounced() -> void:
         return
     
     # Get AnimationPlayer from scene configuration.
-    var player_animators: Array = Sc.utils.get_children_by_type(
-            self,
-            ScaffolderPlayerAnimator)
-    if player_animators.size() > 1:
-        _set_configuration_warning(
-                "Must only define a single ScaffolderPlayerAnimator child node.")
-        return
-    elif player_animators.size() < 1:
-        _set_configuration_warning(
-                "Must define a ScaffolderPlayerAnimator-subclass child node.")
-        return
-    animator = player_animators[0]
-    animator.is_desaturatable = true
+    if !is_instance_valid(animator):
+        var player_animators: Array = Sc.utils.get_children_by_type(
+                self,
+                ScaffolderPlayerAnimator)
+        if player_animators.size() > 1:
+            _set_configuration_warning(
+                    "Must only define a single ScaffolderPlayerAnimator child node.")
+            return
+        elif player_animators.size() < 1:
+            _set_configuration_warning(
+                    "Must define a ScaffolderPlayerAnimator-subclass child node.")
+            return
+        animator = player_animators[0]
+        animator.is_desaturatable = true
     
-    collider = Sc.utils.get_child_by_type(self, CollisionShape2D)
-    collider_half_width_height = \
-            Sc.geometry.calculate_half_width_height(
-                    collider.shape, collider.rotation) if \
-            is_instance_valid(collider) else \
-            Vector2.INF
+    if !is_instance_valid(collider):
+        collider = Sc.utils.get_child_by_type(self, CollisionShape2D)
+        collider_half_width_height = \
+                Sc.geometry.calculate_half_width_height(
+                        collider.shape, collider.rotation) if \
+                is_instance_valid(collider) else \
+                Vector2.INF
     
     _set_configuration_warning("")
 
@@ -221,11 +223,11 @@ func _physics_process(delta: float) -> void:
         return
     
     previous_position = position
-    _process_physics_frame(delta)
+    _on_physics_process(delta)
     did_move_last_frame = previous_position != position
 
 
-func _process_physics_frame(delta: float) -> void:
+func _on_physics_process(delta: float) -> void:
     _process_animation()
     _process_sounds()
 
@@ -260,7 +262,6 @@ func show_exclamation_mark() -> void:
 
 
 func _show_exclamation_mark_throttled() -> void:
-    # FIXME: ---------------------------------------------
     Sc.annotators.add_transient(ExclamationMarkAnnotator.new(
             self,
             collider_half_width_height.y,

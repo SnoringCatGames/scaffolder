@@ -115,13 +115,13 @@ func add_player(
             true)
     player.set_position(position)
     
-    player.set_is_human_player(is_human_player)
-    if is_human_player:
-        human_player = player
-    
     all_players.push_back(player)
     
     add_child(player)
+    
+    player.set_is_human_player(is_human_player)
+    if is_human_player:
+        human_player = player
     
     return player
 
