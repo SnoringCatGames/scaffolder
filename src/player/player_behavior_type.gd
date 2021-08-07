@@ -6,6 +6,9 @@ enum {
     FOLLOW,
     COLLIDE,
     RUN_AWAY,
+    # FIXME: ------------ Use
+    WANDER,
+    RETURN,
     USER_NAVIGATE,
     CHOREOGRAPHY,
     CUSTOM,
@@ -22,6 +25,10 @@ static func type_to_string(type: int) -> String:
             return "COLLIDE"
         RUN_AWAY:
             return "RUN_AWAY"
+        WANDER:
+            return "WANDER"
+        RETURN:
+            return "RETURN"
         USER_NAVIGATE:
             return "USER_NAVIGATE"
         CHOREOGRAPHY:
