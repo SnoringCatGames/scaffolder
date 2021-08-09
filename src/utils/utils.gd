@@ -411,6 +411,19 @@ static func get_time_string_from_seconds(
     return time_str
 
 
+func get_vector_string(
+        vector: Vector2,
+        decimal_place_count := 2) -> String:
+    return "(%.*f,%.*f)" % [
+        decimal_place_count,
+        decimal_place_count,
+        vector.x,
+        decimal_place_count,
+        decimal_place_count,
+        vector.y,
+    ]
+
+
 func take_screenshot() -> void:
     if !ensure_directory_exists("user://screenshots"):
         return
