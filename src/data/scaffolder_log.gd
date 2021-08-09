@@ -63,12 +63,13 @@ func _print_front_matter() -> void:
     self.print((
         "%s " +
         "%s " +
-        "%s " +
+        "(%4d,%4d) " +
         ""
     ) % [
         OS.get_name(),
         OS.get_model_name(),
-        Sc.utils.get_vector_string(get_viewport().size, 0),
+        get_viewport().size.x,
+        get_viewport().size.y,
     ])
     self.print("")
 

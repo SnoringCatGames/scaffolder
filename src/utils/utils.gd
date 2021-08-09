@@ -416,9 +416,7 @@ func get_vector_string(
         decimal_place_count := 2) -> String:
     return "(%.*f,%.*f)" % [
         decimal_place_count,
-        decimal_place_count,
         vector.x,
-        decimal_place_count,
         decimal_place_count,
         vector.y,
     ]
