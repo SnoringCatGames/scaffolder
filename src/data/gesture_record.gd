@@ -54,9 +54,8 @@ class GestureEventForDebugging extends Reference:
     
     
     func to_string() -> String:
-        return "{%s;(%.2f,%.2f);%.3f}" % [
+        return "{%s;%s;%.3f}" % [
             name,
-            position.x,
-            position.y,
+            Sc.utils.get_vector_string(position, 2),
             time,
         ]
