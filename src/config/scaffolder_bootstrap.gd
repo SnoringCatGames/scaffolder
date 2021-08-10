@@ -65,6 +65,8 @@ func _initialize_framework() -> void:
     
     Sc.nav.register_manifest(Sc._manifest.gui_manifest.screen_manifest)
     
+    seed(Sc.metadata.rng_seed)
+    
     if Engine.editor_hint:
         print("")
         print("***************************************************************")
