@@ -27,6 +27,8 @@ var thread_count: int
 
 var is_mobile_supported: bool
 
+var rng_seed := 176
+
 var app_name: String
 var app_id: String
 var app_version: String
@@ -109,6 +111,8 @@ func register_manifest(manifest: Dictionary) -> void:
     self.uses_threads = manifest.uses_threads
     self.thread_count = manifest.thread_count
     self.is_mobile_supported = manifest.is_mobile_supported
+    if manifest.has("rng_seed"):
+        self.rng_seed = manifest.rng_seed
     self.uses_level_scores = manifest.uses_level_scores
     self.must_restart_level_to_change_settings = \
             manifest.must_restart_level_to_change_settings
