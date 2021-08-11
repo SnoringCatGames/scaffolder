@@ -1948,9 +1948,9 @@
        ry="0"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05"
-       inkscape:export-filename="C:\Users\lsl\follow_behavior_controller.png" />
+       inkscape:export-filename="C:\Users\lsl\follow_behavior.png" />
     <rect
-       inkscape:export-filename="C:\Users\lsl\collide_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\collide_behavior.png"
        inkscape:export-ydpi="192.05"
        inkscape:export-xdpi="192.05"
        ry="0"
@@ -1962,7 +1962,7 @@
        id="rect2839"
        style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.08065414;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <rect
-       inkscape:export-filename="C:\Users\lsl\run_away_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\run_away_behavior.png"
        inkscape:export-ydpi="192.05"
        inkscape:export-xdpi="192.05"
        ry="0"
@@ -1984,7 +1984,7 @@
        ry="0"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05"
-       inkscape:export-filename="C:\Users\lsl\climb_adjacent_surfaces_behavior_controller.png" />
+       inkscape:export-filename="C:\Users\lsl\climb_adjacent_surfaces_behavior.png" />
     <rect
        style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.08065414;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect2837-3"
@@ -1996,9 +1996,9 @@
        ry="0"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05"
-       inkscape:export-filename="C:\Users\lsl\move_back_and_forth_behavior_controller.png" />
+       inkscape:export-filename="C:\Users\lsl\move_back_and_forth_behavior.png" />
     <rect
-       inkscape:export-filename="C:\Users\lsl\jump_back_and_forth_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\jump_back_and_forth_behavior.png"
        inkscape:export-ydpi="192.05"
        inkscape:export-xdpi="192.05"
        ry="0"
@@ -2010,7 +2010,7 @@
        id="rect2839-1"
        style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.08065414;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <rect
-       inkscape:export-filename="C:\Users\lsl\wander_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\wander_behavior.png"
        inkscape:export-ydpi="192.05"
        inkscape:export-xdpi="192.05"
        ry="0"
@@ -2024,7 +2024,7 @@
     <g
        id="g3114"
        transform="translate(11.213238,-1.9621994)"
-       inkscape:export-filename="C:\Users\lsl\collide_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\collide_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <circle
@@ -2178,7 +2178,7 @@
     <g
        id="g3187"
        transform="translate(-0.06610771)"
-       inkscape:export-filename="C:\Users\lsl\run_away_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\run_away_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <circle
@@ -2222,7 +2222,7 @@
     <g
        id="g3212"
        transform="translate(-0.1323098,-1.4737248e-5)"
-       inkscape:export-filename="C:\Users\lsl\follow_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\follow_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <ellipse
@@ -2309,7 +2309,7 @@
     <g
        id="g3138"
        transform="translate(10.705493,-1.3162122)"
-       inkscape:export-filename="C:\Users\lsl\climb_adjacent_surfaces_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\climb_adjacent_surfaces_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <circle
@@ -2438,7 +2438,7 @@
     <g
        id="g3163"
        transform="translate(10.589737,-0.19383431)"
-       inkscape:export-filename="C:\Users\lsl\move_back_and_forth_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\move_back_and_forth_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <circle
@@ -2658,7 +2658,7 @@
     <g
        id="g3169"
        transform="translate(10.519579,0.92607482)"
-       inkscape:export-filename="C:\Users\lsl\jump_back_and_forth_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\jump_back_and_forth_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <rect
@@ -2803,7 +2803,7 @@
     <g
        id="g3174"
        transform="translate(10.997514,0.77193092)"
-       inkscape:export-filename="C:\Users\lsl\wander_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\wander_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <circle
@@ -2848,9 +2848,9 @@
        ry="0"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05"
-       inkscape:export-filename="C:\Users\lsl\follow_behavior_controller.png" />
+       inkscape:export-filename="C:\Users\lsl\follow_behavior.png" />
     <rect
-       inkscape:export-filename="C:\Users\lsl\collide_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\collide_behavior.png"
        inkscape:export-ydpi="192.05"
        inkscape:export-xdpi="192.05"
        ry="0"
@@ -2862,7 +2862,7 @@
        id="rect2839-0"
        style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:126.16130829;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <rect
-       inkscape:export-filename="C:\Users\lsl\run_away_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\run_away_behavior.png"
        inkscape:export-ydpi="192.05"
        inkscape:export-xdpi="192.05"
        ry="0"
@@ -2884,7 +2884,7 @@
        ry="0"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05"
-       inkscape:export-filename="C:\Users\lsl\climb_adjacent_surfaces_behavior_controller.png" />
+       inkscape:export-filename="C:\Users\lsl\climb_adjacent_surfaces_behavior.png" />
     <rect
        style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:126.16130829;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect2837-3-0"
@@ -2896,9 +2896,9 @@
        ry="0"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05"
-       inkscape:export-filename="C:\Users\lsl\move_back_and_forth_behavior_controller.png" />
+       inkscape:export-filename="C:\Users\lsl\move_back_and_forth_behavior.png" />
     <rect
-       inkscape:export-filename="C:\Users\lsl\jump_back_and_forth_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\jump_back_and_forth_behavior.png"
        inkscape:export-ydpi="192.05"
        inkscape:export-xdpi="192.05"
        ry="0"
@@ -2910,7 +2910,7 @@
        id="rect2839-1-2"
        style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:126.16130829;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <rect
-       inkscape:export-filename="C:\Users\lsl\wander_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\wander_behavior.png"
        inkscape:export-ydpi="192.05"
        inkscape:export-xdpi="192.05"
        ry="0"
@@ -2924,7 +2924,7 @@
     <g
        id="g3114-8"
        transform="matrix(2,0,0,2,35.981849,-296.8575)"
-       inkscape:export-filename="C:\Users\lsl\collide_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\collide_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <circle
@@ -3078,7 +3078,7 @@
     <g
        id="g3187-2"
        transform="matrix(2,0,0,2,13.423157,-292.93316)"
-       inkscape:export-filename="C:\Users\lsl\run_away_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\run_away_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <circle
@@ -3122,7 +3122,7 @@
     <g
        id="g3212-1"
        transform="matrix(2,0,0,2,13.290753,-292.93316)"
-       inkscape:export-filename="C:\Users\lsl\follow_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\follow_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <ellipse
@@ -3209,7 +3209,7 @@
     <g
        id="g3138-4"
        transform="matrix(2,0,0,2,34.966359,-295.56554)"
-       inkscape:export-filename="C:\Users\lsl\climb_adjacent_surfaces_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\climb_adjacent_surfaces_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <circle
@@ -3338,7 +3338,7 @@
     <g
        id="g3163-7"
        transform="matrix(2,0,0,2,34.734847,-293.32082)"
-       inkscape:export-filename="C:\Users\lsl\move_back_and_forth_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\move_back_and_forth_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <circle
@@ -3558,7 +3558,7 @@
     <g
        id="g3169-4"
        transform="matrix(2,0,0,2,34.594531,-291.08096)"
-       inkscape:export-filename="C:\Users\lsl\jump_back_and_forth_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\jump_back_and_forth_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <rect
@@ -3602,7 +3602,7 @@
     <g
        id="g3174-6"
        transform="matrix(2,0,0,2,35.550401,-291.38926)"
-       inkscape:export-filename="C:\Users\lsl\wander_behavior_controller.png"
+       inkscape:export-filename="C:\Users\lsl\wander_behavior.png"
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05">
       <circle
