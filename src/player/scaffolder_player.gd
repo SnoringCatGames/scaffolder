@@ -35,7 +35,6 @@ var _is_destroyed := false
 
 var _configuration_warning := ""
 
-var behavior := PlayerBehaviorType.REST
 var velocity := Vector2.ZERO
 var collider_half_width_height := Vector2.INF
 var start_position := Vector2.INF

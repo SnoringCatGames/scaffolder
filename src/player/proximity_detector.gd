@@ -7,6 +7,7 @@ extends Node2D
 ## -   You can declare these as children in your ScaffolderPlayer scenes.[br]
 ## -   You can configure the shape used to define the proximity range.[br]
 
+
 ## The shape to detect other bodies within.
 export var shape: Shape2D setget _set_shape
 
