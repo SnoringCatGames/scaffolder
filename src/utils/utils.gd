@@ -667,7 +667,7 @@ func get_property_list_for_inspector_groups(
     var first_property_indices := first_property_index_to_group.keys()
     first_property_indices.sort()
     
-    var property_list_amendment := []
+    var property_list_addendum := []
     
     for group_index in first_property_indices.size():
         var first_property_index: int = first_property_indices[group_index]
@@ -686,7 +686,7 @@ func get_property_list_for_inspector_groups(
         else:
             last_property_index = default_property_list.size() - 1
         
-        property_list_amendment.push_back({
+        property_list_addendum.push_back({
             name = group.group_name,
             type = TYPE_NIL,
             usage = PROPERTY_USAGE_GROUP_HEADER,
@@ -716,7 +716,7 @@ func get_property_list_for_inspector_groups(
                     property_overrides.hint_string if \
                     property_overrides.has("hint_string") else \
                     original_property_config.hint_string
-            property_list_amendment.push_back({
+            property_list_addendum.push_back({
                 name = name,
                 type = type,
                 hint = hint,
@@ -724,7 +724,7 @@ func get_property_list_for_inspector_groups(
                 usage = PROPERTY_USAGE_GROUPED_ITEM,
             })
     
-    return property_list_amendment
+    return property_list_addendum
 
 
 # **NOTE**: This doesn't work!
@@ -747,12 +747,12 @@ func amend_property_list_to_not_store(
         Sc.logger.error()
         return []
     
-    var property_list_amendment := []
+    var property_list_addendum := []
     for i in range(first_property_index, last_property_index + 1):
         var original_property_config: Dictionary = default_property_list[i]
         original_property_config.usage &= ~PROPERTY_USAGE_STORAGE
-        property_list_amendment.push_back(original_property_config)
-    return property_list_amendment
+        property_list_addendum.push_back(original_property_config)
+    return property_list_addendum
 
 
 func _get_property_index(
