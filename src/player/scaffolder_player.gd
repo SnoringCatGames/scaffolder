@@ -144,11 +144,13 @@ func _update_editor_configuration_debounced() -> void:
                 ScaffolderPlayerAnimator)
         if player_animators.size() > 1:
             _set_configuration_warning(
-                    "Must only define a single ScaffolderPlayerAnimator child node.")
+                    "Must only define a single ScaffolderPlayerAnimator " +
+                    "child node.")
             return
         elif player_animators.size() < 1:
             _set_configuration_warning(
-                    "Must define a ScaffolderPlayerAnimator-subclass child node.")
+                    "Must define a ScaffolderPlayerAnimator-subclass " +
+                    "child node.")
             return
         animator = player_animators[0]
         animator.is_desaturatable = true
