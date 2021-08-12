@@ -48,14 +48,14 @@ func _load_level() -> void:
     
     Sc.save_state.set_last_level_played(level_id)
     
-    Sc.utils.add_scene(
+    var level: SurfacerLevel = Sc.utils.add_scene(
             null,
             Sc.level_config.get_level_config(level_id).scene_path,
             false,
             true)
     
+    Sc.level = level
     Sc.nav.screens["game"].add_level(Sc.level)
-    
     Sc.level._load()
     
     Sc.nav.open("game", ScreenTransition.FANCY)

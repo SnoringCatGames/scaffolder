@@ -38,7 +38,7 @@ var _property_list_addendum = [
     PLAYER_NAME_PROPERTY_CONFIG,
     SURFACE_ATTACHMENT_PROPERTY_CONFIG,
 ]
-var _player: ScaffolderPlayer
+var _player
 var _configuration_warning := ""
 
 
@@ -47,14 +47,15 @@ func _init() -> void:
 
 
 func _ready() -> void:
-    # Walk up the scene tree in order to find the active level, and register
-    # this spawn position with it.
-    var ancestor := get_parent()
-    while is_instance_valid(ancestor) and \
-            !(ancestor is ScaffolderLevel):
-        ancestor = ancestor.get_parent()
-    if ancestor is ScaffolderLevel:
-        ancestor.register_spawn_position(player_name, position)
+    if is_instance_valid(Sc.level):
+        # Walk up the scene tree in order to find the active level, and register
+        # this spawn position with it.
+        var ancestor := get_parent()
+        while is_instance_valid(ancestor) and \
+                ancestor != Sc.level:
+            ancestor = ancestor.get_parent()
+        if ancestor == Sc.level:
+            ancestor.register_spawn_position(player_name, self)
 
 
 # -   This makes the `player_name` property exported for editing in the
@@ -62,7 +63,7 @@ func _ready() -> void:
 # -   This also defines the `player_name` property as an enum of all the
 #     player names that are registered in the app manifest.
 func _update_property_list_addendum() -> void:
-    var player_names := Sc.players.player_scenes.keys()
+    var player_names: Array = Sc.players.player_scenes.keys()
     player_names.push_front("")
     PLAYER_NAME_PROPERTY_CONFIG.hint_string = Sc.utils.join(player_names, ",")
 
