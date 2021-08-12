@@ -6,7 +6,7 @@ extends Node2D
 
 const MIN_CONTROLS_DISPLAY_TIME := 0.5
 
-# Dictionary<String, Array<Vector2>>
+# Dictionary<String, Array<SpawnPosition>>
 var spawn_positions := {}
 
 # Dictionary<String, Array<ScaffolderPlayer>>
@@ -35,7 +35,6 @@ func _ready() -> void:
 
 
 func _load() -> void:
-    Sc.level = self
     _create_hud()
 
 
@@ -64,12 +63,18 @@ func _add_human_player() -> void:
     # If no spawn position was defined for the default player, then start them
     # at 0,0. 
     if !spawn_positions.has(Sc.players.default_player_name):
-        register_spawn_position(Sc.players.default_player_name, Vector2.ZERO)
+        var spawn_position := SpawnPosition.new()
+        spawn_position.player_name = Sc.players.default_player_name
+        spawn_position.position = Vector2.ZERO
+        spawn_position.surface_attachment = "NONE"
+        register_spawn_position(Sc.players.default_player_name, spawn_position)
     
     # Add the human player.
+    var spawn_position: SpawnPosition = \
+            spawn_positions[Sc.players.default_player_name][0]
     add_player(
             Sc.players.default_player_name,
-            spawn_positions[Sc.players.default_player_name][0],
+            spawn_position,
             true)
 
 
@@ -78,10 +83,10 @@ func _add_computer_players() -> void:
     for player_name in spawn_positions:
         if player_name == Sc.players.default_player_name:
             continue
-        for position in spawn_positions[player_name]:
+        for spawn_position in spawn_positions[player_name]:
             add_player(
                     player_name,
-                    position,
+                    spawn_position,
                     false)
 
 
@@ -137,13 +142,18 @@ func quit(
 
 func add_player(
         name_or_path_or_packed_scene,
-        position: Vector2,
+        position_or_spawn_position,
         is_human_player: bool,
         is_attached := true) -> ScaffolderPlayer:
     if name_or_path_or_packed_scene is String and \
             !name_or_path_or_packed_scene.begins_with("res://"):
         name_or_path_or_packed_scene = \
                 Sc.players.player_scenes[name_or_path_or_packed_scene]
+    
+    var position: Vector2 = \
+            position_or_spawn_position if \
+            position_or_spawn_position is Vector2 else \
+            position_or_spawn_position.position
     
     var player: ScaffolderPlayer = Sc.utils.add_scene(
             null,
@@ -152,11 +162,15 @@ func add_player(
             true)
     player.set_position(position)
     
+    if position_or_spawn_position is SpawnPosition:
+        player.set_surface_attachment(position_or_spawn_position.surface_side)
+    
     if !players.has(player.player_name):
         players[player.player_name] = []
     players[player.player_name].push_back(player)
     
-    add_child(player)
+    if is_attached:
+        add_child(player)
     
     player.set_is_human_player(is_human_player)
     if is_human_player:
@@ -173,12 +187,12 @@ func remove_player(player: ScaffolderPlayer) -> void:
 
 func register_spawn_position(
         player_name: String,
-        position: Vector2) -> void:
+        spawn_position: SpawnPosition) -> void:
     assert(player_name != "")
     if !spawn_positions.has(player_name):
         spawn_positions[player_name] = []
     var positions_for_player: Array = spawn_positions[player_name]
-    positions_for_player.push_back(position)
+    positions_for_player.push_back(spawn_position)
 
 
 func _update_editor_configuration() -> void:
