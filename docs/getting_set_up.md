@@ -1,6 +1,6 @@
 # Getting set up
 
-Probably the easiest way to get set up is to copy the [Squirrel Away example app](https://github.com/snoringcatgames/squirrel-away), and then adjust it to fit your needs.
+Probably the easiest way to get set up is to copy the [Squirrel Away example app](https://github.com/snoringcatgames/squirrel_away), and then adjust it to fit your needs.
 
 -   `addons/scaffolder`
     -   Add the Scaffolder library to your `addons/` folder.
