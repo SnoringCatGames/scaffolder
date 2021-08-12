@@ -5,7 +5,7 @@
        alt="The Scaffolder icon, showing construction scaffolding">
 </p>
 
-> _**[Example app](https://github.com/snoringcatgames/squirrel-away)**_
+> _**[Example app](https://github.com/snoringcatgames/squirrel_away)**_
 > 
 > _**[Godot Asset Library](https://godotengine.org/asset-library/asset/969)**_
 
