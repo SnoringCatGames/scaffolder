@@ -68,9 +68,6 @@ var _debounced_update_editor_configuration: FuncRef
 
 
 func _enter_tree() -> void:
-    if Engine.editor_hint:
-        return
-    
     # Populate these references immediately, since _update_editor_configuration
     # is debounced.
     var animation_players: Array = Sc.utils.get_children_by_type(
@@ -78,6 +75,9 @@ func _enter_tree() -> void:
     if !animation_players.empty():
         animation_player = animation_players[0]
     _sprites = Sc.utils.get_children_by_type(self, Sprite)
+    
+    if Engine.editor_hint:
+        return
     
     Sc.slow_motion.add_animator(self)
     _update_editor_configuration()
