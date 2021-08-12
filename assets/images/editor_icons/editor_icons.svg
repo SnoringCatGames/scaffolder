@@ -25,15 +25,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="73.05059"
-     inkscape:cy="-1368.1136"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="-79.572825"
+     inkscape:cy="-1708.527"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
-     inkscape:window-width="3072"
-     inkscape:window-height="1603"
+     inkscape:window-width="3840"
+     inkscape:window-height="2035"
      inkscape:window-x="-13"
      inkscape:window-y="-13"
      inkscape:window-maximized="1"
@@ -46,7 +46,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -55,6 +55,14 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-292.76666)">
+    <path
+       style="opacity:1;vector-effect:none;fill:#f6ed7a;fill-opacity:1;stroke:none;stroke-width:0.22299685;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 1.4389972,509.47145 c -0.58450109,0 -1.05833297,0.47384 -1.05833295,1.05833 5.5034e-4,0.14825 0.0322407,0.29473 0.0930176,0.42995 l 0.79512765,1.9644 c 0.021355,0.0763 0.09096,0.12893 0.1701877,0.1288 0.078204,2e-4 0.1471981,-0.0511 0.1694986,-0.12614 l 0.7937498,-1.96026 c 0.06244,-0.13718 0.094857,-0.28612 0.095085,-0.43684 0,-0.5845 -0.4738319,-1.05834 -1.058333,-1.05834 z m 0,0.52917 a 0.5291665,0.5291665 0 0 1 0.5291665,0.52916 0.5291665,0.5291665 0 0 1 -0.5291665,0.52917 0.5291665,0.5291665 0 0 1 -0.52916645,-0.52917 0.5291665,0.5291665 0 0 1 0.52916645,-0.52916 z"
+       id="path1261"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\lsl\spawn_position.png"
+       inkscape:export-xdpi="192.05"
+       inkscape:export-ydpi="192.05" />
     <rect
        ry="0"
        rx="0"
@@ -1896,47 +1904,6 @@
        id="path1254"
        d="m 18.682712,635.79593 v 1.05832 h 1.058332 v 5.29168 h 0.529168 v -6.35 z m -3.175,2.11666 v 1.05834 h -1.058334 v 1.05832 h -1.058333 v 1.05834 h -1.058332 v 1.05834 h 4.233331 v -4.23334 z"
        style="opacity:1;vector-effect:none;fill:#f6ed7a;fill-opacity:1;stroke:none;stroke-width:0.37077573;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:0.84371942px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.02109299"
-       x="-15.884029"
-       y="487.56476"
-       id="text1070"><tspan
-         sodipodi:role="line"
-         x="-15.884029"
-         y="487.56476"
-         style="stroke-width:0.02109299"
-         id="tspan1072">follow</tspan><tspan
-         sodipodi:role="line"
-         x="-15.884029"
-         y="488.61942"
-         style="stroke-width:0.02109299"
-         id="tspan1074">collide</tspan><tspan
-         sodipodi:role="line"
-         x="-15.884029"
-         y="489.67407"
-         style="stroke-width:0.02109299"
-         id="tspan1094">run_away</tspan><tspan
-         sodipodi:role="line"
-         x="-15.884029"
-         y="490.7287"
-         style="stroke-width:0.02109299"
-         id="tspan1084">climb_adjacent_surfaces</tspan><tspan
-         sodipodi:role="line"
-         x="-15.884029"
-         y="491.78333"
-         style="stroke-width:0.02109299"
-         id="tspan1078">move_back_and_forth</tspan><tspan
-         sodipodi:role="line"
-         x="-15.884029"
-         y="492.83801"
-         style="stroke-width:0.02109299"
-         id="tspan1080">jump_back_and_forth</tspan><tspan
-         sodipodi:role="line"
-         x="-15.884029"
-         y="493.89264"
-         style="stroke-width:0.02109299"
-         id="tspan1090">wander</tspan></text>
     <rect
        style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.08065414;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect2837"
@@ -3636,5 +3603,37 @@
          d="m -10.348215,506.7478 c 2.5666062,0.0539 2.6719222,-0.38693 2.6644112,-1.03227 -0.0074,-0.63139 -0.350792,-0.90037 -0.900365,-0.90037 -0.549573,0 -0.845715,0.24923 -0.925358,0.53426 -0.08797,0.31483 -0.429858,0.37544 -0.6410192,0.37009 -0.370262,-0.009 -0.402319,-0.33732 -0.402319,-0.69683 0,-0.35953 -0.08838,-0.70069 -0.404542,-0.70069 -0.316162,0 -0.461066,-0.0706 -0.461066,-0.46107 0,-0.39046 0.240569,-0.54572 1.005014,-0.58024 0.4442542,-0.0201 1.1221572,-0.018 1.2256192,0.3044 0.04141,0.12904 0.344845,0.51163 0.8706,0.46898"
          style="fill:none;stroke:#f6ed7a;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.26458333, 0.26458333;stroke-dashoffset:0;stroke-opacity:1" />
     </g>
+    <rect
+       style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.08065414;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1249"
+       width="4.2333336"
+       height="4.2333336"
+       x="-0.67766935"
+       y="509.14548"
+       rx="0"
+       ry="0"
+       inkscape:export-xdpi="192.05"
+       inkscape:export-ydpi="192.05"
+       inkscape:export-filename="C:\Users\lsl\spawn_position.png" />
+    <path
+       style="opacity:1;vector-effect:none;fill:#f6ed7a;fill-opacity:1;stroke:none;stroke-width:0.44599366;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 16.849899,727.7798 c -1.169002,0 -2.116666,0.94768 -2.116666,2.11666 0.0011,0.2965 0.06448,0.58946 0.18604,0.8599 l 1.590256,3.9288 c 0.0427,0.1526 0.18192,0.25786 0.340374,0.2576 0.1564,4e-4 0.294396,-0.1022 0.338998,-0.25228 l 1.5875,-3.92052 c 0.12488,-0.27436 0.18972,-0.57224 0.19018,-0.87368 0,-1.169 -0.947664,-2.11668 -2.116668,-2.11668 z m 0,1.05834 a 1.0583329,1.0583329 0 0 1 1.058332,1.05832 1.0583329,1.0583329 0 0 1 -1.058332,1.05834 1.0583329,1.0583329 0 0 1 -1.058334,-1.05834 1.0583329,1.0583329 0 0 1 1.058334,-1.05832 z"
+       id="path1261-0"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\lsl\spawn_position.png"
+       inkscape:export-xdpi="192.05"
+       inkscape:export-ydpi="192.05" />
+    <rect
+       style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:126.16130066;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1249-5"
+       width="8.4666672"
+       height="8.4666672"
+       x="12.616567"
+       y="727.12793"
+       rx="0"
+       ry="0"
+       inkscape:export-xdpi="192.05"
+       inkscape:export-ydpi="192.05"
+       inkscape:export-filename="C:\Users\lsl\spawn_position.png" />
   </g>
 </svg>

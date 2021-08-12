@@ -6,18 +6,27 @@ extends Node2D
 
 const MIN_CONTROLS_DISPLAY_TIME := 0.5
 
-# Array<ScaffolderPlayer>
-var all_players: Array
+# Dictionary<String, Array<Vector2>>
+var spawn_positions := {}
+
+# Dictionary<String, Array<ScaffolderPlayer>>
+var players: Dictionary
+
 var human_player: ScaffolderPlayer
 
+var session: ScaffolderLevelSession
+
+var _is_ready := false
 var _configuration_warning := ""
 
 
 func _enter_tree() -> void:
-    _update_editor_configuration()
+    session = Sc.level_session
 
 
 func _ready() -> void:
+    _is_ready = true
+    _update_editor_configuration()
     Sc.device.connect(
             "display_resized",
             self,
@@ -40,15 +49,40 @@ func _start() -> void:
             "start",
             Sc.level_config.get_level_version_string(Sc.level_session.id))
     Sc.gui.hud.visible = true
-    add_player(
-            Sc.players.player_scenes[Sc.players.default_player_name],
-            _get_player_start_position(),
-            true)
+    
+    _add_human_player()
+    _add_computer_players()
+    
     call_deferred("_on_started")
 
 
 func _on_started() -> void:
     Sc.level_session._level_start_play_time_unscaled = Sc.time.get_play_time()
+
+
+func _add_human_player() -> void:
+    # If no spawn position was defined for the default player, then start them
+    # at 0,0. 
+    if !spawn_positions.has(Sc.players.default_player_name):
+        register_spawn_position(Sc.players.default_player_name, Vector2.ZERO)
+    
+    # Add the human player.
+    add_player(
+            Sc.players.default_player_name,
+            spawn_positions[Sc.players.default_player_name][0],
+            true)
+
+
+func _add_computer_players() -> void:
+    # Add computer players at the registered spawn positions.
+    for player_name in spawn_positions:
+        if player_name == Sc.players.default_player_name:
+            continue
+        for position in spawn_positions[player_name]:
+            add_player(
+                    player_name,
+                    position,
+                    false)
 
 
 func _create_hud() -> void:
@@ -61,10 +95,8 @@ func _destroy() -> void:
     _hide_welcome_panel()
     if is_instance_valid(Sc.gui.hud):
         Sc.gui.hud._destroy()
-    for group in [
-            Sc.players.GROUP_NAME_HUMAN_PLAYERS,
-            Sc.players.GROUP_NAME_COMPUTER_PLAYERS]:
-        for player in Sc.utils.get_all_nodes_in_group(group):
+    for player_name in players:
+        for player in players[player_name]:
             player._destroy()
     self.human_player = null
     Sc.level = null
@@ -104,18 +136,25 @@ func quit(
 
 
 func add_player(
-        path_or_packed_scene,
+        name_or_path_or_packed_scene,
         position: Vector2,
         is_human_player: bool,
         is_attached := true) -> ScaffolderPlayer:
+    if name_or_path_or_packed_scene is String and \
+            !name_or_path_or_packed_scene.begins_with("res://"):
+        name_or_path_or_packed_scene = \
+                Sc.players.player_scenes[name_or_path_or_packed_scene]
+    
     var player: ScaffolderPlayer = Sc.utils.add_scene(
             null,
-            path_or_packed_scene,
+            name_or_path_or_packed_scene,
             false,
             true)
     player.set_position(position)
     
-    all_players.push_back(player)
+    if !players.has(player.player_name):
+        players[player.player_name] = []
+    players[player.player_name].push_back(player)
     
     add_child(player)
     
@@ -127,25 +166,43 @@ func add_player(
 
 
 func remove_player(player: ScaffolderPlayer) -> void:
-    var group: String = \
-            Sc.players.GROUP_NAME_HUMAN_PLAYERS if \
-            player.is_human_player else \
-            Sc.players.GROUP_NAME_COMPUTER_PLAYERS
-    player.remove_from_group(group)
+    players[player.player_name].erase(player)
     Sc.annotators.destroy_player_annotator(player)
     player._destroy()
 
 
+func register_spawn_position(
+        player_name: String,
+        position: Vector2) -> void:
+    assert(player_name != "")
+    if !spawn_positions.has(player_name):
+        spawn_positions[player_name] = []
+    var positions_for_player: Array = spawn_positions[player_name]
+    positions_for_player.push_back(position)
+
+
 func _update_editor_configuration() -> void:
+    if !_is_ready:
+        return
+    
     if !Sc.utils.check_whether_sub_classes_are_tools(self):
         _set_configuration_warning(
                 "Subclasses of ScaffolderLevel must be marked as tool.")
+        return
+    
+    if spawn_positions.has(Sc.players.default_player_name) and \
+            spawn_positions[Sc.players.default_player_name].size() > 1:
+        _set_configuration_warning(
+                "There must not be more than one spawn position for the " +
+                "default player.")
         return
     
     _set_configuration_warning("")
 
 
 func _set_configuration_warning(value: String) -> void:
+    if !_is_ready:
+        return
     _configuration_warning = value
     update_configuration_warning()
     property_list_changed_notify()
@@ -263,15 +320,6 @@ func get_music_name() -> String:
 
 func get_slow_motion_music_name() -> String:
     return ""
-
-
-func _get_player_start_position() -> Vector2:
-    var nodes: Array = Sc.utils.get_all_nodes_in_group(
-            ScaffolderLevelConfig.PLAYER_START_POSITION_GROUP_NAME)
-    if nodes.empty():
-        return Vector2.ZERO
-    else:
-        return nodes[0].position
 
 
 func _get_is_rate_app_screen_next() -> bool:
