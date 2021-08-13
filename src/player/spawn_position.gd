@@ -112,39 +112,45 @@ func _update_editor_configuration() -> void:
         _set_configuration_warning("Must choose a player_name.")
         return
     
-    var movement_params: MovementParams = \
-            Su.movement.player_movement_params[player_name] if \
-            Su.movement.player_movement_params.has(player_name) else \
+    # TODO: Remove this hack, and decouple things properly.
+    var Su: Node = \
+            get_node("/root/Su") if \
+            has_node("/root/Su") else \
             null
-    
-    if surface_side != SurfaceSide.NONE and \
-            movement_params == null:
-        _set_configuration_warning(
-                "%s has no movement_params, and cannot attach to surafces." % \
-                player_name)
-        return
-    
-    if surface_side == SurfaceSide.FLOOR and \
-            !movement_params.can_grab_floors:
-        _set_configuration_warning(
-                "%s's movement_params.can_grab_floors is false." % \
-                player_name)
-        return
-    
-    if (surface_side == SurfaceSide.LEFT_WALL or \
-            surface_side == SurfaceSide.RIGHT_WALL) and \
-            !movement_params.can_grab_walls:
-        _set_configuration_warning(
-                "%s's movement_params.can_grab_walls is false." % \
-                player_name)
-        return
-    
-    if surface_side == SurfaceSide.CEILING and \
-            !movement_params.can_grab_ceilings:
-        _set_configuration_warning(
-                "%s's movement_params.can_grab_ceilings is false." % \
-                player_name)
-        return
+    if Su != null:
+        var movement_params = \
+                Su.movement.player_movement_params[player_name] if \
+                Su.movement.player_movement_params.has(player_name) else \
+                null
+        
+        if surface_side != SurfaceSide.NONE and \
+                movement_params == null:
+            _set_configuration_warning(
+                    "%s has no movement_params, and cannot attach to surafces." % \
+                    player_name)
+            return
+        
+        if surface_side == SurfaceSide.FLOOR and \
+                !movement_params.can_grab_floors:
+            _set_configuration_warning(
+                    "%s's movement_params.can_grab_floors is false." % \
+                    player_name)
+            return
+        
+        if (surface_side == SurfaceSide.LEFT_WALL or \
+                surface_side == SurfaceSide.RIGHT_WALL) and \
+                !movement_params.can_grab_walls:
+            _set_configuration_warning(
+                    "%s's movement_params.can_grab_walls is false." % \
+                    player_name)
+            return
+        
+        if surface_side == SurfaceSide.CEILING and \
+                !movement_params.can_grab_ceilings:
+            _set_configuration_warning(
+                    "%s's movement_params.can_grab_ceilings is false." % \
+                    player_name)
+            return
     
     call_deferred("_add_player")
     
