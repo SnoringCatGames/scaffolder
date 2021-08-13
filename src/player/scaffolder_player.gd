@@ -27,6 +27,7 @@ export var exclamation_mark_duration := 1.8
 export var exclamation_mark_throttle_interval := 1.0
 
 export var logs_player_events := false
+export var logs_behavior_events := false
 export var logs_computer_player_events := false
 
 var is_human_player := false
