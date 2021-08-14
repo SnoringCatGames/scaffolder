@@ -9,6 +9,9 @@ const MIN_CONTROLS_DISPLAY_TIME := 0.5
 # Dictionary<String, Array<SpawnPosition>>
 var spawn_positions := {}
 
+# Array<SpawnPosition>
+var exclusive_spawn_positions := []
+
 # Dictionary<String, Array<ScaffolderPlayer>>
 var players: Dictionary
 
@@ -71,9 +74,16 @@ func _add_human_player() -> void:
         spawn_position.surface_attachment = "NONE"
         register_spawn_position(Sc.players.default_player_name, spawn_position)
     
-    # Add the human player.
     var spawn_position: SpawnPosition = \
             spawn_positions[Sc.players.default_player_name][0]
+    
+    # TODO: Update the rest of the app to support running with no human player.
+#    if !exclusive_spawn_positions.empty() and \
+#            !spawn_position.include_exclusively:
+#        # We are exclusively including another player.
+#        return
+    
+    # Add the human player.
     add_player(
             Sc.players.default_player_name,
             spawn_position,
@@ -86,6 +96,13 @@ func _add_computer_players() -> void:
         if player_name == Sc.players.default_player_name:
             continue
         for spawn_position in spawn_positions[player_name]:
+            if spawn_position.exclude:
+                # We are excluding this player.
+                continue
+            if !exclusive_spawn_positions.empty() and \
+                    !spawn_position.include_exclusively:
+                # We are exclusively including another player.
+                continue
             add_player(
                     player_name,
                     spawn_position,
@@ -195,6 +212,9 @@ func register_spawn_position(
         spawn_positions[player_name] = []
     var positions_for_player: Array = spawn_positions[player_name]
     positions_for_player.push_back(spawn_position)
+    
+    if spawn_position.include_exclusively:
+        exclusive_spawn_positions.push_back(spawn_position)
 
 
 func _update_editor_configuration() -> void:
