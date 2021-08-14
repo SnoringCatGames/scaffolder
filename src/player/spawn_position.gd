@@ -13,6 +13,14 @@ const ATTACHMENT_CONE_OPACITY := 0.4
 const ATTACHMENT_CONE_FILL_COLOR := Color("ad00ad")
 const ATTACHMENT_CONE_STROKE_COLOR := Color("ffffff")
 
+const INCLUDE_EXCLUSIVELY_WIDTH := 64.0
+const INCLUDE_EXCLUSIVELY_STROKE_WIDTH := 12.0
+const INCLUDE_EXCLUSIVELY_COLOR := Color("00ff00")
+
+const EXCLUDE_WIDTH := 64.0
+const EXCLUDE_STROKE_WIDTH := 12.0
+const EXCLUDE_COLOR := Color("ff0000")
+
 var PLAYER_NAME_PROPERTY_CONFIG := {
     name = "player_name",
     type = TYPE_STRING,
@@ -29,14 +37,38 @@ var SURFACE_ATTACHMENT_PROPERTY_CONFIG := {
     hint_string = "FLOOR,LEFT_WALL,RIGHT_WALL,CEILING,NONE",
 }
 
+var INCLUDE_EXCLUSIVELY_PROPERTY_CONFIG := {
+    name = "include_exclusively",
+    type = TYPE_BOOL,
+    usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+}
+
+var EXCLUDE_PROPERTY_CONFIG := {
+    name = "exclude",
+    type = TYPE_BOOL,
+    usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+}
+
+## The name of the player to spawn at this position.
 var player_name := "" setget _set_player_name
+
+## The type of surface side that this player should start out attached to.
 var surface_attachment := "FLOOR" setget _set_surface_attachment
+
+## If true, then the player will not be created for any other spawn positions
+## (unless they also have include_exclusively enabled).
+var include_exclusively := false setget _set_include_exclusively
+
+## If true, then the player will not be created for this spawn position.
+var exclude := false setget _set_exclude
 
 var surface_side := SurfaceSide.FLOOR
 
 var _property_list_addendum = [
     PLAYER_NAME_PROPERTY_CONFIG,
     SURFACE_ATTACHMENT_PROPERTY_CONFIG,
+    INCLUDE_EXCLUSIVELY_PROPERTY_CONFIG,
+    EXCLUDE_PROPERTY_CONFIG,
 ]
 var _player
 var _configuration_warning := ""
@@ -100,6 +132,23 @@ func _draw() -> void:
             ATTACHMENT_CONE_RADIUS,
             ATTACHMENT_CONE_FILL_COLOR,
             true)
+    
+    if include_exclusively:
+        Sc.draw.draw_checkmark(
+                self,
+                Vector2.ZERO,
+                INCLUDE_EXCLUSIVELY_WIDTH,
+                INCLUDE_EXCLUSIVELY_COLOR,
+                INCLUDE_EXCLUSIVELY_STROKE_WIDTH)
+    
+    if exclude:
+        Sc.draw.draw_x(
+                self,
+                Vector2.ZERO,
+                EXCLUDE_WIDTH,
+                EXCLUDE_WIDTH,
+                EXCLUDE_COLOR,
+                EXCLUDE_STROKE_WIDTH)
 
 
 func _update_editor_configuration() -> void:
@@ -160,6 +209,7 @@ func _update_editor_configuration() -> void:
 func _set_configuration_warning(value: String) -> void:
     _configuration_warning = value
     update_configuration_warning()
+    property_list_changed_notify()
     update()
 
 
@@ -194,4 +244,18 @@ func _set_player_name(value: String) -> void:
 
 func _set_surface_attachment(value: String) -> void:
     surface_attachment = value
+    _update_editor_configuration()
+
+
+func _set_include_exclusively(value: bool) -> void:
+    include_exclusively = value
+    if include_exclusively:
+        exclude = false
+    _update_editor_configuration()
+
+
+func _set_exclude(value: bool) -> void:
+    exclude = value
+    if exclude:
+        include_exclusively = false
     _update_editor_configuration()

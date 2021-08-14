@@ -3,6 +3,9 @@
 [ext_resource path="res://addons/scaffolder/src/player/spawn_position.gd" type="Script" id=1]
 
 [node name="SpawnPosition" type="Position2D"]
+self_modulate = Color( 1, 1, 1, 0.4 )
 script = ExtResource( 1 )
 player_name = ""
 surface_attachment = "FLOOR"
+include_exclusively = false
+exclude = false
