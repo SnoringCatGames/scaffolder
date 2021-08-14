@@ -12,6 +12,8 @@ extends FrameworkConfig
 signal initialized
 signal splashed
 
+const _LOGS_EARLY_BOOTSTRAP_EVENTS := false
+
 var is_initialized := false
 
 var logger: ScaffolderLog

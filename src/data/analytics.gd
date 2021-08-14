@@ -47,7 +47,7 @@ func _init() -> void:
 
 func _ready() -> void:
     client_id = _get_client_id()
-    Sc.logger.print("Analytics client ID: " + client_id)
+    _log("Analytics client ID: %s" % client_id)
 
 
 func _process(_delta: float) -> void:
@@ -195,10 +195,10 @@ func _trigger_collect(
         payload: String,
         details: String,
         is_session_end := false) -> void:
-    Sc.logger.print("Analytics._trigger_collect: " + details)
+    _log("Analytics._trigger_collect: %s" % details)
     if VERBOSE:
-        Sc.logger.print("  Payload (readable):\n    " + \
-                payload.replace("&", "\n    &"))
+        _log("  Payload (readable):\n    %s" % payload.replace("&", "\n    &"),
+                true)
     
     if Sc.metadata.debug:
         # Skipping Analytics collection in debug environment
@@ -249,11 +249,13 @@ func _on_collect_request_completed(
         url: String,
         is_session_end: bool) -> void:
     if VERBOSE:
-        Sc.logger.print(
-                "Analytics._on_collect_request_completed: result=%d, code=%d" % \
-                [result, response_code])
-        Sc.logger.print("  Body:\n    " + body.get_string_from_utf8())
-        Sc.logger.print("  Headers:\n    " + Sc.utils.join(headers, ",\n    "))
+        _log("Analytics._on_collect_request_completed: result=%d, code=%d" % [
+                    result,
+                    response_code,
+                ],
+                true)
+        _log("  Body:\n    %s" % body.get_string_from_utf8(), true)
+        _log("  Headers:\n    %s" % Sc.utils.join(headers, ",\n    "), true)
     
     request.queue_free()
     
@@ -274,13 +276,13 @@ func _on_collect_request_completed(
             (response_code >= 500 and response_code < 600):
         # Probably a temporary failure! Try again later.
         if Sc.metadata.debug:
-            Sc.logger.print("Analytics._on_collect_request_completed: " +
+            _log("Analytics._on_collect_request_completed: " +
                     "Queuing entry for re-attempt")
         _retry_queue.push_back(entry)
     else:
         Sc.logger.error(
-                "Analytics._on_collect_request_completed failed: " +
-                "result=%d, code=%d, url=%s, body=%s" % [
+                ("Analytics._on_collect_request_completed failed: " +
+                "result=%d, code=%d, url=%s, body=%s") % [
                     result, 
                     response_code, 
                     url, 
@@ -318,10 +320,11 @@ func _trigger_batch(batch: Array) -> void:
         payload += entry_payload
     
     if VERBOSE:
-        Sc.logger.print("Analytics._trigger_batch")
-        Sc.logger.print("  Payload:\n    " + payload)
-        Sc.logger.print("  Payload (readable):\n    " + \
-                payload.replace("&", "\n    &"))
+        _log("Analytics._trigger_batch", true)
+        _log("  Payload:\n    %s" % payload, true)
+        _log("  Payload (readable):\n    %s" % \
+                payload.replace("&", "\n    &"),
+                true)
     
     var url := GOOGLE_ANALYTICS_BATCH_URL
     var body := payload
@@ -358,11 +361,13 @@ func _on_batch_request_completed(
         request: HTTPRequest,
         url: String) -> void:
     if VERBOSE:
-        Sc.logger.print(
-                "Analytics._on_batch_request_completed: result=%d, code=%d" % \
-                [result, response_code])
-        Sc.logger.print("  Body:\n    " + body.get_string_from_utf8())
-        Sc.logger.print("  Headers:\n    " + Sc.utils.join(headers, ",\n    "))
+        _log("Analytics._on_batch_request_completed: result=%d, code=%d" % [
+                    result,
+                    response_code,
+                ],
+                true)
+        _log("  Body:\n    %s" % body.get_string_from_utf8(), true)
+        _log("  Headers:\n    %s" % Sc.utils.join(headers, ",\n    "), true)
     
     request.queue_free()
     
@@ -381,20 +386,28 @@ func _on_batch_request_completed(
             (response_code >= 500 and response_code < 600):
         # Probably a temporary failure! Try again later.
         if Sc.metadata.debug:
-            Sc.logger.print("Analytics._on_batch_request_completed: " +
+            _log("Analytics._on_batch_request_completed: " +
                     "Queuing batch for re-attempt")
         for entry in batch:
             _retry_queue.push_back(entry)
     else:
-        Sc.logger.error(
+        Sc.logger.warning(
                 ("Analytics._on_batch_request_completed failed: " +
                 "result=%d, code=%d, url=%s, body=%s") % [
                     result, 
                     response_code, 
                     url, 
                     body.get_string_from_utf8(),
-                ],
-                false)
+                ])
+
+
+func _log(
+        message: String,
+        is_verbose = false) -> void:
+    if Sc.metadata.logs_analytics_events and \
+            (!is_verbose or \
+            VERBOSE):
+        Sc.logger.print(message)
 
 
 class _AnalyticsEntry extends Reference:
