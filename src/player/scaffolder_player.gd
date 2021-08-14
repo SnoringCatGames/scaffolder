@@ -4,6 +4,8 @@ class_name ScaffolderPlayer, \
 extends KinematicBody2D
 
 
+# ---
+
 export var player_name := ""
 
 ## -   This helps your `ScaffolderPlayer` detect when other areas or bodies
@@ -26,23 +28,34 @@ export var exclamation_mark_stroke_width_start := 1.2
 export var exclamation_mark_duration := 1.8
 export var exclamation_mark_throttle_interval := 1.0
 
+# ---
+
+const _LOGS_GROUP := {
+    group_name = "Logs",
+    first_property_name = "logs_action_events",
+    last_property_name = "logs_low_level_framework_events",
+}
+
 ## -   If true, action/input events will be printed.
-export var logs_action_events := false
+var logs_action_events := false
 ## -   If true, surface-interaction events will be printed.
-export var logs_surface_events := false
+var logs_surface_events := false
 ## -   If true, behavior events will be printed.
-export var logs_behavior_events := false
+var logs_behavior_events := false
 ## -   If true, navigator events will be printed.
-export var logs_navigator_events := false
+var logs_navigator_events := false
 ## -   If true, custom player events will be printed.
-export var logs_custom_events := false
+var logs_custom_events := false
 ## -   If true, lower-level framework events will be printed.
-export var logs_low_level_framework_events := false
+var logs_low_level_framework_events := false
+
+# ---
 
 var is_human_player := false
 var _is_ready := false
 var _is_destroyed := false
 
+var _property_list_addendum := []
 var _configuration_warning := ""
 
 var velocity := Vector2.ZERO
@@ -62,6 +75,19 @@ var _layers_for_exited_proximity_detection := {}
 
 var _debounced_update_editor_configuration: FuncRef
 var _throttled_show_exclamation_mark: FuncRef
+
+const _PROPERTY_GROUPS := [
+    _LOGS_GROUP,
+]
+
+# ---
+
+
+func _init() -> void:
+    var property_list_addendum: Array = \
+            Sc.utils.get_property_list_for_inspector_groups(
+                    self, _PROPERTY_GROUPS)
+    Sc.utils.concat(_property_list_addendum, property_list_addendum)
 
 
 func _enter_tree() -> void:
@@ -189,6 +215,12 @@ func _set_configuration_warning(value: String) -> void:
 
 func _get_configuration_warning() -> String:
     return _configuration_warning
+
+
+# NOTE: _get_property_list **appends** to the default list of properties.
+#       It does not replace.
+func _get_property_list() -> Array:
+    return _property_list_addendum
 
 
 func _initialize_children_proximity_detectors() -> void:
