@@ -16,7 +16,7 @@ var is_save_state_cleared_for_debugging := false
 var is_splash_skipped := false
 var opens_directly_to_level_id := ""
 var also_prints_to_stdout := true
-var is_logging_low_level_player_framework_events := false
+var logs_player_events := true
 var overrides_project_settings := true
 var overrides_input_map := true
 var are_button_controls_enabled_by_default := false
@@ -102,9 +102,7 @@ func register_manifest(manifest: Dictionary) -> void:
                 manifest.is_save_state_cleared_for_debugging
     self.pauses_on_focus_out = manifest.pauses_on_focus_out
     self.also_prints_to_stdout = manifest.also_prints_to_stdout
-    if manifest.has("is_logging_low_level_player_framework_events"):
-        self.is_logging_low_level_player_framework_events = \
-                is_logging_low_level_player_framework_events
+    self.logs_player_events = manifest.logs_player_events
     self.overrides_project_settings = manifest.overrides_project_settings
     self.overrides_input_map = manifest.overrides_input_map
     self.are_button_controls_enabled_by_default = \

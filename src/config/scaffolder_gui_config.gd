@@ -116,7 +116,6 @@ var DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST := {
                 CameraZoomControlRow,
                 TimeScaleControlRow,
                 MetronomeControlRow,
-                IsLoggingLowLevelPlayerFrameworkEventsControlRow,
             ],
         },
     },

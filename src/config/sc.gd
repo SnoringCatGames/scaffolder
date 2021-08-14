@@ -311,10 +311,6 @@ func _load_state() -> void:
     Sc.metadata.are_button_controls_enabled = Sc.save_state.get_setting(
             SaveState.ARE_BUTTON_CONTROLS_ENABLED_SETTINGS_KEY,
             Sc.metadata.are_button_controls_enabled_by_default)
-    Sc.metadata.is_logging_low_level_player_framework_events = \
-            Sc.save_state.get_setting(
-                    SaveState.IS_LOGGING_LOW_LEVEL_PLAYER_FRAMEWORK_EVENTS_SETTINGS_KEY,
-                    false)
     Sc.gui.is_giving_haptic_feedback = Sc.save_state.get_setting(
             SaveState.IS_GIVING_HAPTIC_FEEDBACK_SETTINGS_KEY,
             Sc.device.get_is_android_app())

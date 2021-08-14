@@ -137,7 +137,7 @@ func open(
     Sc.logger.print("Nav.open: %s => %s (%s)" % [
         previous_name,
         screen_name,
-        ScreenTransition.type_to_string(transition_type),
+        ScreenTransition.get_string(transition_type),
     ])
     
     var old_stack_string := get_active_screen_stack_string()
@@ -173,7 +173,7 @@ func close_current_screen(
     Sc.logger.print("Nav.close_current_screen: %s => %s (%s)" % [
         previous_name,
         next_name,
-        ScreenTransition.type_to_string(transition_type),
+        ScreenTransition.get_string(transition_type),
     ])
     
     var old_stack_string := get_active_screen_stack_string()
