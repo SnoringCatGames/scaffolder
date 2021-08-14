@@ -424,6 +424,24 @@ func get_vector_string(
     ]
 
 
+func get_spaces(count: int) -> String:
+    assert(count <= 60)
+    return "                                                            " \
+            .substr(0, count)
+
+
+func pad_string(
+        string: String,
+        length: int,
+        pads_on_right := true) -> String:
+    assert(string.length() <= length)
+    var padding := get_spaces(length - string.length())
+    if pads_on_right:
+        return "%s%s" % [string, padding]
+    else:
+        return "%s%s" % [padding, string]
+
+
 func take_screenshot() -> void:
     if !ensure_directory_exists("user://screenshots"):
         return

@@ -292,25 +292,32 @@ func _log(
         message: String,
         type: int,
         is_low_level_framework_event = false) -> void:
-    var logs_this_type := \
-            (type == PlayerLogType.ACTION and logs_action_events) or \
-            (type == PlayerLogType.SURFACE and logs_surface_events) or \
-            (type == PlayerLogType.NAVIGATOR and logs_navigator_events) or \
-            (type == PlayerLogType.BEHAVIOR and logs_behavior_events) or \
-            (type == PlayerLogType.CUSTOM and logs_custom_events) or \
-            type == PlayerLogType.UNKNOWN
-    
-    if logs_this_type and \
-            (!is_low_level_framework_event or \
-            logs_low_level_framework_events) and \
-            Sc.metadata.logs_player_events:
-        Sc.logger.print(message)
+    if _get_should_log_this_type(type, is_low_level_framework_event):
+        var prefix := PlayerLogType.get_prefix(type)
+        Sc.logger.print("[%s] %s" % [prefix, message])
 
 
 func _log_custom(
         message: String,
         is_low_level_framework_event = false) -> void:
     _log(message, PlayerLogType.CUSTOM, is_low_level_framework_event)
+
+
+func _get_should_log_this_type(
+        type: int,
+        is_low_level_framework_event = false) -> bool:
+    var logs_this_type := \
+            (type == PlayerLogType.ACTION and logs_action_events) or \
+            (type == PlayerLogType.SURFACE and logs_surface_events) or \
+            (type == PlayerLogType.NAVIGATOR and logs_navigator_events) or \
+            (type == PlayerLogType.BEHAVIOR and logs_behavior_events) or \
+            (type == PlayerLogType.DEFAULT and logs_custom_events) or \
+            (type == PlayerLogType.CUSTOM and logs_custom_events) or \
+            type == PlayerLogType.UNKNOWN
+    return logs_this_type and \
+            (!is_low_level_framework_event or \
+            logs_low_level_framework_events) and \
+            Sc.metadata.logs_player_events
 
 
 func show_exclamation_mark() -> void:
@@ -465,6 +472,16 @@ func _on_detection_area_enter_exit(
             Sc.utils.get_physics_layer_names_from_bitmask(shared_bits)
     assert(!layer_names.empty())
     
+    if _get_should_log_this_type(PlayerLogType.DEFAULT, true):
+        _log("%s%8.3fs; layer=%s; pos=%s" % [
+                    Sc.utils.pad_string(callback_name.trim_prefix("_on_"), 21),
+                    Sc.time.get_play_time(),
+                    Sc.utils.join(layer_names),
+                    Sc.utils.get_vector_string(position),
+                ],
+                PlayerLogType.DEFAULT,
+                true)
+    
     self.call(callback_name, target, layer_names)
 
 
@@ -511,12 +528,12 @@ func _add_detection_area(
                 "area_exited",
                 self,
                 "_on_detection_area_enter_exit",
-                [enter_callback_name, area])
+                [exit_callback_name, area])
         area.connect(
                 "body_exited",
                 self,
                 "_on_detection_area_enter_exit",
-                [enter_callback_name, area])
+                [exit_callback_name, area])
     
     var collision_shape := CollisionShape2D.new()
     collision_shape.shape = detection_shape

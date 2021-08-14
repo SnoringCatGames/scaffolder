@@ -61,7 +61,7 @@ func _start() -> void:
 func _on_started() -> void:
     var start_time: float = Sc.time.get_play_time()
     Sc.level_session._level_start_play_time_unscaled = start_time
-    Sc.logger.print("Level started:       %8.3fs" % start_time)
+    Sc.logger.print("Level started:             %8.3fs" % start_time)
 
 
 func _add_human_player() -> void:
