@@ -7,6 +7,7 @@ enum {
     SURFACE,
     NAVIGATOR,
     BEHAVIOR,
+    DEFAULT,
     CUSTOM,
 }
 
@@ -23,8 +24,31 @@ static func get_string(type: int) -> String:
             return "NAVIGATOR"
         BEHAVIOR:
             return "BEHAVIOR"
+        DEFAULT:
+            return "DEFAULT"
         CUSTOM:
             return "CUSTOM"
+        _:
+            ScaffolderLog.static_error()
+            return ""
+
+
+static func get_prefix(type: int) -> String:
+    match type:
+        UNKNOWN:
+            return "UNK"
+        ACTION:
+            return "ACT"
+        SURFACE:
+            return "SUR"
+        NAVIGATOR:
+            return "NAV"
+        BEHAVIOR:
+            return "BEH"
+        DEFAULT:
+            return "DEF"
+        CUSTOM:
+            return "CUS"
         _:
             ScaffolderLog.static_error()
             return ""
