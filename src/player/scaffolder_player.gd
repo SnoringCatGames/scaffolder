@@ -26,9 +26,18 @@ export var exclamation_mark_stroke_width_start := 1.2
 export var exclamation_mark_duration := 1.8
 export var exclamation_mark_throttle_interval := 1.0
 
-export var logs_player_events := false
+## -   If true, action/input events will be printed.
+export var logs_action_events := false
+## -   If true, surface-interaction events will be printed.
+export var logs_surface_events := false
+## -   If true, behavior events will be printed.
 export var logs_behavior_events := false
-export var logs_computer_player_events := false
+## -   If true, navigator events will be printed.
+export var logs_navigator_events := false
+## -   If true, custom player events will be printed.
+export var logs_custom_events := false
+## -   If true, lower-level framework events will be printed.
+export var logs_low_level_framework_events := false
 
 var is_human_player := false
 var _is_ready := false
@@ -244,21 +253,31 @@ func _process_sounds() -> void:
     pass
 
 
-# Conditionally prints the given message, depending on the ScaffolderPlayer's
-# configuration.
-func _log_player_event(
-        message_template: String,
-        message_args = null,
+## Conditionally prints the given message, depending on the player's
+## configuration.
+func _log(
+        message: String,
+        type: int,
         is_low_level_framework_event = false) -> void:
-    if logs_player_events and \
+    var logs_this_type := \
+            (type == PlayerLogType.ACTION and logs_action_events) or \
+            (type == PlayerLogType.SURFACE and logs_surface_events) or \
+            (type == PlayerLogType.NAVIGATOR and logs_navigator_events) or \
+            (type == PlayerLogType.BEHAVIOR and logs_behavior_events) or \
+            (type == PlayerLogType.CUSTOM and logs_custom_events) or \
+            type == PlayerLogType.UNKNOWN
+    
+    if logs_this_type and \
             (!is_low_level_framework_event or \
-                Sc.metadata.is_logging_low_level_player_framework_events) and \
-            (is_human_player or \
-                logs_computer_player_events):
-        if message_args != null:
-            Sc.logger.print(message_template % message_args)
-        else:
-            Sc.logger.print(message_template)
+            logs_low_level_framework_events) and \
+            Sc.metadata.logs_player_events:
+        Sc.logger.print(message)
+
+
+func _log_custom(
+        message: String,
+        is_low_level_framework_event = false) -> void:
+    _log(message, PlayerLogType.CUSTOM, is_low_level_framework_event)
 
 
 func show_exclamation_mark() -> void:

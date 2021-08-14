@@ -29,7 +29,7 @@ var slide_transition_tween_id := -1
 var fade_transition_tween_id := -1
 
 
-static func type_to_string(type: int) -> String:
+static func get_string(type: int) -> String:
     match type:
         DEFAULT:
             return "DEFAULT"
