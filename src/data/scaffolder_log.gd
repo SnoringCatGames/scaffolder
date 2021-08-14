@@ -51,7 +51,13 @@ func on_global_init(
         name: String,
         expect_is_tool := true) -> void:
     global.name = name
-    self.print("%s._init" % name)
+    
+    if Sc._manifest.empty() and \
+            Sc._LOGS_EARLY_BOOTSTRAP_EVENTS or \
+            !Sc._manifest.empty() and \
+            Sc._manifest.metadata.logs_bootstrap_events:
+        self.print("%s._init" % name)
+    
     if Engine.editor_hint and \
             expect_is_tool and \
             is_instance_valid(Sc.utils):
@@ -71,7 +77,8 @@ func _print_front_matter() -> void:
         get_viewport().size.x,
         get_viewport().size.y,
     ])
-    self.print("")
+    if Sc._LOGS_EARLY_BOOTSTRAP_EVENTS:
+        self.print("")
 
 
 # NOTE: Keep this in-sync with the duplicate function in Utils.

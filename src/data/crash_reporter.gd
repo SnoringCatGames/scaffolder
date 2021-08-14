@@ -36,17 +36,16 @@ func _init() -> void:
 
 
 func report_any_previous_crash() -> bool:
-    Sc.logger.print("CrashReporter.report_any_previous_crash")
+    _log("CrashReporter.report_any_previous_crash")
     
     if !Sc.metadata.are_error_logs_captured:
-        Sc.logger.print("CrashReporter: Error logs not captured for this app")
+        _log("CrashReporter: Error logs not captured for this app")
         return false
     
     var log_file_name := _get_most_recent_log_file_name()
     if log_file_name == "":
         # There are no logs.
-        Sc.logger.print(
-                "CrashReporter: There are no previous logs to check")
+        _log("CrashReporter: There are no previous logs to check")
         return false
     
     var log_file_path := LOGS_DIRECTORY_PATH + "/" + log_file_name
@@ -72,7 +71,7 @@ func report_any_previous_crash() -> bool:
             # We found an indication of a crash, so report recent logs.
             var text := Utils.join(lines, "\n")
             _upload_crash_log(text, log_file_name)
-            Sc.logger.print(
+            Sc.logger.warning(
                     "CrashReporter: Uploading a previous error log")
             return true
         
@@ -83,8 +82,7 @@ func report_any_previous_crash() -> bool:
             main_lines_count += 1
     
     # We didn't find any indication of a crash.
-    Sc.logger.print(
-            "CrashReporter: There did not seem to be an error in the " +
+    _log("CrashReporter: There did not seem to be an error in the " +
             "previous session")
     return false
 
@@ -168,10 +166,15 @@ func _on_upload_crash_log_completed(
     if result != HTTPRequest.RESULT_SUCCESS or \
             response_code < 200 or \
             response_code >= 300:
-        Sc.logger.print("  Body:\n    " + body.get_string_from_utf8())
-        Sc.logger.print(
+        Sc.logger.warning("  Body:\n    " + body.get_string_from_utf8())
+        Sc.logger.warning(
                 "  Headers:\n    " + Utils.join(headers, ",\n    "))
     emit_signal("upload_finished")
     request.queue_free()
     self.queue_free()
     Sc.crash_reporter = null
+
+
+func _log(message: String) -> void:
+    if Sc.metadata.logs_bootstrap_events:
+        Sc.logger.print(message)

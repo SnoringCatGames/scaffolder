@@ -16,13 +16,8 @@ func _init(name := "ScaffolderBootstrap") -> void:
 
 
 func run() -> void:
-    Sc.logger.print("ScaffolderBootstrap.run")
-    Sc.logger.print("")
-    Sc.logger.print("App name: %s" % \
-            Sc._manifest.metadata.app_name)
-    Sc.logger.print("App version: %s" % \
-            Sc._manifest.metadata.app_version)
-    Sc.logger.print("")
+    _log_bootstrap_event("ScaffolderBootstrap.run")
+    _log_app_name()
     
     call_deferred("_amend_app_manifest")
     call_deferred("_register_app_manifest")
@@ -34,7 +29,7 @@ func _amend_app_manifest() -> void:
 
 
 func _register_app_manifest() -> void:
-    Sc.logger.print("ScaffolderBootstrap._register_app_manifest")
+    _log_bootstrap_event("ScaffolderBootstrap._register_app_manifest")
     
     for config in Sc._framework_configs:
         config._register_app_manifest(Sc._manifest)
@@ -48,7 +43,7 @@ func _register_app_manifest() -> void:
 
 
 func _initialize_framework() -> void:
-    Sc.logger.print("ScaffolderBootstrap._initialize_framework")
+    _log_bootstrap_event("ScaffolderBootstrap._initialize_framework")
     
     for config in Sc._framework_configs:
         config._instantiate_sub_modules()
@@ -67,16 +62,7 @@ func _initialize_framework() -> void:
     
     seed(Sc.metadata.rng_seed)
     
-    if Engine.editor_hint:
-        print("")
-        print("***************************************************************")
-        print("**** Initialized Scaffolder for the in-editor environment. ****")
-        print("* (Any errors above this line are likely due to already-open  *")
-        print("* scenes trying to access AutoLoads before Godot has          *")
-        print("* instantiated them.)                                         *")
-        print("***************************************************************")
-        print("")
-        return
+    _log_in_editor_initialization()
     
     Sc.gui.debug_panel = Sc.utils.add_scene(
             Sc.canvas_layers.layers.top,
@@ -115,7 +101,9 @@ func _initialize_framework() -> void:
 
 
 func _on_window_size_set() -> void:
-    Sc.logger.print("ScaffolderBootstrap._on_window_size_set")
+    _log_bootstrap_event(
+            "ScaffolderBootstrap._on_window_size_set: %8.3fs" % \
+            Sc.time.get_play_time())
     
     if Sc.device.get_is_browser_app():
         JavaScript.eval("window.onAppReady()")
@@ -132,7 +120,9 @@ func _on_window_size_set() -> void:
 
 
 func _on_app_initialized() -> void:
-    Sc.logger.print("ScaffolderBootstrap._on_app_initialized")
+    _log_bootstrap_event(
+            "ScaffolderBootstrap._on_app_initialized: %8.3fs" % \
+            Sc.time.get_play_time())
     
     Sc.is_initialized = true
     emit_signal("initialized")
@@ -149,7 +139,9 @@ func _splash() -> void:
 
 
 func _on_splash_finished() -> void:
-    Sc.logger.print("ScaffolderBootstrap._on_splash_finished")
+    _log_bootstrap_event(
+            "ScaffolderBootstrap._on_splash_finished: %8.3fs" % \
+            Sc.time.get_play_time())
     
     if Sc.nav.is_connected("splash_finished", self, "_on_splash_finished"):
         Sc.nav.disconnect("splash_finished", self, "_on_splash_finished")
@@ -173,7 +165,9 @@ func _on_splash_finished() -> void:
 
 
 func _on_app_quit() -> void:
-    Sc.logger.print("ScaffolderBootstrap._on_app_quit")
+    _log_bootstrap_event(
+            "ScaffolderBootstrap._on_app_quit: %8.3fs" % \
+            Sc.time.get_play_time())
     get_tree().call_deferred("quit")
 
 
@@ -239,9 +233,12 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_initial_input() -> void:
-    Sc.logger.print(
-            "ScaffolderBootstrap._on_initial_input: is_definitely_touch=%s" %
-            str(Sc.device.get_is_definitely_touch_device()))
+    _log_bootstrap_event(
+            ("ScaffolderBootstrap._on_initial_input: " +
+            "%8.3fs; is_definitely_touch=%s") % [
+                Sc.time.get_play_time(),
+                str(Sc.device.get_is_definitely_touch_device()),
+            ])
     _has_initial_input_happened = true
     if Sc.device.get_is_browser_app() and \
             Sc.device.get_is_mobile_device():
@@ -263,8 +260,10 @@ func _on_resized() -> void:
 func _on_throttled_size_changed() -> void:
     var viewport_size: Vector2 = Sc.device.get_viewport_size()
     Sc.logger.print(
-            "ScaffolderBootstrap._on_throttled_size_changed: %s" % \
-            Sc.utils.get_vector_string(viewport_size, 0))
+            "Window size changed: %8.3fs; %s" % [
+                Sc.time.get_play_time(),
+                Sc.utils.get_vector_string(viewport_size, 0),
+            ])
     call_deferred("_on_gui_scale_changed")
 
 
@@ -319,7 +318,40 @@ func _set_window_debug_size_and_position() -> void:
     _on_resized()
 
 
+func _log_bootstrap_event(message: String) -> void:
+    if Sc._manifest.empty() and \
+            Sc._LOGS_EARLY_BOOTSTRAP_EVENTS or \
+            !Sc._manifest.empty() and \
+            Sc._manifest.metadata.logs_bootstrap_events:
+        Sc.logger.print(message)
+
+
+func _log_app_name() -> void:
+    Sc.logger.print("")
+    Sc.logger.print("App name: %s" % \
+            Sc._manifest.metadata.app_name)
+    Sc.logger.print("App version: %s" % \
+            Sc._manifest.metadata.app_version)
+    Sc.logger.print("")
+
+
+func _log_in_editor_initialization() -> void:
+    if Engine.editor_hint:
+        print("")
+        print("***************************************************************")
+        print("**** Initialized Scaffolder for the in-editor environment. ****")
+        print("* (Any errors above this line are likely due to already-open  *")
+        print("* scenes trying to access AutoLoads before Godot has          *")
+        print("* instantiated them.)                                         *")
+        print("***************************************************************")
+        print("")
+        return
+
+
 func _log_device_settings() -> void:
+    if !Sc.metadata.logs_device_settings:
+        return
+    
     var device_model_name: String = Sc.device.get_model_name()
     var is_mobile_device: bool = Sc.device.get_is_mobile_device()
     var is_definitely_touch_device: bool = \
