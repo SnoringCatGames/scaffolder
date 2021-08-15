@@ -244,7 +244,7 @@ func set_is_human_character(value: bool) -> void:
     var group: String = \
             Sc.characters.GROUP_NAME_HUMAN_CHARACTERS if \
             is_human_character else \
-            Sc.characters.GROUP_NAME_COMPUTER_CHARACTERS
+            Sc.characters.GROUP_NAME_NPCS
     self.add_to_group(group)
     
     if is_human_character:

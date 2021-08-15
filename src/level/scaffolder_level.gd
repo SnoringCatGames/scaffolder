@@ -53,7 +53,7 @@ func _start() -> void:
     Sc.gui.hud.visible = true
     
     _add_human_character()
-    _add_computer_characters()
+    _add_npcs()
     
     call_deferred("_on_started")
 
@@ -90,8 +90,8 @@ func _add_human_character() -> void:
             true)
 
 
-func _add_computer_characters() -> void:
-    # Add computer characters at the registered spawn positions.
+func _add_npcs() -> void:
+    # Add npcs at the registered spawn positions.
     for character_name in spawn_positions:
         if character_name == Sc.characters.default_character_name:
             continue
