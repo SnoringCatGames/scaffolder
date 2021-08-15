@@ -52,5 +52,5 @@ func is_key_pressed(code: int) -> bool:
 
 
 func _get_is_level_ready_for_input() -> bool:
-    return Sc.gui.is_user_interaction_enabled and \
+    return Sc.gui.is_player_interaction_enabled and \
             !_an_active_overlay_has_focus

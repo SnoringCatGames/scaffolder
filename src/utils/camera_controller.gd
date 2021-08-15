@@ -59,7 +59,7 @@ func _unhandled_input(event: InputEvent) -> void:
     
     # Mouse wheel events are never considered pressed by Godot--rather they are
     # only ever considered to have just happened.
-    if Sc.gui.is_user_interaction_enabled and \
+    if Sc.gui.is_player_interaction_enabled and \
             event is InputEventMouseButton and \
             is_instance_valid(_current_camera):
         if event.button_index == BUTTON_WHEEL_UP:
