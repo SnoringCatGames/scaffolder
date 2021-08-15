@@ -4,7 +4,7 @@ extends Node
 
 
 const GROUP_NAME_HUMAN_CHARACTERS := "human_characters"
-const GROUP_NAME_COMPUTER_CHARACTERS := "computer_characters"
+const GROUP_NAME_NPCS := "npcs"
 const GROUP_NAME_SURFACER_CHARACTERS := "surfacer_characters"
 
 var default_character_name: String
