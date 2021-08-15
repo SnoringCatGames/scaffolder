@@ -143,7 +143,7 @@ func create_row(
             hbox, Sc.gui.SPACER_SCENE, true, true)
     spacer2.size = Vector2(outer_padding_horizontal, height)
     
-    # Set mouse-filter to pass, so the user can still scroll with dragging.
+    # Set mouse-filter to pass, so the player can still scroll with dragging.
     for node in [
                 row,
                 hbox,

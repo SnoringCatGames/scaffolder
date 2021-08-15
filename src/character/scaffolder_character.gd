@@ -248,7 +248,7 @@ func set_is_player_character(value: bool) -> void:
     self.add_to_group(group)
     
     if is_player_character:
-        # Only a single, user-controlled character should have a camera.
+        # Only a single, player-controlled character should have a camera.
         _set_camera()
 
 

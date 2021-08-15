@@ -227,7 +227,7 @@ var is_giving_haptic_feedback: bool
 var is_debug_panel_shown: bool setget \
         _set_is_debug_panel_shown, _get_is_debug_panel_shown
 var is_debug_time_shown: bool
-var is_user_interaction_enabled := true
+var is_player_interaction_enabled := true
 
 var debug_panel: DebugPanel
 var hud: ScaffolderHud

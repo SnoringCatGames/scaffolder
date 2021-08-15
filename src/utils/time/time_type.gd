@@ -13,7 +13,7 @@ class_name TimeType
 #         latter under-counts if a frame actually takes longer than the
 #         expected fixed-interval duration.
 #         -   This is useful if you want to actual track and display real
-#             elapsed time to the user.
+#             elapsed time to the player.
 # -   App time vs play time:
 #     -   App time tracks total time elapsed while the app has been running.
 #     -   Play time tracks elapsed **unpaused** time.

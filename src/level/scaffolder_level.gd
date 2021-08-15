@@ -269,7 +269,7 @@ func _input(event: InputEvent) -> void:
         return
     
     if !Sc.level_session.has_initial_input_happened and \
-            Sc.gui.is_user_interaction_enabled and \
+            Sc.gui.is_player_interaction_enabled and \
             Sc.level_session.level_play_time_unscaled > \
                     MIN_CONTROLS_DISPLAY_TIME and \
             (event is InputEventMouseButton or \

@@ -226,7 +226,7 @@ func _input(event: InputEvent) -> void:
             !Sc.device._is_emulating_touch_from_mouse:
         Sc.device._is_definitely_touch_device = true
     
-    # Listen for the first input that indicates the user is interacting with
+    # Listen for the first input that indicates the player is interacting with
     # the window.
     if !_has_initial_input_happened and \
             (event is InputEventKey or \
