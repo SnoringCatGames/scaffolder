@@ -10,8 +10,8 @@ var VERTICAL_OFFSET := 0.0
 var DURATION := 1.0
 var OPACITY_DELAY := 0.3
 
-var player
-var player_half_height: float
+var character
+var character_half_height: float
 var color: Color
 var border_color: Color
 var width_start: float
@@ -26,8 +26,8 @@ var opacity: float
 
 
 func _init(
-        player,
-        player_half_height := INF,
+        character,
+        character_half_height := INF,
         color := Color.white,
         border_color := Color.white,
         width_start := WIDTH_START,
@@ -37,19 +37,19 @@ func _init(
         scale_end := SCALE_END,
         vertical_offset := VERTICAL_OFFSET,
         opacity_delay := OPACITY_DELAY).(duration) -> void:
-    self.player = player
-    self.player_half_height = \
-            player_half_height if \
-            !is_inf(player_half_height) else \
-            player.movement_params.collider_half_width_height.y
+    self.character = character
+    self.character_half_height = \
+            character_half_height if \
+            !is_inf(character_half_height) else \
+            character.movement_params.collider_half_width_height.y
     self.color = \
             color if \
             color != Color.white else \
-            player.primary_annotation_color
+            character.primary_annotation_color
     self.border_color = \
             border_color if \
             border_color != Color.white else \
-            player.secondary_annotation_color
+            character.secondary_annotation_color
     self.width_start = width_start
     self.length_start = length_start
     self.stroke_width_start = stroke_width_start
@@ -60,7 +60,7 @@ func _init(
 
 
 func _update() -> void:
-    if !is_instance_valid(player):
+    if !is_instance_valid(character):
         emit_signal("stopped")
         return
     
@@ -91,7 +91,7 @@ func _update() -> void:
 
 
 func _draw() -> void:
-    if !is_instance_valid(player):
+    if !is_instance_valid(character):
         return
     
     var width := width_start * mark_scale
@@ -99,9 +99,9 @@ func _draw() -> void:
     var stroke_width := stroke_width_start * mark_scale
     var arc_length := clamp(width / 4.0, 2.0, 6.0)
     
-    var center: Vector2 = player.position + Vector2(
+    var center: Vector2 = character.position + Vector2(
             0.0,
-            -player_half_height - \
+            -character_half_height - \
             length_start * scale_end / 2.0 + \
             vertical_offset)
     

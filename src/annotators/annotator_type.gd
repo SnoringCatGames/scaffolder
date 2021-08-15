@@ -6,8 +6,8 @@ enum {
     SURFACES,
     GRID_INDICES,
     LEVEL,
-    PLAYER,
-    PLAYER_POSITION,
+    CHARACTER,
+    CHARACTER_POSITION,
     RECENT_MOVEMENT,
     NAVIGATOR,
     PATH_PRESELECTION,
@@ -25,10 +25,10 @@ static func get_string(type: int) -> String:
             return "GRID_INDICES"
         LEVEL:
             return "LEVEL"
-        PLAYER:
-            return "PLAYER"
-        PLAYER_POSITION:
-            return "PLAYER_POSITION"
+        CHARACTER:
+            return "CHARACTER"
+        CHARACTER_POSITION:
+            return "CHARACTER_POSITION"
         RECENT_MOVEMENT:
             return "RECENT_MOVEMENT"
         NAVIGATOR:

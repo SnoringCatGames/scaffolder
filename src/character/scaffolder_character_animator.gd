@@ -1,8 +1,8 @@
 tool
-class_name ScaffolderPlayerAnimator, \
-"res://addons/scaffolder/assets/images/editor_icons/scaffolder_player_animator.png"
+class_name ScaffolderCharacterAnimator, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_character_animator.png"
 extends Node2D
-## -   This defines how your player is rendered and animated.[br]
+## -   This defines how your character is rendered and animated.[br]
 ## -   Scaffolder makes some opinionated assumptions about how this will be
 ##     set-up, but you can probably adjust or ignore some of this to fit your
 ##     needs.[br]
@@ -11,13 +11,13 @@ extends Node2D
 const UNFLIPPED_HORIZONTAL_SCALE := Vector2(1, 1)
 const FLIPPED_HORIZONTAL_SCALE := Vector2(-1, 1)
 
-## Toggle this according to how you've defined the player art.
+## Toggle this according to how you've defined the character art.
 export var faces_right_by_default := true
 
 ## -   Set this export property to `true` if you want to set up all of the
-##     animations for this player by changing the `frame` property on a
+##     animations for this character by changing the `frame` property on a
 ##     corresponding `Sprite`.[br]
-## -   If this is enabled, then the `ScaffolderPlayerAnimator` will expect there
+## -   If this is enabled, then the `ScaffolderCharacterAnimator` will expect there
 ##     to be a one-to-one mapping between immediate-child `Sprites` and
 ##     animations in the `AnimationPlayer`, and these matching animations and
 ##     Sprites will need to share the same names.[br]
@@ -228,7 +228,7 @@ func play(animation_name: String) -> void:
     _play_animation(animation_name)
 
 
-func set_static_frame(animation_state: PlayerAnimationState) -> void:
+func set_static_frame(animation_state: CharacterAnimationState) -> void:
     var standard_name := animation_state.animation_name
     var specific_name := \
             _standand_animation_name_to_specific_animation_name(standard_name)
@@ -322,7 +322,7 @@ func _animation_name_to_sprite(specific_name: String) -> Sprite:
     else:
         Sc.logger.error(
                 "The default implementation of " +
-                "ScaffolderPlayerAnimator._animation_name_to_sprite only " +
+                "ScaffolderCharacterAnimator._animation_name_to_sprite only " +
                 "works when uses_standard_sprite_frame_animations is true.")
         return null
 

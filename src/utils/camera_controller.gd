@@ -12,7 +12,7 @@ const PAN_STEP := 8.0
 const ZOOM_ANIMATION_DURATION := 0.3
 
 var _current_camera: Camera2D
-var _current_player
+var _current_character
 
 var offset: Vector2 setget _set_offset,_get_offset
 var zoom_factor := 1.0 setget _set_zoom_factor
@@ -30,6 +30,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+    if Engine.editor_hint:
+        return
+    
     if !is_instance_valid(_current_camera):
         return
     
@@ -51,6 +54,9 @@ func _process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+    if Engine.editor_hint:
+        return
+    
     # Mouse wheel events are never considered pressed by Godot--rather they are
     # only ever considered to have just happened.
     if Sc.gui.is_user_interaction_enabled and \
@@ -68,10 +74,10 @@ func _on_resized() -> void:
 
 func set_current_camera(
         camera: Camera2D,
-        player) -> void:
+        character) -> void:
     camera.make_current()
     _current_camera = camera
-    _current_player = player
+    _current_character = character
     _set_zoom_factor(zoom_factor)
 
 

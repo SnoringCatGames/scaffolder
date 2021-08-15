@@ -1,15 +1,15 @@
-class_name ScaffolderPlayerAnnotator
+class_name ScaffolderCharacterAnnotator
 extends Node2D
 
 
-var player: ScaffolderPlayer
+var character: ScaffolderCharacter
 
-var recent_movement_annotator: ScaffolderPlayerRecentMovementAnnotator
-var position_annotator: ScaffolderPlayerPositionAnnotator
+var recent_movement_annotator: ScaffolderCharacterRecentMovementAnnotator
+var position_annotator: ScaffolderCharacterPositionAnnotator
 
 
-func _init(player: ScaffolderPlayer) -> void:
-    self.player = player
+func _init(character: ScaffolderCharacter) -> void:
+    self.character = character
     self.z_index = 2
 
 
@@ -35,9 +35,9 @@ func set_annotator_enabled(
 
 func is_annotator_enabled(annotator_type: int) -> bool:
     match annotator_type:
-        AnnotatorType.PLAYER:
-            return player.get_is_sprite_visible()
-        AnnotatorType.PLAYER_POSITION:
+        AnnotatorType.CHARACTER:
+            return character.get_is_sprite_visible()
+        AnnotatorType.CHARACTER_POSITION:
             return is_instance_valid(position_annotator)
         AnnotatorType.RECENT_MOVEMENT:
             return is_instance_valid(recent_movement_annotator)
@@ -49,14 +49,14 @@ func is_annotator_enabled(annotator_type: int) -> bool:
 func _create_annotator(annotator_type: int) -> void:
     assert(!is_annotator_enabled(annotator_type))
     match annotator_type:
-        AnnotatorType.PLAYER:
-            player.set_is_sprite_visible(true)
-        AnnotatorType.PLAYER_POSITION:
-            position_annotator = ScaffolderPlayerPositionAnnotator.new(player)
+        AnnotatorType.CHARACTER:
+            character.set_is_sprite_visible(true)
+        AnnotatorType.CHARACTER_POSITION:
+            position_annotator = ScaffolderCharacterPositionAnnotator.new(character)
             add_child(position_annotator)
         AnnotatorType.RECENT_MOVEMENT:
             recent_movement_annotator = \
-                    ScaffolderPlayerRecentMovementAnnotator.new(player)
+                    ScaffolderCharacterRecentMovementAnnotator.new(character)
             add_child(recent_movement_annotator)
         _:
             Sc.logger.error()
@@ -65,9 +65,9 @@ func _create_annotator(annotator_type: int) -> void:
 func _destroy_annotator(annotator_type: int) -> void:
     assert(is_annotator_enabled(annotator_type))
     match annotator_type:
-        AnnotatorType.PLAYER:
-            player.set_is_sprite_visible(false)
-        AnnotatorType.PLAYER_POSITION:
+        AnnotatorType.CHARACTER:
+            character.set_is_sprite_visible(false)
+        AnnotatorType.CHARACTER_POSITION:
             position_annotator.queue_free()
             position_annotator = null
         AnnotatorType.RECENT_MOVEMENT:

@@ -39,7 +39,7 @@ var canvas_layers: CanvasLayers
 var project_settings: ScaffolderProjectSettings
 var camera_controller: CameraController
 var level_button_input: LevelButtonInput
-var players: ScaffolderPlayerManifest
+var characters: ScaffolderCharacterManifest
 # TODO: Cleanup the annotator system.
 var annotators: ScaffolderAnnotators
 var level_config: ScaffolderLevelConfig
@@ -271,12 +271,12 @@ func _instantiate_sub_modules() -> void:
         self.project_settings = ScaffolderProjectSettings.new()
     add_child(self.project_settings)
     
-    if _manifest.has("player_manifest_class"):
-        self.players = _manifest.player_manifest_class.new()
-        assert(self.players is ScaffolderPlayerManifest)
+    if _manifest.has("character_manifest_class"):
+        self.characters = _manifest.character_manifest_class.new()
+        assert(self.characters is ScaffolderCharacterManifest)
     else:
-        self.players = ScaffolderPlayerManifest.new()
-    add_child(self.players)
+        self.characters = ScaffolderCharacterManifest.new()
+    add_child(self.characters)
     
     if _manifest.has("annotators_class"):
         self.annotators = _manifest.annotators_class.new()
@@ -297,7 +297,7 @@ func _configure_sub_modules() -> void:
     self.images.register_manifest(_manifest.images_manifest)
     self.gui.register_manifest(_manifest.gui_manifest)
     self.slow_motion.register_manifest(_manifest.slow_motion_manifest)
-    self.players.register_manifest(_manifest.player_manifest)
+    self.characters.register_manifest(_manifest.character_manifest)
     
     self.metadata.is_app_configured = true
     

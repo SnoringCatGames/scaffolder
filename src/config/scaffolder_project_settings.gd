@@ -103,7 +103,7 @@ func _override_project_settings() -> void:
         "input_devices/pointing/ios/touch_delay": 0.005,
         "physics/common/physics_fps": Time.PHYSICS_FPS,
         "layer_names/2d_physics/layer_1": "surfaces_tilemaps",
-        "layer_names/2d_render/layer_2": "player",
+        "layer_names/2d_render/layer_2": "character",
         # TODO: Figure out if this actually matters...
 #        "physics/2d/thread_model": physics_2d_thread_model_multi_threaded,
     }

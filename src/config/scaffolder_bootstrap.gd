@@ -64,6 +64,9 @@ func _initialize_framework() -> void:
     
     _log_in_editor_initialization()
     
+    if Engine.editor_hint:
+        return
+    
     Sc.gui.debug_panel = Sc.utils.add_scene(
             Sc.canvas_layers.layers.top,
             Sc.gui.debug_panel_scene,
