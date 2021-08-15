@@ -12,10 +12,10 @@ var spawn_positions := {}
 # Array<SpawnPosition>
 var exclusive_spawn_positions := []
 
-# Dictionary<String, Array<ScaffolderPlayer>>
-var players: Dictionary
+# Dictionary<String, Array<ScaffolderCharacter>>
+var characters: Dictionary
 
-var human_player: ScaffolderPlayer
+var human_character: ScaffolderCharacter
 
 var session: ScaffolderLevelSession
 
@@ -52,8 +52,8 @@ func _start() -> void:
             Sc.level_config.get_level_version_string(Sc.level_session.id))
     Sc.gui.hud.visible = true
     
-    _add_human_player()
-    _add_computer_players()
+    _add_human_character()
+    _add_computer_characters()
     
     call_deferred("_on_started")
 
@@ -64,47 +64,47 @@ func _on_started() -> void:
     Sc.logger.print("Level started:             %8.3fs" % start_time)
 
 
-func _add_human_player() -> void:
-    # If no spawn position was defined for the default player, then start them
+func _add_human_character() -> void:
+    # If no spawn position was defined for the default character, then start them
     # at 0,0. 
-    if !spawn_positions.has(Sc.players.default_player_name):
+    if !spawn_positions.has(Sc.characters.default_character_name):
         var spawn_position := SpawnPosition.new()
-        spawn_position.player_name = Sc.players.default_player_name
+        spawn_position.character_name = Sc.characters.default_character_name
         spawn_position.position = Vector2.ZERO
         spawn_position.surface_attachment = "NONE"
-        register_spawn_position(Sc.players.default_player_name, spawn_position)
+        register_spawn_position(Sc.characters.default_character_name, spawn_position)
     
     var spawn_position: SpawnPosition = \
-            spawn_positions[Sc.players.default_player_name][0]
+            spawn_positions[Sc.characters.default_character_name][0]
     
-    # TODO: Update the rest of the app to support running with no human player.
+    # TODO: Update the rest of the app to support running with no human character.
 #    if !exclusive_spawn_positions.empty() and \
 #            !spawn_position.include_exclusively:
-#        # We are exclusively including another player.
+#        # We are exclusively including another character.
 #        return
     
-    # Add the human player.
-    add_player(
-            Sc.players.default_player_name,
+    # Add the human character.
+    add_character(
+            Sc.characters.default_character_name,
             spawn_position,
             true)
 
 
-func _add_computer_players() -> void:
-    # Add computer players at the registered spawn positions.
-    for player_name in spawn_positions:
-        if player_name == Sc.players.default_player_name:
+func _add_computer_characters() -> void:
+    # Add computer characters at the registered spawn positions.
+    for character_name in spawn_positions:
+        if character_name == Sc.characters.default_character_name:
             continue
-        for spawn_position in spawn_positions[player_name]:
+        for spawn_position in spawn_positions[character_name]:
             if spawn_position.exclude:
-                # We are excluding this player.
+                # We are excluding this character.
                 continue
             if !exclusive_spawn_positions.empty() and \
                     !spawn_position.include_exclusively:
-                # We are exclusively including another player.
+                # We are exclusively including another character.
                 continue
-            add_player(
-                    player_name,
+            add_character(
+                    character_name,
                     spawn_position,
                     false)
 
@@ -119,10 +119,10 @@ func _destroy() -> void:
     _hide_welcome_panel()
     if is_instance_valid(Sc.gui.hud):
         Sc.gui.hud._destroy()
-    for player_name in players:
-        for player in players[player_name]:
-            player._destroy()
-    self.human_player = null
+    for character_name in characters:
+        for character in characters[character_name]:
+            character._destroy()
+    self.human_character = null
     Sc.level = null
     Sc.level_session._is_destroyed = true
     if Sc.level_session.is_restarting:
@@ -159,59 +159,59 @@ func quit(
         Sc.audio.play_sound(sound_name)
 
 
-func add_player(
+func add_character(
         name_or_path_or_packed_scene,
         position_or_spawn_position,
-        is_human_player: bool,
-        is_attached := true) -> ScaffolderPlayer:
+        is_human_character: bool,
+        is_attached := true) -> ScaffolderCharacter:
     if name_or_path_or_packed_scene is String and \
             !name_or_path_or_packed_scene.begins_with("res://"):
         name_or_path_or_packed_scene = \
-                Sc.players.player_scenes[name_or_path_or_packed_scene]
+                Sc.characters.character_scenes[name_or_path_or_packed_scene]
     
     var position: Vector2 = \
             position_or_spawn_position if \
             position_or_spawn_position is Vector2 else \
             position_or_spawn_position.position
     
-    var player: ScaffolderPlayer = Sc.utils.add_scene(
+    var character: ScaffolderCharacter = Sc.utils.add_scene(
             null,
             name_or_path_or_packed_scene,
             false,
             true)
-    player.set_position(position)
+    character.set_position(position)
     
     if position_or_spawn_position is SpawnPosition:
-        player.set_surface_attachment(position_or_spawn_position.surface_side)
+        character.set_surface_attachment(position_or_spawn_position.surface_side)
     
-    if !players.has(player.player_name):
-        players[player.player_name] = []
-    players[player.player_name].push_back(player)
+    if !characters.has(character.character_name):
+        characters[character.character_name] = []
+    characters[character.character_name].push_back(character)
     
     if is_attached:
-        add_child(player)
+        add_child(character)
     
-    player.set_is_human_player(is_human_player)
-    if is_human_player:
-        human_player = player
+    character.set_is_human_character(is_human_character)
+    if is_human_character:
+        human_character = character
     
-    return player
+    return character
 
 
-func remove_player(player: ScaffolderPlayer) -> void:
-    players[player.player_name].erase(player)
-    Sc.annotators.destroy_player_annotator(player)
-    player._destroy()
+func remove_character(character: ScaffolderCharacter) -> void:
+    characters[character.character_name].erase(character)
+    Sc.annotators.destroy_character_annotator(character)
+    character._destroy()
 
 
 func register_spawn_position(
-        player_name: String,
+        character_name: String,
         spawn_position: SpawnPosition) -> void:
-    assert(player_name != "")
-    if !spawn_positions.has(player_name):
-        spawn_positions[player_name] = []
-    var positions_for_player: Array = spawn_positions[player_name]
-    positions_for_player.push_back(spawn_position)
+    assert(character_name != "")
+    if !spawn_positions.has(character_name):
+        spawn_positions[character_name] = []
+    var positions_for_character: Array = spawn_positions[character_name]
+    positions_for_character.push_back(spawn_position)
     
     if spawn_position.include_exclusively:
         exclusive_spawn_positions.push_back(spawn_position)
@@ -226,11 +226,11 @@ func _update_editor_configuration() -> void:
                 "Subclasses of ScaffolderLevel must be marked as tool.")
         return
     
-    if spawn_positions.has(Sc.players.default_player_name) and \
-            spawn_positions[Sc.players.default_player_name].size() > 1:
+    if spawn_positions.has(Sc.characters.default_character_name) and \
+            spawn_positions[Sc.characters.default_character_name].size() > 1:
         _set_configuration_warning(
                 "There must not be more than one spawn position for the " +
-                "default player.")
+                "default character.")
         return
     
     _set_configuration_warning("")

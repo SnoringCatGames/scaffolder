@@ -1,15 +1,15 @@
 tool
-class_name ScaffolderPlayer, \
-"res://addons/scaffolder/assets/images/editor_icons/scaffolder_player.png"
+class_name ScaffolderCharacter, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_character.png"
 extends KinematicBody2D
 
 
 # ---
 
-export var player_name := ""
+export var character_name := ""
 
-## -   This helps your `ScaffolderPlayer` detect when other areas or bodies
-##     collide with the player.[br]
+## -   This helps your `ScaffolderCharacter` detect when other areas or bodies
+##     collide with the character.[br]
 ## -   The default `PhysicsBody2D.collision_layer` property is limited, because
 ##     the `move_and_slide` system will adjust our movement when we collide
 ##     with matching objects.[br]
@@ -44,14 +44,14 @@ var logs_surface_events := false
 var logs_behavior_events := false
 ## -   If true, navigator events will be printed.
 var logs_navigator_events := false
-## -   If true, custom player events will be printed.
+## -   If true, custom character events will be printed.
 var logs_custom_events := false
 ## -   If true, lower-level framework events will be printed.
 var logs_low_level_framework_events := false
 
 # ---
 
-var is_human_player := false
+var is_human_character := false
 var _is_ready := false
 var _is_destroyed := false
 
@@ -65,7 +65,7 @@ var previous_position := Vector2.INF
 var did_move_last_frame := false
 
 var collider: CollisionShape2D
-var animator: ScaffolderPlayerAnimator
+var animator: ScaffolderCharacterAnimator
 
 var _extra_collision_detection_area: Area2D
 # Dictionary<String, Area2D>
@@ -166,29 +166,29 @@ func _update_editor_configuration() -> void:
 func _update_editor_configuration_debounced() -> void:
     if !Sc.utils.check_whether_sub_classes_are_tools(self):
         _set_configuration_warning(
-                "Subclasses of ScaffolderPlayer must be marked as tool.")
+                "Subclasses of ScaffolderCharacter must be marked as tool.")
         return
     
-    if player_name == "":
-        _set_configuration_warning("Must define player_name.")
+    if character_name == "":
+        _set_configuration_warning("Must define character_name.")
         return
     
     # Get AnimationPlayer from scene configuration.
     if !is_instance_valid(animator):
-        var player_animators: Array = Sc.utils.get_children_by_type(
+        var character_animators: Array = Sc.utils.get_children_by_type(
                 self,
-                ScaffolderPlayerAnimator)
-        if player_animators.size() > 1:
+                ScaffolderCharacterAnimator)
+        if character_animators.size() > 1:
             _set_configuration_warning(
-                    "Must only define a single ScaffolderPlayerAnimator " +
+                    "Must only define a single ScaffolderCharacterAnimator " +
                     "child node.")
             return
-        elif player_animators.size() < 1:
+        elif character_animators.size() < 1:
             _set_configuration_warning(
-                    "Must define a ScaffolderPlayerAnimator-subclass " +
+                    "Must define a ScaffolderCharacterAnimator-subclass " +
                     "child node.")
             return
-        animator = player_animators[0]
+        animator = character_animators[0]
         animator.is_desaturatable = true
     
     if !is_instance_valid(collider):
@@ -238,17 +238,17 @@ func _initialize_children_proximity_detectors() -> void:
                     detector.rotation)
 
 
-func set_is_human_player(value: bool) -> void:
-    is_human_player = value
+func set_is_human_character(value: bool) -> void:
+    is_human_character = value
     
     var group: String = \
-            Sc.players.GROUP_NAME_HUMAN_PLAYERS if \
-            is_human_player else \
-            Sc.players.GROUP_NAME_COMPUTER_PLAYERS
+            Sc.characters.GROUP_NAME_HUMAN_CHARACTERS if \
+            is_human_character else \
+            Sc.characters.GROUP_NAME_COMPUTER_CHARACTERS
     self.add_to_group(group)
     
-    if is_human_player:
-        # Only a single, user-controlled player should have a camera.
+    if is_human_character:
+        # Only a single, user-controlled character should have a camera.
         _set_camera()
 
 
@@ -286,38 +286,38 @@ func _process_sounds() -> void:
 
 
 # fixme: left off here: ------- use this more
-## Conditionally prints the given message, depending on the player's
+## Conditionally prints the given message, depending on the character's
 ## configuration.
 func _log(
         message: String,
         type: int,
         is_low_level_framework_event = false) -> void:
     if _get_should_log_this_type(type, is_low_level_framework_event):
-        var prefix := PlayerLogType.get_prefix(type)
+        var prefix := CharacterLogType.get_prefix(type)
         Sc.logger.print("[%s] %s" % [prefix, message])
 
 
 func _log_custom(
         message: String,
         is_low_level_framework_event = false) -> void:
-    _log(message, PlayerLogType.CUSTOM, is_low_level_framework_event)
+    _log(message, CharacterLogType.CUSTOM, is_low_level_framework_event)
 
 
 func _get_should_log_this_type(
         type: int,
         is_low_level_framework_event = false) -> bool:
     var logs_this_type := \
-            (type == PlayerLogType.ACTION and logs_action_events) or \
-            (type == PlayerLogType.SURFACE and logs_surface_events) or \
-            (type == PlayerLogType.NAVIGATOR and logs_navigator_events) or \
-            (type == PlayerLogType.BEHAVIOR and logs_behavior_events) or \
-            (type == PlayerLogType.DEFAULT and logs_custom_events) or \
-            (type == PlayerLogType.CUSTOM and logs_custom_events) or \
-            type == PlayerLogType.UNKNOWN
+            (type == CharacterLogType.ACTION and logs_action_events) or \
+            (type == CharacterLogType.SURFACE and logs_surface_events) or \
+            (type == CharacterLogType.NAVIGATOR and logs_navigator_events) or \
+            (type == CharacterLogType.BEHAVIOR and logs_behavior_events) or \
+            (type == CharacterLogType.DEFAULT and logs_custom_events) or \
+            (type == CharacterLogType.CUSTOM and logs_custom_events) or \
+            type == CharacterLogType.UNKNOWN
     return logs_this_type and \
             (!is_low_level_framework_event or \
             logs_low_level_framework_events) and \
-            Sc.metadata.logs_player_events
+            Sc.metadata.logs_character_events
 
 
 func show_exclamation_mark() -> void:
@@ -338,7 +338,7 @@ func _show_exclamation_mark_throttled() -> void:
 
 func set_surface_attachment(surface_side: int) -> void:
     if surface_side != SurfaceSide.NONE:
-        Sc.logger.error("Only SurfacerPlayers can have surface attachment.")
+        Sc.logger.error("Only SurfacerCharacters can have surface attachment.")
 
 
 func set_is_sprite_visible(is_visible: bool) -> void:
@@ -472,14 +472,14 @@ func _on_detection_area_enter_exit(
             Sc.utils.get_physics_layer_names_from_bitmask(shared_bits)
     assert(!layer_names.empty())
     
-    if _get_should_log_this_type(PlayerLogType.DEFAULT, true):
+    if _get_should_log_this_type(CharacterLogType.DEFAULT, true):
         _log("%s%8.3fs; layer=%s; pos=%s" % [
                     Sc.utils.pad_string(callback_name.trim_prefix("_on_"), 21),
                     Sc.time.get_play_time(),
                     Sc.utils.join(layer_names),
                     Sc.utils.get_vector_string(position),
                 ],
-                PlayerLogType.DEFAULT,
+                CharacterLogType.DEFAULT,
                 true)
     
     self.call(callback_name, target, layer_names)

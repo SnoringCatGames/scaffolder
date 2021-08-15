@@ -18,9 +18,10 @@ func print(message: String) -> void:
     else:
         _print_queue.push_back(message)
     
-    if (!is_instance_valid(Sc.metadata) or \
-            Sc.metadata.also_prints_to_stdout) and \
-            !Engine.editor_hint:
+    if !is_instance_valid(Sc.metadata) or \
+            Sc.metadata.also_prints_to_stdout and \
+            (Sc.metadata.logs_in_editor_events or \
+                    !Engine.editor_hint):
         print(message)
 
 

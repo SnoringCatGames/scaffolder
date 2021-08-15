@@ -1,4 +1,4 @@
-class_name ScaffolderPlayerRecentMovementAnnotator
+class_name ScaffolderCharacterRecentMovementAnnotator
 extends Node2D
 
 
@@ -14,7 +14,7 @@ const OFFBEAT_HASH_LENGTH := 8.0
 const DOWNBEAT_HASH_STROKE_WIDTH := 1.0
 const OFFBEAT_HASH_STROKE_WIDTH := 1.0
 
-var player: SurfacerPlayer
+var character: SurfacerCharacter
 
 # We use this as a circular buffer.
 var recent_positions: PoolVector2Array
@@ -27,8 +27,8 @@ var current_position_index := -1
 var total_position_count := 0
 
 
-func _init(player: SurfacerPlayer) -> void:
-    self.player = player
+func _init(character: SurfacerCharacter) -> void:
+    self.character = character
     self.recent_positions = PoolVector2Array()
     self.recent_positions.resize(RECENT_POSITIONS_BUFFER_SIZE)
     self.recent_beats = PoolIntArray()
@@ -52,7 +52,7 @@ func _on_music_changed(music_name: String) -> void:
 
 
 func check_for_update() -> void:
-    if !player.did_move_last_frame:
+    if !character.did_move_last_frame:
         # Ignore this frame, since there was no movement.
         return
     
@@ -61,7 +61,7 @@ func check_for_update() -> void:
             (current_position_index + 1) % RECENT_POSITIONS_BUFFER_SIZE
     
     # Record the new position for the current frame.
-    recent_positions[current_position_index] = player.position
+    recent_positions[current_position_index] = character.position
     # Record an empty place-holder beat value for the current frame.
     recent_beats[current_position_index] = -1
     

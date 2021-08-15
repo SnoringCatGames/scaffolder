@@ -1,4 +1,4 @@
-class_name PlayerLogType
+class_name CharacterLogType
 
 
 enum {

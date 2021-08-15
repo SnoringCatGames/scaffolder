@@ -4,7 +4,7 @@ class_name SpawnPosition, \
 extends Position2D
 
 
-const PLAYER_OPACITY := 0.5
+const CHARACTER_OPACITY := 0.5
 
 const ATTACHMENT_CONE_RADIUS := 8.0
 const ATTACHMENT_CONE_LENGTH := 20.0
@@ -21,8 +21,8 @@ const EXCLUDE_WIDTH := 64.0
 const EXCLUDE_STROKE_WIDTH := 12.0
 const EXCLUDE_COLOR := Color("ff0000")
 
-var PLAYER_NAME_PROPERTY_CONFIG := {
-    name = "player_name",
+var CHARACTER_NAME_PROPERTY_CONFIG := {
+    name = "character_name",
     type = TYPE_STRING,
     usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
     hint = PROPERTY_HINT_ENUM,
@@ -49,28 +49,28 @@ var EXCLUDE_PROPERTY_CONFIG := {
     usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
 }
 
-## The name of the player to spawn at this position.
-var player_name := "" setget _set_player_name
+## The name of the character to spawn at this position.
+var character_name := "" setget _set_character_name
 
-## The type of surface side that this player should start out attached to.
+## The type of surface side that this character should start out attached to.
 var surface_attachment := "FLOOR" setget _set_surface_attachment
 
-## If true, then the player will not be created for any other spawn positions
+## If true, then the character will not be created for any other spawn positions
 ## (unless they also have include_exclusively enabled).
 var include_exclusively := false setget _set_include_exclusively
 
-## If true, then the player will not be created for this spawn position.
+## If true, then the character will not be created for this spawn position.
 var exclude := false setget _set_exclude
 
 var surface_side := SurfaceSide.FLOOR
 
 var _property_list_addendum = [
-    PLAYER_NAME_PROPERTY_CONFIG,
+    CHARACTER_NAME_PROPERTY_CONFIG,
     SURFACE_ATTACHMENT_PROPERTY_CONFIG,
     INCLUDE_EXCLUSIVELY_PROPERTY_CONFIG,
     EXCLUDE_PROPERTY_CONFIG,
 ]
-var _player
+var _character
 var _configuration_warning := ""
 
 
@@ -87,17 +87,17 @@ func _ready() -> void:
                 ancestor != Sc.level:
             ancestor = ancestor.get_parent()
         if ancestor == Sc.level:
-            ancestor.register_spawn_position(player_name, self)
+            ancestor.register_spawn_position(character_name, self)
 
 
-# -   This makes the `player_name` property exported for editing in the
+# -   This makes the `character_name` property exported for editing in the
 #     inspector panel.
-# -   This also defines the `player_name` property as an enum of all the
-#     player names that are registered in the app manifest.
+# -   This also defines the `character_name` property as an enum of all the
+#     character names that are registered in the app manifest.
 func _update_property_list_addendum() -> void:
-    var player_names: Array = Sc.players.player_scenes.keys()
-    player_names.push_front("")
-    PLAYER_NAME_PROPERTY_CONFIG.hint_string = Sc.utils.join(player_names, ",")
+    var character_names: Array = Sc.characters.character_scenes.keys()
+    character_names.push_front("")
+    CHARACTER_NAME_PROPERTY_CONFIG.hint_string = Sc.utils.join(character_names, ",")
 
 
 func _get_property_list() -> Array:
@@ -157,8 +157,8 @@ func _update_editor_configuration() -> void:
     if !Engine.editor_hint:
         return
     
-    if player_name == "":
-        _set_configuration_warning("Must choose a player_name.")
+    if character_name == "":
+        _set_configuration_warning("Must choose a character_name.")
         return
     
     # TODO: Remove this hack, and decouple things properly.
@@ -168,22 +168,22 @@ func _update_editor_configuration() -> void:
             null
     if Su != null:
         var movement_params = \
-                Su.movement.player_movement_params[player_name] if \
-                Su.movement.player_movement_params.has(player_name) else \
+                Su.movement.character_movement_params[character_name] if \
+                Su.movement.character_movement_params.has(character_name) else \
                 null
         
         if surface_side != SurfaceSide.NONE and \
                 movement_params == null:
             _set_configuration_warning(
                     "%s has no movement_params, and cannot attach to surafces." % \
-                    player_name)
+                    character_name)
             return
         
         if surface_side == SurfaceSide.FLOOR and \
                 !movement_params.can_grab_floors:
             _set_configuration_warning(
                     "%s's movement_params.can_grab_floors is false." % \
-                    player_name)
+                    character_name)
             return
         
         if (surface_side == SurfaceSide.LEFT_WALL or \
@@ -191,17 +191,17 @@ func _update_editor_configuration() -> void:
                 !movement_params.can_grab_walls:
             _set_configuration_warning(
                     "%s's movement_params.can_grab_walls is false." % \
-                    player_name)
+                    character_name)
             return
         
         if surface_side == SurfaceSide.CEILING and \
                 !movement_params.can_grab_ceilings:
             _set_configuration_warning(
                     "%s's movement_params.can_grab_ceilings is false." % \
-                    player_name)
+                    character_name)
             return
     
-    call_deferred("_add_player")
+    call_deferred("_add_character")
     
     _set_configuration_warning("")
 
@@ -217,28 +217,28 @@ func _get_configuration_warning() -> String:
     return _configuration_warning
 
 
-func _add_player() -> void:
-    if is_instance_valid(_player):
-        _player.queue_free()
-    _player = Sc.utils.add_scene(
+func _add_character() -> void:
+    if is_instance_valid(_character):
+        _character.queue_free()
+    _character = Sc.utils.add_scene(
             self,
-            Sc.players.player_scenes[player_name])
-    _player.modulate.a = PLAYER_OPACITY
-    _player.show_behind_parent = true
+            Sc.characters.character_scenes[character_name])
+    _character.modulate.a = CHARACTER_OPACITY
+    _character.show_behind_parent = true
     
     if surface_side == SurfaceSide.LEFT_WALL or \
             surface_side == SurfaceSide.RIGHT_WALL:
-        _player.animator.play("RestOnWall")
+        _character.animator.play("RestOnWall")
         if surface_side == SurfaceSide.LEFT_WALL:
-            _player.animator.face_left()
+            _character.animator.face_left()
         else:
-            _player.animator.face_right()
+            _character.animator.face_right()
     else:
-        _player.animator.play("Rest")
+        _character.animator.play("Rest")
 
 
-func _set_player_name(value: String) -> void:
-    player_name = value
+func _set_character_name(value: String) -> void:
+    character_name = value
     _update_editor_configuration()
 
 

@@ -3,9 +3,9 @@ class_name ScaffolderAnnotators
 extends Node2D
 
 
-var _SCAFFOLDER_PLAYER_SUB_ANNOTATORS := [
-    AnnotatorType.PLAYER,
-    AnnotatorType.PLAYER_POSITION,
+var _SCAFFOLDER_CHARACTER_SUB_ANNOTATORS := [
+    AnnotatorType.CHARACTER,
+    AnnotatorType.CHARACTER_POSITION,
     AnnotatorType.RECENT_MOVEMENT,
 ]
 
@@ -18,20 +18,20 @@ var _SCAFFOLDER_LEVEL_SPECIFIC_ANNOTATORS := [
 const _SCAFFOLDER_DEFAULT_ENABLEMENT := {
     AnnotatorType.RULER: false,
     AnnotatorType.LEVEL: true,
-    AnnotatorType.PLAYER: true,
-    AnnotatorType.PLAYER_POSITION: false,
+    AnnotatorType.CHARACTER: true,
+    AnnotatorType.CHARACTER_POSITION: false,
     AnnotatorType.RECENT_MOVEMENT: true,
 }
 
-var player_sub_annotators: Array
+var character_sub_annotators: Array
 var level_specific_annotators: Array
 var default_enablement: Dictionary
-var player_annotation_class: Script
+var character_annotation_class: Script
 
 var ruler_annotator: RulerAnnotator
 
-# Dictonary<ScaffolderPlayer, PlayerAnnotator>
-var player_annotators := {}
+# Dictonary<ScaffolderCharacter, CharacterAnnotator>
+var character_annotators := {}
 
 var element_annotator: ElementAnnotator
 
@@ -44,15 +44,15 @@ var ruler_layer: CanvasLayer
 
 
 func _init(
-        player_sub_annotators := _SCAFFOLDER_PLAYER_SUB_ANNOTATORS,
+        character_sub_annotators := _SCAFFOLDER_CHARACTER_SUB_ANNOTATORS,
         level_specific_annotators := _SCAFFOLDER_LEVEL_SPECIFIC_ANNOTATORS,
         default_enablement := _SCAFFOLDER_DEFAULT_ENABLEMENT,
-        player_annotation_class: Script = ScaffolderPlayerAnnotator) -> void:
+        character_annotation_class: Script = ScaffolderCharacterAnnotator) -> void:
     Sc.logger.on_global_init(self, "ScaffolderAnnotators")
-    self.player_sub_annotators = player_sub_annotators
+    self.character_sub_annotators = character_sub_annotators
     self.level_specific_annotators = level_specific_annotators
     self.default_enablement = default_enablement
-    self.player_annotation_class = player_annotation_class
+    self.character_annotation_class = character_annotation_class
     if Engine.editor_hint:
         return
     annotation_layer = Sc.canvas_layers.layers.annotation
@@ -108,33 +108,33 @@ func on_level_destroyed() -> void:
     for annotator_type in level_specific_annotators:
         if is_annotator_enabled(annotator_type):
             _destroy_annotator(annotator_type)
-    for player in player_annotators.keys():
-        destroy_player_annotator(player)
+    for character in character_annotators.keys():
+        destroy_character_annotator(character)
 
 
-func create_player_annotator(
-        player: ScaffolderPlayer,
-        is_human_player: bool) -> void:
-    var player_annotator: ScaffolderPlayerAnnotator = \
-            player_annotation_class.new(player)
-    annotation_layer.add_child(player_annotator)
-    player_annotators[player] = player_annotator
+func create_character_annotator(
+        character: ScaffolderCharacter,
+        is_human_character: bool) -> void:
+    var character_annotator: ScaffolderCharacterAnnotator = \
+            character_annotation_class.new(character)
+    annotation_layer.add_child(character_annotator)
+    character_annotators[character] = character_annotator
     
-    for annotator_type in player_sub_annotators:
-        player_annotator.set_annotator_enabled(
+    for annotator_type in character_sub_annotators:
+        character_annotator.set_annotator_enabled(
                 annotator_type,
                 _annotator_enablement[annotator_type])
 
 
-func destroy_player_annotator(player: ScaffolderPlayer) -> void:
-    if !player_annotators.has(player):
+func destroy_character_annotator(character: ScaffolderCharacter) -> void:
+    if !character_annotators.has(character):
         return
-    player_annotators[player].queue_free()
-    player_annotators.erase(player)
+    character_annotators[character].queue_free()
+    character_annotators.erase(character)
 
 
-func get_player_annotator(player: ScaffolderPlayer) -> ScaffolderPlayerAnnotator:
-    return player_annotators[player]
+func get_character_annotator(character: ScaffolderCharacter) -> ScaffolderCharacterAnnotator:
+    return character_annotators[character]
 
 
 func set_annotator_enabled(
@@ -144,9 +144,9 @@ func set_annotator_enabled(
         # Do nothing. The annotator is already correct.
         return
     
-    if player_sub_annotators.find(annotator_type) >= 0:
-        for player_annotator in player_annotators.values():
-            player_annotator.set_annotator_enabled(
+    if character_sub_annotators.find(annotator_type) >= 0:
+        for character_annotator in character_annotators.values():
+            character_annotator.set_annotator_enabled(
                     annotator_type,
                     is_enabled)
     else:

@@ -16,9 +16,10 @@ var is_save_state_cleared_for_debugging := false
 var is_splash_skipped := false
 var opens_directly_to_level_id := ""
 var also_prints_to_stdout := true
-var logs_player_events := true
+var logs_character_events := true
 var logs_bootstrap_events := true
 var logs_device_settings := true
+var logs_in_editor_events := true
 var logs_analytics_events := true
 var overrides_project_settings := true
 var overrides_input_map := true
@@ -105,10 +106,11 @@ func register_manifest(manifest: Dictionary) -> void:
                 manifest.is_save_state_cleared_for_debugging
     self.pauses_on_focus_out = manifest.pauses_on_focus_out
     self.also_prints_to_stdout = manifest.also_prints_to_stdout
-    self.logs_player_events = manifest.logs_player_events
+    self.logs_character_events = manifest.logs_character_events
     self.logs_analytics_events = manifest.logs_analytics_events
     self.logs_bootstrap_events = manifest.logs_bootstrap_events
     self.logs_device_settings = manifest.logs_device_settings
+    self.logs_in_editor_events = manifest.logs_in_editor_events
     self.overrides_project_settings = manifest.overrides_project_settings
     self.overrides_input_map = manifest.overrides_input_map
     self.are_button_controls_enabled_by_default = \
