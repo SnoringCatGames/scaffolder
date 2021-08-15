@@ -51,7 +51,7 @@ var logs_low_level_framework_events := false
 
 # ---
 
-var is_human_character := false
+var is_player_character := false
 var _is_ready := false
 var _is_destroyed := false
 
@@ -238,16 +238,16 @@ func _initialize_children_proximity_detectors() -> void:
                     detector.rotation)
 
 
-func set_is_human_character(value: bool) -> void:
-    is_human_character = value
+func set_is_player_character(value: bool) -> void:
+    is_player_character = value
     
     var group: String = \
-            Sc.characters.GROUP_NAME_HUMAN_CHARACTERS if \
-            is_human_character else \
+            Sc.characters.GROUP_NAME_PLAYERS if \
+            is_player_character else \
             Sc.characters.GROUP_NAME_NPCS
     self.add_to_group(group)
     
-    if is_human_character:
+    if is_player_character:
         # Only a single, user-controlled character should have a camera.
         _set_camera()
 

@@ -3,7 +3,7 @@ class_name ScaffolderCharacterManifest
 extends Node
 
 
-const GROUP_NAME_HUMAN_CHARACTERS := "human_characters"
+const GROUP_NAME_PLAYERS := "players"
 const GROUP_NAME_NPCS := "npcs"
 const GROUP_NAME_SURFACER_CHARACTERS := "surfacer_characters"
 
@@ -39,8 +39,8 @@ func _parse_character_scenes(scenes_array: Array) -> void:
         Sc.characters.character_scenes[character_name] = scene
 
 
-func get_human_character() -> ScaffolderCharacter:
-    return Sc.level.human_character if \
+func get_player_character() -> ScaffolderCharacter:
+    return Sc.level.player_character if \
             is_instance_valid(Sc.level) and \
-                    is_instance_valid(Sc.level.human_character) else \
+                    is_instance_valid(Sc.level.player_character) else \
             null

@@ -1,5 +1,0 @@
-[gd_scene format=2]
-
-[node name="HumanCharacterSpawnPosition" type="Position2D" groups=[
-"character_start_position",
-]]

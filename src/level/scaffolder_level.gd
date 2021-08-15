@@ -15,7 +15,7 @@ var exclusive_spawn_positions := []
 # Dictionary<String, Array<ScaffolderCharacter>>
 var characters: Dictionary
 
-var human_character: ScaffolderCharacter
+var player_character: ScaffolderCharacter
 
 var session: ScaffolderLevelSession
 
@@ -52,7 +52,7 @@ func _start() -> void:
             Sc.level_config.get_level_version_string(Sc.level_session.id))
     Sc.gui.hud.visible = true
     
-    _add_human_character()
+    _add_player_character()
     _add_npcs()
     
     call_deferred("_on_started")
@@ -64,7 +64,7 @@ func _on_started() -> void:
     Sc.logger.print("Level started:             %8.3fs" % start_time)
 
 
-func _add_human_character() -> void:
+func _add_player_character() -> void:
     # If no spawn position was defined for the default character, then start them
     # at 0,0. 
     if !spawn_positions.has(Sc.characters.default_character_name):
@@ -77,13 +77,13 @@ func _add_human_character() -> void:
     var spawn_position: SpawnPosition = \
             spawn_positions[Sc.characters.default_character_name][0]
     
-    # TODO: Update the rest of the app to support running with no human character.
+    # TODO: Update the rest of the app to support running with no player character.
 #    if !exclusive_spawn_positions.empty() and \
 #            !spawn_position.include_exclusively:
 #        # We are exclusively including another character.
 #        return
     
-    # Add the human character.
+    # Add the player character.
     add_character(
             Sc.characters.default_character_name,
             spawn_position,
@@ -122,7 +122,7 @@ func _destroy() -> void:
     for character_name in characters:
         for character in characters[character_name]:
             character._destroy()
-    self.human_character = null
+    self.player_character = null
     Sc.level = null
     Sc.level_session._is_destroyed = true
     if Sc.level_session.is_restarting:
@@ -162,7 +162,7 @@ func quit(
 func add_character(
         name_or_path_or_packed_scene,
         position_or_spawn_position,
-        is_human_character: bool,
+        is_player_character: bool,
         is_attached := true) -> ScaffolderCharacter:
     if name_or_path_or_packed_scene is String and \
             !name_or_path_or_packed_scene.begins_with("res://"):
@@ -191,9 +191,9 @@ func add_character(
     if is_attached:
         add_child(character)
     
-    character.set_is_human_character(is_human_character)
-    if is_human_character:
-        human_character = character
+    character.set_is_player_character(is_player_character)
+    if is_player_character:
+        player_character = character
     
     return character
 

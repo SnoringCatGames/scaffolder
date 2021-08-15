@@ -114,7 +114,7 @@ func on_level_destroyed() -> void:
 
 func create_character_annotator(
         character: ScaffolderCharacter,
-        is_human_character: bool) -> void:
+        is_player_character: bool) -> void:
     var character_annotator: ScaffolderCharacterAnnotator = \
             character_annotation_class.new(character)
     annotation_layer.add_child(character_annotator)
