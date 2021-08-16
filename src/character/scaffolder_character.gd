@@ -37,8 +37,8 @@ var navigation_annotation_color_override := Color.black
 
 const _EXCLAMATION_MARK_GROUP := {
     group_name = "Exclamation mark",
-    first_property_name = "logs_action_events",
-    last_property_name = "logs_low_level_framework_events",
+    first_property_name = "exclamation_mark_width_start",
+    last_property_name = "exclamation_mark_throttle_interval",
 }
 
 var exclamation_mark_width_start := 4.0
@@ -51,22 +51,40 @@ var exclamation_mark_throttle_interval := 1.0
 
 const _LOGS_GROUP := {
     group_name = "Logs",
-    first_property_name = "logs_action_events",
-    last_property_name = "logs_low_level_framework_events",
+    first_property_name = "logs_common_debugging_events",
+    last_property_name = "logs_low_level_navigator_events",
 }
 
-## -   If true, action/input events will be printed.
-var logs_action_events := false
-## -   If true, surface-interaction events will be printed.
-var logs_surface_events := false
-## -   If true, behavior events will be printed.
-var logs_behavior_events := false
-## -   If true, navigator events will be printed.
-var logs_navigator_events := false
+## -   If true, a subset of the following log flags will be enabled.
+## -   These logs are often useful for debugging.
+var logs_common_debugging_events := false \
+        setget _set_logs_common_debugging_events
+
 ## -   If true, custom character events will be printed.
-var logs_custom_events := false
+var logs_custom_events := true \
+        setget _set_logs_custom_events
+## -   If true, behavior events will be printed.
+var logs_behavior_events := false \
+        setget _set_logs_behavior_events
+## -   If true, navigator events will be printed.
+var logs_navigator_events := false \
+        setget _set_logs_navigator_events
+## -   If true, non-surface collison events will be printed.
+var logs_collision_events := false \
+        setget _set_logs_collision_events
+## -   If true, surface-interaction events will be printed.
+var logs_surface_events := false \
+        setget _set_logs_surface_events
+## -   If true, action/input events will be printed.
+var logs_action_events := false \
+        setget _set_logs_action_events
 ## -   If true, lower-level framework events will be printed.
-var logs_low_level_framework_events := false
+var logs_low_level_framework_events := false \
+        setget _set_logs_low_level_framework_events
+## -   If true, lower-level navigation events will be printed.
+## -   These are pretty verbose!
+var logs_low_level_navigator_events := false \
+        setget _set_logs_low_level_navigator_events
 
 # ---
 
@@ -328,16 +346,22 @@ func _get_should_log_this_type(
         type: int,
         is_low_level_framework_event = false) -> bool:
     var logs_this_type := \
-            (type == CharacterLogType.ACTION and logs_action_events) or \
-            (type == CharacterLogType.SURFACE and logs_surface_events) or \
-            (type == CharacterLogType.NAVIGATOR and logs_navigator_events) or \
-            (type == CharacterLogType.BEHAVIOR and logs_behavior_events) or \
             (type == CharacterLogType.DEFAULT and logs_custom_events) or \
             (type == CharacterLogType.CUSTOM and logs_custom_events) or \
+            (type == CharacterLogType.BEHAVIOR and logs_behavior_events) or \
+            (type == CharacterLogType.NAVIGATOR and logs_navigator_events) or \
+            (type == CharacterLogType.COLLISION and logs_collision_events) or \
+            (type == CharacterLogType.SURFACE and logs_surface_events) or \
+            (type == CharacterLogType.ACTION and logs_action_events) or \
             type == CharacterLogType.UNKNOWN
+    var logs_this_low_levelness: bool = \
+            !is_low_level_framework_event or \
+            (logs_low_level_framework_events and \
+                    type != CharacterLogType.NAVIGATOR or \
+            logs_low_level_navigator_events and \
+                    type == CharacterLogType.NAVIGATOR)
     return logs_this_type and \
-            (!is_low_level_framework_event or \
-            logs_low_level_framework_events) and \
+            logs_this_low_levelness and \
             Sc.metadata.logs_character_events
 
 
@@ -493,14 +517,14 @@ func _on_detection_area_enter_exit(
             Sc.utils.get_physics_layer_names_from_bitmask(shared_bits)
     assert(!layer_names.empty())
     
-    if _get_should_log_this_type(CharacterLogType.DEFAULT, true):
+    if _get_should_log_this_type(CharacterLogType.COLLISION, true):
         _log("%s%8.3fs; layer=%s; pos=%s" % [
                     Sc.utils.pad_string(callback_name.trim_prefix("_on_"), 21),
                     Sc.time.get_play_time(),
                     Sc.utils.join(layer_names),
                     Sc.utils.get_vector_string(position),
                 ],
-                CharacterLogType.DEFAULT,
+                CharacterLogType.COLLISION,
                 true)
     
     self.call(callback_name, target, layer_names)
@@ -598,3 +622,69 @@ func _disable_layer(
         var layer_bit_mask: int = \
                 Sc.utils.get_physics_layer_bitmask_from_name(layer_name)
         area.collision_mask &= ~layer_bit_mask
+
+
+func _set_logs_common_debugging_events(value: bool) -> void:
+    logs_common_debugging_events = value
+    if logs_common_debugging_events:
+        logs_custom_events = true
+        logs_behavior_events = true
+        logs_navigator_events = true
+        logs_collision_events = true
+    elif logs_custom_events and \
+            logs_behavior_events and \
+            logs_navigator_events and \
+            logs_collision_events:
+        logs_custom_events = false
+        logs_behavior_events = false
+        logs_navigator_events = false
+        logs_collision_events = false
+    _update_editor_configuration()
+
+
+func _set_logs_custom_events(value: bool) -> void:
+    logs_custom_events = value
+    if !logs_custom_events:
+        logs_common_debugging_events = false
+    _update_editor_configuration()
+
+
+func _set_logs_behavior_events(value: bool) -> void:
+    logs_behavior_events = value
+    if !logs_behavior_events:
+        logs_common_debugging_events = false
+    _update_editor_configuration()
+
+
+func _set_logs_navigator_events(value: bool) -> void:
+    logs_navigator_events = value
+    if !logs_navigator_events:
+        logs_common_debugging_events = false
+    _update_editor_configuration()
+
+
+func _set_logs_collision_events(value: bool) -> void:
+    logs_collision_events = value
+    if !logs_collision_events:
+        logs_common_debugging_events = false
+    _update_editor_configuration()
+
+
+func _set_logs_surface_events(value: bool) -> void:
+    logs_surface_events = value
+    _update_editor_configuration()
+
+
+func _set_logs_action_events(value: bool) -> void:
+    logs_action_events = value
+    _update_editor_configuration()
+
+
+func _set_logs_low_level_framework_events(value: bool) -> void:
+    logs_low_level_framework_events = value
+    _update_editor_configuration()
+
+
+func _set_logs_low_level_navigator_events(value: bool) -> void:
+    logs_low_level_navigator_events = value
+    _update_editor_configuration()

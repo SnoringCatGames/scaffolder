@@ -5,6 +5,7 @@ enum {
     UNKNOWN,
     ACTION,
     SURFACE,
+    COLLISION,
     NAVIGATOR,
     BEHAVIOR,
     DEFAULT,
@@ -20,6 +21,8 @@ static func get_string(type: int) -> String:
             return "ACTION"
         SURFACE:
             return "SURFACE"
+        COLLISION:
+            return "COLLISION"
         NAVIGATOR:
             return "NAVIGATOR"
         BEHAVIOR:
@@ -41,6 +44,8 @@ static func get_prefix(type: int) -> String:
             return "ACT"
         SURFACE:
             return "SUR"
+        COLLISION:
+            return "COL"
         NAVIGATOR:
             return "NAV"
         BEHAVIOR:
