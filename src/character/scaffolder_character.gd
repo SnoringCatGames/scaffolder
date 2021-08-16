@@ -381,8 +381,9 @@ func _show_exclamation_mark_throttled() -> void:
             exclamation_mark_duration))
 
 
-func set_surface_attachment(surface_side: int) -> void:
-    if surface_side != SurfaceSide.NONE:
+func set_start_attachment_surface_side_or_position(
+        surface_side_or_position) -> void:
+    if surface_side_or_position != SurfaceSide.NONE:
         Sc.logger.error("Only SurfacerCharacters can have surface attachment.")
 
 

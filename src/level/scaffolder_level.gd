@@ -184,7 +184,7 @@ func add_character(
     character.set_position(position)
     
     if position_or_spawn_position is SpawnPosition:
-        character.set_surface_attachment(
+        character.set_start_attachment_surface_side_or_position(
                 position_or_spawn_position.surface_side)
     
     if !characters.has(character.character_name):

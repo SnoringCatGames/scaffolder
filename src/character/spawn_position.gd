@@ -168,7 +168,7 @@ func _update_editor_configuration() -> void:
             has_node("/root/Su") else \
             null
     if Su != null:
-        var movement_params = \
+        var movement_params: MovementParameters = \
                 Su.movement.character_movement_params[character_name] if \
                 Su.movement.character_movement_params.has(character_name) else \
                 null
