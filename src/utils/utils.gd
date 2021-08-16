@@ -655,7 +655,7 @@ func check_whether_sub_classes_are_tools(object: Object) -> bool:
 ## -   The result is suitable for returning from _get_property_list.
 ## -   **NOTE**: You will probably want to remove the `export` keyword from any
 ##     property you are grouping, since they would otherwise be shown twice.
-func get_property_list_for_inspector_groups(
+func get_property_list_for_contiguous_inspector_groups(
         node: Node,
         groups: Array) -> Array:
     for group in groups:
@@ -718,6 +718,74 @@ func get_property_list_for_inspector_groups(
             # Skip "private" properties that start with an underscore.
             if name.begins_with("_"):
                 continue
+            var property_overrides: Dictionary = \
+                    group_overrides[name] if \
+                    group_overrides.has(name) else \
+                    {}
+            var type: int = \
+                    property_overrides.type if \
+                    property_overrides.has("type") else \
+                    original_property_config.type
+            var hint: int = \
+                    property_overrides.hint if \
+                    property_overrides.has("hint") else \
+                    original_property_config.hint
+            var hint_string: String = \
+                    property_overrides.hint_string if \
+                    property_overrides.has("hint_string") else \
+                    original_property_config.hint_string
+            property_list_addendum.push_back({
+                name = name,
+                type = type,
+                hint = hint,
+                hint_string = hint_string,
+                usage = PROPERTY_USAGE_GROUPED_ITEM,
+            })
+    
+    return property_list_addendum
+
+
+func get_property_list_for_non_contiguous_inspector_groups(
+        node: Node,
+        groups: Array) -> Array:
+    for group in groups:
+        assert(group is Dictionary)
+        assert(group.has("group_name"))
+        assert(group.has("property_names"))
+        group.property_indices = []
+        group.property_indices.resize(group.property_names.size())
+    
+    var default_property_list := node.get_property_list()
+    
+    for group in groups:
+        for i in group.property_names.size():
+            var property_name: String = group.property_names[i]
+            var property_index := _get_property_index(
+                    property_name,
+                    default_property_list)
+            if property_index < 0:
+                Sc.logger.error()
+                return []
+            group.property_indices[i] = property_index
+    
+    var property_list_addendum := []
+    
+    for group in groups:
+        var group_overrides: Dictionary = \
+                group.overrides if \
+                group.has("overrides") else \
+                {}
+        
+        property_list_addendum.push_back({
+            name = group.group_name,
+            type = TYPE_NIL,
+            usage = PROPERTY_USAGE_GROUP_HEADER,
+        })
+        
+        for property_index in group.property_indices:
+            var original_property_config: Dictionary = \
+                    default_property_list[property_index]
+            var name: String = original_property_config.name
             var property_overrides: Dictionary = \
                     group_overrides[name] if \
                     group_overrides.has(name) else \

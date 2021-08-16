@@ -17,18 +17,37 @@ export var character_name := ""
 ##     collisions without adjusting our movement.[br]
 export(int, LAYERS_2D_PHYSICS) var collision_detection_layers := 0
 
+# --- Colors ---
+
+const _COLORS_GROUP := {
+    group_name = "Colors",
+    first_property_name = "primary_annotation_color",
+    last_property_name = "navigation_annotation_color_override",
+}
+
 ## Used for things like the fill-color of exclamation-mark annotations.
-export var primary_annotation_color := Color.black
+var primary_annotation_color := Color.black
 ## Used for things like the border-color of exclamation-mark annotations.
-export var secondary_annotation_color := Color.white
+var secondary_annotation_color := Color.white
+## -   Used for things like the navigation trajectory annotation.
+## -   If not defined, then primary_annotation_color will be used for this.
+var navigation_annotation_color_override := Color.black
 
-export var exclamation_mark_width_start := 4.0
-export var exclamation_mark_length_start := 24.0
-export var exclamation_mark_stroke_width_start := 1.2
-export var exclamation_mark_duration := 1.8
-export var exclamation_mark_throttle_interval := 1.0
+# --- Exclamation mark ---
 
-# ---
+const _EXCLAMATION_MARK_GROUP := {
+    group_name = "Exclamation mark",
+    first_property_name = "logs_action_events",
+    last_property_name = "logs_low_level_framework_events",
+}
+
+var exclamation_mark_width_start := 4.0
+var exclamation_mark_length_start := 24.0
+var exclamation_mark_stroke_width_start := 1.2
+var exclamation_mark_duration := 1.8
+var exclamation_mark_throttle_interval := 1.0
+
+# --- Logs ---
 
 const _LOGS_GROUP := {
     group_name = "Logs",
@@ -77,6 +96,8 @@ var _debounced_update_editor_configuration: FuncRef
 var _throttled_show_exclamation_mark: FuncRef
 
 const _PROPERTY_GROUPS := [
+    _COLORS_GROUP,
+    _EXCLAMATION_MARK_GROUP,
     _LOGS_GROUP,
 ]
 
@@ -85,7 +106,7 @@ const _PROPERTY_GROUPS := [
 
 func _init() -> void:
     var property_list_addendum: Array = \
-            Sc.utils.get_property_list_for_inspector_groups(
+            Sc.utils.get_property_list_for_contiguous_inspector_groups(
                     self, _PROPERTY_GROUPS)
     Sc.utils.concat(_property_list_addendum, property_list_addendum)
 
