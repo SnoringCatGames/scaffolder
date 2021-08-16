@@ -217,8 +217,9 @@ func get_unlock_hint(level_id: String) -> String:
         
         return "Finish %s" % get_level_config(previous_level_id).name
     elif unlock_conditions is Object:
-        Sc.logger.error("App must override get_unlock_hint if defining custom " +
-                    "unlock_conditions")
+        Sc.logger.error(
+                "App must override get_unlock_hint if defining custom " +
+                "unlock_conditions")
         return ""
     else:
         Sc.logger.error("Invalid value for unlock_conditions: %s" % \

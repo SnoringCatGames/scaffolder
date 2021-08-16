@@ -20,9 +20,11 @@ const DEVICE_MODEL_NUMBER_TO_READABLE_NAME := {
     "iPhone5,1": "iPhone 5 (model A1428, AT&T/Canada)",
     "iPhone5,2": "iPhone 5 (model A1429, everything else)",
     "iPhone5,3": "iPhone 5c (model A1456, A1532 | GSM)",
-    "iPhone5,4": "iPhone 5c (model A1507, A1516, A1526 (China), A1529 | Global)",
+    "iPhone5,4": \
+            "iPhone 5c (model A1507, A1516, A1526 (China), A1529 | Global)",
     "iPhone6,1": "iPhone 5s (model A1433, A1533 | GSM)",
-    "iPhone6,2": "iPhone 5s (model A1457, A1518, A1528 (China), A1530 | Global)",
+    "iPhone6,2": \
+            "iPhone 5s (model A1457, A1518, A1528 (China), A1530 | Global)",
     "iPhone7,1": "iPhone 6 Plus",
     "iPhone7,2": "iPhone 6",
     "iPhone8,1": "iPhone 6S",
@@ -109,7 +111,8 @@ const DEVICE_MODEL_NUMBER_TO_READABLE_NAME := {
     
     # iPad PRO 12.9" (2nd Gen)
     "iPad7,1": "iPad PRO 12.9\" (2nd Gen) - Wifi (model A1670)",
-    "iPad7,2": "iPad PRO 12.9\" (2nd Gen) - Wifi + Cellular (model A1671, A1821)",
+    "iPad7,2": \
+            "iPad PRO 12.9\" (2nd Gen) - Wifi + Cellular (model A1671, A1821)",
     
     # iPad PRO 10.5"
     "iPad7,3": "iPad PRO 10.5\" - Wifi (model A1701)",

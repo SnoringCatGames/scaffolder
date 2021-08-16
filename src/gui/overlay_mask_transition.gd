@@ -4,8 +4,8 @@ extends Node
 
 signal completed(transition)
 
-var SHADER := \
-        preload("res://addons/scaffolder/src/gui/overlay_mask_transition.shader")
+var SHADER := preload( \
+        "res://addons/scaffolder/src/gui/overlay_mask_transition.shader")
 
 var _tween_id: int
 var is_transitioning := false

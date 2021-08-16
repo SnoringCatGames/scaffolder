@@ -52,7 +52,8 @@ func _create_annotator(annotator_type: int) -> void:
         AnnotatorType.CHARACTER:
             character.set_is_sprite_visible(true)
         AnnotatorType.CHARACTER_POSITION:
-            position_annotator = ScaffolderCharacterPositionAnnotator.new(character)
+            position_annotator = \
+                    ScaffolderCharacterPositionAnnotator.new(character)
             add_child(position_annotator)
         AnnotatorType.RECENT_MOVEMENT:
             recent_movement_annotator = \

@@ -65,19 +65,21 @@ func _on_started() -> void:
 
 
 func _add_player_character() -> void:
-    # If no spawn position was defined for the default character, then start them
-    # at 0,0. 
+    # If no spawn position was defined for the default character, then start
+    # them at 0,0. 
     if !spawn_positions.has(Sc.characters.default_character_name):
         var spawn_position := SpawnPosition.new()
         spawn_position.character_name = Sc.characters.default_character_name
         spawn_position.position = Vector2.ZERO
         spawn_position.surface_attachment = "NONE"
-        register_spawn_position(Sc.characters.default_character_name, spawn_position)
+        register_spawn_position(
+                Sc.characters.default_character_name, spawn_position)
     
     var spawn_position: SpawnPosition = \
             spawn_positions[Sc.characters.default_character_name][0]
     
-    # TODO: Update the rest of the app to support running with no player character.
+    # TODO: Update the rest of the app to support running with no player
+    #       character.
 #    if !exclusive_spawn_positions.empty() and \
 #            !spawn_position.include_exclusively:
 #        # We are exclusively including another character.
@@ -182,7 +184,8 @@ func add_character(
     character.set_position(position)
     
     if position_or_spawn_position is SpawnPosition:
-        character.set_surface_attachment(position_or_spawn_position.surface_side)
+        character.set_surface_attachment(
+                position_or_spawn_position.surface_side)
     
     if !characters.has(character.character_name):
         characters[character.character_name] = []
@@ -291,7 +294,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_initial_input() -> void:
-    Sc.logger.print("ScaffolderLevel._on_initial_input: %8.3fs" % Sc.time.get_play_time())
+    Sc.logger.print(
+            "ScaffolderLevel._on_initial_input: %8.3fs" % \
+            Sc.time.get_play_time())
     Sc.level_session._has_initial_input_happened = true
     # Close the welcome panel on any mouse or key click event.
     if is_instance_valid(Sc.gui.welcome_panel):
