@@ -27,7 +27,8 @@ func _ready() -> void:
     position.y = max(CORNER_OFFSET.y, Sc.device.get_safe_area_margin_top())
     position.x = max(CORNER_OFFSET.x, Sc.device.get_safe_area_margin_left())
     
-    $PanelContainer/ScrollContainer/Label.add_color_override("font_color", FONT_COLOR)
+    $PanelContainer/ScrollContainer/Label.add_color_override(
+            "font_color", FONT_COLOR)
     $PanelContainer/Time.add_color_override("font_color", FONT_COLOR)
     
     Sc.time.set_timeout(funcref(self, "_delayed_init"), 0.8)

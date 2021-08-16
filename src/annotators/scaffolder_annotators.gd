@@ -47,7 +47,8 @@ func _init(
         character_sub_annotators := _SCAFFOLDER_CHARACTER_SUB_ANNOTATORS,
         level_specific_annotators := _SCAFFOLDER_LEVEL_SPECIFIC_ANNOTATORS,
         default_enablement := _SCAFFOLDER_DEFAULT_ENABLEMENT,
-        character_annotation_class: Script = ScaffolderCharacterAnnotator) -> void:
+        character_annotation_class: Script = \
+                ScaffolderCharacterAnnotator) -> void:
     Sc.logger.on_global_init(self, "ScaffolderAnnotators")
     self.character_sub_annotators = character_sub_annotators
     self.level_specific_annotators = level_specific_annotators
@@ -133,7 +134,8 @@ func destroy_character_annotator(character: ScaffolderCharacter) -> void:
     character_annotators.erase(character)
 
 
-func get_character_annotator(character: ScaffolderCharacter) -> ScaffolderCharacterAnnotator:
+func get_character_annotator(
+        character: ScaffolderCharacter) -> ScaffolderCharacterAnnotator:
     return character_annotators[character]
 
 

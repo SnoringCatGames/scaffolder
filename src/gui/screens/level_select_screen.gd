@@ -3,8 +3,8 @@ class_name LevelSelectScreen
 extends Screen
 
 
-const LEVEL_SELECT_ITEM_SCENE := \
-        preload("res://addons/scaffolder/src/gui/level_select/level_select_item.tscn")
+const LEVEL_SELECT_ITEM_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/level_select/level_select_item.tscn")
 const SCROLL_TWEEN_DURATION := 0.3
 
 # Array<LevelSelectItem>

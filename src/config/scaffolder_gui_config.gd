@@ -5,32 +5,32 @@ extends Node
 
 # --- Constants ---
 
-const ACCORDION_PANEL_SCENE := \
-        preload("res://addons/scaffolder/src/gui/widgets/accordion_panel.tscn")
-const CENTERED_PANEL_SCENE := \
-        preload("res://addons/scaffolder/src/gui/widgets/centered_panel.tscn")
-const FULL_SCREEN_PANEL_SCENE := \
-        preload("res://addons/scaffolder/src/gui/widgets/full_screen_panel.tscn")
-const SCAFFOLDER_BUTTON_SCENE := \
-        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn")
-const SCAFFOLDER_CHECK_BOX_SCENE := \
-        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_check_box.tscn")
-const SCAFFOLDER_LABEL_SCENE := \
-        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn")
-const SCAFFOLDER_LABEL_LINK_SCENE := \
-        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_label_link.tscn")
-const SCAFFOLDER_PROGRESS_BAR_SCENE := \
-        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_progress_bar.tscn")
-const SCAFFOLDER_SLIDER_SCENE := \
-        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_slider.tscn")
-const SCAFFOLDER_TEXTURE_BUTTON_SCENE := \
-        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_texture_button.tscn")
-const SCAFFOLDER_TEXTURE_LINK_SCENE := \
-        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_texture_link.tscn")
-const SCAFFOLDER_TEXTURE_RECT_SCENE := \
-        preload("res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn")
-const SPACER_SCENE := \
-        preload("res://addons/scaffolder/src/gui/widgets/spacer.tscn")
+const ACCORDION_PANEL_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/widgets/accordion_panel.tscn")
+const CENTERED_PANEL_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/widgets/centered_panel.tscn")
+const FULL_SCREEN_PANEL_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/widgets/full_screen_panel.tscn")
+const SCAFFOLDER_BUTTON_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn")
+const SCAFFOLDER_CHECK_BOX_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/widgets/scaffolder_check_box.tscn")
+const SCAFFOLDER_LABEL_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn")
+const SCAFFOLDER_LABEL_LINK_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/widgets/scaffolder_label_link.tscn")
+const SCAFFOLDER_PROGRESS_BAR_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/widgets/scaffolder_progress_bar.tscn")
+const SCAFFOLDER_SLIDER_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/widgets/scaffolder_slider.tscn")
+const SCAFFOLDER_TEXTURE_BUTTON_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/widgets/scaffolder_texture_button.tscn")
+const SCAFFOLDER_TEXTURE_LINK_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/widgets/scaffolder_texture_link.tscn")
+const SCAFFOLDER_TEXTURE_RECT_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn")
+const SPACER_SCENE := preload( \
+        "res://addons/scaffolder/src/gui/widgets/spacer.tscn")
 
 const WELCOME_PANEL_PATH := \
         "res://addons/scaffolder/src/gui/welcome_panel.tscn"

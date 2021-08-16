@@ -97,7 +97,8 @@ func _ready() -> void:
 func _update_property_list_addendum() -> void:
     var character_names: Array = Sc.characters.character_scenes.keys()
     character_names.push_front("")
-    CHARACTER_NAME_PROPERTY_CONFIG.hint_string = Sc.utils.join(character_names, ",")
+    CHARACTER_NAME_PROPERTY_CONFIG.hint_string = \
+            Sc.utils.join(character_names, ",")
 
 
 func _get_property_list() -> Array:
@@ -175,7 +176,8 @@ func _update_editor_configuration() -> void:
         if surface_side != SurfaceSide.NONE and \
                 movement_params == null:
             _set_configuration_warning(
-                    "%s has no movement_params, and cannot attach to surafces." % \
+                    ("%s has no movement_params, " +
+                    "and cannot attach to surafces.") % \
                     character_name)
             return
         
