@@ -88,6 +88,12 @@ var logs_low_level_navigator_events := false \
 
 # ---
 
+const _PROPERTY_GROUPS := [
+    _COLORS_GROUP,
+    _EXCLAMATION_MARK_GROUP,
+    _LOGS_GROUP,
+]
+
 var is_player_character := false
 var _is_ready := false
 var _is_destroyed := false
@@ -113,20 +119,13 @@ var _layers_for_exited_proximity_detection := {}
 var _debounced_update_editor_configuration: FuncRef
 var _throttled_show_exclamation_mark: FuncRef
 
-const _PROPERTY_GROUPS := [
-    _COLORS_GROUP,
-    _EXCLAMATION_MARK_GROUP,
-    _LOGS_GROUP,
-]
-
 # ---
 
 
 func _init() -> void:
-    var property_list_addendum: Array = \
+    _property_list_addendum = \
             Sc.utils.get_property_list_for_contiguous_inspector_groups(
                     self, _PROPERTY_GROUPS)
-    Sc.utils.concat(_property_list_addendum, property_list_addendum)
 
 
 func _enter_tree() -> void:
@@ -324,7 +323,6 @@ func _process_sounds() -> void:
     pass
 
 
-# fixme: left off here: ------- use this more
 ## Conditionally prints the given message, depending on the character's
 ## configuration.
 func _log(
