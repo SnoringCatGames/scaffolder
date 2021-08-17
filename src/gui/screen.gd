@@ -83,7 +83,7 @@ func _process(_delta: float) -> void:
     # TODO: Use Input.is_action_just_pressed("sc_back") instead of checking
     #       button key directly. Currently, Godot reports an error in the
     #       editor when we try to use this: "ERROR: Request for nonexistent
-    #       InputMap action 'sc_back'."
+    #       InputMap action 'sc_back'".
     elif Input.is_action_just_pressed("ui_cancel") and \
             is_instance_valid(container.nav_bar) and \
             container.nav_bar.shows_back and \

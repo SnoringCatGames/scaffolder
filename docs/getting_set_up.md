@@ -9,7 +9,7 @@ Probably the easiest way to get set up is to copy the [Squirrel Away example app
 -   `Sc`
     -   Define `Sc` as an AutoLoad (in Project Settings > AutoLoad).
     -   All of the Scaffolder functionality is globally accessible through properties on the `Sc` AutoLoad.
-    -   "Sc" is short for "Scaffolder."
+    -   "Sc" is short for "Scaffolder".
     -   It should point to the path `res://addons/scaffolder/src/sc.gd`.
     -   It should be the first AutoLoad in the list.
 -   `app_manifest`
