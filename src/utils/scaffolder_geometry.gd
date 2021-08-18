@@ -76,6 +76,18 @@ static func get_distance_squared_between_non_intersecting_segments(
                     distance_squared_from_1_to_2_b))
 
 
+static func get_distance_squared_from_rect_to_rect(
+        a: Rect2,
+        b: Rect2) -> float:
+    var min_x := min(a.position.x, b.position.x)
+    var min_y := min(a.position.y, b.position.y)
+    var max_x := max(a.end.x, b.end.x)
+    var max_y := max(a.end.y, b.end.y)
+    var inner_width := max(0.0, (max_x - min_x) - a.size.x - b.size.x)
+    var inner_height := max(0.0, (max_y - min_y) - a.size.y - b.size.y)
+    return inner_width * inner_width + inner_height * inner_height
+
+
 # Calculates the closest position on a line segment to a point.
 static func get_closest_point_on_segment_to_point(
         point: Vector2,
