@@ -112,6 +112,7 @@ static func splice(
     var i := 0
     while i < items_to_insert_count:
         result[start + i] = items_to_insert[i]
+        i += 1
 
 
 # TODO: Replace this with any built-in feature whenever it exists
@@ -156,9 +157,9 @@ static func join(
     var count: int = array.size()
     var result := ""
     for index in array.size() - 1:
-        result += array[index] + delimiter
+        result += str(array[index]) + delimiter
     if count > 0:
-        result += array[count - 1]
+        result += str(array[count - 1])
     return result
 
 
