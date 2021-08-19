@@ -72,6 +72,48 @@ static func sub_pool_vector2_array(
     return result
 
 
+static func splice(
+        result: Array,
+        start: int,
+        delete_count: int,
+        items_to_insert: Array) -> void:
+    var old_count := result.size()
+    var items_to_insert_count := items_to_insert.size()
+    
+    assert(start >= 0)
+    assert(start <= old_count)
+    assert(delete_count >= 0)
+    assert(delete_count <= old_count)
+    assert(start + delete_count <= old_count)
+    
+    var new_count := old_count - delete_count + items_to_insert_count
+    var is_growing := items_to_insert_count > delete_count
+    var is_shrinking := items_to_insert_count < delete_count
+    var displacement := items_to_insert_count - delete_count
+    
+    if is_shrinking:
+        # Shift old items toward the front.
+        var i := start + delete_count
+        while i < old_count:
+            result[i + displacement] = result[i]
+            i += 1
+    
+    # Resize the result array.
+    result.resize(new_count)
+    
+    if is_growing:
+        # Shift old items toward the back.
+        var i := old_count - 1
+        while i >= start + delete_count:
+            result[i + displacement] = result[i]
+            i -= 1
+    
+    # Insert the new items.
+    var i := 0
+    while i < items_to_insert_count:
+        result[start + i] = items_to_insert[i]
+
+
 # TODO: Replace this with any built-in feature whenever it exists
 #       (https://github.com/godotengine/godot/issues/4715).
 static func concat(
