@@ -228,15 +228,22 @@ func _add_character() -> void:
     _character.modulate.a = CHARACTER_OPACITY
     _character.show_behind_parent = true
     
-    if surface_side == SurfaceSide.LEFT_WALL or \
-            surface_side == SurfaceSide.RIGHT_WALL:
-        _character.animator.play("RestOnWall")
-        if surface_side == SurfaceSide.LEFT_WALL:
-            _character.animator.face_left()
-        else:
-            _character.animator.face_right()
-    else:
-        _character.animator.play("Rest")
+    match surface_side:
+        SurfaceSide.FLOOR:
+            _character.animator.play("Rest")
+        SurfaceSide.LEFT_WALL, \
+        SurfaceSide.RIGHT_WALL:
+            _character.animator.play("RestOnWall")
+            if surface_side == SurfaceSide.LEFT_WALL:
+                _character.animator.face_left()
+            else:
+                _character.animator.face_right()
+        SurfaceSide.CEILING:
+            _character.animator.play("RestOnCeiling")
+        SurfaceSide.NONE:
+            _character.animator.play("JumpFall")
+        _:
+            Sc.logger.error()
 
 
 func _set_character_name(value: String) -> void:
