@@ -9,6 +9,9 @@ var LINE_COLOR: Color = Sc.colors.opacify(
 var TEXT_COLOR: Color = Sc.colors.opacify(
         Sc.colors.ruler, ScaffolderColors.ALPHA_XFAINT)
 
+var font: Font
+var font_height: float
+
 var viewport: Viewport
 
 var viewport_size: Vector2
@@ -17,6 +20,9 @@ var previous_camera_zoom := 1.0
 
 
 func _ready() -> void:
+    font = Sc.gui.fonts.main_xs
+    font_height = font.get_height()
+    
     viewport = get_viewport()
     viewport_size = viewport.get_visible_rect().size
     if !viewport.is_connected(
@@ -78,8 +84,8 @@ func _draw() -> void:
                 previous_camera_zoom))
         text = "0" if text == "-0" else text
         draw_string(
-                Sc.gui.fonts.main_xs,
-                Vector2(start_position.x + 2, 14),
+                font,
+                Vector2(start_position.x + 4, font_height * 0.8),
                 text,
                 TEXT_COLOR)
     
@@ -99,8 +105,8 @@ func _draw() -> void:
                 previous_camera_zoom))
         text = "0" if text == "-0" else text
         draw_string(
-                Sc.gui.fonts.main_xs,
-                Vector2(2, start_position.y + 14),
+                font,
+                Vector2(4, start_position.y + font_height * 0.8),
                 text,
                 TEXT_COLOR)
 
