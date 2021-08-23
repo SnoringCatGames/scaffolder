@@ -437,14 +437,18 @@ static func draw_checkmark(
     var top_right_point := \
             position + Vector2(width * 2.0 / 3.0, -width / 2.0 * 1.33)
     
-    canvas.draw_line(
-            top_left_point,
-            bottom_mid_point,
-            color,
-            stroke_width)
-    canvas.draw_line(
-            bottom_mid_point,
-            top_right_point,
+    # TODO: Replace this with outline vertices and draw_colored_polygon.
+    var slight_horizontal_offset := Vector2(0.001, 0.0)
+    
+    var vertices := [
+        top_left_point,
+        bottom_mid_point - slight_horizontal_offset,
+        bottom_mid_point + slight_horizontal_offset,
+        top_right_point,
+    ]
+    
+    canvas.draw_polyline(
+            vertices,
             color,
             stroke_width)
 
