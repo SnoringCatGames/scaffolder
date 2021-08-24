@@ -176,6 +176,7 @@ func _create_annotator(annotator_type: int) -> void:
         AnnotatorType.LEVEL:
             if Sc.level != null:
                 Sc.level.set_tile_map_visibility(true)
+                Sc.level.set_background_visibility(true)
         _:
             Sc.logger.error()
 
@@ -190,6 +191,7 @@ func _destroy_annotator(annotator_type: int) -> void:
         AnnotatorType.LEVEL:
             if Sc.level != null:
                 Sc.level.set_tile_map_visibility(false)
+                Sc.level.set_background_visibility(false)
         _:
             Sc.logger.error()
 
