@@ -50,7 +50,9 @@ func _start() -> void:
             "level",
             "start",
             Sc.level_config.get_level_version_string(Sc.level_session.id))
-    Sc.gui.hud.visible = true
+    
+    if Sc.gui.hud_manifest.is_hud_visible_by_default:
+        Sc.gui.hud.visible = true
     
     _add_player_character()
     _add_npcs()

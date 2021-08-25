@@ -31,6 +31,7 @@ const _DEFAULT_LAYERS_CONFIG := [
     },
 ]
 
+# Dictionary<String, CanvasLayer>
 var layers := {}
 
 
@@ -67,14 +68,18 @@ func create_layer(
 
 
 func set_global_visibility(visible: bool) -> void:
-    for layer in layers.values():
-        for child in layer.get_children():
-            if child is CanvasItem:
-                if visible:
-                    child.visible = \
-                            child.get_meta("gs_visible") if \
-                            child.has_meta("gs_visible") else \
-                            true
-                else:
-                    child.set_meta("gs_visible", child.visible)
-                    child.visible = false
+    for layer_name in layers:
+        set_layer_visibility(layer_name, visible)
+
+
+func set_layer_visibility(layer_name: String, visible: bool) -> void:
+    for child in layers[layer_name].get_children():
+        if child is CanvasItem:
+            if visible:
+                child.visible = \
+                        child.get_meta("gs_visible") if \
+                        child.has_meta("gs_visible") else \
+                        true
+            else:
+                child.set_meta("gs_visible", child.visible)
+                child.visible = false
