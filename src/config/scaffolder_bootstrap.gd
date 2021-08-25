@@ -196,6 +196,10 @@ func _process(_delta: float) -> void:
         if Input.is_action_just_pressed("screenshot"):
             Sc.metadata.were_screenshots_taken = true
             Sc.utils.take_screenshot()
+        
+        if Input.is_action_just_pressed("toggle_hud"):
+            if is_instance_valid(Sc.gui.hud):
+                Sc.gui.hud.visible = !Sc.gui.hud.visible
 
 
 func _notification(notification: int) -> void:

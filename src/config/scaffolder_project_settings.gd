@@ -10,6 +10,9 @@ const DEFAULT_INPUT_MAP := {
         {key_scancode = KEY_L},
         {key_scancode = KEY_P},
     ],
+    "toggle_hud": [
+        {key_scancode = KEY_H},
+    ],
     "sc_back": [
         {mouse_button_index = BUTTON_XBUTTON1},
     ],
