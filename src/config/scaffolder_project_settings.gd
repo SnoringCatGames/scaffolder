@@ -69,7 +69,7 @@ const DEFAULT_INPUT_MAP := {
     ],
     "face_left": [],
     "face_right": [],
-    "grab_wall": [],
+    "grab": [],
 }
 
 
