@@ -67,11 +67,11 @@ func _init_children() -> void:
 
 
 func update_size(header_size: Vector2) -> bool:
-    if !$HintWrapper/Hint.has_meta("gs_rect_min_size"):
+    if !$HintWrapper/Hint.has_meta("sc_rect_min_size"):
         $HintWrapper/Hint.set_meta(
-                "gs_rect_min_size", $HintWrapper/Hint.rect_min_size)
+                "sc_rect_min_size", $HintWrapper/Hint.rect_min_size)
     var original_hint_rect_min_size: Vector2 = \
-            $HintWrapper/Hint.get_meta("gs_rect_min_size")
+            $HintWrapper/Hint.get_meta("sc_rect_min_size")
     
     rect_min_size = header_size
     

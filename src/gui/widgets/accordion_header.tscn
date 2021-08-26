@@ -101,7 +101,7 @@ size_flags_vertical = 3
 custom_constants/separation = 16
 __meta__ = {
 "_edit_use_anchors_": false,
-"gs_separation": 16
+"sc_separation": 16
 }
 
 [node name="Spacer" parent="HBoxContainer" instance=ExtResource( 4 )]

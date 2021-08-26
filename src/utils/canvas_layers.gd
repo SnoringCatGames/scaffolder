@@ -77,9 +77,9 @@ func set_layer_visibility(layer_name: String, visible: bool) -> void:
         if child is CanvasItem:
             if visible:
                 child.visible = \
-                        child.get_meta("gs_visible") if \
-                        child.has_meta("gs_visible") else \
+                        child.get_meta("sc_visible") if \
+                        child.has_meta("sc_visible") else \
                         true
             else:
-                child.set_meta("gs_visible", child.visible)
+                child.set_meta("sc_visible", child.visible)
                 child.visible = false

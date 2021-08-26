@@ -13,7 +13,7 @@ size_flags_vertical = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false,
-"gs_rect_min_size": Vector2( 0, 160 )
+"sc_rect_min_size": Vector2( 0, 160 )
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -27,10 +27,10 @@ custom_constants/margin_top = 0
 custom_constants/margin_left = 0
 custom_constants/margin_bottom = 0
 __meta__ = {
-"gs_margin_bottom": 0,
-"gs_margin_left": 0,
-"gs_margin_right": 0,
-"gs_margin_top": 0
+"sc_margin_bottom": 0,
+"sc_margin_left": 0,
+"sc_margin_right": 0,
+"sc_margin_top": 0
 }
 
 [node name="TopRow" type="CenterContainer" parent="MarginContainer"]
@@ -67,7 +67,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 __meta__ = {
-"gs_separation": 0
+"sc_separation": 0
 }
 
 [node name="ButtonRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
@@ -77,7 +77,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 __meta__ = {
-"gs_separation": 0
+"sc_separation": 0
 }
 
 [node name="RightContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ButtonRow"]
@@ -88,8 +88,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 4
 __meta__ = {
-"gs_rect_min_size": Vector2( 160, 160 ),
-"gs_separation": 4
+"sc_rect_min_size": Vector2( 160, 160 ),
+"sc_separation": 4
 }
 
 [node name="BackButton" parent="MarginContainer/VBoxContainer/ButtonRow/RightContainer" instance=ExtResource( 13 )]
@@ -133,8 +133,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 4
 __meta__ = {
-"gs_rect_min_size": Vector2( 160, 160 ),
-"gs_separation": 4
+"sc_rect_min_size": Vector2( 160, 160 ),
+"sc_separation": 4
 }
 
 [node name="SettingsButton" parent="MarginContainer/VBoxContainer/ButtonRow/LeftContainer" instance=ExtResource( 13 )]
