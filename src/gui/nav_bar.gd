@@ -24,11 +24,11 @@ var _is_ready := false
 func _ready() -> void:
     _is_ready = true
 
-    set_meta("gs_rect_min_size", Vector2(0.0, HEIGHT))
+    set_meta("sc_rect_min_size", Vector2(0.0, HEIGHT))
     $MarginContainer/VBoxContainer/ButtonRow/RightContainer \
-            .set_meta("gs_rect_min_size", Vector2(HEIGHT, HEIGHT))
+            .set_meta("sc_rect_min_size", Vector2(HEIGHT, HEIGHT))
     $MarginContainer/VBoxContainer/ButtonRow/LeftContainer \
-            .set_meta("gs_rect_min_size", Vector2(HEIGHT, HEIGHT))
+            .set_meta("sc_rect_min_size", Vector2(HEIGHT, HEIGHT))
     
     $MarginContainer.set(
             "custom_constants/margin_top",

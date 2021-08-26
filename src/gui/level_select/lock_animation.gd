@@ -17,11 +17,11 @@ func _ready() -> void:
             self,
             "_on_lock_animation_finished")
     
-    set_meta("gs_rect_min_size", rect_min_size)
+    set_meta("sc_rect_min_size", rect_min_size)
 
 
 func _on_gui_scale_changed() -> bool:
-    var original_rect_min_size: Vector2 = get_meta("gs_rect_min_size")
+    var original_rect_min_size: Vector2 = get_meta("sc_rect_min_size")
 
     rect_min_size = original_rect_min_size * Sc.gui.scale
     rect_size = rect_min_size

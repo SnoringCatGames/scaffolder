@@ -32,7 +32,7 @@ func set_up(contents: Screen) -> void:
     var original_rect_min_size := Vector2(
             contents_width,
             0.0)
-    contents.set_meta("gs_rect_min_size", original_rect_min_size)
+    contents.set_meta("sc_rect_min_size", original_rect_min_size)
     
     center_container.add_child(contents)
     
@@ -96,7 +96,7 @@ func _destroy() -> void:
 
 func _update() -> void:
     var contents_size: Vector2 = \
-            contents.get_meta("gs_rect_min_size") * Sc.gui.scale
+            contents.get_meta("sc_rect_min_size") * Sc.gui.scale
     contents_size.x = min(contents_size.x, Sc.device.get_viewport_size().x)
     contents.rect_min_size = contents_size
 

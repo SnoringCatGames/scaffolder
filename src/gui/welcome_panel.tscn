@@ -53,8 +53,8 @@ custom_styles/panel = SubResource( 3 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false,
-"gs_rect_min_size": Vector2( 380, 0 ),
-"gs_rect_size": Vector2( 380, 300 )
+"sc_rect_min_size": Vector2( 380, 0 ),
+"sc_rect_size": Vector2( 380, 300 )
 }
 style = 1
 size_override = Vector2( 380, 0 )
@@ -68,8 +68,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 __meta__ = {
-"gs_rect_size": Vector2( 374, 294 ),
-"gs_separation": 0
+"sc_rect_size": Vector2( 374, 294 ),
+"sc_separation": 0
 }
 
 [node name="ScaffolderPanelContainer" parent="VBoxContainer" instance=ExtResource( 2 )]
@@ -84,8 +84,8 @@ margin_right = 374.0
 margin_bottom = 130.0
 custom_constants/separation = 0
 __meta__ = {
-"gs_rect_size": Vector2( 374, 130 ),
-"gs_separation": 0
+"sc_rect_size": Vector2( 374, 130 ),
+"sc_separation": 0
 }
 
 [node name="Header" parent="VBoxContainer/ScaffolderPanelContainer/VBoxContainer" instance=ExtResource( 8 )]
