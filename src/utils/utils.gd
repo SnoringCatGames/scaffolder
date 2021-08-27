@@ -485,6 +485,18 @@ func pad_string(
         return "%s%s" % [padding, string]
 
 
+func resize_string(
+        string: String,
+        length: int,
+        pads_on_right := true) -> String:
+    if string.length() > length:
+        return string.substr(0, length)
+    elif string.length() < length:
+        return pad_string(string, length, pads_on_right)
+    else:
+        return string
+
+
 func take_screenshot() -> void:
     if !ensure_directory_exists("user://screenshots"):
         return
