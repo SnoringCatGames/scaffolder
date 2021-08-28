@@ -4,8 +4,6 @@ Probably the easiest way to get set up is to copy the [Squirrel Away example app
 
 -   `addons/scaffolder`
     -   Add the Scaffolder library to your `addons/` folder.
--   `addons/crypto_uuid_v4`
-    -   Add the [Crypto UUID v4](https://godotengine.org/asset-library/asset/748) library to your `addons/` folder.
 -   `Sc`
     -   Define `Sc` as an AutoLoad (in Project Settings > AutoLoad).
     -   All of the Scaffolder functionality is globally accessible through properties on the `Sc` AutoLoad.
