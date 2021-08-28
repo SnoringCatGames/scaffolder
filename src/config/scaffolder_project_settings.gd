@@ -67,9 +67,12 @@ const DEFAULT_INPUT_MAP := {
         {key_scancode = KEY_APOSTROPHE},
         {key_scancode = KEY_Z},
     ],
+    "grab": [
+        {key_scancode = KEY_C},
+        {key_scancode = KEY_J},
+    ],
     "face_left": [],
     "face_right": [],
-    "grab": [],
 }
 
 
