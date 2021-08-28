@@ -20,7 +20,7 @@ signal session_ended
 
 const VERBOSE := false
 
-const UUID := preload("res://addons/crypto_uuid_v4/uuid.gd")
+const UUID := preload("res://addons/scaffolder/addons/crypto_uuid_v4/uuid.gd")
 
 # NOTE: These pings are also used to check for whether there is Internet
 #       connection, so don't increase this too much.
