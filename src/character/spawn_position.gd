@@ -177,7 +177,7 @@ func _update_editor_configuration() -> void:
                 movement_params == null:
             _set_configuration_warning(
                     ("%s has no movement_params, " +
-                    "and cannot attach to surafces.") % \
+                    "and cannot attach to surfaces.") % \
                     character_name)
             return
         
