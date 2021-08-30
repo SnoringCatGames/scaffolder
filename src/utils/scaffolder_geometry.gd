@@ -236,7 +236,8 @@ static func get_intersection_of_segment_and_circle(
         segment_a: Vector2,
         segment_b: Vector2,
         center: Vector2,
-        radius: float) -> Vector2:
+        radius: float,
+        uses_first_possible_intersection := true) -> Vector2:
     var d := segment_b - segment_a
     var f := segment_a - center
     var a := d.dot(d);
@@ -255,10 +256,19 @@ static func get_intersection_of_segment_and_circle(
         var t1 := (-b - discriminant_sqrt) / 2.0 / a
         var t2 := (-b + discriminant_sqrt) / 2.0 / a
         
-        if t1 >= 0 and t1 <= 1:
-            return segment_a + t1 * d
-        if t2 >= 0 and t2 <= 1:
-            return segment_a + t2 * d
+        var is_t1_intersecting := t1 >= 0 and t1 <= 1
+        var is_t2_intersecting := t2 >= 0 and t2 <= 1
+        
+        if uses_first_possible_intersection:
+            if is_t1_intersecting:
+                return segment_a + t1 * d
+            if is_t2_intersecting:
+                return segment_a + t2 * d
+        else:
+            if is_t2_intersecting:
+                return segment_a + t2 * d
+            if is_t1_intersecting:
+                return segment_a + t1 * d
         
         # The colinear line intersects the circle, but the segment does not.
         return Vector2.INF
