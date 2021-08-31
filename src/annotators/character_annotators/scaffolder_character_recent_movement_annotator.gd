@@ -86,9 +86,10 @@ func _draw() -> void:
     
     var previous_position := recent_positions[start_index]
     
-    for i in range(start_index + 1, start_index + position_count):
+    for i in range(1, position_count):
         # Older positions fade out.
-        var opacity := i / (position_count as float) * \
+        var opacity := \
+                i / (position_count as float) * \
                 (MOVEMENT_OPACITY_NEWEST - MOVEMENT_OPACITY_OLDEST) + \
                 MOVEMENT_OPACITY_OLDEST
         var color := Color.from_hsv(
@@ -98,7 +99,7 @@ func _draw() -> void:
                 opacity)
         
         # Calculate our current index in the circular buffer.
-        i = i % RECENT_POSITIONS_BUFFER_SIZE
+        i = (start_index + i) % RECENT_POSITIONS_BUFFER_SIZE
         
         _draw_frame(
                 i,
