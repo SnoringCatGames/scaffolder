@@ -63,7 +63,7 @@ func _start() -> void:
 func _on_started() -> void:
     var start_time: float = Sc.time.get_play_time()
     Sc.level_session._level_start_play_time_unscaled = start_time
-    Sc.logger.print("Level started:             %8.3fs" % start_time)
+    Sc.logger.print("Level started:               %8.3f" % start_time)
 
 
 func _add_player_character() -> void:
@@ -297,7 +297,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_initial_input() -> void:
     Sc.logger.print(
-            "ScaffolderLevel._on_initial_input: %8.3fs" % \
+            "_on_initial_input():         %8.3f" % \
             Sc.time.get_play_time())
     Sc.level_session._has_initial_input_happened = true
     # Close the welcome panel on any mouse or key click event.
