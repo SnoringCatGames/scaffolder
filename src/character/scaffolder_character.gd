@@ -6,7 +6,7 @@ extends KinematicBody2D
 
 # ---
 
-export var character_name := ""
+export var character_name := "" setget _set_character_name
 
 ## -   This helps your `ScaffolderCharacter` detect when other areas or bodies
 ##     collide with the character.[br]
@@ -52,7 +52,7 @@ var exclamation_mark_throttle_interval := 1.0
 const _LOGS_GROUP := {
     group_name = "Logs",
     first_property_name = "logs_common_debugging_events",
-    last_property_name = "logs_low_level_navigator_events",
+    last_property_name = "logs_verbose_navigator_events",
 }
 
 ## -   If true, a subset of the following log flags will be enabled.
@@ -79,12 +79,12 @@ var logs_surface_events := false \
 var logs_action_events := false \
         setget _set_logs_action_events
 ## -   If true, lower-level framework events will be printed.
-var logs_low_level_framework_events := false \
-        setget _set_logs_low_level_framework_events
+var logs_verbose_events := false \
+        setget _set_logs_verbose_events
 ## -   If true, lower-level navigation events will be printed.
 ## -   These are pretty verbose!
-var logs_low_level_navigator_events := false \
-        setget _set_logs_low_level_navigator_events
+var logs_verbose_navigator_events := false \
+        setget _set_logs_verbose_navigator_events
 
 # ---
 
@@ -115,6 +115,8 @@ var _extra_collision_detection_area: Area2D
 var _layers_for_entered_proximity_detection := {}
 # Dictionary<String, Area2D>
 var _layers_for_exited_proximity_detection := {}
+
+var _resized_character_name: String
 
 var _debounced_update_editor_configuration: FuncRef
 var _throttled_show_exclamation_mark: FuncRef
@@ -327,22 +329,37 @@ func _process_sounds() -> void:
 ## configuration.
 func _log(
         message: String,
-        type: int,
-        is_low_level_framework_event = false) -> void:
-    if _get_should_log_this_type(type, is_low_level_framework_event):
+        details := "",
+        type := CharacterLogType.CUSTOM,
+        is_verbose := false,
+        includes_position := true,
+        standardizes_message := true) -> void:
+    if _get_should_log_this_type(type, is_verbose):
         var prefix := CharacterLogType.get_prefix(type)
-        Sc.logger.print("[%s] %s" % [prefix, message])
-
-
-func _log_custom(
-        message: String,
-        is_low_level_framework_event = false) -> void:
-    _log(message, CharacterLogType.CUSTOM, is_low_level_framework_event)
+        if standardizes_message:
+            var position_string: String = \
+                    ";%17s" % Sc.utils.get_vector_string(position, 1) if \
+                    includes_position else \
+                    ""
+            details = \
+                    "; %s" % details if \
+                    !details.empty() else \
+                    details
+            Sc.logger.print("[%s] %s: %s;%8.3f%s%s" % [
+                        prefix,
+                        Sc.utils.resize_string(message, 12, false),
+                        _resized_character_name,
+                        Sc.time.get_play_time(),
+                        position_string,
+                        details,
+                    ])
+        else:
+            Sc.logger.print(message)
 
 
 func _get_should_log_this_type(
         type: int,
-        is_low_level_framework_event = false) -> bool:
+        is_verbose = false) -> bool:
     var logs_this_type := \
             (type == CharacterLogType.DEFAULT and logs_custom_events) or \
             (type == CharacterLogType.CUSTOM and logs_custom_events) or \
@@ -352,14 +369,14 @@ func _get_should_log_this_type(
             (type == CharacterLogType.SURFACE and logs_surface_events) or \
             (type == CharacterLogType.ACTION and logs_action_events) or \
             type == CharacterLogType.UNKNOWN
-    var logs_this_low_levelness: bool = \
-            !is_low_level_framework_event or \
-            (logs_low_level_framework_events and \
+    var logs_this_verbose_type: bool = \
+            !is_verbose or \
+            (logs_verbose_events and \
                     type != CharacterLogType.NAVIGATOR or \
-            logs_low_level_navigator_events and \
+            logs_verbose_navigator_events and \
                     type == CharacterLogType.NAVIGATOR)
     return logs_this_type and \
-            logs_this_low_levelness and \
+            logs_this_verbose_type and \
             Sc.metadata.logs_character_events
 
 
@@ -517,14 +534,10 @@ func _on_detection_area_enter_exit(
     assert(!layer_names.empty())
     
     if _get_should_log_this_type(CharacterLogType.COLLISION, true):
-        _log("%s%8.3fs; layer=%s; pos=%s" % [
-                    Sc.utils.pad_string(callback_name.trim_prefix("_on_"), 21),
-                    Sc.time.get_play_time(),
-                    Sc.utils.join(layer_names),
-                    Sc.utils.get_vector_string(position),
-                ],
+        _log(callback_name.trim_prefix("_on_"),
+                "layer=%s" % Sc.utils.join(layer_names),
                 CharacterLogType.COLLISION,
-                true)
+                false)
     
     self.call(callback_name, target, layer_names)
 
@@ -623,6 +636,11 @@ func _disable_layer(
         area.collision_mask &= ~layer_bit_mask
 
 
+func _set_character_name(value: String) -> void:
+    character_name = value
+    _resized_character_name = Sc.utils.resize_string(character_name, 8, false)
+
+
 func _set_logs_common_debugging_events(value: bool) -> void:
     logs_common_debugging_events = value
     if logs_common_debugging_events:
@@ -679,11 +697,11 @@ func _set_logs_action_events(value: bool) -> void:
     _update_editor_configuration()
 
 
-func _set_logs_low_level_framework_events(value: bool) -> void:
-    logs_low_level_framework_events = value
+func _set_logs_verbose_events(value: bool) -> void:
+    logs_verbose_events = value
     _update_editor_configuration()
 
 
-func _set_logs_low_level_navigator_events(value: bool) -> void:
-    logs_low_level_navigator_events = value
+func _set_logs_verbose_navigator_events(value: bool) -> void:
+    logs_verbose_navigator_events = value
     _update_editor_configuration()
