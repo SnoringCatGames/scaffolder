@@ -22,7 +22,7 @@ export(int, LAYERS_2D_PHYSICS) var collision_detection_layers := 0
 const _COLORS_GROUP := {
     group_name = "Colors",
     first_property_name = "primary_annotation_color",
-    last_property_name = "navigation_annotation_color_override",
+    last_property_name = "position_annotation_color_override",
 }
 
 ## Used for things like the fill-color of exclamation-mark annotations.
@@ -32,6 +32,12 @@ var secondary_annotation_color := Color.white
 ## -   Used for things like the navigation trajectory annotation.
 ## -   If not defined, then primary_annotation_color will be used for this.
 var navigation_annotation_color_override := Color.black
+## -   Used for things like the character position annotation.
+## -   If not defined, then primary_annotation_color will be used for this.
+var position_annotation_color_override := Color.black
+
+var navigation_annotation_color: Color setget ,_get_navigation_annotation_color
+var position_annotation_color: Color setget ,_get_position_annotation_color
 
 # --- Exclamation mark ---
 
@@ -639,6 +645,18 @@ func _disable_layer(
 func _set_character_name(value: String) -> void:
     character_name = value
     _resized_character_name = Sc.utils.resize_string(character_name, 8, false)
+
+
+func _get_navigation_annotation_color() -> Color:
+    return navigation_annotation_color_override if \
+            navigation_annotation_color_override != Color.black else \
+            primary_annotation_color
+
+
+func _get_position_annotation_color() -> Color:
+    return position_annotation_color_override if \
+            position_annotation_color_override != Color.black else \
+            primary_annotation_color
 
 
 func _set_logs_common_debugging_events(value: bool) -> void:
