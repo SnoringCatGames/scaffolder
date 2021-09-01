@@ -2,10 +2,10 @@ class_name ScaffolderCharacterPositionAnnotator
 extends Node2D
 
 
-const POSITION_OPACITY := ScaffolderColors.ALPHA_XXFAINT
+const POSITION_OPACITY := ScaffolderColors.ALPHA_XFAINT
 const POSITION_RADIUS := 3.0
 
-const COLLIDER_OPACITY := ScaffolderColors.ALPHA_XFAINT
+const COLLIDER_OPACITY := ScaffolderColors.ALPHA_FAINT
 const COLLIDER_THICKNESS := 4.0
 
 var character: ScaffolderCharacter
@@ -18,10 +18,16 @@ var collider_color: Color
 func _init(character: ScaffolderCharacter) -> void:
     self.character = character
     
-    self.position_color = Sc.colors.opacify(
-            character.position_annotation_color, POSITION_OPACITY)
-    self.collider_color = Sc.colors.opacify(
-            character.position_annotation_color, COLLIDER_OPACITY)
+    self.position_color = Color.from_hsv(
+            character.position_annotation_color.h,
+            0.7,
+            0.9,
+            POSITION_OPACITY)
+    self.collider_color = Color.from_hsv(
+            character.position_annotation_color.h,
+            0.7,
+            0.9,
+            COLLIDER_OPACITY)
 
 
 func _draw() -> void:
