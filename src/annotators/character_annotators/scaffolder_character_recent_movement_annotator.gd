@@ -96,7 +96,7 @@ func _draw() -> void:
                 MOVEMENT_OPACITY_OLDEST
         var color := Color.from_hsv(
                 movement_color_base.h,
-                movement_color_base.s * 0.6,
+                0.6,
                 0.9,
                 opacity)
         
@@ -151,7 +151,7 @@ func _draw_beat_hash(
     
     var color := Color.from_hsv(
             movement_color_base.h,
-            movement_color_base.s * 0.6,
+            0.6,
             0.9,
             opacity)
     
