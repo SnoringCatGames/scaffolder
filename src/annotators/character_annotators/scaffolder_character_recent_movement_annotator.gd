@@ -4,7 +4,6 @@ extends Node2D
 
 const RECENT_POSITIONS_BUFFER_SIZE := 150
 
-var MOVEMENT_HUE: float = Sc.colors.recent_movement.h
 const MOVEMENT_OPACITY_NEWEST := 0.7
 const MOVEMENT_OPACITY_OLDEST := 0.01
 const MOVEMENT_STROKE_WIDTH := 1
@@ -15,6 +14,8 @@ const DOWNBEAT_HASH_STROKE_WIDTH := 1.0
 const OFFBEAT_HASH_STROKE_WIDTH := 1.0
 
 var character: SurfacerCharacter
+
+var movement_color_base: Color
 
 # We use this as a circular buffer.
 var recent_positions: PoolVector2Array
@@ -29,6 +30,7 @@ var total_position_count := 0
 
 func _init(character: SurfacerCharacter) -> void:
     self.character = character
+    self.movement_color_base = character.navigation_annotation_color
     self.recent_positions = PoolVector2Array()
     self.recent_positions.resize(RECENT_POSITIONS_BUFFER_SIZE)
     self.recent_beats = PoolIntArray()
@@ -93,8 +95,8 @@ func _draw() -> void:
                 (MOVEMENT_OPACITY_NEWEST - MOVEMENT_OPACITY_OLDEST) + \
                 MOVEMENT_OPACITY_OLDEST
         var color := Color.from_hsv(
-                MOVEMENT_HUE,
-                0.6,
+                movement_color_base.h,
+                movement_color_base.s * 0.6,
                 0.9,
                 opacity)
         
@@ -148,8 +150,8 @@ func _draw_beat_hash(
         stroke_width = OFFBEAT_HASH_STROKE_WIDTH
     
     var color := Color.from_hsv(
-            MOVEMENT_HUE,
-            0.6,
+            movement_color_base.h,
+            movement_color_base.s * 0.6,
             0.9,
             opacity)
     

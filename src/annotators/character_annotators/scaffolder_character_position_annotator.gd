@@ -2,20 +2,26 @@ class_name ScaffolderCharacterPositionAnnotator
 extends Node2D
 
 
-var CHARACTER_POSITION_COLOR: Color = Sc.colors.opacify(
-        Sc.colors.character_position, ScaffolderColors.ALPHA_XXFAINT)
-const CHARACTER_POSITION_RADIUS := 3.0
+const POSITION_OPACITY := ScaffolderColors.ALPHA_XXFAINT
+const POSITION_RADIUS := 3.0
 
-var COLLIDER_COLOR: Color = Sc.colors.opacify(
-        Sc.colors.character_position, ScaffolderColors.ALPHA_XFAINT)
+const COLLIDER_OPACITY := ScaffolderColors.ALPHA_XFAINT
 const COLLIDER_THICKNESS := 4.0
 
 var character: ScaffolderCharacter
 var previous_position: Vector2
 
+var position_color: Color
+var collider_color: Color
+
 
 func _init(character: ScaffolderCharacter) -> void:
     self.character = character
+    
+    self.position_color = Sc.colors.opacify(
+            character.position_annotation_color, POSITION_OPACITY)
+    self.collider_color = Sc.colors.opacify(
+            character.position_annotation_color, COLLIDER_OPACITY)
 
 
 func _draw() -> void:
@@ -26,8 +32,8 @@ func _draw() -> void:
 func _draw_character_position() -> void:
     draw_circle(
             character.position,
-            CHARACTER_POSITION_RADIUS,
-            CHARACTER_POSITION_COLOR)
+            POSITION_RADIUS,
+            position_color)
 
 
 func _draw_collider_outline() -> void:
@@ -36,7 +42,7 @@ func _draw_collider_outline() -> void:
             character.position,
             character.movement_params.collider_shape,
             character.movement_params.collider_rotation,
-            COLLIDER_COLOR,
+            collider_color,
             COLLIDER_THICKNESS)
 
 
