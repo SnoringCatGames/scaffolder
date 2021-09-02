@@ -188,6 +188,15 @@ func add_character(
     if position_or_spawn_position is SpawnPosition:
         character.set_start_attachment_surface_side_or_position(
                 position_or_spawn_position.surface_side)
+        
+        # Move any projected Behaviors into the Character.
+        var projected_behaviors: Array = Sc.utils.get_children_by_type(
+                position_or_spawn_position,
+                Behavior,
+                false)
+        for behavior in projected_behaviors:
+            position_or_spawn_position.remove_child(behavior)
+            character.add_child(behavior)
     
     if !characters.has(character.character_name):
         characters[character.character_name] = []
