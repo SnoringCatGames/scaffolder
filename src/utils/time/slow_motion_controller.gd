@@ -18,7 +18,7 @@ var is_enabled := false setget set_slow_motion_enabled
 var is_transitioning := false
 
 var time_scale := 0.02
-var tick_tock_tempo_multiplier := 25
+var tick_tock_tempo_multiplier := 25.0
 var saturation := 0.2
 
 var music: SlowMotionMusic
