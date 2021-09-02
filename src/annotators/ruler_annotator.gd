@@ -5,12 +5,11 @@ extends Node2D
 const LINE_WIDTH := 1.0
 
 var LINE_COLOR: Color = Sc.colors.opacify(
-        Sc.colors.ruler, ScaffolderColors.ALPHA_XXFAINT)
-var TEXT_COLOR: Color = Sc.colors.opacify(
         Sc.colors.ruler, ScaffolderColors.ALPHA_XFAINT)
+var TEXT_COLOR: Color = Sc.colors.opacify(
+        Sc.colors.ruler, ScaffolderColors.ALPHA_FAINT)
 
 var font: Font
-var font_height: float
 
 var viewport: Viewport
 
@@ -21,7 +20,6 @@ var previous_camera_zoom := 1.0
 
 func _ready() -> void:
     font = Sc.gui.fonts.main_xs
-    font_height = font.get_height()
     
     viewport = get_viewport()
     viewport_size = viewport.get_visible_rect().size
@@ -64,6 +62,7 @@ func _draw() -> void:
     var vertical_line_count := floor(ruler_size.x / grid_spacing.x) as int + 1
     var horizontal_line_count := \
             floor(ruler_size.y / grid_spacing.y) as int + 1
+    var font_height := font.get_height()
     
     var start_x: float
     var start_y: float
@@ -85,7 +84,7 @@ func _draw() -> void:
         text = "0" if text == "-0" else text
         draw_string(
                 font,
-                Vector2(start_position.x + 4, font_height * 0.8),
+                Vector2(start_position.x + 4, font_height),
                 text,
                 TEXT_COLOR)
     
