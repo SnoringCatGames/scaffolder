@@ -94,6 +94,8 @@ func register_manifest(manifest: Dictionary) -> void:
     assert(Sc.audio_manifest.pauses_level_music_on_pause or \
             Sc.audio_manifest.pause_menu_music == "")
     
+    Sc.beats.is_tracking_beat = are_beats_tracked_by_default
+    
     Sc.audio.register_sounds(
             self.sounds_manifest,
             self.default_sounds_path_prefix,
