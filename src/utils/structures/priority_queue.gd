@@ -1,7 +1,15 @@
 class_name PriorityQueue
 extends Reference
+## Holds an arbitrary number of values sorted by a weight assigned to set
+## values.
+## 
+## -   Structure is a balanced BST.
+## -   In order to compare non-int values, the input is in the form of an array
+##     of size 2:
+##     -   0: Priority value in form of int or float.
+##     -   1: Value to store.
 
-###################################################################################################
+################################################################################
 # By Hamfist McMutton
 # https://hamfistedgamedev.blogspot.com/p/godot-priorityqueue.html
 # 
@@ -35,28 +43,22 @@ extends Reference
 #   c. Affirmer disclaims responsibility for clearing rights of other persons that may apply to the Work or any use thereof, including without limitation any person's Copyright and Related Rights in the Work. Further, Affirmer disclaims responsibility for obtaining any necessary consents, permissions or other rights required for any use of the Work.
 #   d. Affirmer understands and acknowledges that Creative Commons is not a party to this document and has no duty or obligation with respect to this CC0 or use of the Work.
 # 
-###################################################################################################
+################################################################################
 
-var Self = get_script()
 
-# Holds an arbitrary number of values sorted by a weight assigned to set values.
-# 
-# Structure is a balanced BST.
-# 
-# In order to compare non-int values, the input is in the form of an array of size 2:
-#  - 0: Priority value in form of int or float.
-#  - 1: Value to store.
+var Self: Script = get_script()
 
-const LOG2_BASE_E = 0.69314718056
+const LOG2_BASE_E := 0.69314718056
 
 var is_empty := true
 # Number of elements in heap.
-var current_size: int = 0
+var current_size := 0
 # The array holding the values.
 # Array<[int|float, any]>
 var items := [null]
 var maintain_min: bool
 var last_power_of_two := 0
+
 
 func _init(
         items := [],
@@ -80,10 +82,12 @@ func _init(
         current_size = 0
         is_empty = true
 
+
 # true means the root node is the one with lowest value.
 # false means the queue will sort the highest value to the front.
 func get_maintain_min() -> bool:
     return maintain_min
+
 
 # Returns the smallest / biggest item ( = root) without deleting it.
 func get_root_item():
@@ -91,17 +95,20 @@ func get_root_item():
         return items[1]
     return null
 
+
 # Returns the value of the smallest / biggest item ( = root) without deleting it.
 func get_root_value():
     if !is_empty:
         return items[1][1]
     return null
 
+
 # Returns the priority of root object.
 func get_root_priority():
     if is_empty:
         return -1
     return items[1][0]
+
 
 func get_item_priority(index: int):
     if index + 1 > current_size or index < 0:
@@ -116,6 +123,7 @@ func get_item_priority(index: int):
         return false
     return items[index + 1][0]
 
+
 func get_item_value(index: int):
     if index + 1 > current_size or index < 0:
         print(
@@ -129,13 +137,16 @@ func get_item_value(index: int):
         return false
     return items[index + 1][1]
 
+
 # Returns the number of 'tiers' with at least one element in it.
 func get_height() -> int:
     return ceil(log(items.size() - 1) / LOG2_BASE_E) as int
 
+
 # Returns number of elements in the queue.
 func get_size() -> int:
     return current_size
+
 
 # Allows duplicates of priorities.
 # - Insert new element into heap at the next available slot. Calling that "hole".
@@ -166,6 +177,7 @@ func insert(priority, value) -> bool:
     
     # Successfully inserted.
     return true
+
 
 # Deletes minimum element.
 # - Minimum element is always at the root.
@@ -200,6 +212,7 @@ func remove_root(return_array := false):
     
     return rootItem
 
+
 # - First, promote item to the top.
 # - Then remove_min.
 # - This removes the item from the tree.
@@ -227,6 +240,7 @@ func remove(index: int):
     _change_priority(index, priority)
     return remove_root()
 
+
 # Put items of both queues into a new list.
 # 
 # Create new queue with those items and return that queue.
@@ -252,6 +266,7 @@ func merge_with(
     
     return Self.new(list, set_maintain_min)
 
+
 # Establishes heap order property from an arbitrary arrangement of items.
 # 
 # Runs in linear time.
@@ -263,6 +278,7 @@ func _build_heap() -> void:
         i -= 1
     is_empty = current_size < 1
 
+
 # Returns the complete queue without first (empty) entry as simple array.
 func _get_queue() -> Array:
     var list := []
@@ -272,6 +288,7 @@ func _get_queue() -> Array:
             list.append(items[i][1])
         i += 1
     return list
+
 
 # Internal method to percolate down in the heap.
 # hole is the index at which the percolate begins.
@@ -311,6 +328,7 @@ func _percolate_down(hole: int) -> void:
     
     items[hole] = tmp
 
+
 func _percolate_up(hole) -> void:
     var tmp: Array = items[hole]
     if maintain_min:
@@ -327,6 +345,7 @@ func _percolate_up(hole) -> void:
             hole /= 2
     
     items[hole] = tmp
+
 
 # Changes priority of the item at index to new_priority.
 # 
