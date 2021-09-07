@@ -24,7 +24,7 @@ func _init() -> void:
 # We can close this gap by ensuring that the first and last segments are
 # colinear. We can make the first and last segments colinear by introducing
 # additional vertices that are just slightly offset from the original ends.
-static func draw_closed_polyline(
+func draw_closed_polyline(
         canvas: CanvasItem,
         points: PoolVector2Array,
         color: Color,
@@ -68,7 +68,7 @@ static func draw_closed_polyline(
             antialiased)
 
 
-static func draw_dashed_line(
+func draw_dashed_line(
         canvas: CanvasItem,
         from: Vector2,
         to: Vector2,
@@ -104,7 +104,7 @@ static func draw_dashed_line(
 
 
 # TODO: Update this to honor gaps across vertices.
-static func draw_dashed_polyline(
+func draw_dashed_polyline(
         canvas: CanvasItem,
         vertices: PoolVector2Array,
         color: Color,
@@ -128,7 +128,7 @@ static func draw_dashed_polyline(
                 antialiased)
 
 
-static func draw_dashed_rectangle(
+func draw_dashed_rectangle(
         canvas: CanvasItem,
         center: Vector2,
         half_width_height: Vector2,
@@ -195,7 +195,7 @@ static func draw_dashed_rectangle(
             antialiased)
 
 
-static func draw_dashed_circle(
+func draw_dashed_circle(
         canvas: CanvasItem,
         center: Vector2,
         radius: float,
@@ -219,7 +219,7 @@ static func draw_dashed_circle(
             antialiased)
 
 
-static func draw_dashed_arc(
+func draw_dashed_arc(
         canvas: CanvasItem,
         center: Vector2,
         radius: float,
@@ -258,7 +258,7 @@ static func draw_dashed_arc(
                 antialiased)
 
 
-static func draw_dashed_capsule(
+func draw_dashed_capsule(
         canvas: CanvasItem,
         center: Vector2,
         radius: float,
@@ -352,7 +352,7 @@ static func draw_dashed_capsule(
             antialiased)
 
 
-static func draw_x(
+func draw_x(
         canvas: CanvasItem,
         center: Vector2,
         width: float,
@@ -373,7 +373,7 @@ static func draw_x(
             stroke_width)
 
 
-static func draw_plus(
+func draw_plus(
         canvas: CanvasItem,
         center: Vector2,
         width: float,
@@ -394,7 +394,7 @@ static func draw_plus(
             stroke_width)
 
 
-static func draw_asterisk(
+func draw_asterisk(
         canvas: CanvasItem,
         center: Vector2,
         width: float,
@@ -421,7 +421,7 @@ static func draw_asterisk(
             stroke_width)
 
 
-static func draw_checkmark(
+func draw_checkmark(
         canvas: CanvasItem,
         position: Vector2,
         width: float,
@@ -453,7 +453,7 @@ static func draw_checkmark(
             stroke_width)
 
 
-static func draw_exclamation_mark(
+func draw_exclamation_mark(
         canvas: CanvasItem,
         center: Vector2,
         width: float,
@@ -512,7 +512,7 @@ static func draw_exclamation_mark(
             sector_arc_length)
 
 
-static func draw_arrow(
+func draw_arrow(
         canvas: CanvasItem,
         start: Vector2,
         end: Vector2,
@@ -531,7 +531,7 @@ static func draw_arrow(
             stroke_width)
 
 
-static func draw_strike_through_arrow(
+func draw_strike_through_arrow(
         canvas: CanvasItem,
         start: Vector2,
         end: Vector2,
@@ -589,7 +589,7 @@ static func draw_strike_through_arrow(
                 stroke_width)
 
 
-static func draw_diamond_outline(
+func draw_diamond_outline(
         canvas: CanvasItem,
         center: Vector2,
         width: float,
@@ -620,7 +620,7 @@ static func draw_diamond_outline(
             stroke_width)
 
 
-static func draw_shape_outline(
+func draw_shape_outline(
         canvas: CanvasItem,
         position: Vector2,
         shape: Shape2D,
@@ -665,7 +665,7 @@ static func draw_shape_outline(
                 "RectangleShape2D." % shape)
 
 
-static func draw_dashed_shape(
+func draw_dashed_shape(
         canvas: CanvasItem,
         position: Vector2,
         shape: Shape2D,
@@ -723,7 +723,7 @@ static func draw_dashed_shape(
                 "CapsuleShape2D, RectangleShape2D." % shape)
 
 
-static func draw_circle_outline(
+func draw_circle_outline(
         canvas: CanvasItem,
         center: Vector2,
         radius: float,
@@ -752,7 +752,7 @@ static func draw_circle_outline(
             border_width)
 
 
-static func draw_arc(
+func draw_arc(
         canvas: CanvasItem,
         center: Vector2,
         radius: float,
@@ -774,7 +774,7 @@ static func draw_arc(
             border_width)
 
 
-static func compute_arc_points(
+func compute_arc_points(
         center: Vector2,
         radius: float,
         start_angle: float,
@@ -814,7 +814,7 @@ static func compute_arc_points(
     return points
 
 
-static func draw_rectangle_outline(
+func draw_rectangle_outline(
         canvas: CanvasItem,
         center: Vector2,
         half_width_height: Vector2,
@@ -849,7 +849,7 @@ static func draw_rectangle_outline(
             thickness)
 
 
-static func draw_capsule_outline(
+func draw_capsule_outline(
         canvas: CanvasItem,
         center: Vector2,
         radius: float,
@@ -901,7 +901,7 @@ static func draw_capsule_outline(
 # This applies Thales's theorem to find the points of tangency between the line
 # segments from the triangular portion and the circle:
 # https://en.wikipedia.org/wiki/Thales%27s_theorem
-static func draw_ice_cream_cone(
+func draw_ice_cream_cone(
         canvas: CanvasItem,
         cone_end_point: Vector2,
         circle_center: Vector2,
@@ -991,7 +991,7 @@ static func draw_ice_cream_cone(
 #     https://en.wikipedia.org/wiki/Thales%27s_theorem
 # -   Also see:
 #     https://en.wikipedia.org/wiki/Tangent_lines_to_circles#Tangent_lines_to_two_circles
-static func draw_smooth_segment_with_two_circular_ends(
+func draw_smooth_segment_with_two_circular_ends(
         canvas: CanvasItem,
         center_1: Vector2,
         radius_1: float,

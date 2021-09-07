@@ -2,14 +2,6 @@ class_name ExclamationMarkAnnotator
 extends TransientAnnotator
 
 
-var WIDTH_START := 8.0
-var LENGTH_START := 48.0
-var STROKE_WIDTH_START := 3.0
-var SCALE_END := 2.0
-var VERTICAL_OFFSET := 0.0
-var DURATION := 1.0
-var OPACITY_DELAY := 0.3
-
 var character
 var character_half_height: float
 var color: Color
@@ -30,13 +22,14 @@ func _init(
         character_half_height := INF,
         color := Color.white,
         border_color := Color.white,
-        width_start := WIDTH_START,
-        length_start := LENGTH_START,
-        stroke_width_start := STROKE_WIDTH_START,
-        duration := DURATION,
-        scale_end := SCALE_END,
-        vertical_offset := VERTICAL_OFFSET,
-        opacity_delay := OPACITY_DELAY).(duration) -> void:
+        width_start := Sc.ann_params.exclamation_mark_width_start,
+        length_start := Sc.ann_params.exclamation_mark_length_start,
+        stroke_width_start := Sc.ann_params.exclamation_mark_stroke_width_start,
+        duration := Sc.ann_params.exclamation_mark_duration,
+        scale_end := Sc.ann_params.exclamation_mark_scale_end,
+        vertical_offset := Sc.ann_params.exclamation_mark_vertical_offset,
+        opacity_delay := Sc.ann_params.exclamation_mark_opacity_delay) \
+        .(duration) -> void:
     self.character = character
     self.character_half_height = \
             character_half_height if \

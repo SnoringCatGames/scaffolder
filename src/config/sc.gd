@@ -42,6 +42,7 @@ var level_button_input: LevelButtonInput
 var characters: ScaffolderCharacterManifest
 # TODO: Cleanup the annotator system.
 var annotators: ScaffolderAnnotators
+var ann_params: ScaffolderAnnotationParameters
 var level_config: ScaffolderLevelConfig
 var level: ScaffolderLevel
 var level_session: ScaffolderLevelSession
@@ -298,6 +299,18 @@ func _configure_sub_modules() -> void:
     self.gui.register_manifest(_manifest.gui_manifest)
     self.slow_motion.register_manifest(_manifest.slow_motion_manifest)
     self.characters.register_manifest(_manifest.character_manifest)
+    
+    # ScaffolderAnnotationParameters currently depends on ScaffolderColors
+    # being both instantiated and configured before
+    # ScaffolderAnnotationParameters is instantiated.
+    if _manifest.has("ann_params_class"):
+        self.ann_params = _manifest.ann_params_class.new()
+        assert(self.ann_params is ScaffolderAnnotationParameters)
+    else:
+        self.ann_params = ScaffolderAnnotationParameters.new()
+    add_child(self.ann_params)
+    
+    self.ann_params.register_manifest(_manifest.annotation_parameters_manifest)
     
     self.metadata.is_app_configured = true
     

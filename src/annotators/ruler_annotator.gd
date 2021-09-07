@@ -2,13 +2,6 @@ class_name RulerAnnotator
 extends Node2D
 
 
-const LINE_WIDTH := 1.0
-
-var LINE_COLOR: Color = Sc.colors.opacify(
-        Sc.colors.ruler, ScaffolderColors.ALPHA_XFAINT)
-var TEXT_COLOR: Color = Sc.colors.opacify(
-        Sc.colors.ruler, ScaffolderColors.ALPHA_FAINT)
-
 var font: Font
 
 var viewport: Viewport
@@ -76,8 +69,8 @@ func _draw() -> void:
         draw_line(
                 start_position,
                 end_position,
-                LINE_COLOR,
-                LINE_WIDTH)
+                Sc.ann_params.ruler_line_color,
+                Sc.ann_params.ruler_line_width)
         
         var text := str(round((screen_start_position.x + start_x) * \
                 previous_camera_zoom))
@@ -86,7 +79,7 @@ func _draw() -> void:
                 font,
                 Vector2(start_position.x + 4, font_height),
                 text,
-                TEXT_COLOR)
+                Sc.ann_params.ruler_text_color)
     
     # Draw the horizontal lines.
     start_x = ruler_start_position.x
@@ -97,8 +90,8 @@ func _draw() -> void:
         draw_line(
                 start_position,
                 end_position,
-                LINE_COLOR,
-                LINE_WIDTH)
+                Sc.ann_params.ruler_line_color,
+                Sc.ann_params.ruler_line_width)
         
         var text := str(round((screen_start_position.y + start_y) * \
                 previous_camera_zoom))
@@ -107,7 +100,7 @@ func _draw() -> void:
                 font,
                 Vector2(4, start_position.y + font_height * 0.8),
                 text,
-                TEXT_COLOR)
+                Sc.ann_params.ruler_text_color)
 
 
 func _on_viewport_size_changed() -> void:
