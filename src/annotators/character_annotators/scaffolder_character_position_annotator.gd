@@ -2,12 +2,6 @@ class_name ScaffolderCharacterPositionAnnotator
 extends Node2D
 
 
-const POSITION_OPACITY := ScaffolderColors.ALPHA_XFAINT
-const POSITION_RADIUS := 3.0
-
-const COLLIDER_OPACITY := ScaffolderColors.ALPHA_FAINT
-const COLLIDER_THICKNESS := 4.0
-
 var character: ScaffolderCharacter
 var previous_position: Vector2
 
@@ -22,12 +16,12 @@ func _init(character: ScaffolderCharacter) -> void:
             character.position_annotation_color.h,
             0.7,
             0.9,
-            POSITION_OPACITY)
+            Sc.ann_params.character_position_opacity)
     self.collider_color = Color.from_hsv(
             character.position_annotation_color.h,
             0.7,
             0.9,
-            COLLIDER_OPACITY)
+            Sc.ann_params.character_collider_opacity)
 
 
 func _draw() -> void:
@@ -38,7 +32,7 @@ func _draw() -> void:
 func _draw_character_position() -> void:
     draw_circle(
             character.position,
-            POSITION_RADIUS,
+            Sc.ann_params.character_position_radius,
             position_color)
 
 
@@ -49,7 +43,7 @@ func _draw_collider_outline() -> void:
             character.movement_params.collider_shape,
             character.movement_params.collider_rotation,
             collider_color,
-            COLLIDER_THICKNESS)
+            Sc.ann_params.character_collider_thickness)
 
 
 func check_for_update() -> void:

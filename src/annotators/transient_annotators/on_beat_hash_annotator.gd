@@ -2,26 +2,6 @@ class_name OnBeatHashAnnotator
 extends TransientAnnotator
 
 
-const DOWNBEAT_DURATION := 0.35
-const OFFBEAT_DURATION := DOWNBEAT_DURATION
-
-const DOWNBEAT_HASH_LENGTH_DEFAULT := 5.0
-const OFFBEAT_HASH_LENGTH_DEFAULT := 3.0
-const HASH_STROKE_WIDTH_DEFAULT := 1.0
-
-const DOWNBEAT_LENGTH_SCALE_START := 1.0
-const DOWNBEAT_LENGTH_SCALE_END := 8.0
-const DOWNBEAT_WIDTH_SCALE_START := DOWNBEAT_LENGTH_SCALE_START
-const DOWNBEAT_WIDTH_SCALE_END := DOWNBEAT_LENGTH_SCALE_END
-
-const OFFBEAT_LENGTH_SCALE_START := DOWNBEAT_LENGTH_SCALE_START
-const OFFBEAT_LENGTH_SCALE_END := DOWNBEAT_LENGTH_SCALE_END
-const OFFBEAT_WIDTH_SCALE_START := OFFBEAT_LENGTH_SCALE_START
-const OFFBEAT_WIDTH_SCALE_END := OFFBEAT_LENGTH_SCALE_END
-
-const OPACITY_START := 0.9
-const OPACITY_END := 0.0
-
 var beat: PathBeatPrediction
 var color: Color
 
@@ -36,28 +16,36 @@ var width: float
 
 func _init(
         beat: PathBeatPrediction,
-        downbeat_hash_length := DOWNBEAT_HASH_LENGTH_DEFAULT,
-        offbeat_hash_length := OFFBEAT_HASH_LENGTH_DEFAULT,
-        downbeat_stroke_width := HASH_STROKE_WIDTH_DEFAULT,
-        offbeat_stroke_width := HASH_STROKE_WIDTH_DEFAULT,
+        downbeat_hash_length := Sc.ann_params.downbeat_hash_length_default,
+        offbeat_hash_length := Sc.ann_params.offbeat_hash_length_default,
+        downbeat_stroke_width := Sc.ann_params.hash_stroke_width_default,
+        offbeat_stroke_width := Sc.ann_params.hash_stroke_width_default,
         downbeat_color := Color.white,
         offbeat_color := Color.white
         ).(
-        DOWNBEAT_DURATION if \
+        Sc.ann_params.downbeat_duration if \
                 beat.is_downbeat else \
-                OFFBEAT_DURATION) -> void:
+                Sc.ann_params.offbeat_duration) -> void:
     self.beat = beat
     if beat.is_downbeat:
-        self.length_start = downbeat_hash_length * DOWNBEAT_LENGTH_SCALE_START
-        self.length_end = downbeat_hash_length * DOWNBEAT_LENGTH_SCALE_END
-        self.width_start = downbeat_stroke_width * DOWNBEAT_WIDTH_SCALE_START
-        self.width_end = downbeat_stroke_width * DOWNBEAT_WIDTH_SCALE_END
+        self.length_start = \
+                downbeat_hash_length * Sc.ann_params.downbeat_length_scale_start
+        self.length_end = \
+                downbeat_hash_length * Sc.ann_params.downbeat_length_scale_end
+        self.width_start = \
+                downbeat_stroke_width * Sc.ann_params.downbeat_width_scale_start
+        self.width_end = \
+                downbeat_stroke_width * Sc.ann_params.downbeat_width_scale_end
         self.color = downbeat_color
     else:
-        self.length_start = offbeat_hash_length * OFFBEAT_LENGTH_SCALE_START
-        self.length_end = offbeat_hash_length * OFFBEAT_LENGTH_SCALE_END
-        self.width_start = offbeat_stroke_width * OFFBEAT_WIDTH_SCALE_START
-        self.width_end = offbeat_stroke_width * OFFBEAT_WIDTH_SCALE_END
+        self.length_start = \
+                offbeat_hash_length * Sc.ann_params.offbeat_length_scale_start
+        self.length_end = \
+                offbeat_hash_length * Sc.ann_params.offbeat_length_scale_end
+        self.width_start = \
+                offbeat_stroke_width * Sc.ann_params.offbeat_width_scale_start
+        self.width_end = \
+                offbeat_stroke_width * Sc.ann_params.offbeat_width_scale_end
         self.color = offbeat_color
     
     _update()
@@ -68,7 +56,10 @@ func _update() -> void:
     
     length = lerp(length_start, length_end, progress)
     width = lerp(width_start, width_end, progress)
-    color.a = lerp(OPACITY_START, OPACITY_END, progress)
+    color.a = lerp(
+            Sc.ann_params.beat_opacity_start,
+            Sc.ann_params.beat_opacity_end,
+            progress)
 
 
 func _draw() -> void:

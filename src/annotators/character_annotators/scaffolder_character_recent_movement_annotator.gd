@@ -2,17 +2,6 @@ class_name ScaffolderCharacterRecentMovementAnnotator
 extends Node2D
 
 
-const RECENT_POSITIONS_BUFFER_SIZE := 150
-
-const MOVEMENT_OPACITY_NEWEST := 0.7
-const MOVEMENT_OPACITY_OLDEST := 0.01
-const MOVEMENT_STROKE_WIDTH := 1
-
-const DOWNBEAT_HASH_LENGTH := 20.0
-const OFFBEAT_HASH_LENGTH := 8.0
-const DOWNBEAT_HASH_STROKE_WIDTH := 1.0
-const OFFBEAT_HASH_STROKE_WIDTH := 1.0
-
 var character: SurfacerCharacter
 
 var movement_color_base: Color
@@ -32,9 +21,9 @@ func _init(character: SurfacerCharacter) -> void:
     self.character = character
     self.movement_color_base = character.navigation_annotation_color
     self.recent_positions = PoolVector2Array()
-    self.recent_positions.resize(RECENT_POSITIONS_BUFFER_SIZE)
+    self.recent_positions.resize(Sc.ann_params.recent_positions_buffer_size)
     self.recent_beats = PoolIntArray()
-    self.recent_beats.resize(RECENT_POSITIONS_BUFFER_SIZE)
+    self.recent_beats.resize(Sc.ann_params.recent_positions_buffer_size)
     
     Sc.beats.connect("beat", self, "_on_beat")
     Sc.slow_motion.music.connect("music_beat", self, "_on_beat")
@@ -60,7 +49,8 @@ func check_for_update() -> void:
     
     total_position_count += 1
     current_position_index = \
-            (current_position_index + 1) % RECENT_POSITIONS_BUFFER_SIZE
+            (current_position_index + 1) % \
+            Sc.ann_params.recent_positions_buffer_size
     
     # Record the new position for the current frame.
     recent_positions[current_position_index] = character.position
@@ -78,22 +68,24 @@ func _draw() -> void:
     # Until we've actually been in enough positions, we won't actually render
     # points for the whole buffer.
     var position_count := \
-            min(RECENT_POSITIONS_BUFFER_SIZE, total_position_count) as int
+            min(Sc.ann_params.recent_positions_buffer_size,
+                    total_position_count) as int
     
     # Calculate the oldest index that we'll render. We start drawing here.
-    var start_index := \
+    var start_index: int = \
             (current_position_index + 1 - position_count + \
-                    RECENT_POSITIONS_BUFFER_SIZE) % \
-            RECENT_POSITIONS_BUFFER_SIZE
+                    Sc.ann_params.recent_positions_buffer_size) % \
+            Sc.ann_params.recent_positions_buffer_size
     
     var previous_position := recent_positions[start_index]
     
     for i in range(1, position_count):
         # Older positions fade out.
-        var opacity := \
+        var opacity: float = \
                 i / (position_count as float) * \
-                (MOVEMENT_OPACITY_NEWEST - MOVEMENT_OPACITY_OLDEST) + \
-                MOVEMENT_OPACITY_OLDEST
+                (Sc.ann_params.recent_movement_opacity_newest - \
+                        Sc.ann_params.recent_movement_opacity_oldest) + \
+                Sc.ann_params.recent_movement_opacity_oldest
         var color := Color.from_hsv(
                 movement_color_base.h,
                 0.6,
@@ -101,7 +93,7 @@ func _draw() -> void:
                 opacity)
         
         # Calculate our current index in the circular buffer.
-        i = (start_index + i) % RECENT_POSITIONS_BUFFER_SIZE
+        i = (start_index + i) % Sc.ann_params.recent_positions_buffer_size
         
         _draw_frame(
                 i,
@@ -123,7 +115,7 @@ func _draw_frame(
             previous_position,
             next_position,
             color,
-            MOVEMENT_STROKE_WIDTH)
+            Sc.ann_params.recent_movement_stroke_width)
     
     var beat_index: int = recent_beats[index]
     if beat_index >= 0:
@@ -143,11 +135,11 @@ func _draw_beat_hash(
     var hash_length: float
     var stroke_width: float
     if is_downbeat:
-        hash_length = DOWNBEAT_HASH_LENGTH
-        stroke_width = DOWNBEAT_HASH_STROKE_WIDTH
+        hash_length = Sc.ann_params.recent_downbeat_hash_length
+        stroke_width = Sc.ann_params.recent_downbeat_hash_stroke_width
     else:
-        hash_length = OFFBEAT_HASH_LENGTH
-        stroke_width = OFFBEAT_HASH_STROKE_WIDTH
+        hash_length = Sc.ann_params.recent_offbeat_hash_length
+        stroke_width = Sc.ann_params.recent_offbeat_hash_stroke_width
     
     var color := Color.from_hsv(
             movement_color_base.h,
