@@ -112,6 +112,10 @@ func get_scaled_play_time() -> float:
     return get_elapsed_time(TimeType.PLAY_PHYSICS_SCALED)
 
 
+func get_play_physics_frame_count() -> int:
+    return _play_time.physics_frame_count
+
+
 func get_elapsed_time(time_type: int) -> float:
     var tracker := _get_time_tracker_for_time_type(time_type)
     var key := _get_elapsed_time_key_for_time_type(time_type)
@@ -123,12 +127,16 @@ func _get_time_tracker_for_time_type(time_type: int) -> _TimeTracker:
         TimeType.APP_PHYSICS, \
         TimeType.APP_CLOCK, \
         TimeType.APP_PHYSICS_SCALED, \
-        TimeType.APP_CLOCK_SCALED:
+        TimeType.APP_CLOCK_SCALED, \
+        TimeType.APP_PHYSICS_FRAME_COUNT, \
+        TimeType.APP_RENDER_FRAME_COUNT:
             return _app_time
         TimeType.PLAY_PHYSICS, \
         TimeType.PLAY_RENDER, \
         TimeType.PLAY_PHYSICS_SCALED, \
-        TimeType.PLAY_RENDER_SCALED:
+        TimeType.PLAY_RENDER_SCALED, \
+        TimeType.PLAY_PHYSICS_FRAME_COUNT, \
+        TimeType.PLAY_RENDER_FRAME_COUNT:
             return _play_time
         _:
             Sc.logger.error("Unrecognized time_type: %d" % time_type)
@@ -151,6 +159,12 @@ func _get_elapsed_time_key_for_time_type(time_type: int) -> String:
             return "elapsed_render_time"
         TimeType.PLAY_RENDER_SCALED:
             return "elapsed_render_scaled_time"
+        TimeType.APP_PHYSICS_FRAME_COUNT, \
+        TimeType.PLAY_PHYSICS_FRAME_COUNT:
+            return "physics_frame_count"
+        TimeType.APP_RENDER_FRAME_COUNT, \
+        TimeType.PLAY_RENDER_FRAME_COUNT:
+            return "render_frame_count"
         _:
             Sc.logger.error("Unrecognized time_type: %d" % time_type)
             return ""

@@ -7,12 +7,17 @@ extends Node
 var time_scale: float = Sc.time._DEFAULT_TIME_SCALE
 
 var start_clock_time: float
+
 var elapsed_clock_time: float
 var elapsed_physics_time: float
 var elapsed_render_time: float
+
 var elapsed_clock_scaled_time: float
 var elapsed_physics_scaled_time: float
 var elapsed_render_scaled_time: float
+
+var physics_frame_count: int
+var render_frame_count: int
 
 
 func _ready() -> void:
@@ -23,14 +28,18 @@ func _ready() -> void:
     elapsed_clock_scaled_time = 0.0
     elapsed_physics_scaled_time = 0.0
     elapsed_render_scaled_time = 0.0
+    physics_frame_count = 0
+    render_frame_count = 0
 
 
 func _process(delta: float) -> void:
+    render_frame_count += 1
     elapsed_render_time += delta
     elapsed_render_scaled_time += delta * time_scale
 
 
 func _physics_process(delta: float) -> void:
+    physics_frame_count += 1
     elapsed_physics_time += delta
     elapsed_physics_scaled_time += delta * time_scale
     _update_clock_time()
