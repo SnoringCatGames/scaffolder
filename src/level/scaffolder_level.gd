@@ -183,7 +183,7 @@ func add_character(
             name_or_path_or_packed_scene,
             false,
             true)
-    character.set_position(position)
+    character.position = position
     
     if position_or_spawn_position is SpawnPosition:
         character.set_start_attachment_surface_side_or_position(

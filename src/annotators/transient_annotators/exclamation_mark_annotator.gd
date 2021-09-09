@@ -92,11 +92,11 @@ func _draw() -> void:
     var stroke_width := stroke_width_start * mark_scale
     var arc_length := clamp(width / 4.0, 2.0, 6.0)
     
-    var center: Vector2 = character.position + Vector2(
-            0.0,
-            -character_half_height - \
-            length_start * scale_end / 2.0 + \
-            vertical_offset)
+    var center: Vector2 = character.surface_state.center_position + \
+            Vector2(0.0,
+                    -character_half_height - \
+                    length_start * scale_end / 2.0 + \
+                    vertical_offset)
     
     self.modulate.a = opacity
     

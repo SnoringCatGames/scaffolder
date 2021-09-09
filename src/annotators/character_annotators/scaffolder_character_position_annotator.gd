@@ -3,7 +3,6 @@ extends Node2D
 
 
 var character: ScaffolderCharacter
-var previous_position: Vector2
 
 var position_color: Color
 var collider_color: Color
@@ -31,7 +30,7 @@ func _draw() -> void:
 
 func _draw_character_position() -> void:
     draw_circle(
-            character.position,
+            character.surface_state.center_position,
             Sc.ann_params.character_position_radius,
             position_color)
 
@@ -39,7 +38,7 @@ func _draw_character_position() -> void:
 func _draw_collider_outline() -> void:
     Sc.draw.draw_shape_outline(
             self,
-            character.position,
+            character.surface_state.center_position,
             character.movement_params.collider_shape,
             character.movement_params.collider_rotation,
             collider_color,
@@ -48,5 +47,4 @@ func _draw_collider_outline() -> void:
 
 func check_for_update() -> void:
     if character.did_move_last_frame:
-        previous_position = character.position
         update()
