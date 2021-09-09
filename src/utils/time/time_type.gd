@@ -42,6 +42,15 @@ enum {
     # -   **Scaled** according to the current time_scale and
     #     additional_debug_time_scale.
     APP_CLOCK_SCALED,
+    # -   The number of times _physics_process has been called.
+    # -   Total app run time; not affected by pausing.
+    # -   Not affected by current time_scale or additional_debug_time_scale.
+    APP_PHYSICS_FRAME_COUNT,
+    # -   The number of times _process has been called.
+    # -   Total app run time; not affected by pausing.
+    # -   Not affected by current time_scale or additional_debug_time_scale.
+    APP_RENDER_FRAME_COUNT,
+    
     # -   Elapsed time from deterministic fixed-interval _physics_process calls.
     # -   Total **un-paused** run time.
     # -   Not affected by current time_scale or additional_debug_time_scale.
@@ -60,4 +69,12 @@ enum {
     # -   **Scaled** according to the current time_scale and
     #     additional_debug_time_scale.
     PLAY_RENDER_SCALED,
+    # -   The number of times _physics_process has been called.
+    # -   Total **un-paused** run time.
+    # -   Not affected by current time_scale or additional_debug_time_scale.
+    PLAY_PHYSICS_FRAME_COUNT,
+    # -   The number of times _process has been called.
+    # -   Total **un-paused** run time.
+    # -   Not affected by current time_scale or additional_debug_time_scale.
+    PLAY_RENDER_FRAME_COUNT,
 }

@@ -315,7 +315,8 @@ func _physics_process(delta: float) -> void:
     
     previous_position = position
     _on_physics_process(delta)
-    did_move_last_frame = previous_position != position
+    did_move_last_frame = !Sc.geometry.are_points_equal_with_epsilon(
+            previous_position, position, 0.00001)
 
 
 func _on_physics_process(delta: float) -> void:
