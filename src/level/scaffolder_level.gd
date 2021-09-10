@@ -54,8 +54,11 @@ func _start() -> void:
     if Sc.gui.hud_manifest.is_hud_visible_by_default:
         Sc.gui.hud.visible = true
     
-    _add_player_character()
+    var includes_player_character := _add_player_character()
     _add_npcs()
+    
+    if !includes_player_character:
+        _set_non_player_camera()
     
     call_deferred("_on_started")
 
@@ -66,7 +69,11 @@ func _on_started() -> void:
     Sc.logger.print("Level started:               %8.3f" % start_time)
 
 
-func _add_player_character() -> void:
+func _add_player_character() -> bool:
+    if Sc.characters.default_character_name == "":
+        # There is no player character configured.
+        return false
+    
     # If no spawn position was defined for the default character, then start
     # them at 0,0. 
     if !spawn_positions.has(Sc.characters.default_character_name):
@@ -92,6 +99,8 @@ func _add_player_character() -> void:
             Sc.characters.default_character_name,
             spawn_position,
             true)
+    
+    return true
 
 
 func _add_npcs() -> void:
@@ -379,3 +388,12 @@ func _get_is_rate_app_screen_next() -> bool:
             "Abstract ScaffolderLevel._get_is_rate_app_screen_next " +
             "is not implemented")
     return false
+
+
+func _set_non_player_camera() -> void:
+    var camera := Camera2D.new()
+    camera.smoothing_enabled = true
+    camera.smoothing_speed = Sc.gui.camera_smoothing_speed
+    add_child(camera)
+    # Register the current camera, so it's globally accessible.
+    Sc.camera_controller.set_current_camera(camera, null)
