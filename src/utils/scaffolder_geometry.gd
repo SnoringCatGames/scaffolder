@@ -205,8 +205,10 @@ static func get_intersection_of_segments(
             return Vector2.INF
 
 
-# Calculates the point of intersection between a line segment and a polyline.
-# If the two don't intersect, this returns a Vector2 with values of INFINITY.
+# -   Calculates the point of intersection between a line segment and a
+#     polyline.
+# -   If the two don't intersect, this returns a Vector2 with values of
+#     INFINITY.
 static func get_intersection_of_segment_and_polyline(
         segment_a: Vector2,
         segment_b: Vector2,
