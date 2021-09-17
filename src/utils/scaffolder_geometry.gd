@@ -661,13 +661,7 @@ static func do_shapes_match(
 # The given rotation must be either 0 or PI.
 static func calculate_half_width_height(
         shape: Shape2D,
-        rotation: float) -> Vector2:
-    var is_rotated_90_degrees = abs(fmod(rotation + PI * 2, PI) - PI / 2.0) < \
-            Sc.geometry.FLOAT_EPSILON
-    
-    # Ensure that collision boundaries are only ever axially aligned.
-    assert(is_rotated_90_degrees or abs(rotation) < Sc.geometry.FLOAT_EPSILON)
-    
+        is_rotated_90_degrees: bool) -> Vector2:
     var half_width_height: Vector2
     if shape is CircleShape2D:
         half_width_height = Vector2(

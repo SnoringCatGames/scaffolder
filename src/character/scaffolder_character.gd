@@ -239,11 +239,21 @@ func _update_editor_configuration_debounced() -> void:
     
     if !is_instance_valid(collider):
         collider = Sc.utils.get_child_by_type(self, CollisionShape2D)
-        collider_half_width_height = \
-                Sc.geometry.calculate_half_width_height(
-                        collider.shape, collider.rotation) if \
-                is_instance_valid(collider) else \
-                Vector2.INF
+        if is_instance_valid(collider):
+            var collider_is_rotated_90_degrees: bool = \
+                    abs(fmod(collider.rotation + PI * 2, PI) - PI / 2.0) < \
+                    Sc.geometry.FLOAT_EPSILON
+            # Ensure that collision boundaries are only ever axially aligned.
+            if !collider_is_rotated_90_degrees and \
+                    abs(collider.rotation) >= Sc.geometry.FLOAT_EPSILON:
+                _set_configuration_warning("rotation must be 0 or 90.")
+                return
+            collider_half_width_height = \
+                    Sc.geometry.calculate_half_width_height(
+                            collider.shape,
+                            collider_is_rotated_90_degrees)
+        else:
+            collider_half_width_height = Vector2.INF
     
     _set_configuration_warning("")
 
