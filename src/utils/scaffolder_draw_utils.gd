@@ -624,16 +624,9 @@ func draw_shape_outline(
         canvas: CanvasItem,
         position: Vector2,
         shape: Shape2D,
-        rotation: float,
+        is_rotated_90_degrees: bool,
         color: Color,
         thickness: float) -> void:
-    var is_rotated_90_degrees = \
-            abs(fmod(rotation + PI * 2, PI) - PI / 2) < \
-            Sc.geometry.FLOAT_EPSILON
-    
-    # Ensure that collision boundaries are only ever axially aligned.
-    assert(is_rotated_90_degrees or abs(rotation) < Sc.geometry.FLOAT_EPSILON)
-    
     if shape is CircleShape2D:
         draw_circle_outline(
                 canvas,
