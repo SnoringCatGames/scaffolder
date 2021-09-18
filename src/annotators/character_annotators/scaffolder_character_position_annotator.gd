@@ -39,8 +39,7 @@ func _draw_collider_outline() -> void:
     Sc.draw.draw_shape_outline(
             self,
             character.surface_state.center_position,
-            character.movement_params.collider_shape,
-            character.movement_params.collider_is_rotated_90_degrees,
+            character.movement_params.collider,
             collider_color,
             Sc.ann_params.character_collider_thickness)
 
