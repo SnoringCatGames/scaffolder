@@ -108,12 +108,12 @@ var _property_list_addendum := []
 var _configuration_warning := ""
 
 var velocity := Vector2.ZERO
-var collider_half_width_height := Vector2.INF
 var start_position := Vector2.INF
 var previous_position := Vector2.INF
 var did_move_last_frame := false
 
-var collider: CollisionShape2D
+var collider := RotatedShape.new()
+var collision_shape: CollisionShape2D
 var animator: ScaffolderCharacterAnimator
 
 var _extra_collision_detection_area: Area2D
@@ -237,23 +237,17 @@ func _update_editor_configuration_debounced() -> void:
         animator = character_animators[0]
         animator.is_desaturatable = true
     
-    if !is_instance_valid(collider):
-        collider = Sc.utils.get_child_by_type(self, CollisionShape2D)
-        if is_instance_valid(collider):
-            var collider_is_rotated_90_degrees: bool = \
-                    abs(fmod(collider.rotation + PI * 2, PI) - PI / 2.0) < \
-                    Sc.geometry.FLOAT_EPSILON
+    if !is_instance_valid(collision_shape):
+        collision_shape = Sc.utils.get_child_by_type(self, CollisionShape2D)
+        if is_instance_valid(collision_shape):
+            collider.update(collision_shape.shape, collision_shape.rotation)
             # Ensure that collision boundaries are only ever axially aligned.
-            if !collider_is_rotated_90_degrees and \
-                    abs(collider.rotation) >= Sc.geometry.FLOAT_EPSILON:
-                _set_configuration_warning("rotation must be 0 or 90.")
+            if !collider.is_rotation_axially_aligned:
+                _set_configuration_warning(
+                        "CollisionShape2D rotation must be 0 or 90.")
                 return
-            collider_half_width_height = \
-                    Sc.geometry.calculate_half_width_height(
-                            collider.shape,
-                            collider_is_rotated_90_degrees)
         else:
-            collider_half_width_height = Vector2.INF
+            collider.reset()
     
     _set_configuration_warning("")
 
@@ -404,7 +398,7 @@ func show_exclamation_mark() -> void:
 func _show_exclamation_mark_throttled() -> void:
     Sc.annotators.add_transient(ExclamationMarkAnnotator.new(
             self,
-            collider_half_width_height.y,
+            collider.half_width_height.y,
             primary_annotation_color,
             secondary_annotation_color,
             exclamation_mark_width_start,

@@ -623,87 +623,77 @@ func draw_diamond_outline(
 func draw_shape_outline(
         canvas: CanvasItem,
         position: Vector2,
-        shape: Shape2D,
-        is_rotated_90_degrees: bool,
+        shape: RotatedShape,
         color: Color,
         thickness: float) -> void:
-    if shape is CircleShape2D:
+    if shape.shape is CircleShape2D:
         draw_circle_outline(
                 canvas,
                 position,
-                shape.radius,
+                shape.shape.radius,
                 color,
                 thickness)
-    elif shape is CapsuleShape2D:
+    elif shape.shape is CapsuleShape2D:
         draw_capsule_outline(
                 canvas,
                 position,
-                shape.radius,
-                shape.height,
-                is_rotated_90_degrees,
+                shape.shape.radius,
+                shape.shape.height,
+                shape.is_rotated_90_degrees,
                 color,
                 thickness)
-    elif shape is RectangleShape2D:
+    elif shape.shape is RectangleShape2D:
         draw_rectangle_outline(
                 canvas,
                 position,
-                shape.extents,
-                is_rotated_90_degrees,
+                shape.shape.extents,
+                shape.is_rotated_90_degrees,
                 color,
                 thickness)
     else:
         Sc.logger.error(
                 "Invalid Shape2D provided for draw_shape_outline: %s. The " +
                 "supported shapes are: CircleShape2D, CapsuleShape2D, " +
-                "RectangleShape2D." % shape)
+                "RectangleShape2D." % shape.shape)
 
 
 func draw_dashed_shape(
         canvas: CanvasItem,
         position: Vector2,
-        shape: Shape2D,
-        rotation: float,
+        shape: RotatedShape,
         color: Color,
         dash_length: float,
         dash_gap: float,
         dash_offset: float = 0.0,
         thickness: float = 1.0) -> void:
-    var is_rotated_90_degrees: bool = \
-            abs(fmod(rotation + PI * 2, PI) - PI / 2) < \
-            Sc.geometry.FLOAT_EPSILON
-    
-    # Ensure that collision boundaries are only ever axially aligned.
-    assert(is_rotated_90_degrees or \
-            abs(rotation) < Sc.geometry.FLOAT_EPSILON)
-    
-    if shape is CircleShape2D:
+    if shape.shape is CircleShape2D:
         draw_dashed_circle(
                 canvas,
                 position,
-                shape.radius,
+                shape.shape.radius,
                 color,
                 dash_length,
                 dash_gap,
                 dash_offset,
                 thickness)
-    elif shape is CapsuleShape2D:
+    elif shape.shape is CapsuleShape2D:
         draw_dashed_capsule(
                 canvas,
                 position,
-                shape.radius,
-                shape.height,
-                is_rotated_90_degrees,
+                shape.shape.radius,
+                shape.shape.height,
+                shape.is_rotated_90_degrees,
                 color,
                 dash_length,
                 dash_gap,
                 dash_offset,
                 thickness)
-    elif shape is RectangleShape2D:
+    elif shape.shape is RectangleShape2D:
         draw_dashed_rectangle(
                 canvas,
                 position,
-                shape.extents,
-                is_rotated_90_degrees,
+                shape.shape.extents,
+                shape.is_rotated_90_degrees,
                 color,
                 dash_length,
                 dash_gap,
@@ -713,7 +703,7 @@ func draw_dashed_shape(
         Sc.logger.error(
                 "Invalid Shape2D provided for draw_shape_dashed_outline: " + 
                 "%s. The supported shapes are: CircleShape2D, " +
-                "CapsuleShape2D, RectangleShape2D." % shape)
+                "CapsuleShape2D, RectangleShape2D." % shape.shape)
 
 
 func draw_circle_outline(
