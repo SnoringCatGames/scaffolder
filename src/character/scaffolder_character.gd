@@ -242,7 +242,7 @@ func _update_editor_configuration_debounced() -> void:
         if is_instance_valid(collision_shape):
             collider.update(collision_shape.shape, collision_shape.rotation)
             # Ensure that collision boundaries are only ever axially aligned.
-            if !collider.is_rotation_axially_aligned:
+            if !collider.is_axially_aligned:
                 _set_configuration_warning(
                         "CollisionShape2D rotation must be 0 or 90.")
                 return
