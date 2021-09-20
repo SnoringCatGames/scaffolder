@@ -6,7 +6,7 @@ var shape: Shape2D
 # In radians.
 var rotation := INF
 var is_rotated_90_degrees := false
-var is_rotation_axially_aligned: bool setget ,_get_is_rotation_axially_aligned
+var is_axially_aligned: bool setget ,_get_is_axially_aligned
 var half_width_height := Vector2.INF
 
 
@@ -35,7 +35,7 @@ func update(
             Sc.geometry.calculate_half_width_height(
                     self.shape,
                     self.is_rotated_90_degrees) if \
-            _get_is_rotation_axially_aligned() else \
+            _get_is_axially_aligned() else \
             Vector2.INF
 
 
@@ -43,11 +43,11 @@ func reset() -> void:
     shape = null
     rotation = INF
     is_rotated_90_degrees = false
-    is_rotation_axially_aligned = false
+    is_axially_aligned = false
     half_width_height = Vector2.INF
 
 
-func _get_is_rotation_axially_aligned() -> bool:
+func _get_is_axially_aligned() -> bool:
     return rotation != INF and \
             (is_rotated_90_degrees or \
             abs(rotation) < Sc.geometry.FLOAT_EPSILON)
