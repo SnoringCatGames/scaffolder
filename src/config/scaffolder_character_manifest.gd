@@ -9,6 +9,8 @@ const GROUP_NAME_SURFACER_CHARACTERS := "surfacer_characters"
 
 var default_character_name: String
 
+var omits_npcs := false
+
 # Dictionary<String, PackedScene>
 var character_scenes := {}
 
@@ -19,6 +21,8 @@ var _character_scenes_list: Array
 func register_manifest(manifest: Dictionary) -> void:
     self._character_scenes_list = manifest.character_scenes
     self.default_character_name = manifest.default_character_name
+    if manifest.has("omits_npcs"):
+        self.omits_npcs = manifest.omits_npcs
     
     _parse_character_scenes(self._character_scenes_list)
 

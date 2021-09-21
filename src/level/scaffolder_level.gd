@@ -104,6 +104,9 @@ func _add_player_character() -> bool:
 
 
 func _add_npcs() -> void:
+    if Sc.characters.omits_npcs:
+        return
+    
     # Add npcs at the registered spawn positions.
     for character_name in spawn_positions:
         if character_name == Sc.characters.default_character_name:
