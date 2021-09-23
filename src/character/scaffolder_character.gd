@@ -671,6 +671,8 @@ func _set_logs_common_debugging_events(value: bool) -> void:
         logs_behavior_events = true
         logs_navigator_events = true
         logs_collision_events = true
+        logs_surface_events = true
+        logs_action_events = true
     elif logs_custom_events and \
             logs_behavior_events and \
             logs_navigator_events and \
@@ -679,6 +681,8 @@ func _set_logs_common_debugging_events(value: bool) -> void:
         logs_behavior_events = false
         logs_navigator_events = false
         logs_collision_events = false
+        logs_surface_events = false
+        logs_action_events = false
     _update_editor_configuration()
 
 
@@ -712,11 +716,15 @@ func _set_logs_collision_events(value: bool) -> void:
 
 func _set_logs_surface_events(value: bool) -> void:
     logs_surface_events = value
+    if !logs_surface_events:
+        logs_common_debugging_events = false
     _update_editor_configuration()
 
 
 func _set_logs_action_events(value: bool) -> void:
     logs_action_events = value
+    if !logs_action_events:
+        logs_common_debugging_events = false
     _update_editor_configuration()
 
 
