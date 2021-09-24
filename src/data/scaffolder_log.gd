@@ -28,8 +28,9 @@ func print(message: String) -> void:
 func error(
         message := "An error occurred",
         should_assert := true) -> void:
-    push_error("ERROR: %s" % message)
-    self.print("**ERROR**: %s" % message)
+    var play_time: float = Sc.time.get_play_time()
+    push_error("ERROR:%8.3f; %s" % [play_time, message])
+    self.print("**ERROR**:%8.3f; %s" % [play_time, message])
     if should_assert:
          assert(false)
 
