@@ -12,7 +12,7 @@ var previous_camera_zoom := 1.0
 
 
 func _ready() -> void:
-    font = Sc.gui.fonts.main_xs
+    font = Sc.gui.fonts.main_xxs
     
     viewport = get_viewport()
     viewport_size = viewport.get_visible_rect().size
