@@ -75,6 +75,20 @@ const DEFAULT_INPUT_MAP := {
     "face_right": [],
 }
 
+const DEFAULT_MOVEMENT_ACTIONS := [
+    "jump",
+    "move_up",
+    "move_down",
+    "move_left",
+    "move_right",
+    "dash",
+    "grab",
+    "face_left",
+    "face_right",
+]
+
+var movement_action_key_set := {}
+
 
 func _override_project_settings() -> void:
     if !Sc.metadata.overrides_project_settings:
@@ -149,3 +163,9 @@ func _override_input_map(input_map_overrides: Dictionary) -> void:
             
             if !InputMap.action_has_event(action_name, event):
                 InputMap.action_add_event(action_name, event)
+    
+    for action in DEFAULT_MOVEMENT_ACTIONS:
+        for config in input_map[action]:
+            if !config.has("key_scancode"):
+                continue
+            movement_action_key_set[config.key_scancode] = true
