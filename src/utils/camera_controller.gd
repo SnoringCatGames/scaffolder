@@ -78,7 +78,7 @@ func set_current_camera(
     camera.make_current()
     _current_camera = camera
     _current_character = character
-    _set_zoom_factor(zoom_factor)
+    _update_zoom()
 
 
 func get_current_camera() -> Camera2D:
