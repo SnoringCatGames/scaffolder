@@ -28,6 +28,16 @@ func _on_gui_scale_changed() -> bool:
     return false
 
 
+func get_bottom_coordinate() -> float:
+    var row_count := boxes.size()
+    var separation: float = HudKeyValueBox.SEPARATION * Sc.gui.scale
+    var box_height: float = \
+            boxes[0].rect_size.y if \
+            !boxes.empty() else \
+            0.0
+    return (box_height + separation) * row_count
+
+
 func update_list() -> void:
     for box in boxes:
         box.queue_free()

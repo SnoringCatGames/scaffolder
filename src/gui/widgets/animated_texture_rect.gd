@@ -12,6 +12,7 @@ export var playing := true setget _set_playing
 export var offset := Vector2.ZERO setget _set_offset
 export var flip_h := false setget _set_flip_h
 export var flip_v := false setget _set_flip_v
+export var frame: int setget _set_frame,_get_frame
 
 var _is_ready := false
 
@@ -91,6 +92,14 @@ func _set_flip_h(value: bool) -> void:
 func _set_flip_v(value: bool) -> void:
     flip_v = value
     _update()
+
+
+func _set_frame(value: int) -> void:
+    $AnimatedSprite.frame = value
+
+
+func _get_frame() -> int:
+    return $AnimatedSprite.frame
 
 
 func _get_configuration_warning() -> String:
