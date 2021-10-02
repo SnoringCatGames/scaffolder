@@ -49,6 +49,8 @@ var is_new_high_score: bool setget ,_get_is_new_high_score
 var is_fastest_time: bool setget ,_get_is_new_fastest_time
 var new_unlocked_levels: Array setget ,_get_new_unlocked_levels
 
+var config: Dictionary
+
 
 func reset(id: String) -> void:
     self._id = id
@@ -65,6 +67,7 @@ func reset(id: String) -> void:
     _is_new_fastest_time = false
     _pre_pause_music_name = ""
     _pre_pause_music_position = INF
+    config = Sc.level_config.get_level_config(id)
     _update_high_score()
     _update_fastest_time()
 
