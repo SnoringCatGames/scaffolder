@@ -21,6 +21,8 @@ export var expands_texture := true setget _set_expands_texture
 export var texture_scale := Vector2.ONE setget _set_texture_scale
 export var size_override := Vector2.ZERO setget _set_size_override
 
+export var disabled := false setget _set_disabled
+
 var _is_ready := false
 
 
@@ -72,6 +74,8 @@ func _update() -> void:
     rect_size = size_override * Sc.gui.scale
     $TextureButton.rect_scale = texture_scale * Sc.gui.scale
     $TextureButton.rect_size = size_override / texture_scale
+    
+    $TextureButton.disabled = disabled
 
 
 func _set_texture_normal(value: Texture) -> void:
@@ -123,6 +127,11 @@ func _set_expands_texture(value: bool) -> void:
 
 func _set_size_override(value: Vector2) -> void:
     size_override = value
+    _update()
+
+
+func _set_disabled(value: bool) -> void:
+    disabled = value
     _update()
 
 
