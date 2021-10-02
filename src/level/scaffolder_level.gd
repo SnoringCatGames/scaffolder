@@ -209,6 +209,10 @@ func add_character(
         for behavior in projected_behaviors:
             position_or_spawn_position.remove_child(behavior)
             character.add_child(behavior)
+    else:
+        # Default to floor attachment.
+        character.set_start_attachment_surface_side_or_position(
+                SurfaceSide.FLOOR)
     
     if !characters.has(character.character_name):
         characters[character.character_name] = []
