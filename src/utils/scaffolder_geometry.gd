@@ -626,6 +626,17 @@ static func get_tile_map_index_from_grid_coord(
     return (tile_map_position.y * tile_map_width + tile_map_position.x) as int
 
 
+static func get_grid_coord_from_tile_map_index(
+        index: int,
+        tile_map: TileMap) -> Vector2:
+    var used_rect := tile_map.get_used_rect()
+    var tile_map_start := used_rect.position
+    var tile_map_width: int = used_rect.size.x
+    var tile_map_position_x := index % tile_map_width
+    var tile_map_position_y := int(index / tile_map_width)
+    return Vector2(tile_map_position_x, tile_map_position_y)
+
+
 static func get_tile_map_bounds_in_world_coordinates(
         tile_map: TileMap) -> Rect2:
     var used_rect := tile_map.get_used_rect()
