@@ -64,9 +64,11 @@ func _start() -> void:
 
 
 func _on_started() -> void:
-    var start_time: float = Sc.time.get_play_time()
-    Sc.level_session._level_start_play_time_unscaled = start_time
-    Sc.logger.print("Level started:               %8.3f" % start_time)
+    var start_time_scaled: float = Sc.time.get_scaled_play_time()
+    var start_time_unscaled: float = Sc.time.get_play_time()
+    Sc.level_session._level_start_play_time_scaled = start_time_scaled
+    Sc.level_session._level_start_play_time_unscaled = start_time_unscaled
+    Sc.logger.print("Level started:               %8.3f" % start_time_unscaled)
 
 
 func _add_player_character() -> bool:
