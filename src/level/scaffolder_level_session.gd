@@ -14,6 +14,7 @@ var _is_restarting := false
 var _has_initial_input_happened := false
 var _has_finished := false
 
+var _level_start_play_time_scaled := -INF
 var _level_start_play_time_unscaled := -INF
 var _level_end_play_time_unscaled := -INF
 var _score := 0.0
@@ -37,10 +38,13 @@ var has_initial_input_happened: bool setget ,_get_has_initial_input_happened
 var has_started: bool setget ,_get_has_started
 var is_ended: bool setget ,_get_is_ended
 var has_finished: bool setget ,_get_has_finished
+var level_start_play_time_scaled: float \
+        setget ,_get_level_start_play_time_scaled
 var level_start_play_time_unscaled: float \
         setget ,_get_level_start_play_time_unscaled
 var level_end_play_time_unscaled: float \
         setget ,_get_level_end_play_time_unscaled
+var level_play_time_scaled: float setget ,_get_level_play_time_scaled
 var level_play_time_unscaled: float setget ,_get_level_play_time_unscaled
 var score: float setget ,_get_score
 var high_score: float setget ,_get_high_score
@@ -58,6 +62,7 @@ func reset(id: String) -> void:
     _is_restarting = false
     _has_initial_input_happened = false
     _has_finished = false
+    _level_start_play_time_scaled = -INF
     _level_start_play_time_unscaled = -INF
     _level_end_play_time_unscaled = -INF
     _score = 0.0
@@ -100,12 +105,23 @@ func _get_has_finished() -> bool:
     return _has_finished
 
 
+func _get_level_start_play_time_scaled() -> float:
+    return _level_start_play_time_scaled
+
+
 func _get_level_start_play_time_unscaled() -> float:
     return _level_start_play_time_unscaled
 
 
 func _get_level_end_play_time_unscaled() -> float:
     return _level_end_play_time_unscaled
+
+
+func _get_level_play_time_scaled() -> float:
+    if _get_has_started():
+        return Sc.time.get_scaled_play_time() - _level_start_play_time_scaled
+    else:
+        return 0.0
 
 
 func _get_level_play_time_unscaled() -> float:
