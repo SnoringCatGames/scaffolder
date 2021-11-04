@@ -4,6 +4,8 @@ class_name ScaffolderCharacter, \
 extends KinematicBody2D
 
 
+const _RECENT_LOGS_COUNT_TO_STORE_ON_CHARACTER_INSTANCE := 20
+
 # ---
 
 export var character_name := "" setget _set_character_name
@@ -58,7 +60,7 @@ var exclamation_mark_throttle_interval := 1.0
 const _LOGS_GROUP := {
     group_name = "Logs",
     first_property_name = "logs_common_debugging_events",
-    last_property_name = "logs_verbose_navigator_events",
+    last_property_name = "stores_logs_on_character_instances",
 }
 
 ## -   If true, a subset of the following log flags will be enabled.
@@ -91,7 +93,11 @@ var logs_verbose_events := false \
 ## -   These are pretty verbose!
 var logs_verbose_navigator_events := false \
         setget _set_logs_verbose_navigator_events
-
+## -   If ture, then all character logs will also be stored on their
+##     corresponding character instance.
+## -   This might be useful for debugging, but will take extra run-time space.
+var stores_logs_on_character_instances := false \
+        setget _set_stores_logs_on_character_instances
 # ---
 
 const _PROPERTY_GROUPS := [
@@ -123,6 +129,7 @@ var _layers_for_entered_proximity_detection := {}
 var _layers_for_exited_proximity_detection := {}
 
 var _resized_character_name: String
+var _recent_logs: CircularBuffer
 
 var _debounced_update_editor_configuration: FuncRef
 var _throttled_show_exclamation_mark: FuncRef
@@ -346,8 +353,8 @@ func _log(
         includes_position := true,
         standardizes_message := true) -> void:
     if _get_should_log_this_type(type, is_verbose):
-        var prefix := CharacterLogType.get_prefix(type)
         if standardizes_message:
+            var prefix := CharacterLogType.get_prefix(type)
             var position_string: String = \
                     ";%17s" % Sc.utils.get_vector_string(position, 1) if \
                     includes_position else \
@@ -356,16 +363,17 @@ func _log(
                     "; %s" % details if \
                     !details.empty() else \
                     details
-            Sc.logger.print("[%s] %s: %s;%8.3f%s%s" % [
+            message = "[%s] %s: %s;%8.3f%s%s" % [
                         prefix,
                         Sc.utils.resize_string(message, 12, false),
                         _resized_character_name,
                         Sc.time.get_play_time(),
                         position_string,
                         details,
-                    ])
-        else:
-            Sc.logger.print(message)
+                    ]
+        Sc.logger.print(message)
+        if stores_logs_on_character_instances:
+            _recent_logs.push(message)
 
 
 func _get_should_log_this_type(
@@ -735,4 +743,15 @@ func _set_logs_verbose_events(value: bool) -> void:
 
 func _set_logs_verbose_navigator_events(value: bool) -> void:
     logs_verbose_navigator_events = value
+    _update_editor_configuration()
+
+
+func _set_stores_logs_on_character_instances(value: bool) -> void:
+    var previous_stores_logs_on_character_instances := \
+            stores_logs_on_character_instances
+    stores_logs_on_character_instances = value
+    if !previous_stores_logs_on_character_instances and \
+            stores_logs_on_character_instances:
+        _recent_logs = CircularBuffer.new(
+                _RECENT_LOGS_COUNT_TO_STORE_ON_CHARACTER_INSTANCE)
     _update_editor_configuration()
