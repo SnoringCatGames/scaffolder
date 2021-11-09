@@ -306,6 +306,13 @@ func _play_animation(
         return false
 
 
+func skip_current_blend() -> void:
+    var animation_name := animation_player.current_animation
+    var playback_speed := animation_player.playback_speed
+    animation_player.stop(true)
+    animation_player.clear_queue()
+
+
 func _show_sprite_exclusively(specific_name: String) -> void:
     # Hide the other sprites.
     for sprite in _sprites:
