@@ -345,6 +345,8 @@ func _process_sounds() -> void:
 
 ## Conditionally prints the given message, depending on the character's
 ## configuration.
+## 
+## -   message should be no more than 12 characters long.
 func _log(
         message: String,
         details := "",
