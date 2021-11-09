@@ -34,7 +34,7 @@ func _init(
     self.character_half_height = \
             character_half_height if \
             !is_inf(character_half_height) else \
-            character.movement_params.collider.half_width_height.y
+            character.collider.half_width_height.y
     self.color = \
             color if \
             color != Color.white else \
