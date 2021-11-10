@@ -61,6 +61,8 @@ var _specific_name := "Rest"
 var _standard_name := "Rest"
 var _base_rate := 1.0
 
+var _latest_blend_duration := 0.0
+
 var _is_ready := false
 var _configuration_warning := ""
 
@@ -299,6 +301,7 @@ func _play_animation(
     
     if animation_was_not_playing or \
             animation_was_playing_in_wrong_direction:
+        _latest_blend_duration = blend
         animation_player.play(_specific_name, blend)
         match_rate_to_time_scale()
         return true
