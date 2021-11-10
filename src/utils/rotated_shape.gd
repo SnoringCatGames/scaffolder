@@ -29,7 +29,7 @@ func update(
         return
     
     self.is_rotated_90_degrees = \
-            abs(fmod(self.rotation + PI * 2, PI) - PI / 2.0) < \
+            abs(fmod(self.rotation + TAU, PI) - PI / 2.0) < \
             Sc.geometry.FLOAT_EPSILON
     self.half_width_height = \
             Sc.geometry.calculate_half_width_height(

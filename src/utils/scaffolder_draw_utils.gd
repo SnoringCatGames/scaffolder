@@ -275,7 +275,7 @@ func draw_dashed_capsule(
     var capsule_end_offset: Vector2
     if is_rotated_90_degrees:
         capsule_end_start_angle = PI
-        capsule_end_end_angle = 2 * PI
+        capsule_end_end_angle = TAU
         capsule_end_offset = Vector2(0.0, height / 2.0)
     else:
         capsule_end_start_angle = PI / 2.0
