@@ -534,21 +534,26 @@ static func are_three_points_clockwise(
 static func are_points_collinear(
         p1: Vector2,
         p2: Vector2,
-        p3: Vector2) -> bool:
+        p3: Vector2,
+        epsilon := FLOAT_EPSILON) -> bool:
     return abs((p2.x - p1.x) * (p3.y - p1.y) - \
-            (p3.x - p1.x) * (p2.y - p1.y)) < FLOAT_EPSILON
+            (p3.x - p1.x) * (p2.y - p1.y)) < epsilon
 
 
 static func do_point_and_segment_intersect(
         point: Vector2,
         segment_a: Vector2,
-        segment_b: Vector2) -> bool:
+        segment_b: Vector2,
+        epsilon := FLOAT_EPSILON) -> bool:
     return are_points_collinear(
             point,
             segment_a,
-            segment_b) and \
-            ((point.x <= segment_a.x and point.x >= segment_b.x) or \
-            (point.x >= segment_a.x and point.x <= segment_b.x))
+            segment_b,
+            epsilon) and \
+            ((point.x <= segment_a.x + epsilon and \
+                point.x >= segment_b.x - epsilon) or \
+            (point.x >= segment_a.x - epsilon and \
+                point.x <= segment_b.x + epsilon))
 
 
 static func get_bounding_box_for_points(points: Array) -> Rect2:
