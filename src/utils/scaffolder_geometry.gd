@@ -531,6 +531,104 @@ static func are_three_points_clockwise(
     return result > 0
 
 
+static func is_polygon_convex(
+        vertices: Array,
+        epsilon := 0.001) -> bool:
+    var vertex_count := vertices.size()
+    
+    assert(vertices[0] != vertices[vertex_count - 1])
+    
+    if vertex_count < 3:
+        return true
+    
+    # First nonzero orientation (positive or negative)
+    var w_sign := 0
+    
+    var x_sign := 0
+    # Sign of first nonzero edge vector x
+    var x_first_sign := 0
+    # Number of sign changes in x
+    var x_flips := 0
+    
+    var y_sign := 0
+    # Sign of first nonzero edge vector y
+    var y_first_sign := 0
+    # Number of sign changes in y
+    var y_flips := 0
+    
+    var previous_vertex: Vector2
+    var current_vertex: Vector2 = vertices[vertex_count - 2]
+    var next_vertex: Vector2 = vertices[vertex_count - 1]
+    
+    for vertex in vertices:
+        previous_vertex = current_vertex
+        current_vertex = next_vertex
+        next_vertex = vertex
+        
+        var previous_diplacement := current_vertex - previous_vertex
+        var next_diplacement := next_vertex - current_vertex
+        
+        # Count the number of sign flips, and record the first sign.
+        if next_diplacement.x > epsilon:
+            if x_sign == 0:
+                x_first_sign = 1
+            elif x_sign < 0:
+                x_flips += 1
+            x_sign = 1
+        elif next_diplacement.x < -epsilon:
+            if x_sign == 0:
+                x_first_sign = -1
+            elif x_sign > 0:
+                x_flips += 1
+            x_sign = -1
+        
+        if x_flips > 2:
+            return false
+        
+        # Count the number of sign flips, and record the first sign.
+        if next_diplacement.y > epsilon:
+            if y_sign == 0:
+                y_first_sign = 1
+            elif y_sign < 0:
+                y_flips += 1
+            y_sign = 1
+        elif next_diplacement.y < -epsilon:
+            if y_sign == 0:
+                y_first_sign = -1
+            elif y_sign > 0:
+                y_flips += 1
+            y_sign = -1
+        
+        if y_flips > 2:
+            return false
+        
+        # Calculate the edge-pair orientation, and check whether it has changed.
+        var w := previous_diplacement.x * next_diplacement.y - \
+                next_diplacement.x * previous_diplacement.y
+        if w_sign == 0 and \
+                (w < -epsilon or epsilon > epsilon):
+            w_sign = 0
+        elif w_sign > 0 and \
+                w < -epsilon:
+            return false
+        elif w_sign < 0 and \
+                w > epsilon:
+            return false
+    
+    # Wrap-around sign flips (the fencepost problem).
+    if x_sign != 0 and \
+            x_first_sign != 0 and \
+            x_sign != x_first_sign:
+        x_flips += 1
+    if y_sign != 0 and \
+            y_first_sign != 0 and \
+            y_sign != y_first_sign:
+        y_flips += 1
+    
+    # Convex polygons have two sign flips along each axis.
+    return x_flips == 2 and y_flips == 2
+
+
 static func are_points_collinear(
         p1: Vector2,
         p2: Vector2,
