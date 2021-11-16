@@ -5,7 +5,6 @@ extends ScaffolderPanelContainer
 
 # FIXME: LEFT OFF HERE: ----------------
 # - Hook-up other closing conditions.
-# - Fix HUD styling...
 
 
 signal faded_in
@@ -48,8 +47,10 @@ func _on_gui_scale_changed() -> bool:
     rect_size.x = rect_min_size.x
     
     var height := 0.0
-    if $VBoxContainer/Header.visible:
-        height += $VBoxContainer/Header.rect_size.y
+    if $VBoxContainer/HeaderWithCloseButton.visible:
+        height += $VBoxContainer/HeaderWithCloseButton.rect_size.y
+    if $VBoxContainer/HeaderWithoutCloseButton.visible:
+        height += $VBoxContainer/HeaderWithoutCloseButton.rect_size.y
     if $VBoxContainer/Body.visible:
         height += $VBoxContainer/Body.rect_size.y
     if $VBoxContainer/Spacer.visible:
@@ -71,10 +72,22 @@ func _on_gui_scale_changed() -> bool:
 func set_up(data: NotificationData) -> void:
     self._data = data
     
-    $VBoxContainer/Header.text = _data.header_text
+    var active_header: Control
+    var inactive_header: Control
+    if _data.duration == NotificationDuration.CLOSED_WITH_CLOSE_BUTTON:
+        active_header = $VBoxContainer/HeaderWithCloseButton
+        inactive_header = $VBoxContainer/HeaderWithoutCloseButton
+    else:
+        active_header = $VBoxContainer/HeaderWithoutCloseButton
+        inactive_header = $VBoxContainer/HeaderWithCloseButton
+    
+    $VBoxContainer/HeaderWithoutCloseButton.text = _data.header_text
+    $VBoxContainer/HeaderWithCloseButton/ScaffolderLabel.text = \
+            _data.header_text
     $VBoxContainer/Body.text = _data.body_text
     
-    $VBoxContainer/Header.visible = _data.header_text != ""
+    inactive_header.visible = false
+    active_header.visible = _data.header_text != ""
     $VBoxContainer/Body.visible = _data.body_text != ""
     $VBoxContainer/Spacer.visible = \
             _data.header_text != "" and \
@@ -149,3 +162,7 @@ func _on_faded_in() -> void:
 
 func _on_faded_out() -> void:
     emit_signal("faded_out")
+
+
+func _on_ScaffolderTextureButton_pressed() -> void:
+    close()
