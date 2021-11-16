@@ -586,7 +586,7 @@ func _validate_manifest(manifest: Dictionary) -> void:
 
 func configure_theme() -> void:
     transparent_panel_stylebox = \
-            Sc.styles.create_stylebox_scalable(Color.transparent)
+            Sc.styles.create_stylebox_scalable(Color.transparent, false)
     
     if is_instance_valid(Sc.styles.overlay_panel_nine_patch):
         overlay_panel_stylebox = Sc.styles.create_stylebox_scalable({
@@ -608,7 +608,7 @@ func configure_theme() -> void:
                     Sc.styles.overlay_panel_content_margin_right,
             content_margin_bottom = \
                     Sc.styles.overlay_panel_content_margin_bottom,
-        })
+        }, false)
     else:
         overlay_panel_stylebox = Sc.styles.create_stylebox_scalable({
             bg_color = Sc.colors.overlay_panel_background,
@@ -627,7 +627,7 @@ func configure_theme() -> void:
                     Sc.styles.overlay_panel_content_margin_right,
             content_margin_bottom = \
                     Sc.styles.overlay_panel_content_margin_bottom,
-        })
+        }, false)
     
     if is_instance_valid(Sc.styles.notification_panel_nine_patch):
         notification_panel_stylebox = Sc.styles.create_stylebox_scalable({
@@ -649,7 +649,7 @@ func configure_theme() -> void:
                     Sc.styles.notification_panel_content_margin_right,
             content_margin_bottom = \
                     Sc.styles.notification_panel_content_margin_bottom,
-        })
+        }, false)
     else:
         notification_panel_stylebox = Sc.styles.create_stylebox_scalable({
             bg_color = Sc.colors.notification_panel_background,
@@ -668,7 +668,7 @@ func configure_theme() -> void:
                     Sc.styles.notification_panel_content_margin_right,
             content_margin_bottom = \
                     Sc.styles.notification_panel_content_margin_bottom,
-        })
+        }, false)
     
     if is_instance_valid(Sc.styles.header_panel_nine_patch):
         header_panel_stylebox = Sc.styles.create_stylebox_scalable({
@@ -682,7 +682,7 @@ func configure_theme() -> void:
             content_margin_top = Sc.styles.header_panel_content_margin_top,
             content_margin_right = Sc.styles.header_panel_content_margin_right,
             content_margin_bottom = Sc.styles.header_panel_content_margin_bottom,
-        })
+        }, false)
     else:
         header_panel_stylebox = Sc.styles.create_stylebox_scalable({
             bg_color = Sc.colors.header_panel_background,
@@ -690,7 +690,7 @@ func configure_theme() -> void:
             content_margin_top = Sc.styles.header_panel_content_margin_top,
             content_margin_right = Sc.styles.header_panel_content_margin_right,
             content_margin_bottom = Sc.styles.header_panel_content_margin_bottom,
-        })
+        }, false)
     
     hud_panel_stylebox = Sc.styles.create_stylebox_scalable({
         texture = Sc.styles.hud_panel_nine_patch,
@@ -703,7 +703,7 @@ func configure_theme() -> void:
         content_margin_top = Sc.styles.hud_panel_content_margin_top,
         content_margin_right = Sc.styles.hud_panel_content_margin_right,
         content_margin_bottom = Sc.styles.hud_panel_content_margin_bottom,
-    })
+    }, false)
     
     _configure_theme_color(
             "font_color", "Label", Sc.colors.text)
@@ -1248,38 +1248,47 @@ func _configure_theme_stylebox(
         type: String,
         config) -> void:
     if !Sc.gui.theme.has_stylebox(name, type):
-        var stylebox: StyleBox = Sc.styles.create_stylebox_scalable(config)
+        var stylebox: StyleBox = \
+                Sc.styles.create_stylebox_scalable(config, false)
         Sc.gui.theme.set_stylebox(name, type, stylebox)
     else:
         var old: StyleBox = Sc.gui.theme.get_stylebox(name, type)
         if !(old is StyleBoxFlatScalable or \
                 old is StyleBoxTextureScalable):
-            var new: StyleBox = Sc.styles.create_stylebox_scalable(old)
+            var new: StyleBox = Sc.styles.create_stylebox_scalable(old, false)
             Sc.gui.theme.set_stylebox(name, type, new)
 
 
-func create_stylebox_scalable(config) -> StyleBox:
+func create_stylebox_scalable(
+        config,
+        has_local_lifecycle: bool) -> StyleBox:
     if config is Color:
         var stylebox := StyleBoxFlatScalable.new()
         stylebox.bg_color = config
+        stylebox.has_local_lifecycle = has_local_lifecycle
         stylebox.ready()
         return stylebox
     elif config is Dictionary:
         if config.has("texture"):
-            return _create_stylebox_texture_scalable_from_config(config)
+            return _create_stylebox_texture_scalable_from_config(
+                    config, has_local_lifecycle)
         else:
-            return _create_stylebox_flat_scalable_from_config(config)
+            return _create_stylebox_flat_scalable_from_config(
+                    config, has_local_lifecycle)
     elif config is StyleBoxTexture:
-        return _create_stylebox_texture_scalable_from_stylebox(config)
+        return _create_stylebox_texture_scalable_from_stylebox(
+                config, has_local_lifecycle)
     elif config is StyleBox:
-        return _create_stylebox_flat_scalable_from_stylebox(config)
+        return _create_stylebox_flat_scalable_from_stylebox(
+                config, has_local_lifecycle)
     else:
         Sc.logger.error()
         return null
 
 
 func _create_stylebox_texture_scalable_from_config(
-        config: Dictionary) -> StyleBoxTextureScalable:
+        config: Dictionary,
+        has_local_lifecycle: bool) -> StyleBoxTextureScalable:
     var stylebox := StyleBoxTextureScalable.new()
     stylebox.texture = config.texture
     
@@ -1308,13 +1317,16 @@ func _create_stylebox_texture_scalable_from_config(
         stylebox.content_margin_right = 0
         stylebox.content_margin_top = 0
     
+    stylebox.has_local_lifecycle = has_local_lifecycle
+    
     stylebox.ready()
     
     return stylebox
 
 
 func _create_stylebox_texture_scalable_from_stylebox(
-        old: StyleBoxTexture) -> StyleBoxTextureScalable:
+        old: StyleBoxTexture,
+        has_local_lifecycle: bool) -> StyleBoxTextureScalable:
     var new := StyleBoxTextureScalable.new()
     
     new.texture = old.texture
@@ -1356,17 +1368,20 @@ func _create_stylebox_texture_scalable_from_stylebox(
         new.margin_bottom = old.initial_margin_bottom
         new.initial_texture_scale = old.initial_texture_scale
     
+    new.has_local_lifecycle = has_local_lifecycle
+    
     new.ready()
     
     return new
 
 
 func _create_stylebox_flat_scalable_from_config(
-        config: Dictionary) -> StyleBoxFlatScalable:
+        config: Dictionary,
+        has_local_lifecycle: bool) -> StyleBoxFlatScalable:
     var stylebox: StyleBoxFlatScalable
     if config.has("stylebox"):
         stylebox = _create_stylebox_flat_scalable_from_stylebox(
-                config.stylebox)
+                config.stylebox, has_local_lifecycle)
     else:
         stylebox = StyleBoxFlatScalable.new()
     
@@ -1403,13 +1418,16 @@ func _create_stylebox_flat_scalable_from_config(
     if config.has("shadow_size"):
         stylebox.shadow_size = config.shadow_size
     
+    stylebox.has_local_lifecycle = has_local_lifecycle
+    
     stylebox.ready()
     
     return stylebox
 
 
 func _create_stylebox_flat_scalable_from_stylebox(
-        old: StyleBox) -> StyleBoxFlatScalable:
+        old: StyleBox,
+        has_local_lifecycle: bool) -> StyleBoxFlatScalable:
     var new := StyleBoxFlatScalable.new()
     
     new.expand_margin_left = old.expand_margin_left
@@ -1440,6 +1458,8 @@ func _create_stylebox_flat_scalable_from_stylebox(
         new.shadow_color = old.shadow_color
         new.shadow_offset = old.shadow_offset
         new.shadow_size = old.shadow_size
+    
+    new.has_local_lifecycle = has_local_lifecycle
     
     new.ready()
     

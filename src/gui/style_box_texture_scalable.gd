@@ -24,6 +24,8 @@ var initial_margin_bottom: float
 
 var latest_gui_scale := INF
 
+var has_local_lifecycle := true
+
 
 func ready() -> void:
     # TODO: Support tiling. There is a bug with tiling, where 1-pixel gaps are
@@ -53,7 +55,8 @@ func ready() -> void:
 
 
 func _destroy() -> void:
-    Sc.gui.remove_gui_to_scale(self)
+    if has_local_lifecycle:
+        Sc.gui.remove_gui_to_scale(self)
 
 
 func _on_gui_scale_changed() -> bool:

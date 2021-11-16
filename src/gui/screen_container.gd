@@ -49,7 +49,7 @@ func set_up(contents: Screen) -> void:
         shadow_offset = Sc.styles.screen_shadow_offset,
         border_width = Sc.styles.screen_border_width,
         border_color = Sc.colors.screen_border,
-    })
+    }, true)
     outer_panel.add_stylebox_override("panel", stylebox)
     Sc.gui.add_gui_to_scale(outer_panel)
     
