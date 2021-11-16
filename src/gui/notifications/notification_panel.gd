@@ -3,15 +3,12 @@ class_name NotificationPanel
 extends ScaffolderPanelContainer
 
 
-# FIXME: LEFT OFF HERE: ----------------
-# - Hook-up other closing conditions.
-
-
 signal faded_in
 signal faded_out
 signal fade_out_started
 
 var _data: NotificationData
+var _open_time := INF
 var _target_position: Vector2
 
 
@@ -33,6 +30,22 @@ func _destroy() -> void:
     Sc.gui.remove_gui_to_scale(self)
     if !is_queued_for_deletion():
         queue_free()
+
+
+func _input(event: InputEvent) -> void:
+    if Engine.editor_hint:
+        return
+    
+    if (event is InputEventMouseButton or \
+            event is InputEventScreenTouch or \
+            event is InputEventKey) and \
+            _data != null and \
+            _data.duration == \
+                NotificationDuration.CLOSED_WITH_TAP_ANYWHERE and \
+            get_is_open() and \
+            Sc.time.get_app_time() > \
+                _open_time + Sc.notify.CLOSED_WITH_TAP_ANYWHERE_MIN_DELAY:
+        close()
 
 
 func _on_gui_scale_changed() -> bool:
@@ -97,6 +110,8 @@ func set_up(data: NotificationData) -> void:
 
 
 func open() -> void:
+    _open_time = Sc.time.get_app_time()
+    
     var start_position: Vector2 = \
             _target_position - Sc.notify.slide_in_displacement
     var end_position := _target_position
@@ -131,6 +146,11 @@ func open() -> void:
 
 
 func close() -> void:
+    if !get_is_open():
+        return
+    
+    _open_time = INF
+    
     var start_position := _target_position
     var end_position: Vector2 = \
             _target_position - Sc.notify.slide_in_displacement
@@ -154,6 +174,10 @@ func close() -> void:
             TimeType.APP_PHYSICS,
             funcref(self, "_on_faded_out"))
     emit_signal("fade_out_started")
+
+
+func get_is_open() -> bool:
+    return !is_inf(_open_time)
 
 
 func _on_faded_in() -> void:
