@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/hud/hud_key_value_box.gd" type="Script" id=2]
-[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/style_box_texture_scalable.gd" type="Script" id=5]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/nine_patch/overlay_panel.png" type="Texture" id=6]
@@ -21,10 +20,12 @@ margin_bottom = 3.5
 script = ExtResource( 5 )
 
 [node name="HudKeyValueBox" type="PanelContainer"]
-margin_right = 256.0
-margin_bottom = 48.0
+margin_right = 272.0
+margin_bottom = 52.0
 rect_min_size = Vector2( 256, 48 )
 mouse_filter = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
 __meta__ = {
@@ -48,20 +49,19 @@ __meta__ = {
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 24.0
-margin_right = 12.0
+margin_right = 8.0
 margin_bottom = 24.0
-rect_min_size = Vector2( 12, 0 )
+rect_min_size = Vector2( 8, 0 )
 size = Vector2( 8, 0 )
 
 [node name="Key" parent="HBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 12.0
-margin_top = 12.0
-margin_right = 232.0
-margin_bottom = 35.0
+margin_left = 8.0
+margin_top = 17.0
+margin_right = 240.0
+margin_bottom = 31.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 3 )
 text = "Label:"
 align = 0
 font_size = "S"
@@ -69,12 +69,11 @@ font_size = "S"
 [node name="Value" parent="HBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 232.0
-margin_top = 12.0
-margin_right = 244.0
-margin_bottom = 35.0
+margin_left = 240.0
+margin_top = 17.0
+margin_right = 248.0
+margin_bottom = 31.0
 size_flags_horizontal = 9
-custom_fonts/font = ExtResource( 3 )
 text = "0"
 align = 2
 font_size = "S"
@@ -82,9 +81,9 @@ font_size = "S"
 [node name="Spacer2" parent="HBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 244.0
+margin_left = 248.0
 margin_top = 24.0
 margin_right = 256.0
 margin_bottom = 24.0
-rect_min_size = Vector2( 12, 0 )
+rect_min_size = Vector2( 8, 0 )
 size = Vector2( 8, 0 )
