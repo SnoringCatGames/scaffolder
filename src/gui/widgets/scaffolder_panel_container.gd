@@ -7,6 +7,7 @@ extends PanelContainer
 enum PanelStyle {
     TRANSPARENT,
     OVERLAY,
+    NOTIFICATION,
     HEADER,
     HUD,
 }
@@ -36,8 +37,7 @@ func _exit_tree() -> void:
 
 func _clear_style() -> void:
     if is_instance_valid(_stylebox) and \
-            _stylebox != Sc.styles.overlay_panel_stylebox and \
-            _stylebox != Sc.styles.header_panel_stylebox:
+            is_unique:
         _stylebox._destroy()
 
 
@@ -56,6 +56,8 @@ func _set_style(value: int) -> void:
             _stylebox = Sc.styles.transparent_panel_stylebox
         PanelStyle.OVERLAY:
             _stylebox = Sc.styles.overlay_panel_stylebox
+        PanelStyle.NOTIFICATION:
+            _stylebox = Sc.styles.notification_panel_stylebox
         PanelStyle.HEADER:
             _stylebox = Sc.styles.header_panel_stylebox
         PanelStyle.HUD:

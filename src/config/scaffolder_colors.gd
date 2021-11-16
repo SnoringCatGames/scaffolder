@@ -57,6 +57,9 @@ var zebra_stripe_even_row: Color
 var overlay_panel_background: Color
 var overlay_panel_border: Color
 
+var notification_panel_background: Color
+var notification_panel_border: Color
+
 var header_panel_background: Color
 
 var scroll_bar_background: Color
@@ -89,6 +92,7 @@ var popup_background_hsv_delta: Dictionary
 var zebra_stripe_even_row_hsv_delta: Dictionary
 
 var overlay_panel_background_hsv_delta: Dictionary
+var notification_panel_background_hsv_delta: Dictionary
 var header_panel_background_hsv_delta: Dictionary
 
 var scroll_bar_background_hsv_delta: Dictionary
@@ -135,6 +139,8 @@ var _defaults := {
     zebra_stripe_even_row = Color("4d4d4d"),
     overlay_panel_background = Color("141414"),
     overlay_panel_border = Color("eeeeee"),
+    notification_panel_background = Color("141414"),
+    notification_panel_border = Color("eeeeee"),
     header_panel_background = Color("282828"),
     screen_border = Color("404040"),
     shadow = Color("88000000"),
@@ -217,6 +223,11 @@ func _derive_colors() -> void:
                 _derive_color_from_hsva_delta(
                         Sc.colors.background,
                         Sc.colors.overlay_panel_background_hsv_delta)
+    if !Sc.colors.notification_panel_background_hsv_delta.empty():
+        Sc.colors.notification_panel_background = \
+                _derive_color_from_hsva_delta(
+                        Sc.colors.background,
+                        Sc.colors.notification_panel_background_hsv_delta)
     if !Sc.colors.header_panel_background_hsv_delta.empty():
         Sc.colors.header_panel_background = \
                 _derive_color_from_hsva_delta(
