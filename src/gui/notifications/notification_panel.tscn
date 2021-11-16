@@ -440,7 +440,6 @@ __meta__ = {
 "sc_rect_size": Vector2( 141, 82 )
 }
 style = 2
-is_unique = true
 content_margin_left_override = 12
 content_margin_top_override = 12
 content_margin_right_override = 12
