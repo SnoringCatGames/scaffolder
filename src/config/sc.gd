@@ -33,6 +33,7 @@ var time: Time
 var profiler: Profiler
 var geometry: ScaffolderGeometry
 var draw: ScaffolderDrawUtils
+var notify: Notifications
 var slow_motion: SlowMotionController
 var beats: BeatTracker
 var canvas_layers: CanvasLayers
@@ -223,6 +224,13 @@ func _instantiate_sub_modules() -> void:
         self.draw = ScaffolderDrawUtils.new()
     add_child(self.draw)
     
+    if _manifest.has("notify_utils_class"):
+        self.notify = _manifest.notify_utils_class.new()
+        assert(self.notify is Notifications)
+    else:
+        self.notify = Notifications.new()
+    add_child(self.notify)
+    
     if _manifest.has("nav_class"):
         self.nav = _manifest.nav_class.new()
         assert(self.nav is ScreenNavigator)
@@ -297,6 +305,7 @@ func _configure_sub_modules() -> void:
     self.styles.register_manifest(_manifest.styles_manifest)
     self.images.register_manifest(_manifest.images_manifest)
     self.gui.register_manifest(_manifest.gui_manifest)
+    self.notify.register_manifest(_manifest.notifications_manifest)
     self.slow_motion.register_manifest(_manifest.slow_motion_manifest)
     self.characters.register_manifest(_manifest.character_manifest)
     

@@ -5,14 +5,24 @@ extends Node2D
 
 const _DEFAULT_LAYERS_CONFIG := [
     {
-        name = "menu",
-        z_index = 40,
+        name = "top",
+        z_index = 70,
         pause_mode = Node.PAUSE_MODE_PROCESS,
     },
     {
-        name = "top",
+        name = "notification",
+        z_index = 60,
+        pause_mode = Node.PAUSE_MODE_PROCESS,
+    },
+    {
+        name = "menu",
         z_index = 50,
         pause_mode = Node.PAUSE_MODE_PROCESS,
+    },
+    {
+        name = "in_game_dialog",
+        z_index = 40,
+        pause_mode = Node.PAUSE_MODE_STOP,
     },
     {
         name = "hud",

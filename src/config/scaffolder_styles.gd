@@ -5,6 +5,7 @@ extends Node
 
 var transparent_panel_stylebox: StyleBox
 var overlay_panel_stylebox: StyleBox
+var notification_panel_stylebox: StyleBox
 var header_panel_stylebox: StyleBox
 var hud_panel_stylebox: StyleBox
 
@@ -124,6 +125,25 @@ var overlay_panel_content_margin_left: int
 var overlay_panel_content_margin_top: int
 var overlay_panel_content_margin_right: int
 var overlay_panel_content_margin_bottom: int
+
+var notification_panel_nine_patch: Texture
+var notification_panel_nine_patch_scale: float
+var notification_panel_nine_patch_margin_left: float
+var notification_panel_nine_patch_margin_top: float
+var notification_panel_nine_patch_margin_right: float
+var notification_panel_nine_patch_margin_bottom: float
+
+var notification_panel_corner_radius: int
+var notification_panel_corner_detail: int
+var notification_panel_shadow_size: int
+var notification_panel_shadow_offset: Vector2
+
+var notification_panel_border_width: int
+
+var notification_panel_content_margin_left: int
+var notification_panel_content_margin_top: int
+var notification_panel_content_margin_right: int
+var notification_panel_content_margin_bottom: int
 
 var header_panel_nine_patch: Texture
 var header_panel_nine_patch_scale: float
@@ -341,6 +361,33 @@ func register_manifest(manifest: Dictionary) -> void:
     self.overlay_panel_content_margin_bottom = \
             manifest.overlay_panel_content_margin_bottom
     
+    if manifest.has("notification_panel_nine_patch"):
+        self.notification_panel_nine_patch = manifest.notification_panel_nine_patch
+        self.notification_panel_nine_patch_scale = \
+                manifest.notification_panel_nine_patch_scale
+        self.notification_panel_nine_patch_margin_left = \
+                manifest.notification_panel_nine_patch_margin_left
+        self.notification_panel_nine_patch_margin_top = \
+                manifest.notification_panel_nine_patch_margin_top
+        self.notification_panel_nine_patch_margin_right = \
+                manifest.notification_panel_nine_patch_margin_right
+        self.notification_panel_nine_patch_margin_bottom = \
+                manifest.notification_panel_nine_patch_margin_bottom
+    else:
+        self.notification_panel_corner_radius = manifest.notification_panel_corner_radius
+        self.notification_panel_corner_detail = manifest.notification_panel_corner_detail
+        self.notification_panel_shadow_size = manifest.notification_panel_shadow_size
+        self.notification_panel_shadow_offset = manifest.notification_panel_shadow_offset
+        self.notification_panel_border_width = manifest.notification_panel_border_width
+    self.notification_panel_content_margin_left = \
+            manifest.notification_panel_content_margin_left
+    self.notification_panel_content_margin_top = \
+            manifest.notification_panel_content_margin_top
+    self.notification_panel_content_margin_right = \
+            manifest.notification_panel_content_margin_right
+    self.notification_panel_content_margin_bottom = \
+            manifest.notification_panel_content_margin_bottom
+    
     if manifest.has("header_panel_nine_patch"):
         self.header_panel_nine_patch = manifest.header_panel_nine_patch
         self.header_panel_nine_patch_scale = \
@@ -386,6 +433,8 @@ func register_manifest(manifest: Dictionary) -> void:
     self.screen_border_width = manifest.screen_border_width
     
     self.overlay_panel_border_width = manifest.overlay_panel_border_width
+    self.notification_panel_border_width = \
+            manifest.notification_panel_border_width
 
 
 func _validate_manifest(manifest: Dictionary) -> void:
@@ -488,6 +537,26 @@ func _validate_manifest(manifest: Dictionary) -> void:
             manifest.has("overlay_panel_content_margin_right") and \
             manifest.has("overlay_panel_content_margin_bottom")))
     
+    assert((manifest.has("notification_panel_nine_patch") and \
+            manifest.has("notification_panel_nine_patch_scale") and \
+            manifest.has("notification_panel_nine_patch_margin_left") and \
+            manifest.has("notification_panel_nine_patch_margin_top") and \
+            manifest.has("notification_panel_nine_patch_margin_right") and \
+            manifest.has("notification_panel_nine_patch_margin_bottom") and \
+            manifest.has("notification_panel_content_margin_left") and \
+            manifest.has("notification_panel_content_margin_top") and \
+            manifest.has("notification_panel_content_margin_right") and \
+            manifest.has("notification_panel_content_margin_bottom")) or \
+            (manifest.has("notification_panel_corner_radius") and \
+            manifest.has("notification_panel_corner_detail") and \
+            manifest.has("notification_panel_shadow_size") and \
+            manifest.has("notification_panel_shadow_offset") and \
+            manifest.has("notification_panel_border_width") and \
+            manifest.has("notification_panel_content_margin_left") and \
+            manifest.has("notification_panel_content_margin_top") and \
+            manifest.has("notification_panel_content_margin_right") and \
+            manifest.has("notification_panel_content_margin_bottom")))
+    
     assert((manifest.has("header_panel_nine_patch") and \
             manifest.has("header_panel_nine_patch_scale") and \
             manifest.has("header_panel_nine_patch_margin_left") and \
@@ -558,6 +627,47 @@ func configure_theme() -> void:
                     Sc.styles.overlay_panel_content_margin_right,
             content_margin_bottom = \
                     Sc.styles.overlay_panel_content_margin_bottom,
+        })
+    
+    if is_instance_valid(Sc.styles.notification_panel_nine_patch):
+        notification_panel_stylebox = Sc.styles.create_stylebox_scalable({
+            texture = Sc.styles.notification_panel_nine_patch,
+            texture_scale = Sc.styles.notification_panel_nine_patch_scale,
+            margin_left = \
+                    Sc.styles.notification_panel_nine_patch_margin_left,
+            margin_top = \
+                    Sc.styles.notification_panel_nine_patch_margin_top,
+            margin_right = \
+                    Sc.styles.notification_panel_nine_patch_margin_right,
+            margin_bottom = \
+                    Sc.styles.notification_panel_nine_patch_margin_bottom,
+            content_margin_left = \
+                    Sc.styles.notification_panel_content_margin_left,
+            content_margin_top = \
+                    Sc.styles.notification_panel_content_margin_top,
+            content_margin_right = \
+                    Sc.styles.notification_panel_content_margin_right,
+            content_margin_bottom = \
+                    Sc.styles.notification_panel_content_margin_bottom,
+        })
+    else:
+        notification_panel_stylebox = Sc.styles.create_stylebox_scalable({
+            bg_color = Sc.colors.notification_panel_background,
+            corner_radius = Sc.styles.notification_panel_corner_radius,
+            corner_detail = Sc.styles.notification_panel_corner_detail,
+            shadow_size = Sc.styles.notification_panel_shadow_size,
+            shadow_offset = Sc.styles.notification_panel_shadow_offset,
+            shadow_color = Sc.colors.shadow,
+            border_width = Sc.styles.notification_panel_border_width,
+            border_color = Sc.colors.notification_panel_border,
+            content_margin_left = \
+                    Sc.styles.notification_panel_content_margin_left,
+            content_margin_top = \
+                    Sc.styles.notification_panel_content_margin_top,
+            content_margin_right = \
+                    Sc.styles.notification_panel_content_margin_right,
+            content_margin_bottom = \
+                    Sc.styles.notification_panel_content_margin_bottom,
         })
     
     if is_instance_valid(Sc.styles.header_panel_nine_patch):
