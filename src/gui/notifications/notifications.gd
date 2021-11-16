@@ -23,6 +23,8 @@ var opacity := 0.9
 
 var slide_in_displacement := Vector2(0.0, -67.0)
 
+var _active_panel: NotificationPanel
+
 # Array<NotificationPanel>
 var _queue := []
 
@@ -67,7 +69,8 @@ func show_toast(data: NotificationData) -> void:
     panel.connect("faded_out", self, "_on_faded_out", [panel])
     panel.set_up(data)
     if _queue.size() == 1:
-        panel.open()
+        _active_panel = panel
+        _active_panel.open()
 
 
 func get_panel_size(type: int) -> Vector2:
@@ -99,10 +102,11 @@ func get_panel_size(type: int) -> Vector2:
 
 
 func _on_fade_out_started(panel: Control) -> void:
-    assert(panel == _queue.back())
-    _queue.pop_back()
-    if !_queue.empty():
-        _queue.back().open()
+    _queue.erase(panel)
+    if !_queue.empty() and \
+            panel == _active_panel:
+        _active_panel = _queue.back()
+        _active_panel.open()
 
 
 func _on_faded_out(panel: Control) -> void:
