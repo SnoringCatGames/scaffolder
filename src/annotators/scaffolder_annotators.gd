@@ -42,6 +42,12 @@ var _annotator_enablement := {}
 var annotation_layer: CanvasLayer
 var ruler_layer: CanvasLayer
 
+var _throttled_frame_rate_notification: FuncRef = Sc.time.throttle(
+        funcref(self, "_show_reduced_frame_rate_notification_throttled"),
+        4.0,
+        false,
+        TimeType.APP_PHYSICS)
+
 
 func _init(
         character_sub_annotators := _SCAFFOLDER_CHARACTER_SUB_ANNOTATORS,
@@ -146,6 +152,10 @@ func set_annotator_enabled(
         # Do nothing. The annotator is already correct.
         return
     
+    if is_enabled and \
+            Sc.is_initialized:
+        _show_reduced_frame_rate_notification()
+    
     if character_sub_annotators.find(annotator_type) >= 0:
         for character_annotator in character_annotators.values():
             character_annotator.set_annotator_enabled(
@@ -198,3 +208,13 @@ func _destroy_annotator(annotator_type: int) -> void:
 
 func add_transient(annotator: TransientAnnotator) -> void:
     transient_annotator_registry.add(annotator)
+
+
+func _show_reduced_frame_rate_notification() -> void:
+    _throttled_frame_rate_notification.call_func()
+
+
+func _show_reduced_frame_rate_notification_throttled() -> void:
+    var toast_data := NotificationData.new(
+            "Frame rates are reduced\nwhen showing annotations.")
+    Sc.notify.show_toast(toast_data)
