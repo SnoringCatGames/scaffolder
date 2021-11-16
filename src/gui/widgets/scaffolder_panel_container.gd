@@ -36,8 +36,7 @@ func _exit_tree() -> void:
 
 
 func _clear_style() -> void:
-    if is_instance_valid(_stylebox) and \
-            is_unique:
+    if is_instance_valid(_stylebox):
         _stylebox._destroy()
 
 
@@ -68,7 +67,7 @@ func _set_style(value: int) -> void:
     
     if is_instance_valid(_stylebox):
         if is_unique:
-            _stylebox = Sc.styles.create_stylebox_scalable(_stylebox)
+            _stylebox = Sc.styles.create_stylebox_scalable(_stylebox, true)
     
     add_stylebox_override("panel", _stylebox)
 

@@ -21,6 +21,8 @@ var initial_corner_radius: int
 var initial_shadow_offset: Vector2
 var initial_shadow_size: int
 
+var has_local_lifecycle := true
+
 
 func ready() -> void:
     initial_border_width = border_width_top
@@ -45,7 +47,8 @@ func ready() -> void:
 
 
 func _destroy() -> void:
-    Sc.gui.remove_gui_to_scale(self)
+    if has_local_lifecycle:
+        Sc.gui.remove_gui_to_scale(self)
 
 
 func _on_gui_scale_changed() -> bool:

@@ -52,7 +52,7 @@ func _init_children() -> void:
         shadow_size = Sc.styles.dropdown_shadow_size,
         border_width = Sc.styles.dropdown_border_width,
         border_color = Sc.colors.dropdown_border,
-    })
+    }, true)
     add_stylebox_override("panel", header_stylebox)
     
     hint_stylebox = Sc.styles.create_stylebox_scalable({
@@ -62,7 +62,7 @@ func _init_children() -> void:
         shadow_size = Sc.styles.dropdown_shadow_size,
         border_width = Sc.styles.dropdown_border_width,
         border_color = Sc.colors.dropdown_border,
-    })
+    }, true)
     $HintWrapper.add_stylebox_override("panel", hint_stylebox)
 
 

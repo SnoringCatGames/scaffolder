@@ -1,54 +1,41 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_button.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/notifications/notification_panel.gd" type="Script" id=5]
-[ext_resource path="res://addons/scaffolder/src/gui/style_box_texture_scalable.gd" type="Script" id=9]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/nine_patch/overlay_panel.png" type="Texture" id=16]
+[ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_xs.tres" type="DynamicFont" id=7]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/icons/close_normal.png" type="Texture" id=23]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/icons/close_pressed.png" type="Texture" id=24]
 [ext_resource path="res://addons/scaffolder/assets/images/gui/icons/close_hover.png" type="Texture" id=25]
-
-[sub_resource type="StyleBoxTexture" id=37]
-content_margin_left = 12.0
-content_margin_right = 12.0
-content_margin_top = 12.0
-content_margin_bottom = 12.0
-texture = ExtResource( 16 )
-region_rect = Rect2( 0, 0, 7, 7 )
-margin_left = 3.5
-margin_right = 3.5
-margin_top = 3.5
-margin_bottom = 3.5
-script = ExtResource( 9 )
 
 [node name="NotificationPanel" type="PanelContainer"]
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1850.5
-margin_top = 1935.0
-margin_right = 965.5
+margin_left = 1841.0
+margin_top = 1920.0
+margin_right = 975.0
 margin_bottom = 1251.0
 mouse_filter = 2
-custom_styles/panel = SubResource( 37 )
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false,
 "sc_rect_size": Vector2( 141, 82 )
 }
 style = 2
+is_unique = true
 content_margin_left_override = 12
 content_margin_top_override = 12
 content_margin_right_override = 12
 content_margin_bottom_override = 12
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 12.0
-margin_top = 12.0
-margin_right = 127.0
-margin_bottom = 72.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 151.0
+margin_bottom = 92.0
 mouse_filter = 2
 custom_constants/separation = 0
 __meta__ = {
@@ -58,7 +45,7 @@ __meta__ = {
 }
 
 [node name="HeaderWithCloseButton" type="HBoxContainer" parent="VBoxContainer"]
-margin_right = 115.0
+margin_right = 144.0
 margin_bottom = 24.0
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -81,17 +68,17 @@ size = Vector2( 24, 0 )
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 28.0
-margin_top = 5.0
-margin_right = 87.0
-margin_bottom = 19.0
+margin_right = 116.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 4 )
 font_size = "S"
 
 [node name="ScaffolderTextureButton" parent="VBoxContainer/HeaderWithCloseButton" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 91.0
-margin_right = 115.0
+margin_left = 120.0
+margin_right = 144.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
 texture_normal = ExtResource( 23 )
@@ -103,27 +90,29 @@ size_override = Vector2( 24, 24 )
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 24.0
-margin_right = 115.0
-margin_bottom = 38.0
+margin_right = 144.0
+margin_bottom = 47.0
+custom_fonts/font = ExtResource( 4 )
 text = "Header text"
 font_size = "S"
 
 [node name="Spacer" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 57.0
-margin_top = 38.0
-margin_right = 57.0
-margin_bottom = 46.0
+margin_left = 72.0
+margin_top = 47.0
+margin_right = 72.0
+margin_bottom = 55.0
 rect_min_size = Vector2( 0, 8 )
 size = Vector2( 0, 8 )
 
 [node name="Body" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 46.0
-margin_right = 115.0
-margin_bottom = 60.0
+margin_top = 55.0
+margin_right = 144.0
+margin_bottom = 75.0
+custom_fonts/font = ExtResource( 7 )
 text = "Foo bar body text!"
 font_size = "Xs"
 
