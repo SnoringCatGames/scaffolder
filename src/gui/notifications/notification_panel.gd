@@ -17,12 +17,7 @@ func _init() -> void:
 
 
 func _ready() -> void:
-    Sc.gui.record_gui_original_size_recursively(self)
-    
-    theme = Sc.gui.theme
-    
     Sc.gui.add_gui_to_scale(self)
-    
     _on_gui_scale_changed()
 
 
