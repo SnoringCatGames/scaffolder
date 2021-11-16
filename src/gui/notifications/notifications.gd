@@ -6,6 +6,8 @@ extends Node
 const _NOTIFICATION_PANEL_SCENE := \
         preload("res://addons/scaffolder/src/gui/notifications/notification_panel.tscn")
 
+const CLOSED_WITH_TAP_ANYWHERE_MIN_DELAY := 0.3
+
 var duration_short_sec := 1.8
 var duration_long_sec := 4.0
 
@@ -23,7 +25,7 @@ var opacity := 0.9
 
 var slide_in_displacement := Vector2(0.0, -67.0)
 
-var _active_panel: NotificationPanel
+var _active_panel: Control
 
 # Array<NotificationPanel>
 var _queue := []
@@ -71,6 +73,11 @@ func show_toast(data: NotificationData) -> void:
     if _queue.size() == 1:
         _active_panel = panel
         _active_panel.open()
+
+
+func close_toast() -> void:
+    if is_instance_valid(_active_panel):
+        _active_panel.close()
 
 
 func get_panel_size(type: int) -> Vector2:
