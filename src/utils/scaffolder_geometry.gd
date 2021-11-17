@@ -249,7 +249,7 @@ static func get_intersection_of_segment_and_circle(
     var discriminant := b * b - 4.0 * a * c
     
     if discriminant < 0:
-        # The colinear line of the segment does not intersect the circle.
+        # The collinear line of the segment does not intersect the circle.
         return Vector2.INF
         
     else:
@@ -273,7 +273,7 @@ static func get_intersection_of_segment_and_circle(
             if is_t1_intersecting:
                 return segment_a + t1 * d
         
-        # The colinear line intersects the circle, but the segment does not.
+        # The collinear line intersects the circle, but the segment does not.
         return Vector2.INF
 
 
@@ -643,11 +643,8 @@ static func do_point_and_segment_intersect(
         segment_a: Vector2,
         segment_b: Vector2,
         epsilon := FLOAT_EPSILON) -> bool:
-    return are_points_collinear(
-            point,
-            segment_a,
-            segment_b,
-            epsilon) and \
+    return abs((segment_a.x - point.x) * (segment_b.y - point.y) - \
+            (segment_b.x - point.x) * (segment_a.y - point.y)) < epsilon and \
             ((point.x <= segment_a.x + epsilon and \
                 point.x >= segment_b.x - epsilon) or \
             (point.x >= segment_a.x - epsilon and \
@@ -700,8 +697,7 @@ static func distance_squared_from_point_to_rect(
 static func world_to_tile_map(
         position: Vector2,
         tile_map: TileMap) -> Vector2:
-    var cell_size_world_coord := tile_map.cell_size
-    var position_map_coord := position / cell_size_world_coord
+    var position_map_coord := position / tile_map.cell_size
     position_map_coord = Vector2(
             floor(position_map_coord.x),
             floor(position_map_coord.y))
@@ -733,11 +729,12 @@ static func get_grid_coord_from_tile_map_index(
         index: int,
         tile_map: TileMap) -> Vector2:
     var used_rect := tile_map.get_used_rect()
-    var tile_map_start := used_rect.position
+    var tile_map_grid_offset := used_rect.position / tile_map.cell_size
     var tile_map_width: int = used_rect.size.x
     var tile_map_position_x := index % tile_map_width
     var tile_map_position_y := int(index / tile_map_width)
-    return Vector2(tile_map_position_x, tile_map_position_y)
+    return Vector2(tile_map_position_x, tile_map_position_y) + \
+            tile_map_grid_offset
 
 
 static func get_tile_map_bounds_in_world_coordinates(
