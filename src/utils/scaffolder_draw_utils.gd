@@ -22,7 +22,7 @@ func _init() -> void:
 # will be a small gap between the "adjacent" start and end segments.
 # 
 # We can close this gap by ensuring that the first and last segments are
-# colinear. We can make the first and last segments colinear by introducing
+# collinear. We can make the first and last segments collinear by introducing
 # additional vertices that are just slightly offset from the original ends.
 func draw_closed_polyline(
         canvas: CanvasItem,
@@ -721,7 +721,7 @@ func draw_circle_outline(
             sector_arc_length)
     
     # Even though the points ended and began at the same position, Godot would
-    # render a gap, because the "adjacent" segments aren't colinear, and thus
+    # render a gap, because the "adjacent" segments aren't collinear, and thus
     # their end caps don't align. We introduce two vertices, at very slight
     # offsets, so that we can force the end caps to line up.
     points.insert(0, points[0])
