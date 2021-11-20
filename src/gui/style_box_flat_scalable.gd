@@ -84,4 +84,4 @@ func _on_gui_scale_changed() -> bool:
 
 
 func duplicate(subresources := false) -> Resource:
-    return Sc.styles._create_stylebox_flat_scalable_from_stylebox(self)
+    return Sc.styles._create_stylebox_flat_scalable_from_stylebox(self, has_local_lifecycle)
