@@ -305,6 +305,57 @@ static func is_point_in_triangle(
     return u >= 0 and v >= 0 and u + v < 1
 
 
+static func do_rectangles_intersect(
+        a_min: Vector2,
+        a_max: Vector2,
+        b_min: Vector2,
+        b_max: Vector2) -> bool:
+    return a_min.x <= b_max.x and \
+            a_min.y <= b_max.y and \
+            a_max.x >= b_min.x and \
+            a_max.y >= b_min.y
+
+
+static func do_segment_and_rectangle_intersect(
+        segment_a: Vector2,
+        segment_b: Vector2,
+        rectangle_min: Vector2,
+        rectangle_max: Vector2) -> bool:
+    # First, check line intersection.
+    var is_segment_left_of_corner_1 := \
+            (segment_b.y - segment_a.y) * rectangle_min.x + \
+            (segment_a.x - segment_b.x) * rectangle_min.y + \
+            (segment_b.x * segment_a.y - segment_a.x * segment_b.y)
+    var is_segment_left_of_corner_2 := \
+            (segment_b.y - segment_a.y) * rectangle_max.x + \
+            (segment_a.x - segment_b.x) * rectangle_min.y + \
+            (segment_b.x * segment_a.y - segment_a.x * segment_b.y)
+    var is_segment_left_of_corner_3 := \
+            (segment_b.y - segment_a.y) * rectangle_max.x + \
+            (segment_a.x - segment_b.x) * rectangle_max.y + \
+            (segment_b.x * segment_a.y - segment_a.x * segment_b.y)
+    var is_segment_left_of_corner_4 := \
+            (segment_b.y - segment_a.y) * rectangle_min.x + \
+            (segment_a.x - segment_b.x) * rectangle_max.y + \
+            (segment_b.x * segment_a.y - segment_a.x * segment_b.y)
+    if (is_segment_left_of_corner_1 == is_segment_left_of_corner_2) and \
+            (is_segment_left_of_corner_1 == is_segment_left_of_corner_3) and \
+            (is_segment_left_of_corner_1 == is_segment_left_of_corner_4):
+        # If all rectangle corners are on the same side of the line, then there
+        # is no intersection.
+        return false
+    
+    # Second, check line-segment projection.
+    return (segment_a.x <= rectangle_max.x or \
+                segment_b.x <= rectangle_max.x) and \
+            (segment_a.x >= rectangle_min.x or \
+                segment_b.x >= rectangle_min.x) and \
+            (segment_a.y <= rectangle_max.y or \
+                segment_b.y <= rectangle_max.y) and \
+            (segment_a.y >= rectangle_min.y or \
+                segment_b.y >= rectangle_min.y)
+
+
 static func do_segment_and_triangle_intersect(
         segment_a: Vector2,
         segment_b: Vector2,
@@ -388,6 +439,20 @@ static func do_segment_and_polygon_intersect(
     # Possible point of intersection 2: segment_a + t_leaving * segment_diff
     
     return true
+
+
+static func do_polyline_and_rectangle_intersect(
+        vertices: Array,
+        rectangle_min: Vector2,
+        rectangle_max: Vector2) -> bool:
+    for i in vertices.size() - 1:
+        if do_segment_and_rectangle_intersect(
+                vertices[i],
+                vertices[i + 1],
+                rectangle_min,
+                rectangle_max):
+            return true
+    return false
 
 
 static func do_polyline_and_triangle_intersect(
