@@ -39,7 +39,11 @@ func _process(_delta: float) -> void:
 
 
 func _draw() -> void:
-    var grid_spacing: Vector2 = Sc.gui.cell_size / previous_camera_zoom
+    if !is_instance_valid(Sc.level):
+        return
+    
+    var grid_spacing: Vector2 = \
+            Sc.level_session.config.cell_size / previous_camera_zoom
     var screen_start_position: Vector2 = \
             previous_camera_position / previous_camera_zoom - \
             viewport_size / 2.0

@@ -6,6 +6,8 @@ extends Node2D
 
 const MIN_CONTROLS_DISPLAY_TIME := 0.5
 
+export var level_id := "" setget _set_level_id
+
 # Dictionary<String, Array<SpawnPosition>>
 var spawn_positions := {}
 
@@ -25,6 +27,7 @@ var _configuration_warning := ""
 
 func _enter_tree() -> void:
     session = Sc.level_session
+    _update_session_in_editor()
 
 
 func _ready() -> void:
@@ -258,6 +261,16 @@ func _update_editor_configuration() -> void:
                 "Subclasses of ScaffolderLevel must be marked as tool.")
         return
     
+    if level_id == "":
+        _set_configuration_warning("Level ID must be defined.")
+        return
+    
+    if !Sc.level_config._level_configs_by_id.has(level_id):
+        _set_configuration_warning(
+                "Level ID must match a value configured in your " +
+                "LevelConfiguration file.")
+        return
+    
     if spawn_positions.has(Sc.characters.default_character_name) and \
             spawn_positions[Sc.characters.default_character_name].size() > 1:
         _set_configuration_warning(
@@ -406,3 +419,25 @@ func _set_non_player_camera() -> void:
     add_child(camera)
     # Register the current camera, so it's globally accessible.
     Sc.camera_controller.set_current_camera(camera, null)
+
+
+func _update_session_in_editor() -> void:
+    if !Engine.editor_hint:
+        return
+    
+    Sc.level_session.reset(level_id)
+    
+    var tile_maps: Array = Sc.utils.get_children_by_type(self, TileMap)
+    Sc.level_session.config.cell_size = \
+            Vector2.INF if \
+            tile_maps.empty() else \
+            tile_maps[0].cell_size
+
+
+func _set_level_id(value: String) -> void:
+    level_id = value
+    if !Engine.editor_hint and \
+            !Su.is_precomputing_platform_graphs:
+        assert(Sc.level_session.id == level_id)
+    _update_editor_configuration()
+    _update_session_in_editor()

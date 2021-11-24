@@ -95,6 +95,7 @@ func _sanitize_level_config(config: Dictionary) -> void:
             !are_levels_scene_based and \
             config.has("script_class") and \
             !config.has("scene_path"))
+    assert(config.has("cell_size") and config.cell_size is Vector2)
 
 
 func get_level_config(level_id: String) -> Dictionary:
