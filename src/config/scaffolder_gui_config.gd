@@ -146,8 +146,6 @@ var DEFAULT_SCAFFOLDER_LEVEL_SELECT_ITEM_MANIFEST := [
 
 # --- Static configuration state ---
 
-var cell_size: Vector2
-
 var default_pc_game_area_size: Vector2
 var default_mobile_game_area_size: Vector2
 
@@ -306,7 +304,6 @@ func register_manifest(manifest: Dictionary) -> void:
     else:
         self.theme = manifest.theme
     
-    self.cell_size = manifest.cell_size
     self.default_pc_game_area_size = manifest.default_pc_game_area_size
     self.default_mobile_game_area_size = manifest.default_mobile_game_area_size
     self.aspect_ratio_max = manifest.aspect_ratio_max
