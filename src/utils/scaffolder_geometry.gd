@@ -233,7 +233,7 @@ static func get_intersection_of_segment_and_polyline(
 
 # -   If the two don't intersect, this returns a Vector2 with values of
 #     INFINITY.
-# -   If there are two intersections, this returns the closent point to
+# -   If there are two intersections, this returns the closest point to
 #     segment_a.
 static func get_intersection_of_segment_and_circle(
         segment_a: Vector2,
