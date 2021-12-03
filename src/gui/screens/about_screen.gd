@@ -8,11 +8,14 @@ const GODOT_URL := "https://godotengine.org"
 
 func _ready() -> void:
     var title_logo := $VBoxContainer/Title
-    var developer_logo_link := $VBoxContainer/VBoxContainer4/DeveloperLogoLink
-    var developer_name_link := $VBoxContainer/VBoxContainer4/DeveloperNameLink
-    var developer_url_link := $VBoxContainer/VBoxContainer4/DeveloperUrlLink
-    var godot_logo_link := $VBoxContainer/VBoxContainer3/GodotLogoLink
-    var godot_text_link := $VBoxContainer/VBoxContainer3/GodotTextLink
+    var developer_logo_link := $VBoxContainer/DeveloperSection/DeveloperLogoLink
+    var developer_name_link := $VBoxContainer/DeveloperSection/DeveloperNameLink
+    var developer_url_link := $VBoxContainer/DeveloperSection/DeveloperUrlLink
+    var godot_logo_link := $VBoxContainer/GodotSection/GodotLogoLink
+    var godot_text_link := $VBoxContainer/GodotSection/GodotTextLink
+    var github_section := $VBoxContainer/GithubSection
+    var github_logo_link := $VBoxContainer/GithubSection/GithubLogoLink
+    var github_text_link := $VBoxContainer/GithubSection/GithubTextLink
     var terms_and_conditions_link := \
             $VBoxContainer/VBoxContainer2/TermsAndConditionsLink
     var privacy_policy_link := $VBoxContainer/VBoxContainer2/PrivacyPolicyLink
@@ -31,6 +34,10 @@ func _ready() -> void:
     
     godot_logo_link.url = GODOT_URL
     godot_text_link.url = GODOT_URL
+    
+    github_section.visible = Sc.metadata.github_url != ""
+    github_logo_link.url = Sc.metadata.github_url
+    github_text_link.url = Sc.metadata.github_url
     
     terms_and_conditions_link.url = Sc.metadata.terms_and_conditions_url
     privacy_policy_link.url = Sc.metadata.privacy_policy_url
