@@ -21,6 +21,9 @@ const GODOT_LOGO_PATH := \
 const GODOT_SPLASH_PATH := \
         "res://addons/scaffolder/assets/images/logos/godot_logo_splash.png"
 
+const GITHUB_LOGO_PATH := \
+        "res://addons/scaffolder/assets/images/logos/github_logo_about.png"
+
 const ABOUT_CIRCLE_PRESSED_PATH := \
         "res://addons/scaffolder/assets/images/gui/icons/about_circle_pressed.png"
 const ABOUT_CIRCLE_HOVER_PATH := \
@@ -147,6 +150,8 @@ var developer_splash: Texture
 
 var godot_logo := preload(GODOT_LOGO_PATH)
 var godot_splash := preload(GODOT_SPLASH_PATH)
+
+var github_logo := preload(GITHUB_LOGO_PATH)
 
 var go_normal: Texture
 var go_scale := 1.0

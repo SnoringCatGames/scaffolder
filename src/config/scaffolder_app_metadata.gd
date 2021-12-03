@@ -47,6 +47,7 @@ var must_restart_level_to_change_settings: bool
 
 var developer_name: String
 var developer_url: String
+var github_url: String
 
 var godot_splash_screen_duration := 0.8
 var developer_splash_screen_duration := 1.0
@@ -138,6 +139,7 @@ func register_manifest(manifest: Dictionary) -> void:
     
     self.developer_name = manifest.developer_name
     self.developer_url = manifest.developer_url
+    self.github_url = manifest.github_url
     if manifest.has("godot_splash_screen_duration"):
         self.godot_splash_screen_duration = \
                 manifest.godot_splash_screen_duration
