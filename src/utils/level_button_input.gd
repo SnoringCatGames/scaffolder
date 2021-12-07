@@ -16,6 +16,8 @@ func _init() -> void:
 
 
 func _process(_delta: float) -> void:
+    if Engine.editor_hint:
+        return
     var next_focused_control := _control.get_focus_owner()
     if _focused_control != next_focused_control:
         _focused_control = next_focused_control
