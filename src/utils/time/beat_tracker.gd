@@ -22,6 +22,8 @@ func _init() -> void:
 
 
 func _process(_delta: float) -> void:
+    if Engine.editor_hint:
+        return
     if is_tracking_beat and \
             Sc.audio.get_is_music_playing():
         _update_music_beat_state()
