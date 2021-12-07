@@ -106,6 +106,7 @@ const _PROPERTY_GROUPS := [
     _LOGS_GROUP,
 ]
 
+var category: ScaffolderCharacterCategory
 var is_player_character := false
 var _is_ready := false
 var _is_destroyed := false
@@ -660,6 +661,7 @@ func _disable_layer(
 func _set_character_name(value: String) -> void:
     character_name = value
     _resized_character_name = Sc.utils.resize_string(character_name, 8, false)
+    category = Sc.characters.get_category_for_character(character_name)
 
 
 func _get_navigation_annotation_color() -> Color:

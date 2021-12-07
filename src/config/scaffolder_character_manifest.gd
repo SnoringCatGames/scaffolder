@@ -9,6 +9,9 @@ const GROUP_NAME_SURFACER_CHARACTERS := "surfacer_characters"
 
 var default_character_name: String
 
+# Dictionary<String, ScaffolderCharacterCategory>
+var categories := {}
+
 var omits_npcs := false
 
 # Dictionary<String, PackedScene>
@@ -16,6 +19,9 @@ var character_scenes := {}
 
 # Array<PackedScene>
 var _character_scenes_list: Array
+
+# Dictionary<String, ScaffolderCharacterCategory>
+var _character_name_to_category: Dictionary
 
 
 func register_manifest(manifest: Dictionary) -> void:
@@ -25,6 +31,8 @@ func register_manifest(manifest: Dictionary) -> void:
         self.omits_npcs = manifest.omits_npcs
     
     _parse_character_scenes(self._character_scenes_list)
+    _parse_character_categories(manifest.character_categories)
+    _map_characters_to_categories()
 
 
 func _parse_character_scenes(scenes_array: Array) -> void:
@@ -43,8 +51,33 @@ func _parse_character_scenes(scenes_array: Array) -> void:
         Sc.characters.character_scenes[character_name] = scene
 
 
+func _parse_character_categories(categories_config: Array) -> void:
+    for category_config in categories_config:
+        assert(category_config.has("name"))
+        assert(category_config.has("characters"))
+        
+        var category := ScaffolderCharacterCategory.new()
+        category.name = category_config.name
+        category.characters = category_config.characters
+        categories[category_config.name] = category
+
+
+func _map_characters_to_categories() -> void:
+    for category_name in categories:
+        var category: ScaffolderCharacterCategory = categories[category_name]
+        for character_name in category.characters:
+            _character_name_to_category[character_name] = category
+
+
 func get_player_character() -> ScaffolderCharacter:
     return Sc.level.player_character if \
             is_instance_valid(Sc.level) and \
                     is_instance_valid(Sc.level.player_character) else \
+            null
+
+
+func get_category_for_character(
+        character_name: String) -> ScaffolderCharacterCategory:
+    return _character_name_to_category[character_name] if \
+            _character_name_to_category.has(character_name) else \
             null

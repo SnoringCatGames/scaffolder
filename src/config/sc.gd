@@ -168,8 +168,8 @@ func _instantiate_sub_modules() -> void:
         self.gui = ScaffolderGuiConfig.new()
     add_child(self.gui)
     
-    if _manifest.has("json_utils_class"):
-        self.json = _manifest.json_utils_class.new()
+    if _manifest.has("json_class"):
+        self.json = _manifest.json_class.new()
         assert(self.json is JsonUtils)
     else:
         self.json = JsonUtils.new()
@@ -217,15 +217,15 @@ func _instantiate_sub_modules() -> void:
         self.geometry = ScaffolderGeometry.new()
     add_child(self.geometry)
     
-    if _manifest.has("draw_utils_class"):
-        self.draw = _manifest.draw_utils_class.new()
+    if _manifest.has("draw_class"):
+        self.draw = _manifest.draw_class.new()
         assert(self.draw is ScaffolderDrawUtils)
     else:
         self.draw = ScaffolderDrawUtils.new()
     add_child(self.draw)
     
-    if _manifest.has("notify_utils_class"):
-        self.notify = _manifest.notify_utils_class.new()
+    if _manifest.has("notify_class"):
+        self.notify = _manifest.notify_class.new()
         assert(self.notify is Notifications)
     else:
         self.notify = Notifications.new()
@@ -252,8 +252,8 @@ func _instantiate_sub_modules() -> void:
         self.slow_motion = SlowMotionController.new()
     add_child(self.slow_motion)
     
-    if _manifest.has("beat_tracker_class"):
-        self.beats = _manifest.beat_tracker_class.new()
+    if _manifest.has("beats_class"):
+        self.beats = _manifest.beats_class.new()
         assert(self.beats is BeatTracker)
     else:
         self.beats = BeatTracker.new()
@@ -280,8 +280,8 @@ func _instantiate_sub_modules() -> void:
         self.project_settings = ScaffolderProjectSettings.new()
     add_child(self.project_settings)
     
-    if _manifest.has("character_manifest_class"):
-        self.characters = _manifest.character_manifest_class.new()
+    if _manifest.has("characters_class"):
+        self.characters = _manifest.characters_class.new()
         assert(self.characters is ScaffolderCharacterManifest)
     else:
         self.characters = ScaffolderCharacterManifest.new()
