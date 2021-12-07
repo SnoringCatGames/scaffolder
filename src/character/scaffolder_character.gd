@@ -226,6 +226,11 @@ func _update_editor_configuration_debounced() -> void:
     if character_name == "":
         _set_configuration_warning("Must define character_name.")
         return
+    elif Sc.characters.categories.has(character_name):
+        _set_configuration_warning(
+                "There is already a character category registered in the " + \
+                "app manifest with this character_name.")
+        return
     
     # Get AnimationPlayer from scene configuration.
     if !is_instance_valid(animator):
@@ -662,6 +667,7 @@ func _set_character_name(value: String) -> void:
     character_name = value
     _resized_character_name = Sc.utils.resize_string(character_name, 8, false)
     category = Sc.characters.get_category_for_character(character_name)
+    _update_editor_configuration()
 
 
 func _get_navigation_annotation_color() -> Color:
