@@ -867,3 +867,11 @@ static func calculate_manhattan_distance(
         a: Vector2,
         b: Vector2) -> float:
     return abs(b.x - a.x) + abs(b.y - a.y)
+
+
+static func is_point_inf(point: Vector2) -> bool:
+    return is_inf(point.x) and is_inf(point.y)
+
+
+static func is_point_partial_inf(point: Vector2) -> bool:
+    return is_inf(point.x) or is_inf(point.y)
