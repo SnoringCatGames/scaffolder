@@ -17,6 +17,8 @@ Probably the easiest way to get set up is to copy the [Squirrel Away example app
 -   `Sc.run(app_manifest)`
     -   Configure the Scaffolder framework by calling `Sc.run(app_manifest)` as early as possible in your application.
 
+> **NOTE:** _If you are installing this with the in-editor AssetLib utility, you will need to move the files into `addons/scaffolder/` afterward!_
+
 ## Do not instantiate anything before Scaffolder
 
 > NOTE: This is important for Scaffolder's automatic crash reporting system to work correctly. If you don't care about crash reporting, then, yolo, do whatever you want!
