@@ -48,7 +48,7 @@ func _load_level() -> void:
     
     Sc.save_state.set_last_level_played(level_id)
     
-    var level: SurfacerLevel = Sc.utils.add_scene(
+    var level: ScaffolderLevel = Sc.utils.add_scene(
             null,
             Sc.level_config.get_level_config(level_id).scene_path,
             false,
