@@ -67,7 +67,6 @@ var DEFAULT_WELCOME_PANEL_MANIFEST := {
         ["Inspect graph", "ctrl + click (x2)"],
         ["Walk/Climb", "arrow key / wasd"],
         ["Jump", "space / x"],
-        ["Grab surface", "c"],
         ["Dash", "z"],
         ["Zoom in/out", "ctrl + =/-"],
         ["Pan", "ctrl + arrow key"],

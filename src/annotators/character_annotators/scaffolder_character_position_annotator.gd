@@ -30,7 +30,7 @@ func _draw() -> void:
 
 func _draw_character_position() -> void:
     draw_circle(
-            character.surface_state.center_position,
+            character.position,
             Sc.ann_params.character_position_radius,
             position_color)
 
@@ -38,7 +38,7 @@ func _draw_character_position() -> void:
 func _draw_collider_outline() -> void:
     Sc.draw.draw_shape_outline(
             self,
-            character.surface_state.center_position,
+            character.position,
             character.collider,
             collider_color,
             Sc.ann_params.character_collider_thickness)
