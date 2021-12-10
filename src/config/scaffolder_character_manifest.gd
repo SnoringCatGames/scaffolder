@@ -5,7 +5,7 @@ extends Node
 
 const GROUP_NAME_PLAYERS := "players"
 const GROUP_NAME_NPCS := "npcs"
-const GROUP_NAME_SURFACER_CHARACTERS := "surfacer_characters"
+const GROUP_NAME_CHARACTERS := "characters"
 
 var default_character_name: String
 

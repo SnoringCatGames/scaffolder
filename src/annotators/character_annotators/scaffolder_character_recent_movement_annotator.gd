@@ -2,7 +2,7 @@ class_name ScaffolderCharacterRecentMovementAnnotator
 extends Node2D
 
 
-var character: SurfacerCharacter
+var character: ScaffolderCharacter
 
 var movement_color_base: Color
 
@@ -17,7 +17,7 @@ var current_position_index := -1
 var total_position_count := 0
 
 
-func _init(character: SurfacerCharacter) -> void:
+func _init(character: ScaffolderCharacter) -> void:
     self.character = character
     self.movement_color_base = character.navigation_annotation_color
     self.recent_positions = PoolVector2Array()
@@ -53,8 +53,7 @@ func check_for_update() -> void:
             Sc.ann_params.recent_positions_buffer_size
     
     # Record the new position for the current frame.
-    recent_positions[current_position_index] = \
-            character.surface_state.center_position
+    recent_positions[current_position_index] = character.position
     # Record an empty place-holder beat value for the current frame.
     recent_beats[current_position_index] = -1
     
