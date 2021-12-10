@@ -73,7 +73,8 @@ func stop_with_optional_metadata(
         thread_id := DEFAULT_THREAD_ID,
         records_profile_or_metadata_container = null) -> float:
     if records_profile_or_metadata_container != null:
-        if records_profile_or_metadata_container.timings != null:
+        if records_profile_or_metadata_container is Object and \
+                records_profile_or_metadata_container.timings != null:
             return stop(
                     metric,
                     thread_id,
