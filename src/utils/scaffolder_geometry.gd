@@ -418,7 +418,7 @@ static func do_segment_and_polygon_intersect(
         var d := polygon_segment.y * segment_diff.x - \
                 polygon_segment.x * segment_diff.y
         
-        if abs(d) < Sc.geometry.FLOAT_EPSILON:
+        if abs(d) < FLOAT_EPSILON:
             if n < 0:
                 return false
             else:
@@ -543,7 +543,7 @@ static func is_float_integer_aligned_with_epsilon(
 static func snap_float_to_integer(
         number: float,
         epsilon := FLOAT_EPSILON) -> float:
-    if Sc.geometry.is_float_integer_aligned_with_epsilon(number, epsilon):
+    if is_float_integer_aligned_with_epsilon(number, epsilon):
         return round(number)
     else:
         return number
