@@ -428,8 +428,7 @@ func _update_session_in_editor() -> void:
 
 func _set_level_id(value: String) -> void:
     level_id = value
-    if !Engine.editor_hint and \
-            !Su.is_precomputing_platform_graphs:
+    if !Engine.editor_hint:
         assert(Sc.level_session.id == level_id)
     _update_editor_configuration()
     _update_session_in_editor()
