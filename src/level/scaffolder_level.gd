@@ -8,10 +8,10 @@ const MIN_CONTROLS_DISPLAY_TIME := 0.5
 
 export var level_id := "" setget _set_level_id
 
-# Dictionary<String, Array<SpawnPosition>>
+# Dictionary<String, Array<ScaffolderSpawnPosition>>
 var spawn_positions := {}
 
-# Array<SpawnPosition>
+# Array<ScaffolderSpawnPosition>
 var exclusive_spawn_positions := []
 
 # Dictionary<String, Array<ScaffolderCharacter>>
@@ -79,18 +79,7 @@ func _add_player_character() -> bool:
         # There is no player character configured.
         return false
     
-    # If no spawn position was defined for the default character, then start
-    # them at 0,0. 
-    if !spawn_positions.has(Sc.characters.default_character_name):
-        var spawn_position := SpawnPosition.new()
-        spawn_position.character_name = Sc.characters.default_character_name
-        spawn_position.position = Vector2.ZERO
-        spawn_position.surface_attachment = "NONE"
-        register_spawn_position(
-                Sc.characters.default_character_name, spawn_position)
-    
-    var spawn_position: SpawnPosition = \
-            spawn_positions[Sc.characters.default_character_name][0]
+    var spawn_position := _get_default_character_spawn_position()
     
     # TODO: Update the rest of the app to support running with no player
     #       character.
@@ -106,6 +95,18 @@ func _add_player_character() -> bool:
             true)
     
     return true
+
+
+func _get_default_character_spawn_position() -> ScaffolderSpawnPosition:
+    # If no spawn position was defined for the default character, then start
+    # them at 0,0. 
+    if !spawn_positions.has(Sc.characters.default_character_name):
+        var spawn_position := ScaffolderSpawnPosition.new()
+        spawn_position.character_name = Sc.characters.default_character_name
+        spawn_position.position = Vector2.ZERO
+        register_spawn_position(
+                Sc.characters.default_character_name, spawn_position)
+    return spawn_positions[Sc.characters.default_character_name][0]
 
 
 func _add_npcs() -> void:
@@ -202,22 +203,7 @@ func add_character(
             true)
     character.position = position
     
-    if position_or_spawn_position is SpawnPosition:
-        character.set_start_attachment_surface_side_or_position(
-                position_or_spawn_position.surface_side)
-        
-        # Move any projected Behaviors into the Character.
-        var projected_behaviors: Array = Sc.utils.get_children_by_type(
-                position_or_spawn_position,
-                Behavior,
-                false)
-        for behavior in projected_behaviors:
-            position_or_spawn_position.remove_child(behavior)
-            character.add_child(behavior)
-    else:
-        # Default to floor attachment.
-        character.set_start_attachment_surface_side_or_position(
-                SurfaceSide.FLOOR)
+    _update_character_spawn_state(character, position_or_spawn_position)
     
     if !characters.has(character.character_name):
         characters[character.character_name] = []
@@ -233,6 +219,12 @@ func add_character(
     return character
 
 
+func _update_character_spawn_state(
+        character: ScaffolderCharacter,
+        position_or_spawn_position) -> void:
+    pass
+
+
 func remove_character(character: ScaffolderCharacter) -> void:
     characters[character.character_name].erase(character)
     Sc.annotators.destroy_character_annotator(character)
@@ -241,7 +233,7 @@ func remove_character(character: ScaffolderCharacter) -> void:
 
 func register_spawn_position(
         character_name: String,
-        spawn_position: SpawnPosition) -> void:
+        spawn_position: ScaffolderSpawnPosition) -> void:
     assert(character_name != "")
     if !spawn_positions.has(character_name):
         spawn_positions[character_name] = []
