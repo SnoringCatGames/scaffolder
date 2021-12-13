@@ -48,7 +48,7 @@ func _draw() -> void:
             if is_instance_valid(legend_item):
                 legend_items[legend_item.type] = legend_item
     
-    if is_instance_valid(Su.legend):
-        Su.legend.clear()
+    if is_instance_valid(Sc.legend):
+        Sc.legend.clear()
         for legend_item_type in legend_items:
-            Su.legend.add(legend_items[legend_item_type])
+            Sc.legend.add(legend_items[legend_item_type])
