@@ -47,6 +47,7 @@ var ann_params: ScaffolderAnnotationParameters
 var level_config: ScaffolderLevelConfig
 var level: ScaffolderLevel
 var level_session: ScaffolderLevelSession
+var legend: Legend
 
 var nav: ScreenNavigator
 var analytics: Analytics
