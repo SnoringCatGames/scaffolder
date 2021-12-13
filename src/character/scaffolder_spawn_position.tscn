@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/scaffolder/src/character/scaffolder_spawn_position.gd" type="Script" id=1]
+
+[node name="ScaffolderSpawnPosition" type="Position2D"]
+self_modulate = Color( 1, 1, 1, 0.4 )
+script = ExtResource( 1 )
