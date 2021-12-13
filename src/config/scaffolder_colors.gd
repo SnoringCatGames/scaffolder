@@ -73,6 +73,9 @@ var screen_border: Color
 
 var shadow: Color
 
+var click: Color
+var ruler: Color
+
 # --- Optionally, you can configure some colors as relative to others. ---
 
 var button_disabled_hsv_delta: Dictionary
@@ -144,6 +147,8 @@ var _defaults := {
     header_panel_background = Color("282828"),
     screen_border = Color("404040"),
     shadow = Color("88000000"),
+    click = static_opacify(Color.white, ALPHA_SLIGHTLY_FAINT),
+    ruler = Color.white,
 }
 
 # ---
