@@ -423,12 +423,6 @@ func _show_exclamation_mark_throttled() -> void:
             exclamation_mark_duration))
 
 
-func set_start_attachment_surface_side_or_position(
-        surface_side_or_position) -> void:
-    if surface_side_or_position != SurfaceSide.NONE:
-        Sc.logger.error("Only SurfacerCharacters can have surface attachment.")
-
-
 func set_is_sprite_visible(is_visible: bool) -> void:
     animator.visible = is_visible
 
