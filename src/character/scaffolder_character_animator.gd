@@ -277,36 +277,33 @@ func set_modulation(modulation: Color) -> void:
 func _play_animation(
         standard_name: String,
         blend := 0.1) -> bool:
-    var specific_name := \
-            _standand_animation_name_to_specific_animation_name(standard_name)
-    
-    if uses_standard_sprite_frame_animations:
-        _show_sprite_exclusively(specific_name)
-    
-    var playback_rate := animation_name_to_playback_rate(standard_name)
-    
     _standard_name = standard_name
-    _specific_name = specific_name
-    _base_rate = playback_rate
+    _specific_name = \
+            _standand_animation_name_to_specific_animation_name(_standard_name)
     
     var is_current_animator := \
             animation_player.current_animation == _specific_name
     var is_playing := animation_player.is_playing()
+    var animation_is_already_playing := is_current_animator and is_playing
+    
+    _base_rate = animation_name_to_playback_rate(_standard_name)
     var is_changing_direction := \
-            (animation_player.get_playing_speed() < 0) != (playback_rate < 0)
+            (animation_player.get_playing_speed() < 0) != (_base_rate < 0)
+    var is_animation_already_playing_in_correct_direction := \
+            is_current_animator and !is_changing_direction
     
-    var animation_was_not_playing := !is_current_animator or !is_playing
-    var animation_was_playing_in_wrong_direction := \
-            is_current_animator and is_changing_direction
+    if !animation_is_already_playing and \
+            uses_standard_sprite_frame_animations:
+        _show_sprite_exclusively(_specific_name)
     
-    if animation_was_not_playing or \
-            animation_was_playing_in_wrong_direction:
-        _latest_blend_duration = blend
-        animation_player.play(_specific_name, blend)
-        match_rate_to_time_scale()
-        return true
-    else:
-        return false
+    if animation_is_already_playing and \
+            is_animation_already_playing_in_correct_direction:
+        false
+    
+    _latest_blend_duration = blend
+    animation_player.play(_specific_name, blend)
+    match_rate_to_time_scale()
+    return true
 
 
 func skip_current_blend() -> void:
