@@ -1,6 +1,8 @@
 # Getting set up
 
-Probably the easiest way to get set up is to copy the [Squirrel Away example app](https://github.com/snoringcatgames/squirrel_away), and then adjust it to fit your needs.
+Probably the easiest way to get set up is to copy the [Squirrel Away example project](https://github.com/snoringcatgames/squirrel_away), and then adjust it to fit your needs.
+
+> **NOTE:** _If you are adding this to a new project, than than copy/paste/modifying a demo project, you will see a lot of console errors and editor-slowness when in Godot until you have finished configuring the AutoLoads correctly, and Godot has then updated the project manifest afterward. This is unfortunate, but expected!_
 
 -   `addons/scaffolder`
     -   Add the Scaffolder library to your `addons/` folder.
@@ -16,8 +18,6 @@ Probably the easiest way to get set up is to copy the [Squirrel Away example app
     -   Probably the easiest way to get started with this is to copy/paste/edit the pre-existing app-configuration from the Squirrel Away example app.
 -   `Sc.run(app_manifest)`
     -   Configure the Scaffolder framework by calling `Sc.run(app_manifest)` as early as possible in your application.
-
-> **NOTE:** _If you are installing this with the in-editor AssetLib utility, you will need to move the files into `addons/scaffolder/` afterward!_
 
 ## Do not instantiate anything before Scaffolder
 
