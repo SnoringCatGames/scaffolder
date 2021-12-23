@@ -29,8 +29,6 @@ Some features include:
 
 [See this separate doc](/docs/getting_set_up.md) for getting your project set up to work with Scaffolder.
 
-> **NOTE:** _You'll need to move this libarary to your `addons/` folder. If you are installing this with the in-editor AssetLib utility, you will need to move the files afterward!_
-
 ## Features
 
 ### Lots of useful utility functions
