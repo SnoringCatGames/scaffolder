@@ -148,6 +148,10 @@ func get_size() -> int:
     return current_size
 
 
+func empty() -> bool:
+    return current_size == 0
+
+
 # Allows duplicates of priorities.
 # - Insert new element into heap at the next available slot. Calling that "hole".
 # - Then percolate the element up in the heap while heap-order property is not satisfied.
