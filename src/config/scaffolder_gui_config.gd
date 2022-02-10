@@ -481,7 +481,7 @@ func font_size_to_string(size: int) -> String:
         FontSize.XL:
             return "Xl"
         _:
-            Sc.logger.error()
+            Sc.logger.error("ScaffolderGuiConfig.font_size_to_string")
             return ""
 
 
@@ -498,7 +498,7 @@ func string_to_font_size(string: String) -> int:
         "Xl":
             return FontSize.XL
         _:
-            Sc.logger.error()
+            Sc.logger.error("ScaffolderGuiConfig.string_to_font_size")
             return FontSize.M
 
 
@@ -610,7 +610,7 @@ func _scale_guis() -> void:
 func _scale_gui_for_current_screen_size(gui) -> void:
     if !is_instance_valid(gui) or \
             !Sc.gui.guis_to_scale.has(gui):
-        Sc.logger.error()
+        Sc.logger.error("ScaffolderGuiConfig._scale_gui_for_current_screen_size")
         return
     
     Sc.gui.scale_gui_recursively(gui)

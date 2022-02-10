@@ -272,7 +272,7 @@ func get_screen_ppi(ios_model_names: IosModelNames) -> int:
     elif is_ipod:
         suffix_and_ppis = IPOD_SUFFIX_AND_PPIS
     else:
-        Sc.logger.error()
+        Sc.logger.error("IosResolutions.get_screen_ppi")
     
     var ppi := DEFAULT_PPI
     for suffix_and_ppi in suffix_and_ppis:

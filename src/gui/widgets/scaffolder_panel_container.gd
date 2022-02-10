@@ -62,7 +62,7 @@ func _set_style(value: int) -> void:
         PanelStyle.HUD:
             _stylebox = Sc.styles.hud_panel_stylebox
         _:
-            Sc.logger.error()
+            Sc.logger.error("ScaffolderPanelContainer._set_style")
             _stylebox = null
     
     if is_instance_valid(_stylebox):

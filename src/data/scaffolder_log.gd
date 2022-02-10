@@ -25,8 +25,14 @@ func print(message: String) -> void:
         print(message)
 
 
+# -   Using this function instead of `push_error` directly enables us to render
+#     the console output in environments like a mobile device.
+# -   This requires an explicit error message in order to disambiguate where
+#     the error actually happened.
+#     -   This is needed because stack traces are not available on non-main
+#         threads.
 func error(
-        message := "An error occurred",
+        message: String,
         should_assert := true) -> void:
     var play_time: float = Sc.time.get_play_time()
     push_error("ERROR:%8.3f; %s" % [play_time, message])
@@ -35,15 +41,27 @@ func error(
          assert(false)
 
 
+# -   Using this function instead of `push_error` directly enables us to render
+#     the console output in environments like a mobile device.
+# -   This requires an explicit error message in order to disambiguate where
+#     the error actually happened.
+#     -   This is needed because stack traces are not available on non-main
+#         threads.
 static func static_error(
-        message := "An error occurred",
+        message: String,
         should_assert := true) -> void:
     push_error("ERROR: %s" % message)
     if should_assert:
          assert(false)
 
 
-func warning(message := "An warning occurred") -> void:
+# -   Using this function instead of `push_error` directly enables us to render
+#     the console output in environments like a mobile device.
+# -   This requires an explicit error message in order to disambiguate where
+#     the error actually happened.
+#     -   This is needed because stack traces are not available on non-main
+#         threads.
+func warning(message: String) -> void:
     push_warning("WARNING: %s" % message)
     self.print("**WARNING**: %s" % message)
 

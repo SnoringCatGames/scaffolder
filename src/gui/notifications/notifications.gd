@@ -99,7 +99,7 @@ func get_panel_size(type: int) -> Vector2:
             return viewport_size
         NotificationSize.UNKNOWN, \
         _:
-            Sc.logger.error()
+            Sc.logger.error("Notifications.get_panel_size")
             return Vector2.INF
     
     var max_width_with_margins := viewport_size.x - margin_sides * 2
