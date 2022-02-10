@@ -32,7 +32,7 @@ static func get_string(type: int) -> String:
         CUSTOM:
             return "CUSTOM"
         _:
-            ScaffolderLog.static_error()
+            ScaffolderLog.static_error("CharacterLogType.get_string")
             return ""
 
 
@@ -55,6 +55,6 @@ static func get_prefix(type: int) -> String:
         CUSTOM:
             return "CUS"
         _:
-            ScaffolderLog.static_error()
+            ScaffolderLog.static_error("CharacterLogType.get_prefix")
             return ""
 

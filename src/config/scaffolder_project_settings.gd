@@ -155,7 +155,7 @@ func _override_input_map(input_map_overrides: Dictionary) -> void:
                 event = InputEventKey.new()
                 event.scancode = event_config.key_scancode
             else:
-                Sc.logger.error()
+                Sc.logger.error("ScaffolderProjectSettings._override_input_map")
                 continue
             
             if event_config.has("control"):

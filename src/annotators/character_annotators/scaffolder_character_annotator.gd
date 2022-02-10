@@ -42,7 +42,7 @@ func is_annotator_enabled(annotator_type: int) -> bool:
         AnnotatorType.RECENT_MOVEMENT:
             return is_instance_valid(recent_movement_annotator)
         _:
-            Sc.logger.error()
+            Sc.logger.error("ScaffolderCharacterAnnotator.is_annotator_enabled")
             return false
 
 
@@ -60,7 +60,7 @@ func _create_annotator(annotator_type: int) -> void:
                     ScaffolderCharacterRecentMovementAnnotator.new(character)
             add_child(recent_movement_annotator)
         _:
-            Sc.logger.error()
+            Sc.logger.error("ScaffolderCharacterAnnotator._create_annotator")
 
 
 func _destroy_annotator(annotator_type: int) -> void:
@@ -75,4 +75,4 @@ func _destroy_annotator(annotator_type: int) -> void:
             recent_movement_annotator.queue_free()
             recent_movement_annotator = null
         _:
-            Sc.logger.error()
+            Sc.logger.error("ScaffolderCharacterAnnotator._destroy_annotator")

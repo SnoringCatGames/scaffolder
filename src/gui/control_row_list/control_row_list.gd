@@ -59,7 +59,7 @@ func find_index(label: String) -> int:
     for index in items.size():
         if items[index].label == label:
             return index
-    Sc.logger.error()
+    Sc.logger.error("LabeledControlList.find_index")
     return -1
 
 

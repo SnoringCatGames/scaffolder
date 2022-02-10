@@ -1282,7 +1282,7 @@ func create_stylebox_scalable(
         return _create_stylebox_flat_scalable_from_stylebox(
                 config, has_local_lifecycle)
     else:
-        Sc.logger.error()
+        Sc.logger.error("ScaffolderStyles.create_stylebox_scalable")
         return null
 
 

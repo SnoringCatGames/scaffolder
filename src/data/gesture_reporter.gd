@@ -33,7 +33,7 @@ func record_recent_gestures() -> void:
     if !Sc.metadata.agreed_to_terms or \
             !Sc.metadata.is_data_tracked:
         # User hasn't agreed to data collection.
-        Sc.logger.error()
+        Sc.logger.error("GestureReporter.record_recent_gestures")
         return
     
     var request := HTTPRequest.new()

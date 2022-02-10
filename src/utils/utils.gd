@@ -300,7 +300,7 @@ static func ease_name_to_param(name: String) -> float:
             return -1.8
         
         _:
-            ScaffolderLog.static_error()
+            ScaffolderLog.static_error(".ease_name_to_param")
             return INF
 
 
@@ -342,7 +342,7 @@ static func mix(
     elif values[0] is Vector3:
         weighted_average = Vector3.ZERO
     else:
-        ScaffolderLog.static_error()
+        ScaffolderLog.static_error(".mix")
     
     for i in count:
         var value = values[i]
@@ -506,7 +506,7 @@ func take_screenshot() -> void:
     var path := "user://screenshots/screenshot-%s.png" % get_datetime_string()
     var status := image.save_png(path)
     if status != OK:
-        Sc.logger.error()
+        Sc.logger.error("Utils.take_screenshot")
 
 
 func open_screenshot_folder() -> void:
@@ -531,7 +531,7 @@ func clear_directory(
     var directory := Directory.new()
     var status := directory.open(path)
     if status != OK:
-        Sc.logger.error()
+        Sc.logger.error("Utils.clear_directory")
         return
     
     # Delete children.
@@ -726,14 +726,14 @@ func get_property_list_for_contiguous_inspector_groups(
                 group.first_property_name,
                 default_property_list)
         if group.first_property_index < 0:
-            Sc.logger.error()
+            Sc.logger.error("Utils.get_property_list_for_contiguous_inspector_groups")
             return []
         if group.has("last_property_name"):
             group.last_property_index = _get_property_index(
                     group.last_property_name,
                     default_property_list)
             if group.last_property_index < 0:
-                Sc.logger.error()
+                Sc.logger.error("Utils.get_property_list_for_contiguous_inspector_groups")
                 return []
         first_property_index_to_group[group.first_property_index] = group
     
@@ -819,7 +819,7 @@ func get_property_list_for_non_contiguous_inspector_groups(
                     property_name,
                     default_property_list)
             if property_index < 0:
-                Sc.logger.error()
+                Sc.logger.error("Utils.get_property_list_for_non_contiguous_inspector_groups")
                 return []
             group.property_indices[i] = property_index
     
@@ -885,7 +885,7 @@ func amend_property_list_to_not_store(
     
     if first_property_index < 0 or \
             last_property_index < 0:
-        Sc.logger.error()
+        Sc.logger.error("Utils.amend_property_list_to_not_store")
         return []
     
     var property_list_addendum := []
