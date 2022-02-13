@@ -757,16 +757,23 @@ static func distance_squared_from_point_to_rect(
             return 0.0
 
 
-# The build-in TileMap.world_to_map generates incorrect results around cell
+# The built-in TileMap.world_to_map generates incorrect results around cell
 # boundaries, so we use a custom utility.
 static func world_to_tile_map(
         position: Vector2,
         tile_map: TileMap) -> Vector2:
-    var position_map_coord := position / tile_map.cell_size
+    var position_map_coord := \
+            (position - tile_map.position) / tile_map.cell_size
     position_map_coord = Vector2(
             floor(position_map_coord.x),
             floor(position_map_coord.y))
     return position_map_coord
+
+
+static func tile_map_to_world(
+        position: Vector2,
+        tile_map: TileMap) -> Vector2:
+    return tile_map.position + position * tile_map.cell_size
 
 
 # Calculates the TileMap (grid-based) coordinates of the given position,
@@ -807,8 +814,8 @@ static func get_tile_map_bounds_in_world_coordinates(
     var used_rect := tile_map.get_used_rect()
     var cell_size := tile_map.cell_size
     return Rect2(
-            used_rect.position.x * cell_size.x,
-            used_rect.position.y * cell_size.y,
+            tile_map.position.x + used_rect.position.x * cell_size.x,
+            tile_map.position.y + used_rect.position.y * cell_size.y,
             used_rect.size.x * cell_size.x,
             used_rect.size.y * cell_size.y)
 
