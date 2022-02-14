@@ -140,6 +140,13 @@ const DEFAULT_SLIDER_TICK_PIXEL_PATH_PREFIX := \
 const DEFAULT_SLIDER_TICK_PIXEL_SIZE := 4
 const DEFAULT_SLIDER_TICK_PIXEL_SIZES := [1, 2, 4, 8, 16]
 
+const BLACK_PIXEL_PATH := \
+        "res://addons/scaffolder/assets/images/misc/black_pixel.png"
+const WHITE_PIXEL_PATH := \
+        "res://addons/scaffolder/assets/images/misc/white_pixel.png"
+const TRANSPARENT_PIXEL_PATH := \
+        "res://addons/scaffolder/assets/images/misc/transparent_pixel.png"
+
 # --- Static configuration state ---
 
 var app_logo: Texture
