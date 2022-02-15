@@ -207,6 +207,16 @@ static func get_child_by_type(
     return children[0]
 
 
+static func get_ancestor_by_type(
+        descendant: Node,
+        type) -> Node:
+    var ancestor := descendant.get_parent()
+    while is_instance_valid(ancestor) and \
+            !(ancestor is type):
+        ancestor = ancestor.get_parent()
+    return ancestor
+
+
 func add_scene(
         parent: Node,
         path_or_packed_scene,
