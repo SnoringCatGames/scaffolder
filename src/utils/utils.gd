@@ -486,13 +486,18 @@ func get_spaces(count: int) -> String:
 func pad_string(
         string: String,
         length: int,
-        pads_on_right := true) -> String:
-    assert(string.length() <= length)
-    var padding := get_spaces(length - string.length())
-    if pads_on_right:
-        return "%s%s" % [string, padding]
+        pads_on_right := true,
+        allows_longer_strings := false) -> String:
+    assert(allows_longer_strings or string.length() <= length)
+    var spaces_count := length - string.length()
+    if spaces_count <= 0:
+        return string
     else:
-        return "%s%s" % [padding, string]
+        var padding := get_spaces(spaces_count)
+        if pads_on_right:
+            return "%s%s" % [string, padding]
+        else:
+            return "%s%s" % [padding, string]
 
 
 func resize_string(
