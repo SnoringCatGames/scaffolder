@@ -170,6 +170,11 @@ static func array_to_set(array: Array) -> Dictionary:
     return set
 
 
+func cascade_sort(arr: Array) -> Array:
+    arr.sort()
+    return arr
+
+
 static func translate_polyline(
         vertices: PoolVector2Array,
         translation: Vector2) \
