@@ -759,7 +759,7 @@ static func distance_squared_from_point_to_rect(
 
 # The built-in TileMap.world_to_map generates incorrect results around cell
 # boundaries, so we use a custom utility.
-static func world_to_tile_map(
+static func world_to_tilemap(
         position: Vector2,
         tile_map: TileMap) -> Vector2:
     var position_map_coord := \
@@ -770,7 +770,7 @@ static func world_to_tile_map(
     return position_map_coord
 
 
-static func tile_map_to_world(
+static func tilemap_to_world(
         position: Vector2,
         tile_map: TileMap) -> Vector2:
     return tile_map.position + position * tile_map.cell_size
@@ -778,38 +778,38 @@ static func tile_map_to_world(
 
 # Calculates the TileMap (grid-based) coordinates of the given position,
 # relative to the origin of the TileMap's bounding box.
-static func get_tile_map_index_from_world_coord(
+static func get_tilemap_index_from_world_coord(
         position: Vector2,
         tile_map: TileMap) -> int:
-    var position_grid_coord = world_to_tile_map(position, tile_map)
-    return get_tile_map_index_from_grid_coord(position_grid_coord, tile_map)
+    var position_grid_coord = world_to_tilemap(position, tile_map)
+    return get_tilemap_index_from_grid_coord(position_grid_coord, tile_map)
 
 
 # Calculates the TileMap (grid-based) coordinates of the given position,
 # relative to the origin of the TileMap's bounding box.
-static func get_tile_map_index_from_grid_coord(
+static func get_tilemap_index_from_grid_coord(
         position: Vector2,
         tile_map: TileMap) -> int:
     var used_rect := tile_map.get_used_rect()
-    var tile_map_start := used_rect.position
-    var tile_map_width: int = used_rect.size.x
-    var tile_map_position: Vector2 = position - tile_map_start
-    return (tile_map_position.y * tile_map_width + tile_map_position.x) as int
+    var tilemap_start := used_rect.position
+    var tilemap_width: int = used_rect.size.x
+    var tilemap_position: Vector2 = position - tilemap_start
+    return (tilemap_position.y * tilemap_width + tilemap_position.x) as int
 
 
-static func get_grid_coord_from_tile_map_index(
+static func get_grid_coord_from_tilemap_index(
         index: int,
         tile_map: TileMap) -> Vector2:
     var used_rect := tile_map.get_used_rect()
-    var tile_map_grid_offset := used_rect.position / tile_map.cell_size
-    var tile_map_width: int = used_rect.size.x
-    var tile_map_position_x := index % tile_map_width
-    var tile_map_position_y := int(index / tile_map_width)
-    return Vector2(tile_map_position_x, tile_map_position_y) + \
-            tile_map_grid_offset
+    var tilemap_grid_offset := used_rect.position / tile_map.cell_size
+    var tilemap_width: int = used_rect.size.x
+    var tilemap_position_x := index % tilemap_width
+    var tilemap_position_y := int(index / tilemap_width)
+    return Vector2(tilemap_position_x, tilemap_position_y) + \
+            tilemap_grid_offset
 
 
-static func get_tile_map_bounds_in_world_coordinates(
+static func get_tilemap_bounds_in_world_coordinates(
         tile_map: TileMap) -> Rect2:
     var used_rect := tile_map.get_used_rect()
     var cell_size := tile_map.cell_size

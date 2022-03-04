@@ -185,7 +185,7 @@ func _create_annotator(annotator_type: int) -> void:
                 ruler_layer.add_child(ruler_annotator)
         AnnotatorType.LEVEL:
             if Sc.level != null:
-                Sc.level.set_tile_map_visibility(true)
+                Sc.level.set_tilemap_visibility(true)
                 Sc.level.set_background_visibility(true)
         _:
             Sc.logger.error("ScaffolderAnnotators._create_annotator")
@@ -200,7 +200,7 @@ func _destroy_annotator(annotator_type: int) -> void:
                 ruler_annotator = null
         AnnotatorType.LEVEL:
             if Sc.level != null:
-                Sc.level.set_tile_map_visibility(false)
+                Sc.level.set_tilemap_visibility(false)
                 Sc.level.set_background_visibility(false)
         _:
             Sc.logger.error("ScaffolderAnnotators._create_annotator")

@@ -419,11 +419,11 @@ func _update_session_in_editor() -> void:
     
     Sc.level_session.reset(level_id)
     
-    var tile_maps: Array = Sc.utils.get_children_by_type(self, TileMap)
+    var tilemaps: Array = Sc.utils.get_children_by_type(self, TileMap)
     Sc.level_session.config.cell_size = \
             Vector2.INF if \
-            tile_maps.empty() else \
-            tile_maps[0].cell_size
+            tilemaps.empty() else \
+            tilemaps[0].cell_size
 
 
 func _set_level_id(value: String) -> void:
