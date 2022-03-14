@@ -25,11 +25,11 @@ Some features include:
 -   Lots of useful utility functions (e.g., Time, Geometry, DrawUtils, Audio).
 -   A widget library (e.g., AccordionPanel, LabeledControlList)
 
-## Getting set up
+## ⚙️ Getting set up
 
 [See this separate doc](/docs/getting_set_up.md) for getting your project set up to work with Scaffolder.
 
-## Features
+## ✨ Features
 
 ### Lots of useful utility functions
 
@@ -128,7 +128,7 @@ This feature currently depends on the proprietary third-party **[Google Cloud St
         -   Configurable to display custom text and buttons as needed.
     -   Game over
 
-## Licenses
+## 📃 Licenses
 
 -   All code is published under the [MIT license](LICENSE).
 -   All art assets (files under `assets/images/`, `assets/music/`, and `assets/sounds/`) are published under the [CC0 1.0 Universal license](https://creativecommons.org/publicdomain/zero/1.0/deed.en).
