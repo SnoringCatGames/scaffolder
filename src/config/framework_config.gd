@@ -3,6 +3,11 @@ class_name FrameworkConfig
 extends Node
 
 
+signal initialized
+
+var is_initialized := false
+
+
 func _amend_app_manifest(manifest: Dictionary) -> void:
     pass
 
@@ -21,3 +26,9 @@ func _configure_sub_modules() -> void:
 
 func _load_state() -> void:
     pass
+
+
+func _set_initialized() -> void:
+    if !is_initialized:
+        is_initialized = true
+        emit_signal("initialized")

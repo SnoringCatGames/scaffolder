@@ -925,4 +925,68 @@ func _get_property_index(
         if property_config.name == property_name:
             return i
         i -= 1
+    TYPE_INT
     return -1
+
+
+func get_type_string(type: int) -> String:
+    match type:
+        TYPE_NIL:
+            return "TYPE_NIL"
+        TYPE_BOOL:
+            return "TYPE_BOOL"
+        TYPE_INT:
+            return "TYPE_INT"
+        TYPE_REAL:
+            return "TYPE_REAL"
+        TYPE_STRING:
+            return "TYPE_STRING"
+        TYPE_VECTOR2:
+            return "TYPE_VECTOR2"
+        TYPE_RECT2:
+            return "TYPE_RECT2"
+        TYPE_VECTOR3:
+            return "TYPE_VECTOR3"
+        TYPE_TRANSFORM2D:
+            return "TYPE_TRANSFORM2D"
+        TYPE_PLANE:
+            return "TYPE_PLANE"
+        TYPE_QUAT:
+            return "TYPE_QUAT"
+        TYPE_AABB:
+            return "TYPE_AABB"
+        TYPE_BASIS:
+            return "TYPE_BASIS"
+        TYPE_TRANSFORM:
+            return "TYPE_TRANSFORM"
+        TYPE_COLOR:
+            return "TYPE_COLOR"
+        TYPE_NODE_PATH:
+            return "TYPE_NODE_PATH"
+        TYPE_RID:
+            return "TYPE_RID"
+        TYPE_OBJECT:
+            return "TYPE_OBJECT"
+        TYPE_DICTIONARY:
+            return "TYPE_DICTIONARY"
+        TYPE_ARRAY:
+            return "TYPE_ARRAY"
+        TYPE_RAW_ARRAY:
+            return "TYPE_RAW_ARRAY"
+        TYPE_INT_ARRAY:
+            return "TYPE_INT_ARRAY"
+        TYPE_REAL_ARRAY:
+            return "TYPE_REAL_ARRAY"
+        TYPE_STRING_ARRAY:
+            return "TYPE_STRING_ARRAY"
+        TYPE_VECTOR2_ARRAY:
+            return "TYPE_VECTOR2_ARRAY"
+        TYPE_VECTOR3_ARRAY:
+            return "TYPE_VECTOR3_ARRAY"
+        TYPE_COLOR_ARRAY:
+            return "TYPE_COLOR_ARRAY"
+        TYPE_MAX:
+            return "TYPE_MAX"
+        _:
+            Sc.logger.error("Utils.get_type_string: %d" % type)
+            return ""

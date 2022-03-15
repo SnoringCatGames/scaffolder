@@ -9,12 +9,9 @@ extends FrameworkConfig
 ## -   "Sc" is short for "Scaffolder".[br]
 
 
-signal initialized
 signal splashed
 
 const _LOGS_EARLY_BOOTSTRAP_EVENTS := false
-
-var is_initialized := false
 
 var logger: ScaffolderLog
 var utils: Utils
@@ -83,9 +80,6 @@ func run(app_manifest: Dictionary) -> void:
         self._bootstrap = ScaffolderBootstrap.new()
     assert(_bootstrap is ScaffolderBootstrap)
     add_child(_bootstrap)
-    
-    _bootstrap.connect("initialized", self, "emit_signal", ["initialized"])
-    _bootstrap.connect("splashed", self, "emit_signal", ["splashed"])
     
     _bootstrap.run()
 
