@@ -19,10 +19,12 @@ func _init() -> void:
 static func save_file(
         json_object: Dictionary,
         path: String,
-        includes_encoding := true) -> void:
+        includes_encoding := true,
+        includes_newlines := false) -> void:
     if includes_encoding:
         json_object = Sc.json.encode_json_object(json_object)
-    var json_string := JSON.print(json_object)
+    var indent := "  " if includes_newlines else ""
+    var json_string := JSON.print(json_object, indent)
     
     var file := File.new()
     var status := file.open(path, File.WRITE)

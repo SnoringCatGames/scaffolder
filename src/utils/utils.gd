@@ -257,6 +257,11 @@ func add_scene(
     return node
 
 
+func clear_children(node: Node) -> void:
+    for child in node.get_children():
+        child.queue_free()
+
+
 static func get_level_touch_position(input_event: InputEvent) -> Vector2:
     return Sc.level.make_input_local(input_event).position
 
