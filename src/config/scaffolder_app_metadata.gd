@@ -71,7 +71,6 @@ var are_error_logs_captured: bool
 # --- Global state ---
 
 var is_app_configured := false
-var is_app_initialized := false
 var were_screenshots_taken := false
 var agreed_to_terms: bool
 var are_button_controls_enabled: bool

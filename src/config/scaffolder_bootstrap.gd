@@ -3,9 +3,6 @@ class_name ScaffolderBootstrap
 extends Node
 
 
-signal initialized
-signal splashed
-
 var _throttled_size_changed: FuncRef
 var _is_global_visibility_disabled_for_resize := false
 var _has_initial_input_happened := false
@@ -65,6 +62,7 @@ func _initialize_framework() -> void:
     _log_in_editor_initialization()
     
     if Engine.editor_hint:
+        _on_app_initialized()
         return
     
     Sc.gui.debug_panel = Sc.utils.add_scene(
@@ -80,8 +78,6 @@ func _initialize_framework() -> void:
         Sc.gui.gesture_record = GestureRecord.new()
         Sc.canvas_layers.layers.top \
                 .add_child(Sc.gui.gesture_record)
-    
-    Sc.metadata.is_app_initialized = true
     
     get_tree().root.set_pause_mode(Node.PAUSE_MODE_PROCESS)
     
@@ -127,8 +123,11 @@ func _on_app_initialized() -> void:
             "ScaffolderBootstrap._on_app_initialized: %8.3f" % \
             Sc.time.get_play_time())
     
-    Sc.is_initialized = true
-    emit_signal("initialized")
+    for config in Sc._framework_configs:
+        config._set_initialized()
+    
+    if Engine.editor_hint:
+        return
     
     call_deferred("_splash")
 
@@ -164,7 +163,7 @@ func _on_splash_finished() -> void:
                 "data_agreement"
         Sc.nav.open(post_splash_screen)
     
-    emit_signal("splashed")
+    Sc.emit_signal("splashed")
 
 
 func _on_app_quit() -> void:

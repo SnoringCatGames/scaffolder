@@ -5,20 +5,89 @@ extends Node
 
 var REGEX_TO_MATCH_TRAILING_ZEROS_AFTER_DECIMAL := RegEx.new()
 
+var _RESOURCE_TOKEN_PREFIX := "$Resource:"
+var _NAN_TOKEN := "$NAN:"
+var _POS_INF_TOKEN := "$+INF:"
+var _NEG_INF_TOKEN := "$-INF:"
+
 
 func _init() -> void:
     Sc.logger.on_global_init(self, "JsonUtils")
     REGEX_TO_MATCH_TRAILING_ZEROS_AFTER_DECIMAL.compile("\\.0*$")
 
 
+static func save_file(
+        json_object: Dictionary,
+        path: String,
+        includes_encoding := true) -> void:
+    if includes_encoding:
+        json_object = Sc.json.encode_json_object(json_object)
+    var json_string := JSON.print(json_object)
+    
+    var file := File.new()
+    var status := file.open(path, File.WRITE)
+    
+    if status != OK:
+        ScaffolderLog.static_error("Unable to open file: " + path)
+        return
+    
+    file.store_string(json_string)
+    file.close()
+
+
+static func load_file(
+        path: String,
+        includes_encoding := true,
+        allows_missing_file := false) -> Dictionary:
+    var file := File.new()
+    var status := file.open(path, File.READ)
+    
+    if status != OK:
+        if status != ERR_FILE_NOT_FOUND or !allows_missing_file:
+            ScaffolderLog.static_error("Unable to open file: " + path)
+        return {}
+    
+    var json_string := file.get_as_text()
+    file.close()
+    
+    if json_string.empty():
+        return {}
+    
+    var parse_result := JSON.parse(json_string)
+    if parse_result.error != OK:
+        Sc.logger.error("Unable to parse JSON: %s; %s:%s:%s" % [
+            path,
+            parse_result.error,
+            parse_result.error_line,
+            parse_result.error_string,
+        ])
+        return {}
+    
+    var json_object: Dictionary = parse_result.result
+    if includes_encoding:
+        json_object = Sc.json.decode_json_object(json_object)
+    
+    return json_object
+
+
 # JSON encoding with custom syntax for vector values.
-func to_json_object(value):
+func encode_json_object(value):
     match typeof(value):
-        TYPE_STRING, \
         TYPE_BOOL, \
+        TYPE_STRING, \
         TYPE_INT, \
-        TYPE_REAL:
+        TYPE_NIL:
             return value
+        TYPE_REAL:
+            if is_inf(value):
+                if value > 0:
+                    return _POS_INF_TOKEN
+                else:
+                    return _NEG_INF_TOKEN
+            elif is_nan(value):
+                return _NAN_TOKEN
+            else:
+                return value
         TYPE_VECTOR2:
             return {
                 "x": value.x,
@@ -47,7 +116,7 @@ func to_json_object(value):
         TYPE_ARRAY:
             value = value.duplicate()
             for index in value.size():
-                value[index] = to_json_object(value[index])
+                value[index] = encode_json_object(value[index])
             return value
         TYPE_RAW_ARRAY, \
         TYPE_INT_ARRAY, \
@@ -58,24 +127,29 @@ func to_json_object(value):
         TYPE_COLOR_ARRAY:
             value = Array(value)
             for index in value.size():
-                value[index] = to_json_object(value[index])
+                value[index] = encode_json_object(value[index])
             return value
         TYPE_DICTIONARY:
             value = value.duplicate()
             for key in value:
-                value[key] = to_json_object(value[key])
+                value[key] = encode_json_object(value[key])
             return value
+        TYPE_OBJECT:
+            if value is Resource:
+                return _RESOURCE_TOKEN_PREFIX + value.resource_path
+            else:
+                continue
         _:
             Sc.logger.error("Unsupported data type for JSON: " + value)
 
 
 # JSON decoding with custom syntax for vector values.
-func from_json_object(json):
+func decode_json_object(json):
     match typeof(json):
         TYPE_ARRAY:
             json = json.duplicate()
             for i in json.size():
-                json[i] = from_json_object(json[i])
+                json[i] = decode_json_object(json[i])
             return json
         TYPE_DICTIONARY:
             if json.size() == 2 and \
@@ -102,8 +176,19 @@ func from_json_object(json):
             else:
                 json = json.duplicate()
                 for key in json:
-                    json[key] = from_json_object(json[key])
+                    json[key] = decode_json_object(json[key])
                 return json
+        TYPE_STRING:
+            if json == _POS_INF_TOKEN:
+                return INF
+            elif json == _NEG_INF_TOKEN:
+                return -INF
+            elif json == _NAN_TOKEN:
+                return NAN
+            elif json.begins_with(_RESOURCE_TOKEN_PREFIX):
+                return load(json.substr(_RESOURCE_TOKEN_PREFIX.length()))
+            else:
+                continue
         _:
             return json
 
