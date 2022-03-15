@@ -7,6 +7,9 @@ signal initialized
 
 var is_initialized := false
 
+# NOTE: This will only be assigned when running in the editor environment.
+var manifest_controller: FrameworkManifestController
+
 
 func _amend_app_manifest(manifest: Dictionary) -> void:
     pass
