@@ -2,20 +2,20 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="16"
    height="16"
    viewBox="0 0 4.2333332 4.2333335"
    version="1.1"
    id="svg8"
-   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
-   sodipodi:docname="editor_icons.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:dc="http://purl.org/dc/elements/1.1/">
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="editor_icons.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,17 +25,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="15.999999"
-     inkscape:cx="-10.218751"
-     inkscape:cy="862.56255"
+     inkscape:zoom="6.4453121"
+     inkscape:cx="-7.4560022"
+     inkscape:cy="-817.64708"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
      inkscape:window-width="1920"
-     inkscape:window-height="1010"
-     inkscape:window-x="-6"
-     inkscape:window-y="-6"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1"
      inkscape:lockguides="false"
      inkscape:pagecheckerboard="0"
@@ -3089,85 +3089,85 @@
        d="m -2.8894648,523.18769 v 0.52917 h 0.5291667 v -0.52917 z"
        id="path3813"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke-width:0.264583"
        d="m -3.6832148,523.18769 v 0.52917 h 0.5291667 v -0.52917 z"
        id="path3815"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke-width:0.264583"
        d="m -4.4769647,523.18769 v 0.52917 h 0.5291667 v -0.52917 z"
        id="path3817"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke-width:0.264583"
        d="m -5.2707146,523.18769 v 0.52917 h 0.5291666 v -0.52917 z"
        id="path3819"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke-width:0.264583"
        d="m -2.8894648,522.39394 v 0.52917 h 0.5291667 v -0.52917 z"
        id="path3821"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke-width:0.264583"
        d="m -3.6832148,522.39394 v 0.52917 h 0.5291667 v -0.52917 z"
        id="path3823"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke-width:0.264583"
        d="m -4.4769647,522.39394 v 0.52917 h 0.5291667 v -0.52917 z"
        id="path3825"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke-width:0.264583"
        d="m -5.2707146,522.39394 v 0.52917 h 0.5291666 v -0.52917 z"
        id="path3827"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke-width:0.264583"
        d="m -5.2707146,521.60019 v 0.52917 h 0.5291666 v -0.52917 z"
        id="path3829"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke-width:0.264583"
        d="m -5.2707146,520.80644 v 0.52917 h 0.5291666 v -0.52917 z"
        id="path3831"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke-width:0.264583"
        d="m -2.0957148,520.01269 v 0.52917 h 0.5291667 v -0.52917 z"
        id="path3833"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke-width:0.264583"
        d="m -2.8894648,520.01269 v 0.52917 h 0.5291667 v -0.52917 z"
        id="path3835"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <rect
        style="vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.0807;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect3837"
@@ -3177,44 +3177,44 @@
        y="519.74811"
        rx="0"
        ry="0"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -4.4769647,521.60019 0.5291667,0.52917 h -0.5291667 z"
        id="path3839"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -2.0957148,523.18769 0.5291666,0.52917 h -0.5291666 z"
        id="path3841"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -4.741548,521.33561 0.2645833,0.26458 H -4.741548 Z"
        id="path3843"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -3.9477981,522.12936 0.2645833,0.26458 h -0.2645833 z"
        id="path3845"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -2.3602981,522.92311 0.2645833,0.26458 h -0.2645833 z"
        id="path3847"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <rect
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.935446;stop-color:#000000"
        id="rect3849"
@@ -3223,50 +3223,50 @@
        x="-3.1540482"
        y="522.39398"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -2.0957148,523.45227 -0.2645833,-0.26458 h 0.2645833 z"
        id="path3851"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -2.3602981,523.18769 -0.2645833,-0.26458 h 0.2645833 z"
        id="path3853"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -3.6832147,522.65852 -0.2645833,-0.26458 h 0.2645833 z"
        id="path3855"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -3.947798,522.39394 -0.2645833,-0.26458 h 0.2645833 z"
        id="path3857"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -4.4769647,521.86477 -0.2645833,-0.26458 h 0.2645833 z"
        id="path3859"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <path
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -4.741548,521.60019 -0.2645833,-0.26458 h 0.2645833 z"
        id="path3861"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
     <rect
        style="opacity:1;fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.935446;stop-color:#000000"
        id="rect3863"
@@ -3275,7 +3275,223 @@
        x="-2.3602984"
        y="520.0127"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192" />
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke-width:0.26458299"
+       d="m -8.3787938,523.32074 v 0.52917 h 0.5291666 v -0.52917 z"
+       id="path3813-9"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke-width:0.26458299"
+       d="m -9.1725439,523.32074 v 0.52917 h 0.5291667 v -0.52917 z"
+       id="path3815-3"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke-width:0.26458299"
+       d="m -9.9662937,523.32074 v 0.52917 h 0.5291666 v -0.52917 z"
+       id="path3817-5"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke-width:0.26458299"
+       d="m -10.760044,523.32074 v 0.52917 h 0.529167 v -0.52917 z"
+       id="path3819-1"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke-width:0.26458299"
+       d="m -8.3787938,522.52699 v 0.52917 h 0.5291666 v -0.52917 z"
+       id="path3821-2"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke-width:0.26458299"
+       d="m -9.1725439,522.52699 v 0.52917 h 0.5291667 v -0.52917 z"
+       id="path3823-8"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke-width:0.26458299"
+       d="m -9.9662937,522.52699 v 0.52917 h 0.5291666 v -0.52917 z"
+       id="path3825-7"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke-width:0.26458299"
+       d="m -10.760044,522.52699 v 0.52917 h 0.529167 v -0.52917 z"
+       id="path3827-9"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke-width:0.26458299"
+       d="m -10.760044,521.73324 v 0.52917 h 0.529167 v -0.52917 z"
+       id="path3829-0"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke-width:0.26458299"
+       d="m -10.760044,520.93949 v 0.52917 h 0.529167 v -0.52917 z"
+       id="path3831-3"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke-width:0.26458299"
+       d="m -7.5850438,520.14574 v 0.52917 h 0.5291667 v -0.52917 z"
+       id="path3833-5"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke-width:0.26458299"
+       d="m -8.3787938,520.14574 v 0.52917 h 0.5291666 v -0.52917 z"
+       id="path3835-5"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <rect
+       style="vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.08069992;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3837-2"
+       width="4.2333336"
+       height="4.2333336"
+       x="-11.024627"
+       y="519.88116"
+       rx="0"
+       ry="0"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke:none;stroke-width:0.26458299px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -9.9662937,521.73324 0.5291666,0.52917 h -0.5291666 z"
+       id="path3839-9"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke:none;stroke-width:0.26458299px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -7.5850438,523.32074 0.5291667,0.52917 h -0.5291667 z"
+       id="path3841-7"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -10.230877,521.46866 0.2645833,0.26458 h -0.2645833 z"
+       id="path3843-4"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -9.4371272,522.26241 0.2645833,0.26458 h -0.2645833 z"
+       id="path3845-8"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -7.8496272,523.05616 0.2645834,0.26458 h -0.2645834 z"
+       id="path3847-3"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <rect
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke:none;stroke-width:0.93544602"
+       id="rect3849-1"
+       width="0.26458335"
+       height="0.26458001"
+       x="-8.6433773"
+       y="522.52704"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -7.5850438,523.58532 -0.2645834,-0.26458 h 0.2645834 z"
+       id="path3851-1"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -7.8496272,523.32074 -0.2645833,-0.26458 h 0.2645833 z"
+       id="path3853-0"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -9.1725437,522.79157 -0.2645834,-0.26458 h 0.2645834 z"
+       id="path3855-2"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -9.4371271,522.52699 -0.2645832,-0.26458 h 0.2645832 z"
+       id="path3857-2"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -9.9662937,521.99782 -0.2645833,-0.26458 h 0.2645833 z"
+       id="path3859-6"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke:none;stroke-width:0.132291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -10.230877,521.73324 -0.264583,-0.26458 h 0.264583 z"
+       id="path3861-2"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <rect
+       style="opacity:1;fill:#5a5a5a;fill-opacity:1;stroke:none;stroke-width:0.93544602"
+       id="rect3863-9"
+       width="0.26458335"
+       height="0.26458001"
+       x="-7.8496275"
+       y="520.14575"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
   </g>
 </svg>
