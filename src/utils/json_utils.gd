@@ -197,8 +197,8 @@ func decode_json_object(json):
 
 func encode_vector2(value: Vector2) -> String:
     return "%s,%s" % [
-        float_to_string(value.x),
-        float_to_string(value.y),
+        str(value.x),
+        str(value.y),
     ]
 
 
@@ -211,9 +211,9 @@ func decode_vector2(value: String) -> Vector2:
 
 func encode_vector3(value: Vector3) -> String:
     return "%s,%s,%s" % [
-        float_to_string(value.x),
-        float_to_string(value.y),
-        float_to_string(value.z),
+        str(value.x),
+        str(value.y),
+        str(value.z),
     ]
 
 
@@ -229,10 +229,10 @@ func decode_vector3(value: String) -> Vector3:
 
 func encode_rect2(value: Rect2) -> String:
     return "%s,%s,%s,%s" % [
-        float_to_string(value.position.x),
-        float_to_string(value.position.y),
-        float_to_string(value.size.x),
-        float_to_string(value.size.y),
+        str(value.position.x),
+        str(value.position.y),
+        str(value.size.x),
+        str(value.size.y),
     ]
 
 
@@ -251,10 +251,10 @@ func decode_rect2(value: String) -> Rect2:
 
 func encode_color(value: Color) -> String:
     return "%s,%s,%s,%s" % [
-        float_to_string(value.r),
-        float_to_string(value.g),
-        float_to_string(value.b),
-        float_to_string(value.a),
+        str(value.r),
+        str(value.g),
+        str(value.b),
+        str(value.a),
     ]
 
 
@@ -292,11 +292,3 @@ func decode_vector2_array(value: Array) -> Array:
     for i in value.size():
         result[i] = decode_vector2(value[i])
     return result
-
-
-func remove_trailing_zeros_after_decimal(value: String) -> String:
-    return REGEX_TO_MATCH_TRAILING_ZEROS_AFTER_DECIMAL.sub(value, ".")
-
-
-func float_to_string(value: float) -> String:
-    return remove_trailing_zeros_after_decimal("%f" % value)
