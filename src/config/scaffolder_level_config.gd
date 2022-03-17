@@ -83,7 +83,8 @@ func _sanitize_level_config(config: Dictionary) -> void:
     assert(config.has("is_test_level") and \
             config.is_test_level is bool and \
             (config.is_test_level == (config.sort_priority <= 0)))
-    assert(config.has("sort_priority") and config.sort_priority is int)
+    assert(config.has("sort_priority") and \
+            Sc.utils.is_num(config.sort_priority))
     assert(config.has("unlock_conditions") and \
             (config.unlock_conditions == "unlocked" or \
             config.unlock_conditions == "finish_previous_level" or \

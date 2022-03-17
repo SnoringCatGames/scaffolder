@@ -330,6 +330,10 @@ static func ease_by_name(
     return ease(progress, ease_name_to_param(ease_name))
 
 
+static func is_num(v) -> bool:
+    return v is int or v is float
+
+
 static func floor_vector(v: Vector2) -> Vector2:
     return Vector2(floor(v.x), floor(v.y))
 
@@ -355,7 +359,7 @@ static func mix(
         weight_sum += weight
     
     var weighted_average
-    if values[0] is float or values[0] is int:
+    if Sc.utils.is_num(values[0] is float):
         weighted_average = 0.0
     elif values[0] is Vector2:
         weighted_average = Vector2.ZERO
