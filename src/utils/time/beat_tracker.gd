@@ -95,7 +95,7 @@ func _on_music_changed(music_name: String) -> void:
 
 
 func get_bpm_unscaled() -> float:
-    return Sc.audio._inflated_music_config[ \
+    return Sc.audio._inflated_music_config[
                     Sc.audio._current_music_name].bpm if \
             Sc.audio.get_is_music_playing() else \
             INF
@@ -114,7 +114,7 @@ func get_beat_duration_scaled() -> float:
 
 
 func get_meter() -> int:
-    return Sc.audio._inflated_music_config[ \
+    return Sc.audio._inflated_music_config[
                     Sc.audio._current_music_name].meter if \
             Sc.audio.get_is_music_playing() else \
             -1
