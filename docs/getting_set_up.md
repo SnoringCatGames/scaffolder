@@ -2,16 +2,12 @@
 
 Probably the easiest way to get set up is to copy the [Squirrel Away example project](https://github.com/snoringcatgames/squirrel_away), and then adjust it to fit your needs.
 
-> **NOTE:** _If you are adding this to a new project, than than copy/paste/modifying a demo project, you will see a lot of console errors and editor-slowness when in Godot until you have finished configuring the AutoLoads correctly, and Godot has then updated the project manifest afterward. This is unfortunate, but expected!_
-
 -   `addons/scaffolder`
     -   Add the Scaffolder library to your `addons/` folder.
 -   `Sc`
-    -   Define `Sc` as an AutoLoad (in Project Settings > AutoLoad).
     -   All of the Scaffolder functionality is globally accessible through properties on the `Sc` AutoLoad.
+    -   The `Sc` AutoLoad is automatically registered.
     -   "Sc" is short for "Scaffolder".
-    -   It should point to the path `res://addons/scaffolder/src/sc.gd`.
-    -   It should be the first AutoLoad in the list.
 -   `app_manifest`
     -   Define configuration parameters for Scaffolder.
     -   There are a _lot_ of parameters you can adjust here.

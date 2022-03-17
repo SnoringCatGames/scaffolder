@@ -11,6 +11,10 @@ extends FrameworkConfig
 
 signal splashed
 
+const _FRAMEWORK_DISPLAY_NAME := "Scaffolder"
+const _FRAMEWORK_ADDONS_FOLDER_NAME := "scaffolder"
+const _AUTO_LOAD_NAME := "Sc"
+const _AUTO_LOAD_DEPS := []
 const _LOGS_EARLY_BOOTSTRAP_EVENTS := false
 
 var logger: ScaffolderLog
@@ -57,14 +61,20 @@ var _bootstrap: ScaffolderBootstrap
 var _manifest: Dictionary
 
 
-func _ready() -> void:
+func _init().(
+        _FRAMEWORK_DISPLAY_NAME,
+        _FRAMEWORK_ADDONS_FOLDER_NAME,
+        _AUTO_LOAD_NAME,
+        _AUTO_LOAD_DEPS) -> void:
+    pass
+
+
+func _enter_tree() -> void:
     self.logger = ScaffolderLog.new()
     add_child(self.logger)
-    
-    self.logger.on_global_init(self, "Sc")
-    
-    register_framework_config(self)
-    
+
+
+func _ready() -> void:
     self.utils = Utils.new()
     add_child(self.utils)
     
@@ -88,11 +98,11 @@ func register_framework_config(config: FrameworkConfig) -> void:
     _framework_configs.push_back(config)
 
 
-func _amend_app_manifest(manifest: Dictionary) -> void:
+func _amend_manifest(manifest: Dictionary) -> void:
     pass
 
 
-func _register_app_manifest(manifest: Dictionary) -> void:
+func _register_manifest(manifest: Dictionary) -> void:
     self._manifest = manifest
     
     assert((_manifest.images_manifest.developer_splash == null) == \

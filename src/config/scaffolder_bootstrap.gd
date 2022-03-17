@@ -16,20 +16,20 @@ func run() -> void:
     _log_bootstrap_event("ScaffolderBootstrap.run")
     _log_app_name()
     
-    call_deferred("_amend_app_manifest")
-    call_deferred("_register_app_manifest")
+    call_deferred("_amend_manifest")
+    call_deferred("_register_manifest")
 
 
-func _amend_app_manifest() -> void:
+func _amend_manifest() -> void:
     for config in Sc._framework_configs:
-        config._amend_app_manifest(Sc._manifest)
+        config._amend_manifest(Sc._manifest)
 
 
-func _register_app_manifest() -> void:
-    _log_bootstrap_event("ScaffolderBootstrap._register_app_manifest")
+func _register_manifest() -> void:
+    _log_bootstrap_event("ScaffolderBootstrap._register_manifest")
     
     for config in Sc._framework_configs:
-        config._register_app_manifest(Sc._manifest)
+        config._register_manifest(Sc._manifest)
     
     Sc.initialize_metadata()
     
