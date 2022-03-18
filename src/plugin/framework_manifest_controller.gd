@@ -3,12 +3,12 @@ class_name FrameworkManifestController
 extends Reference
 
 
-var schema: FrameworkManifestSchema
+var schema: FrameworkSchema
 
 var root: FrameworkManifestEditorNode
 
 
-func _init(schema: FrameworkManifestSchema) -> void:
+func _init(schema: FrameworkSchema) -> void:
     self.schema = schema
     _validate_schema_recursively(schema.properties)
     _load()
@@ -20,7 +20,7 @@ func _validate_schema_recursively(
         prefix := "") -> void:
     assert(schema_value is Dictionary or \
             schema_value is Array,
-            "Invalid manifest schema structure: %s" % prefix)
+            "Invalid schema structure: %s" % prefix)
     
     if schema_value is Dictionary:
         for key in schema_value:
@@ -35,19 +35,19 @@ func _validate_schema_recursively(
                     prefix + "[0]>")
         else:
             assert(schema_value.size() == 2,
-                    ("Manifest schema value definitions must be of size 2: " +
+                    ("Schema value definitions must be of size 2: " +
                     "%s, %s") % [prefix, str(schema_value)])
             var type = schema_value[0]
             assert(type is int and \
-                    FrameworkManifestSchema.VALID_TYPES.has(type),
-                    ("Manifest schema value definitions must start with a " +
+                    FrameworkSchema.VALID_TYPES.has(type),
+                    ("Schema value definitions must start with a " +
                     "TYPE enum: %s, %s") % [prefix, str(type)])
             var value = schema_value[1]
-            assert(FrameworkManifestSchema.get_is_expected_type(value, type),
-                    ("Manifest schema value definitions must include a " +
+            assert(FrameworkSchema.get_is_expected_type(value, type),
+                    ("Schema value definitions must include a " +
                     "default value that matches the TYPE enum: %s, %s, %s") % [
                         prefix,
-                        FrameworkManifestSchema.get_type_string(type),
+                        FrameworkSchema.get_type_string(type),
                         str(value),
                     ])
 

@@ -1,5 +1,5 @@
 tool
-class_name FrameworkConfig
+class_name FrameworkGlobal
 extends Node
 
 
@@ -13,7 +13,7 @@ const _RUN_AFTER_FRAMEWORK_REGISTERED_DEBOUNCE_DELAY := 0.05
 var is_registered := false
 var is_initialized := false
 
-var schema: FrameworkManifestSchema
+var schema: FrameworkSchema
 # NOTE: This will only be assigned when running in the editor environment.
 var manifest_controller: FrameworkManifestController
 
@@ -26,7 +26,7 @@ func _ready() -> void:
     self.schema = schema
     _check_addons_directory()
     Sc.logger.on_global_init(self, schema.auto_load_name)
-    Sc.register_framework_config(self)
+    Sc.register_framework_global(self)
     _start_polling_for_auto_load_deps()
 
 
@@ -45,7 +45,7 @@ func _destroy() -> void:
 
 func _get_members_to_destroy() -> Array:
     Sc.logger.error(
-            "Abstract FrameworkConfig._get_members_to_destroy " +
+            "Abstract FrameworkGlobal._get_members_to_destroy " +
             "is not implemented")
     return []
 

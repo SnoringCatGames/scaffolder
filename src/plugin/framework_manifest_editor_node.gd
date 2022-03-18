@@ -49,7 +49,7 @@ func _load_from_manifest_dictionary(manifest) -> void:
     
     # Remove any invalid-typed entries from the manifest.
     for key in manifest.keys():
-        if !FrameworkManifestSchema \
+        if !FrameworkSchema \
                 .get_matches_schema(manifest[key], schema[key]):
             _log_warning(
                     "Invalid type saved in manifest Dictionary",
@@ -62,7 +62,7 @@ func _load_from_manifest_dictionary(manifest) -> void:
         # Ensure a manifest entry exists for this key.
         if !manifest.has(key):
             manifest[key] = \
-                    FrameworkManifestSchema.get_default_value(schema[key])
+                    FrameworkSchema.get_default_value(schema[key])
         
         var child = get_script().new(self, key, schema[key])
         child.load_from_manifest(manifest[key])
@@ -80,7 +80,7 @@ func _load_from_manifest_array(manifest) -> void:
     # Remove any invalid-typed entries from the manifest.
     var i := 0
     while i < manifest.size():
-        if !FrameworkManifestSchema \
+        if !FrameworkSchema \
                 .get_matches_schema(manifest[i], schema[0]):
             _log_warning(
                     "Invalid type saved in manifest Array",
@@ -102,7 +102,7 @@ func add_array_element():
     assert(type == TYPE_ARRAY)
     var child = get_script().new(self, children.size(), schema[0])
     child.load_from_manifest(
-            FrameworkManifestSchema.get_default_value(schema[0]))
+            FrameworkSchema.get_default_value(schema[0]))
     children.push_back(child)
     return child
 

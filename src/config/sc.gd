@@ -1,5 +1,5 @@
 tool
-extends FrameworkConfig
+extends FrameworkGlobal
 ## -   This is a global singleton that defines a bunch of app parameters.[br]
 ## -   All of these parameters can be configured when bootstrapping the
 ##     app.[br]
@@ -13,7 +13,7 @@ signal splashed
 
 # ---
 
-const _SCHEMA_CLASS := ScaffolderManifestSchema
+const _SCHEMA_CLASS := ScaffolderSchema
 
 const _LOGS_EARLY_BOOTSTRAP_EVENTS := false
 
@@ -55,8 +55,8 @@ var analytics: Analytics
 var crash_reporter: CrashReporter
 var gesture_reporter: GestureReporter
 
-# Array<FrameworkConfig>
-var _framework_configs := []
+# Array<FrameworkGlobal>
+var _framework_globals := []
 var _bootstrap: ScaffolderBootstrap
 var _manifest: Dictionary
 
@@ -98,12 +98,12 @@ func run(app_manifest: Dictionary) -> void:
 
 
 func reset() -> void:
-    for framework in _framework_configs:
+    for framework in _framework_globals:
         framework._destroy()
 
 
-func register_framework_config(config: FrameworkConfig) -> void:
-    _framework_configs.push_back(config)
+func register_framework_global(config: FrameworkGlobal) -> void:
+    _framework_globals.push_back(config)
 
 
 # FIXME: LEFT OFF HERE: --------------------------------------------
@@ -114,7 +114,7 @@ func register_framework_config(config: FrameworkConfig) -> void:
 func _sort_registered_frameworks() -> void:
     # Create framework nodes.
     var nodes := {}
-    for framework in _framework_configs:
+    for framework in _framework_globals:
         var node := {}
         node.framework = framework
         node.name = framework.schema.auto_load_name
@@ -123,7 +123,7 @@ func _sort_registered_frameworks() -> void:
         nodes[framework.schema.auto_load_name] = node
     
     # Collect parent dependencies.
-    for framework in _framework_configs:
+    for framework in _framework_globals:
         var node: Dictionary = nodes[framework.schema.auto_load_name]
         for name in framework.schema.auto_load_deps:
             node.parents.push_back(nodes[name])
@@ -164,7 +164,7 @@ func _sort_registered_frameworks() -> void:
     
     # Record sorted frameworks.
     for j in node_array.size():
-        _framework_configs[j] = node_array[j].framework
+        _framework_globals[j] = node_array[j].framework
 
 
 func _destroy() -> void:

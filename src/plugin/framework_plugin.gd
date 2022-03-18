@@ -4,11 +4,6 @@ extends EditorPlugin
 
 
 # FIXME: LEFT OFF HERE: -------------------------------------------
-# - Rename FrameworkManifestSchema to FrameworkSchema.
-#   - Search for /manifest.schema/
-# 
-# - Rename FrameworkConfig to FrameworkGlobal.
-# 
 # - Create plugin container system for rendering separate plugin manifest
 #   editors within.
 # 
@@ -43,8 +38,8 @@ extends EditorPlugin
 #     - Expect that each plugin will define a priority value.
 #   - 
 
-var _schema: FrameworkManifestSchema
-var _auto_load: FrameworkConfig
+var _schema: FrameworkSchema
+var _auto_load: FrameworkGlobal
 
 var _is_ready := false
 
@@ -93,7 +88,7 @@ func _set_up() -> void:
     
     if !is_instance_valid(_auto_load.manifest_controller):
         _auto_load.manifest_controller = \
-                FrameworkManifestController.new(_auto_load.manifest_schema)
+                FrameworkManifestController.new(_auto_load.schema)
         
         # FIXME: --------------------- REMOVE
         _auto_load._register_manifest_TMP(_auto_load.manifest)
