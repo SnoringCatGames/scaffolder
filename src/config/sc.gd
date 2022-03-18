@@ -83,19 +83,75 @@ func _ready() -> void:
 
 
 func run(app_manifest: Dictionary) -> void:
+    reset()
+    
     self._manifest = app_manifest
     
     # Allow the default bootstrap class to be overridden by someone else.
     if !is_instance_valid(_bootstrap):
         self._bootstrap = ScaffolderBootstrap.new()
     assert(_bootstrap is ScaffolderBootstrap)
-    add_child(_bootstrap)
+    if !self._bootstrap.is_inside_tree():
+        add_child(_bootstrap)
     
     _bootstrap.run()
 
 
+func reset() -> void:
+    for framework in _framework_configs:
+        framework._destroy()
+
+
 func register_framework_config(config: FrameworkConfig) -> void:
     _framework_configs.push_back(config)
+
+
+func _destroy() -> void:
+    ._destroy()
+    _manifest = {}
+
+
+func _get_members_to_destroy() -> Array:
+    return [
+        # NOTE: These are persisted between framework resets.
+#        logger,
+#        utils,
+#        device,
+#        _bootstrap,
+        
+        metadata,
+        audio_manifest,
+        audio,
+        colors,
+        styles,
+        images,
+        gui,
+        json,
+        save_state,
+        time,
+        profiler,
+        geometry,
+        draw,
+        notify,
+        slow_motion,
+        beats,
+        canvas_layers,
+        project_settings,
+        camera_controller,
+        level_button_input,
+        characters,
+        annotators,
+        ann_params,
+        level_config,
+        level,
+        level_session,
+        legend,
+        
+        nav,
+        analytics,
+        crash_reporter,
+        gesture_reporter,
+    ]
 
 
 func _amend_manifest(manifest: Dictionary) -> void:
