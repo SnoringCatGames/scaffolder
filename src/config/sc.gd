@@ -221,6 +221,16 @@ func _amend_manifest(manifest: Dictionary) -> void:
     pass
 
 
+func _register_manifest_TMP(manifest: Dictionary) -> void:
+    # FIXME: LEFT OFF HERE: -------------------------
+    pass
+
+
+func _instantiate_sub_modules_TMP() -> void:
+    # FIXME: LEFT OFF HERE: -------------------------
+    pass
+
+
 func _register_manifest(manifest: Dictionary) -> void:
     self._manifest = manifest
     

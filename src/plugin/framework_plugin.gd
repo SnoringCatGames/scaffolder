@@ -35,7 +35,6 @@ var _display_name: String
 var _icon_directory_path: String
 var _auto_load_name: String
 var _auto_load_path: String
-var _main_panel_scene: PackedScene
 
 var _is_ready := false
 
@@ -47,13 +46,11 @@ func _init(
         display_name: String,
         icon_directory_path: String,
         auto_load_name: String,
-        auto_load_path: String,
-        main_panel_scene: PackedScene) -> void:
+        auto_load_path: String) -> void:
     self._display_name = display_name
     self._icon_directory_path = icon_directory_path
     self._auto_load_name = auto_load_name
     self._auto_load_path = auto_load_path
-    self._main_panel_scene = main_panel_scene
 
 
 func _ready() -> void:
@@ -100,25 +97,6 @@ func _set_up() -> void:
         
         # FIXME: --------------------- REMOVE
         _auto_load._register_manifest_TMP(_auto_load.manifest)
-    
-    _main_panel = _main_panel_scene.instance()
-    get_editor_interface().get_editor_viewport().add_child(_main_panel)
-    
-    make_visible(false)
-
-
-func _exit_tree() -> void:
-    if is_instance_valid(_main_panel):
-        _main_panel.queue_free()
-
-
-func has_main_screen() -> bool:
-    return true
-
-
-func make_visible(visible: bool) -> void:
-    if is_instance_valid(_main_panel):
-        _main_panel.visible = visible
 
 
 func get_plugin_name() -> String:
