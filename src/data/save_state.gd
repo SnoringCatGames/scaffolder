@@ -40,9 +40,9 @@ func _init() -> void:
     Sc.logger.on_global_init(self, "SaveState")
     _load_config()
     
-    if Sc._manifest.metadata.has(
+    if Sc.manifest.metadata.has(
                 "is_save_state_cleared_for_debugging") and \
-            Sc._manifest.metadata.is_save_state_cleared_for_debugging:
+            Sc.manifest.metadata.is_save_state_cleared_for_debugging:
         erase_all_state()
 
 

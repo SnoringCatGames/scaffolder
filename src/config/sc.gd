@@ -58,7 +58,7 @@ var gesture_reporter: GestureReporter
 # Array<FrameworkGlobal>
 var _framework_globals := []
 var _bootstrap: ScaffolderBootstrap
-var _manifest: Dictionary
+var manifest: Dictionary
 
 # ---
 
@@ -83,7 +83,7 @@ func _ready() -> void:
 func run(manifest: Dictionary) -> void:
     reset()
     
-    self._manifest = manifest
+    self.manifest = manifest
     
     # Allow the default bootstrap class to be overridden by someone else.
     if !is_instance_valid(_bootstrap):
@@ -169,7 +169,7 @@ func _sort_registered_frameworks() -> void:
 
 func _destroy() -> void:
     ._destroy()
-    _manifest = {}
+    manifest = {}
 
 
 func _get_members_to_destroy() -> Array:
@@ -230,233 +230,233 @@ func _instantiate_sub_modules_TMP() -> void:
 
 
 func _register_manifest(manifest: Dictionary) -> void:
-    self._manifest = manifest
+    self.manifest = manifest
     
-    assert((_manifest.images_manifest.developer_splash == null) == \
-            _manifest.audio_manifest.developer_splash_sound.empty())
+    assert((manifest.images_manifest.developer_splash == null) == \
+            manifest.audio_manifest.developer_splash_sound.empty())
 
 
 func initialize_metadata() -> void:
-    if _manifest.has("metadata_class"):
-        self.metadata = _manifest.metadata_class.new()
+    if manifest.has("metadata_class"):
+        self.metadata = manifest.metadata_class.new()
         assert(self.metadata is ScaffolderAppMetadata)
     else:
         self.metadata = ScaffolderAppMetadata.new()
     add_child(self.metadata)
-    self.metadata.register_manifest(_manifest.metadata)
+    self.metadata.register_manifest(manifest.metadata)
 
 
 func initialize_crash_reporter() -> void:
-    if _manifest.has("crash_reporter_class"):
-        self.crash_reporter = _manifest.crash_reporter_class.new()
+    if manifest.has("crash_reporter_class"):
+        self.crash_reporter = manifest.crash_reporter_class.new()
         assert(self.crash_reporter is CrashReporter)
     else:
         self.crash_reporter = CrashReporter.new()
 
 
 func _instantiate_sub_modules() -> void:
-    self.level_session = _manifest.level_session_class.new()
+    self.level_session = manifest.level_session_class.new()
     assert(self.level_session is ScaffolderLevelSession)
     
-    if _manifest.has("audio_manifest_class"):
-        self.audio_manifest = _manifest.audio_manifest_class.new()
+    if manifest.has("audio_manifest_class"):
+        self.audio_manifest = manifest.audio_manifest_class.new()
         assert(self.audio_manifest is ScaffolderAudioManifest)
     else:
         self.audio_manifest = ScaffolderAudioManifest.new()
     add_child(audio_manifest)
     
-    if _manifest.has("audio_class"):
-        self.audio = _manifest.audio_class.new()
+    if manifest.has("audio_class"):
+        self.audio = manifest.audio_class.new()
         assert(self.audio is Audio)
     else:
         self.audio = Audio.new()
     add_child(self.audio)
     
-    if _manifest.has("colors_class"):
-        self.colors = _manifest.colors_class.new()
+    if manifest.has("colors_class"):
+        self.colors = manifest.colors_class.new()
         assert(self.colors is ScaffolderColors)
     else:
         self.colors = ScaffolderColors.new()
     add_child(self.colors)
     
-    if _manifest.has("styles_class"):
-        self.styles = _manifest.styles_class.new()
+    if manifest.has("styles_class"):
+        self.styles = manifest.styles_class.new()
         assert(self.styles is ScaffolderStyles)
     else:
         self.styles = ScaffolderStyles.new()
     add_child(self.styles)
     
-    if _manifest.has("images_class"):
-        self.images = _manifest.images_class.new()
+    if manifest.has("images_class"):
+        self.images = manifest.images_class.new()
         assert(self.images is ScaffolderImages)
     else:
         self.images = ScaffolderImages.new()
     add_child(self.images)
     
-    if _manifest.has("gui_class"):
-        self.gui = _manifest.gui_class.new()
+    if manifest.has("gui_class"):
+        self.gui = manifest.gui_class.new()
         assert(self.gui is ScaffolderGuiConfig)
     else:
         self.gui = ScaffolderGuiConfig.new()
     add_child(self.gui)
     
-    if _manifest.has("json_class"):
-        self.json = _manifest.json_class.new()
+    if manifest.has("json_class"):
+        self.json = manifest.json_class.new()
         assert(self.json is JsonUtils)
     else:
         self.json = JsonUtils.new()
     add_child(self.json)
     
-    if _manifest.has("save_state_class"):
-        self.save_state = _manifest.save_state_class.new()
+    if manifest.has("save_state_class"):
+        self.save_state = manifest.save_state_class.new()
         assert(self.save_state is SaveState)
     else:
         self.save_state = SaveState.new()
     add_child(self.save_state)
     
-    if _manifest.has("analytics_class"):
-        self.analytics = _manifest.analytics_class.new()
+    if manifest.has("analytics_class"):
+        self.analytics = manifest.analytics_class.new()
         assert(self.analytics is Analytics)
     else:
         self.analytics = Analytics.new()
     add_child(self.analytics)
     
-    if _manifest.has("gesture_reporter_class"):
-        self.gesture_reporter = _manifest.gesture_reporter_class.new()
+    if manifest.has("gesture_reporter_class"):
+        self.gesture_reporter = manifest.gesture_reporter_class.new()
         assert(self.gesture_reporter is GestureReporter)
     else:
         self.gesture_reporter = GestureReporter.new()
     add_child(self.gesture_reporter)
     
-    if _manifest.has("time_class"):
-        self.time = _manifest.time_class.new()
+    if manifest.has("time_class"):
+        self.time = manifest.time_class.new()
         assert(self.time is Time)
     else:
         self.time = Time.new()
     add_child(self.time)
     
-    if _manifest.has("profiler_class"):
-        self.profiler = _manifest.profiler_class.new()
+    if manifest.has("profiler_class"):
+        self.profiler = manifest.profiler_class.new()
         assert(self.profiler is Profiler)
     else:
         self.profiler = Profiler.new()
     add_child(self.profiler)
     
-    if _manifest.has("geometry_class"):
-        self.geometry = _manifest.geometry_class.new()
+    if manifest.has("geometry_class"):
+        self.geometry = manifest.geometry_class.new()
         assert(self.geometry is ScaffolderGeometry)
     else:
         self.geometry = ScaffolderGeometry.new()
     add_child(self.geometry)
     
-    if _manifest.has("draw_class"):
-        self.draw = _manifest.draw_class.new()
+    if manifest.has("draw_class"):
+        self.draw = manifest.draw_class.new()
         assert(self.draw is ScaffolderDrawUtils)
     else:
         self.draw = ScaffolderDrawUtils.new()
     add_child(self.draw)
     
-    if _manifest.has("notify_class"):
-        self.notify = _manifest.notify_class.new()
+    if manifest.has("notify_class"):
+        self.notify = manifest.notify_class.new()
         assert(self.notify is Notifications)
     else:
         self.notify = Notifications.new()
     add_child(self.notify)
     
-    if _manifest.has("nav_class"):
-        self.nav = _manifest.nav_class.new()
+    if manifest.has("nav_class"):
+        self.nav = manifest.nav_class.new()
         assert(self.nav is ScreenNavigator)
     else:
         self.nav = ScreenNavigator.new()
     add_child(self.nav)
     
-    if _manifest.has("level_button_input_class"):
-        self.level_button_input = _manifest.level_button_input_class.new()
+    if manifest.has("level_button_input_class"):
+        self.level_button_input = manifest.level_button_input_class.new()
         assert(self.level_button_input is LevelButtonInput)
     else:
         self.level_button_input = LevelButtonInput.new()
     add_child(self.level_button_input)
     
-    if _manifest.has("slow_motion_class"):
-        self.slow_motion = _manifest.slow_motion_class.new()
+    if manifest.has("slow_motion_class"):
+        self.slow_motion = manifest.slow_motion_class.new()
         assert(self.slow_motion is SlowMotionController)
     else:
         self.slow_motion = SlowMotionController.new()
     add_child(self.slow_motion)
     
-    if _manifest.has("beats_class"):
-        self.beats = _manifest.beats_class.new()
+    if manifest.has("beats_class"):
+        self.beats = manifest.beats_class.new()
         assert(self.beats is BeatTracker)
     else:
         self.beats = BeatTracker.new()
     add_child(self.beats)
     
-    if _manifest.has("camera_controller_class"):
-        self.camera_controller = _manifest.camera_controller_class.new()
+    if manifest.has("camera_controller_class"):
+        self.camera_controller = manifest.camera_controller_class.new()
         assert(self.camera_controller is CameraController)
     else:
         self.camera_controller = CameraController.new()
     add_child(self.camera_controller)
     
-    if _manifest.has("canvas_layers_class"):
-        self.canvas_layers = _manifest.canvas_layers_class.new()
+    if manifest.has("canvas_layers_class"):
+        self.canvas_layers = manifest.canvas_layers_class.new()
         assert(self.canvas_layers is CanvasLayers)
     else:
         self.canvas_layers = CanvasLayers.new()
     add_child(self.canvas_layers)
     
-    if _manifest.has("project_settings_class"):
-        self.project_settings = _manifest.project_settings_class.new()
+    if manifest.has("project_settings_class"):
+        self.project_settings = manifest.project_settings_class.new()
         assert(self.project_settings is ScaffolderProjectSettings)
     else:
         self.project_settings = ScaffolderProjectSettings.new()
     add_child(self.project_settings)
     
-    if _manifest.has("characters_class"):
-        self.characters = _manifest.characters_class.new()
+    if manifest.has("characters_class"):
+        self.characters = manifest.characters_class.new()
         assert(self.characters is ScaffolderCharacterManifest)
     else:
         self.characters = ScaffolderCharacterManifest.new()
     add_child(self.characters)
     
-    if _manifest.has("annotators_class"):
-        self.annotators = _manifest.annotators_class.new()
+    if manifest.has("annotators_class"):
+        self.annotators = manifest.annotators_class.new()
         assert(self.annotators is ScaffolderAnnotators)
     else:
         self.annotators = ScaffolderAnnotators.new()
     add_child(self.annotators)
     
     # This depends on SaveState, and must be instantiated after.
-    self.level_config = _manifest.level_config_class.new()
+    self.level_config = manifest.level_config_class.new()
     add_child(self.level_config)
 
 
 func _configure_sub_modules() -> void:
-    self.audio_manifest.register_manifest(_manifest.audio_manifest)
-    self.colors.register_manifest(_manifest.colors_manifest)
-    self.styles.register_manifest(_manifest.styles_manifest)
-    self.images.register_manifest(_manifest.images_manifest)
-    self.gui.register_manifest(_manifest.gui_manifest)
-    self.notify.register_manifest(_manifest.notifications_manifest)
-    self.slow_motion.register_manifest(_manifest.slow_motion_manifest)
-    self.characters.register_manifest(_manifest.character_manifest)
+    self.audio_manifest.register_manifest(manifest.audio_manifest)
+    self.colors.register_manifest(manifest.colors_manifest)
+    self.styles.register_manifest(manifest.styles_manifest)
+    self.images.register_manifest(manifest.images_manifest)
+    self.gui.register_manifest(manifest.gui_manifest)
+    self.notify.register_manifest(manifest.notifications_manifest)
+    self.slow_motion.register_manifest(manifest.slow_motion_manifest)
+    self.characters.register_manifest(manifest.character_manifest)
     
     # ScaffolderAnnotationParameters currently depends on ScaffolderColors
     # being both instantiated and configured before
     # ScaffolderAnnotationParameters is instantiated.
-    if _manifest.has("ann_params_class"):
-        self.ann_params = _manifest.ann_params_class.new()
+    if manifest.has("ann_params_class"):
+        self.ann_params = manifest.ann_params_class.new()
         assert(self.ann_params is ScaffolderAnnotationParameters)
     else:
         self.ann_params = ScaffolderAnnotationParameters.new()
     add_child(self.ann_params)
     
-    self.ann_params.register_manifest(_manifest.annotation_parameters_manifest)
+    self.ann_params.register_manifest(manifest.annotation_parameters_manifest)
     
     self.metadata.is_app_configured = true
     
     self.project_settings._override_project_settings()
-    self.project_settings._override_input_map(_manifest.input_map)
+    self.project_settings._override_input_map(manifest.input_map)
 
 
 func _load_state() -> void:
