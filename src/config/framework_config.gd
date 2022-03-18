@@ -8,6 +8,7 @@ signal initialized
 
 const _DEP_CHECK_INTERVAL := 0.005
 const _DEP_FAIL_DURATION := 0.2
+const _RUN_AFTER_FRAMEWORK_REGISTERED_DEBOUNCE_DELAY := 0.05
 
 var is_registered := false
 var is_initialized := false
@@ -37,6 +38,23 @@ func _ready() -> void:
     _start_polling_for_auto_load_deps()
     Sc.logger.on_global_init(self, _auto_load_name)
     Sc.register_framework_config(self)
+    _trigger_debounced_run()
+
+
+func _destroy() -> void:
+    for member in _get_members_to_destroy():
+        if is_instance_valid(member):
+            if member.has_method("_destroy"):
+                member._destroy()
+            else:
+                member.queue_free()
+
+
+func _get_members_to_destroy() -> Array:
+    Sc.logger.error(
+            "Abstract FrameworkConfig._get_members_to_destroy " +
+            "is not implemented")
+    return []
 
 
 func _on_auto_load_deps_ready() -> void:
@@ -101,7 +119,7 @@ func _check_if_all_auto_load_deps_are_present(timer: Timer) -> void:
     var missing_dep_name := _get_missing_auto_load_dep_name()
     if missing_dep_name == "":
         # All AutoLoad dependencies are present.
-        remove_child(timer)
+        timer.queue_free()
         _on_auto_load_deps_ready()
         _set_registered()
     else:
@@ -113,7 +131,7 @@ func _check_if_all_auto_load_deps_are_present(timer: Timer) -> void:
                         _auto_load_name,
                         missing_dep_name,
                     ])
-            remove_child(timer)
+            timer.queue_free()
         else:
             timer.set_meta("i", i + 1)
             timer.start()
@@ -124,3 +142,28 @@ func _get_missing_auto_load_dep_name() -> String:
         if !has_node("/root/" + auto_load_dep):
             return auto_load_dep
     return ""
+
+
+func _trigger_debounced_run() -> void:
+    # Trigger Sc.run with a debounce.
+    if !has_meta("debounced_run_timer"):
+        var timer := Timer.new()
+        timer.one_shot = true
+        timer.wait_time = _RUN_AFTER_FRAMEWORK_REGISTERED_DEBOUNCE_DELAY
+        timer.connect(
+                "timeout",
+                self,
+                "_run",
+                [timer])
+        add_child(timer)
+        set_meta("debounced_run_timer", timer)
+    var timer: Timer = get_meta("debounced_run_timer")
+    timer.start()
+
+
+func _run(timer: Timer) -> void:
+    set_meta("debounced_run_timer", null)
+    timer.queue_free()
+    # FIXME: LEFT OFF HERE: --------------------- Fix where the manifest comes from...
+    Sc.run(SquirrelAway.app_manifest)
+    # FIXME: LEFT OFF HERE: --------------------- Add support for calling Sc.run more than once; clear any preexisting app state.
