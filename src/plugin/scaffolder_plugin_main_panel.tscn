@@ -92,15 +92,15 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 276.0
-margin_top = 335.0
-margin_right = 747.0
-margin_bottom = 433.0
+margin_left = 72.0
+margin_top = 68.0
+margin_right = 952.0
+margin_bottom = 700.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 471.0
+margin_right = 880.0
 margin_bottom = 58.0
 custom_fonts/font = ExtResource( 10 )
 text = "Framework configuration"
@@ -108,36 +108,37 @@ align = 1
 
 [node name="Spacer" type="Control" parent="VBoxContainer"]
 margin_top = 62.0
-margin_right = 471.0
+margin_right = 880.0
 margin_bottom = 82.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
 margin_top = 86.0
-margin_right = 471.0
-margin_bottom = 98.0
+margin_right = 880.0
+margin_bottom = 632.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/CenterContainer"]
-margin_left = 229.0
-margin_right = 241.0
-margin_bottom = 12.0
+margin_right = 880.0
+margin_bottom = 546.0
+rect_min_size = Vector2( 880, 546 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/ScrollContainer"]
-margin_right = 600.0
-margin_bottom = 56.0
+margin_right = 880.0
+margin_bottom = 546.0
 rect_min_size = Vector2( 600, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="AccordionPanel" parent="VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer" instance=ExtResource( 2 )]
-margin_left = 70.0
-margin_right = 530.0
+margin_left = 210.0
+margin_right = 670.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 460, 0 )
+is_open = true
 
 [node name="AccordionHeader" parent="VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer/AccordionPanel" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -149,7 +150,7 @@ custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
 custom_styles/disabled = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
-header_text = "foo"
+header_text = "Surface Tiler"
 
 [node name="AccordionBody" parent="VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer/AccordionPanel" instance=ExtResource( 4 )]
 anchor_right = 0.0
@@ -158,9 +159,8 @@ margin_top = 56.0
 margin_right = 460.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 460, 0 )
+rect_clip_content = false
 
 [node name="FrameworkManifestPanel" parent="VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer/AccordionPanel/AccordionBody" instance=ExtResource( 11 )]
-visible = false
-margin_right = 940.0
+margin_right = 140.0
 size_flags_vertical = 1
-follow_focus = true

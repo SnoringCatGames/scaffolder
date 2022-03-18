@@ -19,6 +19,8 @@ extends EditorPlugin
 #     - Call controller.set_up() to instantiate the manifest.
 # 
 # - Refactor main-panel to be generic for any plugin.
+#   - Auto-open the last accordion registered (and close all others at that point).
+# 
 # - Add logic to adapt the main-screen content depending on which frameworks are present:
 #   - If more than one, then show a tab list across the top for switching between them?
 #   - List all framework manifest editors in a big vertical list with accordions

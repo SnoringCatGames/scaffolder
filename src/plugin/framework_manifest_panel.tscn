@@ -2,21 +2,14 @@
 
 [ext_resource path="res://addons/scaffolder/src/plugin/framework_manifest_panel.gd" type="Script" id=1]
 
-[node name="FrameworkManifestPanel" type="ScrollContainer"]
+[node name="FrameworkManifestPanel" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 1400, 0 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 1400.0
-margin_bottom = 768.0
 rect_min_size = Vector2( 600, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
