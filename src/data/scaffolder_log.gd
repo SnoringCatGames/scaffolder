@@ -34,7 +34,10 @@ func print(message: String) -> void:
 func error(
         message: String,
         should_assert := true) -> void:
-    var play_time: float = Sc.time.get_play_time()
+    var play_time: float = \
+            Sc.time.get_play_time() if \
+            is_instance_valid(Sc.time) else \
+            -1.0
     push_error("ERROR:%8.3f; %s" % [play_time, message])
     self.print("**ERROR**:%8.3f; %s" % [play_time, message])
     if should_assert:

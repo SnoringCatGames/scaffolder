@@ -94,6 +94,8 @@ func run(app_manifest: Dictionary) -> void:
     if !self._bootstrap.is_inside_tree():
         add_child(_bootstrap)
     
+    _sort_registered_frameworks()
+    
     _bootstrap.run()
 
 
@@ -104,6 +106,11 @@ func reset() -> void:
 
 func register_framework_config(config: FrameworkConfig) -> void:
     _framework_configs.push_back(config)
+
+
+func _sort_registered_frameworks() -> void:
+    # FIXME: LEFT OFF HERE: -----------------------------------------
+    pass
 
 
 func _destroy() -> void:

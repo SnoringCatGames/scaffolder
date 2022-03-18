@@ -35,10 +35,9 @@ func _init(
 
 func _ready() -> void:
     _check_addons_directory()
-    _start_polling_for_auto_load_deps()
     Sc.logger.on_global_init(self, _auto_load_name)
     Sc.register_framework_config(self)
-    _trigger_debounced_run()
+    _start_polling_for_auto_load_deps()
 
 
 func _destroy() -> void:
@@ -84,7 +83,9 @@ func _load_state() -> void:
 func _set_registered() -> void:
     if !is_registered:
         is_registered = true
+        _on_auto_load_deps_ready()
         emit_signal("registered")
+        Sc._trigger_debounced_run()
 
 
 func _set_initialized() -> void:
@@ -120,7 +121,6 @@ func _check_if_all_auto_load_deps_are_present(timer: Timer) -> void:
     if missing_dep_name == "":
         # All AutoLoad dependencies are present.
         timer.queue_free()
-        _on_auto_load_deps_ready()
         _set_registered()
     else:
         # An AutoLoad dependency is missing.
