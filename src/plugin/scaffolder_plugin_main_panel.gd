@@ -3,6 +3,9 @@ class_name ScaffolderPluginMainPanel
 extends CenterContainer
 
 
+const _FRAMEWORK_MANIFEST_PANEL_SCENE := preload(
+        "res://addons/scaffolder/src/plugin/framework_manifest_panel.tscn")
+
 const _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS := 144.0
 
 
@@ -14,20 +17,22 @@ var _throttled_on_resize: FuncRef = Sc.time.throttle(
 
 
 func _ready() -> void:
+    self.connect("resized", _throttled_on_resize, "call_func")
     _adjust_size()
-    connect("resized", _throttled_on_resize, "call_func")
     
-    # FIXME: LEFT OFF HERE: --------------------------------------------
-    var foo_manifest_controller := FrameworkManifestController.new(St.schema)
-    $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer/ \
-            AccordionPanel/AccordionHeader.header_text = \
-                foo_manifest_controller.schema.display_name
-    $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer/ \
-            FrameworkManifestPanel \
-            .set_up(foo_manifest_controller)
-    $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer/ \
-            AccordionPanel/AccordionBody/FrameworkManifestPanel \
-            .set_up(foo_manifest_controller)
+    Sc.connect("initialized", self, "_reset_panels")
+    if Sc.is_initialized:
+        _reset_panels()
+
+
+func _reset_panels() -> void:
+    var container := \
+            $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer
+    Sc.utils.clear_children(container)
+    for framework in Sc._framework_globals:
+        var panel: FrameworkManifestPanel = \
+                Sc.utils.add_scene(container, _FRAMEWORK_MANIFEST_PANEL_SCENE)
+        panel.set_up(framework.manifest_controller)
 
 
 func _adjust_size() -> void:

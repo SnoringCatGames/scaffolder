@@ -7,14 +7,14 @@ extends EditorPlugin
 # - Create plugin container system for rendering separate plugin manifest
 #   editors within.
 # 
-# - Convert old manifest stuff into new plugin-manifest structure.
-# 
 # - Registering:
 #   - Include a new standard flow for getting framework manifest:
 #     - Call controller.set_up() to instantiate the manifest.
 # 
 # - Refactor main-panel to be generic for any plugin.
 #   - Auto-open the last accordion registered (and close all others at that point).
+# 
+# - Convert old manifest stuff into new plugin-manifest structure.
 # 
 # - Add logic to adapt the main-screen content depending on which frameworks are present:
 #   - If more than one, then show a tab list across the top for switching between them?
@@ -128,7 +128,9 @@ func _validate_editor_icons() -> void:
 func _get_editor_icon_path(
         theme: String,
         scale: float) -> String:
-    return (_schema.icon_directory_path + "editor_icon_%s_theme_%s.png") % [
+    return ("%s%s_%s_theme_%s.png") % [
+        _schema.plugin_icon_directory_path,
+        _schema.folder_name,
         theme,
         str(scale),
     ]

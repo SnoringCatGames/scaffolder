@@ -138,7 +138,6 @@ margin_left = 210.0
 margin_right = 670.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 460, 0 )
-is_open = true
 
 [node name="AccordionHeader" parent="VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer/AccordionPanel" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -159,8 +158,8 @@ margin_top = 56.0
 margin_right = 460.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 460, 0 )
-rect_clip_content = false
 
 [node name="FrameworkManifestPanel" parent="VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer/AccordionPanel/AccordionBody" instance=ExtResource( 11 )]
+visible = false
 margin_right = 140.0
 size_flags_vertical = 1
