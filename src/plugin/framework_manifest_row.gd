@@ -27,7 +27,7 @@ func set_up(
     $MarginContainer/HBoxContainer \
             .add_constant_override("separation", padding)
     
-    if node.type == FrameworkManifestSchema.TYPE_CUSTOM:
+    if node.type == FrameworkSchema.TYPE_CUSTOM:
         $MarginContainer/HBoxContainer/Label.queue_free()
         
         assert(node.value is Script and \
@@ -82,9 +82,9 @@ func _create_value_editor() -> Control:
             return _create_string_editor()
         TYPE_COLOR:
             return _create_color_editor()
-        FrameworkManifestSchema.TYPE_SCRIPT, \
-        FrameworkManifestSchema.TYPE_TILESET, \
-        FrameworkManifestSchema.TYPE_RESOURCE:
+        FrameworkSchema.TYPE_SCRIPT, \
+        FrameworkSchema.TYPE_TILESET, \
+        FrameworkSchema.TYPE_RESOURCE:
             return _create_resource_editor()
         TYPE_DICTIONARY, \
         TYPE_ARRAY:
@@ -157,7 +157,7 @@ func _create_resource_editor() -> EditorResourcePicker:
     var control := EditorResourcePicker.new()
     control.edited_resource = node.value
     control.base_type = \
-            FrameworkManifestSchema.get_resource_class_name(node.type)
+            FrameworkSchema.get_resource_class_name(node.type)
     control.connect(
             "resource_changed",
             self,

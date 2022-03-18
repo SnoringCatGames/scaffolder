@@ -1,5 +1,5 @@
 tool
-class_name FrameworkManifestSchema
+class_name FrameworkSchema
 extends Reference
 
 
@@ -59,7 +59,7 @@ static func get_default_value(schema):
         else:
             return schema[1]
     else:
-        Sc.logger.error("FrameworkManifestSchema.get_default_value")
+        Sc.logger.error("FrameworkSchema.get_default_value")
 
 
 static func get_is_expected_type(
@@ -98,7 +98,7 @@ static func get_matches_schema(
         else:
             return get_is_expected_type(value, schema[0])
     else:
-        Sc.logger.error("FrameworkManifestSchema.get_matches_schema")
+        Sc.logger.error("FrameworkSchema.get_matches_schema")
         return false
 
 
@@ -126,7 +126,7 @@ static func get_type_string(type) -> String:
     elif type is Script:
         return "TYPE_CUSTOM"
     else:
-        Sc.logger.error("FrameworkManifestSchema.get_type_string")
+        Sc.logger.error("FrameworkSchema.get_type_string")
         return ""
     
     match type:
@@ -153,5 +153,5 @@ static func get_resource_class_name(type: int) -> String:
         TYPE_CUSTOM:
             return "Script"
         _:
-            Sc.logger.error("FrameworkManifestSchema.get_resource_class_name")
+            Sc.logger.error("FrameworkSchema.get_resource_class_name")
             return ""

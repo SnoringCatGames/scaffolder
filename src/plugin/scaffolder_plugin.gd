@@ -3,7 +3,7 @@ class_name ScaffolderPlugin
 extends FrameworkPlugin
 
 
-const _SCHEMA_CLASS := SquirrelAwayManifestSchema
+const _SCHEMA_CLASS := SquirrelAwaySchema
 
 const _MAIN_PANEL_SCENE := preload(
         "res://addons/scaffolder/src/plugin/scaffolder_plugin_main_panel.tscn")

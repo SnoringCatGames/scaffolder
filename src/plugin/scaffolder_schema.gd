@@ -1,6 +1,6 @@
 tool
-class_name ScaffolderManifestSchema
-extends FrameworkManifestSchema
+class_name ScaffolderSchema
+extends FrameworkSchema
 
 
 const _DISPLAY_NAME := "Scaffolder"

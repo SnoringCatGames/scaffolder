@@ -21,14 +21,14 @@ func run() -> void:
 
 
 func _amend_manifest() -> void:
-    for config in Sc._framework_configs:
+    for config in Sc._framework_globals:
         config._amend_manifest(Sc._manifest)
 
 
 func _register_manifest() -> void:
     _log_bootstrap_event("ScaffolderBootstrap._register_manifest")
     
-    for config in Sc._framework_configs:
+    for config in Sc._framework_globals:
         config._register_manifest(Sc._manifest)
     
     Sc.initialize_metadata()
@@ -42,15 +42,15 @@ func _register_manifest() -> void:
 func _initialize_framework() -> void:
     _log_bootstrap_event("ScaffolderBootstrap._initialize_framework")
     
-    for config in Sc._framework_configs:
+    for config in Sc._framework_globals:
         config._instantiate_sub_modules()
     
-    for config in Sc._framework_configs:
+    for config in Sc._framework_globals:
         config._configure_sub_modules()
     
     Sc.nav.connect("app_quit", self, "_on_app_quit")
     
-    for config in Sc._framework_configs:
+    for config in Sc._framework_globals:
         config._load_state()
     
     Sc.styles.configure_theme()
@@ -123,7 +123,7 @@ func _on_app_initialized() -> void:
             "ScaffolderBootstrap._on_app_initialized: %8.3f" % \
             Sc.time.get_play_time())
     
-    for config in Sc._framework_configs:
+    for config in Sc._framework_globals:
         config._set_initialized()
     
     if Engine.editor_hint:
