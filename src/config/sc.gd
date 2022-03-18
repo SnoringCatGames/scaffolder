@@ -11,10 +11,10 @@ extends FrameworkConfig
 
 signal splashed
 
-const _FRAMEWORK_DISPLAY_NAME := "Scaffolder"
-const _FRAMEWORK_ADDONS_FOLDER_NAME := "scaffolder"
-const _AUTO_LOAD_NAME := "Sc"
-const _AUTO_LOAD_DEPS := []
+# ---
+
+const _SCHEMA_CLASS := ScaffolderManifestSchema
+
 const _LOGS_EARLY_BOOTSTRAP_EVENTS := false
 
 var logger: ScaffolderLog
@@ -60,12 +60,10 @@ var _framework_configs := []
 var _bootstrap: ScaffolderBootstrap
 var _manifest: Dictionary
 
+# ---
 
-func _init().(
-        _FRAMEWORK_DISPLAY_NAME,
-        _FRAMEWORK_ADDONS_FOLDER_NAME,
-        _AUTO_LOAD_NAME,
-        _AUTO_LOAD_DEPS) -> void:
+
+func _init().(_SCHEMA_CLASS) -> void:
     pass
 
 
@@ -119,15 +117,15 @@ func _sort_registered_frameworks() -> void:
     for framework in _framework_configs:
         var node := {}
         node.framework = framework
-        node.name = framework._auto_load_name
+        node.name = framework.schema.auto_load_name
         node.parents = []
         node.children = []
-        nodes[framework._auto_load_name] = node
+        nodes[framework.schema.auto_load_name] = node
     
     # Collect parent dependencies.
     for framework in _framework_configs:
-        var node: Dictionary = nodes[framework._auto_load_name]
-        for name in framework._auto_load_deps:
+        var node: Dictionary = nodes[framework.schema.auto_load_name]
+        for name in framework.schema.auto_load_deps:
             node.parents.push_back(nodes[name])
     
     # Collect children dependencies.
