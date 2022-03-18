@@ -3,7 +3,17 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: ------------------------------------------
+# FIXME: LEFT OFF HERE: -------------------------------------------
+# - Rename FrameworkManifestSchema to FrameworkSchema.
+#   - Search for /manifest.schema/
+# 
+# - Rename FrameworkConfig to FrameworkGlobal.
+# 
+# - Create plugin container system for rendering separate plugin manifest
+#   editors within.
+# 
+# - Convert old manifest stuff into new plugin-manifest structure.
+# 
 # - Registering:
 #   - Include a new standard flow for getting framework manifest:
 #     - Call controller.set_up() to instantiate the manifest.
@@ -31,26 +41,14 @@ extends EditorPlugin
 #     - Expect that each plugin will define a priority value.
 #   - 
 
-var _display_name: String
-var _icon_directory_path: String
-var _auto_load_name: String
-var _auto_load_path: String
+var _schema: FrameworkManifestSchema
+var _auto_load: FrameworkConfig
 
 var _is_ready := false
 
-var _auto_load: FrameworkConfig
-var _main_panel: SurfaceTilerMainPanel
 
-
-func _init(
-        display_name: String,
-        icon_directory_path: String,
-        auto_load_name: String,
-        auto_load_path: String) -> void:
-    self._display_name = display_name
-    self._icon_directory_path = icon_directory_path
-    self._auto_load_name = auto_load_name
-    self._auto_load_path = auto_load_path
+func _init(schema_class: Script) -> void:
+    self._schema = Singletons.instance(schema_class)
 
 
 func _ready() -> void:
@@ -68,12 +66,12 @@ func _get_is_ready() -> bool:
 
 
 func _create_auto_load() -> void:
-    add_autoload_singleton(_auto_load_name, _auto_load_path)
+    add_autoload_singleton(_schema.auto_load_name, _schema.auto_load_path)
     call_deferred("_connect_auto_load")
 
 
 func _connect_auto_load() -> void:
-    self._auto_load = get_node("/root/" + _auto_load_name)
+    self._auto_load = get_node("/root/" + _schema.auto_load_name)
     _auto_load.connect("initialized", self, "_on_framework_initialized")
     if _auto_load.is_initialized:
         _on_framework_initialized()
@@ -92,15 +90,15 @@ func _set_up() -> void:
         return
     
     if !is_instance_valid(_auto_load.manifest_controller):
-        _auto_load.manifest_controller = FrameworkManifestController.new()
-        _auto_load.manifest_controller.set_up(SurfaceTilerManifestSchema.new())
+        _auto_load.manifest_controller = \
+                FrameworkManifestController.new(_auto_load.manifest_schema)
         
         # FIXME: --------------------- REMOVE
         _auto_load._register_manifest_TMP(_auto_load.manifest)
 
 
 func get_plugin_name() -> String:
-    return _display_name
+    return _schema.display_name
 
 
 func get_plugin_icon() -> Texture:
@@ -123,7 +121,7 @@ func _validate_editor_icons() -> void:
             assert(file.file_exists(path),
                     "Plugin editor-icon version is missing: " +
                     "plugin=%s, theme=%s, scale=%s, path=%s" % [
-                        _display_name,
+                        _schema.display_name,
                         theme,
                         str(scale),
                         path,
@@ -133,7 +131,7 @@ func _validate_editor_icons() -> void:
 func _get_editor_icon_path(
         theme: String,
         scale: float) -> String:
-    return (_icon_directory_path + "editor_icon_%s_theme_%s.png") % [
+    return (_schema.icon_directory_path + "editor_icon_%s_theme_%s.png") % [
         theme,
         str(scale),
     ]

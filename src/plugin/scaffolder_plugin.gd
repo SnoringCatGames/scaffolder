@@ -3,28 +3,15 @@ class_name ScaffolderPlugin
 extends FrameworkPlugin
 
 
-# FIXME: ---------------------------------
-# - Refactor Sc manifest and AutoLoad configuration to work with the plugin flow.
+const _SCHEMA_CLASS := SquirrelAwayManifestSchema
+
+const _MAIN_PANEL_SCENE := preload(
+        "res://addons/scaffolder/src/plugin/scaffolder_plugin_main_panel.tscn")
+
+var _main_panel: ScaffolderPluginMainPanel
 
 
-const _DISPLAY_NAME := "Scaffolder"
-# FIXME: ----------------------
-const _ICON_DIRECTORY_PATH := "res://addons/scaffolder/assets/images/"
-const _AUTO_LOAD_NAME := "Sc"
-const _AUTO_LOAD_PATH := "res://addons/scaffolder/src/config/sc.gd"
-# FIXME: ----------------------
-# - Make this be the framework-agnostic container panel.
-# - Then have this panel dynamically create accordion panels for each
-#   frameworks' manifest schema.
-const _MAIN_PANEL_SCENE := \
-        preload("res://addons/surface_tiler/src/plugin/surface_tiler_main_panel.tscn")
-
-
-func _init().(
-        _DISPLAY_NAME,
-        _ICON_DIRECTORY_PATH,
-        _AUTO_LOAD_NAME,
-        _AUTO_LOAD_PATH) -> void:
+func _init().(_SCHEMA_CLASS) -> void:
     pass
 
 
@@ -33,13 +20,6 @@ func _set_up() -> void:
     
     if !_get_is_ready():
         return
-    
-    if !is_instance_valid(_auto_load.manifest_controller):
-        _auto_load.manifest_controller = FrameworkManifestController.new()
-        _auto_load.manifest_controller.set_up(SurfaceTilerManifestSchema.new())
-        
-        # FIXME: --------------------- REMOVE
-        _auto_load._register_manifest_TMP(_auto_load.manifest)
     
     _main_panel = _MAIN_PANEL_SCENE.instance()
     get_editor_interface().get_editor_viewport().add_child(_main_panel)

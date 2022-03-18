@@ -13,29 +13,19 @@ const _RUN_AFTER_FRAMEWORK_REGISTERED_DEBOUNCE_DELAY := 0.05
 var is_registered := false
 var is_initialized := false
 
-var _framework_display_name: String
-var _framework_addons_folder_name: String
-var _auto_load_name: String
-var _auto_load_deps: Array
-
+var schema: FrameworkManifestSchema
 # NOTE: This will only be assigned when running in the editor environment.
 var manifest_controller: FrameworkManifestController
 
 
-func _init(
-        framework_display_name: String,
-        framework_addons_folder_name: String,
-        auto_load_name: String,
-        auto_load_deps: Array) -> void:
-    self._framework_display_name = framework_display_name
-    self._framework_addons_folder_name = framework_addons_folder_name
-    self._auto_load_name = auto_load_name
-    self._auto_load_deps = auto_load_deps
+func _init(schema_class: Script) -> void:
+    self.schema = Singletons.instance(schema_class)
 
 
 func _ready() -> void:
+    self.schema = schema
     _check_addons_directory()
-    Sc.logger.on_global_init(self, _auto_load_name)
+    Sc.logger.on_global_init(self, schema.auto_load_name)
     Sc.register_framework_config(self)
     _start_polling_for_auto_load_deps()
 
@@ -45,8 +35,12 @@ func _destroy() -> void:
         if is_instance_valid(member):
             if member.has_method("_destroy"):
                 member._destroy()
-            else:
+            elif member.has_method("queue_free"):
                 member.queue_free()
+            else:
+                # Old Reference instances should be automatically cleaned up
+                # when re-assigned.
+                assert(member is Reference)
 
 
 func _get_members_to_destroy() -> Array:
@@ -95,11 +89,11 @@ func _set_initialized() -> void:
 
 
 func _check_addons_directory() -> void:
-    if _framework_addons_folder_name != "":
+    if schema.folder_name != "":
         assert(self.get_script().resource_path.begins_with(
-                    "res://addons/%s" % _framework_addons_folder_name),
+                    "res://addons/%s" % schema.folder_name),
                 "%s must be located in your project's 'addons' directory." % \
-                    _framework_display_name)
+                    schema.display_name)
 
 
 func _start_polling_for_auto_load_deps() -> void:
@@ -128,7 +122,7 @@ func _check_if_all_auto_load_deps_are_present(timer: Timer) -> void:
         var timer_count := _DEP_FAIL_DURATION / _DEP_CHECK_INTERVAL
         if i >= timer_count:
             push_error(("Framework AutoLoad dependency is missing: %s=>%s") % [
-                        _auto_load_name,
+                        schema.auto_load_name,
                         missing_dep_name,
                     ])
             timer.queue_free()
@@ -138,7 +132,7 @@ func _check_if_all_auto_load_deps_are_present(timer: Timer) -> void:
 
 
 func _get_missing_auto_load_dep_name() -> String:
-    for auto_load_dep in _auto_load_deps:
+    for auto_load_dep in schema.auto_load_deps:
         if !has_node("/root/" + auto_load_dep):
             return auto_load_dep
     return ""

@@ -8,17 +8,11 @@ var schema: FrameworkManifestSchema
 var root: FrameworkManifestEditorNode
 
 
-func set_up(schema: FrameworkManifestSchema) -> void:
+func _init(schema: FrameworkManifestSchema) -> void:
     self.schema = schema
-    
-    _validate_schema()
+    _validate_schema_recursively(schema.properties)
     _load()
     save()
-
-
-func _validate_schema() -> void:
-    var schema_properties := schema.get_properties()
-    _validate_schema_recursively(schema_properties)
 
 
 func _validate_schema_recursively(
@@ -61,8 +55,7 @@ func _validate_schema_recursively(
 func _load() -> void:
     var manifest_properties: Dictionary = \
             Sc.json.load_file(schema.get_manifest_path(), true, true)
-    var schema_properties := schema.get_properties()
-    root = FrameworkManifestEditorNode.new(null, "", schema_properties)
+    root = FrameworkManifestEditorNode.new(null, "", schema.properties)
     root.load_from_manifest(manifest_properties)
 
 

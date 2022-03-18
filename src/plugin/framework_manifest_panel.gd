@@ -15,14 +15,18 @@ const _CONTROL_WIDTH := 320.0
 const _PADDING := 4.0
 const _LABEL_WIDTH := _PANEL_WIDTH - _CONTROL_WIDTH - _PADDING * 3.0
 
+var _manifest_controller: FrameworkManifestController
 
-func _ready() -> void:
+
+func set_up(manifest_controller: FrameworkManifestController) -> void:
+    self._manifest_controller = manifest_controller
+    
     $VBoxContainer.rect_min_size.x = _PANEL_WIDTH
     
     Sc.utils.clear_children($VBoxContainer)
     
     _create_property_controls(
-            St.manifest_controller.root,
+            _manifest_controller.root,
             $VBoxContainer)
     
     _update_zebra_stripes()
@@ -109,7 +113,7 @@ func _create_group_control(
 
 
 func _on_value_changed() -> void:
-    St.manifest_controller.save()
+    _manifest_controller.save()
 
 
 func _on_array_item_added(buttons: FrameworkManifestArrayButtons) -> void:
@@ -133,8 +137,3 @@ func _update_zebra_stripes() -> void:
     for row in $VBoxContainer.get_children():
         if is_instance_valid(row):
             row_count = row.update_zebra_stripes(row_count)
-
-
-func update_size(size: Vector2) -> void:
-    self.rect_min_size.x = size.x - 144.0
-    self.rect_min_size.y = size.y - 144.0
