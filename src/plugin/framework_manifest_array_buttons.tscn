@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/scaffolder/src/plugin/framework_manifest_array_buttons.gd" type="Script" id=1]
+
+[node name="FrameworkManifestArrayButtons" type="PanelContainer"]
+margin_right = 14.0
+margin_bottom = 14.0
+rect_clip_content = true
+size_flags_horizontal = 8
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 151.0
+margin_bottom = 27.0
+rect_clip_content = true
+size_flags_horizontal = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_right = 144.0
+margin_bottom = 20.0
+rect_clip_content = true
+size_flags_horizontal = 8
+
+[node name="Spacer" type="Control" parent="MarginContainer/HBoxContainer"]
+margin_bottom = 20.0
+size_flags_horizontal = 4
+
+[node name="DeleteButton" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_left = 4.0
+margin_right = 64.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 60, 0 )
+hint_tooltip = "Delete the last item from the array."
+text = "-"
+
+[node name="Spacer2" type="Control" parent="MarginContainer/HBoxContainer"]
+margin_left = 68.0
+margin_right = 76.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 8, 0 )
+size_flags_horizontal = 4
+
+[node name="AddButton" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_left = 80.0
+margin_right = 140.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 60, 0 )
+hint_tooltip = "Add an item to the end of the array."
+text = "+"
+
+[node name="Spacer3" type="Control" parent="MarginContainer/HBoxContainer"]
+margin_left = 144.0
+margin_right = 144.0
+margin_bottom = 20.0
+size_flags_horizontal = 4
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/DeleteButton" to="." method="_on_DeleteButton_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/AddButton" to="." method="_on_AddButton_pressed"]
