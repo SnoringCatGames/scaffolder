@@ -80,10 +80,10 @@ func _ready() -> void:
     add_child(self.device)
 
 
-func run(app_manifest: Dictionary) -> void:
+func run(manifest: Dictionary) -> void:
     reset()
     
-    self._manifest = app_manifest
+    self._manifest = manifest
     
     # Allow the default bootstrap class to be overridden by someone else.
     if !is_instance_valid(_bootstrap):

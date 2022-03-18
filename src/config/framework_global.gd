@@ -41,6 +41,7 @@ func _destroy() -> void:
                 # Old Reference instances should be automatically cleaned up
                 # when re-assigned.
                 assert(member is Reference)
+    is_initialized = false
 
 
 func _get_members_to_destroy() -> Array:
@@ -159,5 +160,5 @@ func _run(timer: Timer) -> void:
     set_meta("debounced_run_timer", null)
     timer.queue_free()
     # FIXME: LEFT OFF HERE: --------------------- Fix where the manifest comes from...
-    Sc.run(SquirrelAway.app_manifest)
+    Sc.run(SquirrelAway.manifest)
     # FIXME: LEFT OFF HERE: --------------------- Add support for calling Sc.run more than once; clear any preexisting app state.
