@@ -1,6 +1,6 @@
 tool
 class_name FrameworkManifestPanel
-extends ScrollContainer
+extends VBoxContainer
 
 
 const _ROW_SCENE := \
@@ -21,13 +21,11 @@ var _manifest_controller: FrameworkManifestController
 func set_up(manifest_controller: FrameworkManifestController) -> void:
     self._manifest_controller = manifest_controller
     
-    $VBoxContainer.rect_min_size.x = _PANEL_WIDTH
+    self.rect_min_size.x = _PANEL_WIDTH
     
-    Sc.utils.clear_children($VBoxContainer)
+    Sc.utils.clear_children(self)
     
-    _create_property_controls(
-            _manifest_controller.root,
-            $VBoxContainer)
+    _create_property_controls(_manifest_controller.root, self)
     
     _update_zebra_stripes()
 
@@ -134,6 +132,6 @@ func _on_array_item_deleted(buttons: FrameworkManifestArrayButtons) -> void:
 
 func _update_zebra_stripes() -> void:
     var row_count := 0
-    for row in $VBoxContainer.get_children():
+    for row in self.get_children():
         if is_instance_valid(row):
             row_count = row.update_zebra_stripes(row_count)

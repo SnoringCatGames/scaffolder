@@ -18,16 +18,22 @@ func _ready() -> void:
     connect("resized", _throttled_on_resize, "call_func")
     
     # FIXME: LEFT OFF HERE: --------------------------------------------
+    var foo_manifest_controller := FrameworkManifestController.new(St.schema)
     $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer/ \
             AccordionPanel/AccordionHeader.header_text = \
-                St.manifest_controller.schema.display_name
+                foo_manifest_controller.schema.display_name
+    $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer/ \
+            FrameworkManifestPanel \
+            .set_up(foo_manifest_controller)
     $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer/ \
             AccordionPanel/AccordionBody/FrameworkManifestPanel \
-            .set_up(St.manifest_controller)
+            .set_up(foo_manifest_controller)
 
 
 func _adjust_size() -> void:
-    var size: Vector2 = get_parent().rect_size
+    # FIXME: LEFT OFF HERE: ------------------------------
+#    var size: Vector2 = get_parent().rect_size
+    var size: Vector2 = self.rect_size
     size.y -= $VBoxContainer/Label.rect_size.y
     size.y -= $VBoxContainer/Spacer.rect_size.y
     $VBoxContainer/CenterContainer/ScrollContainer.rect_min_size = \
