@@ -75,10 +75,10 @@ func on_global_init(
         expect_is_tool := true) -> void:
     global.name = name
     
-    if Sc._manifest.empty() and \
+    if Sc.manifest.empty() and \
             Sc._LOGS_EARLY_BOOTSTRAP_EVENTS or \
-            !Sc._manifest.empty() and \
-            Sc._manifest.metadata.logs_bootstrap_events:
+            !Sc.manifest.empty() and \
+            Sc.manifest.metadata.logs_bootstrap_events:
         self.print("%s._init" % name)
     
     if Engine.editor_hint and \

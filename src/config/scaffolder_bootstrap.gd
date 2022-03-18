@@ -22,14 +22,14 @@ func run() -> void:
 
 func _amend_manifest() -> void:
     for config in Sc._framework_globals:
-        config._amend_manifest(Sc._manifest)
+        config._amend_manifest(Sc.manifest)
 
 
 func _register_manifest() -> void:
     _log_bootstrap_event("ScaffolderBootstrap._register_manifest")
     
     for config in Sc._framework_globals:
-        config._register_manifest(Sc._manifest)
+        config._register_manifest(Sc.manifest)
     
     Sc.initialize_metadata()
     
@@ -55,7 +55,7 @@ func _initialize_framework() -> void:
     
     Sc.styles.configure_theme()
     
-    Sc.nav.register_manifest(Sc._manifest.gui_manifest.screen_manifest)
+    Sc.nav.register_manifest(Sc.manifest.gui_manifest.screen_manifest)
     
     seed(Sc.metadata.rng_seed)
     
@@ -325,19 +325,19 @@ func _set_window_debug_size_and_position() -> void:
 
 
 func _log_bootstrap_event(message: String) -> void:
-    if Sc._manifest.empty() and \
+    if Sc.manifest.empty() and \
             Sc._LOGS_EARLY_BOOTSTRAP_EVENTS or \
-            !Sc._manifest.empty() and \
-            Sc._manifest.metadata.logs_bootstrap_events:
+            !Sc.manifest.empty() and \
+            Sc.manifest.metadata.logs_bootstrap_events:
         Sc.logger.print(message)
 
 
 func _log_app_name() -> void:
     Sc.logger.print("")
     Sc.logger.print("App name: %s" % \
-            Sc._manifest.metadata.app_name)
+            Sc.manifest.metadata.app_name)
     Sc.logger.print("App version: %s" % \
-            Sc._manifest.metadata.app_version)
+            Sc.manifest.metadata.app_version)
     Sc.logger.print("")
 
 
