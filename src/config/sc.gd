@@ -108,9 +108,65 @@ func register_framework_config(config: FrameworkConfig) -> void:
     _framework_configs.push_back(config)
 
 
+# FIXME: LEFT OFF HERE: --------------------------------------------
+# - After finishing framework-to-plugin conversion, test the automatic
+#   framework+AutoLoad registration.
+# - And test that the sort ordering works here.
+# - And test the circular dependency check.
 func _sort_registered_frameworks() -> void:
-    # FIXME: LEFT OFF HERE: -----------------------------------------
-    pass
+    # Create framework nodes.
+    var nodes := {}
+    for framework in _framework_configs:
+        var node := {}
+        node.framework = framework
+        node.name = framework._auto_load_name
+        node.parents = []
+        node.children = []
+        nodes[framework._auto_load_name] = node
+    
+    # Collect parent dependencies.
+    for framework in _framework_configs:
+        var node: Dictionary = nodes[framework._auto_load_name]
+        for name in framework._auto_load_deps:
+            node.parents.push_back(nodes[name])
+    
+    # Collect children dependencies.
+    for name in nodes:
+        var node: Dictionary = nodes[name]
+        for parent in node.parents:
+            parent.children.push_back(node)
+    
+    # Create an array and store indices on nodes.
+    var node_array := nodes.values()
+    for i in node_array.size():
+        node_array[i].i = i
+    
+    # Sort nodes.
+    var i := 0
+    var swap_count := 0
+    while i < node_array.size():
+        var node: Dictionary = node_array[i]
+        var swapped := false
+        for parent in node.parents:
+            if parent.i > i:
+                var swap_i: int = node.i
+                node.i = parent.i
+                parent.i = swap_i
+                node_array[parent.i] = parent
+                node_array[node.i] = node
+                swapped = true
+                swap_count += 1
+        if !swapped:
+            i += 1
+        if swap_count > node_array.size():
+            Sc.logger.error(
+                    "Framework AutoLoads contain circular dependencies: %s" % \
+                    node.name)
+            return
+    
+    # Record sorted frameworks.
+    for j in node_array.size():
+        _framework_configs[j] = node_array[j].framework
 
 
 func _destroy() -> void:
