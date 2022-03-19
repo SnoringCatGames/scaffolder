@@ -3,6 +3,8 @@ class_name FrameworkManifestController
 extends Reference
 
 
+signal manifest_changed(manifest)
+
 var schema: FrameworkSchema
 
 var root: FrameworkManifestEditorNode
@@ -11,8 +13,6 @@ var root: FrameworkManifestEditorNode
 func _init(schema: FrameworkSchema) -> void:
     self.schema = schema
     _validate_schema_recursively(schema.properties)
-    _load()
-    save()
 
 
 func _validate_schema_recursively(
@@ -52,17 +52,24 @@ func _validate_schema_recursively(
                     ])
 
 
-func _load() -> void:
+func load_manifest() -> Dictionary:
     var manifest_properties: Dictionary = \
             Sc.json.load_file(schema.get_manifest_path(), true, true)
     root = FrameworkManifestEditorNode.new(null, "", schema.properties)
     root.load_from_manifest(manifest_properties)
+    if Engine.editor_hint:
+        # In case the schema has changed since we last saved the manifest, save
+        # the up-to-date version of the manifest.
+        save_manifest(false)
+    return root.get_manifest_value()
 
 
-func save() -> void:
-    St.manifest = root.get_manifest_value()
+func save_manifest(is_changed := true) -> void:
+    var manifest: Dictionary = root.get_manifest_value()
     Sc.json.save_file(
-            St.manifest,
+            manifest,
             schema.get_manifest_path(),
             true,
             true)
+    if is_changed:
+        emit_signal("manifest_changed")

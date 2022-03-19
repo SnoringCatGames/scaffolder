@@ -21,10 +21,6 @@ func _set_up() -> void:
     if !_get_is_ready():
         return
     
-    # FIXME: LEFT OFF HERE: -----------------------------
-    for framework in Sc._framework_globals:
-        assert(is_instance_valid(framework.manifest_controller))
-    
     _main_panel = _MAIN_PANEL_SCENE.instance()
     get_editor_interface().get_editor_viewport().add_child(_main_panel)
     

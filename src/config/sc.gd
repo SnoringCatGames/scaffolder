@@ -58,7 +58,6 @@ var gesture_reporter: GestureReporter
 # Array<FrameworkGlobal>
 var _framework_globals := []
 var _bootstrap: ScaffolderBootstrap
-var manifest: Dictionary
 
 # ---
 
@@ -78,12 +77,38 @@ func _ready() -> void:
     
     self.device = DeviceUtils.new()
     add_child(self.device)
-
-
-func run(manifest: Dictionary) -> void:
-    reset()
     
-    self.manifest = manifest
+    self.json = JsonUtils.new()
+    add_child(self.json)
+
+
+func _trigger_debounced_run() -> void:
+    # Trigger Sc.run with a debounce.
+    if !has_meta("debounced_run_timer"):
+        var timer := Timer.new()
+        timer.one_shot = true
+        timer.wait_time = _RUN_AFTER_FRAMEWORK_REGISTERED_DEBOUNCE_DELAY
+        timer.connect(
+                "timeout",
+                self,
+                "_run",
+                [timer])
+        add_child(timer)
+        set_meta("debounced_run_timer", timer)
+    var timer: Timer = get_meta("debounced_run_timer")
+    timer.start()
+
+
+func _run(timer: Timer) -> void:
+    set_meta("debounced_run_timer", null)
+    timer.queue_free()
+    # FIXME: LEFT OFF HERE: --------------------- Fix where the manifest comes from...
+    Sc.run()
+    # FIXME: LEFT OFF HERE: --------------------- Add support for calling Sc.run more than once; clear any preexisting app state.
+
+
+func run() -> void:
+    reset()
     
     # Allow the default bootstrap class to be overridden by someone else.
     if !is_instance_valid(_bootstrap):
@@ -167,17 +192,13 @@ func _sort_registered_frameworks() -> void:
         _framework_globals[j] = node_array[j].framework
 
 
-func _destroy() -> void:
-    ._destroy()
-    manifest = {}
-
-
 func _get_members_to_destroy() -> Array:
     return [
         # NOTE: These are persisted between framework resets.
 #        logger,
 #        utils,
 #        device,
+#        json,
 #        _bootstrap,
         
         metadata,
@@ -187,7 +208,6 @@ func _get_members_to_destroy() -> Array:
         styles,
         images,
         gui,
-        json,
         save_state,
         time,
         profiler,
@@ -215,23 +235,11 @@ func _get_members_to_destroy() -> Array:
     ]
 
 
-func _amend_manifest(manifest: Dictionary) -> void:
+func _amend_manifest() -> void:
     pass
 
 
-func _register_manifest_TMP(manifest: Dictionary) -> void:
-    # FIXME: LEFT OFF HERE: -------------------------
-    pass
-
-
-func _instantiate_sub_modules_TMP() -> void:
-    # FIXME: LEFT OFF HERE: -------------------------
-    pass
-
-
-func _register_manifest(manifest: Dictionary) -> void:
-    self.manifest = manifest
-    
+func _register_manifest() -> void:
     assert((manifest.images_manifest.developer_splash == null) == \
             manifest.audio_manifest.developer_splash_sound.empty())
 
@@ -299,13 +307,6 @@ func _instantiate_sub_modules() -> void:
     else:
         self.gui = ScaffolderGuiConfig.new()
     add_child(self.gui)
-    
-    if manifest.has("json_class"):
-        self.json = manifest.json_class.new()
-        assert(self.json is JsonUtils)
-    else:
-        self.json = JsonUtils.new()
-    add_child(self.json)
     
     if manifest.has("save_state_class"):
         self.save_state = manifest.save_state_class.new()

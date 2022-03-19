@@ -14,22 +14,28 @@ func _init(name := "ScaffolderBootstrap") -> void:
 
 func run() -> void:
     _log_bootstrap_event("ScaffolderBootstrap.run")
-    _log_app_name()
     
+    call_deferred("_load_manifest")
     call_deferred("_amend_manifest")
     call_deferred("_register_manifest")
 
 
+func _load_manifest() -> void:
+    for config in Sc._framework_globals:
+        config._load_manifest()
+    _log_app_name()
+
+
 func _amend_manifest() -> void:
     for config in Sc._framework_globals:
-        config._amend_manifest(Sc.manifest)
+        config._amend_manifest()
 
 
 func _register_manifest() -> void:
     _log_bootstrap_event("ScaffolderBootstrap._register_manifest")
     
     for config in Sc._framework_globals:
-        config._register_manifest(Sc.manifest)
+        config._register_manifest()
     
     Sc.initialize_metadata()
     
