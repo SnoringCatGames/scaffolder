@@ -237,7 +237,7 @@ func _init() -> void:
     Sc.logger.on_global_init(self, "ScaffolderImages")
 
 
-func register_manifest(manifest: Dictionary) -> void:
+func _parse_manifest(manifest: Dictionary) -> void:
     if manifest.has("app_logo"):
         self.app_logo = manifest.app_logo
     else:

@@ -239,7 +239,7 @@ func _amend_manifest() -> void:
     pass
 
 
-func _register_manifest() -> void:
+func _parse_manifest() -> void:
     assert((manifest.images_manifest.developer_splash == null) == \
             manifest.audio_manifest.developer_splash_sound.empty())
 
@@ -251,7 +251,7 @@ func initialize_metadata() -> void:
     else:
         self.metadata = ScaffolderAppMetadata.new()
     add_child(self.metadata)
-    self.metadata.register_manifest(manifest.metadata)
+    self.metadata._parse_manifest(manifest.metadata)
 
 
 func initialize_crash_reporter() -> void:
@@ -433,14 +433,14 @@ func _instantiate_sub_modules() -> void:
 
 
 func _configure_sub_modules() -> void:
-    self.audio_manifest.register_manifest(manifest.audio_manifest)
-    self.colors.register_manifest(manifest.colors_manifest)
-    self.styles.register_manifest(manifest.styles_manifest)
-    self.images.register_manifest(manifest.images_manifest)
-    self.gui.register_manifest(manifest.gui_manifest)
-    self.notify.register_manifest(manifest.notifications_manifest)
-    self.slow_motion.register_manifest(manifest.slow_motion_manifest)
-    self.characters.register_manifest(manifest.character_manifest)
+    self.audio_manifest._parse_manifest(manifest.audio_manifest)
+    self.colors._parse_manifest(manifest.colors_manifest)
+    self.styles._parse_manifest(manifest.styles_manifest)
+    self.images._parse_manifest(manifest.images_manifest)
+    self.gui._parse_manifest(manifest.gui_manifest)
+    self.notify._parse_manifest(manifest.notifications_manifest)
+    self.slow_motion._parse_manifest(manifest.slow_motion_manifest)
+    self.characters._parse_manifest(manifest.character_manifest)
     
     # ScaffolderAnnotationParameters currently depends on ScaffolderColors
     # being both instantiated and configured before
@@ -452,7 +452,7 @@ func _configure_sub_modules() -> void:
         self.ann_params = ScaffolderAnnotationParameters.new()
     add_child(self.ann_params)
     
-    self.ann_params.register_manifest(manifest.annotation_parameters_manifest)
+    self.ann_params._parse_manifest(manifest.annotation_parameters_manifest)
     
     self.metadata.is_app_configured = true
     

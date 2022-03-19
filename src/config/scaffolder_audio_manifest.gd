@@ -40,7 +40,7 @@ func _init() -> void:
     Sc.logger.on_global_init(self, "ScaffolderAudioManifest")
 
 
-func register_manifest(manifest: Dictionary) -> void:
+func _parse_manifest(manifest: Dictionary) -> void:
     self.sounds_manifest = manifest.sounds_manifest
     self.default_sounds_path_prefix = manifest.default_sounds_path_prefix
     self.default_sounds_file_suffix = manifest.default_sounds_file_suffix

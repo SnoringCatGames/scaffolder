@@ -24,7 +24,7 @@ var _character_scenes_list: Array
 var _character_name_to_category: Dictionary
 
 
-func register_manifest(manifest: Dictionary) -> void:
+func _parse_manifest(manifest: Dictionary) -> void:
     self._character_scenes_list = manifest.character_scenes
     self.default_character_name = manifest.default_character_name
     if manifest.has("omits_npcs"):

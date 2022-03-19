@@ -88,7 +88,7 @@ func _create_screen_container(screen_name: String) -> ScreenContainer:
     return screen_container
 
 
-func register_manifest(screen_manifest: Dictionary) -> void:
+func _parse_manifest(screen_manifest: Dictionary) -> void:
     if Engine.editor_hint:
         return
     
@@ -122,7 +122,7 @@ func register_manifest(screen_manifest: Dictionary) -> void:
     else:
         transitions = ScreenTransitionHandler.new()
     add_child(transitions)
-    transitions.register_manifest(screen_manifest)
+    transitions._parse_manifest(screen_manifest)
 
 
 func open(

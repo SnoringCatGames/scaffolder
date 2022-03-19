@@ -6,7 +6,7 @@ extends FrameworkPlugin
 const _SCHEMA_CLASS := ScaffolderSchema
 
 const _MAIN_PANEL_SCENE := preload(
-        "res://addons/scaffolder/src/plugin/scaffolder_plugin_main_panel.tscn")
+        "res://addons/scaffolder/src/plugin/framework_plugin_main_panel.tscn")
 
 var _main_panel: ScaffolderPluginMainPanel
 

@@ -67,7 +67,7 @@ func _destroy() -> void:
         queue_free()
 
 
-func register_manifest(screen_manifest: Dictionary) -> void:
+func _parse_manifest(screen_manifest: Dictionary) -> void:
     if screen_manifest.has("overlay_mask_transition_fade_in_texture"):
         self.overlay_mask_transition_fade_in_texture = \
                 screen_manifest.overlay_mask_transition_fade_in_texture

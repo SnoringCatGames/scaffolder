@@ -81,7 +81,7 @@ var character_collider_thickness := 4.0
 # ---
 
 
-func register_manifest(manifest: Dictionary) -> void:
+func _parse_manifest(manifest: Dictionary) -> void:
     for key in manifest:
         assert(self.get(key) != null)
         self.set(key, manifest[key])

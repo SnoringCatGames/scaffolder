@@ -177,7 +177,7 @@ func _init() -> void:
     Sc.logger.on_global_init(self, "ScaffolderStyles")
 
 
-func register_manifest(manifest: Dictionary) -> void:
+func _parse_manifest(manifest: Dictionary) -> void:
     _validate_manifest(manifest)
     
     if manifest.has("focus_border_nine_patch"):

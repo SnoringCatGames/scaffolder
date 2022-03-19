@@ -158,7 +158,7 @@ func _init() -> void:
     Sc.logger.on_global_init(self, "ScaffolderColors")
 
 
-func register_manifest(manifest: Dictionary) -> void:
+func _parse_manifest(manifest: Dictionary) -> void:
     for key in _defaults:
         var value = \
                 manifest[key] if \
