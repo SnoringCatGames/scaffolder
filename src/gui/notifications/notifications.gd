@@ -31,7 +31,7 @@ var _active_panel: Control
 var _queue := []
 
 
-func register_manifest(manifest: Dictionary) -> void:
+func _parse_manifest(manifest: Dictionary) -> void:
     if manifest.has("duration_short_sec"):
         self.duration_short_sec = manifest.duration_short_sec
     if manifest.has("duration_long_sec"):

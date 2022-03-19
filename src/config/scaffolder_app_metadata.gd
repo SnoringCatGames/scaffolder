@@ -92,7 +92,7 @@ func _init() -> void:
     Sc.logger.on_global_init(self, "ScaffolderAppMetadata")
 
 
-func register_manifest(manifest: Dictionary) -> void:
+func _parse_manifest(manifest: Dictionary) -> void:
     self.debug = manifest.debug
     self.playtest = manifest.playtest
     if manifest.has("test"):

@@ -291,7 +291,7 @@ func amend_manifest(manifest: Dictionary) -> void:
         settings_group.hud_enablement_items.push_back(item_config)
 
 
-func register_manifest(manifest: Dictionary) -> void:
+func _parse_manifest(manifest: Dictionary) -> void:
     amend_manifest(manifest)
     
     if Engine.editor_hint:

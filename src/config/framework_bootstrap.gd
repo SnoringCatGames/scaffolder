@@ -17,7 +17,7 @@ func run() -> void:
     
     call_deferred("_load_manifest")
     call_deferred("_amend_manifest")
-    call_deferred("_register_manifest")
+    call_deferred("_parse_manifest")
 
 
 func _load_manifest() -> void:
@@ -31,11 +31,11 @@ func _amend_manifest() -> void:
         config._amend_manifest()
 
 
-func _register_manifest() -> void:
-    _log_bootstrap_event("ScaffolderBootstrap._register_manifest")
+func _parse_manifest() -> void:
+    _log_bootstrap_event("ScaffolderBootstrap._parse_manifest")
     
     for config in Sc._framework_globals:
-        config._register_manifest()
+        config._parse_manifest()
     
     Sc.initialize_metadata()
     
@@ -61,7 +61,7 @@ func _initialize_framework() -> void:
     
     Sc.styles.configure_theme()
     
-    Sc.nav.register_manifest(Sc.manifest.gui_manifest.screen_manifest)
+    Sc.nav._parse_manifest(Sc.manifest.gui_manifest.screen_manifest)
     
     seed(Sc.metadata.rng_seed)
     

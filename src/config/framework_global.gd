@@ -68,7 +68,7 @@ func _amend_manifest() -> void:
     pass
 
 
-func _register_manifest() -> void:
+func _parse_manifest() -> void:
     pass
 
 

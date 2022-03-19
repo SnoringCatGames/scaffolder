@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/plugin/scaffolder_plugin_main_panel.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/src/plugin/framework_plugin_main_panel.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_panel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/style_box_texture_scalable.gd" type="Script" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_body.tscn" type="PackedScene" id=4]

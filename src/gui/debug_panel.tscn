@@ -54,7 +54,7 @@ text = "> 2021-7-15_12.35.26
 > 
 App version: 0.0.1
 
-> ScaffolderBootstrap._register_manifest
+> ScaffolderBootstrap._parse_manifest
 > ScaffolderAppMetadata._init
 > CrashReporter._init
 > CrashReporter.report_any_previous_crash

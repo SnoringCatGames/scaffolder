@@ -48,7 +48,7 @@ func _init() -> void:
             "_on_music_transition_complete")
 
 
-func register_manifest(manifest: Dictionary) -> void:
+func _parse_manifest(manifest: Dictionary) -> void:
     if manifest.has("time_scale"):
         self.time_scale = manifest.time_scale
     if manifest.has("tick_tock_tempo_multiplier"):
