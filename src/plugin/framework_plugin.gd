@@ -8,12 +8,26 @@ extends EditorPlugin
 #   - _register_manifest -> _parse_manifest
 #   - scaffolder_(bootstrap|...) -> framework_(bootstrap|...)
 # 
+# - Update new schema structure to support optionally just including the default
+#   value directly, without an array that also includes the type, if the type
+#   can be inferred.
+#   -   Support inference for each type, via standard function.
+#   -   if is Object:
+#       - if is TileSet:
+#       - elif is Resource:
+#       - elif is Script:
+#       - else:
+#         ERROR
+#       - (TYPE_CUSTOM must use explicit Array structure.)
+# 
+# - Plan the system for easily modding / overriding schemas as we do now:
+#   - Should always override any preexisting values stored in json.
+#   - Should save override values to json.
+# 
+# - Port all legacy framework manifests to new pattern.
+# 
 # - Create plugin container system for rendering separate plugin manifest
 #   editors within.
-# 
-# - Registering:
-#   - Include a new standard flow for getting framework manifest:
-#     - Call controller.set_up() to instantiate the manifest.
 # 
 # - Refactor main-panel to be generic for any plugin.
 #   - Auto-open the last accordion registered (and close all others at that point).
