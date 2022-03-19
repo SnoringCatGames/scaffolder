@@ -111,7 +111,7 @@ func _create_group_control(
 
 
 func _on_value_changed() -> void:
-    _manifest_controller.save()
+    _manifest_controller.save_manifest()
 
 
 func _on_array_item_added(buttons: FrameworkManifestArrayButtons) -> void:

@@ -14,8 +14,8 @@ var is_registered := false
 var is_initialized := false
 
 var schema: FrameworkSchema
-# NOTE: This will only be assigned when running in the editor environment.
 var manifest_controller: FrameworkManifestController
+var manifest: Dictionary
 
 
 func _init(schema_class: Script) -> void:
@@ -41,6 +41,8 @@ func _destroy() -> void:
                 # Old Reference instances should be automatically cleaned up
                 # when re-assigned.
                 assert(member is Reference)
+    manifest_controller = null
+    manifest = {}
     is_initialized = false
 
 
@@ -51,15 +53,22 @@ func _get_members_to_destroy() -> Array:
     return []
 
 
+func _load_manifest() -> void:
+    self.manifest_controller = FrameworkManifestController.new(schema)
+    self.manifest = manifest_controller.load_manifest()
+    manifest_controller \
+            .connect("manifest_changed", self, "_on_manifest_changed")
+
+
 func _on_auto_load_deps_ready() -> void:
     pass
 
 
-func _amend_manifest(manifest: Dictionary) -> void:
+func _amend_manifest() -> void:
     pass
 
 
-func _register_manifest(manifest: Dictionary) -> void:
+func _register_manifest() -> void:
     pass
 
 
@@ -87,6 +96,13 @@ func _set_initialized() -> void:
     if !is_initialized:
         is_initialized = true
         emit_signal("initialized")
+
+
+func _on_manifest_changed() -> void:
+    # FIXME: LEFT OFF HERE: --------------------------------
+    # - Reset this, and all dependent, frameworks.
+    # - Save all dependent frameworks during the sorting / circular-deps check.
+    pass
 
 
 func _check_addons_directory() -> void:
@@ -137,28 +153,3 @@ func _get_missing_auto_load_dep_name() -> String:
         if !has_node("/root/" + auto_load_dep):
             return auto_load_dep
     return ""
-
-
-func _trigger_debounced_run() -> void:
-    # Trigger Sc.run with a debounce.
-    if !has_meta("debounced_run_timer"):
-        var timer := Timer.new()
-        timer.one_shot = true
-        timer.wait_time = _RUN_AFTER_FRAMEWORK_REGISTERED_DEBOUNCE_DELAY
-        timer.connect(
-                "timeout",
-                self,
-                "_run",
-                [timer])
-        add_child(timer)
-        set_meta("debounced_run_timer", timer)
-    var timer: Timer = get_meta("debounced_run_timer")
-    timer.start()
-
-
-func _run(timer: Timer) -> void:
-    set_meta("debounced_run_timer", null)
-    timer.queue_free()
-    # FIXME: LEFT OFF HERE: --------------------- Fix where the manifest comes from...
-    Sc.run(SquirrelAway.manifest)
-    # FIXME: LEFT OFF HERE: --------------------- Add support for calling Sc.run more than once; clear any preexisting app state.

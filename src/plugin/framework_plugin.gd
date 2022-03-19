@@ -4,6 +4,10 @@ extends EditorPlugin
 
 
 # FIXME: LEFT OFF HERE: -------------------------------------------
+# - Rename:
+#   - _register_manifest -> _parse_manifest
+#   - scaffolder_(bootstrap|...) -> framework_(bootstrap|...)
+# 
 # - Create plugin container system for rendering separate plugin manifest
 #   editors within.
 # 
@@ -85,13 +89,7 @@ func _enter_tree() -> void:
 func _set_up() -> void:
     if !_get_is_ready():
         return
-    
-    if !is_instance_valid(_auto_load.manifest_controller):
-        _auto_load.manifest_controller = \
-                FrameworkManifestController.new(_auto_load.schema)
-        
-        # FIXME: --------------------- REMOVE
-        _auto_load._register_manifest_TMP(_auto_load.manifest)
+    pass
 
 
 func get_plugin_name() -> String:
