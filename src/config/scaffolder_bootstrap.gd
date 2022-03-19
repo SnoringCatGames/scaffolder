@@ -340,10 +340,8 @@ func _log_bootstrap_event(message: String) -> void:
 
 func _log_app_name() -> void:
     Sc.logger.print("")
-    Sc.logger.print("App name: %s" % \
-            Sc.manifest.metadata.app_name)
-    Sc.logger.print("App version: %s" % \
-            Sc.manifest.metadata.app_version)
+    Sc.logger.print("App name: %s" % Sc.manifest.metadata.app_name)
+    Sc.logger.print("App version: %s" % Sc.manifest.metadata.app_version)
     Sc.logger.print("")
 
 
