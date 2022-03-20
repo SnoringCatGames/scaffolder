@@ -4,11 +4,6 @@ extends EditorPlugin
 
 
 # FIXME: LEFT OFF HERE: -------------------------------------------
-    # FIXME: LEFT OFF HERE: --------------------------
-    # - Check this FrameworkSchema logic.
-    # - Check the rest of node logic.
-    # - Check panel and row logic.
-    # 
 # - Update new schema structure to support optionally just including the default
 #   value directly, without an array that also includes the type, if the type
 #   can be inferred.

@@ -18,10 +18,6 @@ func _init(schema: FrameworkSchema) -> void:
 func _validate_schema_recursively(
         schema_value,
         prefix := "") -> void:
-    assert(schema_value is Dictionary or \
-            schema_value is Array,
-            "Invalid schema structure: %s" % prefix)
-    
     if schema_value is Dictionary:
         for key in schema_value:
             var value = schema_value[key]
@@ -54,6 +50,9 @@ func _validate_schema_recursively(
     else:
         # Inferred-type value definition.
         var type := FrameworkSchema.get_type(schema_value)
+        assert(type != null,
+                ("The type cannot be inferred for a null type " +
+                "in the framework schema: %s") % prefix)
         assert(FrameworkSchema.get_is_valid_type(type),
                 ("Schema inferred-type value definitions must use a " +
                 "default value that is a valid TYPE: %s, %s, %s") % [
