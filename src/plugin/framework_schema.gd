@@ -8,7 +8,7 @@ const TYPE_TILESET := 1002
 const TYPE_RESOURCE := 1003
 const TYPE_CUSTOM := 1004
 
-const VALID_TYPES := {
+const _VALID_TYPES := {
     TYPE_BOOL: true,
     TYPE_STRING: true,
     TYPE_INT: true,
@@ -90,6 +90,7 @@ static func get_is_expected_type(
 static func get_matches_schema(
         value,
         schema) -> bool:
+    # FIXME: LEFT OFF HERE: --------------------------
     if schema is Dictionary:
         return value is Dictionary
     elif schema is Array:
@@ -140,6 +141,10 @@ static func get_type_string(type) -> String:
             return "TYPE_CUSTOM"
         _:
             return Sc.utils.get_type_string(type)
+
+
+static func get_is_valid_type(type: int) -> bool:
+    return _VALID_TYPES.has(type)
 
 
 static func get_resource_class_name(type: int) -> String:
