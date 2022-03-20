@@ -57,9 +57,11 @@ static func get_default_value(schema):
         if schema.size() == 1:
             return []
         else:
+            # Explicit-type value definition.
             return schema[1]
     else:
-        Sc.logger.error("FrameworkSchema.get_default_value")
+        # Inferred-type value definition.
+        return schema
 
 
 static func get_is_expected_type(
@@ -90,16 +92,21 @@ static func get_is_expected_type(
 static func get_matches_schema(
         value,
         schema) -> bool:
-    # FIXME: LEFT OFF HERE: --------------------------
     if schema is Dictionary:
         return value is Dictionary
     elif schema is Array:
         if schema.size() == 1:
             return value is Array
         else:
+            # Explicit-type value definition.
             return get_is_expected_type(value, schema[0])
     else:
-        Sc.logger.error("FrameworkSchema.get_matches_schema")
+        # Inferred-type value definition.
+        var type := get_type(schema)
+        if get_is_valid_type(type):
+            return get_is_expected_type(value, type)
+        else:
+            Sc.logger.error("FrameworkSchema.get_matches_schema")
         return false
 
 
