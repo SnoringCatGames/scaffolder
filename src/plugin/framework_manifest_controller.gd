@@ -34,22 +34,33 @@ func _validate_schema_recursively(
                     schema_value[0],
                     prefix + "[0]>")
         else:
+            # Explicit-type value definition.
             assert(schema_value.size() == 2,
-                    ("Schema value definitions must be of size 2: " +
-                    "%s, %s") % [prefix, str(schema_value)])
+                    ("Schema explicit-type value definitions must be of " +
+                    "size 2: %s, %s") % [prefix, str(schema_value)])
             var type = schema_value[0]
             assert(type is int and \
-                    FrameworkSchema.VALID_TYPES.has(type),
-                    ("Schema value definitions must start with a " +
-                    "TYPE enum: %s, %s") % [prefix, str(type)])
+                    FrameworkSchema.get_is_valid_type(type),
+                    ("Schema explicit-type value definitions must start " +
+                    "with a TYPE enum: %s, %s") % [prefix, str(type)])
             var value = schema_value[1]
             assert(FrameworkSchema.get_is_expected_type(value, type),
-                    ("Schema value definitions must include a " +
+                    ("Schema explicit-type value definitions must include a " +
                     "default value that matches the TYPE enum: %s, %s, %s") % [
                         prefix,
                         FrameworkSchema.get_type_string(type),
                         str(value),
                     ])
+    else:
+        # Inferred-type value definition.
+        var type := FrameworkSchema.get_type(schema_value)
+        assert(FrameworkSchema.get_is_valid_type(type),
+                ("Schema inferred-type value definitions must use a " +
+                "default value that is a valid TYPE: %s, %s, %s") % [
+                    prefix,
+                    FrameworkSchema.get_type_string(type),
+                    str(schema_value),
+                ])
 
 
 func load_manifest() -> Dictionary:

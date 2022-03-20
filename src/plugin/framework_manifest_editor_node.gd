@@ -28,7 +28,13 @@ func load_from_manifest(manifest) -> void:
             type = schema[0]
             value = manifest
     else:
-        Sc.logger.error("FrameworkManifestEditorNode.load_from_manifest")
+        # Inferred-type value definition.
+        var schema_type := FrameworkSchema.get_type(schema_value)
+        if FrameworkSchema.get_is_valid_type(schema_type):
+            type = schema_type
+            value = manifest
+        else:
+            Sc.logger.error("FrameworkManifestEditorNode.load_from_manifest")
 
 
 func _load_from_manifest_dictionary(manifest) -> void:
