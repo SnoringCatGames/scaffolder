@@ -29,7 +29,7 @@ func load_from_manifest(manifest) -> void:
             value = manifest
     else:
         # Inferred-type value definition.
-        var schema_type := FrameworkSchema.get_type(schema_value)
+        var schema_type := FrameworkSchema.get_type(schema)
         if FrameworkSchema.get_is_valid_type(schema_type):
             type = schema_type
             value = manifest
@@ -67,8 +67,7 @@ func _load_from_manifest_dictionary(manifest) -> void:
     for key in schema:
         # Ensure a manifest entry exists for this key.
         if !manifest.has(key):
-            manifest[key] = \
-                    FrameworkSchema.get_default_value(schema[key])
+            manifest[key] = FrameworkSchema.get_default_value(schema[key])
         
         var child = get_script().new(self, key, schema[key])
         child.load_from_manifest(manifest[key])
@@ -107,8 +106,7 @@ func _load_from_manifest_array(manifest) -> void:
 func add_array_element():
     assert(type == TYPE_ARRAY)
     var child = get_script().new(self, children.size(), schema[0])
-    child.load_from_manifest(
-            FrameworkSchema.get_default_value(schema[0]))
+    child.load_from_manifest(FrameworkSchema.get_default_value(schema[0]))
     children.push_back(child)
     return child
 
