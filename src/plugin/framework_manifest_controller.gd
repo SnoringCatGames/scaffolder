@@ -64,7 +64,7 @@ func _validate_schema_recursively(
 
 func load_manifest() -> Dictionary:
     var manifest_properties: Dictionary = \
-            Sc.json.load_file(schema.get_manifest_path(), true, true)
+            Sc.json.load_file(schema.manifest_path, true, true)
     root = FrameworkManifestEditorNode.new(null, "", schema.properties)
     root.load_from_manifest(manifest_properties)
     if Engine.editor_hint:
@@ -78,7 +78,7 @@ func save_manifest(is_changed := true) -> void:
     var manifest: Dictionary = root.get_manifest_value()
     Sc.json.save_file(
             manifest,
-            schema.get_manifest_path(),
+            schema.manifest_path,
             true,
             true)
     if is_changed:

@@ -3,7 +3,7 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: -------------------------------------------
+# FIXME: LEFT OFF HERE: --------------------------------------------
 # - Add support for different schema modes.
 #     - ReleaseMode: local-dev vs playtest vs production
 #     - AnnotationsMode: emphasized-annotations vs default
@@ -17,8 +17,10 @@ extends EditorPlugin
 #   - In the node tree:
 #     - Introduce new top-level sections.
 #     - Introduce corresponding new nodes under each mode-section branch.
-#   - Add checkboxes at the top of the manifest panel for toggling which mode
-#     we're in.
+#   - Add checkboxes at the top of the main panel (outside of any manifest
+#     accordion) for toggling which mode we're in.
+#     - Save the modes in another separate top-level section in the scaffolder
+#       manifest JSON.
 #     - When toggling a checkbox, update the values for all relevant controls.
 #     - When editing a control value, only modify the property for the relevant
 #       mode section.

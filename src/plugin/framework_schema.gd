@@ -25,6 +25,7 @@ var folder_name: String
 var auto_load_name: String
 var auto_load_deps: Array
 var auto_load_path: String
+var manifest_path: String
 var plugin_icon_directory_path: String
 var properties: Dictionary
 
@@ -35,6 +36,7 @@ func _init(
         auto_load_name: String,
         auto_load_deps: Array,
         auto_load_path: String,
+        manifest_path: String,
         plugin_icon_directory_path: String,
         properties: Dictionary) -> void:
     self.display_name = display_name
@@ -42,12 +44,9 @@ func _init(
     self.auto_load_name = auto_load_name
     self.auto_load_deps = auto_load_deps
     self.auto_load_path = auto_load_path
+    self.manifest_path = manifest_path
     self.plugin_icon_directory_path = plugin_icon_directory_path
     self.properties = properties
-
-
-func get_manifest_path() -> String:
-    return "res://addons/%s/manifest.json" % folder_name
 
 
 static func get_default_value(schema):
