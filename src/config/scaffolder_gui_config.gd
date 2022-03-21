@@ -246,7 +246,7 @@ func _init() -> void:
     Sc.logger.on_global_init(self, "ScaffolderGuiConfig")
 
 
-func amend_manifest(manifest: Dictionary) -> void:
+func _amend_manifest(manifest: Dictionary) -> void:
     if !manifest.has("settings_item_manifest"):
         manifest.settings_item_manifest = \
                 DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST
@@ -292,7 +292,7 @@ func amend_manifest(manifest: Dictionary) -> void:
 
 
 func _parse_manifest(manifest: Dictionary) -> void:
-    amend_manifest(manifest)
+    _amend_manifest(manifest)
     
     if Engine.editor_hint:
         # Duplicate the theme, so that we don't save changes to a file.

@@ -235,10 +235,6 @@ func _get_members_to_destroy() -> Array:
     ]
 
 
-func _amend_manifest() -> void:
-    pass
-
-
 func _parse_manifest() -> void:
     assert((manifest.images_manifest.developer_splash == null) == \
             manifest.audio_manifest.developer_splash_sound.empty())
