@@ -4,10 +4,32 @@ extends EditorPlugin
 
 
 # FIXME: LEFT OFF HERE: -------------------------------------------
+# - Add support for different schema modes.
+#     - ReleaseMode: local-dev vs playtest vs production
+#     - AnnotationsMode: emphasized-annotations vs default
+#     - SmoothnessMode: pixelated vs anti-aliased
+#   - For each mode, define the collection of schema properties that are
+#     configurable, and their default values.
+#   - In the manifest's JSON file:
+#     - Introduce new top-level sections:
+#       main, release_mode, annotations_mode, smoothness_mode.
+#     - In each mode section, only record the relevant properties for that mode.
+#   - In the node tree:
+#     - Introduce new top-level sections.
+#     - Introduce corresponding new nodes under each mode-section branch.
+#   - Add checkboxes at the top of the manifest panel for toggling which mode
+#     we're in.
+#     - When toggling a checkbox, update the values for all relevant controls.
+#     - When editing a control value, only modify the property for the relevant
+#       mode section.
+#   - Render a special background color behind the mode checkbox+label and
+#     behind all control-rows that are under the scope of the currently-selected
+#     mode.
+# 
 # - Scan manifests to make sure I have support for all types I've previously
 #   used.
 # 
-# - Don't port the manifest a single framework all-at-once.
+# - Don't port the manifests as a single framework all-at-once.
 #   - Instead, port over the most significant and simple properties for each
 #     framework first.
 #   - Try to clear warnings/errors from concole.
