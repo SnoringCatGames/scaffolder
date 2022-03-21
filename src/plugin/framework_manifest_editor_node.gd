@@ -22,11 +22,11 @@ func load_from_manifest(manifest) -> void:
     if schema is Dictionary:
         _load_from_manifest_dictionary(manifest)
     elif schema is Array:
-        if schema.size() == 1:
-            _load_from_manifest_array(manifest)
-        else:
+        if FrameworkSchema.get_is_explicit_type_entry(schema):
             type = schema[0]
             value = manifest
+        else:
+            _load_from_manifest_array(manifest)
     else:
         # Inferred-type value definition.
         var schema_type := FrameworkSchema.get_type(schema)
