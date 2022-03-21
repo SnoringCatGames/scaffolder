@@ -8,7 +8,20 @@ const _FOLDER_NAME := "scaffolder"
 const _AUTO_LOAD_NAME := "Sc"
 const _AUTO_LOAD_DEPS := []
 const _AUTO_LOAD_PATH := "res://addons/scaffolder/src/config/sc.gd"
-const _PLUGIN_ICON_DIRECTORY_PATH := "res://addons/scaffolder/assets/images/editor_icons/plugin/"
+const _MANIFEST_PATH := "res://addons/scaffolder/src/config/manifest.json"
+const _PLUGIN_ICON_DIRECTORY_PATH := \
+        "res://addons/scaffolder/assets/images/editor_icons/plugin/"
+
+const MODES_PATH := "res://addons/scaffolder/src/config/manifest_modes.json"
+
+const default_modes := {
+    FrameworkSchemaMode.RELEASE: \
+            FrameworkSchemaMode.Release.LOCAL_DEV,
+    FrameworkSchemaMode.ANNOTATIONS: \
+            FrameworkSchemaMode.Annotations.DEFAULT,
+    FrameworkSchemaMode.UI_SMOOTHNESS: \
+            FrameworkSchemaMode.UiSmoothness.PIXELATED,
+}
 
 const _metadata := {
     debug = false,
@@ -195,9 +208,1163 @@ const _audio_manifest := {
     is_slow_motion_start_stop_sound_effect_played = true,
 }
 
-const _PROPERTIES := {
+const _default_fonts_manifest_normal := {
+    fonts = {
+        main_xxs = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_xxs.tres"),
+        main_xxs_bold = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_xxs.tres"),
+        main_xxs_italic = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_xxs.tres"),
+        main_xs = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_xs.tres"),
+        main_xs_bold = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_xs.tres"),
+        main_xs_italic = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_xs_italic.tres"),
+        main_s = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_s.tres"),
+        main_s_bold = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_s.tres"),
+        main_s_italic = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_s.tres"),
+        main_m = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_m.tres"),
+        main_m_bold = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_m_bold.tres"),
+        main_m_italic = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_m_italic.tres"),
+        main_l = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_l.tres"),
+        main_l_bold = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_l.tres"),
+        main_l_italic = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_l.tres"),
+        main_xl = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_xl.tres"),
+        main_xl_bold = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_xl.tres"),
+        main_xl_italic = preload( \
+                "res://addons/scaffolder/assets/fonts/roboto_font_xl.tres"),
+        
+        header_s = preload( \
+                "res://addons/scaffolder/assets/fonts/nunito_font_s.tres"),
+        header_m = preload( \
+                "res://addons/scaffolder/assets/fonts/nunito_font_m.tres"),
+        header_l = preload( \
+                "res://addons/scaffolder/assets/fonts/nunito_font_l.tres"),
+        header_xl = preload( \
+                "res://addons/scaffolder/assets/fonts/nunito_font_xl.tres"),
+    },
+    sizes = {
+        pc = {
+            main_xxs = 10,
+            main_xs = 15,
+            main_s = 18,
+            main_m = 30,
+            main_l = 42,
+            main_xl = 48,
+#            _bold = ,
+#            _italic = ,
+#            header_s = ,
+#            header_m = ,
+#            header_l = ,
+#            header_xl = ,
+        },
+        mobile = {
+            main_xxs = 12,
+            main_xs = 16,
+            main_s = 18,
+            main_m = 28,
+            main_l = 32,
+            main_xl = 36,
+        },
+    },
+}
+
+const _default_fonts_manifest_pixel := {
+    fonts = {
+        main_xxs = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_xxs.tres"),
+        main_xxs_bold = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_xxs.tres"),
+        main_xxs_italic = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_xxs.tres"),
+        main_xs = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_xs.tres"),
+        main_xs_bold = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_xs.tres"),
+        main_xs_italic = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_xs.tres"),
+        main_s = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres"),
+        main_s_bold = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres"),
+        main_s_italic = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres"),
+        main_m = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres"),
+        main_m_bold = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres"),
+        main_m_italic = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres"),
+        main_l = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_l.tres"),
+        main_l_bold = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_l.tres"),
+        main_l_italic = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_l.tres"),
+        main_xl = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_xl.tres"),
+        main_xl_bold = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_xl.tres"),
+        main_xl_italic = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_xl.tres"),
+        
+        header_s = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres"),
+        header_m = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres"),
+        header_l = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_l.tres"),
+        header_xl = preload( \
+                "res://addons/scaffolder/assets/fonts/pxlzr_font_xl.tres"),
+    },
+    sizes = {
+        pc = {
+            main_xxs = 10,
+            main_xs = 15,
+            main_s = 18,
+            main_m = 30,
+            main_l = 42,
+            main_xl = 48,
+#            _bold = ,
+#            _italic = ,
+#            header_s = ,
+#            header_m = ,
+#            header_l = ,
+#            header_xl = ,
+        },
+        mobile = {
+            main_xxs = 12,
+            main_xs = 16,
+            main_s = 18,
+            main_m = 28,
+            main_l = 32,
+            main_xl = 36,
+        },
+    },
+}
+
+const _default_styles_manifest_normal := {
+    focus_border_corner_radius = 5,
+    focus_border_corner_detail = 3,
+    focus_border_shadow_size = 0,
+    focus_border_border_width = 1,
+    focus_border_expand_margin_left = 2.0,
+    focus_border_expand_margin_top = 2.0,
+    focus_border_expand_margin_right = 2.0,
+    focus_border_expand_margin_bottom = 2.0,
+    
+    button_content_margin_left = 16.0,
+    button_content_margin_top = 8.0,
+    button_content_margin_right = 16.0,
+    button_content_margin_bottom = 8.0,
+    
+    button_shine_margin_left = 0.0,
+    button_shine_margin_top = 0.0,
+    button_shine_margin_right = 0.0,
+    button_shine_margin_bottom = 0.0,
+    
+    button_corner_radius = 4,
+    button_corner_detail = 3,
+    button_shadow_size = 3,
+    button_border_width = 0,
+    
+    dropdown_corner_radius = 4,
+    dropdown_corner_detail = 3,
+    dropdown_shadow_size = 0,
+    dropdown_border_width = 0,
+    
+    scroll_corner_radius = 6,
+    scroll_corner_detail = 3,
+    # Width of the scrollbar.
+    scroll_content_margin_left = 7,
+    scroll_content_margin_top = 7,
+    scroll_content_margin_right = 7,
+    scroll_content_margin_bottom = 7,
+    
+    scroll_grabber_corner_radius = 8,
+    scroll_grabber_corner_detail = 3,
+    
+    slider_corner_radius = 6,
+    slider_corner_detail = 3,
+    slider_content_margin_left = 5,
+    slider_content_margin_top = 5,
+    slider_content_margin_right = 5,
+    slider_content_margin_bottom = 5,
+    
+    overlay_panel_border_width = 2,
+    
+    overlay_panel_corner_radius = 4,
+    overlay_panel_corner_detail = 3,
+    overlay_panel_content_margin_left = 0.0,
+    overlay_panel_content_margin_top = 0.0,
+    overlay_panel_content_margin_right = 0.0,
+    overlay_panel_content_margin_bottom = 0.0,
+    overlay_panel_shadow_size = 8,
+    overlay_panel_shadow_offset = Vector2(-4.0, 4.0),
+    
+    notification_panel_border_width = 2,
+    
+    notification_panel_corner_radius = 4,
+    notification_panel_corner_detail = 3,
+    notification_panel_content_margin_left = 0.0,
+    notification_panel_content_margin_top = 0.0,
+    notification_panel_content_margin_right = 0.0,
+    notification_panel_content_margin_bottom = 0.0,
+    notification_panel_shadow_size = 8,
+    notification_panel_shadow_offset = Vector2(-4.0, 4.0),
+    
+    header_panel_content_margin_left = 0.0,
+    header_panel_content_margin_top = 0.0,
+    header_panel_content_margin_right = 0.0,
+    header_panel_content_margin_bottom = 0.0,
+    
+    hud_panel_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/overlay_panel.png"),
+    hud_panel_nine_patch_margin_left = 3.5,
+    hud_panel_nine_patch_margin_top = 3.5,
+    hud_panel_nine_patch_margin_right = 3.5,
+    hud_panel_nine_patch_margin_bottom = 3.5,
+    hud_panel_nine_patch_scale = 3.0,
+    hud_panel_content_margin_left = 8.0,
+    hud_panel_content_margin_top = 2.0,
+    hud_panel_content_margin_right = 8.0,
+    hud_panel_content_margin_bottom = 2.0,
+    
+    screen_shadow_size = 8,
+    screen_shadow_offset = Vector2(-4.0, 4.0),
+    screen_border_width = 0,
+}
+
+const _default_styles_manifest_pixel := {
+    button_content_margin_left = 16.0,
+    button_content_margin_top = 8.0,
+    button_content_margin_right = 16.0,
+    button_content_margin_bottom = 8.0,
+    
+    button_shine_margin_left = 6.0,
+    button_shine_margin_top = 6.0,
+    button_shine_margin_right = 6.0,
+    button_shine_margin_bottom = 6.0,
+    
+    focus_border_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/focus_border.png"),
+    focus_border_nine_patch_margin_left = 3.5,
+    focus_border_nine_patch_margin_top = 3.5,
+    focus_border_nine_patch_margin_right = 3.5,
+    focus_border_nine_patch_margin_bottom = 3.5,
+    focus_border_nine_patch_scale = 3.0,
+    focus_border_expand_margin_left = 3.0,
+    focus_border_expand_margin_top = 3.0,
+    focus_border_expand_margin_right = 3.0,
+    focus_border_expand_margin_bottom = 3.0,
+    
+    button_pressed_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/button_pressed.png"),
+    button_disabled_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/button_hover.png"),
+    button_hover_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/button_hover.png"),
+    button_normal_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/button_normal.png"),
+    button_nine_patch_margin_left = 3.5,
+    button_nine_patch_margin_top = 3.5,
+    button_nine_patch_margin_right = 3.5,
+    button_nine_patch_margin_bottom = 3.5,
+    button_nine_patch_scale = 3.0,
+    
+    dropdown_pressed_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_pressed.png"),
+    dropdown_disabled_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_hover.png"),
+    dropdown_hover_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_hover.png"),
+    dropdown_normal_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_normal.png"),
+    dropdown_nine_patch_margin_left = 3.5,
+    dropdown_nine_patch_margin_top = 3.5,
+    dropdown_nine_patch_margin_right = 3.5,
+    dropdown_nine_patch_margin_bottom = 3.5,
+    dropdown_nine_patch_scale = 3.0,
+    
+    scroll_track_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/scroll_track.png"),
+    scroll_track_nine_patch_margin_left = 3.5,
+    scroll_track_nine_patch_margin_top = 3.5,
+    scroll_track_nine_patch_margin_right = 3.5,
+    scroll_track_nine_patch_margin_bottom = 3.5,
+    scroll_track_nine_patch_scale = 3.0,
+    
+    scroll_grabber_pressed_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/scroll_grabber_pressed.png"),
+    scroll_grabber_hover_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/scroll_grabber_hover.png"),
+    scroll_grabber_normal_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/scroll_grabber_normal.png"),
+    scroll_grabber_nine_patch_margin_left = 3.5,
+    scroll_grabber_nine_patch_margin_top = 3.5,
+    scroll_grabber_nine_patch_margin_right = 3.5,
+    scroll_grabber_nine_patch_margin_bottom = 3.5,
+    scroll_grabber_nine_patch_scale = 3.0,
+    
+    slider_track_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/slider_track.png"),
+    slider_track_nine_patch_margin_left = 1.5,
+    slider_track_nine_patch_margin_top = 1.5,
+    slider_track_nine_patch_margin_right = 1.5,
+    slider_track_nine_patch_margin_bottom = 1.5,
+    slider_track_nine_patch_scale = 3.0,
+    
+    overlay_panel_border_width = 2,
+    
+    overlay_panel_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/overlay_panel.png"),
+    overlay_panel_nine_patch_margin_left = 3.5,
+    overlay_panel_nine_patch_margin_top = 3.5,
+    overlay_panel_nine_patch_margin_right = 3.5,
+    overlay_panel_nine_patch_margin_bottom = 3.5,
+    overlay_panel_nine_patch_scale = 3.0,
+    overlay_panel_content_margin_left = 3.0,
+    overlay_panel_content_margin_top = 3.0,
+    overlay_panel_content_margin_right = 3.0,
+    overlay_panel_content_margin_bottom = 3.0,
+    
+    notification_panel_border_width = 2,
+    
+    notification_panel_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/notification_panel.png"),
+    notification_panel_nine_patch_margin_left = 3.5,
+    notification_panel_nine_patch_margin_top = 3.5,
+    notification_panel_nine_patch_margin_right = 3.5,
+    notification_panel_nine_patch_margin_bottom = 3.5,
+    notification_panel_nine_patch_scale = 3.0,
+    notification_panel_content_margin_left = 3.0,
+    notification_panel_content_margin_top = 3.0,
+    notification_panel_content_margin_right = 3.0,
+    notification_panel_content_margin_bottom = 3.0,
+    
+    header_panel_content_margin_left = 0.0,
+    header_panel_content_margin_top = 0.0,
+    header_panel_content_margin_right = 0.0,
+    header_panel_content_margin_bottom = 0.0,
+    
+    hud_panel_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/overlay_panel.png"),
+    hud_panel_nine_patch_margin_left = 3.5,
+    hud_panel_nine_patch_margin_top = 3.5,
+    hud_panel_nine_patch_margin_right = 3.5,
+    hud_panel_nine_patch_margin_bottom = 3.5,
+    hud_panel_nine_patch_scale = 3.0,
+    hud_panel_content_margin_left = 8.0,
+    hud_panel_content_margin_top = 2.0,
+    hud_panel_content_margin_right = 8.0,
+    hud_panel_content_margin_bottom = 2.0,
+    
+    screen_shadow_size = 0,
+    screen_shadow_offset = Vector2.ZERO,
+    screen_border_width = 0,
+}
+
+const _default_images_manifest_normal := {
+    checkbox_path_prefix = \
+            ScaffolderImages.DEFAULT_CHECKBOX_NORMAL_PATH_PREFIX,
+    default_checkbox_size = \
+            ScaffolderImages.DEFAULT_CHECKBOX_NORMAL_SIZE,
+    checkbox_sizes = \
+            ScaffolderImages.DEFAULT_CHECKBOX_NORMAL_SIZES,
+    
+    radio_button_path_prefix = \
+            ScaffolderImages.DEFAULT_RADIO_BUTTON_NORMAL_PATH_PREFIX,
+    default_radio_button_size = \
+            ScaffolderImages.DEFAULT_RADIO_BUTTON_NORMAL_SIZE,
+    radio_button_sizes = \
+            ScaffolderImages.DEFAULT_RADIO_BUTTON_NORMAL_SIZES,
+    
+    tree_arrow_path_prefix = \
+            ScaffolderImages.DEFAULT_TREE_ARROW_NORMAL_PATH_PREFIX,
+    default_tree_arrow_size = \
+            ScaffolderImages.DEFAULT_TREE_ARROW_NORMAL_SIZE,
+    tree_arrow_sizes = \
+            ScaffolderImages.DEFAULT_TREE_ARROW_NORMAL_SIZES,
+    
+    dropdown_arrow_path_prefix = \
+            ScaffolderImages.DEFAULT_DROPDOWN_ARROW_NORMAL_PATH_PREFIX,
+    default_dropdown_arrow_size = \
+            ScaffolderImages.DEFAULT_DROPDOWN_ARROW_NORMAL_SIZE,
+    dropdown_arrow_sizes = \
+            ScaffolderImages.DEFAULT_DROPDOWN_ARROW_NORMAL_SIZES,
+    
+    slider_grabber_path_prefix = \
+            ScaffolderImages.DEFAULT_SLIDER_GRABBER_NORMAL_PATH_PREFIX,
+    default_slider_grabber_size = \
+            ScaffolderImages.DEFAULT_SLIDER_GRABBER_NORMAL_SIZE,
+    slider_grabber_sizes = \
+            ScaffolderImages.DEFAULT_SLIDER_GRABBER_NORMAL_SIZES,
+    
+    slider_tick_path_prefix = \
+            ScaffolderImages.DEFAULT_SLIDER_TICK_NORMAL_PATH_PREFIX,
+    default_slider_tick_size = \
+            ScaffolderImages.DEFAULT_SLIDER_TICK_NORMAL_SIZE,
+    slider_tick_sizes = \
+            ScaffolderImages.DEFAULT_SLIDER_TICK_NORMAL_SIZES,
+    
+    app_logo = \
+            preload("res://addons/scaffolder/assets/images/logos/scaffolder_logo.png"),
+    app_logo_scale = 1.0,
+    
+    developer_logo = \
+            preload("res://addons/scaffolder/assets/images/logos/snoring_cat_logo_about.png"),
+    developer_splash = \
+            preload("res://addons/scaffolder/assets/images/logos/snoring_cat_logo_splash.png"),
+    
+    go_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/go_normal.png"),
+    go_scale = 1.5,
+    
+    about_circle_pressed = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/about_circle_pressed.png"),
+    about_circle_hover = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/about_circle_hover.png"),
+    about_circle_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/about_circle_normal.png"),
+    
+    alert_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/alert_normal.png"),
+    
+    close_pressed = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/close_pressed.png"),
+    close_hover = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/close_hover.png"),
+    close_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/close_normal.png"),
+    
+    gear_circle_pressed = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/gear_circle_pressed.png"),
+    gear_circle_hover = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/gear_circle_hover.png"),
+    gear_circle_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/gear_circle_normal.png"),
+    
+    home_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/home_normal.png"),
+    
+    left_caret_pressed = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/left_caret_pressed.png"),
+    left_caret_hover = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/left_caret_hover.png"),
+    left_caret_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/left_caret_normal.png"),
+    
+    pause_circle_pressed = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/pause_circle_pressed.png"),
+    pause_circle_hover = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/pause_circle_hover.png"),
+    pause_circle_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/pause_circle_normal.png"),
+    
+    pause_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/pause_normal.png"),
+    play_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/play_normal.png"),
+    retry_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/retry_normal.png"),
+    stop_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/stop_normal.png"),
+}
+
+const _default_images_manifest_pixel := {
+    checkbox_path_prefix = \
+            ScaffolderImages.DEFAULT_CHECKBOX_PIXEL_PATH_PREFIX,
+    default_checkbox_size = \
+            ScaffolderImages.DEFAULT_CHECKBOX_PIXEL_SIZE,
+    checkbox_sizes = \
+            ScaffolderImages.DEFAULT_CHECKBOX_PIXEL_SIZES,
+    
+    radio_button_path_prefix = \
+            ScaffolderImages.DEFAULT_RADIO_BUTTON_PIXEL_PATH_PREFIX,
+    default_radio_button_size = \
+            ScaffolderImages.DEFAULT_RADIO_BUTTON_PIXEL_SIZE,
+    radio_button_sizes = \
+            ScaffolderImages.DEFAULT_RADIO_BUTTON_PIXEL_SIZES,
+    
+    tree_arrow_path_prefix = \
+            ScaffolderImages.DEFAULT_TREE_ARROW_PIXEL_PATH_PREFIX,
+    default_tree_arrow_size = \
+            ScaffolderImages.DEFAULT_TREE_ARROW_PIXEL_SIZE,
+    tree_arrow_sizes = \
+            ScaffolderImages.DEFAULT_TREE_ARROW_PIXEL_SIZES,
+    
+    dropdown_arrow_path_prefix = \
+            ScaffolderImages.DEFAULT_DROPDOWN_ARROW_PIXEL_PATH_PREFIX,
+    default_dropdown_arrow_size = \
+            ScaffolderImages.DEFAULT_DROPDOWN_ARROW_PIXEL_SIZE,
+    dropdown_arrow_sizes = \
+            ScaffolderImages.DEFAULT_DROPDOWN_ARROW_PIXEL_SIZES,
+    
+    slider_grabber_path_prefix = \
+            ScaffolderImages.DEFAULT_SLIDER_GRABBER_PIXEL_PATH_PREFIX,
+    default_slider_grabber_size = \
+            ScaffolderImages.DEFAULT_SLIDER_GRABBER_PIXEL_SIZE,
+    slider_grabber_sizes = \
+            ScaffolderImages.DEFAULT_SLIDER_GRABBER_PIXEL_SIZES,
+    
+    slider_tick_path_prefix = \
+            ScaffolderImages.DEFAULT_SLIDER_TICK_PIXEL_PATH_PREFIX,
+    default_slider_tick_size = \
+            ScaffolderImages.DEFAULT_SLIDER_TICK_PIXEL_SIZE,
+    slider_tick_sizes = \
+            ScaffolderImages.DEFAULT_SLIDER_TICK_PIXEL_SIZES,
+    
+    go_normal = preload("res://addons/scaffolder/assets/images/gui/icons/go_normal.png"),
+    go_scale = 1.5,
+    
+    about_circle_pressed = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/about_circle_pressed.png"),
+    about_circle_hover = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/about_circle_hover.png"),
+    about_circle_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/about_circle_normal.png"),
+    
+    alert_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/alert_normal.png"),
+    
+    close_pressed = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/close_pressed.png"),
+    close_hover = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/close_hover.png"),
+    close_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/close_normal.png"),
+    
+    gear_circle_pressed = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/gear_circle_pressed.png"),
+    gear_circle_hover = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/gear_circle_hover.png"),
+    gear_circle_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/gear_circle_normal.png"),
+    
+    home_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/home_normal.png"),
+    
+    left_caret_pressed = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/left_caret_pressed.png"),
+    left_caret_hover = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/left_caret_hover.png"),
+    left_caret_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/left_caret_normal.png"),
+    
+    pause_circle_pressed = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/pause_circle_pressed.png"),
+    pause_circle_hover = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/pause_circle_hover.png"),
+    pause_circle_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/pause_circle_normal.png"),
+    
+    pause_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/pause_normal.png"),
+    play_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/play_normal.png"),
+    retry_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/retry_normal.png"),
+    stop_normal = \
+            preload("res://addons/scaffolder/assets/images/gui/icons/stop_normal.png"),
+}
+
+const COLOR_BACKGROUND := Color("453d30")
+const COLOR_BACKGROUND_LIGHTER := Color("574d3d")
+const COLOR_BACKGROUND_DARKER := Color("362f25")
+
+const COLOR_TEXT := Color("eeeeee")
+const COLOR_HEADER := Color("faca7d")
+const COLOR_FOCUS := Color("faca7d")
+
+const COLOR_BUTTON := Color("c27e10")
+const COLOR_BUTTON_LIGHTER := Color("eba534")
+const COLOR_BUTTON_DARKER := Color("734905")
+
+const COLOR_SHADOW := Color("88000000")
+
+const HUD_KEY_VALUE_BOX_MODULATE_COLOR := Color(0.1, 0.7, 1.2, 1.0)
+const BUTTON_PULSE_MODULATE_COLOR := Color(1.5, 1.5, 3.0, 1.0)
+
+var _colors_manifest := {
+    # Scaffolder colors.
+    
+    # Should match Project Settings > Application > Boot Splash > Bg Color.
+    boot_splash_background = \
+            ScaffolderColors.DEFAULT_BOOT_SPLASH_BACKGROUND_COLOR,
+    # Should match
+    #     Project Settings > Rendering > Environment > Default Clear Color.
+    background = COLOR_BACKGROUND,
+    text = COLOR_TEXT,
+    header = COLOR_HEADER,
+    focus_border = COLOR_FOCUS,
+    link_normal = COLOR_BUTTON_LIGHTER,
+    link_hover = COLOR_BUTTON,
+    link_pressed = COLOR_BUTTON_DARKER,
+    button_normal = COLOR_BUTTON,
+    button_pulse_modulate = BUTTON_PULSE_MODULATE_COLOR,
+    button_disabled = COLOR_BUTTON_LIGHTER,
+    button_focused = COLOR_BUTTON_LIGHTER,
+    button_hover = COLOR_BUTTON_LIGHTER,
+    button_pressed = COLOR_BUTTON_DARKER,
+    button_border = COLOR_TEXT,
+    dropdown_normal = COLOR_BACKGROUND,
+    dropdown_disabled = COLOR_BACKGROUND_LIGHTER,
+    dropdown_focused = COLOR_BACKGROUND_LIGHTER,
+    dropdown_hover = COLOR_BACKGROUND_LIGHTER,
+    dropdown_pressed = COLOR_BACKGROUND_DARKER,
+    dropdown_border = COLOR_BACKGROUND_DARKER,
+    tooltip = COLOR_BACKGROUND,
+    tooltip_bg = COLOR_TEXT,
+    popup_background = COLOR_BACKGROUND_LIGHTER,
+    scroll_bar_background = COLOR_BACKGROUND_LIGHTER,
+    scroll_bar_grabber_normal = COLOR_BUTTON,
+    scroll_bar_grabber_hover = COLOR_BUTTON_LIGHTER,
+    scroll_bar_grabber_pressed = COLOR_BUTTON_DARKER,
+    slider_background = COLOR_BACKGROUND_DARKER,
+    zebra_stripe_even_row = COLOR_BACKGROUND_LIGHTER,
+    overlay_panel_background = COLOR_BACKGROUND_DARKER,
+    overlay_panel_border = COLOR_TEXT,
+    notification_panel_background = COLOR_BACKGROUND_DARKER,
+    notification_panel_border = COLOR_TEXT,
+    header_panel_background = COLOR_BACKGROUND,
+    screen_border = COLOR_TEXT,
+    shadow = COLOR_SHADOW,
+    
+    click = ScaffolderColors.static_opacify(
+            SurfacerColors.WHITE, ScaffolderColors.ALPHA_SLIGHTLY_FAINT),
+    ruler = SurfacerColors.WHITE,
+    
+    # Surfacer colors.
+    
+    surface_click_selection = ScaffolderColors.static_opacify(
+            SurfacerColors.WHITE, ScaffolderColors.ALPHA_SOLID),
+    grid_indices = ScaffolderColors.static_opacify(
+            SurfacerColors.WHITE, ScaffolderColors.ALPHA_FAINT),
+    invalid = SurfacerColors.RED,
+    inspector_origin = ScaffolderColors.static_opacify(
+            SurfacerColors.ORANGE, ScaffolderColors.ALPHA_FAINT),
+}
+
+const _styles_manifest_pixel := {
+    button_content_margin_left = 16.0,
+    button_content_margin_top = 8.0,
+    button_content_margin_right = 16.0,
+    button_content_margin_bottom = 8.0,
+    
+    button_shine_margin_left = 6.0,
+    button_shine_margin_top = 6.0,
+    button_shine_margin_right = 6.0,
+    button_shine_margin_bottom = 6.0,
+    
+    focus_border_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/focus_border.png"),
+    focus_border_nine_patch_margin_left = 3.5,
+    focus_border_nine_patch_margin_top = 3.5,
+    focus_border_nine_patch_margin_right = 3.5,
+    focus_border_nine_patch_margin_bottom = 3.5,
+    focus_border_nine_patch_scale = 3.0,
+    focus_border_expand_margin_left = 3.0,
+    focus_border_expand_margin_top = 3.0,
+    focus_border_expand_margin_right = 3.0,
+    focus_border_expand_margin_bottom = 3.0,
+    
+    button_pressed_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/button_pressed.png"),
+    button_disabled_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/button_hover.png"),
+    button_hover_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/button_hover.png"),
+    button_normal_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/button_normal.png"),
+    button_nine_patch_margin_left = 3.5,
+    button_nine_patch_margin_top = 3.5,
+    button_nine_patch_margin_right = 3.5,
+    button_nine_patch_margin_bottom = 3.5,
+    button_nine_patch_scale = 3.0,
+    
+    dropdown_pressed_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_pressed.png"),
+    dropdown_disabled_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_hover.png"),
+    dropdown_hover_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_hover.png"),
+    dropdown_normal_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_normal.png"),
+    dropdown_nine_patch_margin_left = 3.5,
+    dropdown_nine_patch_margin_top = 3.5,
+    dropdown_nine_patch_margin_right = 3.5,
+    dropdown_nine_patch_margin_bottom = 3.5,
+    dropdown_nine_patch_scale = 3.0,
+    
+    scroll_track_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/scroll_track.png"),
+    scroll_track_nine_patch_margin_left = 3.5,
+    scroll_track_nine_patch_margin_top = 3.5,
+    scroll_track_nine_patch_margin_right = 3.5,
+    scroll_track_nine_patch_margin_bottom = 3.5,
+    scroll_track_nine_patch_scale = 3.0,
+    
+    scroll_grabber_pressed_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/scroll_grabber_pressed.png"),
+    scroll_grabber_hover_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/scroll_grabber_hover.png"),
+    scroll_grabber_normal_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/scroll_grabber_normal.png"),
+    scroll_grabber_nine_patch_margin_left = 3.5,
+    scroll_grabber_nine_patch_margin_top = 3.5,
+    scroll_grabber_nine_patch_margin_right = 3.5,
+    scroll_grabber_nine_patch_margin_bottom = 3.5,
+    scroll_grabber_nine_patch_scale = 3.0,
+    
+    slider_track_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/slider_track.png"),
+    slider_track_nine_patch_margin_left = 1.5,
+    slider_track_nine_patch_margin_top = 1.5,
+    slider_track_nine_patch_margin_right = 1.5,
+    slider_track_nine_patch_margin_bottom = 1.5,
+    slider_track_nine_patch_scale = 3.0,
+    
+    overlay_panel_border_width = 2,
+    
+    overlay_panel_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/overlay_panel.png"),
+    overlay_panel_nine_patch_margin_left = 3.5,
+    overlay_panel_nine_patch_margin_top = 3.5,
+    overlay_panel_nine_patch_margin_right = 3.5,
+    overlay_panel_nine_patch_margin_bottom = 3.5,
+    overlay_panel_nine_patch_scale = 3.0,
+    overlay_panel_content_margin_left = 3.0,
+    overlay_panel_content_margin_top = 3.0,
+    overlay_panel_content_margin_right = 3.0,
+    overlay_panel_content_margin_bottom = 3.0,
+    
+    notification_panel_border_width = 2,
+    
+    notification_panel_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/notification_panel.png"),
+    notification_panel_nine_patch_margin_left = 3.5,
+    notification_panel_nine_patch_margin_top = 3.5,
+    notification_panel_nine_patch_margin_right = 3.5,
+    notification_panel_nine_patch_margin_bottom = 3.5,
+    notification_panel_nine_patch_scale = 3.0,
+    notification_panel_content_margin_left = 3.0,
+    notification_panel_content_margin_top = 3.0,
+    notification_panel_content_margin_right = 3.0,
+    notification_panel_content_margin_bottom = 3.0,
+    
+    header_panel_content_margin_left = 0.0,
+    header_panel_content_margin_top = 0.0,
+    header_panel_content_margin_right = 0.0,
+    header_panel_content_margin_bottom = 0.0,
+    
+    hud_panel_nine_patch = \
+            preload("res://addons/scaffolder/assets/images/gui/nine_patch/overlay_panel.png"),
+    hud_panel_nine_patch_margin_left = 3.5,
+    hud_panel_nine_patch_margin_top = 3.5,
+    hud_panel_nine_patch_margin_right = 3.5,
+    hud_panel_nine_patch_margin_bottom = 3.5,
+    hud_panel_nine_patch_scale = 3.0,
+    hud_panel_content_margin_left = 8.0,
+    hud_panel_content_margin_top = 2.0,
+    hud_panel_content_margin_right = 8.0,
+    hud_panel_content_margin_bottom = 2.0,
+    
+    screen_shadow_size = 0,
+    screen_shadow_offset = Vector2.ZERO,
+    screen_border_width = 0,
+}
+
+const _settings_item_manifest := {
+    groups = {
+        main = {
+            label = "",
+            is_collapsible = false,
+            item_classes = [
+                MusicControlRow,
+                SoundEffectsControlRow,
+                HapticFeedbackControlRow,
+            ],
+        },
+        annotations = {
+            label = "Rendering",
+            is_collapsible = true,
+            item_classes = [
+                RulerAnnotatorControlRow,
+                PlayerPreselectionTrajectoryAnnotatorControlRow,
+                PlayerSlowMoTrajectoryAnnotatorControlRow,
+                PlayerNonSlowMoTrajectoryAnnotatorControlRow,
+                PlayerPreviousTrajectoryAnnotatorControlRow,
+                PlayerNavigationDestinationAnnotatorControlRow,
+                NpcSlowMoTrajectoryAnnotatorControlRow,
+                NpcNonSlowMoTrajectoryAnnotatorControlRow,
+                NpcPreviousTrajectoryAnnotatorControlRow,
+                NpcNavigationDestinationAnnotatorControlRow,
+                RecentMovementAnnotatorControlRow,
+                SurfacesAnnotatorControlRow,
+                CharacterPositionAnnotatorControlRow,
+                CharacterAnnotatorControlRow,
+                LevelAnnotatorControlRow,
+            ],
+        },
+        hud = {
+            label = "HUD",
+            is_collapsible = true,
+            item_classes = [
+                InspectorEnabledControlRow,
+                DebugPanelControlRow,
+            ],
+        },
+        miscellaneous = {
+            label = "Miscellaneous",
+            is_collapsible = true,
+            item_classes = [
+                ButtonControlsControlRow,
+                WelcomePanelControlRow,
+                IntroChoreographyControlRow,
+                CameraZoomControlRow,
+                TimeScaleControlRow,
+                MetronomeControlRow,
+            ],
+        },
+    },
+}
+
+const _pause_item_manifest := [
+    LevelControlRow,
+    TimeControlRow,
+    FastestTimeControlRow,
+]
+
+const _game_over_item_manifest := [
+    LevelControlRow,
+    TimeControlRow,
+    FastestTimeControlRow,
+]
+
+const _level_select_item_manifest := [
+    TotalPlaysControlRow,
+    FastestTimeControlRow,
+]
+
+const _hud_manifest := {
+    hud_class = SurfacerHud,
+    hud_key_value_box_size = \
+            ScaffolderGuiConfig.HUD_KEY_VALUE_BOX_DEFAULT_SIZE,
+    hud_key_value_box_scene = \
+            preload("res://addons/scaffolder/src/gui/hud/hud_key_value_box.tscn"),
+    hud_key_value_list_scene = \
+            preload("res://addons/scaffolder/src/gui/hud/hud_key_value_list.tscn"),
+    hud_key_value_list_item_manifest = [
+        {
+            item_class = TimeControlRow,
+            settings_enablement_label = "Time",
+            enabled_by_default = true,
+            settings_group_key = "hud",
+        },
+    ],
+    is_inspector_enabled_default = false,
+    inspector_panel_starts_open = false,
+    is_hud_visible_by_default = true,
+}
+
+const _welcome_panel_manifest := {
+    items = [
+        ["*Auto nav*", "click"],
+        ["Inspect graph", "ctrl + click (x2)"],
+        ["Walk/Climb", "arrow key / wasd"],
+        ["Jump", "space / x"],
+        ["Grab surface", "c"],
+        ["Dash", "z"],
+        ["Zoom in/out", "ctrl + =/-"],
+        ["Pan", "ctrl + arrow key"],
+    ],
+}
+
+const _screen_manifest := {
+    screens = [
+        preload("res://addons/scaffolder/src/gui/screens/about_screen.tscn"),
+        preload("res://addons/scaffolder/src/gui/screens/data_agreement_screen.tscn"),
+        preload("res://addons/scaffolder/src/gui/screens/developer_splash_screen.tscn"),
+        preload("res://addons/scaffolder/src/gui/screens/game_screen.tscn"),
+        preload("res://addons/scaffolder/src/gui/screens/game_over_screen.tscn"),
+        preload("res://addons/scaffolder/src/gui/screens/godot_splash_screen.tscn"),
+        preload("res://addons/scaffolder/src/gui/screens/level_select_screen.tscn"),
+        preload("res://addons/scaffolder/src/gui/screens/main_menu_screen.tscn"),
+        preload("res://addons/scaffolder/src/gui/screens/notification_screen.tscn"),
+        preload("res://addons/scaffolder/src/gui/screens/pause_screen.tscn"),
+        preload("res://addons/scaffolder/src/gui/screens/scaffolder_loading_screen.tscn"),
+        preload("res://addons/scaffolder/src/gui/screens/settings_screen.tscn"),
+        preload("res://addons/scaffolder/src/gui/screens/third_party_licenses_screen.tscn"),
+        preload("res://addons/surfacer/src/gui/screens/precompute_platform_graphs_screen.tscn"),
+        preload("res://addons/surfacer/src/gui/screens/surfacer_loading_screen.tscn"),
+        preload("res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen_local.tscn"),
+#        preload("res://addons/scaffolder/src/gui/screens/scaffolder_loading_screen.tscn"),
+#        preload("res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen_with_analytics.tscn"),
+#        preload("res://addons/scaffolder/src/gui/screens/rate_app_screen.tscn"),
+    ],
+    overlay_mask_transition_fade_in_texture = preload( \
+            "res://addons/scaffolder/assets/images/transition_masks/radial_mask_transition_in.png"),
+    overlay_mask_transition_fade_out_texture = preload( \
+            "res://addons/scaffolder/assets/images/transition_masks/radial_mask_transition_in.png"),
+    screen_mask_transition_fade_texture = preload( \
+            "res://addons/scaffolder/assets/images/transition_masks/checkers_mask_transition.png"),
+    overlay_mask_transition_class = OverlayMaskTransition,
+    screen_mask_transition_class = ScreenMaskTransition,
+    slide_transition_duration = 0.3,
+    fade_transition_duration = 0.3,
+    overlay_mask_transition_duration = 1.2,
+    screen_mask_transition_duration = 1.2,
+    slide_transition_easing = "ease_in_out",
+    fade_transition_easing = "ease_in_out",
+    overlay_mask_transition_fade_in_easing = "ease_out",
+    overlay_mask_transition_fade_out_easing = "ease_in",
+    screen_mask_transition_easing = "ease_in",
+    default_transition_type = ScreenTransition.FADE,
+    fancy_transition_type = ScreenTransition.SCREEN_MASK,
+    overlay_mask_transition_color = Color("111111"),
+    overlay_mask_transition_uses_pixel_snap = false,
+    overlay_mask_transition_smooth_size = 0.02,
+    screen_mask_transition_uses_pixel_snap = true,
+    screen_mask_transition_smooth_size = 0.0,
+}
+
+const _gui_manifest := {
+    debug_window_size = ScaffolderGuiConfig.SCREEN_RESOLUTIONS.full_screen,
+    
+    default_pc_game_area_size = Vector2(1024, 768),
+    default_mobile_game_area_size = Vector2(500, 600),
+    aspect_ratio_max = 2.0 / 1.0,
+    aspect_ratio_min = 1.0 / 2.0,
+    camera_smoothing_speed = 10.0,
+    default_camera_zoom = 0.4,
+    button_height = 56.0,
+    button_width = 230.0,
+    screen_body_width = 460.0,
+    
+    is_data_deletion_button_shown = true,
+    
+    is_suggested_button_shine_line_shown = true,
+    is_suggested_button_color_pulse_shown = true,
+    
+    third_party_license_text = \
+            ScaffolderThirdPartyLicenses.TEXT + \
+            SurfacerThirdPartyLicenses.TEXT + \
+            SquirrelAwayThirdPartyLicenses.TEXT,
+    special_thanks_text = """
+""",
+    
+    main_menu_image_scale = 1.0,
+    game_over_image_scale = 0.5,
+    loading_image_scale = 0.5,
+    
+    main_menu_image_scene = \
+            preload("res://addons/squirrel_away/src/gui/squirrel_away_loading_image.tscn"),
+    game_over_image_scene = \
+            preload("res://addons/squirrel_away/src/gui/squirrel_away_loading_image.tscn"),
+    loading_image_scene = \
+            preload("res://addons/squirrel_away/src/gui/squirrel_away_loading_image.tscn"),
+    welcome_panel_scene = \
+            preload("res://addons/scaffolder/src/gui/welcome_panel.tscn"),
+    debug_panel_scene = \
+            preload("res://addons/scaffolder/src/gui/debug_panel.tscn"),
+    
+    theme = preload("res://addons/scaffolder/src/config/scaffolder_default_theme.tres"),
+    
+    fonts_manifest = _default_fonts_manifest_pixel,
+    settings_item_manifest = _settings_item_manifest,
+    pause_item_manifest = _pause_item_manifest,
+    game_over_item_manifest = _game_over_item_manifest,
+    level_select_item_manifest = _level_select_item_manifest,
+    hud_manifest = _hud_manifest,
+    welcome_panel_manifest = _welcome_panel_manifest,
+    screen_manifest = _screen_manifest,
+    
+    splash_scale_pc = 1.0,
+    splash_scale_mobile = 0.77,
+}
+
+const _notifications_manifest := {
+    duration_short_sec = 2.0,
+    duration_long_sec = 8.0,
+    
+    fade_in_duration = 0.15,
+    fade_out_duration = 0.3,
+    
+    size_small = Vector2(200.0, 67.0),
+    size_medium = Vector2(400.0, 133.0),
+    size_large = Vector2(600.0, 200.0),
+    
+    margin_bottom = 16.0,
+    margin_sides = 16.0,
+    
+    opacity = 0.9,
+    
+    slide_in_displacement = Vector2(0.0, -67.0),
+}
+
+const _slow_motion_manifest := {
+    time_scale = 0.02,
+    tick_tock_tempo_multiplier = 25,
+    saturation = 0.2,
+}
+
+const _input_map = ScaffolderProjectSettings.DEFAULT_INPUT_MAP
+
+const _character_scenes := [
+    preload("res://addons/squirrel_away/src/characters/cat/cat.tscn"),
+    preload("res://addons/squirrel_away/src/characters/squirrel/squirrel.tscn"),
+]
+
+
+func _get_squirrel_collider_shape() -> Shape2D:
+    var shape := CapsuleShape2D.new()
+    shape.radius = 17.0
+    shape.height = 9.0
+    return shape
+
+
+var _character_categories := [
+    {
+        name = "squirrels",
+        characters = [
+            "squirrel",
+        ],
+        # For a complete list of properties, see MovementParameters.
+        movement_params = {
+            collider_shape = _get_squirrel_collider_shape(),
+            collider_rotation = PI / 2.0,
+            
+            can_grab_walls = true,
+            can_grab_ceilings = true,
+            can_jump = true,
+            can_dash = false,
+            can_double_jump = false,
+            
+            surface_speed_multiplier = 1.0,
+            air_horizontal_speed_multiplier = 1.0,
+            gravity_multiplier = 1.0,
+            gravity_slow_rise_multiplier_multiplier = 1.0,
+            gravity_double_jump_slow_rise_multiplier_multiplier = 1.0,
+            walk_acceleration_multiplier = 1.4,
+            in_air_horizontal_acceleration_multiplier = 1.4,
+            climb_up_speed_multiplier = 1.5,
+            climb_down_speed_multiplier = 1.5,
+            ceiling_crawl_speed_multiplier = 1.5,
+            friction_coefficient_multiplier = 1.0,
+            jump_boost_multiplier = 1.2,
+            wall_jump_horizontal_boost_multiplier = 1.0,
+            wall_fall_horizontal_boost_multiplier = 1.0,
+            max_horizontal_speed_default_multiplier = 1.4,
+            max_vertical_speed_multiplier = 1.0,
+            
+            uses_duration_instead_of_distance_for_edge_weight = true,
+            additional_edge_weight_offset_override = -1.0,
+            walking_edge_weight_multiplier_override = -1.0,
+            ceiling_crawling_edge_weight_multiplier_override = -1.0,
+            climbing_edge_weight_multiplier_override = -1.0,
+            climb_to_adjacent_surface_edge_weight_multiplier_override = -1.0,
+            move_to_collinear_surface_edge_weight_multiplier_override = -1.0,
+            air_edge_weight_multiplier_override = -1.0,
+            
+            minimizes_velocity_change_when_jumping = false,
+            optimizes_edge_jump_positions_at_run_time = true,
+            optimizes_edge_land_positions_at_run_time = true,
+            also_optimizes_preselection_path = true,
+            forces_character_position_to_match_edge_at_start = true,
+            forces_character_velocity_to_match_edge_at_start = true,
+            forces_character_position_to_match_path_at_end = false,
+            forces_character_velocity_to_zero_at_path_end = false,
+            syncs_character_position_to_edge_trajectory = true,
+            syncs_character_velocity_to_edge_trajectory = true,
+            includes_continuous_trajectory_positions = true,
+            includes_continuous_trajectory_velocities = true,
+            includes_discrete_trajectory_state = false,
+            is_trajectory_state_stored_at_build_time = false,
+            bypasses_runtime_physics = false,
+            default_nav_interrupt_resolution_mode = \
+                    NavigationInterruptionResolution.FORCE_EXPECTED_STATE,
+            min_intra_surface_distance_to_optimize_jump_for = 16.0,
+            dist_sq_thres_for_considering_additional_jump_land_points = \
+                    32.0 * 32.0,
+            stops_after_finding_first_valid_edge_for_a_surface_pair = false,
+            calculates_all_valid_edges_for_a_surface_pair = false,
+            always_includes_jump_land_positions_at_surface_ends = false,
+            includes_redundant_j_l_positions_with_zero_start_velocity = true,
+            normal_jump_instruction_duration_increase = 0.08,
+            exceptional_jump_instruction_duration_increase = 0.2,
+            recurses_when_colliding_during_horizontal_step_calculations = true,
+            backtracks_for_higher_jumps_during_hor_step_calculations = true,
+            collision_margin_for_edge_calculations = 1.0,
+            collision_margin_for_waypoint_positions = 4.0,
+            skips_less_likely_jump_land_positions = false,
+            reached_in_air_destination_distance_squared_threshold = \
+                    16.0 * 16.0,
+            max_edges_to_remove_from_path_for_opt_to_in_air_dest = 2,
+            always_tries_to_face_direction_of_motion = true,
+            max_distance_for_reachable_surface_tracking = 1024.0,
+        },
+    },
+]
+
+var _character_manifest := {
+    default_character_name = "cat",
+    character_scenes = _character_scenes,
+    character_categories = _character_categories,
+    omits_npcs = false,
+}
+
+const _annotation_parameters_manifest := {
+}
+
+var _PROPERTIES := {
     metadata = _metadata,
     audio_manifest = _audio_manifest,
+    colors_manifest = _colors_manifest,
+    styles_manifest = _default_styles_manifest_normal,
+    images_manifest = _default_images_manifest_normal,
+    gui_manifest = _gui_manifest,
+    notifications_manifest = _notifications_manifest,
+    slow_motion_manifest = _slow_motion_manifest,
+    input_map = _input_map,
+    character_manifest = _character_manifest,
+    annotation_parameters_manifest = _annotation_parameters_manifest,
+
+    level_config_class = SquirrelAwayLevelConfig,
+    level_session_class = SquirrelAwayLevelSession,
+    annotators_class = SurfacerAnnotators,
+}
+
+# FIXME: LEFT OFF HERE: ----------------------------------
+const _MODES := {
+    FrameworkSchemaMode.Release.LOCAL_DEV: {
+    },
+    FrameworkSchemaMode.Release.PLAYTEST: {
+    },
+    FrameworkSchemaMode.Release.PRODUCTION: {
+    },
+    
+    FrameworkSchemaMode.Annotations.DEFAULT: {
+    },
+    FrameworkSchemaMode.Annotations.EMPHASIZED: {
+    },
+    
+    FrameworkSchemaMode.UiSmoothness.PIXELATED: {
+    },
+    FrameworkSchemaMode.UiSmoothness.ANTI_ALIASED: {
+   },
 }
 
 
@@ -207,6 +1374,7 @@ func _init().(
         _AUTO_LOAD_NAME,
         _AUTO_LOAD_DEPS,
         _AUTO_LOAD_PATH,
+        _MANIFEST_PATH,
         _PLUGIN_ICON_DIRECTORY_PATH,
         _PROPERTIES) -> void:
     pass
