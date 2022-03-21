@@ -25,15 +25,10 @@ func _validate_schema_recursively(
                     value,
                     prefix + key + ">")
     elif schema_value is Array:
-        if schema_value.size() == 1:
-            _validate_schema_recursively(
-                    schema_value[0],
-                    prefix + "[0]>")
-        else:
+        assert(!schema_value.empty(),
+                ("Schema arrays must not be empty: %s") % [prefix])
+        if FrameworkSchema.get_is_explicit_type_entry(schema_value):
             # Explicit-type value definition.
-            assert(schema_value.size() == 2,
-                    ("Schema explicit-type value definitions must be of " +
-                    "size 2: %s, %s") % [prefix, str(schema_value)])
             var type = schema_value[0]
             assert(type is int and \
                     FrameworkSchema.get_is_valid_type(type),
@@ -47,6 +42,19 @@ func _validate_schema_recursively(
                         FrameworkSchema.get_type_string(type),
                         str(value),
                     ])
+        else:
+            for value in schema_value:
+                assert(FrameworkSchema.get_type(value) == \
+                        FrameworkSchema.get_type(schema_value[0]),
+                        ("All entries in a schema array must be of the " +
+                        "same type: %s, %s, %s") % [
+                            prefix,
+                            str(value),
+                            str(schema_value[0]),
+                        ])
+            _validate_schema_recursively(
+                    schema_value[0],
+                    prefix + "[0]>")
     else:
         # Inferred-type value definition.
         var type := FrameworkSchema.get_type(schema_value)

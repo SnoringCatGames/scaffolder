@@ -14,6 +14,9 @@ const _VALID_TYPES := {
     TYPE_INT: true,
     TYPE_REAL: true,
     TYPE_COLOR: true,
+    TYPE_VECTOR2: true,
+    TYPE_RECT2: true,
+    TYPE_VECTOR3: true,
     TYPE_SCRIPT: true,
     TYPE_TILESET: true,
     TYPE_RESOURCE: true,
@@ -53,14 +56,28 @@ static func get_default_value(schema):
     if schema is Dictionary:
         return {}
     elif schema is Array:
-        if schema.size() == 1:
-            return []
-        else:
+        if get_is_explicit_type_entry(schema):
             # Explicit-type value definition.
             return schema[1]
+        else:
+            return []
     else:
         # Inferred-type value definition.
         return schema
+
+
+static func get_is_explicit_type_entry(entry) -> bool:
+    if !entry is Array:
+        return false
+    if entry.size() != 2:
+        return false
+    if typeof(entry[0]) != TYPE_INT:
+        return false
+    if (entry == TYPE_INT or entry == TYPE_REAL) != \
+            Sc.utils.is_num(entry[1]):
+        return false
+    # NOTE: This can produce false-positives for arrays of integers of size 2.
+    return true
 
 
 static func get_is_expected_type(
@@ -94,11 +111,11 @@ static func get_matches_schema(
     if schema is Dictionary:
         return value is Dictionary
     elif schema is Array:
-        if schema.size() == 1:
-            return value is Array
-        else:
+        if get_is_explicit_type_entry(schema):
             # Explicit-type value definition.
             return get_is_expected_type(value, schema[0])
+        else:
+            return value is Array
     else:
         # Inferred-type value definition.
         var type := get_type(schema)
