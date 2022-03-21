@@ -82,6 +82,12 @@ func _create_value_editor() -> Control:
             return _create_string_editor()
         TYPE_COLOR:
             return _create_color_editor()
+        TYPE_VECTOR2:
+            return _create_vector2_editor()
+        TYPE_RECT2:
+            return _create_rect2_editor()
+        TYPE_VECTOR3:
+            return _create_vector3_editor()
         FrameworkSchema.TYPE_SCRIPT, \
         FrameworkSchema.TYPE_TILESET, \
         FrameworkSchema.TYPE_RESOURCE:
@@ -99,10 +105,7 @@ func _create_value_editor() -> Control:
 func _create_bool_editor() -> CheckBox:
     var control := CheckBox.new()
     control.pressed = node.value
-    control.connect(
-            "toggled",
-            self,
-            "_on_value_changed")
+    control.connect("toggled", self, "_on_value_changed")
     return control
 
 
@@ -111,10 +114,7 @@ func _create_int_editor() -> SpinBox:
     control.step = 1.0
     control.rounded = true
     control.value = node.value
-    control.connect(
-            "value_changed",
-            self,
-            "_on_value_changed")
+    control.connect("value_changed", self, "_on_value_changed")
     return control
 
 
@@ -123,10 +123,7 @@ func _create_float_editor() -> SpinBox:
     control.step = 0.0
     control.rounded = false
     control.value = node.value
-    control.connect(
-            "value_changed",
-            self,
-            "_on_value_changed")
+    control.connect("value_changed", self, "_on_value_changed")
     return control
 
 
@@ -135,21 +132,35 @@ func _create_string_editor() -> TextEdit:
     control.text = node.value
     control.theme = _HIDE_SCROLL_BARS_THEME
     control.hint_tooltip = node.value
-    control.connect(
-            "text_changed",
-            self,
-            "_on_string_changed",
-            [control])
+    control.connect("text_changed", self, "_on_string_changed", [control])
     return control
 
 
 func _create_color_editor() -> ColorPickerButton:
     var control := ColorPickerButton.new()
     control.color = node.value
-    control.connect(
-            "color_changed",
-            self,
-            "_on_value_changed")
+    control.connect("color_changed", self, "_on_value_changed")
+    return control
+
+
+func _create_vector2_editor() -> Vector2Editor:
+    var control := Vector2Editor.new()
+    control.connect("value_changed", self, "_on_value_changed")
+    control.set_up()
+    return control
+
+
+func _create_rect2_editor() -> Rect2Editor:
+    var control := Rect2Editor.new()
+    control.connect("value_changed", self, "_on_value_changed")
+    control.set_up()
+    return control
+
+
+func _create_vector3_editor() -> Vector3Editor:
+    var control := Vector3Editor.new()
+    control.connect("value_changed", self, "_on_value_changed")
+    control.set_up()
     return control
 
 
@@ -158,10 +169,7 @@ func _create_resource_editor() -> EditorResourcePicker:
     control.edited_resource = node.value
     control.base_type = \
             FrameworkSchema.get_resource_class_name(node.type)
-    control.connect(
-            "resource_changed",
-            self,
-            "_on_value_changed")
+    control.connect("resource_changed", self, "_on_value_changed")
     return control
 
 
