@@ -60,26 +60,45 @@ func _load_manifest() -> void:
             .connect("manifest_changed", self, "_on_manifest_changed")
 
 
+## This life-cycle event is called when all the AutoLoads that this framework
+## depends on are available.
 func _on_auto_load_deps_ready() -> void:
     pass
 
 
+## This gives the framework a chance to modify configurations in either its own
+## manifest or another framework's manifest before the manifests have been
+## parsed.
 func _amend_manifest() -> void:
     pass
 
-
+## This is where the manifest is actually interpreted and its properties are
+## recorded within this global object.
 func _parse_manifest() -> void:
     pass
 
 
+## -   This is where the framework should instantiate other objects that it
+##     depends on.
+## -   Configuration of these objects should be avoided until
+##     _configure_sub_modules.
+##     -   This separation enables one object to reference another when they're
+##         being initialized (otherwise, the dependency might not exist yet).
 func _instantiate_sub_modules() -> void:
     pass
 
 
+## -   This is where objects instantiated by the framework should be configured.
+## -   This separation from _instantiate_sub_modules enables one object to
+##     reference another when they're being initialized (otherwise, the
+##     dependency might not exist yet).
 func _configure_sub_modules() -> void:
     pass
 
 
+## -   This is where state should be loaded if it is saved in local user
+##     storage.
+## -   This consists of things like save state and local settings.
 func _load_state() -> void:
     pass
 

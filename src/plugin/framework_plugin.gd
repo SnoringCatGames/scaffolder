@@ -4,17 +4,13 @@ extends EditorPlugin
 
 
 # FIXME: LEFT OFF HERE: -------------------------------------------
-# - Update new schema structure to support optionally just including the default
-#   value directly, without an array that also includes the type, if the type
-#   can be inferred.
-#   -   Support inference for each type, via standard function.
-#   -   if is Object:
-#       - if is TileSet:
-#       - elif is Resource:
-#       - elif is Script:
-#       - else:
-#         ERROR
-#       - (TYPE_CUSTOM must use explicit Array structure.)
+# - Scan manifests to make sure I have support for all types I've previously
+#   used.
+# 
+# - Don't port the manifest a single framework all-at-once.
+#   - Instead, port over the most significant and simple properties for each
+#     framework first.
+#   - Try to clear warnings/errors from concole.
 # 
 # - Plan the system for easily modding / overriding schemas as we do now:
 #   - Should always override any preexisting values stored in json.
