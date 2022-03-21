@@ -3,7 +3,9 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: --------------------------------------------
+# FIXME: LEFT OFF HERE: ---------------------------------------------
+# - Fix remaining issues with scaffolder_schema manifest.
+# 
 # - Add support for different schema modes.
 #     - ReleaseMode: local-dev vs playtest vs production
 #     - AnnotationsMode: emphasized-annotations vs default
@@ -41,6 +43,8 @@ extends EditorPlugin
 #   - Should save override values to json.
 # 
 # - Port all legacy framework manifests to new pattern.
+# 
+# - Test new MultiNumberEditor controls.
 # 
 # - Create plugin container system for rendering separate plugin manifest
 #   editors within.
