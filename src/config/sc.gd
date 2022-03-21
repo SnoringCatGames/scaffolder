@@ -13,7 +13,7 @@ signal splashed
 
 # ---
 
-const _SCHEMA_CLASS := ScaffolderSchema
+const _SCHEMA_PATH := "res://addons/scaffolder/src/plugin/scaffolder_schema.gd"
 
 const _LOGS_EARLY_BOOTSTRAP_EVENTS := false
 
@@ -62,7 +62,7 @@ var _bootstrap: ScaffolderBootstrap
 # ---
 
 
-func _init().(_SCHEMA_CLASS) -> void:
+func _init().(_SCHEMA_PATH) -> void:
     pass
 
 
