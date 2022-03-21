@@ -7,7 +7,13 @@ extends Reference
 const _SINGLETONS := {}
 
 
-static func instance(script: Script):
+static func instance(script_or_path):
+    var script: Script
+    if script_or_path is String:
+        script = load(script_or_path)
+    else:
+        script = script_or_path
+    
     if _SINGLETONS.has(script):
         return _SINGLETONS[script]
     else:

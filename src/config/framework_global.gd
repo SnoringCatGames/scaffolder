@@ -13,17 +13,23 @@ const _RUN_AFTER_FRAMEWORK_REGISTERED_DEBOUNCE_DELAY := 0.05
 var is_registered := false
 var is_initialized := false
 
+var _schema_class_or_path
+
 var schema: FrameworkSchema
 var manifest_controller: FrameworkManifestController
 var manifest: Dictionary
 
 
-func _init(schema_class: Script) -> void:
-    self.schema = Singletons.instance(schema_class)
+func _init(schema_class_or_path) -> void:
+    self._schema_class_or_path = schema_class_or_path
 
 
 func _ready() -> void:
-    self.schema = schema
+    call_deferred("_instantiate_schema", _schema_class_or_path)
+
+
+func _instantiate_schema(_schema_class_or_path) -> void:
+    self.schema = Singletons.instance(_schema_class_or_path)
     _check_addons_directory()
     Sc.logger.on_global_init(self, schema.auto_load_name)
     Sc.register_framework_global(self)
