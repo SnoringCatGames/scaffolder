@@ -81,25 +81,17 @@ func encode_json_object(value):
         TYPE_NIL:
             return value
         TYPE_REAL:
-            if is_inf(value):
-                if value > 0:
-                    return _POS_INF_TOKEN
-                else:
-                    return _NEG_INF_TOKEN
-            elif is_nan(value):
-                return _NAN_TOKEN
-            else:
-                return value
+            encode_real(value)
         TYPE_VECTOR2:
             return {
-                "x": value.x,
-                "y": value.y,
+                "x": encode_real(value.x),
+                "y": encode_real(value.y),
             }
         TYPE_VECTOR3:
             return {
-                "x": value.x,
-                "y": value.y,
-                "z": value.z,
+                "x": encode_real(value.x),
+                "y": encode_real(value.y),
+                "z": encode_real(value.z),
             }
         TYPE_COLOR:
             return {
@@ -110,10 +102,10 @@ func encode_json_object(value):
             }
         TYPE_RECT2:
             return {
-                "x": value.position.x,
-                "y": value.position.y,
-                "w": value.size.x,
-                "h": value.size.y,
+                "x": encode_real(value.position.x),
+                "y": encode_real(value.position.y),
+                "w": encode_real(value.size.x),
+                "h": encode_real(value.size.y),
             }
         TYPE_ARRAY:
             value = value.duplicate()
@@ -193,6 +185,30 @@ func decode_json_object(json):
                 continue
         _:
             return json
+
+
+func encode_real(value: float):
+    if is_inf(value):
+        if value > 0:
+            return _POS_INF_TOKEN
+        else:
+            return _NEG_INF_TOKEN
+    elif is_nan(value):
+        return _NAN_TOKEN
+    else:
+        return value
+
+
+func decode_real(value: String):
+    match value:
+        _POS_INF_TOKEN:
+            return INF
+        _NEG_INF_TOKEN:
+            return -INF
+        _NAN_TOKEN:
+            return NAN
+        _:
+            return value
 
 
 func encode_vector2(value: Vector2) -> String:
