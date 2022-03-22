@@ -121,7 +121,7 @@ func _override_project_settings() -> void:
         "input_devices/pointing/emulate_touch_from_mouse": true,
         "input_devices/pointing/emulate_mouse_from_touch": true,
         "input_devices/pointing/ios/touch_delay": 0.005,
-        "physics/common/physics_fps": Time.PHYSICS_FPS,
+        "physics/common/physics_fps": ScaffolderTime.PHYSICS_FPS,
         "layer_names/2d_physics/layer_1": "surfaces_tilemaps",
         "layer_names/2d_render/layer_2": "character",
         # TODO: Figure out if this actually matters...

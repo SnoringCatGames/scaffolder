@@ -29,7 +29,7 @@ func _ready() -> void:
     
     $PanelContainer/ScrollContainer/Label.add_color_override(
             "font_color", FONT_COLOR)
-    $PanelContainer/Time.add_color_override("font_color", FONT_COLOR)
+    $PanelContainer/ScaffolderTime.add_color_override("font_color", FONT_COLOR)
     
     Sc.time.set_timeout(funcref(self, "_delayed_init"), 0.8)
     
@@ -44,7 +44,7 @@ func _process(_delta: float) -> void:
     if Engine.editor_hint:
         return
     
-    $PanelContainer/Time.text = Sc.utils.get_time_string_from_seconds(
+    $PanelContainer/ScaffolderTime.text = Sc.utils.get_time_string_from_seconds(
             Sc.time.get_app_time(),
             true,
             false,

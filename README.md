@@ -22,7 +22,7 @@ Some features include:
 -   Optional analytics based on the proprietary third-party Google Analytics service.
 -   Optional automatic crash log reporting based on the proprietary third-party Google Cloud Storage service.
 -   Screen layout and navigation.
--   Lots of useful utility functions (e.g., Time, Geometry, DrawUtils, Audio).
+-   Lots of useful utility functions (e.g., ScaffolderTime, Geometry, DrawUtils, Audio).
 -   A widget library (e.g., AccordionPanel, LabeledControlList)
 
 ## ⚙️ Getting set up
@@ -40,7 +40,7 @@ It might just be easiest to scroll through some of the following files to see wh
 -   [`Geometry`](/src/utils/scaffolder_geometry.gd)
 -   [`Profiler`](/src/utils/time/profiler.gd)
 -   [`SaveState`](/src/data/save_state.gd)
--   [`Time`](/src/utils/time/time.gd)
+-   [`ScaffolderTime`](/src/utils/time/time.gd)
 -   [`Utils`](/src/utils/utils.gd)
 
 ### A widget library
