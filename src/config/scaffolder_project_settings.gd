@@ -5,75 +5,131 @@ extends Node
 # General and Input Map, according to Scaffolder's requirements.
 
 
-const DEFAULT_INPUT_MAP := {
-    "screenshot": [
-        {key_scancode = KEY_L},
-        {key_scancode = KEY_P},
-    ],
-    "toggle_hud": [
-        {key_scancode = KEY_H},
-    ],
-    "sc_back": [
-        {mouse_button_index = BUTTON_XBUTTON1},
-    ],
-    "zoom_in": [
-        {mouse_button_index = BUTTON_WHEEL_UP},
-        {key_scancode = KEY_EQUAL, control = true},
-        {key_scancode = KEY_BRACERIGHT, control = true},
-    ],
-    "zoom_out": [
-        {mouse_button_index = BUTTON_WHEEL_DOWN},
-        {key_scancode = KEY_MINUS, control = true},
-        {key_scancode = KEY_BRACELEFT, control = true},
-    ],
-    "pan_up": [
+const DEFAULT_INPUT_MAP := [
+    {
+        name = "screenshot",
+        events = [
+            {key_scancode = KEY_L},
+            {key_scancode = KEY_P},
+        ],
+    },
+    {
+        name = "toggle_hud",
+        events = [
+            {key_scancode = KEY_H},
+        ],
+    },
+    {
+        name = "sc_back",
+        events = [
+            {mouse_button_index = BUTTON_XBUTTON1},
+        ],
+    },
+    {
+        name = "zoom_in",
+        events = [
+            {mouse_button_index = BUTTON_WHEEL_UP},
+            {key_scancode = KEY_EQUAL, control = true},
+            {key_scancode = KEY_BRACERIGHT, control = true},
+        ],
+    },
+    {
+        name = "zoom_out",
+        events = [
+            {mouse_button_index = BUTTON_WHEEL_DOWN},
+            {key_scancode = KEY_MINUS, control = true},
+            {key_scancode = KEY_BRACELEFT, control = true},
+        ],
+    },
+    {
+        name = "pan_up",
+        events = [
         {key_scancode = KEY_UP, control = true},
-    ],
-    "pan_down": [
-        {key_scancode = KEY_DOWN, control = true},
-    ],
-    "pan_left": [
-        {key_scancode = KEY_LEFT, control = true},
-    ],
-    "pan_right": [
-        {key_scancode = KEY_RIGHT, control = true},
-    ],
-    "jump": [
-        {key_scancode = KEY_SPACE},
-        {key_scancode = KEY_Q},
-        {key_scancode = KEY_X},
-    ],
-    "move_up": [
-        {key_scancode = KEY_UP},
-        {key_scancode = KEY_W},
-        {key_scancode = KEY_COMMA},
-    ],
-    "move_down": [
-        {key_scancode = KEY_DOWN},
-        {key_scancode = KEY_S},
-        {key_scancode = KEY_O},
-    ],
-    "move_left": [
-        {key_scancode = KEY_LEFT},
-        {key_scancode = KEY_A},
-    ],
-    "move_right": [
-        {key_scancode = KEY_RIGHT},
-        {key_scancode = KEY_D},
-        {key_scancode = KEY_E},
-    ],
-    "dash": [
-        {key_scancode = KEY_SEMICOLON},
-        {key_scancode = KEY_APOSTROPHE},
-        {key_scancode = KEY_Z},
-    ],
-    "grab": [
-        {key_scancode = KEY_C},
-        {key_scancode = KEY_J},
-    ],
-    "face_left": [],
-    "face_right": [],
-}
+        ],
+    },
+    {
+        name = "pan_down",
+        events = [
+            {key_scancode = KEY_DOWN, control = true},
+        ],
+    },
+    {
+        name = "pan_left",
+        events = [
+            {key_scancode = KEY_LEFT, control = true},
+        ],
+    },
+    {
+        name = "pan_right",
+        events = [
+            {key_scancode = KEY_RIGHT, control = true},
+        ],
+    },
+    {
+        name = "jump",
+        events = [
+            {key_scancode = KEY_SPACE},
+            {key_scancode = KEY_Q},
+            {key_scancode = KEY_X},
+        ],
+    },
+    {
+        name = "move_up",
+        events = [
+            {key_scancode = KEY_UP},
+            {key_scancode = KEY_W},
+            {key_scancode = KEY_COMMA},
+        ],
+    },
+    {
+        name = "move_down",
+        events = [
+            {key_scancode = KEY_DOWN},
+            {key_scancode = KEY_S},
+            {key_scancode = KEY_O},
+        ],
+    },
+    {
+        name = "move_left",
+        events = [
+            {key_scancode = KEY_LEFT},
+            {key_scancode = KEY_A},
+        ],
+    },
+    {
+        name = "move_right",
+        events = [
+            {key_scancode = KEY_RIGHT},
+            {key_scancode = KEY_D},
+            {key_scancode = KEY_E},
+        ],
+    },
+    {
+        name = "dash",
+        events = [
+            {key_scancode = KEY_SEMICOLON},
+            {key_scancode = KEY_APOSTROPHE},
+            {key_scancode = KEY_Z},
+        ],
+    },
+    {
+        name = "grab",
+        events = [
+            {key_scancode = KEY_C},
+            {key_scancode = KEY_J},
+        ],
+    },
+    {
+        name = "face_left",
+        events = [
+        ],
+    },
+    {
+        name = "face_right",
+        events = [
+        ],
+    },
+]
 
 const DEFAULT_MOVEMENT_ACTIONS := [
     "jump",
@@ -136,17 +192,24 @@ func _validate_preexisting_project_settings() -> void:
     assert(ProjectSettings.get_setting("application/config/name") != "")
 
 
-func _override_input_map(input_map_overrides: Dictionary) -> void:
+func _override_input_map(input_map_overrides: Array) -> void:
     if !Sc.metadata.overrides_input_map:
         return
     
-    var input_map = DEFAULT_INPUT_MAP
-    Sc.utils.merge(input_map, input_map_overrides)
+    var input_map_map := {}
+    for entry in DEFAULT_INPUT_MAP:
+        input_map_map[entry.name] = entry.events
     
-    for action_name in input_map:
+    var input_map_overrides_map := {}
+    for entry in input_map_overrides:
+        input_map_overrides_map[entry.name] = entry.events
+    
+    Sc.utils.merge(input_map_map, input_map_overrides_map)
+    
+    for action_name in input_map_map:
         if !InputMap.has_action(action_name):
             InputMap.add_action(action_name)
-        for event_config in input_map[action_name]:
+        for event_config in input_map_map[action_name]:
             var event: InputEventWithModifiers
             if event_config.has("mouse_button_index"):
                 event = InputEventMouseButton.new()
@@ -165,19 +228,24 @@ func _override_input_map(input_map_overrides: Dictionary) -> void:
                 InputMap.action_add_event(action_name, event)
     
     for action in DEFAULT_MOVEMENT_ACTIONS:
-        for config in input_map[action]:
+        for config in input_map_map[action]:
             if !config.has("key_scancode"):
                 continue
             movement_action_key_set[config.key_scancode] = true
 
 
-static func _get_input_map_schema() -> Dictionary:
+static func _get_input_map_schema() -> Array:
     var schema := DEFAULT_INPUT_MAP.duplicate(true)
-    for name in schema:
-        if schema[name].empty():
-            schema[name].push_back({
-                key_scancode = 0,
-                mouse_button_index = 0,
-                control = false,
-               })
+    var event_default_key_values := [
+        ["key_scancode", 0],
+        ["mouse_button_index", 0],
+        ["control", false],
+    ]
+    for entry in schema:
+        if entry.events.empty():
+            entry.events.push_back({})
+        for event in entry.events:
+            for default_key_value in event_default_key_values:
+                if !event.has(default_key_value[0]):
+                    event[default_key_value[0]] = default_key_value[1]
     return schema
