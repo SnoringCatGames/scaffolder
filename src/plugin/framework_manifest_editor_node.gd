@@ -144,9 +144,9 @@ func _log_warning(
         message: String,
         details: String) -> void:
     Sc.logger.warning(
-            ("%s (this probably happened because you changed a " +
-            "property in the schema, which is fine!): " +
-            "%s (%s)") % [
+            ("%s (This may mean you included a null value in the manifest " +
+            "schema whose type cannot be inferred, or this may mean you " +
+            "changed a property in the schema): %s (%s)") % [
                 message,
                 get_node_path(),
                 details,

@@ -173,12 +173,17 @@ func _create_resource_editor() -> EditorResourcePicker:
     return control
 
 
-func _on_value_changed(value) -> void:
-    node.value = value
-    emit_signal("changed")
+func _on_value_changed(new_value) -> void:
+    var old_value = node.value
+    if old_value != new_value:
+        node.value = new_value
+        emit_signal("changed")
 
 
 func _on_string_changed(control: TextEdit) -> void:
-    node.value = control.text
-    control.hint_tooltip = control.text
-    emit_signal("changed")
+    var old_value: String = node.value
+    var new_value := control.text
+    if old_value != new_value:
+        node.value = new_value
+        control.hint_tooltip = control.text
+        emit_signal("changed")

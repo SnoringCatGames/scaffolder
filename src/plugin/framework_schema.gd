@@ -73,7 +73,7 @@ static func get_is_explicit_type_entry(entry) -> bool:
         return false
     if typeof(entry[0]) != TYPE_INT:
         return false
-    if (entry == TYPE_INT or entry == TYPE_REAL) != \
+    if (entry is int and (entry == TYPE_INT or entry == TYPE_REAL)) != \
             Sc.utils.is_num(entry[1]):
         return false
     # NOTE: This can produce false-positives for arrays of integers of size 2.
