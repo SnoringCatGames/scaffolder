@@ -21,13 +21,25 @@ var _manifest_controller: FrameworkManifestController
 func set_up(manifest_controller: FrameworkManifestController) -> void:
     self._manifest_controller = manifest_controller
     
-    self.rect_min_size.x = _PANEL_WIDTH
+    $AccordionPanel/AccordionHeader.header_text = \
+            manifest_controller.schema.display_name
     
-    Sc.utils.clear_children(self)
+    Sc.utils.clear_children($AccordionPanel/AccordionBody/VBoxContainer)
     
-    _create_property_controls(_manifest_controller.root, self)
+    _create_property_controls(
+            _manifest_controller.root,
+            $AccordionPanel/AccordionBody/VBoxContainer)
     
     _update_zebra_stripes()
+
+
+func adjust_size(parent_size: Vector2) -> void:
+    self.rect_min_size.x = parent_size.x
+    $AccordionPanel/AccordionBody/VBoxContainer.rect_min_size.x = parent_size.x
+    
+    $AccordionPanel/AccordionHeader.size_override = Vector2(parent_size.x, 0.0)
+    $AccordionPanel._on_gui_scale_changed()
+    $AccordionPanel/AccordionBody._on_gui_scale_changed()
 
 
 func _create_property_controls(
@@ -98,15 +110,9 @@ func _create_group_control(
             _PADDING)
     if node.type == TYPE_ARRAY:
         row.buttons.connect(
-                "added",
-                self,
-                "_on_array_item_added",
-                [row.buttons])
+                "added", self, "_on_array_item_added", [row.buttons])
         row.buttons.connect(
-                "deleted",
-                self,
-                "_on_array_item_deleted",
-                [row.buttons])
+                "deleted", self, "_on_array_item_deleted", [row.buttons])
     return row
 
 
@@ -132,6 +138,6 @@ func _on_array_item_deleted(buttons: FrameworkManifestArrayButtons) -> void:
 
 func _update_zebra_stripes() -> void:
     var row_count := 0
-    for row in self.get_children():
+    for row in $AccordionPanel/AccordionBody/VBoxContainer.get_children():
         if is_instance_valid(row):
             row_count = row.update_zebra_stripes(row_count)
