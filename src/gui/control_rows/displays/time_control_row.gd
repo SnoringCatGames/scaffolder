@@ -2,7 +2,7 @@ class_name TimeControlRow
 extends TextControlRow
 
 
-const LABEL := "Time:"
+const LABEL := "ScaffolderTime:"
 const DESCRIPTION := ""
 const BLANK_TIME_STRING := "--:--:--"
 

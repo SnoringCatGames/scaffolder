@@ -71,7 +71,7 @@ App version: 0.0.1
 > Analytics._init
 > Analytics client ID: fef81dd0-78ff-4ab0-be08-54a4169788e4
 > GestureReporter._init
-> Time._init
+> ScaffolderTime._init
 > Profiler._init
 > Geometry._init
 > ScaffolderDrawUtils._init
@@ -89,7 +89,7 @@ valign = 0
 autowrap = true
 font_size = "S"
 
-[node name="Time" parent="PanelContainer" instance=ExtResource( 3 )]
+[node name="ScaffolderTime" parent="PanelContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1920.0

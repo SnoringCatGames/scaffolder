@@ -30,7 +30,7 @@ var images: ScaffolderImages
 var gui: ScaffolderGuiConfig
 var json: JsonUtils
 var save_state: SaveState
-var time: Time
+var time: ScaffolderTime
 var profiler: Profiler
 var geometry: ScaffolderGeometry
 var draw: ScaffolderDrawUtils
@@ -327,9 +327,9 @@ func _instantiate_sub_modules() -> void:
     
     if manifest.has("time_class"):
         self.time = manifest.time_class.new()
-        assert(self.time is Time)
+        assert(self.time is ScaffolderTime)
     else:
-        self.time = Time.new()
+        self.time = ScaffolderTime.new()
     add_child(self.time)
     
     if manifest.has("profiler_class"):

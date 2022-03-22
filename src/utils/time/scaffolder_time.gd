@@ -1,5 +1,5 @@
 tool
-class_name Time
+class_name ScaffolderTime
 extends Node
 
 
@@ -32,7 +32,7 @@ var _debounced_callbacks := {}
 
 
 func _init() -> void:
-    Sc.logger.on_global_init(self, "Time")
+    Sc.logger.on_global_init(self, "ScaffolderTime")
     pause_mode = Node.PAUSE_MODE_PROCESS
 
 

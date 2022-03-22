@@ -593,8 +593,8 @@
   },
   "gui_manifest": {
     "debug_window_size": {
-      "x": "$+INF:",
-      "y": "$+INF:"
+      "x": 0,
+      "y": 0
     },
     "default_pc_game_area_size": {
       "x": 1024,
@@ -748,7 +748,7 @@
       "hud_key_value_list_item_manifest": [
         {
           "item_class": "$Resource:res://addons/scaffolder/src/gui/control_rows/displays/time_control_row.gd",
-          "settings_enablement_label": "Time",
+          "settings_enablement_label": "ScaffolderTime",
           "enabled_by_default": true,
           "settings_group_key": "hud"
         }
@@ -1036,7 +1036,7 @@
           "squirrel"
         ],
         "movement_params": {
-          "collider_shape": "$Resource:",
+          "collider_shape": null,
           "collider_rotation": 1.570796,
           "can_grab_walls": true,
           "can_grab_ceilings": true,
