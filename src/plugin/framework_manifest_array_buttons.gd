@@ -1,5 +1,6 @@
 tool
-class_name FrameworkManifestArrayButtons
+class_name FrameworkManifestArrayButtons, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_placeholder.png"
 extends PanelContainer
 
 
