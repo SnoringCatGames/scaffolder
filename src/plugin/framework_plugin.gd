@@ -149,7 +149,7 @@ func get_plugin_icon() -> Texture:
                 .get_setting("interface/theme/base_color").v > 0.5
     var theme := "light" if is_light_theme else "dark"
     var scale := get_editor_interface().get_editor_scale()
-    var icon_path := _get_editor_icon_path(theme, scale)
+    var icon_path := _schema.get_editor_icon_path(theme, scale)
     return load(icon_path) as Texture
 
 
@@ -157,7 +157,7 @@ func _validate_editor_icons() -> void:
     var file := File.new()
     for theme in ["light", "dark"]:
         for scale in [0.75, 1.0, 1.5, 2.0]:
-            var path := _get_editor_icon_path(theme, scale)
+            var path := _schema.get_editor_icon_path(theme, scale)
             assert(file.file_exists(path),
                     "Plugin editor-icon version is missing: " +
                     "plugin=%s, theme=%s, scale=%s, path=%s" % [
@@ -166,14 +166,3 @@ func _validate_editor_icons() -> void:
                         str(scale),
                         path,
                     ])
-
-
-func _get_editor_icon_path(
-        theme: String,
-        scale: float) -> String:
-    return ("%s%s_%s_theme_%s.png") % [
-        _schema.plugin_icon_directory_path,
-        _schema.folder_name,
-        theme,
-        str(scale),
-    ]

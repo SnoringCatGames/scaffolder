@@ -133,6 +133,8 @@ func play_sound(
         sound_name: String,
         volume_offset := 0.0,
         deferred := false) -> void:
+    if Engine.editor_hint:
+        return
     if deferred:
         call_deferred("_play_sound_deferred", sound_name, volume_offset)
     else:
