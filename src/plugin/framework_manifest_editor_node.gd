@@ -101,7 +101,7 @@ func _load_from_manifest_array(
     children = []
     children.resize(manifest.size())
     for j in manifest.size():
-        var child = get_script().new(self, j, schema[0])
+        var child = get_script().new(self, j, schema[j])
         child.load_from_manifest(manifest[j], includes_defaults_from_schema)
         children[j] = child
 

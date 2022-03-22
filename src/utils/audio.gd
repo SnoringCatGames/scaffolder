@@ -67,7 +67,7 @@ func register_sounds(
         var player := AudioStreamPlayer.new()
         var prefix: String = \
                 config.path_prefix if \
-                config.has("path_prefix") else \
+                config.has("path_prefix") and config.path_prefix != "" else \
                 path_prefix
         var suffix: String = \
                 config.file_suffix if \
@@ -102,7 +102,7 @@ func register_music(
         var player := AudioStreamPlayer.new()
         var prefix: String = \
                 config.path_prefix if \
-                config.has("path_prefix") else \
+                config.has("path_prefix") and config.path_prefix != "" else \
                 path_prefix
         var suffix: String = \
                 config.file_suffix if \

@@ -130,30 +130,37 @@ const _sounds_manifest := [
     {
         name = "cat_jump",
         volume_db = 0.0,
+        path_prefix = "",
     },
     {
         name = "cat_land",
         volume_db = 0.0,
+        path_prefix = "",
     },
     {
         name = "cat_hit_surface",
         volume_db = 0.0,
+        path_prefix = "",
     },
     {
         name = "contact",
         volume_db = 0.0,
+        path_prefix = "",
     },
     {
         name = "squirrel_jump",
         volume_db = 0.0,
+        path_prefix = "",
     },
     {
         name = "squirrel_land",
         volume_db = 0.0,
+        path_prefix = "",
     },
     {
         name = "squirrel_yell",
         volume_db = 0.0,
+        path_prefix = "",
     },
 ]
 
@@ -162,7 +169,7 @@ const _music_manifest := [
         name = "on_a_quest",
         path_prefix = "res://addons/scaffolder/assets/music/",
         volume_db = 0.0,
-        bpm = 75,
+        bpm = 75.0,
         meter = 4,
     },
     {

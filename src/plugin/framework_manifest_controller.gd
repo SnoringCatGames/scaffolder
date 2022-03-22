@@ -43,17 +43,33 @@ func _validate_schema_recursively(
                         str(value),
                     ])
         else:
-            for value in schema_value:
-                assert(FrameworkSchema.get_type(value) == \
-                        FrameworkSchema.get_type(schema_value[0]),
-                        ("All entries in a schema array must be of the " +
-                        "same type: %s, %s, %s") % [
-                            prefix,
-                            str(value),
-                            str(schema_value[0]),
-                        ])
+            var first_element = schema_value[0]
+            if first_element is Dictionary:
+                for i in schema_value.size():
+                    var element = schema_value[i]
+                    assert(element.size() == first_element.size())
+                    for key in first_element:
+                        assert(element.has(key) and \
+                                FrameworkSchema.get_type(element[key]) == \
+                                FrameworkSchema.get_type(first_element[key]),
+                                "All Dictionary entries in a schema array " +
+                                "must have the same structure: %s[%s].%s" % [
+                                    prefix,
+                                    str(i),
+                                    key,
+                                ])
+            else:
+                for value in schema_value:
+                    assert(FrameworkSchema.get_type(value) == \
+                            FrameworkSchema.get_type(first_element),
+                            ("All entries in a schema array must be of the " +
+                            "same type: %s, %s, %s") % [
+                                prefix,
+                                str(value),
+                                str(first_element),
+                            ])
             _validate_schema_recursively(
-                    schema_value[0],
+                    first_element,
                     prefix + "[0]>")
     else:
         # Inferred-type value definition.
