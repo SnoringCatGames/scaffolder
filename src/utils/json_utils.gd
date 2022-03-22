@@ -81,7 +81,7 @@ func encode_json_object(value):
         TYPE_NIL:
             return value
         TYPE_REAL:
-            encode_real(value)
+            return encode_real(value)
         TYPE_VECTOR2:
             return {
                 "x": encode_real(value.x),
