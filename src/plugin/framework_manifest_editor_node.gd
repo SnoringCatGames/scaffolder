@@ -18,7 +18,9 @@ func _init(parent, key, schema) -> void:
     self.schema = schema
 
 
-func load_from_manifest(manifest) -> void:
+func load_from_manifest(
+        manifest,
+        includes_defaults_from_schema := false) -> void:
     if schema is Dictionary:
         _load_from_manifest_dictionary(manifest)
     elif schema is Array:
@@ -26,7 +28,7 @@ func load_from_manifest(manifest) -> void:
             type = schema[0]
             value = manifest
         else:
-            _load_from_manifest_array(manifest)
+            _load_from_manifest_array(manifest, includes_defaults_from_schema)
     else:
         # Inferred-type value definition.
         var schema_type := FrameworkSchema.get_type(schema)
@@ -38,12 +40,8 @@ func load_from_manifest(manifest) -> void:
 
 
 func _load_from_manifest_dictionary(manifest) -> void:
-    # Ensure the manifest is the correct type.
-    if !manifest is Dictionary:
-        _log_warning(
-                "Invalid type saved in manifest",
-                ("expected: Dictionary, actual: %s") % str(manifest))
-        manifest = {}
+    assert(schema is Dictionary and \
+            manifest is Dictionary)
     
     # Remove any unexpected keys from the manifest.
     for key in manifest.keys():
@@ -66,21 +64,20 @@ func _load_from_manifest_dictionary(manifest) -> void:
     children = {}
     for key in schema:
         # Ensure a manifest entry exists for this key.
-        if !manifest.has(key):
+        var did_key_exist_in_manifest: bool = manifest.has(key)
+        if !did_key_exist_in_manifest:
             manifest[key] = FrameworkSchema.get_default_value(schema[key])
         
         var child = get_script().new(self, key, schema[key])
-        child.load_from_manifest(manifest[key])
+        child.load_from_manifest(manifest[key], !did_key_exist_in_manifest)
         children[key] = child
 
 
-func _load_from_manifest_array(manifest) -> void:
-    # Ensure the manifest is the correct type.
-    if !manifest is Array:
-        _log_warning(
-                "Invalid type saved in manifest",
-                ("expected: Array, actual: %s") % str(manifest))
-        manifest = []
+func _load_from_manifest_array(
+        manifest,
+        includes_defaults_from_schema: bool) -> void:
+    assert(schema is Array and \
+            manifest is Array)
     
     # Remove any invalid-typed entries from the manifest.
     var i := 0
@@ -94,19 +91,25 @@ func _load_from_manifest_array(manifest) -> void:
             i -= 1
         i += 1
     
+    if includes_defaults_from_schema:
+        # Ensure defaults exist in the manifest.
+        manifest.resize(schema.size())
+        for j in schema.size():
+            manifest[j] = FrameworkSchema.get_default_value(schema[j])
+    
     type = TYPE_ARRAY
     children = []
     children.resize(manifest.size())
     for j in manifest.size():
         var child = get_script().new(self, j, schema[0])
-        child.load_from_manifest(manifest[j])
+        child.load_from_manifest(manifest[j], includes_defaults_from_schema)
         children[j] = child
 
 
 func add_array_element():
     assert(type == TYPE_ARRAY)
     var child = get_script().new(self, children.size(), schema[0])
-    child.load_from_manifest(FrameworkSchema.get_default_value(schema[0]))
+    child.load_from_manifest(FrameworkSchema.get_default_value(schema[0]), true)
     children.push_back(child)
     return child
 
