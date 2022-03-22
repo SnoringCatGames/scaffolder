@@ -477,8 +477,8 @@
   },
   "gui_manifest": {
     "debug_window_size": {
-      "x": "$+INF:",
-      "y": "$+INF:"
+      "x": 0,
+      "y": 0
     },
     "default_pc_game_area_size": {
       "x": 1024,
@@ -611,12 +611,6 @@
     },
     "welcome_panel_manifest": {
       "items": [
-
-      ],
-      "header_color": [
-
-      ],
-      "body_color": [
 
       ]
     },

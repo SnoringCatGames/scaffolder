@@ -1221,7 +1221,7 @@ const _slow_motion_manifest := {
     saturation = 0.2,
 }
 
-const _input_map = ScaffolderProjectSettings.DEFAULT_INPUT_MAP
+var _input_map = ScaffolderProjectSettings._get_input_map_schema()
 
 const _character_scenes := [
     preload("res://addons/squirrel_away/src/characters/cat/cat.tscn"),

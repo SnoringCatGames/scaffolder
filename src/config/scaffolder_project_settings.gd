@@ -169,3 +169,15 @@ func _override_input_map(input_map_overrides: Dictionary) -> void:
             if !config.has("key_scancode"):
                 continue
             movement_action_key_set[config.key_scancode] = true
+
+
+static func _get_input_map_schema() -> Dictionary:
+    var schema := DEFAULT_INPUT_MAP.duplicate(true)
+    for name in schema:
+        if schema[name].empty():
+            schema[name].push_back({
+                key_scancode = 0,
+                mouse_button_index = 0,
+                control = false,
+               })
+    return schema
