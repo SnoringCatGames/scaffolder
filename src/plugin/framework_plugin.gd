@@ -4,8 +4,6 @@ extends EditorPlugin
 
 
 # FIXME: LEFT OFF HERE: ---------------------------------------------
-# - Fix remaining issues with scaffolder_schema manifest.
-# 
 # - Add support for different schema modes.
 #     - ReleaseMode: local-dev vs playtest vs production
 #     - AnnotationsMode: emphasized-annotations vs default
@@ -53,6 +51,11 @@ extends EditorPlugin
 #   - Auto-open the last accordion registered (and close all others at that point).
 # 
 # - Convert old manifest stuff into new plugin-manifest structure.
+# 
+# - Update schema defaults to not include squirrel-away-specific state.
+# 
+# - Search in each repo to make sure there are no references to other addons/
+#   directories that there shouldn't be.
 # 
 # - Add logic to adapt the main-screen content depending on which frameworks are present:
 #   - If more than one, then show a tab list across the top for switching between them?
