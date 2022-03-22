@@ -134,7 +134,7 @@ func encode_json_object(value):
             else:
                 continue
         _:
-            Sc.logger.error("Unsupported data type for JSON: " + value)
+            Sc.logger.error("Unsupported data type for JSON: " + str(value))
 
 
 # JSON decoding with custom syntax for vector values.
