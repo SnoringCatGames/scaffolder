@@ -5,9 +5,6 @@ extends PanelContainer
 
 signal changed
 
-const _HIDE_SCROLL_BARS_THEME := \
-        preload("res://addons/scaffolder/src/plugin/hide_scroll_bars.tres")
-
 var node: FrameworkManifestEditorNode
 var custom_property: FrameworkManifestCustomProperty
 
@@ -127,10 +124,9 @@ func _create_float_editor() -> SpinBox:
     return control
 
 
-func _create_string_editor() -> TextEdit:
-    var control := TextEdit.new()
+func _create_string_editor() -> LineEdit:
+    var control := LineEdit.new()
     control.text = node.value
-    control.theme = _HIDE_SCROLL_BARS_THEME
     control.hint_tooltip = node.value
     control.connect("text_changed", self, "_on_string_changed", [control])
     return control
@@ -180,7 +176,7 @@ func _on_value_changed(new_value) -> void:
         emit_signal("changed")
 
 
-func _on_string_changed(control: TextEdit) -> void:
+func _on_string_changed(control: LineEdit) -> void:
     var old_value: String = node.value
     var new_value := control.text
     if old_value != new_value:
