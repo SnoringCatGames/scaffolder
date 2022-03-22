@@ -4,6 +4,14 @@ extends EditorPlugin
 
 
 # FIXME: LEFT OFF HERE: ---------------------------------------------
+# 
+# - Fix the bug with arrays where each element has the same values.
+# 
+# - Fix the ability to specify an object type for an array child without
+#   actually including it in the manifest by default.
+# 
+# - Fix main-screen panel width.
+# 
 # - Add support for different schema modes.
 #     - ReleaseMode: local-dev vs playtest vs production
 #     - AnnotationsMode: emphasized-annotations vs default

@@ -872,157 +872,278 @@
     "tick_tock_tempo_multiplier": 25,
     "saturation": 0.2
   },
-  "input_map": {
-    "screenshot": [
-      {
-        "key_scancode": 76
-      },
-      {
-        "key_scancode": 76
-      }
-    ],
-    "toggle_hud": [
-      {
-        "key_scancode": 72
-      }
-    ],
-    "sc_back": [
-      {
-        "mouse_button_index": 8
-      }
-    ],
-    "zoom_in": [
-      {
-        "mouse_button_index": 4
-      },
-      {
-        "mouse_button_index": 4
-      },
-      {
-        "mouse_button_index": 4
-      }
-    ],
-    "zoom_out": [
-      {
-        "mouse_button_index": 5
-      },
-      {
-        "mouse_button_index": 5
-      },
-      {
-        "mouse_button_index": 5
-      }
-    ],
-    "pan_up": [
-      {
-        "key_scancode": 16777232,
-        "control": true
-      }
-    ],
-    "pan_down": [
-      {
-        "key_scancode": 16777234,
-        "control": true
-      }
-    ],
-    "pan_left": [
-      {
-        "key_scancode": 16777231,
-        "control": true
-      }
-    ],
-    "pan_right": [
-      {
-        "key_scancode": 16777233,
-        "control": true
-      }
-    ],
-    "jump": [
-      {
-        "key_scancode": 32
-      },
-      {
-        "key_scancode": 32
-      },
-      {
-        "key_scancode": 32
-      }
-    ],
-    "move_up": [
-      {
-        "key_scancode": 16777232
-      },
-      {
-        "key_scancode": 16777232
-      },
-      {
-        "key_scancode": 16777232
-      }
-    ],
-    "move_down": [
-      {
-        "key_scancode": 16777234
-      },
-      {
-        "key_scancode": 16777234
-      },
-      {
-        "key_scancode": 16777234
-      }
-    ],
-    "move_left": [
-      {
-        "key_scancode": 16777231
-      },
-      {
-        "key_scancode": 16777231
-      }
-    ],
-    "move_right": [
-      {
-        "key_scancode": 16777233
-      },
-      {
-        "key_scancode": 16777233
-      },
-      {
-        "key_scancode": 16777233
-      }
-    ],
-    "dash": [
-      {
-        "key_scancode": 59
-      },
-      {
-        "key_scancode": 59
-      },
-      {
-        "key_scancode": 59
-      }
-    ],
-    "grab": [
-      {
-        "key_scancode": 67
-      },
-      {
-        "key_scancode": 67
-      }
-    ],
-    "face_left": [
-      {
-        "key_scancode": 0,
-        "mouse_button_index": 0,
-        "control": false
-      }
-    ],
-    "face_right": [
-      {
-        "key_scancode": 0,
-        "mouse_button_index": 0,
-        "control": false
-      }
-    ]
-  },
+  "input_map": [
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    }
+  ],
   "character_manifest": {
     "default_character_name": "cat",
     "character_scenes": [
