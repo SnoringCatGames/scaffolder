@@ -5,10 +5,10 @@ extends FrameworkPlugin
 
 const _SCHEMA_CLASS := ScaffolderSchema
 
-const _MAIN_PANEL_SCENE := preload(
-        "res://addons/scaffolder/src/plugin/framework_plugin_main_panel.tscn")
+const _MAIN_SCREEN_SCENE := preload(
+        "res://addons/scaffolder/src/plugin/framework_plugin_main_screen.tscn")
 
-var _main_panel: ScaffolderPluginMainPanel
+var _main_panel: ScaffolderPluginMainScreen
 
 
 func _init().(_SCHEMA_CLASS) -> void:
@@ -21,7 +21,7 @@ func _set_up() -> void:
     if !_get_is_ready():
         return
     
-    _main_panel = _MAIN_PANEL_SCENE.instance()
+    _main_panel = _MAIN_SCREEN_SCENE.instance()
     get_editor_interface().get_editor_viewport().add_child(_main_panel)
     
     make_visible(false)

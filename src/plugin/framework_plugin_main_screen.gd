@@ -1,12 +1,12 @@
 tool
-class_name ScaffolderPluginMainPanel
+class_name ScaffolderPluginMainScreen
 extends CenterContainer
 
 
 const _FRAMEWORK_MANIFEST_PANEL_SCENE := preload(
         "res://addons/scaffolder/src/plugin/framework_manifest_panel.tscn")
 
-const _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS := 144.0
+const _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS := 288.0
 
 # Dictionary<int, int>
 var _manifest_modes := {}
@@ -20,14 +20,14 @@ var _throttled_on_resize: FuncRef = Sc.time.throttle(
 
 
 func _ready() -> void:
-    self.connect("resized", _throttled_on_resize, "call_func")
-    _adjust_size()
-    
     Sc.connect("initialized", self, "_reset_panels")
     if Sc.is_initialized:
         _reset_panels()
     
     _initialize_modes()
+    
+    self.connect("resized", _throttled_on_resize, "call_func")
+    _adjust_size()
 
 
 func _reset_panels() -> void:
@@ -46,8 +46,13 @@ func _adjust_size() -> void:
     var size: Vector2 = self.rect_size
     size.y -= $VBoxContainer/Label.rect_size.y
     size.y -= $VBoxContainer/Spacer.rect_size.y
-    $VBoxContainer/CenterContainer/ScrollContainer.rect_min_size = \
+    var scroll_container_size := \
             size - _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS * Vector2.ONE
+    $VBoxContainer/CenterContainer/ScrollContainer.rect_min_size = \
+            scroll_container_size
+    for panel in $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer \
+            .get_children():
+        panel.adjust_size(scroll_container_size)
 
 
 func _initialize_modes() -> void:
@@ -103,7 +108,7 @@ func _get_option_button(mode_type: int) -> OptionButton:
         FrameworkSchemaMode.UI_SMOOTHNESS:
             node = $VBoxContainer/Modes/UiSmoothness/UiSmoothnessModeButton
         _:
-            Sc.logger.error("ScaffolderPluginMainPanel._get_option_button")
+            Sc.logger.error("ScaffolderPluginMainScreen._get_option_button")
     return node as OptionButton
 
 
@@ -116,7 +121,7 @@ func _get_type_to_string_map(mode_type: int) -> Dictionary:
         FrameworkSchemaMode.UI_SMOOTHNESS:
             return FrameworkSchemaMode.UI_SMOOTHNESS_TYPE_TO_STRING
         _:
-            Sc.logger.error("ScaffolderPluginMainPanel._type_to_index")
+            Sc.logger.error("ScaffolderPluginMainScreen._type_to_index")
             return {}
 
 
