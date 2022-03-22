@@ -1,5 +1,6 @@
 tool
-class_name FrameworkManifestRow
+class_name FrameworkManifestRow, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_placeholder.png"
 extends PanelContainer
 
 
@@ -7,14 +8,18 @@ signal changed
 
 var node: FrameworkManifestEditorNode
 var custom_property: FrameworkManifestCustomProperty
+var indent_level: int
 
 
 func set_up(
         node: FrameworkManifestEditorNode,
+        indent_level: int,
+        indent_width: float,
         label_width: float,
         control_width: float,
         padding: float) -> void:
     self.node = node
+    self.indent_level = indent_level
     
     $MarginContainer.add_constant_override("margin_top", padding)
     $MarginContainer.add_constant_override("margin_bottom", padding)
@@ -53,6 +58,11 @@ func set_up(
         value_editor.rect_clip_content = true
         value_editor.rect_min_size.x = control_width
         $MarginContainer/HBoxContainer.add_child(value_editor)
+
+
+# FIXME: LEFT OFF HERE: --------------------------------------- Remove?
+func adjust_width(screen_width: float) -> void:
+    pass
 
 
 func update_zebra_stripes(index: int) -> int:

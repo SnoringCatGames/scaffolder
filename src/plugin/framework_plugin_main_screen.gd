@@ -1,5 +1,6 @@
 tool
-class_name ScaffolderPluginMainScreen
+class_name ScaffolderPluginMainScreen, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_panel_container.png"
 extends CenterContainer
 
 
@@ -50,9 +51,6 @@ func _adjust_size() -> void:
             size - _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS * Vector2.ONE
     $VBoxContainer/CenterContainer/ScrollContainer.rect_min_size = \
             scroll_container_size
-    for panel in $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer \
-            .get_children():
-        panel.adjust_size(scroll_container_size)
 
 
 func _initialize_modes() -> void:
