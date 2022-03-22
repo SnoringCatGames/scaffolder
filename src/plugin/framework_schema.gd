@@ -52,6 +52,17 @@ func _init(
     self.properties = properties
 
 
+func get_editor_icon_path(
+        theme := "dark",
+        scale := 1.0) -> String:
+    return ("%s%s_%s_theme_%s.png") % [
+        self.plugin_icon_directory_path,
+        self.folder_name,
+        theme,
+        str(scale),
+    ]
+
+
 static func get_default_value(schema):
     if schema is Dictionary:
         return {}
