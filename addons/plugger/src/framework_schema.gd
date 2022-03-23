@@ -34,21 +34,17 @@ var properties: Dictionary
 
 
 func _init(
-        display_name: String,
-        folder_name: String,
-        auto_load_name: String,
-        auto_load_deps: Array,
-        auto_load_path: String,
-        manifest_path: String,
-        plugin_icon_directory_path: String,
+        framework_metadata_script: Script,
         properties: Dictionary) -> void:
-    self.display_name = display_name
-    self.folder_name = folder_name
-    self.auto_load_name = auto_load_name
-    self.auto_load_deps = auto_load_deps
-    self.auto_load_path = auto_load_path
-    self.manifest_path = manifest_path
-    self.plugin_icon_directory_path = plugin_icon_directory_path
+    var metadata = framework_metadata_script.new()
+    assert(metadata is PluginMetadata)
+    self.display_name = metadata.display_name
+    self.folder_name = metadata.folder_name
+    self.auto_load_name = metadata.auto_load_name
+    self.auto_load_deps = metadata.auto_load_deps
+    self.auto_load_path = metadata.auto_load_path
+    self.plugin_icon_directory_path = metadata.plugin_icon_directory_path
+    self.manifest_path = metadata.manifest_path
     self.properties = properties
 
 
