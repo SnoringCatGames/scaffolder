@@ -14,32 +14,34 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 script = ExtResource( 1 )
+is_open = true
 
 [node name="AccordionHeader" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 460.0
-margin_bottom = 14.0
+margin_bottom = 32.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="AccordionHeader"]
-margin_left = 9.0
-margin_right = 13.0
-margin_bottom = 14.0
+margin_left = 36.0
+margin_right = 40.0
+margin_bottom = 32.0
 
 [node name="TextureRect" type="TextureRect" parent="AccordionHeader/HBoxContainer"]
-margin_bottom = 14.0
+margin_bottom = 32.0
 
 [node name="Label" type="Label" parent="AccordionHeader/HBoxContainer"]
 margin_left = 4.0
+margin_top = 9.0
 margin_right = 4.0
-margin_bottom = 14.0
+margin_bottom = 23.0
 
 [node name="AccordionBody" parent="." instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 14.0
+margin_top = 32.0
 margin_right = 460.0
-margin_bottom = 14.0
+margin_bottom = 32.0
 is_open = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AccordionBody"]

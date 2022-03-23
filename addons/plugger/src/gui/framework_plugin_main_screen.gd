@@ -47,8 +47,9 @@ func _adjust_size() -> void:
     var size: Vector2 = self.rect_size
     size.y -= $VBoxContainer/Label.rect_size.y
     size.y -= $VBoxContainer/Spacer.rect_size.y
-    var scroll_container_size := \
-            size - _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS * Vector2.ONE
+    var margin: Vector2 = Pl.scale_dimension(
+            _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS * Vector2.ONE)
+    var scroll_container_size := size - margin
     $VBoxContainer/CenterContainer/ScrollContainer.rect_min_size = \
             scroll_container_size
 

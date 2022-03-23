@@ -5,18 +5,7 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: ---------------------------------------------
 # 
-# - Move Utils to a separate AutoLoad.
-# - Move Log to a separate AutoLoad.
-# - Add a class_name to Sc: ScInterface
-#   - And do the same for the others.
-# - Use this new class_name to add member references to AutoLoad submodules.
-# 
-# - LEFT OFF HERE: ----------------------------------------------
-#   - In the middle of pulling-out plugin logic into PL.
-#     - Next step: Add references to Sc and ScaffolderPlugin from Pl
-#       (but without types).
-# 
-# - Fix the bug with arrays where each element has the same values.
+# - Fix accordions.
 # 
 # - Fix the ability to specify an object type for an array child without
 #   actually including it in the manifest by default.
@@ -138,12 +127,13 @@ func _create_auto_load() -> void:
 
 
 func _connect_auto_load() -> void:
-    _validate_editor_icons()
-    
     self._auto_load = get_node("/root/" + _metadata.auto_load_name)
     _auto_load.connect("initialized", self, "_on_framework_initialized")
     
     Pl = get_node("/root/" + _PLUGGER_AUTO_LOAD_NAME)
+    Pl.editor = get_editor_interface()
+    Pl.validate_icons(
+            _metadata.plugin_icon_directory_path + _metadata.folder_name)
     
     if _auto_load.is_initialized:
         _on_framework_initialized()
@@ -168,27 +158,8 @@ func get_plugin_name() -> String:
 
 
 func get_plugin_icon() -> Texture:
-    # TODO: We need better support for updating icon colors based on theme: 
-    # https://github.com/godotengine/godot-proposals/issues/572
-    var is_light_theme: bool = \
-            get_editor_interface().get_editor_settings() \
-                .get_setting("interface/theme/base_color").v > 0.5
-    var theme := "light" if is_light_theme else "dark"
-    var scale := get_editor_interface().get_editor_scale()
-    var icon_path = _metadata.get_editor_icon_path(theme, scale)
-    return load(icon_path) as Texture
-
-
-func _validate_editor_icons() -> void:
-    var file := File.new()
-    for theme in ["light", "dark"]:
-        for scale in [0.75, 1.0, 1.5, 2.0]:
-            var path = _metadata.get_editor_icon_path(theme, scale)
-            assert(file.file_exists(path),
-                    "Plugin editor-icon version is missing: " +
-                    "plugin=%s, theme=%s, scale=%s, path=%s" % [
-                        _metadata.display_name,
-                        theme,
-                        str(scale),
-                        path,
-                    ])
+    if is_instance_valid(Pl):
+        return Pl.get_icon(
+                _metadata.plugin_icon_directory_path + _metadata.folder_name)
+    else:
+        return null

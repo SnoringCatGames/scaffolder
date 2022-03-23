@@ -30,14 +30,3 @@ func _init(
     self.plugin_icon_directory_path = plugin_icon_directory_path
     self.schema_path = schema_path
     self.manifest_path = manifest_path
-
-
-func get_editor_icon_path(
-        theme := "dark",
-        scale := 1.0) -> String:
-    return ("%s%s_%s_theme_%s.png") % [
-        self.plugin_icon_directory_path,
-        self.folder_name,
-        theme,
-        str(scale),
-    ]

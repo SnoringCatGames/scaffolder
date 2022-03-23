@@ -2,20 +2,20 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="16"
    height="16"
    viewBox="0 0 4.2333332 4.2333335"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="editor_icons.svg">
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="editor_icons.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,17 +25,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="6.4453121"
-     inkscape:cx="-7.4560022"
-     inkscape:cy="-817.64708"
+     inkscape:zoom="9.1150478"
+     inkscape:cx="-4.8820369"
+     inkscape:cy="892.15111"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
      inkscape:window-width="1920"
-     inkscape:window-height="1001"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-height="1010"
+     inkscape:window-x="-1926"
+     inkscape:window-y="-6"
      inkscape:window-maximized="1"
      inkscape:lockguides="false"
      inkscape:pagecheckerboard="0"
@@ -467,6 +467,15 @@
          id="rect5306"
          style="opacity:1;vector-effect:none;fill:#f6ed7a;fill-opacity:1;stroke:none;stroke-width:72.69268799;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     </g>
+    <path
+       sodipodi:nodetypes="ccccccccccc"
+       id="path1108-8-9-3"
+       d="m 0.63638536,526.79594 c -0.006,-0.2412 0.288,-0.36356 0.45526004,-0.1896 l 0.79374,0.79376 c 0.1032,0.1034 0.1032,0.27082 0,0.37414 l -0.79374,0.79376 c -0.16560004,0.1702 -0.45416004,0.053 -0.45424004,-0.1844 0,-0.0714 0.029,-0.1398 0.0802,-0.1896 l 0.60670004,-0.6067 -0.60670004,-0.60668 c -0.0502,-0.0484 -0.0796,-0.1148 -0.081,-0.1844 z"
+       inkscape:connector-curvature="0"
+       style="fill:#e0e0e0;fill-opacity:1;stroke-width:0.264583"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\caret_right_dark_theme_0.75.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
     <path
        style="opacity:1;vector-effect:none;fill:#f6ed7a;fill-opacity:1;stroke:none;stroke-width:38.62885284;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="m 0.7704956,294.35438 c 0.0755119,-0.0138 0.15654962,0.0412 0.15657957,0.13023 0,0.0357 -0.0141909,0.0702 -0.0397908,0.0951 l -0.30334066,0.30334 0.30334066,0.30334 c 0.0251,0.0242 0.0396076,0.0571 0.0403076,0.092 v 5.1e-4 c 0.003,0.12061 -0.14374629,0.18155 -0.22737629,0.0946 l -0.396875,-0.39687 c -0.0516,-0.0517 -0.0516,-0.13541 0,-0.18707 l 0.396875,-0.39688 c 0.0206999,-0.0213 0.0451093,-0.0336 0.0702799,-0.0382 z m 0.7947835,0.39843 h 1.102775 c 0.061075,0 0.1100709,0.059 0.1100709,0.13229 0,0.0733 -0.048996,0.13229 -0.1100709,0.13229 h -1.102775 c -0.061075,0 -0.1100708,-0.059 -0.1100708,-0.13229 0,-0.0733 0.048996,-0.13229 0.1100708,-0.13229 z"
@@ -2991,6 +3000,18 @@
        inkscape:export-xdpi="192.05"
        inkscape:export-ydpi="192.05"
        inkscape:export-filename="C:\Users\lsl\spawn_position.png" />
+    <rect
+       style="vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.0807;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1249-2"
+       width="4.2333336"
+       height="4.2333336"
+       x="-0.81712663"
+       y="525.46991"
+       rx="0"
+       ry="0"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\caret_right_dark_theme_0.75.png" />
     <path
        id="path1059-5"
        style="fill:#f6ed7a;fill-opacity:1;stroke-width:0.999999"
@@ -3493,5 +3514,26 @@
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\surface_tiler.png"
        inkscape:export-xdpi="144"
        inkscape:export-ydpi="144" />
+    <path
+       sodipodi:nodetypes="ccccccccccc"
+       id="path4024"
+       d="m -9.2618532,526.73789 c -0.006,-0.2412 0.288,-0.36356 0.4552601,-0.1896 l 0.79374,0.79376 c 0.1032,0.1034 0.1032,0.27082 0,0.37414 l -0.79374,0.79376 c -0.1656001,0.1702 -0.4541601,0.053 -0.4542401,-0.1844 0,-0.0714 0.029,-0.1398 0.0802,-0.1896 l 0.6067001,-0.6067 -0.6067001,-0.60668 c -0.0502,-0.0484 -0.0796,-0.1148 -0.081,-0.1844 z"
+       inkscape:connector-curvature="0"
+       style="fill:#5a5a5a;fill-opacity:1;stroke-width:0.264583"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\caret_right_light_theme_0.75.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <rect
+       style="vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.0807;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4026"
+       width="4.2333336"
+       height="4.2333336"
+       x="-10.715365"
+       y="525.41187"
+       rx="0"
+       ry="0"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\caret_right_light_theme_0.75.png" />
   </g>
 </svg>
