@@ -106,25 +106,16 @@ const _PLUGGER_AUTO_LOAD_NAME := "Pl"
 const _PLUGGER_AUTO_LOAD_PATH := \
         "res://addons/scaffolder/addons/plugger/src/pl.gd"
 
-var _auto_load_name: String
-var _auto_load_path: String
-var _schema_path: String
+var _metadata: PluginMetadata
 
-var _schema
 var _auto_load
-
 var Pl
 
 var _is_ready := false
 
 
-func _init(
-        auto_load_name: String,
-        auto_load_path: String,
-        schema_path: String) -> void:
-    self._auto_load_name = auto_load_name
-    self._auto_load_path = auto_load_path
-    self._schema_path = schema_path
+func _init(framework_metadata_script: Script) -> void:
+    self._metadata = framework_metadata_script.new()
 
 
 func _ready() -> void:
@@ -141,16 +132,15 @@ func _get_is_ready() -> bool:
 
 
 func _create_auto_load() -> void:
-    add_autoload_singleton(_auto_load_name, _auto_load_path)
+    add_autoload_singleton(_metadata.auto_load_name, _metadata.auto_load_path)
     add_autoload_singleton(_PLUGGER_AUTO_LOAD_NAME, _PLUGGER_AUTO_LOAD_PATH)
     call_deferred("_connect_auto_load")
 
 
 func _connect_auto_load() -> void:
-    self._schema = Singletons.instance(_schema_path)
     _validate_editor_icons()
     
-    self._auto_load = get_node("/root/" + _schema.auto_load_name)
+    self._auto_load = get_node("/root/" + _metadata.auto_load_name)
     _auto_load.connect("initialized", self, "_on_framework_initialized")
     
     Pl = get_node("/root/" + _PLUGGER_AUTO_LOAD_NAME)
@@ -175,7 +165,7 @@ func _set_up() -> void:
 
 
 func get_plugin_name() -> String:
-    return _schema.display_name
+    return _metadata.display_name
 
 
 func get_plugin_icon() -> Texture:
@@ -186,7 +176,7 @@ func get_plugin_icon() -> Texture:
                 .get_setting("interface/theme/base_color").v > 0.5
     var theme := "light" if is_light_theme else "dark"
     var scale := get_editor_interface().get_editor_scale()
-    var icon_path = _schema.get_editor_icon_path(theme, scale)
+    var icon_path = _metadata.get_editor_icon_path(theme, scale)
     return load(icon_path) as Texture
 
 
@@ -194,11 +184,11 @@ func _validate_editor_icons() -> void:
     var file := File.new()
     for theme in ["light", "dark"]:
         for scale in [0.75, 1.0, 1.5, 2.0]:
-            var path = _schema.get_editor_icon_path(theme, scale)
+            var path = _metadata.get_editor_icon_path(theme, scale)
             assert(file.file_exists(path),
                     "Plugin editor-icon version is missing: " +
                     "plugin=%s, theme=%s, scale=%s, path=%s" % [
-                        _schema.display_name,
+                        _metadata.display_name,
                         theme,
                         str(scale),
                         path,

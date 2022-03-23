@@ -3,15 +3,10 @@ class_name ScaffolderPlugin
 extends FrameworkPlugin
 
 
-const _AUTO_LOAD_NAME := "Sc"
-const _AUTO_LOAD_PATH := "res://addons/scaffolder/src/config/sc.gd"
-const _SCHEMA_PATH := "res://addons/scaffolder/src/plugin/scaffolder_schema.gd"
+const _METADATA_SCRIPT := ScaffolderMetadata
 
 
-func _init().(
-        _AUTO_LOAD_NAME,
-        _AUTO_LOAD_PATH,
-        _SCHEMA_PATH) -> void:
+func _init().(_METADATA_SCRIPT) -> void:
     pass
 
 

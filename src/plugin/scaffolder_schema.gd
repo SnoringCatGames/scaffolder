@@ -3,14 +3,7 @@ class_name ScaffolderSchema
 extends FrameworkSchema
 
 
-const _DISPLAY_NAME := "Scaffolder"
-const _FOLDER_NAME := "scaffolder"
-const _AUTO_LOAD_NAME := "Sc"
-const _AUTO_LOAD_DEPS := []
-const _AUTO_LOAD_PATH := "res://addons/scaffolder/src/config/sc.gd"
-const _MANIFEST_PATH := "res://addons/scaffolder/src/config/manifest.json"
-const _PLUGIN_ICON_DIRECTORY_PATH := \
-        "res://addons/scaffolder/assets/images/editor_icons/plugin/"
+const _METADATA_SCRIPT := ScaffolderMetadata
 
 const MODES_PATH := "res://addons/scaffolder/src/config/manifest_modes.json"
 
@@ -23,7 +16,7 @@ const default_modes := {
             FrameworkSchemaMode.UiSmoothness.PIXELATED,
 }
 
-const _metadata := {
+var _metadata := {
     debug = false,
     playtest = false,
     pauses_on_focus_out = true,
@@ -75,7 +68,7 @@ const _metadata := {
     developer_splash_screen_duration = 1.0,
 }
 
-const _sounds_manifest := [
+var _sounds_manifest := [
     {
         name = "fall",
         volume_db = 18.0,
@@ -164,7 +157,7 @@ const _sounds_manifest := [
     },
 ]
 
-const _music_manifest := [
+var _music_manifest := [
     {
         name = "on_a_quest",
         path_prefix = "res://addons/scaffolder/assets/music/",
@@ -181,7 +174,7 @@ const _music_manifest := [
     },
 ]
 
-const _audio_manifest := {
+var _audio_manifest := {
     sounds_manifest = _sounds_manifest,
     default_sounds_path_prefix = "res://addons/squirrel_away/assets/sounds/",
     default_sounds_file_suffix = ".wav",
@@ -215,7 +208,7 @@ const _audio_manifest := {
     is_slow_motion_start_stop_sound_effect_played = true,
 }
 
-const _default_fonts_manifest_normal := {
+var _default_fonts_manifest_normal := {
     fonts = {
         main_xxs = preload( \
                 "res://addons/scaffolder/assets/fonts/roboto_font_xxs.tres"),
@@ -289,7 +282,7 @@ const _default_fonts_manifest_normal := {
     },
 }
 
-const _default_fonts_manifest_pixel := {
+var _default_fonts_manifest_pixel := {
     fonts = {
         main_xxs = preload( \
                 "res://addons/scaffolder/assets/fonts/pxlzr_font_xxs.tres"),
@@ -363,7 +356,7 @@ const _default_fonts_manifest_pixel := {
     },
 }
 
-const _default_styles_manifest_normal := {
+var _default_styles_manifest_normal := {
     focus_border_corner_radius = 5,
     focus_border_corner_detail = 3,
     focus_border_shadow_size = 0,
@@ -455,7 +448,7 @@ const _default_styles_manifest_normal := {
     screen_border_width = 0,
 }
 
-const _default_styles_manifest_pixel := {
+var _default_styles_manifest_pixel := {
     button_content_margin_left = 16.0,
     button_content_margin_top = 8.0,
     button_content_margin_right = 16.0,
@@ -584,7 +577,7 @@ const _default_styles_manifest_pixel := {
     screen_border_width = 0,
 }
 
-const _default_images_manifest_normal := {
+var _default_images_manifest_normal := {
     checkbox_path_prefix = \
             ScaffolderImages.DEFAULT_CHECKBOX_NORMAL_PATH_PREFIX,
     default_checkbox_size = \
@@ -691,7 +684,7 @@ const _default_images_manifest_normal := {
             preload("res://addons/scaffolder/assets/images/gui/icons/stop_normal.png"),
 }
 
-const _default_images_manifest_pixel := {
+var _default_images_manifest_pixel := {
     checkbox_path_prefix = \
             ScaffolderImages.DEFAULT_CHECKBOX_PIXEL_PATH_PREFIX,
     default_checkbox_size = \
@@ -788,22 +781,22 @@ const _default_images_manifest_pixel := {
             preload("res://addons/scaffolder/assets/images/gui/icons/stop_normal.png"),
 }
 
-const COLOR_BACKGROUND := Color("453d30")
-const COLOR_BACKGROUND_LIGHTER := Color("574d3d")
-const COLOR_BACKGROUND_DARKER := Color("362f25")
+var COLOR_BACKGROUND := Color("453d30")
+var COLOR_BACKGROUND_LIGHTER := Color("574d3d")
+var COLOR_BACKGROUND_DARKER := Color("362f25")
 
-const COLOR_TEXT := Color("eeeeee")
-const COLOR_HEADER := Color("faca7d")
-const COLOR_FOCUS := Color("faca7d")
+var COLOR_TEXT := Color("eeeeee")
+var COLOR_HEADER := Color("faca7d")
+var COLOR_FOCUS := Color("faca7d")
 
-const COLOR_BUTTON := Color("c27e10")
-const COLOR_BUTTON_LIGHTER := Color("eba534")
-const COLOR_BUTTON_DARKER := Color("734905")
+var COLOR_BUTTON := Color("c27e10")
+var COLOR_BUTTON_LIGHTER := Color("eba534")
+var COLOR_BUTTON_DARKER := Color("734905")
 
-const COLOR_SHADOW := Color("88000000")
+var COLOR_SHADOW := Color("88000000")
 
-const HUD_KEY_VALUE_BOX_MODULATE_COLOR := Color(0.1, 0.7, 1.2, 1.0)
-const BUTTON_PULSE_MODULATE_COLOR := Color(1.5, 1.5, 3.0, 1.0)
+var HUD_KEY_VALUE_BOX_MODULATE_COLOR := Color(0.1, 0.7, 1.2, 1.0)
+var BUTTON_PULSE_MODULATE_COLOR := Color(1.5, 1.5, 3.0, 1.0)
 
 var _colors_manifest := {
     # Scaffolder colors.
@@ -865,7 +858,7 @@ var _colors_manifest := {
             SurfacerColors.ORANGE, ScaffolderColors.ALPHA_FAINT),
 }
 
-const _styles_manifest_pixel := {
+var _styles_manifest_pixel := {
     button_content_margin_left = 16.0,
     button_content_margin_top = 8.0,
     button_content_margin_right = 16.0,
@@ -994,7 +987,7 @@ const _styles_manifest_pixel := {
     screen_border_width = 0,
 }
 
-const _settings_item_manifest := {
+var _settings_item_manifest := {
     groups = {
         main = {
             label = "",
@@ -1049,24 +1042,24 @@ const _settings_item_manifest := {
     },
 }
 
-const _pause_item_manifest := [
+var _pause_item_manifest := [
     LevelControlRow,
     TimeControlRow,
     FastestTimeControlRow,
 ]
 
-const _game_over_item_manifest := [
+var _game_over_item_manifest := [
     LevelControlRow,
     TimeControlRow,
     FastestTimeControlRow,
 ]
 
-const _level_select_item_manifest := [
+var _level_select_item_manifest := [
     TotalPlaysControlRow,
     FastestTimeControlRow,
 ]
 
-const _hud_manifest := {
+var _hud_manifest := {
     hud_class = SurfacerHud,
     hud_key_value_box_size = \
             ScaffolderGuiConfig.HUD_KEY_VALUE_BOX_DEFAULT_SIZE,
@@ -1087,7 +1080,7 @@ const _hud_manifest := {
     is_hud_visible_by_default = true,
 }
 
-const _welcome_panel_manifest := {
+var _welcome_panel_manifest := {
     items = [
         ["*Auto nav*", "click"],
         ["Inspect graph", "ctrl + click (x2)"],
@@ -1100,7 +1093,7 @@ const _welcome_panel_manifest := {
     ],
 }
 
-const _screen_manifest := {
+var _screen_manifest := {
     screens = [
         preload("res://addons/scaffolder/src/gui/screens/about_screen.tscn"),
         preload("res://addons/scaffolder/src/gui/screens/data_agreement_screen.tscn"),
@@ -1148,7 +1141,7 @@ const _screen_manifest := {
     screen_mask_transition_smooth_size = 0.0,
 }
 
-const _gui_manifest := {
+var _gui_manifest := {
     debug_window_size = ScaffolderGuiConfig.SCREEN_RESOLUTIONS.full_screen,
     
     default_pc_game_area_size = Vector2(1024, 768),
@@ -1203,7 +1196,7 @@ const _gui_manifest := {
     splash_scale_mobile = 0.77,
 }
 
-const _notifications_manifest := {
+var _notifications_manifest := {
     duration_short_sec = 2.0,
     duration_long_sec = 8.0,
     
@@ -1222,7 +1215,7 @@ const _notifications_manifest := {
     slide_in_displacement = Vector2(0.0, -67.0),
 }
 
-const _slow_motion_manifest := {
+var _slow_motion_manifest := {
     time_scale = 0.02,
     tick_tock_tempo_multiplier = 25,
     saturation = 0.2,
@@ -1230,7 +1223,7 @@ const _slow_motion_manifest := {
 
 var _input_map := ScaffolderProjectSettings._get_input_map_schema()
 
-const _character_scenes := [
+var _character_scenes := [
     preload("res://addons/squirrel_away/src/characters/cat/cat.tscn"),
     preload("res://addons/squirrel_away/src/characters/squirrel/squirrel.tscn"),
 ]
@@ -1333,10 +1326,10 @@ var _character_manifest := {
     omits_npcs = false,
 }
 
-const _annotation_parameters_manifest := {
+var _annotation_parameters_manifest := {
 }
 
-var _PROPERTIES := {
+var _properties := {
     metadata = _metadata,
     audio_manifest = _audio_manifest,
     colors_manifest = _colors_manifest,
@@ -1355,7 +1348,7 @@ var _PROPERTIES := {
 }
 
 # FIXME: LEFT OFF HERE: ----------------------------------
-const _MODES := {
+var _modes := {
     FrameworkSchemaMode.Release.LOCAL_DEV: {
     },
     FrameworkSchemaMode.Release.PLAYTEST: {
@@ -1375,13 +1368,5 @@ const _MODES := {
 }
 
 
-func _init().(
-        _DISPLAY_NAME,
-        _FOLDER_NAME,
-        _AUTO_LOAD_NAME,
-        _AUTO_LOAD_DEPS,
-        _AUTO_LOAD_PATH,
-        _MANIFEST_PATH,
-        _PLUGIN_ICON_DIRECTORY_PATH,
-        _PROPERTIES) -> void:
+func _init().(_METADATA_SCRIPT, _properties) -> void:
     pass

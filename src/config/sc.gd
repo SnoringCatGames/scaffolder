@@ -1,4 +1,5 @@
 tool
+class_name ScInterface
 extends FrameworkGlobal
 ## -   This is a global singleton that defines a bunch of app parameters.[br]
 ## -   All of these parameters can be configured when bootstrapping the
