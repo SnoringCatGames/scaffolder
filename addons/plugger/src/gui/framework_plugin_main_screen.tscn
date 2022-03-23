@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/scaffolder/assets/fonts/nunito_font_l.tres" type="DynamicFont" id=1]
-[ext_resource path="res://addons/scaffolder/src/plugin/framework_plugin_main_screen.gd" type="Script" id=2]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_plugin_main_screen.gd" type="Script" id=2]
 
 [node name="ScaffolderPluginMainScreen" type="CenterContainer"]
 anchor_right = 1.0

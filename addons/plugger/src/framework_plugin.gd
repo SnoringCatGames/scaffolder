@@ -5,6 +5,17 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: ---------------------------------------------
 # 
+# - Move Utils to a separate AutoLoad.
+# - Move Log to a separate AutoLoad.
+# - Add a class_name to Sc: ScInterface
+#   - And do the same for the others.
+# - Use this new class_name to add member references to AutoLoad submodules.
+# 
+# - LEFT OFF HERE: ----------------------------------------------
+#   - In the middle of pulling-out plugin logic into PL.
+#     - Next step: Add references to Sc and ScaffolderPlugin from Pl
+#       (but without types).
+# 
 # - Fix the bug with arrays where each element has the same values.
 # 
 # - Fix the ability to specify an object type for an array child without
@@ -65,6 +76,10 @@ extends EditorPlugin
 # - Search in each repo to make sure there are no references to other addons/
 #   directories that there shouldn't be.
 # 
+# - Plan how to aggregate all the different plugins I now have in order to make
+#   it easier for folks to use:
+#   - 
+# 
 # - Add logic to adapt the main-screen content depending on which frameworks are present:
 #   - If more than one, then show a tab list across the top for switching between them?
 #   - List all framework manifest editors in a big vertical list with accordions
@@ -87,20 +102,34 @@ extends EditorPlugin
 #     - Expect that each plugin will define a priority value.
 #   - 
 
-var _schema: FrameworkSchema
-var _auto_load: FrameworkGlobal
+const _PLUGGER_AUTO_LOAD_NAME := "Pl"
+const _PLUGGER_AUTO_LOAD_PATH := \
+        "res://addons/scaffolder/addons/plugger/src/pl.gd"
+
+var _auto_load_name: String
+var _auto_load_path: String
+var _schema_path: String
+
+var _schema
+var _auto_load
+
+var Pl
 
 var _is_ready := false
 
 
-func _init(schema_class: Script) -> void:
-    self._schema = Singletons.instance(schema_class)
+func _init(
+        auto_load_name: String,
+        auto_load_path: String,
+        schema_path: String) -> void:
+    self._auto_load_name = auto_load_name
+    self._auto_load_path = auto_load_path
+    self._schema_path = schema_path
 
 
 func _ready() -> void:
     _is_ready = true
     _create_auto_load()
-    _validate_editor_icons()
     _set_up()
 
 
@@ -112,13 +141,21 @@ func _get_is_ready() -> bool:
 
 
 func _create_auto_load() -> void:
-    add_autoload_singleton(_schema.auto_load_name, _schema.auto_load_path)
+    add_autoload_singleton(_auto_load_name, _auto_load_path)
+    add_autoload_singleton(_PLUGGER_AUTO_LOAD_NAME, _PLUGGER_AUTO_LOAD_PATH)
     call_deferred("_connect_auto_load")
 
 
 func _connect_auto_load() -> void:
+    self._schema = Singletons.instance(_schema_path)
+    _validate_editor_icons()
+    
     self._auto_load = get_node("/root/" + _schema.auto_load_name)
     _auto_load.connect("initialized", self, "_on_framework_initialized")
+    
+    Pl = get_node("/root/" + _PLUGGER_AUTO_LOAD_NAME)
+    Pl._set_up(get_editor_interface())
+    
     if _auto_load.is_initialized:
         _on_framework_initialized()
 
@@ -149,7 +186,7 @@ func get_plugin_icon() -> Texture:
                 .get_setting("interface/theme/base_color").v > 0.5
     var theme := "light" if is_light_theme else "dark"
     var scale := get_editor_interface().get_editor_scale()
-    var icon_path := _schema.get_editor_icon_path(theme, scale)
+    var icon_path = _schema.get_editor_icon_path(theme, scale)
     return load(icon_path) as Texture
 
 
@@ -157,7 +194,7 @@ func _validate_editor_icons() -> void:
     var file := File.new()
     for theme in ["light", "dark"]:
         for scale in [0.75, 1.0, 1.5, 2.0]:
-            var path := _schema.get_editor_icon_path(theme, scale)
+            var path = _schema.get_editor_icon_path(theme, scale)
             assert(file.file_exists(path),
                     "Plugin editor-icon version is missing: " +
                     "plugin=%s, theme=%s, scale=%s, path=%s" % [

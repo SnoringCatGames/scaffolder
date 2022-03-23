@@ -5,11 +5,11 @@ extends FrameworkManifestAccordionPanel
 
 
 const _ROW_SCENE := \
-        preload("res://addons/scaffolder/src/plugin/framework_manifest_row.tscn")
+        preload("res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_row.tscn")
 const _ROW_GROUP_SCENE := \
-        preload("res://addons/scaffolder/src/plugin/framework_manifest_row_group.tscn")
+        preload("res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_row_group.tscn")
 const _ARRAY_BUTTONS_SCENE := \
-        preload("res://addons/scaffolder/src/plugin/framework_manifest_array_buttons.tscn")
+        preload("res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_array_buttons.tscn")
 
 const _PANEL_WIDTH := 600.0
 const _CONTROL_WIDTH := 320.0

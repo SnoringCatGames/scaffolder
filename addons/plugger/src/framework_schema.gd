@@ -85,7 +85,7 @@ static func get_is_explicit_type_entry(entry) -> bool:
     if typeof(entry[0]) != TYPE_INT:
         return false
     if (entry is int and (entry == TYPE_INT or entry == TYPE_REAL)) != \
-            Sc.utils.is_num(entry[1]):
+            (entry[1] is int or entry[1] is float):
         return false
     # NOTE: This can produce false-positives for arrays of integers of size 2.
     return true
@@ -133,7 +133,7 @@ static func get_matches_schema(
         if get_is_valid_type(type):
             return get_is_expected_type(value, type)
         else:
-            Sc.logger.error("FrameworkSchema.get_matches_schema")
+            push_error("FrameworkSchema.get_matches_schema")
         return false
 
 
@@ -161,7 +161,7 @@ static func get_type_string(type) -> String:
     elif type is Script:
         return "TYPE_CUSTOM"
     else:
-        Sc.logger.error("FrameworkSchema.get_type_string")
+        push_error("FrameworkSchema.get_type_string")
         return ""
     
     match type:
@@ -173,8 +173,67 @@ static func get_type_string(type) -> String:
             return "TYPE_RESOURCE"
         TYPE_CUSTOM:
             return "TYPE_CUSTOM"
+        
+        TYPE_NIL:
+            return "TYPE_NIL"
+        TYPE_BOOL:
+            return "TYPE_BOOL"
+        TYPE_INT:
+            return "TYPE_INT"
+        TYPE_REAL:
+            return "TYPE_REAL"
+        TYPE_STRING:
+            return "TYPE_STRING"
+        TYPE_VECTOR2:
+            return "TYPE_VECTOR2"
+        TYPE_RECT2:
+            return "TYPE_RECT2"
+        TYPE_VECTOR3:
+            return "TYPE_VECTOR3"
+        TYPE_TRANSFORM2D:
+            return "TYPE_TRANSFORM2D"
+        TYPE_PLANE:
+            return "TYPE_PLANE"
+        TYPE_QUAT:
+            return "TYPE_QUAT"
+        TYPE_AABB:
+            return "TYPE_AABB"
+        TYPE_BASIS:
+            return "TYPE_BASIS"
+        TYPE_TRANSFORM:
+            return "TYPE_TRANSFORM"
+        TYPE_COLOR:
+            return "TYPE_COLOR"
+        TYPE_NODE_PATH:
+            return "TYPE_NODE_PATH"
+        TYPE_RID:
+            return "TYPE_RID"
+        TYPE_OBJECT:
+            return "TYPE_OBJECT"
+        TYPE_DICTIONARY:
+            return "TYPE_DICTIONARY"
+        TYPE_ARRAY:
+            return "TYPE_ARRAY"
+        TYPE_RAW_ARRAY:
+            return "TYPE_RAW_ARRAY"
+        TYPE_INT_ARRAY:
+            return "TYPE_INT_ARRAY"
+        TYPE_REAL_ARRAY:
+            return "TYPE_REAL_ARRAY"
+        TYPE_STRING_ARRAY:
+            return "TYPE_STRING_ARRAY"
+        TYPE_VECTOR2_ARRAY:
+            return "TYPE_VECTOR2_ARRAY"
+        TYPE_VECTOR3_ARRAY:
+            return "TYPE_VECTOR3_ARRAY"
+        TYPE_COLOR_ARRAY:
+            return "TYPE_COLOR_ARRAY"
+        TYPE_MAX:
+            return "TYPE_MAX"
+        
         _:
-            return Sc.utils.get_type_string(type)
+            push_error("FrameworkSchema.get_type_string")
+            return ""
 
 
 static func get_is_valid_type(type: int) -> bool:
@@ -192,5 +251,5 @@ static func get_resource_class_name(type: int) -> String:
         TYPE_CUSTOM:
             return "Script"
         _:
-            Sc.logger.error("FrameworkSchema.get_resource_class_name")
+            push_error("FrameworkSchema.get_resource_class_name")
             return ""
