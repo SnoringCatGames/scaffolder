@@ -25,8 +25,9 @@ func set_up(manifest_controller: FrameworkManifestController) -> void:
     
     $AccordionHeader/HBoxContainer/Label.text = \
             _manifest_controller.schema.display_name
-    $AccordionHeader/HBoxContainer/TextureRect.texture = \
-            load(_manifest_controller.schema.get_editor_icon_path())
+    $AccordionHeader/HBoxContainer/TextureRect.texture = Pl.get_icon(
+            _manifest_controller.schema.plugin_icon_directory_path + \
+            _manifest_controller.schema.folder_name)
     
     Sc.utils.clear_children($AccordionBody/VBoxContainer)
     
@@ -97,10 +98,10 @@ func _create_property_control_from_value(
     row.set_up(
             node,
             indent_level,
-            _INDENT_WIDTH,
-            _LABEL_WIDTH,
-            _CONTROL_WIDTH,
-            _PADDING)
+            Pl.scale_dimension(_INDENT_WIDTH),
+            Pl.scale_dimension(_LABEL_WIDTH),
+            Pl.scale_dimension(_CONTROL_WIDTH),
+            Pl.scale_dimension(_PADDING))
     row.connect("changed", self, "_on_value_changed")
     return row
 
@@ -114,10 +115,10 @@ func _create_group_control(
     row.set_up(
             node,
             indent_level,
-            _INDENT_WIDTH,
-            _LABEL_WIDTH,
-            _CONTROL_WIDTH,
-            _PADDING)
+            Pl.scale_dimension(_INDENT_WIDTH),
+            Pl.scale_dimension(_LABEL_WIDTH),
+            Pl.scale_dimension(_CONTROL_WIDTH),
+            Pl.scale_dimension(_PADDING))
     if node.type == TYPE_ARRAY:
         row.group_buttons.connect(
                 "added", self, "_on_array_item_added", [row.group_buttons])

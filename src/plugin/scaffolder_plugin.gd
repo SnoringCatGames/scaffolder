@@ -16,13 +16,14 @@ func _set_up() -> void:
     if !_get_is_ready():
         return
     
-    Pl._set_up(get_editor_interface())
+    Pl._set_up()
     
     make_visible(false)
 
 
 func _exit_tree() -> void:
-    Pl._destroy()
+    if is_instance_valid(Pl):
+        Pl._destroy()
 
 
 func has_main_screen() -> bool:
@@ -30,4 +31,5 @@ func has_main_screen() -> bool:
 
 
 func make_visible(visible: bool) -> void:
-    Pl.make_visible(visible)
+    if is_instance_valid(Pl):
+        Pl.make_visible(visible)
