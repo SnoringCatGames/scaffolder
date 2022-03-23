@@ -11,10 +11,11 @@ const _ROW_GROUP_SCENE := \
 const _ARRAY_BUTTONS_SCENE := \
         preload("res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_array_buttons.tscn")
 
+const _ROW_HEIGHT := 32.0
 const _PANEL_WIDTH := 600.0
 const _CONTROL_WIDTH := 320.0
 const _PADDING := 4.0
-const _INDENT_WIDTH := 32.0
+const _INDENT_WIDTH := 16.0
 const _LABEL_WIDTH := _PANEL_WIDTH - _CONTROL_WIDTH - _PADDING * 3.0
 
 var _manifest_controller: FrameworkManifestController
@@ -23,18 +24,28 @@ var _manifest_controller: FrameworkManifestController
 func set_up(manifest_controller: FrameworkManifestController) -> void:
     self._manifest_controller = manifest_controller
     
-    $AccordionHeader/HBoxContainer/Label.text = \
+    $AccordionHeader/MarginContainer/HBoxContainer/Label.text = \
             _manifest_controller.schema.display_name
-    $AccordionHeader/HBoxContainer/TextureRect.texture = Pl.get_icon(
-            _manifest_controller.schema.plugin_icon_directory_path + \
-            _manifest_controller.schema.folder_name)
+    $AccordionHeader/MarginContainer/HBoxContainer/TextureRect.texture = \
+            Pl.get_icon(
+                _manifest_controller.schema.plugin_icon_directory_path + \
+                _manifest_controller.schema.folder_name)
     
-    Sc.utils.clear_children($AccordionBody/VBoxContainer)
+    $AccordionHeader.size_override = \
+            Vector2(0.0, Pl.scale_dimension(_ROW_HEIGHT))
+    $AccordionHeader/MarginContainer/HBoxContainer/Label.rect_min_size.y = \
+            Pl.scale_dimension(_ROW_HEIGHT)
+    $AccordionBody/HBoxContainer/Indent.rect_min_size.x = \
+            Pl.scale_dimension(_INDENT_WIDTH)
+    
+    self.is_open = false
+    
+    Sc.utils.clear_children($AccordionBody/HBoxContainer/VBoxContainer)
     
     _create_property_controls(
             _manifest_controller.root,
             0,
-            $AccordionBody/VBoxContainer)
+            $AccordionBody/HBoxContainer/VBoxContainer)
     
     _update_zebra_stripes()
 
@@ -98,6 +109,7 @@ func _create_property_control_from_value(
     row.set_up(
             node,
             indent_level,
+            Pl.scale_dimension(_ROW_HEIGHT),
             Pl.scale_dimension(_INDENT_WIDTH),
             Pl.scale_dimension(_LABEL_WIDTH),
             Pl.scale_dimension(_CONTROL_WIDTH),
@@ -115,6 +127,7 @@ func _create_group_control(
     row.set_up(
             node,
             indent_level,
+            Pl.scale_dimension(_ROW_HEIGHT),
             Pl.scale_dimension(_INDENT_WIDTH),
             Pl.scale_dimension(_LABEL_WIDTH),
             Pl.scale_dimension(_CONTROL_WIDTH),
@@ -150,6 +163,6 @@ func _on_array_item_deleted(buttons: FrameworkManifestArrayButtons) -> void:
 
 func _update_zebra_stripes() -> void:
     var row_count := 0
-    for row in $AccordionBody/VBoxContainer.get_children():
+    for row in $AccordionBody/HBoxContainer/VBoxContainer.get_children():
         if is_instance_valid(row):
             row_count = row.update_zebra_stripes(row_count)

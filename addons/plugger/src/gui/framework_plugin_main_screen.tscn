@@ -11,15 +11,15 @@ size_flags_vertical = 3
 script = ExtResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 144.0
-margin_top = 107.0
-margin_right = 880.0
-margin_bottom = 661.0
+margin_left = 255.0
+margin_top = 251.0
+margin_right = 769.0
+margin_bottom = 517.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 736.0
+margin_right = 514.0
 margin_bottom = 58.0
 custom_fonts/font = ExtResource( 1 )
 text = "Framework configuration"
@@ -27,24 +27,23 @@ align = 1
 
 [node name="Spacer" type="Control" parent="VBoxContainer"]
 margin_top = 62.0
-margin_right = 736.0
+margin_right = 514.0
 margin_bottom = 82.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="Modes" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 86.0
-margin_right = 736.0
+margin_right = 514.0
 margin_bottom = 124.0
 custom_constants/separation = 16
 
 [node name="Spacer" type="Control" parent="VBoxContainer/Modes"]
-margin_right = 111.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
 
 [node name="Release" type="VBoxContainer" parent="VBoxContainer/Modes"]
-margin_left = 127.0
-margin_right = 277.0
+margin_left = 16.0
+margin_right = 166.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 150, 0 )
 
@@ -64,12 +63,12 @@ margin_right = 150.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
 text = "LOCAL_DEV"
-items = [ "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null ]
+items = [ "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null ]
 selected = 0
 
 [node name="Annotations" type="VBoxContainer" parent="VBoxContainer/Modes"]
-margin_left = 293.0
-margin_right = 443.0
+margin_left = 182.0
+margin_right = 332.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 150, 0 )
 
@@ -89,12 +88,12 @@ margin_right = 150.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
 text = "DEFAULT"
-items = [ "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null ]
+items = [ "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null ]
 selected = 0
 
 [node name="UiSmoothness" type="VBoxContainer" parent="VBoxContainer/Modes"]
-margin_left = 459.0
-margin_right = 609.0
+margin_left = 348.0
+margin_right = 498.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 150, 0 )
 
@@ -114,41 +113,42 @@ margin_right = 150.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
 text = "PIXELATED"
-items = [ "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null ]
+items = [ "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null ]
 selected = 0
 
 [node name="Spacer2" type="Control" parent="VBoxContainer/Modes"]
-margin_left = 625.0
-margin_right = 736.0
+margin_left = 514.0
+margin_right = 514.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
 
 [node name="Spacer2" type="Control" parent="VBoxContainer"]
 margin_top = 128.0
-margin_right = 736.0
+margin_right = 514.0
 margin_bottom = 148.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
 margin_top = 152.0
-margin_right = 736.0
-margin_bottom = 554.0
+margin_right = 514.0
+margin_bottom = 266.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/CenterContainer"]
-margin_right = 736.0
-margin_bottom = 402.0
-rect_min_size = Vector2( 736, 402 )
+margin_left = 33.0
+margin_right = 481.0
+margin_bottom = 114.0
+rect_min_size = Vector2( 448, 114 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/ScrollContainer"]
-margin_right = 736.0
-margin_bottom = 272.0
+margin_right = 600.0
+margin_bottom = 256.0
 rect_min_size = Vector2( 600, 0 )
 size_flags_horizontal = 3
-custom_constants/separation = 16
+custom_constants/separation = 0
 
 [connection signal="item_selected" from="VBoxContainer/Modes/Release/ReleaseModeButton" to="." method="_on_ReleaseModeButton_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/Modes/Annotations/AnnotationsModeButton" to="." method="_on_AnnotationsModeButton_item_selected"]
