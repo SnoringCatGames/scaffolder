@@ -17,6 +17,6 @@ func set_up(
         label_width: float,
         control_width: float,
         padding: float) -> void:
-    Sc.logger.error(
+    push_error(
             "Abstract FrameworkManifestCustomProperty.get_ui " +
             "is not implemented")

@@ -5,7 +5,7 @@ extends CenterContainer
 
 
 const _FRAMEWORK_MANIFEST_PANEL_SCENE := preload(
-        "res://addons/scaffolder/src/plugin/framework_manifest_panel.tscn")
+        "res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_panel.tscn")
 
 const _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS := 288.0
 

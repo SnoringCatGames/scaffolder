@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/plugin/framework_manifest_row.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_row.gd" type="Script" id=1]
 
 [node name="FrameworkManifestRow" type="PanelContainer"]
 margin_right = 14.0

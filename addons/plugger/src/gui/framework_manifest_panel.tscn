@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/plugin/framework_manifest_panel.gd" type="Script" id=1]
-[ext_resource path="res://addons/scaffolder/src/plugin/framework_manifest_accordion_body.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/scaffolder/src/plugin/framework_manifest_accordion_header.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_panel.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_accordion_header.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_accordion_body.tscn" type="PackedScene" id=3]
 
 [node name="FrameworkManifestPanel" type="VBoxContainer"]
 anchor_right = 1.0
@@ -14,9 +14,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 script = ExtResource( 1 )
-is_open = true
 
-[node name="AccordionHeader" parent="." instance=ExtResource( 3 )]
+[node name="AccordionHeader" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 460.0
@@ -35,7 +34,7 @@ margin_left = 4.0
 margin_right = 4.0
 margin_bottom = 14.0
 
-[node name="AccordionBody" parent="." instance=ExtResource( 2 )]
+[node name="AccordionBody" parent="." instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 14.0

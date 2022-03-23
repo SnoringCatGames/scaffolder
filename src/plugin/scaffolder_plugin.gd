@@ -3,15 +3,15 @@ class_name ScaffolderPlugin
 extends FrameworkPlugin
 
 
-const _SCHEMA_CLASS := ScaffolderSchema
-
-const _MAIN_SCREEN_SCENE := preload(
-        "res://addons/scaffolder/src/plugin/framework_plugin_main_screen.tscn")
-
-var _main_panel: ScaffolderPluginMainScreen
+const _AUTO_LOAD_NAME := "Sc"
+const _AUTO_LOAD_PATH := "res://addons/scaffolder/src/config/sc.gd"
+const _SCHEMA_PATH := "res://addons/scaffolder/src/plugin/scaffolder_schema.gd"
 
 
-func _init().(_SCHEMA_CLASS) -> void:
+func _init().(
+        _AUTO_LOAD_NAME,
+        _AUTO_LOAD_PATH,
+        _SCHEMA_PATH) -> void:
     pass
 
 
@@ -21,15 +21,11 @@ func _set_up() -> void:
     if !_get_is_ready():
         return
     
-    _main_panel = _MAIN_SCREEN_SCENE.instance()
-    get_editor_interface().get_editor_viewport().add_child(_main_panel)
-    
     make_visible(false)
 
 
 func _exit_tree() -> void:
-    if is_instance_valid(_main_panel):
-        _main_panel.queue_free()
+    Pl._destroy()
 
 
 func has_main_screen() -> bool:
@@ -37,5 +33,4 @@ func has_main_screen() -> bool:
 
 
 func make_visible(visible: bool) -> void:
-    if is_instance_valid(_main_panel):
-        _main_panel.visible = visible
+    Pl.make_visible(visible)
