@@ -144,7 +144,6 @@ func _connect_auto_load() -> void:
     _auto_load.connect("initialized", self, "_on_framework_initialized")
     
     Pl = get_node("/root/" + _PLUGGER_AUTO_LOAD_NAME)
-    Pl._set_up(get_editor_interface())
     
     if _auto_load.is_initialized:
         _on_framework_initialized()

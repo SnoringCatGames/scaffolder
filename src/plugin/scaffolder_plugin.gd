@@ -16,6 +16,8 @@ func _set_up() -> void:
     if !_get_is_ready():
         return
     
+    Pl._set_up(get_editor_interface())
+    
     make_visible(false)
 
 
