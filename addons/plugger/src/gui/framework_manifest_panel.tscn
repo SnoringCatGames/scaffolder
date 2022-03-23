@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_panel.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_accordion_header.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_accordion_body.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_accordion_theme.tres" type="Theme" id=4]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_accordion_header_caret.tscn" type="PackedScene" id=5]
 
 [node name="FrameworkManifestPanel" type="VBoxContainer"]
 anchor_right = 1.0
@@ -12,6 +14,7 @@ margin_bottom = -712.0
 rect_min_size = Vector2( 460, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 4 )
 custom_constants/separation = 0
 script = ExtResource( 1 )
 is_open = true
@@ -20,33 +23,67 @@ is_open = true
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 460.0
-margin_bottom = 32.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 460, 40 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="AccordionHeader"]
-margin_left = 36.0
+[node name="MarginContainer" type="MarginContainer" parent="AccordionHeader"]
 margin_right = 40.0
-margin_bottom = 32.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 460, 40 )
+mouse_filter = 1
+size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="AccordionHeader/HBoxContainer"]
-margin_bottom = 32.0
+[node name="HBoxContainer" type="HBoxContainer" parent="AccordionHeader/MarginContainer"]
+margin_right = 460.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 460, 32 )
 
-[node name="Label" type="Label" parent="AccordionHeader/HBoxContainer"]
-margin_left = 4.0
-margin_top = 9.0
-margin_right = 4.0
-margin_bottom = 23.0
+[node name="FrameworkManifestAccordionHeaderCaret" parent="AccordionHeader/MarginContainer/HBoxContainer" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 4.0
+margin_right = 32.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 16, 16 )
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="AccordionHeader/MarginContainer/HBoxContainer"]
+margin_left = 36.0
+margin_top = 20.0
+margin_right = 36.0
+margin_bottom = 20.0
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="AccordionHeader/MarginContainer/HBoxContainer"]
+margin_left = 40.0
+margin_top = 13.0
+margin_right = 40.0
+margin_bottom = 27.0
+valign = 1
 
 [node name="AccordionBody" parent="." instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 32.0
+margin_top = 40.0
 margin_right = 460.0
-margin_bottom = 32.0
+margin_bottom = 40.0
+custom_constants/separation = 0
 is_open = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="AccordionBody"]
+[node name="HBoxContainer" type="HBoxContainer" parent="AccordionBody"]
 margin_right = 460.0
-custom_constants/separation = 4
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="Indent" type="Control" parent="AccordionBody/HBoxContainer"]
+mouse_filter = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AccordionBody/HBoxContainer"]
+margin_right = 460.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
 __meta__ = {
 "sc_separation": 4
 }

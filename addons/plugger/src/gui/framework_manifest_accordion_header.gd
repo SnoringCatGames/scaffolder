@@ -4,117 +4,66 @@ class_name FrameworkManifestAccordionHeader, \
 extends Button
 
 
-signal pressed
-
-const _TEXTURE_PATH_PREFIX := \
-        "res://addons/scaffolder/addons/plugger/assets/images/caret_right"
-
-const _OPEN_ROTATION := -90.0
-const _CLOSED_ROTATION := 0
-
-export var is_open: bool setget _set_is_open,_get_is_open
+export var is_open: bool setget _set_is_open
+export var size_override := Vector2.ZERO setget _set_size_override
 
 var contents: Control
-var caret: TextureRect
+var caret: FrameworkManifestAccordionHeaderCaret
 var _is_ready := false
-
-var current_style: StyleBoxFlat
-var normal_style: StyleBoxFlat
-var hover_style: StyleBoxFlat
-var active_style: StyleBoxFlat
+var _configuration_warning := ""
 
 
 func _ready() -> void:
     _is_ready = true
     
-    _set_up_styles()
-    _set_style(normal_style)
-    
-    var texture: Texture = Pl.get_icon(_TEXTURE_PATH_PREFIX)
-    
     var children := self.get_children()
-    assert(children.size() <= 2 and children.size() > 0)
-    if children.size() == 1:
-        assert(children[0] is Control)
-        contents = children[0]
+    if children.size() != 1:
+        _configuration_warning = "Must have one child."
+        update_configuration_warning()
+        return
+    if !children[0] is Control:
+        _configuration_warning = "Child must be a Control."
+        update_configuration_warning()
+        return
+    contents = children[0]
     
-        caret = TextureRect.new()
-        caret.texture = texture
-        caret.rect_rotation = _OPEN_ROTATION
-        self.add_child(caret)
-        self.move_child(caret, 0)
+    var carets := Sc.utils.get_children_by_type(
+            self,
+            FrameworkManifestAccordionHeaderCaret,
+            true)
+    if carets.size() > 1:
+        _configuration_warning = \
+                "There must not be more than one " + \
+                "FrameworkManifestAccordionHeaderCaret descendant"
+        update_configuration_warning()
+        return
+    if !carets.empty():
+        caret = carets[0]
+    
+    _update_size()
+
+
+func _update_size() -> void:
+    if is_instance_valid(contents):
+        self.rect_min_size = Vector2(
+                max(size_override.x, contents.rect_size.x),
+                max(size_override.y, contents.rect_size.y))
+        contents.rect_min_size = self.rect_size
     else:
-        var is_first_child_caret := _get_is_caret(children[0])
-        var is_second_child_caret := _get_is_caret(children[1])
-        assert(is_first_child_caret or is_second_child_caret)
-        if is_first_child_caret:
-            caret = children[0]
-            contents = children[1]
-        else:
-            caret = children[1]
-            contents = children[0]
-        caret.texture = texture
-
-
-func _set_up_styles() -> void:
-    var style_configs := [
-        ["normal_style", Color("#11DDDDDD")],
-        ["hover_style", Color("#88DDDDDD")],
-        ["active_style", Color("#00DDDDDD")],
-    ]
-    for config in style_configs:
-        var style_name: String = style_configs[0]
-        var color: String = style_configs[1]
-        var singleton_key := "Pl_accordion_header_%s" % style_name
-        if !Singletons.has_value(singleton_key):
-            var style := StyleBoxFlat.new()
-            style.bg_color = color
-            Singletons.set_value(singleton_key, style)
-        set(style_name, Singletons.get_value(singleton_key))
-
-
-func _get_is_caret(control: Node) -> bool:
-    return control is TextureRect and \
-            control.texture.resource_path.find("caret") >= 0
+        self.rect_min_size = size_override
 
 
 func _set_is_open(value: bool) -> void:
     if !_is_ready:
         return
-    caret.rect_rotation = _OPEN_ROTATION if value else _CLOSED_ROTATION
+    if is_instance_valid(caret):
+        caret.is_open = value
 
 
-func _get_is_open() -> bool:
-    if !_is_ready:
-        return false
-    return caret.rect_rotation == _OPEN_ROTATION
+func _set_size_override(value: Vector2) -> void:
+    size_override = value
+    _update_size()
 
 
-func _set_style(style: StyleBoxFlat) -> void:
-    current_style = style
-    
-
-
-func _gui_input(event: InputEvent) -> void:
-    if event is InputEventMouseButton and \
-            event.button_index == BUTTON_LEFT:
-        if event.pressed
-            _on_mouse_down()
-        else:
-            _on_mouse_up()
-
-
-func _on_mouse_entered() -> void:
-    pass
-
-
-func _on_mouse_exited() -> void:
-    pass
-
-
-func _on_mouse_down() -> void:
-    emit_signal("pressed")
-
-
-func _on_mouse_up() -> void:
-    pass
+func _get_configuration_warning() -> String:
+    return _configuration_warning

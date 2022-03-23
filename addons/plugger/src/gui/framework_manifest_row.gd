@@ -6,6 +6,7 @@ extends PanelContainer
 
 signal changed
 
+var group
 var node: FrameworkManifestEditorNode
 var custom_property: FrameworkManifestCustomProperty
 var indent_level: int
@@ -14,6 +15,7 @@ var indent_level: int
 func set_up(
         node: FrameworkManifestEditorNode,
         indent_level: int,
+        row_height: float,
         indent_width: float,
         label_width: float,
         control_width: float,
@@ -56,13 +58,13 @@ func set_up(
         var value_editor := _create_value_editor()
         value_editor.size_flags_horizontal = SIZE_EXPAND_FILL
         value_editor.rect_clip_content = true
-        value_editor.rect_min_size.x = control_width
+        value_editor.rect_min_size.x = \
+                0.0 if \
+                node.type == TYPE_DICTIONARY or \
+                    node.type == TYPE_ARRAY else \
+                control_width
+        value_editor.mouse_filter = MOUSE_FILTER_PASS
         $MarginContainer/HBoxContainer.add_child(value_editor)
-
-
-# FIXME: LEFT OFF HERE: --------------------------------------- Remove?
-func adjust_width(screen_width: float) -> void:
-    pass
 
 
 func update_zebra_stripes(index: int) -> int:

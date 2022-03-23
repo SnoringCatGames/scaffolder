@@ -8,7 +8,6 @@ var node: FrameworkManifestEditorNode
 var indent_level: int
 var indent_width: float
 
-var group_header: FrameworkManifestRow
 var group_body: Container
 var group_buttons: FrameworkManifestArrayButtons
 
@@ -16,6 +15,7 @@ var group_buttons: FrameworkManifestArrayButtons
 func set_up(
         node: FrameworkManifestEditorNode,
         indent_level: int,
+        row_height: float,
         indent_width: float,
         label_width: float,
         control_width: float,
@@ -24,19 +24,24 @@ func set_up(
     self.indent_level = indent_level
     self.indent_width = indent_width
     
-    group_header = $AccordionHeader/HBoxContainer2/Header
-    group_buttons = $AccordionHeader/HBoxContainer2/Buttons
+    
+    group_buttons = $AccordionHeader/MarginContainer/HBoxContainer/Buttons
     group_body = $AccordionBody/HBoxContainer/Body
     
     $AccordionBody/HBoxContainer/Indent.rect_min_size.x = indent_width
+    $AccordionHeader.size_override = Vector2(0.0, row_height)
     
-    group_header.set_up(
-            node,
-            indent_level,
-            indent_width,
-            label_width,
-            control_width,
-            padding)
+    var text: String
+    if node.key is int:
+        text = "[%d]" % node.key
+    else:
+        text = node.key.capitalize()
+    $AccordionHeader/MarginContainer/HBoxContainer/Label.text = text
+    $AccordionHeader/MarginContainer/HBoxContainer/Label.hint_tooltip = text
+    $AccordionHeader/MarginContainer/HBoxContainer/Label \
+            .rect_min_size.y = row_height
+    
+    self.is_open = false
     
     if node.type == TYPE_ARRAY:
         group_buttons.set_up(
@@ -49,21 +54,7 @@ func set_up(
         group_buttons.queue_free()
 
 
-# FIXME: LEFT OFF HERE: --------------------------------------- Remove?
-func adjust_width(screen_width: float) -> void:
-    var self_width := screen_width - indent_width * indent_level
-#    self.update_size_override(Vector2(self_width, 0.0))
-    for row in group_body.get_children():
-        if is_instance_valid(row):
-            row.adjust_width(screen_width)
-
-
 func update_zebra_stripes(index: int) -> int:
-    if is_instance_valid(group_header):
-        group_header.update_zebra_stripes(index)
-    if is_instance_valid(group_buttons):
-        group_buttons.update_zebra_stripes(index)
-    
     index += 1
     
     for row in group_body.get_children():
@@ -71,13 +62,3 @@ func update_zebra_stripes(index: int) -> int:
             index = row.update_zebra_stripes(index)
     
     return index
-
-
-# FIXME: LEFT OFF HERE: --------------------------------------- Remove?
-func update_height() -> void:
-    # FIXME: --------------------- REMOVE?
-    # Force Godot to update it's height calculation.
-    $AccordionBody/HBoxContainer.rect_size.y = 0.0
-    $AccordionBody/HBoxContainer/Indent.rect_size.y = 0.0
-    $AccordionBody/HBoxContainer/Body.rect_size.y = 0.0
-    .update_height()
