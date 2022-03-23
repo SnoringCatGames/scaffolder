@@ -15,6 +15,7 @@ func _ready() -> void:
     _is_ready = true
     header = Sc.utils.get_child_by_type(self, FrameworkManifestAccordionHeader)
     body = Sc.utils.get_child_by_type(self, FrameworkManifestAccordionBody)
+    header.connect("pressed", self, "_on_header_pressed")
 
 
 func _set_is_open(value: bool) -> void:
@@ -28,3 +29,7 @@ func _get_is_open() -> bool:
     if !_is_ready:
         return false
     return body.is_open
+
+
+func _on_header_pressed() -> void:
+    _set_is_open(!_get_is_open())
