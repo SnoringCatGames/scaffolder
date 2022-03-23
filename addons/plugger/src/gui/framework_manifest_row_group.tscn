@@ -14,7 +14,6 @@ rect_clip_content = true
 size_flags_horizontal = 3
 custom_constants/separation = 0
 script = ExtResource( 1 )
-is_open = null
 
 [node name="AccordionHeader" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
@@ -23,8 +22,8 @@ margin_right = 460.0
 margin_bottom = 34.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="AccordionHeader"]
-margin_left = 9.0
-margin_right = 182.0
+margin_left = 36.0
+margin_right = 209.0
 margin_bottom = 34.0
 custom_constants/separation = 0
 

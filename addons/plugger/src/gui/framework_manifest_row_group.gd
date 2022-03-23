@@ -1,6 +1,6 @@
 tool
 class_name FrameworkManifestRowGroup, \
-"res://addons/scaffolder/assets/images/editor_icons/scaffolder_placeholder.png"
+"res://addons/scaffolder/assets/images/editor_icons/accordion_panel.png"
 extends FrameworkManifestAccordionPanel
 
 

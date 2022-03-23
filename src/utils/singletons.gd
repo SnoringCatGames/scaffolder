@@ -4,7 +4,10 @@ extends Reference
 
 
 # Dictionary<Script, Variant>
-const _SINGLETONS := {}
+const _SCRIPT_INSTANCES := {}
+
+# Dictionary<Variant, Variant>
+const _VALUES := {}
 
 
 static func instance(script_or_path):
@@ -14,9 +17,21 @@ static func instance(script_or_path):
     else:
         script = script_or_path
     
-    if _SINGLETONS.has(script):
-        return _SINGLETONS[script]
+    if _SCRIPT_INSTANCES.has(script):
+        return _SCRIPT_INSTANCES[script]
     else:
         var instance = script.new()
-        _SINGLETONS[script] = instance
+        _SCRIPT_INSTANCES[script] = instance
         return instance
+
+
+static func has_value(key) -> bool:
+    return _VALUES.has(key)
+
+
+static func get_value(key):
+    return _VALUES[key]
+
+
+static func set_value(key, value) -> void:
+    _VALUES[key] = value

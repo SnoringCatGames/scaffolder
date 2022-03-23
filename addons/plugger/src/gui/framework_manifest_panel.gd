@@ -1,6 +1,6 @@
 tool
 class_name FrameworkManifestPanel, \
-"res://addons/scaffolder/assets/images/editor_icons/control_row_list.png"
+"res://addons/scaffolder/assets/images/editor_icons/accordion_panel.png"
 extends FrameworkManifestAccordionPanel
 
 
