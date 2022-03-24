@@ -140,15 +140,21 @@ func _create_auto_load() -> void:
 
 
 func _connect_auto_load() -> void:
-    self._auto_load = get_node("/root/" + _metadata.auto_load_name)
-    _auto_load.connect("initialized", self, "_on_framework_initialized")
+    var auto_load_node_path := "/root/" + _metadata.auto_load_name
+    if has_node(auto_load_node_path):
+        self._auto_load = get_node(auto_load_node_path)
+        _auto_load.connect("initialized", self, "_on_framework_initialized")
     
-    Pl = get_node("/root/" + _PLUGGER_AUTO_LOAD_NAME)
-    Pl.editor = get_editor_interface()
-    Pl.validate_icons(_metadata.plugin_icon_path_prefix)
+    var pl_node_path := "/root/" + _PLUGGER_AUTO_LOAD_NAME
+    if has_node(pl_node_path):
+        Pl = get_node(pl_node_path)
+        Pl.editor = get_editor_interface()
+        Pl.validate_icons(_metadata.plugin_icon_path_prefix)
     
-    if _auto_load.is_initialized:
-        _on_framework_initialized()
+    if is_instance_valid(self._auto_load) and \
+            is_instance_valid(Pl):
+        if _auto_load.is_initialized:
+            _on_framework_initialized()
 
 
 func _on_framework_initialized() -> void:
@@ -156,6 +162,7 @@ func _on_framework_initialized() -> void:
 
 
 func _enter_tree() -> void:
+    _connect_auto_load()
     _set_up()
 
 
@@ -170,7 +177,6 @@ func get_plugin_name() -> String:
 
 
 func get_plugin_icon() -> Texture:
-    if is_instance_valid(Pl):
-        return Pl.get_icon(_metadata.plugin_icon_path_prefix)
-    else:
-        return null
+    return PlInterface._static_get_icon(
+            _metadata.plugin_icon_path_prefix,
+            get_editor_interface())

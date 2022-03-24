@@ -1,4 +1,5 @@
 tool
+class_name PlInterface
 extends Node
 
 
@@ -34,14 +35,7 @@ func scale_dimension(value):
 
 
 func get_icon(path_prefix: String) -> Texture:
-    # TODO: We need better support for updating icon colors based on theme: 
-    # https://github.com/godotengine/godot-proposals/issues/572
-    var is_light_theme: bool = editor.get_editor_settings() \
-            .get_setting("interface/theme/base_color").v > 0.5
-    var theme := "light" if is_light_theme else "dark"
-    var scale := editor.get_editor_scale()
-    var icon_path := _get_icon_path(path_prefix, theme, scale)
-    return load(icon_path) as Texture
+    return _static_get_icon(path_prefix, editor)
 
 
 func validate_icons(path_prefix: String) -> void:
@@ -58,7 +52,20 @@ func validate_icons(path_prefix: String) -> void:
                     ])
 
 
-func _get_icon_path(
+static func _static_get_icon(
+        path_prefix: String,
+        editor: EditorInterface) -> Texture:
+    # TODO: We need better support for updating icon colors based on theme: 
+    # https://github.com/godotengine/godot-proposals/issues/572
+    var is_light_theme: bool = editor.get_editor_settings() \
+            .get_setting("interface/theme/base_color").v > 0.5
+    var theme := "light" if is_light_theme else "dark"
+    var scale := editor.get_editor_scale()
+    var icon_path := _get_icon_path(path_prefix, theme, scale)
+    return load(icon_path) as Texture
+
+
+static func _get_icon_path(
         path_prefix: String,
         theme := "dark",
         scale := 1.0) -> String:
