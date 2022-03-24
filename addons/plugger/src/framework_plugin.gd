@@ -5,9 +5,16 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: ----------------------------------------------
 # 
-# >- Record which accordions are open.
+# - Multiple modes affecting a single property:
+#   - Disallow it for now?
+#     - Have an assert.
+#   - Are there any cases for this right now?
 # 
-# - Fix main-screen panel width.
+# - Render a different colored line for each mode.
+#   - Render horizontally under dropdown label.
+#   - Render vertically as border on left-side of row.
+#     - When a row is affected by multiple modes, divide this line vertically.
+#   - Render as a faded background across the entire row.
 # 
 # >- Add support for different schema modes.
 #     - ReleaseMode: local-dev vs playtest vs production

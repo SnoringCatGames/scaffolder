@@ -61,7 +61,7 @@ func adjust_size() -> void:
 func _load_open_rows() -> void:
     var open_rows: Dictionary = Sc.json.load_file(
             ScaffolderSchema.PLUGIN_OPEN_ROWS_PATH,
-            false,
+            true,
             true)
     for open_panel_label in open_rows:
         var panel := _get_panel_with_label(open_panel_label)
@@ -74,7 +74,7 @@ func _save_open_rows() -> void:
     Sc.json.save_file(
             _get_open_rows(),
             ScaffolderSchema.PLUGIN_OPEN_ROWS_PATH,
-            false,
+            true,
             true)
 
 
@@ -106,6 +106,7 @@ func _initialize_modes() -> void:
 func _populate_mode_option_buttons() -> void:
     for mode_type in FrameworkSchemaMode.MODE_TYPES:
         var option_button := _get_option_button(mode_type)
+        option_button.clear()
         var type_to_string_map := _get_type_to_string_map(mode_type)
         for type in type_to_string_map:
             var label: String = type_to_string_map[type]
