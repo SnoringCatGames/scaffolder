@@ -5,6 +5,34 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: ----------------------------------------------
 # 
+# - Refactor SquirrelAway._amend_manifest to collect all overrides in a single map:
+#   - The keys will represent the manifest object paths. E.g.:
+#     - "Su.manifest.uses_threads_for_platform_graph_calculation"
+#   - Then, this map is passed to a utility function.
+#   - Then, each ammendment is parsed, and the relevant global.manifest property
+#     is updated.
+#   - Then, each ammendment is parsed, and the plugin-manifest-node tree is
+#     traversed, and each relevant node is flagged as overridden.
+#   - Then, highlight each overridden node in the plugin UI.
+# 
+# - Add the ability to pin important properties:
+#   - Include defaults:
+#     - scaffolder.images_manifest:
+#        app_logo = preload("res://addons/squirrel_away/assets/images/logo.png"),
+#        app_logo_scale = 1.0,
+#        developer_logo = preload( \
+#            "res://addons/scaffolder/assets/images/logos/snoring_cat_logo_about.png"),
+#        developer_splash = preload( \
+#            "res://addons/scaffolder/assets/images/logos/snoring_cat_logo_splash.png"),
+#        go_normal = preload( \
+#                "res://addons/squirrel_away/assets/images/gui/go_icon.png"),
+#        go_scale = 1.5,
+#   - Have each schema define its own default pins.
+# - Show pinned properties in a separate panel at the top.
+#   - Create a new pin icon.
+#   - Don't support modifying pins through the UI for now.
+#   - Do support overriding pins through GDScript though.
+# 
 # - Scrap previous modes plans.
 # - New plans:
 #   -  Keep the dropdowns in the plugin UI.
