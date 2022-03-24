@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/scaffolder_dark_theme_2.png-a4075005ba38349f7e9f6d67ab2c8457.stex"
+path="res://.import/plugger_light_theme_1.png-c4cae17c53305ae6128f89b820042793.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/editor_icons/plugin/scaffolder_dark_theme_2.png"
-dest_files=[ "res://.import/scaffolder_dark_theme_2.png-a4075005ba38349f7e9f6d67ab2c8457.stex" ]
+source_file="res://addons/scaffolder/addons/plugger/assets/images/plugger_light_theme_1.png"
+dest_files=[ "res://.import/plugger_light_theme_1.png-c4cae17c53305ae6128f89b820042793.stex" ]
 
 [params]
 
