@@ -56,6 +56,12 @@ func set_up(
         group_buttons.queue_free()
 
 
+func open_recursively() -> void:
+    self._set_is_open(true)
+    for child in group_body.get_children():
+        child.open_recursively()
+
+
 func update_zebra_stripes(index: int) -> int:
     index += 1
     

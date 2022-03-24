@@ -70,6 +70,10 @@ func set_up(
         $MarginContainer/HBoxContainer.add_child(value_editor)
 
 
+func open_recursively() -> void:
+    pass
+
+
 func update_zebra_stripes(index: int) -> int:
     var style: StyleBox
     if index % 2 == 1:
