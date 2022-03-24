@@ -47,7 +47,7 @@ func set_up(manifest_controller: FrameworkManifestController) -> void:
             0,
             $AccordionBody/HBoxContainer/VBoxContainer)
     
-    _update_zebra_stripes()
+    update_zebra_stripes()
 
 
 func _create_property_controls(
@@ -150,18 +150,18 @@ func _on_array_item_added(buttons: FrameworkManifestArrayButtons) -> void:
     # Create the UI.
     _create_property_controls(
             new_item, buttons.group.indent_level + 1, buttons.group.group_body)
-    _update_zebra_stripes()
+    update_zebra_stripes()
     _on_value_changed()
 
 
 func _on_array_item_deleted(buttons: FrameworkManifestArrayButtons) -> void:
     buttons.node.children.pop_back()
     buttons.group.group_body.get_children().back().queue_free()
-    _update_zebra_stripes()
+    update_zebra_stripes()
     _on_value_changed()
 
 
-func _update_zebra_stripes() -> void:
+func update_zebra_stripes() -> void:
     var row_count := 0
     for row in $AccordionBody/HBoxContainer/VBoxContainer.get_children():
         if is_instance_valid(row):

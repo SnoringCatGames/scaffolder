@@ -14,7 +14,7 @@ var _manifest_modes := {}
 
 
 var _throttled_on_resize: FuncRef = Sc.time.throttle(
-        funcref(self, "_adjust_size"),
+        funcref(self, "adjust_size"),
         0.001,
         false,
         TimeType.APP_PHYSICS)
@@ -28,7 +28,7 @@ func _ready() -> void:
     _initialize_modes()
     
     self.connect("resized", _throttled_on_resize, "call_func")
-    call_deferred("_adjust_size")
+    call_deferred("adjust_size")
 
 
 func _reset_panels() -> void:
@@ -41,7 +41,7 @@ func _reset_panels() -> void:
         panel.set_up(framework.manifest_controller)
 
 
-func _adjust_size() -> void:
+func adjust_size() -> void:
     # FIXME: LEFT OFF HERE: ------------------------------
 #    var size: Vector2 = get_parent().rect_size
     var size: Vector2 = self.rect_size
