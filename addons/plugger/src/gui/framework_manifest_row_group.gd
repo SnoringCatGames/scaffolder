@@ -96,3 +96,30 @@ func _set_up_styles(is_odd: bool) -> void:
                 is_odd else \
                 even_style
         $AccordionHeader.add_stylebox_override(mode, current_style)
+
+
+func load_open_rows(open_rows: Dictionary) -> void:
+    for open_row_key in open_rows:
+        var row = _get_row_with_key(open_row_key)
+        if is_instance_valid(row) and \
+                row.has_method("load_open_rows"):
+            row.is_open = true
+            row.load_open_rows(open_rows[open_row_key])
+
+
+func get_open_rows() -> Dictionary:
+    var open_rows := {}
+    for row in group_body.get_children():
+        if is_instance_valid(row) and \
+                row.has_method("load_open_rows") and \
+                row.is_open:
+            open_rows[row.node.key] = row.get_open_rows()
+    return open_rows
+
+
+func _get_row_with_key(key):
+    for row in group_body.get_children():
+        if is_instance_valid(row) and \
+                row.node.key == key:
+            return row
+    return null

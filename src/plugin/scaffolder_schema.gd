@@ -6,6 +6,8 @@ extends FrameworkSchema
 const _METADATA_SCRIPT := ScaffolderMetadata
 
 const MODES_PATH := "res://addons/scaffolder/src/config/manifest_modes.json"
+const PLUGIN_OPEN_ROWS_PATH := \
+        "res://addons/scaffolder/src/config/plugin_open_rows.json"
 
 const default_modes := {
     FrameworkSchemaMode.RELEASE: \

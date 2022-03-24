@@ -5,10 +5,7 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: ----------------------------------------------
 # 
-# - Record which accordions are open.
-# 
-# >- Fix the ability to specify an object type for an array child without
-#   actually including it in the manifest by default.
+# >- Record which accordions are open.
 # 
 # - Fix main-screen panel width.
 # 
