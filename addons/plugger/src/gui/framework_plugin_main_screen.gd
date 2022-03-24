@@ -24,11 +24,12 @@ var _debounced_save_open_rows = Sc.time.debounce(
 
 
 func _ready() -> void:
+    _initialize_modes()
+    
     Sc.connect("initialized", self, "_reset_panels")
     if Sc.is_initialized:
         _reset_panels()
     
-    _initialize_modes()
     _load_open_rows()
     
     self.connect("resized", _throttled_on_resize, "call_func")
@@ -60,7 +61,7 @@ func adjust_size() -> void:
 
 func _load_open_rows() -> void:
     var open_rows: Dictionary = Sc.json.load_file(
-            ScaffolderSchema.PLUGIN_OPEN_ROWS_PATH,
+        ScaffolderMetadata.PLUGIN_OPEN_ROWS_PATH,
             true,
             true)
     for open_panel_label in open_rows:
@@ -73,7 +74,7 @@ func _load_open_rows() -> void:
 func _save_open_rows() -> void:
     Sc.json.save_file(
             _get_open_rows(),
-            ScaffolderSchema.PLUGIN_OPEN_ROWS_PATH,
+            ScaffolderMetadata.PLUGIN_OPEN_ROWS_PATH,
             true,
             true)
 
@@ -116,28 +117,25 @@ func _populate_mode_option_buttons() -> void:
 func _load_modes() -> void:
     # Load the selected modes from the JSON file.
     _manifest_modes = Sc.json.load_file(
-            ScaffolderSchema.MODES_PATH,
+        ScaffolderMetadata.MODES_PATH,
             true,
             true)
     
     # Assign default values for any missing mode selections.
-    for mode_type in ScaffolderSchema.default_modes:
+    for mode_type in ScaffolderMetadata.DEFAULT_MODES:
         if !_manifest_modes.has(mode_type):
             _manifest_modes[mode_type] = \
-                    ScaffolderSchema.default_modes[mode_type]
+                    ScaffolderMetadata.DEFAULT_MODES[mode_type]
     
     # Set the OptionButton selections.
     for mode_type in FrameworkSchemaMode.MODE_TYPES:
-        var option_button := _get_option_button(mode_type)
-        var type: int = _manifest_modes[mode_type]
-        var index := option_button.get_item_index(type)
-        option_button.select(index)
+        _set_mode(mode_type, _manifest_modes[mode_type], false)
 
 
 func _save_modes() -> void:
     Sc.json.save_file(
             _manifest_modes,
-            ScaffolderSchema.MODES_PATH,
+            ScaffolderMetadata.MODES_PATH,
             true,
             true)
 
@@ -183,8 +181,19 @@ func _on_UiSmoothnessModeButton_item_selected(index: int) -> void:
 
 func _on_mode_changed(mode_type: int) -> void:
     var option_button := _get_option_button(mode_type)
-    var type := option_button.get_selected_id()
-    _manifest_modes[mode_type] = type
-    _save_modes()
-    # FIXME: LEFT OFF HERE: -------------------------------------
-    # - Update rows for new mode.
+    var mode_value := option_button.get_selected_id()
+    _set_mode(mode_type, mode_value, true)
+
+
+func _set_mode(
+        mode_type: int,
+        mode_value: int,
+        should_save_json: bool) -> void:
+    _manifest_modes[mode_type] = mode_value
+    
+    var option_button := _get_option_button(mode_type)
+    var index := option_button.get_item_index(mode_value)
+    option_button.select(index)
+    
+    if should_save_json:
+        _save_modes()

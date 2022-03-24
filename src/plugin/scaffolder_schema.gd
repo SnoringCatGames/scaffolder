@@ -5,19 +5,6 @@ extends FrameworkSchema
 
 const _METADATA_SCRIPT := ScaffolderMetadata
 
-const MODES_PATH := "res://addons/scaffolder/src/config/manifest_modes.json"
-const PLUGIN_OPEN_ROWS_PATH := \
-        "res://addons/scaffolder/src/config/plugin_open_rows.json"
-
-const default_modes := {
-    FrameworkSchemaMode.RELEASE: \
-            FrameworkSchemaMode.Release.LOCAL_DEV,
-    FrameworkSchemaMode.ANNOTATIONS: \
-            FrameworkSchemaMode.Annotations.DEFAULT,
-    FrameworkSchemaMode.UI_SMOOTHNESS: \
-            FrameworkSchemaMode.UiSmoothness.PIXELATED,
-}
-
 var _metadata := {
     debug = false,
     playtest = false,
@@ -1347,26 +1334,6 @@ var _properties := {
     level_config_class = SquirrelAwayLevelConfig,
     level_session_class = SquirrelAwayLevelSession,
     annotators_class = SurfacerAnnotators,
-}
-
-# FIXME: LEFT OFF HERE: ----------------------------------
-var _modes := {
-    FrameworkSchemaMode.Release.LOCAL_DEV: {
-    },
-    FrameworkSchemaMode.Release.PLAYTEST: {
-    },
-    FrameworkSchemaMode.Release.PRODUCTION: {
-    },
-    
-    FrameworkSchemaMode.Annotations.DEFAULT: {
-    },
-    FrameworkSchemaMode.Annotations.EMPHASIZED: {
-    },
-    
-    FrameworkSchemaMode.UiSmoothness.PIXELATED: {
-    },
-    FrameworkSchemaMode.UiSmoothness.ANTI_ALIASED: {
-   },
 }
 
 

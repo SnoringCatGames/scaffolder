@@ -5,6 +5,18 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: ----------------------------------------------
 # 
+# - Scrap previous modes plans.
+# - New plans:
+#   -  Keep the dropdowns in the plugin UI.
+#   -  Add support for dynamically registering new modes.
+#   -  Require all mode-based manifest manipulation to happen via GDScript.
+#   -  Don't reflect mode-based values in the UI.
+#      -   BUT, I can not which properties have at least been targeted by a
+#          GDScript override, and give them a generic highlight in the UI.
+#          -   Describe this highlight condition in the hint_tooltip.
+# 
+# - Assert that all modes of a given property use the same type.
+# 
 # - Multiple modes affecting a single property:
 #   - Disallow it for now?
 #     - Have an assert.
