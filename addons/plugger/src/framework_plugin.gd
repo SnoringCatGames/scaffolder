@@ -145,8 +145,7 @@ func _connect_auto_load() -> void:
     
     Pl = get_node("/root/" + _PLUGGER_AUTO_LOAD_NAME)
     Pl.editor = get_editor_interface()
-    Pl.validate_icons(
-            _metadata.plugin_icon_directory_path + _metadata.folder_name)
+    Pl.validate_icons(_metadata.plugin_icon_path_prefix)
     
     if _auto_load.is_initialized:
         _on_framework_initialized()
@@ -172,7 +171,6 @@ func get_plugin_name() -> String:
 
 func get_plugin_icon() -> Texture:
     if is_instance_valid(Pl):
-        return Pl.get_icon(
-                _metadata.plugin_icon_directory_path + _metadata.folder_name)
+        return Pl.get_icon(_metadata.plugin_icon_path_prefix)
     else:
         return null
