@@ -23,8 +23,8 @@ func set_up(
     self.node = node
     self.indent_level = indent_level
     
-    $MarginContainer.add_constant_override("margin_top", padding)
-    $MarginContainer.add_constant_override("margin_bottom", padding)
+    $MarginContainer.add_constant_override("margin_top", 0.0)
+    $MarginContainer.add_constant_override("margin_bottom", 0.0)
     $MarginContainer.add_constant_override("margin_left", padding)
     $MarginContainer.add_constant_override("margin_right", padding)
     

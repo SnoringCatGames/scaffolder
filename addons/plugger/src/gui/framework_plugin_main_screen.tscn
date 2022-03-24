@@ -63,7 +63,7 @@ margin_right = 150.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
 text = "LOCAL_DEV"
-items = [ "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null ]
+items = [ "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null, "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null ]
 selected = 0
 
 [node name="Annotations" type="VBoxContainer" parent="VBoxContainer/Modes"]
@@ -88,7 +88,7 @@ margin_right = 150.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
 text = "DEFAULT"
-items = [ "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null ]
+items = [ "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null, "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null ]
 selected = 0
 
 [node name="UiSmoothness" type="VBoxContainer" parent="VBoxContainer/Modes"]
@@ -113,7 +113,7 @@ margin_right = 150.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
 text = "PIXELATED"
-items = [ "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null ]
+items = [ "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null, "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null ]
 selected = 0
 
 [node name="Spacer2" type="Control" parent="VBoxContainer/Modes"]

@@ -10,12 +10,15 @@ var rounded := false
 var step := 0.0
 var default_value = 0.0
 var label_width := 32.0
-var padding := 2.0
+var padding_y := 0.0
+var padding_x := 2.0
 
 var _controls := {}
 
 
 func set_up() -> void:
+    self.add_constant_override("separation", padding_y)
+    
     # Parse the default value.
     assert(default_value is int or \
             default_value is float or \
@@ -33,7 +36,7 @@ func set_up() -> void:
     # Create the control for each number.
     for key in keys:
         var hbox := HBoxContainer.new()
-        hbox.add_constant_override("separation", padding)
+        hbox.add_constant_override("separation", padding_x)
         self.add_child(hbox)
 
         var label := Label.new()
