@@ -3,22 +3,21 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: ---------------------------------------------
+# FIXME: LEFT OFF HERE: ----------------------------------------------
 # 
-# - Add a debug util for annotating GUIs:
-#   - Simply call Sc.utils.highlight_node_for_debugging(node)
-#     - If control, highlight boundary.
-#     - If node, highlight position.
-#   - Render a rectangle over bounds.
-#   - Render crosshair for position.
-#   - Continue lines and rectangle edges out to edge of viewport.
+# >- Create icons:
+#   - Scaffolder, Surfacer, SurfaceTiler, SurfaceParser, Gooier, and game
+#     (use a simple star).
+#   - Also create an icon for the overall Configuration tab.
+#     - Just a simple settings-list/menu/horizontal-lines icon. 
+# - Fix name of Plugin main-screen tab to be "Configuration".
 # 
-# - Fix the ability to specify an object type for an array child without
+# >- Fix the ability to specify an object type for an array child without
 #   actually including it in the manifest by default.
 # 
 # - Fix main-screen panel width.
 # 
-# - Add support for different schema modes.
+# >- Add support for different schema modes.
 #     - ReleaseMode: local-dev vs playtest vs production
 #     - AnnotationsMode: emphasized-annotations vs default
 #     - SmoothnessMode: pixelated vs anti-aliased
@@ -95,7 +94,15 @@ extends EditorPlugin
 #   - Refactor things to work regardless of the order that AutoLoads are included.
 #   - Expect that Scaffolder will force the order of plugin initialization to be as needed.
 #     - Expect that each plugin will define a priority value.
-#   - 
+# 
+# - Add a debug util for annotating GUIs:
+#   - Simply call Sc.utils.highlight_node_for_debugging(node)
+#     - If control, highlight boundary.
+#     - If node, highlight position.
+#   - Render a rectangle over bounds.
+#   - Render crosshair for position.
+#   - Continue lines and rectangle edges out to edge of viewport.
+# 
 
 const _PLUGGER_AUTO_LOAD_NAME := "Pl"
 const _PLUGGER_AUTO_LOAD_PATH := \
