@@ -7,7 +7,7 @@ extends CenterContainer
 const _FRAMEWORK_MANIFEST_PANEL_SCENE := preload(
         "res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_panel.tscn")
 
-const _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS := 288.0
+const _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS := 144.0
 
 # Dictionary<int, int>
 var _manifest_modes := {}
@@ -28,7 +28,7 @@ func _ready() -> void:
     _initialize_modes()
     
     self.connect("resized", _throttled_on_resize, "call_func")
-    _adjust_size()
+    call_deferred("_adjust_size")
 
 
 func _reset_panels() -> void:
