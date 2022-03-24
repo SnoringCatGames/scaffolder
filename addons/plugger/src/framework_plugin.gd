@@ -5,13 +5,6 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: ----------------------------------------------
 # 
-# >- Create icons:
-#   - Scaffolder, Surfacer, SurfaceTiler, SurfaceParser, Gooier, and game
-#     (use a simple star).
-#   - Also create an icon for the overall Configuration tab.
-#     - Just a simple settings-list/menu/horizontal-lines icon. 
-# - Fix name of Plugin main-screen tab to be "Configuration".
-# 
 # >- Fix the ability to specify an object type for an array child without
 #   actually including it in the manifest by default.
 # 
