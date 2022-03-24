@@ -21,6 +21,8 @@ const _VALID_TYPES := {
     TYPE_TILESET: true,
     TYPE_RESOURCE: true,
     TYPE_CUSTOM: true,
+    TYPE_DICTIONARY: true,
+    TYPE_ARRAY: true,
 }
 
 var display_name: String
@@ -54,7 +56,12 @@ static func get_default_value(schema):
     elif schema is Array:
         if get_is_explicit_type_entry(schema):
             # Explicit-type value definition.
-            return schema[1]
+            if schema[0] == TYPE_DICTIONARY:
+                return {}
+            elif schema[0] == TYPE_ARRAY:
+                return []
+            else:
+                return schema[1]
         else:
             return []
     else:
@@ -67,9 +74,9 @@ static func get_is_explicit_type_entry(entry) -> bool:
         return false
     if entry.size() != 2:
         return false
-    if typeof(entry[0]) != TYPE_INT:
+    if !entry[0] is int:
         return false
-    if (entry is int and (entry == TYPE_INT or entry == TYPE_REAL)) != \
+    if (entry[0] == TYPE_INT or entry[0] == TYPE_REAL) != \
             (entry[1] is int or entry[1] is float):
         return false
     # NOTE: This can produce false-positives for arrays of integers of size 2.

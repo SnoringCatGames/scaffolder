@@ -15,6 +15,10 @@ var schema
 func _init(parent, key, schema) -> void:
     self.parent = parent
     self.key = key
+    if FrameworkSchema.get_is_explicit_type_entry(schema) and \
+            (schema[0] == TYPE_DICTIONARY or \
+            schema[0] == TYPE_ARRAY):
+        schema = schema[1]
     self.schema = schema
 
 
@@ -92,10 +96,16 @@ func _load_from_manifest_array(
         i += 1
     
     if includes_defaults_from_schema:
-        # Ensure defaults exist in the manifest.
-        manifest.resize(schema.size())
-        for j in schema.size():
-            manifest[j] = FrameworkSchema.get_default_value(schema[j])
+        if schema.size() == 1 and \
+                FrameworkSchema.get_is_explicit_type_entry(schema[0]):
+            # Don't auto-include a default manifest entry if the schema entry
+            # is only meant to define the type.
+            pass
+        else:
+            # Ensure defaults exist in the manifest.
+            manifest.resize(schema.size())
+            for j in schema.size():
+                manifest[j] = FrameworkSchema.get_default_value(schema[j])
     
     type = TYPE_ARRAY
     children = []
