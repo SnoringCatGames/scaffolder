@@ -169,7 +169,15 @@ func decode_json_object(json):
                 return Rect2(json.x, json.y, json.w, json.h)
             else:
                 json = json.duplicate()
-                for key in json:
+                for key in json.keys():
+                    # Translate Stringified integer keys back into ints.
+                    var int_key := int(key)
+                    if str(int_key) == key:
+                        var value = json[key]
+                        json.erase(key)
+                        key = int_key
+                        json[key] = value
+                    
                     json[key] = decode_json_object(json[key])
                 return json
         TYPE_STRING:
