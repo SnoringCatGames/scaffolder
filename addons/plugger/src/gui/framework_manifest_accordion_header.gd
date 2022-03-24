@@ -42,6 +42,8 @@ func _ready() -> void:
     
     _update_size()
 
+    connect("resized", self, "_on_resized")
+
 
 func _update_size() -> void:
     if is_instance_valid(contents):
@@ -67,3 +69,8 @@ func _set_size_override(value: Vector2) -> void:
 
 func _get_configuration_warning() -> String:
     return _configuration_warning
+
+
+func _on_resized() -> void:
+    if is_instance_valid(contents):
+        contents.rect_size = rect_size

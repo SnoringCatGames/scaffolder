@@ -54,17 +54,6 @@ func set_up(
                 padding)
     else:
         group_buttons.queue_free()
-    
-    # FIXME: LEFT OFF HERE: --------------------------------- Debug this.
-    call_deferred("foo")
-func foo() -> void:
-    $AccordionHeader/MarginContainer/HBoxContainer.rect_min_size.x = \
-            $AccordionHeader.rect_size.x
-    $AccordionHeader/MarginContainer/HBoxContainer/Label.rect_min_size.x = \
-            $AccordionHeader.rect_size.x - \
-            $AccordionHeader/MarginContainer/HBoxContainer/ \
-                FrameworkManifestAccordionHeaderCaret.rect_size.x - \
-            $AccordionHeader/MarginContainer/HBoxContainer/Buttons.rect_size.x
 
 
 func update_zebra_stripes(index: int) -> int:
