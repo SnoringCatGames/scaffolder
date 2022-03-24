@@ -17,7 +17,7 @@ func _init() -> void:
 
 
 static func save_file(
-        json_object: Dictionary,
+        json_object,
         path: String,
         includes_encoding := true,
         includes_newlines := false) -> void:
@@ -40,7 +40,7 @@ static func save_file(
 static func load_file(
         path: String,
         includes_encoding := true,
-        allows_missing_file := false) -> Dictionary:
+        allows_missing_file := false):
     var file := File.new()
     var status := file.open(path, File.READ)
     
@@ -65,7 +65,7 @@ static func load_file(
         ])
         return {}
     
-    var json_object: Dictionary = parse_result.result
+    var json_object = parse_result.result
     if includes_encoding:
         json_object = Sc.json.decode_json_object(json_object)
     

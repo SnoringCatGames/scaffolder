@@ -1,5 +1,5 @@
 tool
-class_name ScaffolderPluginMainScreen, \
+class_name FrameworkPluginMainScreen, \
 "res://addons/scaffolder/assets/images/editor_icons/scaffolder_panel_container.png"
 extends CenterContainer
 
@@ -16,8 +16,11 @@ var _manifest_modes := {}
 var _throttled_on_resize: FuncRef = Sc.time.throttle(
         funcref(self, "adjust_size"),
         0.001,
-        false,
-        TimeType.APP_PHYSICS)
+        false)
+var _debounced_save_open_rows = Sc.time.debounce(
+        funcref(self, "_save_open_rows"),
+        3.0,
+        false)
 
 
 func _ready() -> void:
@@ -26,6 +29,7 @@ func _ready() -> void:
         _reset_panels()
     
     _initialize_modes()
+    _load_open_rows()
     
     self.connect("resized", _throttled_on_resize, "call_func")
     call_deferred("adjust_size")
@@ -39,11 +43,11 @@ func _reset_panels() -> void:
         var panel: FrameworkManifestPanel = \
                 Sc.utils.add_scene(container, _FRAMEWORK_MANIFEST_PANEL_SCENE)
         panel.set_up(framework.manifest_controller)
+        panel.connect(
+                "descendant_toggled", _debounced_save_open_rows, "call_func")
 
 
 func adjust_size() -> void:
-    # FIXME: LEFT OFF HERE: ------------------------------
-#    var size: Vector2 = get_parent().rect_size
     var size: Vector2 = self.rect_size
     size.y -= $VBoxContainer/Label.rect_size.y
     size.y -= $VBoxContainer/Spacer.rect_size.y
@@ -52,6 +56,46 @@ func adjust_size() -> void:
     var scroll_container_size := size - margin
     $VBoxContainer/CenterContainer/ScrollContainer.rect_min_size = \
             scroll_container_size
+
+
+func _load_open_rows() -> void:
+    var open_rows: Dictionary = Sc.json.load_file(
+            ScaffolderSchema.PLUGIN_OPEN_ROWS_PATH,
+            false,
+            true)
+    for open_panel_label in open_rows:
+        var panel := _get_panel_with_label(open_panel_label)
+        if is_instance_valid(panel):
+            panel.is_open = true
+            panel.load_open_rows(open_rows[open_panel_label])
+
+
+func _save_open_rows() -> void:
+    Sc.json.save_file(
+            _get_open_rows(),
+            ScaffolderSchema.PLUGIN_OPEN_ROWS_PATH,
+            false,
+            true)
+
+
+func _get_open_rows() -> Dictionary:
+    var open_rows := {}
+    var container := \
+            $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer
+    for panel in container.get_children():
+        if panel.is_open:
+            open_rows[panel.manifest_controller.schema.display_name] = \
+                    panel.get_open_rows()
+    return open_rows
+
+
+func _get_panel_with_label(label: String) -> FrameworkManifestPanel:
+    var container := \
+            $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer
+    for panel in container.get_children():
+        if panel.manifest_controller.schema.display_name == label:
+            return panel
+    return null
 
 
 func _initialize_modes() -> void:
@@ -107,7 +151,7 @@ func _get_option_button(mode_type: int) -> OptionButton:
         FrameworkSchemaMode.UI_SMOOTHNESS:
             node = $VBoxContainer/Modes/UiSmoothness/UiSmoothnessModeButton
         _:
-            Sc.logger.error("ScaffolderPluginMainScreen._get_option_button")
+            Sc.logger.error("FrameworkPluginMainScreen._get_option_button")
     return node as OptionButton
 
 
@@ -120,7 +164,7 @@ func _get_type_to_string_map(mode_type: int) -> Dictionary:
         FrameworkSchemaMode.UI_SMOOTHNESS:
             return FrameworkSchemaMode.UI_SMOOTHNESS_TYPE_TO_STRING
         _:
-            Sc.logger.error("ScaffolderPluginMainScreen._type_to_index")
+            Sc.logger.error("FrameworkPluginMainScreen._type_to_index")
             return {}
 
 

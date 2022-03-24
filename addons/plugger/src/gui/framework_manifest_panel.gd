@@ -4,6 +4,8 @@ class_name FrameworkManifestPanel, \
 extends FrameworkManifestAccordionPanel
 
 
+signal descendant_toggled
+
 const _ROW_SCENE := \
         preload("res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_row.tscn")
 const _ROW_GROUP_SCENE := \
@@ -18,16 +20,25 @@ const _PADDING := 4.0
 const _INDENT_WIDTH := 16.0
 const _LABEL_WIDTH := _PANEL_WIDTH - _CONTROL_WIDTH - _PADDING * 3.0
 
-var _manifest_controller: FrameworkManifestController
+var manifest_controller: FrameworkManifestController
+
+var _debounced_update_zebra_stripes = Sc.time.debounce(
+        funcref(self, "_update_zebra_stripes_debounced"),
+        0.001,
+        false)
+
+
+func _ready() -> void:
+    self.connect("toggled", self, "emit_signal", ["descendant_toggled"])
 
 
 func set_up(manifest_controller: FrameworkManifestController) -> void:
-    self._manifest_controller = manifest_controller
+    self.manifest_controller = manifest_controller
     
     $AccordionHeader/MarginContainer/HBoxContainer/Label.text = \
-            _manifest_controller.schema.display_name
+            manifest_controller.schema.display_name
     $AccordionHeader/MarginContainer/HBoxContainer/TextureRect.texture = \
-            Pl.get_icon(_manifest_controller.schema.plugin_icon_path_prefix)
+            Pl.get_icon(manifest_controller.schema.plugin_icon_path_prefix)
     
     $AccordionHeader.size_override = \
             Vector2(0.0, Pl.scale_dimension(_ROW_HEIGHT))
@@ -41,7 +52,7 @@ func set_up(manifest_controller: FrameworkManifestController) -> void:
     Sc.utils.clear_children($AccordionBody/HBoxContainer/VBoxContainer)
     
     _create_property_controls(
-            _manifest_controller.root,
+            manifest_controller.root,
             0,
             $AccordionBody/HBoxContainer/VBoxContainer)
     
@@ -140,7 +151,7 @@ func _create_group_control(
 
 
 func _on_value_changed() -> void:
-    _manifest_controller.save_manifest()
+    manifest_controller.save_manifest()
 
 
 func _on_array_item_added(buttons: FrameworkManifestArrayButtons) -> void:
@@ -165,10 +176,43 @@ func _on_array_item_deleted(buttons: FrameworkManifestArrayButtons) -> void:
 
 func _on_row_group_toggled(row: FrameworkManifestRowGroup) -> void:
     update_zebra_stripes()
+    emit_signal("descendant_toggled")
 
 
 func update_zebra_stripes() -> void:
+    _debounced_update_zebra_stripes.call_func()
+
+
+func _update_zebra_stripes_debounced() -> void:
     var row_count := 0
     for row in $AccordionBody/HBoxContainer/VBoxContainer.get_children():
         if is_instance_valid(row):
             row_count = row.update_zebra_stripes(row_count)
+
+
+func load_open_rows(open_rows: Dictionary) -> void:
+    for open_row_key in open_rows:
+        var row = _get_row_with_key(open_row_key)
+        if is_instance_valid(row) and \
+                row is FrameworkManifestRowGroup:
+            row.is_open = true
+            row.load_open_rows(open_rows[open_row_key])
+    update_zebra_stripes()
+
+
+func get_open_rows() -> Dictionary:
+    var open_rows := {}
+    for row in $AccordionBody/HBoxContainer/VBoxContainer.get_children():
+        if is_instance_valid(row) and \
+                row is FrameworkManifestRowGroup and \
+                row.is_open:
+            open_rows[row.node.key] = row.get_open_rows()
+    return open_rows
+
+
+func _get_row_with_key(key):
+    for row in $AccordionBody/HBoxContainer/VBoxContainer.get_children():
+        if is_instance_valid(row) and \
+                row.node.key == key:
+            return row
+    return null
