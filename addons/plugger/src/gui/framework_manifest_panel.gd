@@ -149,6 +149,8 @@ func _on_array_item_added(buttons: FrameworkManifestArrayButtons) -> void:
     # Create the UI.
     _create_property_controls(
             new_item, buttons.group.indent_level + 1, buttons.group.group_body)
+    buttons.group.is_open = true
+    buttons.group.group_body.get_children().back().open_recursively()
     update_zebra_stripes()
     _on_value_changed()
 
@@ -156,6 +158,7 @@ func _on_array_item_added(buttons: FrameworkManifestArrayButtons) -> void:
 func _on_array_item_deleted(buttons: FrameworkManifestArrayButtons) -> void:
     buttons.node.children.pop_back()
     buttons.group.group_body.get_children().back().queue_free()
+    buttons.group.is_open = true
     update_zebra_stripes()
     _on_value_changed()
 
