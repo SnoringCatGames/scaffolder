@@ -11,7 +11,7 @@ const _ROW_GROUP_SCENE := \
 const _ARRAY_BUTTONS_SCENE := \
         preload("res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_array_buttons.tscn")
 
-const _ROW_HEIGHT := 32.0
+const _ROW_HEIGHT := 24.0
 const _PANEL_WIDTH := 600.0
 const _CONTROL_WIDTH := 320.0
 const _PADDING := 4.0

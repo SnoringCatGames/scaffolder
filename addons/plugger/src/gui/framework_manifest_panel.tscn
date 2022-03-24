@@ -44,7 +44,6 @@ anchor_bottom = 0.0
 margin_top = 4.0
 margin_right = 32.0
 margin_bottom = 36.0
-rect_pivot_offset = Vector2( 16, 16 )
 size_flags_vertical = 4
 
 [node name="TextureRect" type="TextureRect" parent="AccordionHeader/MarginContainer/HBoxContainer"]

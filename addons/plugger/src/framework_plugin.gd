@@ -5,6 +5,14 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: ---------------------------------------------
 # 
+# - Add a debug util for annotating GUIs:
+#   - Simply call Sc.utils.highlight_node_for_debugging(node)
+#     - If control, highlight boundary.
+#     - If node, highlight position.
+#   - Render a rectangle over bounds.
+#   - Render crosshair for position.
+#   - Continue lines and rectangle edges out to edge of viewport.
+# 
 # - Fix row-group button right-alignment.
 # - Fix zebra-striping on row-group buttons.
 # 
