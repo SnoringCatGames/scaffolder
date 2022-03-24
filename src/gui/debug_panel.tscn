@@ -50,16 +50,16 @@ text = "> 2021-7-15_12.35.26
 > Su._init
 > SurfacerBootstrap._init
 > App._init
-> ScaffolderBootstrap.run
+> FrameworkBootstrap.run
 > 
 App version: 0.0.1
 
-> ScaffolderBootstrap._parse_manifest
+> FrameworkBootstrap._parse_manifest
 > ScaffolderAppMetadata._init
 > CrashReporter._init
 > CrashReporter.report_any_previous_crash
 > CrashReporter: There did not seem to be an error in the previous session
-> ScaffolderBootstrap._initialize_framework
+> FrameworkBootstrap._initialize_framework
 > ScaffolderAudioManifest._init
 > Audio._init
 > ScaffolderColors._init
