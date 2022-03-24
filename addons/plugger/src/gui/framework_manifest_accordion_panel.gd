@@ -4,6 +4,8 @@ class_name FrameworkManifestAccordionPanel, \
 extends VBoxContainer
 
 
+signal toggled
+
 export var is_open: bool setget _set_is_open,_get_is_open
 
 var header: FrameworkManifestAccordionHeader
@@ -38,8 +40,10 @@ func _ready() -> void:
 func _set_is_open(value: bool) -> void:
     if !_is_ready:
         return
-    body.is_open = value
-    header.is_open = value
+    if value != _get_is_open():
+        body.is_open = value
+        header.is_open = value
+        emit_signal("toggled")
 
 
 func _get_is_open() -> bool:

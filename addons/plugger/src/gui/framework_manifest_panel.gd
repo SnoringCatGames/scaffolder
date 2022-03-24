@@ -137,6 +137,7 @@ func _create_group_control(
                 "added", self, "_on_array_item_added", [row.group_buttons])
         row.group_buttons.connect(
                 "deleted", self, "_on_array_item_deleted", [row.group_buttons])
+    row.connect("toggled", self, "_on_row_group_toggled", [row])
     return row
 
 
@@ -159,6 +160,10 @@ func _on_array_item_deleted(buttons: FrameworkManifestArrayButtons) -> void:
     buttons.group.group_body.get_children().back().queue_free()
     update_zebra_stripes()
     _on_value_changed()
+
+
+func _on_row_group_toggled(row: FrameworkManifestRowGroup) -> void:
+    update_zebra_stripes()
 
 
 func update_zebra_stripes() -> void:

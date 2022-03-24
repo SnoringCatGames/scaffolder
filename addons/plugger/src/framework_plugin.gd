@@ -13,9 +13,6 @@ extends EditorPlugin
 #   - Render crosshair for position.
 #   - Continue lines and rectangle edges out to edge of viewport.
 # 
-# - Fix row-group button right-alignment.
-# - Fix zebra-striping on row-group buttons.
-# 
 # - Fix the ability to specify an object type for an array child without
 #   actually including it in the manifest by default.
 # 
