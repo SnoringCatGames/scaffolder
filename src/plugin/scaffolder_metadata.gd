@@ -13,6 +13,18 @@ const PLUGIN_ICON_PATH_PREFIX := \
 const SCHEMA_PATH := "res://addons/scaffolder/src/plugin/scaffolder_schema.gd"
 const MANIFEST_PATH := "res://addons/scaffolder/src/config/manifest.json"
 
+const PLUGIN_OPEN_ROWS_PATH := \
+        "res://addons/scaffolder/src/config/plugin_open_rows.json"
+const MODES_PATH := "res://addons/scaffolder/src/config/manifest_modes.json"
+const DEFAULT_MODES := {
+    FrameworkSchemaMode.RELEASE: \
+            FrameworkSchemaMode.Release.LOCAL_DEV,
+    FrameworkSchemaMode.ANNOTATIONS: \
+            FrameworkSchemaMode.Annotations.DEFAULT,
+    FrameworkSchemaMode.UI_SMOOTHNESS: \
+            FrameworkSchemaMode.UiSmoothness.PIXELATED,
+}
+
 
 func _init().(
         DISPLAY_NAME,
