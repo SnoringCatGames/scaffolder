@@ -26,10 +26,12 @@ func set_up(
     $MarginContainer.add_constant_override("margin_top", 0.0)
     $MarginContainer.add_constant_override("margin_bottom", 0.0)
     $MarginContainer.add_constant_override("margin_left", padding)
-    $MarginContainer.add_constant_override("margin_right", padding)
+    $MarginContainer.add_constant_override("margin_right", 0.0)
     
     $MarginContainer/HBoxContainer \
             .add_constant_override("separation", padding)
+    
+    $MarginContainer/HBoxContainer/Label.rect_min_size.y = row_height
     
     if node.type == FrameworkSchema.TYPE_CUSTOM:
         $MarginContainer/HBoxContainer/Label.queue_free()
@@ -42,6 +44,7 @@ func set_up(
                 node,
                 self,
                 $MarginContainer/HBoxContainer,
+                row_height,
                 label_width,
                 control_width,
                 padding)

@@ -14,6 +14,7 @@ func set_up(
         node,
         row,
         parent_control: Control,
+        row_height: float,
         label_width: float,
         control_width: float,
         padding: float) -> void:
