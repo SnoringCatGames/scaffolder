@@ -59,16 +59,16 @@ func set_up(
 func update_zebra_stripes(index: int) -> int:
     index += 1
     
-    _set_up_styles(index % 2 == 1)
+    _set_up_styles(index % 2 == 0)
     
-    for row in group_body.get_children():
-        if is_instance_valid(row):
-            index = row.update_zebra_stripes(index)
+    if _get_is_open():
+        for row in group_body.get_children():
+            if is_instance_valid(row):
+                index = row.update_zebra_stripes(index)
     
     return index
 
 
-# FIXME: LEFT OFF HERE: --------------------------------- Debug this.
 func _set_up_styles(is_odd: bool) -> void:
     var modes := ["normal", "hover", "pressed", "focus", "disabled"]
     for mode in modes:
@@ -81,7 +81,7 @@ func _set_up_styles(is_odd: bool) -> void:
                     odd_style.bg_color.r,
                     odd_style.bg_color.g,
                     odd_style.bg_color.b,
-                    odd_style.bg_color.a * 1.5)
+                    odd_style.bg_color.a + 0.05)
             Singletons.set_value(singleton_key, even_style)
         var even_style: StyleBoxFlat = Singletons.get_value(singleton_key)
         
@@ -89,4 +89,4 @@ func _set_up_styles(is_odd: bool) -> void:
                 odd_style if \
                 is_odd else \
                 even_style
-        self.add_stylebox_override(mode, current_style)
+        $AccordionHeader.add_stylebox_override(mode, current_style)
