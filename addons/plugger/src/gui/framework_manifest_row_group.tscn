@@ -14,7 +14,6 @@ rect_clip_content = true
 size_flags_horizontal = 3
 custom_constants/separation = 0
 script = ExtResource( 1 )
-is_open = true
 
 [node name="AccordionHeader" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
@@ -49,14 +48,14 @@ size_flags_vertical = 4
 [node name="Label" type="Label" parent="AccordionHeader/MarginContainer/HBoxContainer"]
 margin_left = 32.0
 margin_top = 13.0
-margin_right = 302.0
+margin_right = 326.0
 margin_bottom = 27.0
 mouse_filter = 1
 size_flags_horizontal = 3
 valign = 1
 
 [node name="Buttons" parent="AccordionHeader/MarginContainer/HBoxContainer" instance=ExtResource( 3 )]
-margin_left = 302.0
+margin_left = 326.0
 margin_top = 3.0
 margin_right = 460.0
 margin_bottom = 37.0
