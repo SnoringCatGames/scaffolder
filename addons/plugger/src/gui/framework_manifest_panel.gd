@@ -27,9 +27,7 @@ func set_up(manifest_controller: FrameworkManifestController) -> void:
     $AccordionHeader/MarginContainer/HBoxContainer/Label.text = \
             _manifest_controller.schema.display_name
     $AccordionHeader/MarginContainer/HBoxContainer/TextureRect.texture = \
-            Pl.get_icon(
-                _manifest_controller.schema.plugin_icon_directory_path + \
-                _manifest_controller.schema.folder_name)
+            Pl.get_icon(_manifest_controller.schema.plugin_icon_path_prefix)
     
     $AccordionHeader.size_override = \
             Vector2(0.0, Pl.scale_dimension(_ROW_HEIGHT))
