@@ -1,5 +1,5 @@
 tool
-class_name ScaffolderBootstrap
+class_name FrameworkBootstrap
 extends Node
 
 
@@ -8,12 +8,12 @@ var _is_global_visibility_disabled_for_resize := false
 var _has_initial_input_happened := false
 
 
-func _init(name := "ScaffolderBootstrap") -> void:
+func _init(name := "FrameworkBootstrap") -> void:
     Sc.logger.on_global_init(self, name)
 
 
 func run() -> void:
-    _log_bootstrap_event("ScaffolderBootstrap.run")
+    _log_bootstrap_event("FrameworkBootstrap.run")
     
     call_deferred("_load_manifest")
     call_deferred("_amend_manifest")
@@ -32,7 +32,7 @@ func _amend_manifest() -> void:
 
 
 func _parse_manifest() -> void:
-    _log_bootstrap_event("ScaffolderBootstrap._parse_manifest")
+    _log_bootstrap_event("FrameworkBootstrap._parse_manifest")
     
     for config in Sc._framework_globals:
         config._parse_manifest()
@@ -46,7 +46,7 @@ func _parse_manifest() -> void:
 
 
 func _initialize_framework() -> void:
-    _log_bootstrap_event("ScaffolderBootstrap._initialize_framework")
+    _log_bootstrap_event("FrameworkBootstrap._initialize_framework")
     
     for config in Sc._framework_globals:
         config._instantiate_sub_modules()
@@ -107,7 +107,7 @@ func _initialize_framework() -> void:
 
 func _on_window_size_set() -> void:
     _log_bootstrap_event(
-            "ScaffolderBootstrap._on_window_size_set: %8.3f" % \
+            "FrameworkBootstrap._on_window_size_set: %8.3f" % \
             Sc.time.get_play_time())
     
     if Sc.device.get_is_browser_app():
@@ -126,7 +126,7 @@ func _on_window_size_set() -> void:
 
 func _on_app_initialized() -> void:
     _log_bootstrap_event(
-            "ScaffolderBootstrap._on_app_initialized: %8.3f" % \
+            "FrameworkBootstrap._on_app_initialized: %8.3f" % \
             Sc.time.get_play_time())
     
     for config in Sc._framework_globals:
@@ -148,7 +148,7 @@ func _splash() -> void:
 
 func _on_splash_finished() -> void:
     _log_bootstrap_event(
-            "ScaffolderBootstrap._on_splash_finished: %8.3f" % \
+            "FrameworkBootstrap._on_splash_finished: %8.3f" % \
             Sc.time.get_play_time())
     
     if Sc.nav.is_connected("splash_finished", self, "_on_splash_finished"):
@@ -174,7 +174,7 @@ func _on_splash_finished() -> void:
 
 func _on_app_quit() -> void:
     _log_bootstrap_event(
-            "ScaffolderBootstrap._on_app_quit: %8.3f" % \
+            "FrameworkBootstrap._on_app_quit: %8.3f" % \
             Sc.time.get_play_time())
     get_tree().call_deferred("quit")
 
@@ -246,7 +246,7 @@ func _input(event: InputEvent) -> void:
 
 func _on_initial_input() -> void:
     _log_bootstrap_event(
-            ("ScaffolderBootstrap._on_initial_input: " +
+            ("FrameworkBootstrap._on_initial_input: " +
             "%8.3f; is_definitely_touch=%s") % [
                 Sc.time.get_play_time(),
                 str(Sc.device.get_is_definitely_touch_device()),

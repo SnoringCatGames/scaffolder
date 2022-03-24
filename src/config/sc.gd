@@ -58,7 +58,7 @@ var gesture_reporter: GestureReporter
 
 # Array<FrameworkGlobal>
 var _framework_globals := []
-var _bootstrap: ScaffolderBootstrap
+var _bootstrap: FrameworkBootstrap
 
 # ---
 
@@ -113,8 +113,8 @@ func run() -> void:
     
     # Allow the default bootstrap class to be overridden by someone else.
     if !is_instance_valid(_bootstrap):
-        self._bootstrap = ScaffolderBootstrap.new()
-    assert(_bootstrap is ScaffolderBootstrap)
+        self._bootstrap = FrameworkBootstrap.new()
+    assert(_bootstrap is FrameworkBootstrap)
     if !self._bootstrap.is_inside_tree():
         add_child(_bootstrap)
     

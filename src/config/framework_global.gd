@@ -78,6 +78,7 @@ func _on_auto_load_deps_ready() -> void:
 func _amend_manifest() -> void:
     pass
 
+
 ## This is where the manifest is actually interpreted and its properties are
 ## recorded within this global object.
 func _parse_manifest() -> void:
