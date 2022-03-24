@@ -8,6 +8,7 @@ const _FRAMEWORK_MANIFEST_PANEL_SCENE := preload(
         "res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_panel.tscn")
 
 const _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS := 144.0
+const _MODE_OPTION_BUTTON_WIDTH := 150.0
 
 # Dictionary<int, int>
 var _manifest_modes := {}
@@ -102,7 +103,11 @@ func _get_panel_with_label(label: String) -> FrameworkManifestPanel:
 func _initialize_modes() -> void:
     _populate_mode_option_buttons()
     _load_modes()
-
+    
+    for mode_type in FrameworkSchemaMode.MODE_TYPES:
+        var option_button := _get_option_button(mode_type)
+        option_button.rect_min_size.x = \
+                Pl.scale_dimension(_MODE_OPTION_BUTTON_WIDTH)
 
 func _populate_mode_option_buttons() -> void:
     for mode_type in FrameworkSchemaMode.MODE_TYPES:
