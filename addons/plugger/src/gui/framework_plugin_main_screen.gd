@@ -99,11 +99,6 @@ func _get_panel_with_label(label: String) -> FrameworkManifestPanel:
 func _initialize_modes() -> void:
     _populate_mode_option_buttons()
     
-    # Assign default values for any missing mode selections.
-    for mode_type in ScaffolderMetadata.DEFAULT_MODES:
-        if !Sc.modes.has(mode_type):
-            Sc.modes[mode_type] = ScaffolderMetadata.DEFAULT_MODES[mode_type]
-    
     # Set the OptionButton selections.
     for mode_type in FrameworkSchemaMode.MODE_TYPES:
         _set_mode(mode_type, Sc.modes[mode_type], false)

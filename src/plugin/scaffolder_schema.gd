@@ -609,25 +609,25 @@ var _default_images_manifest_normal := {
     slider_tick_sizes = \
             ScaffolderImages.DEFAULT_SLIDER_TICK_NORMAL_SIZES,
     
-    app_logo = \
-            preload("res://addons/scaffolder/assets/images/logos/scaffolder_logo.png"),
+    app_logo = preload(
+            "res://addons/scaffolder/assets/images/logos/scaffolder_logo.png"),
     app_logo_scale = 1.0,
     
-    developer_logo = \
-            preload("res://addons/scaffolder/assets/images/logos/snoring_cat_logo_about.png"),
-    developer_splash = \
-            preload("res://addons/scaffolder/assets/images/logos/snoring_cat_logo_splash.png"),
+    developer_logo = preload(
+            "res://addons/scaffolder/assets/images/logos/snoring_cat_logo_about.png"),
+    developer_splash = preload(
+            "res://addons/scaffolder/assets/images/logos/snoring_cat_logo_splash.png"),
     
-    go_normal = \
-            preload("res://addons/scaffolder/assets/images/gui/icons/go_normal.png"),
+    go_normal = preload(
+            "res://addons/scaffolder/assets/images/gui/icons/go_normal.png"),
     go_scale = 1.5,
     
-    about_circle_pressed = \
-            preload("res://addons/scaffolder/assets/images/gui/icons/about_circle_pressed.png"),
-    about_circle_hover = \
-            preload("res://addons/scaffolder/assets/images/gui/icons/about_circle_hover.png"),
-    about_circle_normal = \
-            preload("res://addons/scaffolder/assets/images/gui/icons/about_circle_normal.png"),
+    about_circle_pressed = preload(
+            "res://addons/scaffolder/assets/images/gui/icons/about_circle_pressed.png"),
+    about_circle_hover = preload(
+            "res://addons/scaffolder/assets/images/gui/icons/about_circle_hover.png"),
+    about_circle_normal = preload(
+            "res://addons/scaffolder/assets/images/gui/icons/about_circle_normal.png"),
     
     alert_normal = \
             preload("res://addons/scaffolder/assets/images/gui/icons/alert_normal.png"),
@@ -716,15 +716,25 @@ var _default_images_manifest_pixel := {
     slider_tick_sizes = \
             ScaffolderImages.DEFAULT_SLIDER_TICK_PIXEL_SIZES,
     
-    go_normal = preload("res://addons/scaffolder/assets/images/gui/icons/go_normal.png"),
+    app_logo = preload(
+            "res://addons/scaffolder/assets/images/logos/scaffolder_logo.png"),
+    app_logo_scale = 1.0,
+    
+    developer_logo = preload(
+            "res://addons/scaffolder/assets/images/logos/snoring_cat_logo_about.png"),
+    developer_splash = preload(
+            "res://addons/scaffolder/assets/images/logos/snoring_cat_logo_splash.png"),
+    
+    go_normal = preload(
+            "res://addons/scaffolder/assets/images/gui/icons/go_normal.png"),
     go_scale = 1.5,
     
-    about_circle_pressed = \
-            preload("res://addons/scaffolder/assets/images/gui/icons/about_circle_pressed.png"),
-    about_circle_hover = \
-            preload("res://addons/scaffolder/assets/images/gui/icons/about_circle_hover.png"),
-    about_circle_normal = \
-            preload("res://addons/scaffolder/assets/images/gui/icons/about_circle_normal.png"),
+    about_circle_pressed = preload(
+            "res://addons/scaffolder/assets/images/gui/icons/about_circle_pressed.png"),
+    about_circle_hover = preload(
+            "res://addons/scaffolder/assets/images/gui/icons/about_circle_hover.png"),
+    about_circle_normal = preload(
+            "res://addons/scaffolder/assets/images/gui/icons/about_circle_normal.png"),
     
     alert_normal = \
             preload("res://addons/scaffolder/assets/images/gui/icons/alert_normal.png"),
