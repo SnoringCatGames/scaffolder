@@ -10,9 +10,6 @@ const _FRAMEWORK_MANIFEST_PANEL_SCENE := preload(
 const _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS := 144.0
 const _MODE_OPTION_BUTTON_WIDTH := 150.0
 
-# Dictionary<int, int>
-var _manifest_modes := {}
-
 
 var _throttled_on_resize: FuncRef = Sc.time.throttle(
         funcref(self, "adjust_size"),
@@ -27,9 +24,8 @@ var _debounced_save_open_rows = Sc.time.debounce(
 func _ready() -> void:
     _initialize_modes()
     
+    _reset_panels()
     Sc.connect("initialized", self, "_reset_panels")
-    if Sc.is_initialized:
-        _reset_panels()
     
     _load_open_rows()
     
@@ -102,12 +98,22 @@ func _get_panel_with_label(label: String) -> FrameworkManifestPanel:
 
 func _initialize_modes() -> void:
     _populate_mode_option_buttons()
-    _load_modes()
     
+    # Assign default values for any missing mode selections.
+    for mode_type in ScaffolderMetadata.DEFAULT_MODES:
+        if !Sc.modes.has(mode_type):
+            Sc.modes[mode_type] = ScaffolderMetadata.DEFAULT_MODES[mode_type]
+    
+    # Set the OptionButton selections.
+    for mode_type in FrameworkSchemaMode.MODE_TYPES:
+        _set_mode(mode_type, Sc.modes[mode_type], false)
+    
+    # Set option-button widths.
     for mode_type in FrameworkSchemaMode.MODE_TYPES:
         var option_button := _get_option_button(mode_type)
         option_button.rect_min_size.x = \
                 Pl.scale_dimension(_MODE_OPTION_BUTTON_WIDTH)
+
 
 func _populate_mode_option_buttons() -> void:
     for mode_type in FrameworkSchemaMode.MODE_TYPES:
@@ -119,27 +125,9 @@ func _populate_mode_option_buttons() -> void:
             option_button.add_item(label, type)
 
 
-func _load_modes() -> void:
-    # Load the selected modes from the JSON file.
-    _manifest_modes = Sc.json.load_file(
-        ScaffolderMetadata.MODES_PATH,
-            true,
-            true)
-    
-    # Assign default values for any missing mode selections.
-    for mode_type in ScaffolderMetadata.DEFAULT_MODES:
-        if !_manifest_modes.has(mode_type):
-            _manifest_modes[mode_type] = \
-                    ScaffolderMetadata.DEFAULT_MODES[mode_type]
-    
-    # Set the OptionButton selections.
-    for mode_type in FrameworkSchemaMode.MODE_TYPES:
-        _set_mode(mode_type, _manifest_modes[mode_type], false)
-
-
 func _save_modes() -> void:
     Sc.json.save_file(
-            _manifest_modes,
+            Sc.modes,
             ScaffolderMetadata.MODES_PATH,
             true,
             true)
@@ -150,6 +138,8 @@ func _get_option_button(mode_type: int) -> OptionButton:
     match mode_type:
         FrameworkSchemaMode.RELEASE:
             node = $VBoxContainer/Modes/Release/ReleaseModeButton
+        FrameworkSchemaMode.THREADING:
+            node = $VBoxContainer/Modes/Threading/ThreadingModeButton
         FrameworkSchemaMode.ANNOTATIONS:
             node = $VBoxContainer/Modes/Annotations/AnnotationsModeButton
         FrameworkSchemaMode.UI_SMOOTHNESS:
@@ -163,6 +153,8 @@ func _get_type_to_string_map(mode_type: int) -> Dictionary:
     match mode_type:
         FrameworkSchemaMode.RELEASE:
             return FrameworkSchemaMode.RELEASE_TYPE_TO_STRING
+        FrameworkSchemaMode.THREADING:
+            return FrameworkSchemaMode.THREADING_TYPE_TO_STRING
         FrameworkSchemaMode.ANNOTATIONS:
             return FrameworkSchemaMode.ANNOTATIONS_TYPE_TO_STRING
         FrameworkSchemaMode.UI_SMOOTHNESS:
@@ -174,6 +166,10 @@ func _get_type_to_string_map(mode_type: int) -> Dictionary:
 
 func _on_ReleaseModeButton_item_selected(index: int) -> void:
     _on_mode_changed(FrameworkSchemaMode.RELEASE)
+
+
+func _on_ThreadingModeButton_item_selected(index: int) -> void:
+    _on_mode_changed(FrameworkSchemaMode.THREADING)
 
 
 func _on_AnnotationsModeButton_item_selected(index: int) -> void:
@@ -194,7 +190,7 @@ func _set_mode(
         mode_type: int,
         mode_value: int,
         should_save_json: bool) -> void:
-    _manifest_modes[mode_type] = mode_value
+    Sc.modes[mode_type] = mode_value
     
     var option_button := _get_option_button(mode_type)
     var index := option_button.get_item_index(mode_value)

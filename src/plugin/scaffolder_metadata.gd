@@ -19,6 +19,8 @@ const MODES_PATH := "res://addons/scaffolder/src/config/manifest_modes.json"
 const DEFAULT_MODES := {
     FrameworkSchemaMode.RELEASE: \
             FrameworkSchemaMode.Release.LOCAL_DEV,
+    FrameworkSchemaMode.THREADING: \
+            FrameworkSchemaMode.Threading.DISABLED,
     FrameworkSchemaMode.ANNOTATIONS: \
             FrameworkSchemaMode.Annotations.DEFAULT,
     FrameworkSchemaMode.UI_SMOOTHNESS: \

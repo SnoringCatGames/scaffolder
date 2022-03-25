@@ -60,6 +60,9 @@ var gesture_reporter: GestureReporter
 var _framework_globals := []
 var _bootstrap: FrameworkBootstrap
 
+# FIXME: LEFT OFF HERE: -------------- Move this somewhere else?
+var modes: Dictionary
+
 # ---
 
 

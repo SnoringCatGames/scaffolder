@@ -65,6 +65,29 @@ text = "LOCAL_DEV"
 items = [ "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null ]
 selected = 0
 
+[node name="Threading" type="VBoxContainer" parent="VBoxContainer/Modes"]
+margin_left = 32.0
+margin_right = 432.0
+margin_bottom = 38.0
+
+[node name="Label" type="Label" parent="VBoxContainer/Modes/Threading"]
+margin_right = 400.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Threading mode"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ThreadingModeButton" type="OptionButton" parent="VBoxContainer/Modes/Threading"]
+margin_top = 18.0
+margin_right = 400.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 400, 0 )
+size_flags_horizontal = 3
+selected = 0
+
 [node name="Annotations" type="VBoxContainer" parent="VBoxContainer/Modes"]
 margin_left = 464.0
 margin_right = 864.0
@@ -150,5 +173,6 @@ size_flags_horizontal = 3
 custom_constants/separation = 0
 
 [connection signal="item_selected" from="VBoxContainer/Modes/Release/ReleaseModeButton" to="." method="_on_ReleaseModeButton_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/Modes/Threading/ThreadingModeButton" to="." method="_on_ThreadingModeButton_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/Modes/Annotations/AnnotationsModeButton" to="." method="_on_AnnotationsModeButton_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/Modes/UiSmoothness/UiSmoothnessModeButton" to="." method="_on_UiSmoothnessModeButton_item_selected"]

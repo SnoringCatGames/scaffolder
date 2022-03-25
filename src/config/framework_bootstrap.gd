@@ -15,9 +15,17 @@ func _init(name := "FrameworkBootstrap") -> void:
 func run() -> void:
     _log_bootstrap_event("FrameworkBootstrap.run")
     
+    call_deferred("_load_modes")
     call_deferred("_load_manifest")
     call_deferred("_amend_manifest")
     call_deferred("_parse_manifest")
+
+
+func _load_modes() -> void:
+    Sc.modes = Sc.json.load_file(
+            ScaffolderMetadata.MODES_PATH,
+            true,
+            true)
 
 
 func _load_manifest() -> void:
