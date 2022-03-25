@@ -5,6 +5,8 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: -----------------------------------------------
 # 
+# - Figure out how to deal with pixel-vs-anti-aliased default styles.
+# 
 # - Consolidate all manifest JSONs into one file, stored within the game
 #   config/, rather than in addons.
 # 
