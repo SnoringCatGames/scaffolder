@@ -3,61 +3,64 @@
 [ext_resource path="res://addons/scaffolder/assets/fonts/nunito_font_l.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_plugin_main_screen.gd" type="Script" id=2]
 
-[node name="FrameworkPluginMainScreen" type="CenterContainer"]
+[node name="FrameworkPluginMainScreen" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 2 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_top = 126.0
-margin_right = 1040.0
-margin_bottom = 642.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 1040.0
+[node name="Label" type="Label" parent="."]
+margin_right = 1024.0
 margin_bottom = 58.0
 custom_fonts/font = ExtResource( 1 )
 text = "Framework configuration"
 align = 1
 
-[node name="Spacer" type="Control" parent="VBoxContainer"]
+[node name="Spacer" type="Control" parent="."]
+margin_left = 512.0
 margin_top = 62.0
-margin_right = 1040.0
+margin_right = 512.0
 margin_bottom = 82.0
 rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="Modes" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Modes" type="HBoxContainer" parent="."]
 margin_top = 86.0
-margin_right = 1040.0
+margin_right = 1024.0
 margin_bottom = 86.0
 custom_constants/separation = 32
 
-[node name="Spacer2" type="Control" parent="VBoxContainer"]
+[node name="Spacer2" type="Control" parent="."]
+margin_left = 512.0
 margin_top = 90.0
-margin_right = 1040.0
+margin_right = 512.0
 margin_bottom = 110.0
 rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 margin_top = 114.0
-margin_right = 1040.0
-margin_bottom = 516.0
+margin_right = 1024.0
+margin_bottom = 882.0
+rect_min_size = Vector2( 0, 768 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/CenterContainer"]
-margin_right = 1040.0
-margin_bottom = 402.0
-rect_min_size = Vector2( 1040, 402 )
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer"]
+margin_left = 144.0
+margin_top = 183.0
+margin_right = 880.0
+margin_bottom = 585.0
+rect_min_size = Vector2( 736, 402 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/ScrollContainer"]
-margin_right = 1040.0
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/ScrollContainer"]
+margin_right = 736.0
+margin_bottom = 192.0
 rect_min_size = Vector2( 600, 0 )
 size_flags_horizontal = 3
 custom_constants/separation = 0

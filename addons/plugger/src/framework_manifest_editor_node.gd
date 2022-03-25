@@ -11,6 +11,10 @@ var parent
 var key
 var schema
 
+var is_overridden := false
+var override_source: String
+var override_value
+
 
 func _init(parent, key, schema) -> void:
     self.parent = parent

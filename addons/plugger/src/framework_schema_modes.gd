@@ -11,15 +11,20 @@ var options := {}
 # Dictionary<String, String>
 var _active := {}
 
+# Dictionary<String, Color>
+var colors := {}
+
 
 func register_mode(
         name: String,
         options: Array,
-        default: String) -> void:
+        default: String,
+        color: Color) -> void:
     assert(!self.options.has(name))
     assert(options.find(default) >= 0)
     self.options[name] = options
     self._active[name] = default
+    self.colors[name] = color
 
 
 func register_mode_option(

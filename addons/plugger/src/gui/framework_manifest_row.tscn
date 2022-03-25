@@ -13,20 +13,26 @@ script = ExtResource( 1 )
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 8.0
+margin_right = 12.0
 margin_bottom = 21.0
 rect_clip_content = true
 mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-margin_right = 1.0
+margin_right = 5.0
 margin_bottom = 14.0
 rect_clip_content = true
 size_flags_horizontal = 3
 
+[node name="OverrideIndicator" type="ColorRect" parent="MarginContainer/HBoxContainer"]
+margin_bottom = 14.0
+mouse_filter = 1
+color = Color( 0, 0, 0, 0 )
+
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
-margin_right = 1.0
+margin_left = 4.0
+margin_right = 5.0
 margin_bottom = 14.0
 rect_clip_content = true
 mouse_filter = 1

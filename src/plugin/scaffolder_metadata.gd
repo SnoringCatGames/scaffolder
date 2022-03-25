@@ -16,22 +16,26 @@ const MANIFEST_PATH := "res://addons/scaffolder/src/config/manifest.json"
 const PLUGIN_OPEN_ROWS_PATH := \
         "res://addons/scaffolder/src/config/plugin_open_rows.json"
 const MODES_PATH := "res://addons/scaffolder/src/config/manifest_modes.json"
-const MODES := {
+var MODES := {
     release = {
         options = ["local_dev", "playtest", "production"],
-        default = "local_dev"
+        default = "local_dev",
+        color = Color.from_hsv(0.153, 0.85, 0.98, 1.0),
     },
     threading = {
         options = ["enabled", "disabled"],
-        default = "disabled"
+        default = "disabled",
+        color = Color.from_hsv(0.403, 0.85, 0.98, 1.0),
     },
     annotations = {
         options = ["default", "emphasized"],
-        default = "default"
+        default = "default",
+        color = Color.from_hsv(0.903, 0.85, 0.98, 1.0),
     },
     ui_smoothness = {
         options = ["pixelated", "anti_aliased"],
-        default = "pixelated"
+        default = "pixelated",
+        color = Color.from_hsv(0.653, 0.7, 0.98, 1.0),
     },
 }
 

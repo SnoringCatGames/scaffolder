@@ -3,10 +3,7 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: -------------------------------------------------
-# 
-# - Add support for multi-line text-edit fields in manifest UI.
-#   - Use this for anything that contains a newline in the default value.
+# FIXME: LEFT OFF HERE: --------------------------------------------------
 # 
 # - SOLUTION to manifest override with modes problem:
 #   - Do still try to support highlighting the plugin rows that are overridden by modes.
@@ -15,7 +12,10 @@ extends EditorPlugin
 # - Consolidate all manifest JSONs into one file, stored within the game
 #   config/, rather than in addons.
 # 
-# - Add a button for resetting frameworks within the editor.
+# - In order to support pinned manifest entries:
+#   - Include an array of property-path strings in each schema constructor.
+#     - I could use an inline special-token key within schema Dictionaries, but 
+#       then I wouldn't have control over the ordering of pinned items.
 # 
 # - Refactor SquirrelAway._amend_manifest to collect all overrides in a single map:
 #   - The keys will represent the manifest object paths. E.g.:
@@ -151,6 +151,11 @@ extends EditorPlugin
 #   - Refactor things to work regardless of the order that AutoLoads are included.
 #   - Expect that Scaffolder will force the order of plugin initialization to be as needed.
 #     - Expect that each plugin will define a priority value.
+# 
+# - Add a button for resetting frameworks within the editor.
+# 
+# - Add support for multi-line text-edit fields in manifest UI.
+#   - Use this for anything that contains a newline in the default value.
 # 
 # - Add a debug util for annotating GUIs:
 #   - Simply call Sc.utils.highlight_node_for_debugging(node)

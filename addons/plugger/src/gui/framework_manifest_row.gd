@@ -6,6 +6,15 @@ extends PanelContainer
 
 signal changed
 
+var _ZEBRA_STRIPE_COLOR := Color.from_hsv(0.0, 0.0, 0.7, 0.1)
+var _OVERRIDE_HIGHLIGHT_COLOR := Color("22ff2a00")
+var _OVERRIDE_HIGHLIGHT_ZEBRA_STRIPE_COLOR := Color.from_hsv(
+        _OVERRIDE_HIGHLIGHT_COLOR.h,
+        _OVERRIDE_HIGHLIGHT_COLOR.s - 0.1,
+        _OVERRIDE_HIGHLIGHT_COLOR.v,
+        _OVERRIDE_HIGHLIGHT_COLOR.a + 0.03)
+const _OVERRIDE_INDICATOR_WIDTH := 4.0
+
 var group
 var node: FrameworkManifestEditorNode
 var custom_property: FrameworkManifestCustomProperty
@@ -25,13 +34,16 @@ func set_up(
     
     $MarginContainer.add_constant_override("margin_top", 0.0)
     $MarginContainer.add_constant_override("margin_bottom", 0.0)
-    $MarginContainer.add_constant_override("margin_left", padding)
+    $MarginContainer.add_constant_override("margin_left", 0.0)
     $MarginContainer.add_constant_override("margin_right", 0.0)
     
     $MarginContainer/HBoxContainer \
             .add_constant_override("separation", padding)
     
     $MarginContainer/HBoxContainer/Label.rect_min_size.y = row_height
+    
+    $MarginContainer/HBoxContainer/OverrideIndicator.rect_min_size.x = \
+            Pl.scale_dimension(_OVERRIDE_INDICATOR_WIDTH)
     
     if node.type == FrameworkSchema.TYPE_CUSTOM:
         $MarginContainer/HBoxContainer/Label.queue_free()
@@ -68,6 +80,30 @@ func set_up(
                 control_width
         value_editor.mouse_filter = MOUSE_FILTER_PASS
         $MarginContainer/HBoxContainer.add_child(value_editor)
+        
+        if node.is_overridden:
+            if node.override_source != "":
+                var color: Color = Sc.modes.colors[node.override_source]
+                $MarginContainer/HBoxContainer/OverrideIndicator.color = color
+            
+            var style := StyleBoxFlat.new()
+            style.bg_color = _OVERRIDE_HIGHLIGHT_COLOR
+            self.add_stylebox_override("panel", style)
+            
+            var source_string := \
+                    "" if \
+                    node.override_source == "" else \
+                    ("Overriding mode: %s\n" % node.override_source)
+            $MarginContainer/HBoxContainer/Label.hint_tooltip = (
+                "%s\n" +
+                "**This property is overridden by FrameworkGlobal logic.**\n" +
+                "%s" +
+                "Override value: %s"
+            ) % [
+                text,
+                source_string,
+                str(node.override_value),
+            ]
 
 
 func open_recursively() -> void:
@@ -76,11 +112,18 @@ func open_recursively() -> void:
 
 func update_zebra_stripes(index: int) -> int:
     var style: StyleBox
-    if index % 2 == 1:
-        style = StyleBoxEmpty.new()
+    if node.is_overridden:
+        style = self.get_stylebox("panel")
+        if index % 2 == 1:
+            style.bg_color = _OVERRIDE_HIGHLIGHT_COLOR
+        else:
+            style.bg_color = _OVERRIDE_HIGHLIGHT_ZEBRA_STRIPE_COLOR
     else:
-        style = StyleBoxFlat.new()
-        style.bg_color = Color.from_hsv(0.0, 0.0, 0.7, 0.1)
+        if index % 2 == 1:
+            style = StyleBoxEmpty.new()
+        else:
+            style = StyleBoxFlat.new()
+            style.bg_color = _ZEBRA_STRIPE_COLOR
     self.add_stylebox_override("panel", style)
     
     return index + 1
