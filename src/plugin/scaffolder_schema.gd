@@ -6,8 +6,6 @@ extends FrameworkSchema
 const _METADATA_SCRIPT := ScaffolderMetadata
 
 var _metadata := {
-    debug = false,
-    playtest = false,
     pauses_on_focus_out = true,
     also_prints_to_stdout = true,
     logs_character_events = true,
@@ -197,7 +195,7 @@ var _audio_manifest := {
     is_slow_motion_start_stop_sound_effect_played = true,
 }
 
-var _default_fonts_manifest_normal := {
+var _fonts_manifest_anti_aliased := {
     fonts = {
         main_xxs = preload( \
                 "res://addons/scaffolder/assets/fonts/roboto_font_xxs.tres"),
@@ -271,7 +269,7 @@ var _default_fonts_manifest_normal := {
     },
 }
 
-var _default_fonts_manifest_pixel := {
+var _fonts_manifest_pixelated := {
     fonts = {
         main_xxs = preload( \
                 "res://addons/scaffolder/assets/fonts/pxlzr_font_xxs.tres"),
@@ -345,7 +343,7 @@ var _default_fonts_manifest_pixel := {
     },
 }
 
-var _default_styles_manifest_normal := {
+var _styles_manifest_anti_aliased := {
     focus_border_corner_radius = 5,
     focus_border_corner_detail = 3,
     focus_border_shadow_size = 0,
@@ -437,7 +435,7 @@ var _default_styles_manifest_normal := {
     screen_border_width = 0,
 }
 
-var _default_styles_manifest_pixel := {
+var _styles_manifest_pixelated := {
     button_content_margin_left = 16.0,
     button_content_margin_top = 8.0,
     button_content_margin_right = 16.0,
@@ -566,7 +564,7 @@ var _default_styles_manifest_pixel := {
     screen_border_width = 0,
 }
 
-var _default_images_manifest_normal := {
+var _images_manifest_anti_aliased := {
     checkbox_path_prefix = \
             ScaffolderImages.DEFAULT_CHECKBOX_NORMAL_PATH_PREFIX,
     default_checkbox_size = \
@@ -673,7 +671,7 @@ var _default_images_manifest_normal := {
             preload("res://addons/scaffolder/assets/images/gui/icons/stop_normal.png"),
 }
 
-var _default_images_manifest_pixel := {
+var _images_manifest_pixelated := {
     checkbox_path_prefix = \
             ScaffolderImages.DEFAULT_CHECKBOX_PIXEL_PATH_PREFIX,
     default_checkbox_size = \
@@ -1053,7 +1051,8 @@ var _gui_manifest := {
     
     theme = preload("res://addons/scaffolder/src/config/scaffolder_default_theme.tres"),
     
-    fonts_manifest = _default_fonts_manifest_pixel,
+    fonts_manifest = _fonts_manifest_anti_aliased,
+    fonts_manifest = _fonts_manifest_pixelated,
     settings_item_manifest = _settings_item_manifest,
     pause_item_manifest = _pause_item_manifest,
     game_over_item_manifest = _game_over_item_manifest,
@@ -1203,8 +1202,10 @@ var _properties := {
     metadata = _metadata,
     audio_manifest = _audio_manifest,
     colors_manifest = _colors_manifest,
-    styles_manifest = _default_styles_manifest_normal,
-    images_manifest = _default_images_manifest_normal,
+    styles_manifest_anti_aliased = _styles_manifest_anti_aliased,
+    styles_manifest_pixelated = _styles_manifest_pixelated,
+    images_manifest_anti_aliased = _images_manifest_anti_aliased,
+    images_manifest_pixelated = _images_manifest_pixelated,
     gui_manifest = _gui_manifest,
     notifications_manifest = _notifications_manifest,
     slow_motion_manifest = _slow_motion_manifest,

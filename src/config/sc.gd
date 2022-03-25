@@ -245,6 +245,32 @@ func _get_members_to_destroy() -> Array:
     ]
 
 
+func _amend_manifest() -> void:
+    ._amend_manifest()
+    
+    Sc.manifest.metadata.debug = \
+            Sc.modes.get_is_active("release", "local_dev")
+    Sc.manifest.metadata.playtest = \
+            Sc.modes.get_is_active("release", "playtest")
+    Sc.manifest.metadata.is_using_threads = \
+            Sc.modes.get_is_active("threading", "enabled")
+    Sc.manifest.metadata.is_using_pixel_style = \
+            Sc.modes.get_is_active("ui_smoothness", "pixelated")
+    Sc.manifest.metadata.are_annotations_emphasized = \
+            Sc.modes.get_is_active("annotations", "emphasized")
+    
+    if Sc.manifest.metadata.is_using_pixel_style:
+        Sc.manifest.gui_manifest.fonts_manifest = \
+                Sc.manifest.gui_manifest.fonts_manifest_pixelated
+        Sc.manifest.styles_manifest = Sc.manifest.styles_manifest_pixelated
+        Sc.manifest.images_manifest = Sc.manifest.images_manifest_pixelated
+    else:
+        Sc.manifest.gui_manifest.fonts_manifest = \
+                Sc.manifest.gui_manifest.fonts_manifest_anti_aliased
+        Sc.manifest.styles_manifest = Sc.manifest.styles_manifest_anti_aliased
+        Sc.manifest.images_manifest = Sc.manifest.images_manifest_anti_aliased
+
+
 func _parse_manifest() -> void:
     assert((manifest.images_manifest.developer_splash == null) == \
             manifest.audio_manifest.developer_splash_sound.empty())
