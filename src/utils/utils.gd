@@ -140,14 +140,40 @@ static func concat(
 static func merge(
         result: Dictionary,
         other: Dictionary,
-        overrides_preexisting_properties := true) -> void:
-    if overrides_preexisting_properties:
-        for key in other:
-            result[key] = other[key]
+        overrides_preexisting_properties := true,
+        recursive := false) -> void:
+    if recursive:
+        if overrides_preexisting_properties:
+            for key in other:
+                if result.has(key):
+                    if result[key] is Dictionary and other[key] is Dictionary:
+                        merge(result[key], other[key], true, true)
+                    elif result[key] is Array and other[key] is Array:
+                        concat(result[key], other[key])
+                    else:
+                        result[key] = other[key]
+                else:
+                    result[key] = other[key]
+        else:
+            for key in other:
+                if result.has(key):
+                    if result[key] is Dictionary and other[key] is Dictionary:
+                        merge(result[key], other[key], false, true)
+                    elif result[key] is Array and other[key] is Array:
+                        concat(result[key], other[key])
+                    else:
+                        # Do nothing; preserve the original value.
+                        pass
+                else:
+                    result[key] = other[key]
     else:
-        for key in other:
-            if !result.has(key):
+        if overrides_preexisting_properties:
+            for key in other:
                 result[key] = other[key]
+        else:
+            for key in other:
+                if !result.has(key):
+                    result[key] = other[key]
 
 
 static func join(
