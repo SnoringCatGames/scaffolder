@@ -22,32 +22,39 @@ func run() -> void:
 
 
 func _load_modes() -> void:
-    Sc.modes = Sc.json.load_file(
-            ScaffolderMetadata.MODES_PATH,
-            true,
-            true)
-    # Assign default values for any missing mode selections.
-    for mode_type in ScaffolderMetadata.DEFAULT_MODES:
-        if !Sc.modes.has(mode_type):
-            Sc.modes[mode_type] = ScaffolderMetadata.DEFAULT_MODES[mode_type]
+    # Register all possible modes from each framework.
+    for global in Sc._framework_globals:
+        for mode_name in global.schema.modes:
+            var mode_config = global.schema.modes[mode_name]
+            assert(mode_name is String)
+            assert(mode_config is Dictionary and \
+                    mode_config.has("options") and \
+                    mode_config.has("default"))
+            assert(mode_config.options is Array)
+            assert(mode_config.default is String)
+            Sc.modes.register_mode(
+                    mode_name,
+                    mode_config.options,
+                    mode_config.default)
+    Sc.modes.load_from_json()
 
 
 func _load_manifest() -> void:
-    for config in Sc._framework_globals:
-        config._load_manifest()
+    for global in Sc._framework_globals:
+        global._load_manifest()
     _log_app_name()
 
 
 func _amend_manifest() -> void:
-    for config in Sc._framework_globals:
-        config._amend_manifest()
+    for global in Sc._framework_globals:
+        global._amend_manifest()
 
 
 func _parse_manifest() -> void:
     _log_bootstrap_event("FrameworkBootstrap._parse_manifest")
     
-    for config in Sc._framework_globals:
-        config._parse_manifest()
+    for global in Sc._framework_globals:
+        global._parse_manifest()
     
     Sc.initialize_metadata()
     
@@ -60,16 +67,16 @@ func _parse_manifest() -> void:
 func _initialize_framework() -> void:
     _log_bootstrap_event("FrameworkBootstrap._initialize_framework")
     
-    for config in Sc._framework_globals:
-        config._instantiate_sub_modules()
+    for global in Sc._framework_globals:
+        global._instantiate_sub_modules()
     
-    for config in Sc._framework_globals:
-        config._configure_sub_modules()
+    for global in Sc._framework_globals:
+        global._configure_sub_modules()
     
     Sc.nav.connect("app_quit", self, "_on_app_quit")
     
-    for config in Sc._framework_globals:
-        config._load_state()
+    for global in Sc._framework_globals:
+        global._load_state()
     
     Sc.styles.configure_theme()
     
@@ -141,8 +148,8 @@ func _on_app_initialized() -> void:
             "FrameworkBootstrap._on_app_initialized: %8.3f" % \
             Sc.time.get_play_time())
     
-    for config in Sc._framework_globals:
-        config._set_initialized()
+    for global in Sc._framework_globals:
+        global._set_initialized()
     
     if Engine.editor_hint:
         return

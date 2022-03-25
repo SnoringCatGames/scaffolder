@@ -20,9 +20,12 @@ var _debounced_save_open_rows = Sc.time.debounce(
         3.0,
         false)
 
+# Dictionary<String, OptionButton>
+var _option_buttons := {}
+
 
 func _ready() -> void:
-    _initialize_modes()
+    _create_mode_option_buttons()
     
     _reset_panels()
     Sc.connect("initialized", self, "_reset_panels")
@@ -96,100 +99,65 @@ func _get_panel_with_label(label: String) -> FrameworkManifestPanel:
     return null
 
 
-func _initialize_modes() -> void:
-    _populate_mode_option_buttons()
+func _create_mode_option_buttons() -> void:
+    var container := $VBoxContainer/Modes
+    Sc.utils.clear_children(container)
     
-    # Set the OptionButton selections.
-    for mode_type in FrameworkSchemaMode.MODE_TYPES:
-        _set_mode(mode_type, Sc.modes[mode_type], false)
+    var spacer_left := Control.new()
+    spacer_left.size_flags_horizontal = SIZE_EXPAND_FILL
+    container.add_child(spacer_left)
     
-    # Set option-button widths.
-    for mode_type in FrameworkSchemaMode.MODE_TYPES:
-        var option_button := _get_option_button(mode_type)
+    for mode_name in Sc.modes.options:
+        var vbox := VBoxContainer.new()
+        container.add_child(vbox)
+        
+        var label := Label.new()
+        label.text = "%s mode" % mode_name.capitalize()
+        label.align = Label.ALIGN_CENTER
+        label.size_flags_horizontal = SIZE_EXPAND_FILL
+        vbox.add_child(label)
+        
+        var option_button := OptionButton.new()
+        _option_buttons[mode_name] = option_button
         option_button.rect_min_size.x = \
                 Pl.scale_dimension(_MODE_OPTION_BUTTON_WIDTH)
-
-
-func _populate_mode_option_buttons() -> void:
-    for mode_type in FrameworkSchemaMode.MODE_TYPES:
-        var option_button := _get_option_button(mode_type)
         option_button.clear()
-        var type_to_string_map := _get_type_to_string_map(mode_type)
-        for type in type_to_string_map:
-            var label: String = type_to_string_map[type]
-            option_button.add_item(label, type)
+        for mode_option in Sc.modes.options[mode_name]:
+            option_button.add_item(mode_option)
+        _set_mode(mode_name, Sc.modes.get_mode(mode_name), false)
+        option_button.connect(
+                "item_selected", self, "_on_mode_changed", [mode_name])
+        vbox.add_child(option_button)
+    
+    var spacer_right := Control.new()
+    spacer_right.size_flags_horizontal = SIZE_EXPAND_FILL
+    container.add_child(spacer_right)
 
 
-func _save_modes() -> void:
-    Sc.json.save_file(
-            Sc.modes,
-            ScaffolderMetadata.MODES_PATH,
-            true,
-            true)
+func _get_option_index_from_text(
+        option_button: OptionButton,
+        text: String) -> int:
+    for index in option_button.get_item_count():
+        if option_button.get_item_text(index) == text:
+            return index
+    return -1
 
 
-func _get_option_button(mode_type: int) -> OptionButton:
-    var node: Node
-    match mode_type:
-        FrameworkSchemaMode.RELEASE:
-            node = $VBoxContainer/Modes/Release/ReleaseModeButton
-        FrameworkSchemaMode.THREADING:
-            node = $VBoxContainer/Modes/Threading/ThreadingModeButton
-        FrameworkSchemaMode.ANNOTATIONS:
-            node = $VBoxContainer/Modes/Annotations/AnnotationsModeButton
-        FrameworkSchemaMode.UI_SMOOTHNESS:
-            node = $VBoxContainer/Modes/UiSmoothness/UiSmoothnessModeButton
-        _:
-            Sc.logger.error("FrameworkPluginMainScreen._get_option_button")
-    return node as OptionButton
-
-
-func _get_type_to_string_map(mode_type: int) -> Dictionary:
-    match mode_type:
-        FrameworkSchemaMode.RELEASE:
-            return FrameworkSchemaMode.RELEASE_TYPE_TO_STRING
-        FrameworkSchemaMode.THREADING:
-            return FrameworkSchemaMode.THREADING_TYPE_TO_STRING
-        FrameworkSchemaMode.ANNOTATIONS:
-            return FrameworkSchemaMode.ANNOTATIONS_TYPE_TO_STRING
-        FrameworkSchemaMode.UI_SMOOTHNESS:
-            return FrameworkSchemaMode.UI_SMOOTHNESS_TYPE_TO_STRING
-        _:
-            Sc.logger.error("FrameworkPluginMainScreen._type_to_index")
-            return {}
-
-
-func _on_ReleaseModeButton_item_selected(index: int) -> void:
-    _on_mode_changed(FrameworkSchemaMode.RELEASE)
-
-
-func _on_ThreadingModeButton_item_selected(index: int) -> void:
-    _on_mode_changed(FrameworkSchemaMode.THREADING)
-
-
-func _on_AnnotationsModeButton_item_selected(index: int) -> void:
-    _on_mode_changed(FrameworkSchemaMode.ANNOTATIONS)
-
-
-func _on_UiSmoothnessModeButton_item_selected(index: int) -> void:
-    _on_mode_changed(FrameworkSchemaMode.UI_SMOOTHNESS)
-
-
-func _on_mode_changed(mode_type: int) -> void:
-    var option_button := _get_option_button(mode_type)
-    var mode_value := option_button.get_selected_id()
-    _set_mode(mode_type, mode_value, true)
+func _on_mode_changed(index: int, mode_name: String) -> void:
+    var option_button: OptionButton = _option_buttons[mode_name]
+    var mode_option := option_button.get_item_text(option_button.selected)
+    _set_mode(mode_name, mode_option, true)
 
 
 func _set_mode(
-        mode_type: int,
-        mode_value: int,
+        mode_name: String,
+        mode_option: String,
         should_save_json: bool) -> void:
-    Sc.modes[mode_type] = mode_value
+    Sc.modes.set_mode(mode_name, mode_option)
     
-    var option_button := _get_option_button(mode_type)
-    var index := option_button.get_item_index(mode_value)
+    var option_button: OptionButton = _option_buttons[mode_name]
+    var index := _get_option_index_from_text(option_button, mode_option)
     option_button.select(index)
     
     if should_save_json:
-        _save_modes()
+        Sc.modes.save_to_json()

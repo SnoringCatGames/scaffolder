@@ -16,15 +16,23 @@ const MANIFEST_PATH := "res://addons/scaffolder/src/config/manifest.json"
 const PLUGIN_OPEN_ROWS_PATH := \
         "res://addons/scaffolder/src/config/plugin_open_rows.json"
 const MODES_PATH := "res://addons/scaffolder/src/config/manifest_modes.json"
-const DEFAULT_MODES := {
-    FrameworkSchemaMode.RELEASE: \
-            FrameworkSchemaMode.Release.LOCAL_DEV,
-    FrameworkSchemaMode.THREADING: \
-            FrameworkSchemaMode.Threading.DISABLED,
-    FrameworkSchemaMode.ANNOTATIONS: \
-            FrameworkSchemaMode.Annotations.DEFAULT,
-    FrameworkSchemaMode.UI_SMOOTHNESS: \
-            FrameworkSchemaMode.UiSmoothness.PIXELATED,
+const MODES := {
+    release = {
+        options = ["local_dev", "playtest", "production"],
+        default = "local_dev"
+    },
+    threading = {
+        options = ["enabled", "disabled"],
+        default = "disabled"
+    },
+    annotations = {
+        options = ["default", "emphasized"],
+        default = "default"
+    },
+    ui_smoothness = {
+        options = ["pixelated", "anti_aliased"],
+        default = "pixelated"
+    },
 }
 
 
@@ -36,5 +44,6 @@ func _init().(
         AUTO_LOAD_PATH,
         PLUGIN_ICON_PATH_PREFIX,
         SCHEMA_PATH,
-        MANIFEST_PATH) -> void:
+        MANIFEST_PATH,
+        MODES) -> void:
     pass
