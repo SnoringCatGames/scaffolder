@@ -1,7 +1,5 @@
 {
   "metadata": {
-    "debug": false,
-    "playtest": false,
     "pauses_on_focus_out": true,
     "also_prints_to_stdout": true,
     "logs_character_events": true,
@@ -429,7 +427,7 @@
       "a": 0.5
     }
   },
-  "styles_manifest": {
+  "styles_manifest_anti_aliased": {
     "focus_border_corner_radius": 5,
     "focus_border_corner_detail": 3,
     "focus_border_shadow_size": 0,
@@ -513,7 +511,107 @@
     },
     "screen_border_width": 0
   },
-  "images_manifest": {
+  "styles_manifest_pixelated": {
+    "button_content_margin_left": 16,
+    "button_content_margin_top": 8,
+    "button_content_margin_right": 16,
+    "button_content_margin_bottom": 8,
+    "button_shine_margin_left": 6,
+    "button_shine_margin_top": 6,
+    "button_shine_margin_right": 6,
+    "button_shine_margin_bottom": 6,
+    "focus_border_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/focus_border.png",
+    "focus_border_nine_patch_margin_left": 3.5,
+    "focus_border_nine_patch_margin_top": 3.5,
+    "focus_border_nine_patch_margin_right": 3.5,
+    "focus_border_nine_patch_margin_bottom": 3.5,
+    "focus_border_nine_patch_scale": 3,
+    "focus_border_expand_margin_left": 3,
+    "focus_border_expand_margin_top": 3,
+    "focus_border_expand_margin_right": 3,
+    "focus_border_expand_margin_bottom": 3,
+    "button_pressed_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/button_pressed.png",
+    "button_disabled_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/button_hover.png",
+    "button_hover_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/button_hover.png",
+    "button_normal_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/button_normal.png",
+    "button_nine_patch_margin_left": 3.5,
+    "button_nine_patch_margin_top": 3.5,
+    "button_nine_patch_margin_right": 3.5,
+    "button_nine_patch_margin_bottom": 3.5,
+    "button_nine_patch_scale": 3,
+    "dropdown_pressed_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_pressed.png",
+    "dropdown_disabled_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_hover.png",
+    "dropdown_hover_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_hover.png",
+    "dropdown_normal_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_normal.png",
+    "dropdown_nine_patch_margin_left": 3.5,
+    "dropdown_nine_patch_margin_top": 3.5,
+    "dropdown_nine_patch_margin_right": 3.5,
+    "dropdown_nine_patch_margin_bottom": 3.5,
+    "dropdown_nine_patch_scale": 3,
+    "scroll_track_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/scroll_track.png",
+    "scroll_track_nine_patch_margin_left": 3.5,
+    "scroll_track_nine_patch_margin_top": 3.5,
+    "scroll_track_nine_patch_margin_right": 3.5,
+    "scroll_track_nine_patch_margin_bottom": 3.5,
+    "scroll_track_nine_patch_scale": 3,
+    "scroll_grabber_pressed_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/scroll_grabber_pressed.png",
+    "scroll_grabber_hover_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/scroll_grabber_hover.png",
+    "scroll_grabber_normal_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/scroll_grabber_normal.png",
+    "scroll_grabber_nine_patch_margin_left": 3.5,
+    "scroll_grabber_nine_patch_margin_top": 3.5,
+    "scroll_grabber_nine_patch_margin_right": 3.5,
+    "scroll_grabber_nine_patch_margin_bottom": 3.5,
+    "scroll_grabber_nine_patch_scale": 3,
+    "slider_track_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/slider_track.png",
+    "slider_track_nine_patch_margin_left": 1.5,
+    "slider_track_nine_patch_margin_top": 1.5,
+    "slider_track_nine_patch_margin_right": 1.5,
+    "slider_track_nine_patch_margin_bottom": 1.5,
+    "slider_track_nine_patch_scale": 3,
+    "overlay_panel_border_width": 2,
+    "overlay_panel_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/overlay_panel.png",
+    "overlay_panel_nine_patch_margin_left": 3.5,
+    "overlay_panel_nine_patch_margin_top": 3.5,
+    "overlay_panel_nine_patch_margin_right": 3.5,
+    "overlay_panel_nine_patch_margin_bottom": 3.5,
+    "overlay_panel_nine_patch_scale": 3,
+    "overlay_panel_content_margin_left": 3,
+    "overlay_panel_content_margin_top": 3,
+    "overlay_panel_content_margin_right": 3,
+    "overlay_panel_content_margin_bottom": 3,
+    "notification_panel_border_width": 2,
+    "notification_panel_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/notification_panel.png",
+    "notification_panel_nine_patch_margin_left": 3.5,
+    "notification_panel_nine_patch_margin_top": 3.5,
+    "notification_panel_nine_patch_margin_right": 3.5,
+    "notification_panel_nine_patch_margin_bottom": 3.5,
+    "notification_panel_nine_patch_scale": 3,
+    "notification_panel_content_margin_left": 3,
+    "notification_panel_content_margin_top": 3,
+    "notification_panel_content_margin_right": 3,
+    "notification_panel_content_margin_bottom": 3,
+    "header_panel_content_margin_left": 0,
+    "header_panel_content_margin_top": 0,
+    "header_panel_content_margin_right": 0,
+    "header_panel_content_margin_bottom": 0,
+    "hud_panel_nine_patch": "$Resource:res://addons/scaffolder/assets/images/gui/nine_patch/overlay_panel.png",
+    "hud_panel_nine_patch_margin_left": 3.5,
+    "hud_panel_nine_patch_margin_top": 3.5,
+    "hud_panel_nine_patch_margin_right": 3.5,
+    "hud_panel_nine_patch_margin_bottom": 3.5,
+    "hud_panel_nine_patch_scale": 3,
+    "hud_panel_content_margin_left": 8,
+    "hud_panel_content_margin_top": 2,
+    "hud_panel_content_margin_right": 8,
+    "hud_panel_content_margin_bottom": 2,
+    "screen_shadow_size": 0,
+    "screen_shadow_offset": {
+      "x": 0,
+      "y": 0
+    },
+    "screen_border_width": 0
+  },
+  "images_manifest_anti_aliased": {
     "checkbox_path_prefix": "res://addons/scaffolder/assets/images/gui/checkbox/checkbox_",
     "default_checkbox_size": 32,
     "checkbox_sizes": [
@@ -591,10 +689,94 @@
     "retry_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/retry_normal.png",
     "stop_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/stop_normal.png"
   },
+  "images_manifest_pixelated": {
+    "checkbox_path_prefix": "res://addons/scaffolder/assets/images/gui/checkbox_pixel/checkbox_",
+    "default_checkbox_size": 32,
+    "checkbox_sizes": [
+      8,
+      16,
+      32,
+      64,
+      128
+    ],
+    "radio_button_path_prefix": "res://addons/scaffolder/assets/images/gui/radio_button_pixel/radio_button_",
+    "default_radio_button_size": 40,
+    "radio_button_sizes": [
+      10,
+      20,
+      40,
+      80,
+      160
+    ],
+    "tree_arrow_path_prefix": "res://addons/scaffolder/assets/images/gui/tree_arrow_pixel/tree_arrow_",
+    "default_tree_arrow_size": 16,
+    "tree_arrow_sizes": [
+      4,
+      8,
+      16,
+      32,
+      64,
+      128
+    ],
+    "dropdown_arrow_path_prefix": "res://addons/scaffolder/assets/images/gui/dropdown_arrow_pixel/dropdown_arrow_",
+    "default_dropdown_arrow_size": 20,
+    "dropdown_arrow_sizes": [
+      5,
+      10,
+      20,
+      40,
+      80
+    ],
+    "slider_grabber_path_prefix": "res://addons/scaffolder/assets/images/gui/slider_pixel/slider_grabber_",
+    "default_slider_grabber_size": 16,
+    "slider_grabber_sizes": [
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "slider_tick_path_prefix": "res://addons/scaffolder/assets/images/gui/slider_pixel/slider_tick_",
+    "default_slider_tick_size": 4,
+    "slider_tick_sizes": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "app_logo": "$Resource:res://addons/scaffolder/assets/images/logos/scaffolder_logo.png",
+    "app_logo_scale": 1,
+    "developer_logo": "$Resource:res://addons/scaffolder/assets/images/logos/snoring_cat_logo_about.png",
+    "developer_splash": "$Resource:res://addons/scaffolder/assets/images/logos/snoring_cat_logo_splash.png",
+    "go_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/go_normal.png",
+    "go_scale": 1.5,
+    "about_circle_pressed": "$Resource:res://addons/scaffolder/assets/images/gui/icons/about_circle_pressed.png",
+    "about_circle_hover": "$Resource:res://addons/scaffolder/assets/images/gui/icons/about_circle_hover.png",
+    "about_circle_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/about_circle_normal.png",
+    "alert_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/alert_normal.png",
+    "close_pressed": "$Resource:res://addons/scaffolder/assets/images/gui/icons/close_pressed.png",
+    "close_hover": "$Resource:res://addons/scaffolder/assets/images/gui/icons/close_hover.png",
+    "close_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/close_normal.png",
+    "gear_circle_pressed": "$Resource:res://addons/scaffolder/assets/images/gui/icons/gear_circle_pressed.png",
+    "gear_circle_hover": "$Resource:res://addons/scaffolder/assets/images/gui/icons/gear_circle_hover.png",
+    "gear_circle_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/gear_circle_normal.png",
+    "home_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/home_normal.png",
+    "left_caret_pressed": "$Resource:res://addons/scaffolder/assets/images/gui/icons/left_caret_pressed.png",
+    "left_caret_hover": "$Resource:res://addons/scaffolder/assets/images/gui/icons/left_caret_hover.png",
+    "left_caret_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/left_caret_normal.png",
+    "pause_circle_pressed": "$Resource:res://addons/scaffolder/assets/images/gui/icons/pause_circle_pressed.png",
+    "pause_circle_hover": "$Resource:res://addons/scaffolder/assets/images/gui/icons/pause_circle_hover.png",
+    "pause_circle_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/pause_circle_normal.png",
+    "pause_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/pause_normal.png",
+    "play_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/play_normal.png",
+    "retry_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/retry_normal.png",
+    "stop_normal": "$Resource:res://addons/scaffolder/assets/images/gui/icons/stop_normal.png"
+  },
   "gui_manifest": {
     "debug_window_size": {
-      "x": 0,
-      "y": 0
+      "x": "$+INF:",
+      "y": "$+INF:"
     },
     "default_pc_game_area_size": {
       "x": 1024,
@@ -614,7 +796,7 @@
     "is_data_deletion_button_shown": true,
     "is_suggested_button_shine_line_shown": true,
     "is_suggested_button_color_pulse_shown": true,
-    "third_party_license_text": "\r\n-------------------------------------------------------------------------------\r\n--- Godot Engine <https://godotengine.org>\r\n\r\nThe MIT License (MIT)\r\n=====================\r\n\r\nCopyright (c) 2007-2020 Juan Linietsky, Ariel Manzur.\r\nCopyright (c) 2014-2020 Godot Engine contributors.\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy\r\nof this software and associated documentation files (the \"Software\"), to deal\r\nin the Software without restriction, including without limitation the rights\r\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\r\ncopies of the Software, and to permit persons to whom the Software is\r\nfurnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in all\r\ncopies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\r\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\r\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\r\nSOFTWARE.\r\n\r\n-- Godot Engine <https://godotengine.org>\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- Roboto font <https://fonts.google.com/specimen/Roboto>\r\n\r\n                                 Apache License\r\n                           Version 2.0, January 2004\r\n                        http://www.apache.org/licenses/\r\n\r\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\r\n\r\n   1. Definitions.\r\n\r\n      \"License\" shall mean the terms and conditions for use, reproduction,\r\n      and distribution as defined by Sections 1 through 9 of this document.\r\n\r\n      \"Licensor\" shall mean the copyright owner or entity authorized by\r\n      the copyright owner that is granting the License.\r\n\r\n      \"Legal Entity\" shall mean the union of the acting entity and all\r\n      other entities that control, are controlled by, or are under common\r\n      control with that entity. For the purposes of this definition,\r\n      \"control\" means (i) the power, direct or indirect, to cause the\r\n      direction or management of such entity, whether by contract or\r\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\r\n      outstanding shares, or (iii) beneficial ownership of such entity.\r\n\r\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\r\n      exercising permissions granted by this License.\r\n\r\n      \"Source\" form shall mean the preferred form for making modifications,\r\n      including but not limited to software source code, documentation\r\n      source, and configuration files.\r\n\r\n      \"Object\" form shall mean any form resulting from mechanical\r\n      transformation or translation of a Source form, including but\r\n      not limited to compiled object code, generated documentation,\r\n      and conversions to other media types.\r\n\r\n      \"Work\" shall mean the work of authorship, whether in Source or\r\n      Object form, made available under the License, as indicated by a\r\n      copyright notice that is included in or attached to the work\r\n      (an example is provided in the Appendix below).\r\n\r\n      \"Derivative Works\" shall mean any work, whether in Source or Object\r\n      form, that is based on (or derived from) the Work and for which the\r\n      editorial revisions, annotations, elaborations, or other modifications\r\n      represent, as a whole, an original work of authorship. For the purposes\r\n      of this License, Derivative Works shall not include works that remain\r\n      separable from, or merely link (or bind by name) to the interfaces of,\r\n      the Work and Derivative Works thereof.\r\n\r\n      \"Contribution\" shall mean any work of authorship, including\r\n      the original version of the Work and any modifications or additions\r\n      to that Work or Derivative Works thereof, that is intentionally\r\n      submitted to Licensor for inclusion in the Work by the copyright owner\r\n      or by an individual or Legal Entity authorized to submit on behalf of\r\n      the copyright owner. For the purposes of this definition, \"submitted\"\r\n      means any form of electronic, verbal, or written communication sent\r\n      to the Licensor or its representatives, including but not limited to\r\n      communication on electronic mailing lists, source code control systems,\r\n      and issue tracking systems that are managed by, or on behalf of, the\r\n      Licensor for the purpose of discussing and improving the Work, but\r\n      excluding communication that is conspicuously marked or otherwise\r\n      designated in writing by the copyright owner as \"Not a Contribution.\"\r\n\r\n      \"Contributor\" shall mean Licensor and any individual or Legal Entity\r\n      on behalf of whom a Contribution has been received by Licensor and\r\n      subsequently incorporated within the Work.\r\n\r\n   2. Grant of Copyright License. Subject to the terms and conditions of\r\n      this License, each Contributor hereby grants to You a perpetual,\r\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\r\n      copyright license to reproduce, prepare Derivative Works of,\r\n      publicly display, publicly perform, sublicense, and distribute the\r\n      Work and such Derivative Works in Source or Object form.\r\n\r\n   3. Grant of Patent License. Subject to the terms and conditions of\r\n      this License, each Contributor hereby grants to You a perpetual,\r\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\r\n      (except as stated in this section) patent license to make, have made,\r\n      use, offer to sell, sell, import, and otherwise transfer the Work,\r\n      where such license applies only to those patent claims licensable\r\n      by such Contributor that are necessarily infringed by their\r\n      Contribution(s) alone or by combination of their Contribution(s)\r\n      with the Work to which such Contribution(s) was submitted. If You\r\n      institute patent litigation against any entity (including a\r\n      cross-claim or counterclaim in a lawsuit) alleging that the Work\r\n      or a Contribution incorporated within the Work constitutes direct\r\n      or contributory patent infringement, then any patent licenses\r\n      granted to You under this License for that Work shall terminate\r\n      as of the date such litigation is filed.\r\n\r\n   4. Redistribution. You may reproduce and distribute copies of the\r\n      Work or Derivative Works thereof in any medium, with or without\r\n      modifications, and in Source or Object form, provided that You\r\n      meet the following conditions:\r\n\r\n      (a) You must give any other recipients of the Work or\r\n          Derivative Works a copy of this License; and\r\n\r\n      (b) You must cause any modified files to carry prominent notices\r\n          stating that You changed the files; and\r\n\r\n      (c) You must retain, in the Source form of any Derivative Works\r\n          that You distribute, all copyright, patent, trademark, and\r\n          attribution notices from the Source form of the Work,\r\n          excluding those notices that do not pertain to any part of\r\n          the Derivative Works; and\r\n\r\n      (d) If the Work includes a \"NOTICE\" text file as part of its\r\n          distribution, then any Derivative Works that You distribute must\r\n          include a readable copy of the attribution notices contained\r\n          within such NOTICE file, excluding those notices that do not\r\n          pertain to any part of the Derivative Works, in at least one\r\n          of the following places: within a NOTICE text file distributed\r\n          as part of the Derivative Works; within the Source form or\r\n          documentation, if provided along with the Derivative Works; or,\r\n          within a display generated by the Derivative Works, if and\r\n          wherever such third-party notices normally appear. The contents\r\n          of the NOTICE file are for informational purposes only and\r\n          do not modify the License. You may add Your own attribution\r\n          notices within Derivative Works that You distribute, alongside\r\n          or as an addendum to the NOTICE text from the Work, provided\r\n          that such additional attribution notices cannot be construed\r\n          as modifying the License.\r\n\r\n      You may add Your own copyright statement to Your modifications and\r\n      may provide additional or different license terms and conditions\r\n      for use, reproduction, or distribution of Your modifications, or\r\n      for any such Derivative Works as a whole, provided Your use,\r\n      reproduction, and distribution of the Work otherwise complies with\r\n      the conditions stated in this License.\r\n\r\n   5. Submission of Contributions. Unless You explicitly state otherwise,\r\n      any Contribution intentionally submitted for inclusion in the Work\r\n      by You to the Licensor shall be under the terms and conditions of\r\n      this License, without any additional terms or conditions.\r\n      Notwithstanding the above, nothing herein shall supersede or modify\r\n      the terms of any separate license agreement you may have executed\r\n      with Licensor regarding such Contributions.\r\n\r\n   6. Trademarks. This License does not grant permission to use the trade\r\n      names, trademarks, service marks, or product names of the Licensor,\r\n      except as required for reasonable and customary use in describing the\r\n      origin of the Work and reproducing the content of the NOTICE file.\r\n\r\n   7. Disclaimer of Warranty. Unless required by applicable law or\r\n      agreed to in writing, Licensor provides the Work (and each\r\n      Contributor provides its Contributions) on an \"AS IS\" BASIS,\r\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\r\n      implied, including, without limitation, any warranties or conditions\r\n      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\r\n      PARTICULAR PURPOSE. You are solely responsible for determining the\r\n      appropriateness of using or redistributing the Work and assume any\r\n      risks associated with Your exercise of permissions under this License.\r\n\r\n   8. Limitation of Liability. In no event and under no legal theory,\r\n      whether in tort (including negligence), contract, or otherwise,\r\n      unless required by applicable law (such as deliberate and grossly\r\n      negligent acts) or agreed to in writing, shall any Contributor be\r\n      liable to You for damages, including any direct, indirect, special,\r\n      incidental, or consequential damages of any character arising as a\r\n      result of this License or out of the use or inability to use the\r\n      Work (including but not limited to damages for loss of goodwill,\r\n      work stoppage, computer failure or malfunction, or any and all\r\n      other commercial damages or losses), even if such Contributor\r\n      has been advised of the possibility of such damages.\r\n\r\n   9. Accepting Warranty or Additional Liability. While redistributing\r\n      the Work or Derivative Works thereof, You may choose to offer,\r\n      and charge a fee for, acceptance of support, warranty, indemnity,\r\n      or other liability obligations and/or rights consistent with this\r\n      License. However, in accepting such obligations, You may act only\r\n      on Your own behalf and on Your sole responsibility, not on behalf\r\n      of any other Contributor, and only if You agree to indemnify,\r\n      defend, and hold each Contributor harmless for any liability\r\n      incurred by, or claims asserted against, such Contributor by reason\r\n      of your accepting any such warranty or additional liability.\r\n\r\n   END OF TERMS AND CONDITIONS\r\n\r\n   APPENDIX: How to apply the Apache License to your work.\r\n\r\n      To apply the Apache License to your work, attach the following\r\n      boilerplate notice, with the fields enclosed by brackets \"[]\"\r\n      replaced with your own identifying information. (Don't include\r\n      the brackets!)  The text should be enclosed in the appropriate\r\n      comment syntax for the file format. We also recommend that a\r\n      file or class name and description of purpose be included on the\r\n      same \"printed page\" as the copyright notice for easier\r\n      identification within third-party archives.\r\n\r\n   Copyright [yyyy] [name of copyright owner]\r\n\r\n   Licensed under the Apache License, Version 2.0 (the \"License\");\r\n   you may not use this file except in compliance with the License.\r\n   You may obtain a copy of the License at\r\n\r\n       http://www.apache.org/licenses/LICENSE-2.0\r\n\r\n   Unless required by applicable law or agreed to in writing, software\r\n   distributed under the License is distributed on an \"AS IS\" BASIS,\r\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\r\n   See the License for the specific language governing permissions and\r\n   limitations under the License.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- Nunito font <https://fonts.google.com/specimen/Nunito>\r\n\r\nCopyright 2014 The Nunito Project Authors (https://github.com/googlefonts/nunito)\r\n\r\nThis Font Software is licensed under the SIL Open Font License, Version 1.1.\r\nThis license is copied below, and is also available with a FAQ at:\r\nhttp://scripts.sil.org/OFL\r\n\r\n\r\n-----------------------------------------------------------\r\nSIL OPEN FONT LICENSE Version 1.1 - 26 February 2007\r\n-----------------------------------------------------------\r\n\r\nPREAMBLE\r\nThe goals of the Open Font License (OFL) are to stimulate worldwide\r\ndevelopment of collaborative font projects, to support the font creation\r\nefforts of academic and linguistic communities, and to provide a free and\r\nopen framework in which fonts may be shared and improved in partnership\r\nwith others.\r\n\r\nThe OFL allows the licensed fonts to be used, studied, modified and\r\nredistributed freely as long as they are not sold by themselves. The\r\nfonts, including any derivative works, can be bundled, embedded, \r\nredistributed and/or sold with any software provided that any reserved\r\nnames are not used by derivative works. The fonts and derivatives,\r\nhowever, cannot be released under any other type of license. The\r\nrequirement for fonts to remain under this license does not apply\r\nto any document created using the fonts or their derivatives.\r\n\r\nDEFINITIONS\r\n\"Font Software\" refers to the set of files released by the Copyright\r\nHolder(s) under this license and clearly marked as such. This may\r\ninclude source files, build scripts and documentation.\r\n\r\n\"Reserved Font Name\" refers to any names specified as such after the\r\ncopyright statement(s).\r\n\r\n\"Original Version\" refers to the collection of Font Software components as\r\ndistributed by the Copyright Holder(s).\r\n\r\n\"Modified Version\" refers to any derivative made by adding to, deleting,\r\nor substituting -- in part or in whole -- any of the components of the\r\nOriginal Version, by changing formats or by porting the Font Software to a\r\nnew environment.\r\n\r\n\"Author\" refers to any designer, engineer, programmer, technical\r\nwriter or other person who contributed to the Font Software.\r\n\r\nPERMISSION & CONDITIONS\r\nPermission is hereby granted, free of charge, to any person obtaining\r\na copy of the Font Software, to use, study, copy, merge, embed, modify,\r\nredistribute, and sell modified and unmodified copies of the Font\r\nSoftware, subject to the following conditions:\r\n\r\n1) Neither the Font Software nor any of its individual components,\r\nin Original or Modified Versions, may be sold by itself.\r\n\r\n2) Original or Modified Versions of the Font Software may be bundled,\r\nredistributed and/or sold with any software, provided that each copy\r\ncontains the above copyright notice and this license. These can be\r\nincluded either as stand-alone text files, human-readable headers or\r\nin the appropriate machine-readable metadata fields within text or\r\nbinary files as long as those fields can be easily viewed by the user.\r\n\r\n3) No Modified Version of the Font Software may use the Reserved Font\r\nName(s) unless explicit written permission is granted by the corresponding\r\nCopyright Holder. This restriction only applies to the primary font name as\r\npresented to the users.\r\n\r\n4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font\r\nSoftware shall not be used to promote, endorse or advertise any\r\nModified Version, except to acknowledge the contribution(s) of the\r\nCopyright Holder(s) and the Author(s) or with their explicit written\r\npermission.\r\n\r\n5) The Font Software, modified or unmodified, in part or in whole,\r\nmust be distributed entirely under this license, and must not be\r\ndistributed under any other license. The requirement for fonts to\r\nremain under this license does not apply to any document created\r\nusing the Font Software.\r\n\r\nTERMINATION\r\nThis license becomes null and void if any of the above conditions are\r\nnot met.\r\n\r\nDISCLAIMER\r\nTHE FONT SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\r\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF\r\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT\r\nOF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE\r\nCOPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,\r\nINCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL\r\nDAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\r\nFROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM\r\nOTHER DEALINGS IN THE FONT SOFTWARE.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- FreeType (indirectly used through Godot)\r\n\r\nPortions of this software are copyright © <year> The FreeType Project\r\n(www.freetype.org). All rights reserved.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- ENet (indirectly used through Godot)\r\n\r\nCopyright (c) 2002-2016 Lee Salzman\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy of\r\nthis software and associated documentation files (the “Software”), to deal in\r\nthe Software without restriction, including without limitation the rights to\r\nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies\r\nof the Software, and to permit persons to whom the Software is furnished to do\r\nso, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in all\r\ncopies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\r\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\r\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\r\nSOFTWARE.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- MBedTLS (indirectly used through Godot)\r\n\r\nMBedTLS is Copyright (C) 2013-2019 ARM\r\n\r\nLicensed under the Apache License, Version 2.0 (the “License”); you may not use\r\nthis file except in compliance with the License. You may obtain a copy of the\r\nLicense at\r\n\r\nhttp://www.apache.org/licenses/LICENSE-2.0\r\n\r\nUnless required by applicable law or agreed to in writing, software distributed\r\nunder the License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR\r\nCONDITIONS OF ANY KIND, either express or implied. See the License for the\r\nspecific language governing permissions and limitations under the License.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- Crypto UUID v4 (Provides cryptographically secure UUID v4 objects)\r\n--- <https://github.com/Yukitty/godot-addon-crypto_uuid_v4>\r\n  \r\nMIT License\r\n\r\nCopyright (c) 2020 Yukita Mayako\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy\r\nof this software and associated documentation files (the \"Software\"), to deal\r\nin the Software without restriction, including without limitation the rights\r\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\r\ncopies of the Software, and to permit persons to whom the Software is\r\nfurnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in all\r\ncopies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\r\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\r\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\r\nSOFTWARE.\r\n-------------------------------------------------------------------------------\r\n\r\n\r\n-------------------------------------------------------------------------------\r\n--- Segment-polygon intersection calculation is based on the\r\n--- \"parametric line-clipping\" approach described by Dan Sunday\r\n--- <http://geomalgorithms.com/a13-_intersect-4.html>\r\n\r\nCopyright 2001 softSurfer, 2012 Dan Sunday\r\nThis code may be freely used and modified for any purpose\r\nproviding that this copyright notice is included with it.\r\nSoftSurfer makes no warranty for this code, and cannot be held\r\nliable for any real or imagined damage resulting from its use.\r\nUsers of this code must verify correctness for their application.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- Priority queue implementation based on a version by Hamfist McMutton\r\n--- <https://hamfistedgamedev.blogspot.com/p/godot-priorityqueue.html>\r\n\r\nLicense: CC0 1.0 Universal\r\n\r\nStatement of Purpose\r\nThe laws of most jurisdictions throughout the world automatically confer\r\nexclusive Copyright and Related Rights (defined below) upon the creator and\r\nsubsequent owner(s) (each and all, an \"owner\") of an original work of\r\nauthorship and/or a database (each, a \"Work\").\r\n\r\nCertain owners wish to permanently relinquish those rights to a Work for the\r\npurpose of contributing to a commons of creative, cultural and scientific works\r\n(\"Commons\") that the public can reliably and without fear of later claims of\r\ninfringement build upon, modify, incorporate in other works, reuse and\r\nredistribute as freely as possible in any form whatsoever and for any purposes,\r\nincluding without limitation commercial purposes. These owners may contribute\r\nto the Commons to promote the ideal of a free culture and the further\r\nproduction of creative, cultural and scientific works, or to gain reputation or\r\ngreater distribution for their Work in part through the use and efforts of\r\nothers.\r\n\r\nFor these and/or other purposes and motivations, and without any expectation of\r\nadditional consideration or compensation, the person associating CC0 with a\r\nWork (the \"Affirmer\"), to the extent that he or she is an owner of Copyright\r\nand Related Rights in the Work, voluntarily elects to apply CC0 to the Work and\r\npublicly distribute the Work under its terms, with knowledge of his or her\r\nCopyright and Related Rights in the Work and the meaning and intended legal\r\neffect of CC0 on those rights.\r\n\r\n1. Copyright and Related Rights. A Work made available under CC0 may be\r\nprotected by copyright and related or neighboring rights (\"Copyright and\r\nRelated Rights\"). Copyright and Related Rights include, but are not limited to,\r\nthe following:\r\n\r\n  i. the right to reproduce, adapt, distribute, perform, display, communicate,\r\n  and translate a Work;\r\n  ii. moral rights retained by the original author(s) and/or performer(s);\r\n  iii. publicity and privacy rights pertaining to a person's image or likeness\r\n  depicted in a Work;\r\n  iv. rights protecting against unfair competition in regards to a Work,\r\n  subject to the limitations in paragraph 4(a), below;\r\n  v. rights protecting the extraction, dissemination, use and reuse of data in\r\n  a Work;\r\n  vi. database rights (such as those arising under Directive 96/9/EC of the\r\n  European Parliament and of the Council of 11 March 1996 on the legal\r\n  protection of databases, and under any national implementation thereof,\r\n  including any amended or successor version of such directive); and\r\n  vii. other similar, equivalent or corresponding rights throughout the world\r\n  based on applicable law or treaty, and any national implementations thereof.\r\n\r\n2. Waiver. To the greatest extent permitted by, but not in contravention of,\r\napplicable law, Affirmer hereby overtly, fully, permanently, irrevocably and\r\nunconditionally waives, abandons, and surrenders all of Affirmer's Copyright\r\nand Related Rights and associated claims and causes of action, whether now\r\nknown or unknown (including existing as well as future claims and causes of\r\naction), in the Work (i) in all territories worldwide, (ii) for the maximum\r\nduration provided by applicable law or treaty (including future time\r\nextensions), (iii) in any current or future medium and for any number of\r\ncopies, and (iv) for any purpose whatsoever, including without limitation\r\ncommercial, advertising or promotional purposes (the \"Waiver\"). Affirmer makes\r\nthe Waiver for the benefit of each member of the public at large and to the\r\ndetriment of Affirmer's heirs and successors, fully intending that such Waiver\r\nshall not be subject to revocation, rescission, cancellation, termination, or\r\nany other legal or equitable action to disrupt the quiet enjoyment of the Work\r\nby the public as contemplated by Affirmer's express Statement of Purpose.\r\n\r\n3. Public License Fallback. Should any part of the Waiver for any reason be\r\njudged legally invalid or ineffective under applicable law, then the Waiver\r\nshall be preserved to the maximum extent permitted taking into account\r\nAffirmer's express Statement of Purpose. In addition, to the extent the Waiver\r\nis so judged Affirmer hereby grants to each affected person a royalty-free, non\r\ntransferable, non sublicensable, non exclusive, irrevocable and unconditional\r\nlicense to exercise Affirmer's Copyright and Related Rights in the Work (i) in\r\nall territories worldwide, (ii) for the maximum duration provided by applicable\r\nlaw or treaty (including future time extensions), (iii) in any current or\r\nfuture medium and for any number of copies, and (iv) for any purpose\r\nwhatsoever, including without limitation commercial, advertising or promotional\r\npurposes (the \"License\"). The License shall be deemed effective as of the date\r\nCC0 was applied by Affirmer to the Work. Should any part of the License for any\r\nreason be judged legally invalid or ineffective under applicable law, such\r\npartial invalidity or ineffectiveness shall not invalidate the remainder of the\r\nLicense, and in such case Affirmer hereby affirms that he or she will not (i)\r\nexercise any of his or her remaining Copyright and Related Rights in the Work\r\nor (ii) assert any associated claims and causes of action with respect to the\r\nWork, in either case contrary to Affirmer's express Statement of Purpose.\r\n\r\n4. Limitations and Disclaimers.\r\n\r\n  a. No trademark or patent rights held by Affirmer are waived, abandoned,\r\n  surrendered, licensed or otherwise affected by this document.\r\n  b. Affirmer offers the Work as-is and makes no representations or warranties\r\n  of any kind concerning the Work, express, implied, statutory or otherwise,\r\n  including without limitation warranties of title, merchantability, fitness\r\n  for a particular purpose, non infringement, or the absence of latent or other\r\n  defects, accuracy, or the present or absence of errors, whether or not\r\n  discoverable, all to the greatest extent permissible under applicable law.\r\n  c. Affirmer disclaims responsibility for clearing rights of other persons\r\n  that may apply to the Work or any use thereof, including without limitation\r\n  any person's Copyright and Related Rights in the Work. Further, Affirmer\r\n  disclaims responsibility for obtaining any necessary consents, permissions or\r\n  other rights required for any use of the Work.\r\n  d. Affirmer understands and acknowledges that Creative Commons is not a party\r\n  to this document and has no duty or obligation with respect to this CC0 or\r\n  use of the Work.\r\n-------------------------------------------------------------------------------\r\n\r\n\r\n",
+    "third_party_license_text": "\r\n-------------------------------------------------------------------------------\r\n--- Godot Engine <https://godotengine.org>\r\n\r\nThe MIT License (MIT)\r\n=====================\r\n\r\nCopyright (c) 2007-2020 Juan Linietsky, Ariel Manzur.\r\nCopyright (c) 2014-2020 Godot Engine contributors.\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy\r\nof this software and associated documentation files (the \"Software\"), to deal\r\nin the Software without restriction, including without limitation the rights\r\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\r\ncopies of the Software, and to permit persons to whom the Software is\r\nfurnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in all\r\ncopies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\r\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\r\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\r\nSOFTWARE.\r\n\r\n-- Godot Engine <https://godotengine.org>\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- Roboto font <https://fonts.google.com/specimen/Roboto>\r\n\r\n                                 Apache License\r\n                           Version 2.0, January 2004\r\n                        http://www.apache.org/licenses/\r\n\r\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\r\n\r\n   1. Definitions.\r\n\r\n      \"License\" shall mean the terms and conditions for use, reproduction,\r\n      and distribution as defined by Sections 1 through 9 of this document.\r\n\r\n      \"Licensor\" shall mean the copyright owner or entity authorized by\r\n      the copyright owner that is granting the License.\r\n\r\n      \"Legal Entity\" shall mean the union of the acting entity and all\r\n      other entities that control, are controlled by, or are under common\r\n      control with that entity. For the purposes of this definition,\r\n      \"control\" means (i) the power, direct or indirect, to cause the\r\n      direction or management of such entity, whether by contract or\r\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\r\n      outstanding shares, or (iii) beneficial ownership of such entity.\r\n\r\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\r\n      exercising permissions granted by this License.\r\n\r\n      \"Source\" form shall mean the preferred form for making modifications,\r\n      including but not limited to software source code, documentation\r\n      source, and configuration files.\r\n\r\n      \"Object\" form shall mean any form resulting from mechanical\r\n      transformation or translation of a Source form, including but\r\n      not limited to compiled object code, generated documentation,\r\n      and conversions to other media types.\r\n\r\n      \"Work\" shall mean the work of authorship, whether in Source or\r\n      Object form, made available under the License, as indicated by a\r\n      copyright notice that is included in or attached to the work\r\n      (an example is provided in the Appendix below).\r\n\r\n      \"Derivative Works\" shall mean any work, whether in Source or Object\r\n      form, that is based on (or derived from) the Work and for which the\r\n      editorial revisions, annotations, elaborations, or other modifications\r\n      represent, as a whole, an original work of authorship. For the purposes\r\n      of this License, Derivative Works shall not include works that remain\r\n      separable from, or merely link (or bind by name) to the interfaces of,\r\n      the Work and Derivative Works thereof.\r\n\r\n      \"Contribution\" shall mean any work of authorship, including\r\n      the original version of the Work and any modifications or additions\r\n      to that Work or Derivative Works thereof, that is intentionally\r\n      submitted to Licensor for inclusion in the Work by the copyright owner\r\n      or by an individual or Legal Entity authorized to submit on behalf of\r\n      the copyright owner. For the purposes of this definition, \"submitted\"\r\n      means any form of electronic, verbal, or written communication sent\r\n      to the Licensor or its representatives, including but not limited to\r\n      communication on electronic mailing lists, source code control systems,\r\n      and issue tracking systems that are managed by, or on behalf of, the\r\n      Licensor for the purpose of discussing and improving the Work, but\r\n      excluding communication that is conspicuously marked or otherwise\r\n      designated in writing by the copyright owner as \"Not a Contribution.\"\r\n\r\n      \"Contributor\" shall mean Licensor and any individual or Legal Entity\r\n      on behalf of whom a Contribution has been received by Licensor and\r\n      subsequently incorporated within the Work.\r\n\r\n   2. Grant of Copyright License. Subject to the terms and conditions of\r\n      this License, each Contributor hereby grants to You a perpetual,\r\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\r\n      copyright license to reproduce, prepare Derivative Works of,\r\n      publicly display, publicly perform, sublicense, and distribute the\r\n      Work and such Derivative Works in Source or Object form.\r\n\r\n   3. Grant of Patent License. Subject to the terms and conditions of\r\n      this License, each Contributor hereby grants to You a perpetual,\r\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\r\n      (except as stated in this section) patent license to make, have made,\r\n      use, offer to sell, sell, import, and otherwise transfer the Work,\r\n      where such license applies only to those patent claims licensable\r\n      by such Contributor that are necessarily infringed by their\r\n      Contribution(s) alone or by combination of their Contribution(s)\r\n      with the Work to which such Contribution(s) was submitted. If You\r\n      institute patent litigation against any entity (including a\r\n      cross-claim or counterclaim in a lawsuit) alleging that the Work\r\n      or a Contribution incorporated within the Work constitutes direct\r\n      or contributory patent infringement, then any patent licenses\r\n      granted to You under this License for that Work shall terminate\r\n      as of the date such litigation is filed.\r\n\r\n   4. Redistribution. You may reproduce and distribute copies of the\r\n      Work or Derivative Works thereof in any medium, with or without\r\n      modifications, and in Source or Object form, provided that You\r\n      meet the following conditions:\r\n\r\n      (a) You must give any other recipients of the Work or\r\n          Derivative Works a copy of this License; and\r\n\r\n      (b) You must cause any modified files to carry prominent notices\r\n          stating that You changed the files; and\r\n\r\n      (c) You must retain, in the Source form of any Derivative Works\r\n          that You distribute, all copyright, patent, trademark, and\r\n          attribution notices from the Source form of the Work,\r\n          excluding those notices that do not pertain to any part of\r\n          the Derivative Works; and\r\n\r\n      (d) If the Work includes a \"NOTICE\" text file as part of its\r\n          distribution, then any Derivative Works that You distribute must\r\n          include a readable copy of the attribution notices contained\r\n          within such NOTICE file, excluding those notices that do not\r\n          pertain to any part of the Derivative Works, in at least one\r\n          of the following places: within a NOTICE text file distributed\r\n          as part of the Derivative Works; within the Source form or\r\n          documentation, if provided along with the Derivative Works; or,\r\n          within a display generated by the Derivative Works, if and\r\n          wherever such third-party notices normally appear. The contents\r\n          of the NOTICE file are for informational purposes only and\r\n          do not modify the License. You may add Your own attribution\r\n          notices within Derivative Works that You distribute, alongside\r\n          or as an addendum to the NOTICE text from the Work, provided\r\n          that such additional attribution notices cannot be construed\r\n          as modifying the License.\r\n\r\n      You may add Your own copyright statement to Your modifications and\r\n      may provide additional or different license terms and conditions\r\n      for use, reproduction, or distribution of Your modifications, or\r\n      for any such Derivative Works as a whole, provided Your use,\r\n      reproduction, and distribution of the Work otherwise complies with\r\n      the conditions stated in this License.\r\n\r\n   5. Submission of Contributions. Unless You explicitly state otherwise,\r\n      any Contribution intentionally submitted for inclusion in the Work\r\n      by You to the Licensor shall be under the terms and conditions of\r\n      this License, without any additional terms or conditions.\r\n      Notwithstanding the above, nothing herein shall supersede or modify\r\n      the terms of any separate license agreement you may have executed\r\n      with Licensor regarding such Contributions.\r\n\r\n   6. Trademarks. This License does not grant permission to use the trade\r\n      names, trademarks, service marks, or product names of the Licensor,\r\n      except as required for reasonable and customary use in describing the\r\n      origin of the Work and reproducing the content of the NOTICE file.\r\n\r\n   7. Disclaimer of Warranty. Unless required by applicable law or\r\n      agreed to in writing, Licensor provides the Work (and each\r\n      Contributor provides its Contributions) on an \"AS IS\" BASIS,\r\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\r\n      implied, including, without limitation, any warranties or conditions\r\n      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\r\n      PARTICULAR PURPOSE. You are solely responsible for determining the\r\n      appropriateness of using or redistributing the Work and assume any\r\n      risks associated with Your exercise of permissions under this License.\r\n\r\n   8. Limitation of Liability. In no event and under no legal theory,\r\n      whether in tort (including negligence), contract, or otherwise,\r\n      unless required by applicable law (such as deliberate and grossly\r\n      negligent acts) or agreed to in writing, shall any Contributor be\r\n      liable to You for damages, including any direct, indirect, special,\r\n      incidental, or consequential damages of any character arising as a\r\n      result of this License or out of the use or inability to use the\r\n      Work (including but not limited to damages for loss of goodwill,\r\n      work stoppage, computer failure or malfunction, or any and all\r\n      other commercial damages or losses), even if such Contributor\r\n      has been advised of the possibility of such damages.\r\n\r\n   9. Accepting Warranty or Additional Liability. While redistributing\r\n      the Work or Derivative Works thereof, You may choose to offer,\r\n      and charge a fee for, acceptance of support, warranty, indemnity,\r\n      or other liability obligations and/or rights consistent with this\r\n      License. However, in accepting such obligations, You may act only\r\n      on Your own behalf and on Your sole responsibility, not on behalf\r\n      of any other Contributor, and only if You agree to indemnify,\r\n      defend, and hold each Contributor harmless for any liability\r\n      incurred by, or claims asserted against, such Contributor by reason\r\n      of your accepting any such warranty or additional liability.\r\n\r\n   END OF TERMS AND CONDITIONS\r\n\r\n   APPENDIX: How to apply the Apache License to your work.\r\n\r\n      To apply the Apache License to your work, attach the following\r\n      boilerplate notice, with the fields enclosed by brackets \"[]\"\r\n      replaced with your own identifying information. (Don't include\r\n      the brackets!)  The text should be enclosed in the appropriate\r\n      comment syntax for the file format. We also recommend that a\r\n      file or class name and description of purpose be included on the\r\n      same \"printed page\" as the copyright notice for easier\r\n      identification within third-party archives.\r\n\r\n   Copyright [yyyy] [name of copyright owner]\r\n\r\n   Licensed under the Apache License, Version 2.0 (the \"License\");\r\n   you may not use this file except in compliance with the License.\r\n   You may obtain a copy of the License at\r\n\r\n       http://www.apache.org/licenses/LICENSE-2.0\r\n\r\n   Unless required by applicable law or agreed to in writing, software\r\n   distributed under the License is distributed on an \"AS IS\" BASIS,\r\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\r\n   See the License for the specific language governing permissions and\r\n   limitations under the License.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- Nunito font <https://fonts.google.com/specimen/Nunito>\r\n\r\nCopyright 2014 The Nunito Project Authors (https://github.com/googlefonts/nunito)\r\n\r\nThis Font Software is licensed under the SIL Open Font License, Version 1.1.\r\nThis license is copied below, and is also available with a FAQ at:\r\nhttp://scripts.sil.org/OFL\r\n\r\n\r\n-----------------------------------------------------------\r\nSIL OPEN FONT LICENSE Version 1.1 - 26 February 2007\r\n-----------------------------------------------------------\r\n\r\nPREAMBLE\r\nThe goals of the Open Font License (OFL) are to stimulate worldwide\r\ndevelopment of collaborative font projects, to support the font creation\r\nefforts of academic and linguistic communities, and to provide a free and\r\nopen framework in which fonts may be shared and improved in partnership\r\nwith others.\r\n\r\nThe OFL allows the licensed fonts to be used, studied, modified and\r\nredistributed freely as long as they are not sold by themselves. The\r\nfonts, including any derivative works, can be bundled, embedded, \r\nredistributed and/or sold with any software provided that any reserved\r\nnames are not used by derivative works. The fonts and derivatives,\r\nhowever, cannot be released under any other type of license. The\r\nrequirement for fonts to remain under this license does not apply\r\nto any document created using the fonts or their derivatives.\r\n\r\nDEFINITIONS\r\n\"Font Software\" refers to the set of files released by the Copyright\r\nHolder(s) under this license and clearly marked as such. This may\r\ninclude source files, build scripts and documentation.\r\n\r\n\"Reserved Font Name\" refers to any names specified as such after the\r\ncopyright statement(s).\r\n\r\n\"Original Version\" refers to the collection of Font Software components as\r\ndistributed by the Copyright Holder(s).\r\n\r\n\"Modified Version\" refers to any derivative made by adding to, deleting,\r\nor substituting -- in part or in whole -- any of the components of the\r\nOriginal Version, by changing formats or by porting the Font Software to a\r\nnew environment.\r\n\r\n\"Author\" refers to any designer, engineer, programmer, technical\r\nwriter or other person who contributed to the Font Software.\r\n\r\nPERMISSION & CONDITIONS\r\nPermission is hereby granted, free of charge, to any person obtaining\r\na copy of the Font Software, to use, study, copy, merge, embed, modify,\r\nredistribute, and sell modified and unmodified copies of the Font\r\nSoftware, subject to the following conditions:\r\n\r\n1) Neither the Font Software nor any of its individual components,\r\nin Original or Modified Versions, may be sold by itself.\r\n\r\n2) Original or Modified Versions of the Font Software may be bundled,\r\nredistributed and/or sold with any software, provided that each copy\r\ncontains the above copyright notice and this license. These can be\r\nincluded either as stand-alone text files, human-readable headers or\r\nin the appropriate machine-readable metadata fields within text or\r\nbinary files as long as those fields can be easily viewed by the user.\r\n\r\n3) No Modified Version of the Font Software may use the Reserved Font\r\nName(s) unless explicit written permission is granted by the corresponding\r\nCopyright Holder. This restriction only applies to the primary font name as\r\npresented to the users.\r\n\r\n4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font\r\nSoftware shall not be used to promote, endorse or advertise any\r\nModified Version, except to acknowledge the contribution(s) of the\r\nCopyright Holder(s) and the Author(s) or with their explicit written\r\npermission.\r\n\r\n5) The Font Software, modified or unmodified, in part or in whole,\r\nmust be distributed entirely under this license, and must not be\r\ndistributed under any other license. The requirement for fonts to\r\nremain under this license does not apply to any document created\r\nusing the Font Software.\r\n\r\nTERMINATION\r\nThis license becomes null and void if any of the above conditions are\r\nnot met.\r\n\r\nDISCLAIMER\r\nTHE FONT SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\r\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF\r\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT\r\nOF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE\r\nCOPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,\r\nINCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL\r\nDAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\r\nFROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM\r\nOTHER DEALINGS IN THE FONT SOFTWARE.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- FreeType (indirectly used through Godot)\r\n\r\nPortions of this software are copyright © <year> The FreeType Project\r\n(www.freetype.org). All rights reserved.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- ENet (indirectly used through Godot)\r\n\r\nCopyright (c) 2002-2016 Lee Salzman\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy of\r\nthis software and associated documentation files (the “Software”), to deal in\r\nthe Software without restriction, including without limitation the rights to\r\nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies\r\nof the Software, and to permit persons to whom the Software is furnished to do\r\nso, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in all\r\ncopies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\r\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\r\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\r\nSOFTWARE.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- MBedTLS (indirectly used through Godot)\r\n\r\nMBedTLS is Copyright (C) 2013-2019 ARM\r\n\r\nLicensed under the Apache License, Version 2.0 (the “License”); you may not use\r\nthis file except in compliance with the License. You may obtain a copy of the\r\nLicense at\r\n\r\nhttp://www.apache.org/licenses/LICENSE-2.0\r\n\r\nUnless required by applicable law or agreed to in writing, software distributed\r\nunder the License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR\r\nCONDITIONS OF ANY KIND, either express or implied. See the License for the\r\nspecific language governing permissions and limitations under the License.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- Crypto UUID v4 (Provides cryptographically secure UUID v4 objects)\r\n--- <https://github.com/Yukitty/godot-addon-crypto_uuid_v4>\r\n  \r\nMIT License\r\n\r\nCopyright (c) 2020 Yukita Mayako\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy\r\nof this software and associated documentation files (the \"Software\"), to deal\r\nin the Software without restriction, including without limitation the rights\r\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\r\ncopies of the Software, and to permit persons to whom the Software is\r\nfurnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in all\r\ncopies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\r\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\r\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\r\nSOFTWARE.\r\n-------------------------------------------------------------------------------\r\n\r\n\r\n-------------------------------------------------------------------------------\r\n--- Segment-polygon intersection calculation is based on the\r\n--- \"parametric line-clipping\" approach described by Dan Sunday\r\n--- <http://geomalgorithms.com/a13-_intersect-4.html>\r\n\r\nCopyright 2001 softSurfer, 2012 Dan Sunday\r\nThis code may be freely used and modified for any purpose\r\nproviding that this copyright notice is included with it.\r\nSoftSurfer makes no warranty for this code, and cannot be held\r\nliable for any real or imagined damage resulting from its use.\r\nUsers of this code must verify correctness for their application.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- Priority queue implementation based on a version by Hamfist McMutton\r\n--- <https://hamfistedgamedev.blogspot.com/p/godot-priorityqueue.html>\r\n\r\nLicense: CC0 1.0 Universal\r\n\r\nStatement of Purpose\r\nThe laws of most jurisdictions throughout the world automatically confer\r\nexclusive Copyright and Related Rights (defined below) upon the creator and\r\nsubsequent owner(s) (each and all, an \"owner\") of an original work of\r\nauthorship and/or a database (each, a \"Work\").\r\n\r\nCertain owners wish to permanently relinquish those rights to a Work for the\r\npurpose of contributing to a commons of creative, cultural and scientific works\r\n(\"Commons\") that the public can reliably and without fear of later claims of\r\ninfringement build upon, modify, incorporate in other works, reuse and\r\nredistribute as freely as possible in any form whatsoever and for any purposes,\r\nincluding without limitation commercial purposes. These owners may contribute\r\nto the Commons to promote the ideal of a free culture and the further\r\nproduction of creative, cultural and scientific works, or to gain reputation or\r\ngreater distribution for their Work in part through the use and efforts of\r\nothers.\r\n\r\nFor these and/or other purposes and motivations, and without any expectation of\r\nadditional consideration or compensation, the person associating CC0 with a\r\nWork (the \"Affirmer\"), to the extent that he or she is an owner of Copyright\r\nand Related Rights in the Work, voluntarily elects to apply CC0 to the Work and\r\npublicly distribute the Work under its terms, with knowledge of his or her\r\nCopyright and Related Rights in the Work and the meaning and intended legal\r\neffect of CC0 on those rights.\r\n\r\n1. Copyright and Related Rights. A Work made available under CC0 may be\r\nprotected by copyright and related or neighboring rights (\"Copyright and\r\nRelated Rights\"). Copyright and Related Rights include, but are not limited to,\r\nthe following:\r\n\r\n  i. the right to reproduce, adapt, distribute, perform, display, communicate,\r\n  and translate a Work;\r\n  ii. moral rights retained by the original author(s) and/or performer(s);\r\n  iii. publicity and privacy rights pertaining to a person's image or likeness\r\n  depicted in a Work;\r\n  iv. rights protecting against unfair competition in regards to a Work,\r\n  subject to the limitations in paragraph 4(a), below;\r\n  v. rights protecting the extraction, dissemination, use and reuse of data in\r\n  a Work;\r\n  vi. database rights (such as those arising under Directive 96/9/EC of the\r\n  European Parliament and of the Council of 11 March 1996 on the legal\r\n  protection of databases, and under any national implementation thereof,\r\n  including any amended or successor version of such directive); and\r\n  vii. other similar, equivalent or corresponding rights throughout the world\r\n  based on applicable law or treaty, and any national implementations thereof.\r\n\r\n2. Waiver. To the greatest extent permitted by, but not in contravention of,\r\napplicable law, Affirmer hereby overtly, fully, permanently, irrevocably and\r\nunconditionally waives, abandons, and surrenders all of Affirmer's Copyright\r\nand Related Rights and associated claims and causes of action, whether now\r\nknown or unknown (including existing as well as future claims and causes of\r\naction), in the Work (i) in all territories worldwide, (ii) for the maximum\r\nduration provided by applicable law or treaty (including future time\r\nextensions), (iii) in any current or future medium and for any number of\r\ncopies, and (iv) for any purpose whatsoever, including without limitation\r\ncommercial, advertising or promotional purposes (the \"Waiver\"). Affirmer makes\r\nthe Waiver for the benefit of each member of the public at large and to the\r\ndetriment of Affirmer's heirs and successors, fully intending that such Waiver\r\nshall not be subject to revocation, rescission, cancellation, termination, or\r\nany other legal or equitable action to disrupt the quiet enjoyment of the Work\r\nby the public as contemplated by Affirmer's express Statement of Purpose.\r\n\r\n3. Public License Fallback. Should any part of the Waiver for any reason be\r\njudged legally invalid or ineffective under applicable law, then the Waiver\r\nshall be preserved to the maximum extent permitted taking into account\r\nAffirmer's express Statement of Purpose. In addition, to the extent the Waiver\r\nis so judged Affirmer hereby grants to each affected person a royalty-free, non\r\ntransferable, non sublicensable, non exclusive, irrevocable and unconditional\r\nlicense to exercise Affirmer's Copyright and Related Rights in the Work (i) in\r\nall territories worldwide, (ii) for the maximum duration provided by applicable\r\nlaw or treaty (including future time extensions), (iii) in any current or\r\nfuture medium and for any number of copies, and (iv) for any purpose\r\nwhatsoever, including without limitation commercial, advertising or promotional\r\npurposes (the \"License\"). The License shall be deemed effective as of the date\r\nCC0 was applied by Affirmer to the Work. Should any part of the License for any\r\nreason be judged legally invalid or ineffective under applicable law, such\r\npartial invalidity or ineffectiveness shall not invalidate the remainder of the\r\nLicense, and in such case Affirmer hereby affirms that he or she will not (i)\r\nexercise any of his or her remaining Copyright and Related Rights in the Work\r\nor (ii) assert any associated claims and causes of action with respect to the\r\nWork, in either case contrary to Affirmer's express Statement of Purpose.\r\n\r\n4. Limitations and Disclaimers.\r\n\r\n  a. No trademark or patent rights held by Affirmer are waived, abandoned,\r\n  surrendered, licensed or otherwise affected by this document.\r\n  b. Affirmer offers the Work as-is and makes no representations or warranties\r\n  of any kind concerning the Work, express, implied, statutory or otherwise,\r\n  including without limitation warranties of title, merchantability, fitness\r\n  for a particular purpose, non infringement, or the absence of latent or other\r\n  defects, accuracy, or the present or absence of errors, whether or not\r\n  discoverable, all to the greatest extent permissible under applicable law.\r\n  c. Affirmer disclaims responsibility for clearing rights of other persons\r\n  that may apply to the Work or any use thereof, including without limitation\r\n  any person's Copyright and Related Rights in the Work. Further, Affirmer\r\n  disclaims responsibility for obtaining any necessary consents, permissions or\r\n  other rights required for any use of the Work.\r\n  d. Affirmer understands and acknowledges that Creative Commons is not a party\r\n  to this document and has no duty or obligation with respect to this CC0 or\r\n  use of the Work.\r\n-------------------------------------------------------------------------------\r\n\r\n",
     "special_thanks_text": "\n",
     "main_menu_image_scale": 1,
     "game_over_image_scale": 0.5,
@@ -625,7 +807,51 @@
     "welcome_panel_scene": "$Resource:res://addons/scaffolder/src/gui/welcome_panel.tscn",
     "debug_panel_scene": "$Resource:res://addons/scaffolder/src/gui/debug_panel.tscn",
     "theme": "$Resource:res://addons/scaffolder/src/config/scaffolder_default_theme.tres",
-    "fonts_manifest": {
+    "fonts_manifest_anti_aliased": {
+      "fonts": {
+        "main_xxs": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_xxs.tres",
+        "main_xxs_bold": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_xxs.tres",
+        "main_xxs_italic": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_xxs.tres",
+        "main_xs": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_xs.tres",
+        "main_xs_bold": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_xs.tres",
+        "main_xs_italic": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_xs_italic.tres",
+        "main_s": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_s.tres",
+        "main_s_bold": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_s.tres",
+        "main_s_italic": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_s.tres",
+        "main_m": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_m.tres",
+        "main_m_bold": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_m_bold.tres",
+        "main_m_italic": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_m_italic.tres",
+        "main_l": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_l.tres",
+        "main_l_bold": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_l.tres",
+        "main_l_italic": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_l.tres",
+        "main_xl": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_xl.tres",
+        "main_xl_bold": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_xl.tres",
+        "main_xl_italic": "$Resource:res://addons/scaffolder/assets/fonts/roboto_font_xl.tres",
+        "header_s": "$Resource:res://addons/scaffolder/assets/fonts/nunito_font_s.tres",
+        "header_m": "$Resource:res://addons/scaffolder/assets/fonts/nunito_font_m.tres",
+        "header_l": "$Resource:res://addons/scaffolder/assets/fonts/nunito_font_l.tres",
+        "header_xl": "$Resource:res://addons/scaffolder/assets/fonts/nunito_font_xl.tres"
+      },
+      "sizes": {
+        "pc": {
+          "main_xxs": 10,
+          "main_xs": 15,
+          "main_s": 18,
+          "main_m": 30,
+          "main_l": 42,
+          "main_xl": 48
+        },
+        "mobile": {
+          "main_xxs": 12,
+          "main_xs": 16,
+          "main_s": 18,
+          "main_m": 28,
+          "main_l": 32,
+          "main_xl": 36
+        }
+      }
+    },
+    "fonts_manifest_pixelated": {
       "fonts": {
         "main_xxs": "$Resource:res://addons/scaffolder/assets/fonts/pxlzr_font_xxs.tres",
         "main_xxs_bold": "$Resource:res://addons/scaffolder/assets/fonts/pxlzr_font_xxs.tres",
@@ -685,28 +911,21 @@
           "is_collapsible": true,
           "item_classes": [
             "$Resource:res://addons/scaffolder/src/gui/control_rows/displays/ruler_annotator_control_row.gd",
-            "$Resource:res://addons/surfacer/src/gui/control_rows/player/player_preselection_trajectory_annotator_control_row.gd",
-            "$Resource:res://addons/surfacer/src/gui/control_rows/player/player_slow_mo_trajectory_annotator_control_row.gd",
-            "$Resource:res://addons/surfacer/src/gui/control_rows/player/player_non_slow_mo_trajectory_annotator_control_row.gd",
-            "$Resource:res://addons/surfacer/src/gui/control_rows/player/player_previous_trajectory_annotator_control_row.gd",
-            "$Resource:res://addons/surfacer/src/gui/control_rows/player/player_navigation_destination_annotator_control_row.gd",
-            "$Resource:res://addons/surfacer/src/gui/control_rows/npc/npc_slow_mo_trajectory_annotator_control_row.gd",
-            "$Resource:res://addons/surfacer/src/gui/control_rows/npc/npc_non_slow_mo_trajectory_annotator_control_row.gd",
-            "$Resource:res://addons/surfacer/src/gui/control_rows/npc/npc_previous_trajectory_annotator_control_row.gd",
-            "$Resource:res://addons/surfacer/src/gui/control_rows/npc/npc_navigation_destination_annotator_control_row.gd",
+            "$Resource:res://addons/scaffolder/src/gui/control_rows/displays/recent_movement_annotator_control_row.gd",
+            "$Resource:res://addons/scaffolder/src/gui/control_rows/settings/character_annotator_control_row.gd",
+            "$Resource:res://addons/scaffolder/src/gui/control_rows/settings/level_annotator_control_row.gd",
+            "$Resource:res://addons/scaffolder/src/gui/control_rows/displays/ruler_annotator_control_row.gd",
             "$Resource:res://addons/scaffolder/src/gui/control_rows/displays/recent_movement_annotator_control_row.gd",
             "$Resource:res://addons/surfacer/src/gui/control_rows/surfaces_annotator_control_row.gd",
-            "$Resource:res://addons/surfacer/src/gui/control_rows/character_position_annotator_control_row.gd",
-            "$Resource:res://addons/surfacer/src/gui/control_rows/character_annotator_control_row.gd",
-            "$Resource:res://addons/surfacer/src/gui/control_rows/level_annotator_control_row.gd"
+            "$Resource:res://addons/surfacer/src/gui/control_rows/character_position_annotator_control_row.gd"
           ]
         },
         "hud": {
           "label": "HUD",
           "is_collapsible": true,
           "item_classes": [
-            "$Resource:res://addons/surfacer/src/gui/control_rows/inspector_enabled_control_row.gd",
-            "$Resource:res://addons/scaffolder/src/gui/control_rows/settings/debug_panel_control_row.gd"
+            "$Resource:res://addons/scaffolder/src/gui/control_rows/settings/debug_panel_control_row.gd",
+            "$Resource:res://addons/surfacer/src/gui/control_rows/inspector_enabled_control_row.gd"
           ]
         },
         "miscellaneous": {
@@ -715,10 +934,10 @@
           "item_classes": [
             "$Resource:res://addons/scaffolder/src/gui/control_rows/settings/button_controls_control_row.gd",
             "$Resource:res://addons/scaffolder/src/gui/control_rows/settings/welcome_panel_control_row.gd",
-            "$Resource:res://addons/surfacer/src/gui/control_rows/intro_choreography_control_row.gd",
             "$Resource:res://addons/scaffolder/src/gui/control_rows/settings/camera_zoom_control_row.gd",
             "$Resource:res://addons/scaffolder/src/gui/control_rows/settings/time_scale_control_row.gd",
-            "$Resource:res://addons/scaffolder/src/gui/control_rows/settings/metronome_control_row.gd"
+            "$Resource:res://addons/scaffolder/src/gui/control_rows/settings/metronome_control_row.gd",
+            "$Resource:res://addons/surfacer/src/gui/control_rows/intro_choreography_control_row.gd"
           ]
         }
       }
@@ -753,20 +972,12 @@
           "settings_group_key": "hud"
         }
       ],
+      "is_hud_visible_by_default": true,
       "is_inspector_enabled_default": false,
-      "inspector_panel_starts_open": false,
-      "is_hud_visible_by_default": true
+      "inspector_panel_starts_open": false
     },
     "welcome_panel_manifest": {
       "items": [
-        [
-          "*Auto nav*",
-          "click"
-        ],
-        [
-          "Inspect graph",
-          "ctrl + click (x2)"
-        ],
         [
           "Walk/Climb",
           "arrow key / wasd"
@@ -776,20 +987,8 @@
           "space / x"
         ],
         [
-          "Grab surface",
-          "c"
-        ],
-        [
-          "Dash",
-          "z"
-        ],
-        [
-          "Zoom in/out",
-          "ctrl + =/-"
-        ],
-        [
-          "Pan",
-          "ctrl + arrow key"
+          "*Auto nav*",
+          "click"
         ]
       ]
     },
@@ -808,9 +1007,9 @@
         "$Resource:res://addons/scaffolder/src/gui/screens/scaffolder_loading_screen.tscn",
         "$Resource:res://addons/scaffolder/src/gui/screens/settings_screen.tscn",
         "$Resource:res://addons/scaffolder/src/gui/screens/third_party_licenses_screen.tscn",
+        "$Resource:res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen_local.tscn",
         "$Resource:res://addons/surfacer/src/gui/screens/precompute_platform_graphs_screen.tscn",
-        "$Resource:res://addons/surfacer/src/gui/screens/surfacer_loading_screen.tscn",
-        "$Resource:res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen_local.tscn"
+        "$Resource:res://addons/surfacer/src/gui/screens/surfacer_loading_screen.tscn"
       ],
       "overlay_mask_transition_fade_in_texture": "$Resource:res://addons/scaffolder/assets/images/transition_masks/radial_mask_transition_in.png",
       "overlay_mask_transition_fade_out_texture": "$Resource:res://addons/scaffolder/assets/images/transition_masks/radial_mask_transition_in.png",
@@ -868,9 +1067,9 @@
     }
   },
   "slow_motion_manifest": {
-    "time_scale": 0.02,
-    "tick_tock_tempo_multiplier": 25,
-    "saturation": 0.2
+    "time_scale": 0.5,
+    "tick_tock_tempo_multiplier": 1,
+    "saturation": 0.5
   },
   "input_map": [
     {
@@ -1152,7 +1351,7 @@
           "squirrel"
         ],
         "movement_params": {
-          "collider_shape": null,
+          "collider_shape": "$Resource:",
           "collider_rotation": 1.570796,
           "can_grab_walls": true,
           "can_grab_ceilings": true,

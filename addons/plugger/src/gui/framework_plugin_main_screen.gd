@@ -61,7 +61,7 @@ func adjust_size() -> void:
 
 func _load_open_rows() -> void:
     var open_rows: Dictionary = Sc.json.load_file(
-        ScaffolderMetadata.PLUGIN_OPEN_ROWS_PATH,
+            ScaffolderMetadata.PLUGIN_OPEN_ROWS_PATH,
             true,
             true)
     for open_panel_label in open_rows:

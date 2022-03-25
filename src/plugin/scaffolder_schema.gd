@@ -871,18 +871,7 @@ var _settings_item_manifest := {
             is_collapsible = true,
             item_classes = [
                 RulerAnnotatorControlRow,
-                PlayerPreselectionTrajectoryAnnotatorControlRow,
-                PlayerSlowMoTrajectoryAnnotatorControlRow,
-                PlayerNonSlowMoTrajectoryAnnotatorControlRow,
-                PlayerPreviousTrajectoryAnnotatorControlRow,
-                PlayerNavigationDestinationAnnotatorControlRow,
-                NpcSlowMoTrajectoryAnnotatorControlRow,
-                NpcNonSlowMoTrajectoryAnnotatorControlRow,
-                NpcPreviousTrajectoryAnnotatorControlRow,
-                NpcNavigationDestinationAnnotatorControlRow,
                 RecentMovementAnnotatorControlRow,
-                SurfacesAnnotatorControlRow,
-                CharacterPositionAnnotatorControlRow,
                 CharacterAnnotatorControlRow,
                 LevelAnnotatorControlRow,
             ],
@@ -891,7 +880,6 @@ var _settings_item_manifest := {
             label = "HUD",
             is_collapsible = true,
             item_classes = [
-                InspectorEnabledControlRow,
                 DebugPanelControlRow,
             ],
         },
@@ -901,7 +889,6 @@ var _settings_item_manifest := {
             item_classes = [
                 ButtonControlsControlRow,
                 WelcomePanelControlRow,
-                IntroChoreographyControlRow,
                 CameraZoomControlRow,
                 TimeScaleControlRow,
                 MetronomeControlRow,
@@ -928,7 +915,7 @@ var _level_select_item_manifest := [
 ]
 
 var _hud_manifest := {
-    hud_class = SurfacerHud,
+    hud_class = ScaffolderHud,
     hud_key_value_box_size = \
             ScaffolderGuiConfig.HUD_KEY_VALUE_BOX_DEFAULT_SIZE,
     hud_key_value_box_scene = \
@@ -943,21 +930,18 @@ var _hud_manifest := {
             settings_group_key = "hud",
         },
     ],
-    is_inspector_enabled_default = false,
-    inspector_panel_starts_open = false,
     is_hud_visible_by_default = true,
 }
 
 var _welcome_panel_manifest := {
     items = [
-        ["*Auto nav*", "click"],
-        ["Inspect graph", "ctrl + click (x2)"],
         ["Walk/Climb", "arrow key / wasd"],
         ["Jump", "space / x"],
-        ["Grab surface", "c"],
-        ["Dash", "z"],
-        ["Zoom in/out", "ctrl + =/-"],
-        ["Pan", "ctrl + arrow key"],
+#        ["Grab surface", "c / arrow key"],
+#        ["Dash", "z"],
+#        ["Zoom in/out", "ctrl + =/-"],
+#        ["Pan", "ctrl + arrow key"],
+#        ["Inspect graph", "ctrl + click (x2)"],
     ],
 }
 
@@ -976,8 +960,6 @@ var _screen_manifest := {
         preload("res://addons/scaffolder/src/gui/screens/scaffolder_loading_screen.tscn"),
         preload("res://addons/scaffolder/src/gui/screens/settings_screen.tscn"),
         preload("res://addons/scaffolder/src/gui/screens/third_party_licenses_screen.tscn"),
-        preload("res://addons/surfacer/src/gui/screens/precompute_platform_graphs_screen.tscn"),
-        preload("res://addons/surfacer/src/gui/screens/surfacer_loading_screen.tscn"),
         preload("res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen_local.tscn"),
 #        preload("res://addons/scaffolder/src/gui/screens/scaffolder_loading_screen.tscn"),
 #        preload("res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen_with_analytics.tscn"),
@@ -1027,10 +1009,7 @@ var _gui_manifest := {
     is_suggested_button_shine_line_shown = true,
     is_suggested_button_color_pulse_shown = true,
     
-    third_party_license_text = \
-            ScaffolderThirdPartyLicenses.TEXT + \
-            SurfacerThirdPartyLicenses.TEXT + \
-            SquirrelAwayThirdPartyLicenses.TEXT,
+    third_party_license_text = ScaffolderThirdPartyLicenses.TEXT,
     special_thanks_text = """
 """,
     
@@ -1051,8 +1030,8 @@ var _gui_manifest := {
     
     theme = preload("res://addons/scaffolder/src/config/scaffolder_default_theme.tres"),
     
-    fonts_manifest = _fonts_manifest_anti_aliased,
-    fonts_manifest = _fonts_manifest_pixelated,
+    fonts_manifest_anti_aliased = _fonts_manifest_anti_aliased,
+    fonts_manifest_pixelated = _fonts_manifest_pixelated,
     settings_item_manifest = _settings_item_manifest,
     pause_item_manifest = _pause_item_manifest,
     game_over_item_manifest = _game_over_item_manifest,
@@ -1085,9 +1064,12 @@ var _notifications_manifest := {
 }
 
 var _slow_motion_manifest := {
-    time_scale = 0.02,
-    tick_tock_tempo_multiplier = 25,
-    saturation = 0.2,
+    time_scale = 0.5,
+    tick_tock_tempo_multiplier = 1,
+    saturation = 0.5,
+#    time_scale = 0.02,
+#    tick_tock_tempo_multiplier = 25,
+#    saturation = 0.2,
 }
 
 var _input_map := ScaffolderProjectSettings._get_input_map_schema()
@@ -1215,9 +1197,11 @@ var _properties := {
 
     level_config_class = SquirrelAwayLevelConfig,
     level_session_class = SquirrelAwayLevelSession,
-    annotators_class = SurfacerAnnotators,
+    annotators_class = ScaffolderAnnotators,
 }
 
+var _overrides := {}
 
-func _init().(_METADATA_SCRIPT, _properties) -> void:
+
+func _init().(_METADATA_SCRIPT, _properties, _overrides) -> void:
     pass
