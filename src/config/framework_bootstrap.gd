@@ -26,6 +26,10 @@ func _load_modes() -> void:
             ScaffolderMetadata.MODES_PATH,
             true,
             true)
+    # Assign default values for any missing mode selections.
+    for mode_type in ScaffolderMetadata.DEFAULT_MODES:
+        if !Sc.modes.has(mode_type):
+            Sc.modes[mode_type] = ScaffolderMetadata.DEFAULT_MODES[mode_type]
 
 
 func _load_manifest() -> void:
