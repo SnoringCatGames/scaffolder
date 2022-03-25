@@ -3,7 +3,12 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: ----------------------------------------------
+# FIXME: LEFT OFF HERE: -----------------------------------------------
+# 
+# - Consolidate all manifest JSONs into one file, stored within the game
+#   config/, rather than in addons.
+# 
+# - Add a button for resetting frameworks within the editor.
 # 
 # - Refactor SquirrelAway._amend_manifest to collect all overrides in a single map:
 #   - The keys will represent the manifest object paths. E.g.:
