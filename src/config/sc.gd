@@ -107,9 +107,25 @@ func _trigger_debounced_run() -> void:
 func _run(timer: Timer) -> void:
     set_meta("debounced_run_timer", null)
     timer.queue_free()
-    # FIXME: LEFT OFF HERE: --------------------- Fix where the manifest comes from...
+    _apply_schema_overrides()
     Sc.run()
     # FIXME: LEFT OFF HERE: --------------------- Add support for calling Sc.run more than once; clear any preexisting app state.
+
+
+func _apply_schema_overrides() -> void:
+    for global in Sc._framework_globals:
+        for overridden_schema_script in global.schema.overrides:
+            var overridden_schema: FrameworkSchema = \
+                    Singletons.instance(overridden_schema_script)
+            var original_schema_properties: Dictionary = \
+                    overridden_schema.properties
+            var overriding_properties: Dictionary = \
+                    global.schema.overrides[overridden_schema_script]
+            Sc.utils.merge(
+                    original_schema_properties,
+                    overriding_properties,
+                    true,
+                    true)
 
 
 func run() -> void:

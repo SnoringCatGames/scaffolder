@@ -3,16 +3,14 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: ------------------------------------------------
+# FIXME: LEFT OFF HERE: -------------------------------------------------
+# 
+# - Add support for multi-line text-edit fields in manifest UI.
+#   - Use this for anything that contains a newline in the default value.
 # 
 # - SOLUTION to manifest override with modes problem:
-#   - Store redundant properties on manifest.
-#   - Then choose the ones to use based on mode.
-#   - Then, all modes' properties are always editable in plugin UI.
 #   - Do still try to support highlighting the plugin rows that are overridden by modes.
 #   - Try to separate out the overrides maps, so that I can also annotate the mode type color per UI row.
-# 
-# - Figure out how to deal with pixel-vs-anti-aliased default styles.
 # 
 # - Consolidate all manifest JSONs into one file, stored within the game
 #   config/, rather than in addons.
@@ -41,6 +39,12 @@ extends EditorPlugin
 #        go_normal = preload( \
 #                "res://addons/squirrel_away/assets/images/gui/go_icon.png"),
 #        go_scale = 1.5,
+#     - _gui_manifest
+#     - _default_welcome_panel_manifest
+#     - 
+#     - 
+#     - 
+#     - 
 #   - Have each schema define its own default pins.
 # - Show pinned properties in a separate panel at the top.
 #   - Create a new pin icon.
