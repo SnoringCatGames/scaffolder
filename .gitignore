@@ -23,3 +23,6 @@ project.code-workspace
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Plugin local metadata
+plugin_open_rows.json
