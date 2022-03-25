@@ -775,8 +775,8 @@
   },
   "gui_manifest": {
     "debug_window_size": {
-      "x": "$+INF:",
-      "y": "$+INF:"
+      "x": 0,
+      "y": 0
     },
     "default_pc_game_area_size": {
       "x": 1024,
@@ -1351,7 +1351,7 @@
           "squirrel"
         ],
         "movement_params": {
-          "collider_shape": "$Resource:",
+          "collider_shape": null,
           "collider_rotation": 1.570796,
           "can_grab_walls": true,
           "can_grab_ceilings": true,

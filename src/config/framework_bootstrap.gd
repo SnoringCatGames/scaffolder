@@ -35,7 +35,8 @@ func _load_modes() -> void:
             Sc.modes.register_mode(
                     mode_name,
                     mode_config.options,
-                    mode_config.default)
+                    mode_config.default,
+                    mode_config.color)
     Sc.modes.load_from_json()
 
 

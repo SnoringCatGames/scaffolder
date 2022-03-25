@@ -28,7 +28,6 @@ func make_visible(visible: bool) -> void:
         main_screen.visible = visible
 
 
-# FIXME: LEFT OFF HERE: ----------------------------------------
 func scale_dimension(value):
     var scale := editor.get_editor_scale()
     return value * scale

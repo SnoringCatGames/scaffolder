@@ -1,13 +1,13 @@
 tool
 class_name FrameworkPluginMainScreen, \
 "res://addons/scaffolder/assets/images/editor_icons/scaffolder_panel_container.png"
-extends CenterContainer
+extends VBoxContainer
 
 
 const _FRAMEWORK_MANIFEST_PANEL_SCENE := preload(
         "res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_panel.tscn")
 
-const _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS := 144.0
+const _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS := Vector2(144.0, 144.0)
 const _MODE_OPTION_BUTTON_WIDTH := 150.0
 
 
@@ -37,8 +37,7 @@ func _ready() -> void:
 
 
 func _reset_panels() -> void:
-    var container := \
-            $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer
+    var container := $CenterContainer/ScrollContainer/VBoxContainer
     Sc.utils.clear_children(container)
     for framework in Sc._framework_globals:
         var panel: FrameworkManifestPanel = \
@@ -50,13 +49,13 @@ func _reset_panels() -> void:
 
 func adjust_size() -> void:
     var size: Vector2 = self.rect_size
-    size.y -= $VBoxContainer/Label.rect_size.y
-    size.y -= $VBoxContainer/Spacer.rect_size.y
-    var margin: Vector2 = Pl.scale_dimension(
-            _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS * Vector2.ONE)
+    size.y -= $Label.rect_size.y
+    size.y -= $Spacer.rect_size.y
+    size.y -= $Spacer2.rect_size.y
+    var margin: Vector2 = \
+            Pl.scale_dimension(_CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS)
     var scroll_container_size := size - margin
-    $VBoxContainer/CenterContainer/ScrollContainer.rect_min_size = \
-            scroll_container_size
+    $CenterContainer/ScrollContainer.rect_min_size = scroll_container_size
 
 
 func _load_open_rows() -> void:
@@ -81,9 +80,7 @@ func _save_open_rows() -> void:
 
 func _get_open_rows() -> Dictionary:
     var open_rows := {}
-    var container := \
-            $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer
-    for panel in container.get_children():
+    for panel in $CenterContainer/ScrollContainer/VBoxContainer.get_children():
         if panel.is_open:
             open_rows[panel.manifest_controller.schema.display_name] = \
                     panel.get_open_rows()
@@ -91,16 +88,14 @@ func _get_open_rows() -> Dictionary:
 
 
 func _get_panel_with_label(label: String) -> FrameworkManifestPanel:
-    var container := \
-            $VBoxContainer/CenterContainer/ScrollContainer/VBoxContainer
-    for panel in container.get_children():
+    for panel in $CenterContainer/ScrollContainer/VBoxContainer.get_children():
         if panel.manifest_controller.schema.display_name == label:
             return panel
     return null
 
 
 func _create_mode_option_buttons() -> void:
-    var container := $VBoxContainer/Modes
+    var container := $Modes
     Sc.utils.clear_children(container)
     
     var spacer_left := Control.new()
@@ -109,6 +104,7 @@ func _create_mode_option_buttons() -> void:
     
     for mode_name in Sc.modes.options:
         var vbox := VBoxContainer.new()
+        vbox.add_constant_override("separation", 0.0)
         container.add_child(vbox)
         
         var label := Label.new()
@@ -116,6 +112,14 @@ func _create_mode_option_buttons() -> void:
         label.align = Label.ALIGN_CENTER
         label.size_flags_horizontal = SIZE_EXPAND_FILL
         vbox.add_child(label)
+        
+        var color_bar := ColorRect.new()
+        var color: Color = Sc.modes.colors[mode_name]
+        color_bar.color = color
+        color_bar.rect_min_size.y = Pl.scale_dimension(
+                FrameworkManifestRow._OVERRIDE_INDICATOR_WIDTH)
+        color_bar.size_flags_horizontal = SIZE_EXPAND_FILL
+        vbox.add_child(color_bar)
         
         var option_button := OptionButton.new()
         _option_buttons[mode_name] = option_button
