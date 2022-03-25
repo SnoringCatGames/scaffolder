@@ -11,14 +11,14 @@ size_flags_vertical = 3
 script = ExtResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_top = 107.0
-margin_right = 1328.0
-margin_bottom = 661.0
+margin_top = 126.0
+margin_right = 1040.0
+margin_bottom = 642.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 1328.0
+margin_right = 1040.0
 margin_bottom = 58.0
 custom_fonts/font = ExtResource( 1 )
 text = "Framework configuration"
@@ -26,140 +26,31 @@ align = 1
 
 [node name="Spacer" type="Control" parent="VBoxContainer"]
 margin_top = 62.0
-margin_right = 1328.0
+margin_right = 1040.0
 margin_bottom = 82.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="Modes" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 86.0
-margin_right = 1328.0
-margin_bottom = 124.0
+margin_right = 1040.0
+margin_bottom = 86.0
 custom_constants/separation = 32
 
-[node name="Spacer" type="Control" parent="VBoxContainer/Modes"]
-margin_bottom = 38.0
-size_flags_horizontal = 3
-
-[node name="Release" type="VBoxContainer" parent="VBoxContainer/Modes"]
-margin_left = 32.0
-margin_right = 432.0
-margin_bottom = 38.0
-
-[node name="Label" type="Label" parent="VBoxContainer/Modes/Release"]
-margin_right = 400.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
-text = "Release mode"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ReleaseModeButton" type="OptionButton" parent="VBoxContainer/Modes/Release"]
-margin_top = 18.0
-margin_right = 400.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 400, 0 )
-size_flags_horizontal = 3
-text = "LOCAL_DEV"
-items = [ "LOCAL_DEV", null, false, 1, null, "PLAYTEST", null, false, 2, null, "PRODUCTION", null, false, 3, null ]
-selected = 0
-
-[node name="Threading" type="VBoxContainer" parent="VBoxContainer/Modes"]
-margin_left = 32.0
-margin_right = 432.0
-margin_bottom = 38.0
-
-[node name="Label" type="Label" parent="VBoxContainer/Modes/Threading"]
-margin_right = 400.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
-text = "Threading mode"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ThreadingModeButton" type="OptionButton" parent="VBoxContainer/Modes/Threading"]
-margin_top = 18.0
-margin_right = 400.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 400, 0 )
-size_flags_horizontal = 3
-selected = 0
-
-[node name="Annotations" type="VBoxContainer" parent="VBoxContainer/Modes"]
-margin_left = 464.0
-margin_right = 864.0
-margin_bottom = 38.0
-
-[node name="Label" type="Label" parent="VBoxContainer/Modes/Annotations"]
-margin_right = 400.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
-text = "Annotations mode"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnnotationsModeButton" type="OptionButton" parent="VBoxContainer/Modes/Annotations"]
-margin_top = 18.0
-margin_right = 400.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 400, 0 )
-size_flags_horizontal = 3
-text = "EMPHASIZED"
-items = [ "DEFAULT", null, false, 1, null, "EMPHASIZED", null, false, 2, null ]
-selected = 1
-
-[node name="UiSmoothness" type="VBoxContainer" parent="VBoxContainer/Modes"]
-margin_left = 896.0
-margin_right = 1296.0
-margin_bottom = 38.0
-
-[node name="Label" type="Label" parent="VBoxContainer/Modes/UiSmoothness"]
-margin_right = 400.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
-text = "UI smoothness mode"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="UiSmoothnessModeButton" type="OptionButton" parent="VBoxContainer/Modes/UiSmoothness"]
-margin_top = 18.0
-margin_right = 400.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 400, 0 )
-size_flags_horizontal = 3
-text = "PIXELATED"
-items = [ "PIXELATED", null, false, 1, null, "ANTI_ALIASED", null, false, 2, null ]
-selected = 0
-
-[node name="Spacer2" type="Control" parent="VBoxContainer/Modes"]
-margin_left = 1328.0
-margin_right = 1328.0
-margin_bottom = 38.0
-size_flags_horizontal = 3
-
 [node name="Spacer2" type="Control" parent="VBoxContainer"]
-margin_top = 128.0
-margin_right = 1328.0
-margin_bottom = 148.0
+margin_top = 90.0
+margin_right = 1040.0
+margin_bottom = 110.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
-margin_top = 152.0
-margin_right = 1328.0
-margin_bottom = 554.0
+margin_top = 114.0
+margin_right = 1040.0
+margin_bottom = 516.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/CenterContainer"]
-margin_left = 144.0
-margin_right = 1184.0
+margin_right = 1040.0
 margin_bottom = 402.0
 rect_min_size = Vector2( 1040, 402 )
 size_flags_horizontal = 3
@@ -167,12 +58,6 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/ScrollContainer"]
 margin_right = 1040.0
-margin_bottom = 144.0
 rect_min_size = Vector2( 600, 0 )
 size_flags_horizontal = 3
 custom_constants/separation = 0
-
-[connection signal="item_selected" from="VBoxContainer/Modes/Release/ReleaseModeButton" to="." method="_on_ReleaseModeButton_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/Modes/Threading/ThreadingModeButton" to="." method="_on_ThreadingModeButton_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/Modes/Annotations/AnnotationsModeButton" to="." method="_on_AnnotationsModeButton_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/Modes/UiSmoothness/UiSmoothnessModeButton" to="." method="_on_UiSmoothnessModeButton_item_selected"]

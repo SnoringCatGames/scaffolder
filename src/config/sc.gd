@@ -21,6 +21,7 @@ const _LOGS_EARLY_BOOTSTRAP_EVENTS := false
 var logger: ScaffolderLog
 var utils: Utils
 var device: DeviceUtils
+var modes: FrameworkSchemaModes
 
 var metadata: ScaffolderAppMetadata
 var audio_manifest: ScaffolderAudioManifest
@@ -60,9 +61,6 @@ var gesture_reporter: GestureReporter
 var _framework_globals := []
 var _bootstrap: FrameworkBootstrap
 
-# FIXME: LEFT OFF HERE: -------------- Move this somewhere else?
-var modes: Dictionary
-
 # ---
 
 
@@ -84,6 +82,9 @@ func _ready() -> void:
     
     self.json = JsonUtils.new()
     add_child(self.json)
+    
+    self.modes = FrameworkSchemaModes.new()
+    add_child(self.modes)
 
 
 func _trigger_debounced_run() -> void:
@@ -194,6 +195,11 @@ func _sort_registered_frameworks() -> void:
     # Record sorted frameworks.
     for j in node_array.size():
         _framework_globals[j] = node_array[j].framework
+
+
+func _destroy() -> void:
+    ._destroy()
+    modes._clear()
 
 
 func _get_members_to_destroy() -> Array:

@@ -5,6 +5,13 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: -----------------------------------------------
 # 
+# - SOLUTION to manifest override with modes problem:
+#   - Store redundant properties on manifest.
+#   - Then choose the ones to use based on mode.
+#   - Then, all modes' properties are always editable in plugin UI.
+#   - Do still try to support highlighting the plugin rows that are overridden by modes.
+#   - Try to separate out the overrides maps, so that I can also annotate the mode type color per UI row.
+# 
 # - Figure out how to deal with pixel-vs-anti-aliased default styles.
 # 
 # - Consolidate all manifest JSONs into one file, stored within the game

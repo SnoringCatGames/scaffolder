@@ -11,6 +11,7 @@ var auto_load_path: String
 var plugin_icon_path_prefix: String
 var schema_path: String
 var manifest_path: String
+var modes: Dictionary
 
 
 func _init(
@@ -21,7 +22,8 @@ func _init(
         auto_load_path: String,
         plugin_icon_path_prefix: String,
         schema_path: String,
-        manifest_path: String) -> void:
+        manifest_path: String,
+        modes: Dictionary) -> void:
     self.display_name = display_name
     self.folder_name = folder_name
     self.auto_load_name = auto_load_name
@@ -30,3 +32,4 @@ func _init(
     self.plugin_icon_path_prefix = plugin_icon_path_prefix
     self.schema_path = schema_path
     self.manifest_path = manifest_path
+    self.modes = modes
