@@ -3,11 +3,9 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: --------------------------------------------------
+# FIXME: LEFT OFF HERE: ---------------------------------------------------
 # 
-# - SOLUTION to manifest override with modes problem:
-#   - Do still try to support highlighting the plugin rows that are overridden by modes.
-#   - Try to separate out the overrides maps, so that I can also annotate the mode type color per UI row.
+# - Add support for coloring rows that aren't strictly overridden.
 # 
 # - Consolidate all manifest JSONs into one file, stored within the game
 #   config/, rather than in addons.
@@ -16,16 +14,6 @@ extends EditorPlugin
 #   - Include an array of property-path strings in each schema constructor.
 #     - I could use an inline special-token key within schema Dictionaries, but 
 #       then I wouldn't have control over the ordering of pinned items.
-# 
-# - Refactor SquirrelAway._amend_manifest to collect all overrides in a single map:
-#   - The keys will represent the manifest object paths. E.g.:
-#     - "Su.manifest.uses_threads_for_platform_graph_calculation"
-#   - Then, this map is passed to a utility function.
-#   - Then, each ammendment is parsed, and the relevant global.manifest property
-#     is updated.
-#   - Then, each ammendment is parsed, and the plugin-manifest-node tree is
-#     traversed, and each relevant node is flagged as overridden.
-#   - Then, highlight each overridden node in the plugin UI.
 # 
 # - Add the ability to pin important properties:
 #   - Include defaults:
@@ -51,76 +39,18 @@ extends EditorPlugin
 #   - Don't support modifying pins through the UI for now.
 #   - Do support overriding pins through GDScript though.
 # 
-# - Scrap previous modes plans.
-# - New plans:
-#   -  Keep the dropdowns in the plugin UI.
-#   -  Add support for dynamically registering new modes.
-#   -  Require all mode-based manifest manipulation to happen via GDScript.
-#   -  Don't reflect mode-based values in the UI.
-#      -   BUT, I can not which properties have at least been targeted by a
-#          GDScript override, and give them a generic highlight in the UI.
-#          -   Describe this highlight condition in the hint_tooltip.
+# - Add TYPE_FONT.
 # 
-# - Assert that all modes of a given property use the same type.
+# - Add support for multi-line text-edit fields in manifest UI.
+#   - Use this for anything that contains a newline in the default value.
 # 
-# - Multiple modes affecting a single property:
-#   - Disallow it for now?
-#     - Have an assert.
-#   - Are there any cases for this right now?
-# 
-# - Render a different colored line for each mode.
-#   - Render horizontally under dropdown label.
-#   - Render vertically as border on left-side of row.
-#     - When a row is affected by multiple modes, divide this line vertically.
-#   - Render as a faded background across the entire row.
-# 
-# >- Add support for different schema modes.
-#     - ReleaseMode: local-dev vs playtest vs production
-#     - AnnotationsMode: emphasized-annotations vs default
-#     - SmoothnessMode: pixelated vs anti-aliased
-#   - For each mode, define the collection of schema properties that are
-#     configurable, and their default values.
-#   - In the manifest's JSON file:
-#     - Introduce new top-level sections:
-#       main, release_mode, annotations_mode, smoothness_mode.
-#     - In each mode section, only record the relevant properties for that mode.
-#   - In the node tree:
-#     - Introduce new top-level sections.
-#     - Introduce corresponding new nodes under each mode-section branch.
-#   - Add checkboxes at the top of the main panel (outside of any manifest
-#     accordion) for toggling which mode we're in.
-#     - Save the modes in another separate top-level section in the scaffolder
-#       manifest JSON.
-#     - When toggling a checkbox, update the values for all relevant controls.
-#     - When editing a control value, only modify the property for the relevant
-#       mode section.
-#   - Render a special background color behind the mode checkbox+label and
-#     behind all control-rows that are under the scope of the currently-selected
-#     mode.
+# - Add a button for resetting frameworks within the editor.
 # 
 # - Scan manifests to make sure I have support for all types I've previously
 #   used.
 # 
-# - Don't port the manifests as a single framework all-at-once.
-#   - Instead, port over the most significant and simple properties for each
-#     framework first.
-#   - Try to clear warnings/errors from concole.
-# 
-# - Plan the system for easily modding / overriding schemas as we do now:
-#   - Should always override any preexisting values stored in json.
-#   - Should save override values to json.
-# 
 # - Port all legacy framework manifests to new pattern.
 # 
-# - Test new MultiNumberEditor controls.
-# 
-# - Create plugin container system for rendering separate plugin manifest
-#   editors within.
-# 
-# - Refactor main-panel to be generic for any plugin.
-#   - Auto-open the last accordion registered (and close all others at that point).
-# 
-# - Convert old manifest stuff into new plugin-manifest structure.
 # 
 # - Update schema defaults to not include squirrel-away-specific state.
 # 
@@ -151,11 +81,6 @@ extends EditorPlugin
 #   - Refactor things to work regardless of the order that AutoLoads are included.
 #   - Expect that Scaffolder will force the order of plugin initialization to be as needed.
 #     - Expect that each plugin will define a priority value.
-# 
-# - Add a button for resetting frameworks within the editor.
-# 
-# - Add support for multi-line text-edit fields in manifest UI.
-#   - Use this for anything that contains a newline in the default value.
 # 
 # - Add a debug util for annotating GUIs:
 #   - Simply call Sc.utils.highlight_node_for_debugging(node)
