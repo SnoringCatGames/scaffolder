@@ -110,6 +110,72 @@ func _load_state() -> void:
     pass
 
 
+func _override_manifest(overrides: Array) -> void:
+    var globals := {}
+    for global in Sc._framework_globals:
+        globals[global.schema.auto_load_name] = global
+    
+    for entry in overrides:
+        var property_path: String = entry[0]
+        var property_value = entry[1]
+        var override_source: String = \
+                entry[2] if \
+                entry.size() > 2 else \
+                ""
+        
+        assert(property_path.find("[") < 0,
+                "Array-element overrides are not currently supported.")
+        var tokens: PoolStringArray = property_path.split(".")
+        assert(tokens.size() > 2)
+        
+        assert(override_source == "" or \
+                Sc.modes.options.has(override_source),
+                "Override sources currently must correspond to a registered " +
+                "mode")
+        
+        if property_value is Array or \
+                property_value is Dictionary:
+            Sc.logger.warning(
+                    "_override_manifest is assigning a Dictionary or Array " +
+                    "value: %s" % property_path)
+        
+        var token: String = tokens[0]
+        assert(globals.has(token))
+        var global: FrameworkGlobal = globals[token]
+        
+        token = tokens[1]
+        assert(token == "manifest")
+        var dictionary: Dictionary = global.manifest
+        
+        var node := global.manifest_controller.root
+        
+        for i in range(2, tokens.size() - 1):
+            token = tokens[i]
+            dictionary = dictionary[token]
+            node = node.children[token]
+        
+        token = tokens[tokens.size() - 1]
+        
+        var was_key_in_manifest_dictionary := dictionary.has(token)
+        var was_key_in_manifest_node_tree: bool = node.children.has(token)
+        
+        if !was_key_in_manifest_dictionary:
+            Sc.logger.warning(
+                    "_override_manifest is introducing a key that wasn't in " +
+                    "the manifest dictionary: %s" % property_path)
+        dictionary[token] = property_value
+        
+        if was_key_in_manifest_node_tree:
+            node = node.children[token]
+            node.override_value = property_value
+            node.override_source = override_source
+            node.is_overridden = true
+        else:
+            Sc.logger.warning(
+                    "_override_manifest is referencing a key that wasn't in " +
+                    "the manifest node tree: %s" % property_path)
+
+
 func _set_registered() -> void:
     if !is_registered:
         is_registered = true
