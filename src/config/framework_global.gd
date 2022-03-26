@@ -133,12 +133,6 @@ func _override_manifest(overrides: Array) -> void:
                 "Override sources currently must correspond to a registered " +
                 "mode")
         
-        if property_value is Array or \
-                property_value is Dictionary:
-            Sc.logger.warning(
-                    "_override_manifest is assigning a Dictionary or Array " +
-                    "value: %s" % property_path)
-        
         var token: String = tokens[0]
         assert(globals.has(token))
         var global: FrameworkGlobal = globals[token]
@@ -159,10 +153,6 @@ func _override_manifest(overrides: Array) -> void:
         var was_key_in_manifest_dictionary := dictionary.has(token)
         var was_key_in_manifest_node_tree: bool = node.children.has(token)
         
-        if !was_key_in_manifest_dictionary:
-            Sc.logger.warning(
-                    "_override_manifest is introducing a key that wasn't in " +
-                    "the manifest dictionary: %s" % property_path)
         dictionary[token] = property_value
         
         if was_key_in_manifest_node_tree:
@@ -170,10 +160,6 @@ func _override_manifest(overrides: Array) -> void:
             node.override_value = property_value
             node.override_source = override_source
             node.is_overridden = true
-        else:
-            Sc.logger.warning(
-                    "_override_manifest is referencing a key that wasn't in " +
-                    "the manifest node tree: %s" % property_path)
 
 
 func _set_registered() -> void:
