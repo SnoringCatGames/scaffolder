@@ -9,6 +9,10 @@ extends EditorPlugin
 # 
 # - Add support for coloring rows that aren't strictly overridden.
 # 
+# - Update manifest.json files to only include non-default state.
+#   - I need these to serve as a clear indication of what has actually been
+#     changed by the user.
+# 
 # - Consolidate all manifest JSONs into one file, stored within the game
 #   config/, rather than in addons.
 # 
