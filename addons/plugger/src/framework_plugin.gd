@@ -3,7 +3,9 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: ---------------------------------------------------
+# FIXME: LEFT OFF HERE: ----------------------------------------------------
+# 
+# - Fix _get_common_overrides_for_annotations_mode.
 # 
 # - Add support for coloring rows that aren't strictly overridden.
 # 
@@ -50,6 +52,8 @@ extends EditorPlugin
 #   used.
 # 
 # - Port all legacy framework manifests to new pattern.
+# 
+# - Search for FIXME in plugger, surface_tiler, and also all other places.
 # 
 # 
 # - Update schema defaults to not include squirrel-away-specific state.
