@@ -15,7 +15,13 @@ extends Reference
 
 # FIXME: LEFT OFF HERE: -------------------
 # 
-# - Update ColorConfigEditorProperyt key to be an OptionButton with all
+# - Create a ColorConfigEdit control that is separate from
+#   ColorConfigEditorProperty.
+#   - This will allow me to edit ColorConfigs separately from a property on a
+#     parent object.
+#   - Use this from within the manifest row.
+# 
+# - Update ColorConfigEditorProperty key to be an OptionButton with all
 #   registered palette keys.
 # 
 # - Implement the PropertyEditor widget for ColorConfig.
@@ -40,6 +46,8 @@ extends Reference
 # - Also, change Character export property colors to be ColorConfigs.
 #   - And then also register my new editor widgets to work as actual Inspector
 #     PropertyEditors.
+#   - Character property configs will need to define type `hint`s of
+#     ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG.
 # - Set up / register palette.
 
 
