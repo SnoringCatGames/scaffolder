@@ -89,9 +89,24 @@ static func delta(
 
 
 static func opacify(
-        key: String,
-        alpha: float) -> PaletteColorConfig:
-    var color_config := PaletteColorConfig.new()
-    color_config.key = key
+        color_or_key,
+        alpha: float) -> ColorConfig:
+    var color_config: ColorConfig
+    if color_or_key is String:
+        color_config = PaletteColorConfig.new()
+        color_config.key = color_or_key
+    elif color_or_key is ColorConfig:
+        color_config = color_or_key
+    elif color_or_key is Color:
+        color_config = color(color_or_key)
+    else:
+        Sc.logger.error(
+            "Invalid value passed to ColorFactory.opacify: %s" % \
+            str(color_or_key))
+        return transparent()
     color_config.a = alpha
     return color_config
+
+
+static func transparent() -> StaticColorConfig:
+    return StaticColorConfig.new()

@@ -19,16 +19,12 @@ var v_delta := 0.0
 var a_delta := 0.0
 
 
-func sample() -> Color:
-    var color: Color = Sc.palette.get_color(key)
-    color.h = max(color.h, _h_override)
-    color.h += h_delta
-    color.s = max(color.s, _s_override)
-    color.s += s_delta
-    color.v = max(color.v, _v_override)
-    color.v += v_delta
-    color.a = max(color.a, _a_override)
-    color.a += a_delta
+func sample(_redirect_depth := 0) -> Color:
+    var color: Color = Sc.palette.get_color(key, _redirect_depth)
+    color.h += clamp(max(color.h, _h_override) + h_delta, 0.0, 1.0)
+    color.s += clamp(max(color.s, _s_override) + s_delta, 0.0, 1.0)
+    color.v += clamp(max(color.v, _v_override) + v_delta, 0.0, 1.0)
+    color.a += clamp(max(color.a, _a_override) + a_delta, 0.0, 1.0)
     return color
 
 

@@ -13,24 +13,19 @@ extends Reference
 ##     of whichever color would otherwise have been returned from the subclass.
 
 
-# FIXME: LEFT OFF HERE: ------------------
-# - Incorporate opacify into this class.
-#   - ACTUALLY, refactor this a bit.
-#   - Define separate override fields for each component (hsva).
-#   - These overrides could then apply to any of the ColorConfig subclasses.
-# - Create the ColorPalette global.
+# FIXME: LEFT OFF HERE: -------------------
+# 
+# - DON'T SUBMIT until replacing all usages of old palette colors with
+#   ColorConfig unboxing.
+# 
 # - Replace all of the different color systems I'd built-up previously with this new simpler system.
 #   - ColorParams
 #   - ColorParamsFactory
-#   - Sc.colors
-#   - Sc.colors.opacify
-#   - SurfacerColors
-#   - ScaffolderColors
 #   - Sc.ann_params
 #   - ScaffolderAnnotationParameters
 #   - SurfacerAnnotationParameters
-# - Update all references to the Sc.colors values in order to lazily access the
-#   actual color as late as possible.
+# - Consolidate ScaffolderSchema.colors_manifest with ColorPalette defaults?:
+#   - Expose all color palette defaults on the manifest?
 # - Refactor Sc.ann_params/ScaffolderAnnotationParameters/SurfacerAnnotationParameters
 #   to instead use a big const dictionary with string keys.
 #   - Then, I can dynamically populate the manifest defaults from this.
@@ -39,6 +34,9 @@ extends Reference
 #   for each of its subclasses.
 #   - I might need to look into how other subclassed-type editors work, like
 #     StyleBox...
+# - Also, change Character export property colors to be ColorConfigs.
+#   - And then also register my new editor widgets to work as actual Inspector
+#     PropertyEditors.
 # - Set up / register palette.
 
 
@@ -49,19 +47,6 @@ const ALPHA_XFAINT := 0.3
 const ALPHA_XXFAINT := 0.1
 const ALPHA_XXXFAINT := 0.03
 
-# FIXME: ---------
-# - Replace old usages of these and the alphas above.
-# - _Do_ use a proper class for Sc.colors?
-#   - How will it be accessed?
-#     - Mostly via ColorFactory?
-#   - How will values be configured for each framework?
-const WHITE := Color(1.0, 1.0, 1.0)
-const PURPLE := Color(0.734, 0.277, 1.0)
-const TEAL := Color(0.277, 0.973, 1.0)
-const RED := Color(1.0, 0.305, 0.277)
-const ORANGE := Color(1.0, 0.648, 0.277)
-
-const DEFAULT_BOOT_SPLASH_BACKGROUND_COLOR := Color("202531")
 const TRANSPARENT := Color(0.0, 0.0, 0.0, 0.0)
 
 var h: float setget _set_h,_get_h
@@ -70,7 +55,7 @@ var v: float setget _set_v,_get_v
 var a: float setget _set_a,_get_a
 
 
-func sample() -> Color:
+func sample(_redirect_depth := 0) -> Color:
     Sc.logger.error("Abstract ColorConfig.sample is not implemented.")
     return TRANSPARENT
 

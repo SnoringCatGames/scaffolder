@@ -8,9 +8,9 @@ export var url: String
 
 
 func _ready() -> void:
-    add_color_override("font_color", Sc.colors.link_normal)
-    add_color_override("font_color_hover", Sc.colors.link_hover)
-    add_color_override("font_color_pressed", Sc.colors.link_pressed)
+    add_color_override("font_color", Sc.palette.get_color("link_normal"))
+    add_color_override("font_color_hover", Sc.palette.get_color("link_hover"))
+    add_color_override("font_color_pressed", Sc.palette.get_color("link_pressed"))
 
 
 func _on_ScaffolderLabelLink_pressed() -> void:

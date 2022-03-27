@@ -41,9 +41,9 @@ func _ready() -> void:
             Sc.device.get_safe_area_margin_right())
     
     $MarginContainer/TopRow/Header \
-            .add_color_override("font_color", Sc.colors.header)
+            .add_color_override("font_color", Sc.palette.get_color("header"))
     $MarginContainer/VBoxContainer/BottomRow/Header \
-            .add_color_override("font_color", Sc.colors.header)
+            .add_color_override("font_color", Sc.palette.get_color("header"))
     
     $MarginContainer/TopRow/Logo \
             .texture_scale = Vector2(

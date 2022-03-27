@@ -10,8 +10,8 @@ extends Node
 var click_inner_end_radius := 58.0
 var click_outer_end_radius := 100.0
 
-var click_inner_color: Color = Sc.colors.click
-var click_outer_color: Color = Sc.colors.click
+var click_inner_color := ColorFactory.palette("click")
+var click_outer_color := ColorFactory.palette("click")
 
 var click_inner_duration := 0.27
 var click_outer_duration := 0.23
@@ -20,10 +20,8 @@ var click_outer_duration := 0.23
 
 var ruler_line_width := 1.0
 
-var ruler_line_color: Color = Sc.colors.opacify(
-        Sc.colors.ruler, ScaffolderColors.ALPHA_XFAINT)
-var ruler_text_color: Color = Sc.colors.opacify(
-        Sc.colors.ruler, ScaffolderColors.ALPHA_FAINT)
+var ruler_line_color := ColorFactory.opacify("ruler", ColorConfig.ALPHA_XFAINT)
+var ruler_text_color := ColorFactory.opacify("ruler", ColorConfig.ALPHA_FAINT)
 
 ### Exclamation mark
 
@@ -72,10 +70,10 @@ var recent_offbeat_hash_stroke_width := 1.0
 
 ### Character position
 
-var character_position_opacity := ScaffolderColors.ALPHA_XFAINT
+var character_position_opacity := ColorConfig.ALPHA_XFAINT
 var character_position_radius := 3.0
 
-var character_collider_opacity := ScaffolderColors.ALPHA_FAINT
+var character_collider_opacity := ColorConfig.ALPHA_FAINT
 var character_collider_thickness := 4.0
 
 # ---

@@ -12,7 +12,7 @@ var b: float setget _set_b,_get_b
 var _color := TRANSPARENT
 
 
-func sample() -> Color:
+func sample(_redirect_depth := 0) -> Color:
     return _color
 
 

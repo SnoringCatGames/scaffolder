@@ -163,8 +163,8 @@ func _override_project_settings() -> void:
         "application/config/name": Sc.metadata.app_name,
         "application/config/auto_accept_quit": false,
         "application/config/quit_on_go_back": false,
-        "application/boot_splash/bg_color": Sc.colors.boot_splash_background,
-        "rendering/environment/default_clear_color": Sc.colors.background,
+        "application/boot_splash/bg_color": Sc.palette.get_color("boot_splash_background"),
+        "rendering/environment/default_clear_color": Sc.palette.get_color("background"),
         "rendering/2d/snapping/use_gpu_pixel_snap": true,
         "rendering/quality/intended_usage/framebuffer_allocation":
                 framebuffer_2d_without_sampling,

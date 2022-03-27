@@ -42,13 +42,13 @@ func set_up(contents: Screen) -> void:
     var background_color := \
             contents.background_color_override if \
             has_background_color_override else \
-            Sc.colors.background
+            Sc.palette.get_color("background")
     stylebox = Sc.styles.create_stylebox_scalable({
         bg_color = background_color,
         shadow_size = Sc.styles.screen_shadow_size,
         shadow_offset = Sc.styles.screen_shadow_offset,
         border_width = Sc.styles.screen_border_width,
-        border_color = Sc.colors.screen_border,
+        border_color = Sc.palette.get_color("screen_border"),
     }, true)
     outer_panel.add_stylebox_override("panel", stylebox)
     Sc.gui.add_gui_to_scale(outer_panel)

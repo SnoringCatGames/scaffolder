@@ -106,7 +106,7 @@ func _set_even_row_color_override(value: Color) -> void:
     _even_row_style.bg_color = \
             even_row_color_override if \
             even_row_color_override != Color.black else \
-            Sc.colors.zebra_stripe_even_row
+            Sc.palette.get_color("zebra_stripe_even_row")
 
 
 func _set_font_size(value: String) -> void:
