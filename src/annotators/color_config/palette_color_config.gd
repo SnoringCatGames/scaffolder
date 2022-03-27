@@ -1,7 +1,9 @@
 tool
 class_name PaletteColorConfig
 extends ColorConfig
-## FIXME: ------------- Doc comment.
+## This lets you reference a dynamic Color value according to its[br]
+## corresponding palette key. Then, the actual color can be changed, and a[br]
+## static Color representation will only be used when needed.
 
 
 var key: String
@@ -11,13 +13,22 @@ var _s_override := -1.0
 var _v_override := -1.0
 var _a_override := -1.0
 
+var h_delta := 0.0
+var s_delta := 0.0
+var v_delta := 0.0
+var a_delta := 0.0
+
 
 func sample() -> Color:
     var color: Color = Sc.palette.get_color(key)
     color.h = max(color.h, _h_override)
+    color.h += h_delta
     color.s = max(color.s, _s_override)
+    color.s += s_delta
     color.v = max(color.v, _v_override)
+    color.v += v_delta
     color.a = max(color.a, _a_override)
+    color.a += a_delta
     return color
 
 

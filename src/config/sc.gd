@@ -26,7 +26,6 @@ var modes: FrameworkSchemaModes
 var metadata: ScaffolderAppMetadata
 var audio_manifest: ScaffolderAudioManifest
 var audio: Audio
-var colors: ScaffolderColors
 var styles: ScaffolderStyles
 var images: ScaffolderImages
 var gui: ScaffolderGuiConfig
@@ -56,6 +55,9 @@ var nav: ScreenNavigator
 var analytics: Analytics
 var crash_reporter: CrashReporter
 var gesture_reporter: GestureReporter
+
+# Dictionary<String, Color>
+var colors := {}
 
 # Array<FrameworkGlobal>
 var _framework_globals := []
@@ -216,6 +218,7 @@ func _sort_registered_frameworks() -> void:
 func _destroy() -> void:
     ._destroy()
     modes._clear()
+    colors.clear()
 
 
 func _get_members_to_destroy() -> Array:
@@ -230,7 +233,6 @@ func _get_members_to_destroy() -> Array:
         metadata,
         audio_manifest,
         audio,
-        colors,
         styles,
         images,
         gui,
@@ -327,13 +329,6 @@ func _instantiate_sub_modules() -> void:
     else:
         self.audio = Audio.new()
     add_child(self.audio)
-    
-    if manifest.has("colors_class"):
-        self.colors = manifest.colors_class.new()
-        assert(self.colors is ScaffolderColors)
-    else:
-        self.colors = ScaffolderColors.new()
-    add_child(self.colors)
     
     if manifest.has("styles_class"):
         self.styles = manifest.styles_class.new()
@@ -468,6 +463,13 @@ func _instantiate_sub_modules() -> void:
         self.characters = ScaffolderCharacterManifest.new()
     add_child(self.characters)
     
+    if manifest.has("ann_params_class"):
+        self.ann_params = manifest.ann_params_class.new()
+        assert(self.ann_params is ScaffolderAnnotationParameters)
+    else:
+        self.ann_params = ScaffolderAnnotationParameters.new()
+    add_child(self.ann_params)
+    
     if manifest.has("annotators_class"):
         self.annotators = manifest.annotators_class.new()
         assert(self.annotators is ScaffolderAnnotators)
@@ -482,24 +484,12 @@ func _instantiate_sub_modules() -> void:
 
 func _configure_sub_modules() -> void:
     self.audio_manifest._parse_manifest(manifest.audio_manifest)
-    self.colors._parse_manifest(manifest.colors_manifest)
     self.styles._parse_manifest(manifest.styles_manifest)
     self.images._parse_manifest(manifest.images_manifest)
     self.gui._parse_manifest(manifest.gui_manifest)
     self.notify._parse_manifest(manifest.notifications_manifest)
     self.slow_motion._parse_manifest(manifest.slow_motion_manifest)
     self.characters._parse_manifest(manifest.character_manifest)
-    
-    # ScaffolderAnnotationParameters currently depends on ScaffolderColors
-    # being both instantiated and configured before
-    # ScaffolderAnnotationParameters is instantiated.
-    if manifest.has("ann_params_class"):
-        self.ann_params = manifest.ann_params_class.new()
-        assert(self.ann_params is ScaffolderAnnotationParameters)
-    else:
-        self.ann_params = ScaffolderAnnotationParameters.new()
-    add_child(self.ann_params)
-    
     self.ann_params._parse_manifest(manifest.annotation_parameters_manifest)
     
     self.metadata.is_app_configured = true

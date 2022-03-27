@@ -1,7 +1,8 @@
 tool
 class_name ColorFactory
 extends Reference
-## FIXME: ------------- Doc comment.
+## This is a collection of convenience factory functions for instantiating[br]
+## ColorConfigs.
 
 
 static func rgb(
@@ -67,6 +68,23 @@ static func h_range(
 static func palette(key: String) -> PaletteColorConfig:
     var color_config := PaletteColorConfig.new()
     color_config.key = key
+    return color_config
+
+
+static func delta(
+        key: String,
+        delta: Dictionary) -> PaletteColorConfig:
+    var color_config := PaletteColorConfig.new()
+    color_config.key = key
+    var color := color_config.sample()
+    if delta.has("h"):
+        color_config.h_delta = delta.h
+    if delta.has("s"):
+        color_config.s_delta = delta.s
+    if delta.has("v"):
+        color_config.v_delta = delta.v
+    if delta.has("a"):
+        color_config.a_delta = delta.a
     return color_config
 
 

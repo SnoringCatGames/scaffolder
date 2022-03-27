@@ -1,14 +1,15 @@
 tool
 class_name StaticColorConfig
 extends ColorConfig
-## FIXME: ------------- Doc comment.
+## This lets you use a static color value inter-changeably with the other[br]
+## types of ColorConfigs.
 
 
 var r: float setget _set_r,_get_r
 var g: float setget _set_g,_get_g
 var b: float setget _set_b,_get_b
 
-var _color := _TRANSPARENT
+var _color := TRANSPARENT
 
 
 func sample() -> Color:

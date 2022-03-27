@@ -1,7 +1,8 @@
 tool
 class_name HsvRangeColorConfig
 extends ColorConfig
-## FIXME: ------------- Doc comment.
+## This lets you define a range of color parameters, and then sample random[br]
+## colors within these parameters.
 
 
 var h_min := 0.0 setget _set_h_min
