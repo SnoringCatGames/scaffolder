@@ -51,7 +51,7 @@ func _init_children() -> void:
         corner_detail = Sc.styles.dropdown_corner_detail,
         shadow_size = Sc.styles.dropdown_shadow_size,
         border_width = Sc.styles.dropdown_border_width,
-        border_color = Sc.colors.dropdown_border,
+        border_color = Sc.palette.get_color("dropdown_border"),
     }, true)
     add_stylebox_override("panel", header_stylebox)
     
@@ -61,7 +61,7 @@ func _init_children() -> void:
         corner_detail = Sc.styles.dropdown_corner_detail,
         shadow_size = Sc.styles.dropdown_shadow_size,
         border_width = Sc.styles.dropdown_border_width,
-        border_color = Sc.colors.dropdown_border,
+        border_color = Sc.palette.get_color("dropdown_border"),
     }, true)
     $HintWrapper.add_stylebox_override("panel", hint_stylebox)
 

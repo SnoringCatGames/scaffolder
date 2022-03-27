@@ -73,7 +73,7 @@ func _draw() -> void:
         draw_line(
                 start_position,
                 end_position,
-                Sc.ann_params.ruler_line_color,
+                Sc.ann_params.ruler_line_color.sample(),
                 Sc.ann_params.ruler_line_width)
         
         var text := str(round((screen_start_position.x + start_x) * \
@@ -83,7 +83,7 @@ func _draw() -> void:
                 font,
                 Vector2(start_position.x + 4, font_height),
                 text,
-                Sc.ann_params.ruler_text_color)
+                Sc.ann_params.ruler_text_color.sample())
     
     # Draw the horizontal lines.
     start_x = ruler_start_position.x
@@ -94,7 +94,7 @@ func _draw() -> void:
         draw_line(
                 start_position,
                 end_position,
-                Sc.ann_params.ruler_line_color,
+                Sc.ann_params.ruler_line_color.sample(),
                 Sc.ann_params.ruler_line_width)
         
         var text := str(round((screen_start_position.y + start_y) * \
@@ -104,7 +104,7 @@ func _draw() -> void:
                 font,
                 Vector2(4, start_position.y + font_height * 0.8),
                 text,
-                Sc.ann_params.ruler_text_color)
+                Sc.ann_params.ruler_text_color.sample())
 
 
 func _on_viewport_size_changed() -> void:

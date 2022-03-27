@@ -611,14 +611,14 @@ func configure_theme() -> void:
         }, false)
     else:
         overlay_panel_stylebox = Sc.styles.create_stylebox_scalable({
-            bg_color = Sc.colors.overlay_panel_background,
+            bg_color = Sc.palette.get_color("overlay_panel_background"),
             corner_radius = Sc.styles.overlay_panel_corner_radius,
             corner_detail = Sc.styles.overlay_panel_corner_detail,
             shadow_size = Sc.styles.overlay_panel_shadow_size,
             shadow_offset = Sc.styles.overlay_panel_shadow_offset,
-            shadow_color = Sc.colors.shadow,
+            shadow_color = Sc.palette.get_color("shadow"),
             border_width = Sc.styles.overlay_panel_border_width,
-            border_color = Sc.colors.overlay_panel_border,
+            border_color = Sc.palette.get_color("overlay_panel_border"),
             content_margin_left = \
                     Sc.styles.overlay_panel_content_margin_left,
             content_margin_top = \
@@ -652,14 +652,14 @@ func configure_theme() -> void:
         }, false)
     else:
         notification_panel_stylebox = Sc.styles.create_stylebox_scalable({
-            bg_color = Sc.colors.notification_panel_background,
+            bg_color = Sc.palette.get_color("notification_panel_background"),
             corner_radius = Sc.styles.notification_panel_corner_radius,
             corner_detail = Sc.styles.notification_panel_corner_detail,
             shadow_size = Sc.styles.notification_panel_shadow_size,
             shadow_offset = Sc.styles.notification_panel_shadow_offset,
-            shadow_color = Sc.colors.shadow,
+            shadow_color = Sc.palette.get_color("shadow"),
             border_width = Sc.styles.notification_panel_border_width,
-            border_color = Sc.colors.notification_panel_border,
+            border_color = Sc.palette.get_color("notification_panel_border"),
             content_margin_left = \
                     Sc.styles.notification_panel_content_margin_left,
             content_margin_top = \
@@ -685,7 +685,7 @@ func configure_theme() -> void:
         }, false)
     else:
         header_panel_stylebox = Sc.styles.create_stylebox_scalable({
-            bg_color = Sc.colors.header_panel_background,
+            bg_color = Sc.palette.get_color("header_panel_background"),
             content_margin_left = Sc.styles.header_panel_content_margin_left,
             content_margin_top = Sc.styles.header_panel_content_margin_top,
             content_margin_right = Sc.styles.header_panel_content_margin_right,
@@ -706,19 +706,19 @@ func configure_theme() -> void:
     }, false)
     
     _configure_theme_color(
-            "font_color", "Label", Sc.colors.text)
+            "font_color", "Label", Sc.palette.get_color("text"))
     _configure_theme_color(
-            "font_color", "Button", Sc.colors.text)
+            "font_color", "Button", Sc.palette.get_color("text"))
     _configure_theme_color(
-            "font_color", "CheckBox", Sc.colors.text)
+            "font_color", "CheckBox", Sc.palette.get_color("text"))
     _configure_theme_color(
-            "font_color", "ItemList", Sc.colors.text)
+            "font_color", "ItemList", Sc.palette.get_color("text"))
     _configure_theme_color(
-            "font_color", "OptionButton", Sc.colors.text)
+            "font_color", "OptionButton", Sc.palette.get_color("text"))
     _configure_theme_color(
-            "font_color", "PopupMenu", Sc.colors.text)
+            "font_color", "PopupMenu", Sc.palette.get_color("text"))
     _configure_theme_color(
-            "font_color", "Tree", Sc.colors.text)
+            "font_color", "Tree", Sc.palette.get_color("text"))
     
     if is_instance_valid(Sc.styles.button_normal_nine_patch):
         _configure_theme_stylebox(
@@ -797,13 +797,13 @@ func configure_theme() -> void:
     else:
         _configure_theme_stylebox(
                 "disabled", "Button", {
-                    bg_color = Sc.colors.button_disabled,
+                    bg_color = Sc.palette.get_color("button_disabled"),
                     corner_radius = Sc.styles.button_corner_radius,
                     corner_detail = Sc.styles.button_corner_detail,
                     shadow_size = round(Sc.styles.button_shadow_size * 0.0),
-                    shadow_color = Sc.colors.shadow,
+                    shadow_color = Sc.palette.get_color("shadow"),
                     border_width = round(Sc.styles.button_border_width * 0.0),
-                    border_color = Sc.colors.button_border,
+                    border_color = Sc.palette.get_color("button_border"),
                     content_margin_left = Sc.styles.button_content_margin_left,
                     content_margin_top = Sc.styles.button_content_margin_top,
                     content_margin_right = Sc.styles.button_content_margin_right,
@@ -815,9 +815,9 @@ func configure_theme() -> void:
                     corner_radius = Sc.styles.focus_border_corner_radius,
                     corner_detail = Sc.styles.focus_border_corner_detail,
                     shadow_size = Sc.styles.focus_border_shadow_size,
-                    shadow_color = Sc.colors.shadow,
+                    shadow_color = Sc.palette.get_color("shadow"),
                     border_width = Sc.styles.focus_border_border_width,
-                    border_color = Sc.colors.focus_border,
+                    border_color = Sc.palette.get_color("focus_border"),
                     expand_margin_left = \
                             Sc.styles.focus_border_expand_margin_left,
                     expand_margin_top = \
@@ -829,13 +829,13 @@ func configure_theme() -> void:
                 })
         _configure_theme_stylebox(
                 "hover", "Button", {
-                    bg_color = Sc.colors.button_hover,
+                    bg_color = Sc.palette.get_color("button_hover"),
                     corner_radius = Sc.styles.button_corner_radius,
                     corner_detail = Sc.styles.button_corner_detail,
                     shadow_size = round(Sc.styles.button_shadow_size * 1.5),
-                    shadow_color = Sc.colors.shadow,
+                    shadow_color = Sc.palette.get_color("shadow"),
                     border_width = Sc.styles.button_border_width,
-                    border_color = Sc.colors.button_border,
+                    border_color = Sc.palette.get_color("button_border"),
                     content_margin_left = Sc.styles.button_content_margin_left,
                     content_margin_top = Sc.styles.button_content_margin_top,
                     content_margin_right = Sc.styles.button_content_margin_right,
@@ -843,13 +843,13 @@ func configure_theme() -> void:
                 })
         _configure_theme_stylebox(
                 "normal", "Button", {
-                    bg_color = Sc.colors.button_normal,
+                    bg_color = Sc.palette.get_color("button_normal"),
                     corner_radius = Sc.styles.button_corner_radius,
                     corner_detail = Sc.styles.button_corner_detail,
                     shadow_size = Sc.styles.button_shadow_size,
-                    shadow_color = Sc.colors.shadow,
+                    shadow_color = Sc.palette.get_color("shadow"),
                     border_width = Sc.styles.button_border_width,
-                    border_color = Sc.colors.button_border,
+                    border_color = Sc.palette.get_color("button_border"),
                     content_margin_left = Sc.styles.button_content_margin_left,
                     content_margin_top = Sc.styles.button_content_margin_top,
                     content_margin_right = Sc.styles.button_content_margin_right,
@@ -857,13 +857,13 @@ func configure_theme() -> void:
                 })
         _configure_theme_stylebox(
                 "pressed", "Button", {
-                    bg_color = Sc.colors.button_pressed,
+                    bg_color = Sc.palette.get_color("button_pressed"),
                     corner_radius = Sc.styles.button_corner_radius,
                     corner_detail = Sc.styles.button_corner_detail,
                     shadow_size = round(Sc.styles.button_shadow_size * 0.2),
-                    shadow_color = Sc.colors.shadow,
+                    shadow_color = Sc.palette.get_color("shadow"),
                     border_width = Sc.styles.button_border_width,
-                    border_color = Sc.colors.button_border,
+                    border_color = Sc.palette.get_color("button_border"),
                     content_margin_left = Sc.styles.button_content_margin_left,
                     content_margin_top = Sc.styles.button_content_margin_top,
                     content_margin_right = Sc.styles.button_content_margin_right,
@@ -947,13 +947,13 @@ func configure_theme() -> void:
     else:
         _configure_theme_stylebox(
                 "disabled", "OptionButton", {
-                    bg_color = Sc.colors.dropdown_disabled,
+                    bg_color = Sc.palette.get_color("dropdown_disabled"),
                     corner_radius = Sc.styles.dropdown_corner_radius,
                     corner_detail = Sc.styles.dropdown_corner_detail,
                     shadow_size = Sc.styles.dropdown_shadow_size,
-                    shadow_color = Sc.colors.shadow,
+                    shadow_color = Sc.palette.get_color("shadow"),
                     border_width = Sc.styles.dropdown_border_width,
-                    border_color = Sc.colors.dropdown_border,
+                    border_color = Sc.palette.get_color("dropdown_border"),
                     content_margin_left = Sc.styles.button_content_margin_left,
                     content_margin_top = Sc.styles.button_content_margin_top,
                     content_margin_right = Sc.styles.button_content_margin_right,
@@ -965,9 +965,9 @@ func configure_theme() -> void:
                     corner_radius = Sc.styles.focus_border_corner_radius,
                     corner_detail = Sc.styles.focus_border_corner_detail,
                     shadow_size = Sc.styles.focus_border_shadow_size,
-                    shadow_color = Sc.colors.shadow,
+                    shadow_color = Sc.palette.get_color("shadow"),
                     border_width = Sc.styles.focus_border_border_width,
-                    border_color = Sc.colors.focus_border,
+                    border_color = Sc.palette.get_color("focus_border"),
                     expand_margin_left = \
                             Sc.styles.focus_border_expand_margin_left,
                     expand_margin_top = \
@@ -979,13 +979,13 @@ func configure_theme() -> void:
                 })
         _configure_theme_stylebox(
                 "hover", "OptionButton", {
-                    bg_color = Sc.colors.dropdown_hover,
+                    bg_color = Sc.palette.get_color("dropdown_hover"),
                     corner_radius = Sc.styles.dropdown_corner_radius,
                     corner_detail = Sc.styles.dropdown_corner_detail,
                     shadow_size = Sc.styles.dropdown_shadow_size,
-                    shadow_color = Sc.colors.shadow,
+                    shadow_color = Sc.palette.get_color("shadow"),
                     border_width = Sc.styles.dropdown_border_width,
-                    border_color = Sc.colors.dropdown_border,
+                    border_color = Sc.palette.get_color("dropdown_border"),
                     content_margin_left = Sc.styles.button_content_margin_left,
                     content_margin_top = Sc.styles.button_content_margin_top,
                     content_margin_right = Sc.styles.button_content_margin_right,
@@ -993,13 +993,13 @@ func configure_theme() -> void:
                 })
         _configure_theme_stylebox(
                 "normal", "OptionButton", {
-                    bg_color = Sc.colors.dropdown_normal,
+                    bg_color = Sc.palette.get_color("dropdown_normal"),
                     corner_radius = Sc.styles.dropdown_corner_radius,
                     corner_detail = Sc.styles.dropdown_corner_detail,
                     shadow_size = Sc.styles.dropdown_shadow_size,
-                    shadow_color = Sc.colors.shadow,
+                    shadow_color = Sc.palette.get_color("shadow"),
                     border_width = Sc.styles.dropdown_border_width,
-                    border_color = Sc.colors.dropdown_border,
+                    border_color = Sc.palette.get_color("dropdown_border"),
                     content_margin_left = Sc.styles.button_content_margin_left,
                     content_margin_top = Sc.styles.button_content_margin_top,
                     content_margin_right = Sc.styles.button_content_margin_right,
@@ -1007,13 +1007,13 @@ func configure_theme() -> void:
                 })
         _configure_theme_stylebox(
                 "pressed", "OptionButton", {
-                    bg_color = Sc.colors.dropdown_pressed,
+                    bg_color = Sc.palette.get_color("dropdown_pressed"),
                     corner_radius = Sc.styles.dropdown_corner_radius,
                     corner_detail = Sc.styles.dropdown_corner_detail,
                     shadow_size = Sc.styles.dropdown_shadow_size,
-                    shadow_color = Sc.colors.shadow,
+                    shadow_color = Sc.palette.get_color("shadow"),
                     border_width = Sc.styles.dropdown_border_width,
-                    border_color = Sc.colors.dropdown_border,
+                    border_color = Sc.palette.get_color("dropdown_border"),
                     content_margin_left = Sc.styles.button_content_margin_left,
                     content_margin_top = Sc.styles.button_content_margin_top,
                     content_margin_right = Sc.styles.button_content_margin_right,
@@ -1097,7 +1097,7 @@ func configure_theme() -> void:
     else:
         _configure_theme_stylebox(
                 "scroll", "HScrollBar", {
-                    bg_color = Sc.colors.scroll_bar_background,
+                    bg_color = Sc.palette.get_color("scroll_bar_background"),
                     corner_radius = Sc.styles.scroll_corner_radius,
                     corner_detail = Sc.styles.scroll_corner_detail,
                     content_margin_left = Sc.styles.scroll_content_margin_left,
@@ -1107,26 +1107,26 @@ func configure_theme() -> void:
                 })
         _configure_theme_stylebox(
                 "grabber", "HScrollBar", {
-                    bg_color = Sc.colors.scroll_bar_grabber_normal,
+                    bg_color = Sc.palette.get_color("scroll_bar_grabber_normal"),
                     corner_radius = Sc.styles.scroll_grabber_corner_radius,
                     corner_detail = Sc.styles.scroll_grabber_corner_detail,
                 })
         _configure_theme_stylebox(
                 "grabber_highlight", "HScrollBar", {
-                    bg_color = Sc.colors.scroll_bar_grabber_hover,
+                    bg_color = Sc.palette.get_color("scroll_bar_grabber_hover"),
                     corner_radius = Sc.styles.scroll_grabber_corner_radius,
                     corner_detail = Sc.styles.scroll_grabber_corner_detail,
                 })
         _configure_theme_stylebox(
                 "grabber_pressed", "HScrollBar", {
-                    bg_color = Sc.colors.scroll_bar_grabber_pressed,
+                    bg_color = Sc.palette.get_color("scroll_bar_grabber_pressed"),
                     corner_radius = Sc.styles.scroll_grabber_corner_radius,
                     corner_detail = Sc.styles.scroll_grabber_corner_detail,
                 })
         
         _configure_theme_stylebox(
                 "scroll", "VScrollBar", {
-                    bg_color = Sc.colors.scroll_bar_background,
+                    bg_color = Sc.palette.get_color("scroll_bar_background"),
                     corner_radius = Sc.styles.scroll_corner_radius,
                     corner_detail = Sc.styles.scroll_corner_detail,
                     content_margin_left = Sc.styles.scroll_content_margin_left,
@@ -1136,19 +1136,19 @@ func configure_theme() -> void:
                 })
         _configure_theme_stylebox(
                 "grabber", "VScrollBar", {
-                    bg_color = Sc.colors.scroll_bar_grabber_normal,
+                    bg_color = Sc.palette.get_color("scroll_bar_grabber_normal"),
                     corner_radius = Sc.styles.scroll_grabber_corner_radius,
                     corner_detail = Sc.styles.scroll_grabber_corner_detail,
                 })
         _configure_theme_stylebox(
                 "grabber_highlight", "VScrollBar", {
-                    bg_color = Sc.colors.scroll_bar_grabber_hover,
+                    bg_color = Sc.palette.get_color("scroll_bar_grabber_hover"),
                     corner_radius = Sc.styles.scroll_grabber_corner_radius,
                     corner_detail = Sc.styles.scroll_grabber_corner_detail,
                 })
         _configure_theme_stylebox(
                 "grabber_pressed", "VScrollBar", {
-                    bg_color = Sc.colors.scroll_bar_grabber_pressed,
+                    bg_color = Sc.palette.get_color("scroll_bar_grabber_pressed"),
                     corner_radius = Sc.styles.scroll_grabber_corner_radius,
                     corner_detail = Sc.styles.scroll_grabber_corner_detail,
                 })
@@ -1175,7 +1175,7 @@ func configure_theme() -> void:
     else:
         _configure_theme_stylebox(
                 "slider", "HSlider", {
-                    bg_color = Sc.colors.slider_background,
+                    bg_color = Sc.palette.get_color("slider_background"),
                     corner_radius = Sc.styles.slider_corner_radius,
                     corner_detail = Sc.styles.slider_corner_detail,
                     content_margin_left = Sc.styles.slider_content_margin_left,
@@ -1185,7 +1185,7 @@ func configure_theme() -> void:
                 })
         _configure_theme_stylebox(
                 "slider", "VSlider", {
-                    bg_color = Sc.colors.slider_background,
+                    bg_color = Sc.palette.get_color("slider_background"),
                     corner_radius = Sc.styles.slider_corner_radius,
                     corner_detail = Sc.styles.slider_corner_detail,
                     content_margin_left = Sc.styles.slider_content_margin_left,
@@ -1206,9 +1206,9 @@ func configure_theme() -> void:
     _configure_theme_stylebox(
             "panel", "PopupMenu", Sc.styles.overlay_panel_stylebox)
     _configure_theme_stylebox(
-            "panel", "Panel", Sc.colors.background)
+            "panel", "Panel", Sc.palette.get_color("background"))
     _configure_theme_stylebox(
-            "panel", "PanelContainer", Sc.colors.background)
+            "panel", "PanelContainer", Sc.palette.get_color("background"))
     _configure_theme_stylebox(
             "bg", "Tree", Color.transparent)
     
@@ -1230,9 +1230,9 @@ func configure_theme() -> void:
     
     Sc.gui.theme.set_font("font", "TooltipLabel", Sc.gui.fonts.main_xs)
     _configure_theme_color( \
-            "font_color", "TooltipLabel", Sc.colors.tooltip)
+            "font_color", "TooltipLabel", Sc.palette.get_color("tooltip"))
     _configure_theme_stylebox( \
-            "panel", "TooltipPanel", Sc.colors.tooltip_bg)
+            "panel", "TooltipPanel", Sc.palette.get_color("tooltip_bg"))
 
 
 func _configure_theme_color(

@@ -35,6 +35,7 @@ var time: ScaffolderTime
 var profiler: Profiler
 var geometry: ScaffolderGeometry
 var draw: ScaffolderDrawUtils
+var palette: ColorPalette
 var notify: Notifications
 var slow_motion: SlowMotionController
 var beats: BeatTracker
@@ -55,9 +56,6 @@ var nav: ScreenNavigator
 var analytics: Analytics
 var crash_reporter: CrashReporter
 var gesture_reporter: GestureReporter
-
-# Dictionary<String, Color>
-var colors := {}
 
 # Array<FrameworkGlobal>
 var _framework_globals := []
@@ -218,7 +216,6 @@ func _sort_registered_frameworks() -> void:
 func _destroy() -> void:
     ._destroy()
     modes._clear()
-    colors.clear()
 
 
 func _get_members_to_destroy() -> Array:
@@ -241,6 +238,7 @@ func _get_members_to_destroy() -> Array:
         profiler,
         geometry,
         draw,
+        palette,
         notify,
         slow_motion,
         beats,
@@ -400,6 +398,13 @@ func _instantiate_sub_modules() -> void:
         self.draw = ScaffolderDrawUtils.new()
     add_child(self.draw)
     
+    if manifest.has("palette_class"):
+        self.palette = manifest.palette_class.new()
+        assert(self.palette is ColorPalette)
+    else:
+        self.palette = ColorPalette.new()
+    add_child(self.palette)
+    
     if manifest.has("notify_class"):
         self.notify = manifest.notify_class.new()
         assert(self.notify is Notifications)
@@ -487,6 +492,7 @@ func _configure_sub_modules() -> void:
     self.styles._parse_manifest(manifest.styles_manifest)
     self.images._parse_manifest(manifest.images_manifest)
     self.gui._parse_manifest(manifest.gui_manifest)
+    self.palette._register_defaults()
     self.notify._parse_manifest(manifest.notifications_manifest)
     self.slow_motion._parse_manifest(manifest.slow_motion_manifest)
     self.characters._parse_manifest(manifest.character_manifest)

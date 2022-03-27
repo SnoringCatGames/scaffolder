@@ -16,7 +16,7 @@ var v_max := 0.0 setget _set_v_max
 var a_max := 0.0 setget _set_a_max
 
 
-func sample() -> Color:
+func sample(_redirect_depth := 0) -> Color:
     var h := randf() * (h_max - h_min) + h_min
     var s := randf() * (s_max - s_min) + s_min
     var v := randf() * (v_max - v_min) + v_min

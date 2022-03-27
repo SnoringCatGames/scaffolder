@@ -802,8 +802,7 @@ var _colors_manifest := {
     # Scaffolder colors.
     
     # Should match Project Settings > Application > Boot Splash > Bg Color.
-    boot_splash_background = \
-            ScaffolderColors.DEFAULT_BOOT_SPLASH_BACKGROUND_COLOR,
+    boot_splash_background = ColorFactory.palette("default_splash_background"),
     # Should match
     #     Project Settings > Rendering > Environment > Default Clear Color.
     background = COLOR_BACKGROUND,
@@ -843,19 +842,16 @@ var _colors_manifest := {
     screen_border = COLOR_TEXT,
     shadow = COLOR_SHADOW,
     
-    click = ScaffolderColors.static_opacify(
-            SurfacerColors.WHITE, ScaffolderColors.ALPHA_SLIGHTLY_FAINT),
-    ruler = SurfacerColors.WHITE,
+    click = ColorFactory.opacify("white", ColorConfig.ALPHA_SLIGHTLY_FAINT),
+    ruler = ColorFactory.palette("white"),
     
     # Surfacer colors.
     
-    surface_click_selection = ScaffolderColors.static_opacify(
-            SurfacerColors.WHITE, ScaffolderColors.ALPHA_SOLID),
-    grid_indices = ScaffolderColors.static_opacify(
-            SurfacerColors.WHITE, ScaffolderColors.ALPHA_FAINT),
-    invalid = SurfacerColors.RED,
-    inspector_origin = ScaffolderColors.static_opacify(
-            SurfacerColors.ORANGE, ScaffolderColors.ALPHA_FAINT),
+    surface_click_selection = \
+        ColorFactory.opacify("white", ColorConfig.ALPHA_SOLID),
+    grid_indices = ColorFactory.opacify("white"), ColorConfig.ALPHA_FAINT),
+    invalid = ColorFactory.palette("red"),
+    inspector_origin = ColorFactory.opacify("orange", ColorConfig.ALPHA_FAINT),
 }
 
 var _settings_item_manifest := {

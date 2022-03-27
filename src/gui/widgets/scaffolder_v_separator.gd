@@ -12,7 +12,7 @@ func _on_gui_scale_changed() -> bool:
     rect_size = size_override * Sc.gui.scale
     
     var separator_stylebox: StyleBoxLine = get_stylebox("separator")
-    separator_stylebox.color = Sc.colors.overlay_panel_border
+    separator_stylebox.color = Sc.palette.get_color("overlay_panel_border")
     separator_stylebox.thickness = \
             Sc.styles.overlay_panel_border_width * Sc.gui.scale
     

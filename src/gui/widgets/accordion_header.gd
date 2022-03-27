@@ -122,8 +122,8 @@ func _update_default_header() -> void:
     $HBoxContainer.visible = !is_instance_valid(_projected_header)
     
     if uses_header_color:
-        self.add_color_override("font_color", Sc.colors.header)
-        label.add_color_override("font_color", Sc.colors.header)
+        self.add_color_override("font_color", Sc.palette.get_color("header"))
+        label.add_color_override("font_color", Sc.palette.get_color("header"))
 
 
 func add_child(child: Node, legible_unique_name := false) -> void:

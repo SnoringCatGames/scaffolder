@@ -3,7 +3,7 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: ---------
+# FIXME: LEFT OFF HERE: ----------
 # 
 # - Implement new ColorConfig system.
 # 
