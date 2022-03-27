@@ -163,7 +163,7 @@ func _trigger_color_pulse() -> void:
         return
     
     var color_original := Color(1.0, 1.0, 1.0, 1.0)
-    var color_pulse := Sc.palette.get_color("button_pulse_modulate")
+    var color_pulse: Color = Sc.palette.get_color("button_pulse_modulate")
     var pulse_half_duration := COLOR_PULSE_DURATION / 2.0
     
     button_style_pulse.set("modulate_color", color_original)

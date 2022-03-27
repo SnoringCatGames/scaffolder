@@ -171,12 +171,7 @@
     "is_slow_motion_start_stop_sound_effect_played": true
   },
   "colors_manifest": {
-    "boot_splash_background": {
-      "r": 0.12549,
-      "g": 0.145098,
-      "b": 0.192157,
-      "a": 1
-    },
+    "boot_splash_background": null,
     "background": {
       "r": 0.270588,
       "g": 0.239216,
@@ -393,42 +388,12 @@
       "b": 0,
       "a": 0.533333
     },
-    "click": {
-      "r": 1,
-      "g": 1,
-      "b": 1,
-      "a": 0.7
-    },
-    "ruler": {
-      "r": 1,
-      "g": 1,
-      "b": 1,
-      "a": 1
-    },
-    "surface_click_selection": {
-      "r": 1,
-      "g": 1,
-      "b": 1,
-      "a": 1
-    },
-    "grid_indices": {
-      "r": 1,
-      "g": 1,
-      "b": 1,
-      "a": 0.5
-    },
-    "invalid": {
-      "r": 1,
-      "g": 0.305,
-      "b": 0.277,
-      "a": 1
-    },
-    "inspector_origin": {
-      "r": 1,
-      "g": 0.648,
-      "b": 0.277,
-      "a": 0.5
-    }
+    "click": null,
+    "ruler": null,
+    "surface_click_selection": null,
+    "grid_indices": null,
+    "invalid": null,
+    "inspector_origin": null
   },
   "styles_manifest_anti_aliased": {
     "focus_border_corner_radius": 5,

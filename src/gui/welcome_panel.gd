@@ -27,7 +27,7 @@ func _ready() -> void:
             _OPACITY,
             _FADE_IN_DURATION)
     
-    var faded_color := Sc.palette.get_color("zebra_stripe_even_row")
+    var faded_color: Color = Sc.palette.get_color("zebra_stripe_even_row")
     faded_color.a *= 0.3
     
     var items := []
