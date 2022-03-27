@@ -17,9 +17,6 @@ func _init().(_METADATA_SCRIPT) -> void:
 func _set_up() -> void:
     ._set_up()
     
-    if !_get_is_ready():
-        return
-    
     Pl._set_up()
     
     make_visible(false)
