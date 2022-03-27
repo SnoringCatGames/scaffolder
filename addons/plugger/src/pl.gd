@@ -13,9 +13,9 @@ var main_screen
 
 
 func _set_up() -> void:
-    if !is_instance_valid(main_screen):
-        main_screen = _MAIN_SCREEN_SCENE.instance()
-        editor.get_editor_viewport().add_child(main_screen)
+    assert(!is_instance_valid(main_screen))
+    main_screen = _MAIN_SCREEN_SCENE.instance()
+    editor.get_editor_viewport().add_child(main_screen)
 
 
 func _destroy() -> void:

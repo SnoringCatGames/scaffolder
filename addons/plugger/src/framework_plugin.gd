@@ -5,6 +5,9 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: ----------
 # 
+# - Implement the PropertyEditor widget for ColorConfig.
+#   - Needs to work both in the inspector and in the Plugin main-screen.
+# 
 # - Implement new ColorConfig system.
 # 
 # - Add support for coloring rows that aren't strictly overridden.
@@ -111,6 +114,7 @@ var _auto_load
 var Pl
 
 var _is_ready := false
+var _is_set_up := false
 
 
 func _init(framework_metadata_script: Script) -> void:
@@ -120,7 +124,7 @@ func _init(framework_metadata_script: Script) -> void:
 func _ready() -> void:
     _is_ready = true
     _create_auto_load()
-    _set_up()
+    _check_set_up()
 
 
 func _get_is_ready() -> bool:
@@ -155,17 +159,21 @@ func _connect_auto_load() -> void:
 
 
 func _on_framework_initialized() -> void:
-    _set_up()
+    _check_set_up()
 
 
 func _enter_tree() -> void:
     _connect_auto_load()
-    _set_up()
+    _check_set_up()
+
+
+func _check_set_up() -> void:
+    if _get_is_ready() and !_is_set_up:
+        _is_set_up = true
+        _set_up()
 
 
 func _set_up() -> void:
-    if !_get_is_ready():
-        return
     pass
 
 
