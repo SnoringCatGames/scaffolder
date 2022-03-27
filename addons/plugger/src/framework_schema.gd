@@ -3,10 +3,12 @@ class_name FrameworkSchema
 extends Reference
 
 
-const TYPE_SCRIPT := 1001
-const TYPE_TILESET := 1002
-const TYPE_RESOURCE := 1003
-const TYPE_CUSTOM := 1004
+const TYPE_COLOR_CONFIG := 1001
+const TYPE_SCRIPT := 1002
+const TYPE_TILESET := 1003
+const TYPE_FONT := 1004
+const TYPE_RESOURCE := 1005
+const TYPE_CUSTOM := 1006
 
 const _VALID_TYPES := {
     TYPE_BOOL: true,
@@ -17,8 +19,10 @@ const _VALID_TYPES := {
     TYPE_VECTOR2: true,
     TYPE_RECT2: true,
     TYPE_VECTOR3: true,
+    TYPE_COLOR_CONFIG: true,
     TYPE_SCRIPT: true,
     TYPE_TILESET: true,
+    TYPE_FONT: true,
     TYPE_RESOURCE: true,
     TYPE_CUSTOM: true,
     TYPE_DICTIONARY: true,
@@ -96,8 +100,10 @@ static func get_is_expected_type(
         match expected_type:
             actual_type:
                 return true
+            TYPE_COLOR_CONFIG, \
             TYPE_SCRIPT, \
             TYPE_TILESET, \
+            TYPE_FONT, \
             TYPE_RESOURCE:
                 return value == null
             TYPE_INT, \
@@ -135,13 +141,17 @@ static func get_matches_schema(
 
 
 static func get_type(value) -> int:
-    if value is Script:
+    if value is ColorConfig:
+        return TYPE_COLOR_CONFIG
+    elif value is Script:
         if value.get_base_script() == FrameworkManifestCustomProperty:
             return TYPE_CUSTOM
         else:
             return TYPE_SCRIPT
     elif value is TileSet:
         return TYPE_TILESET
+    elif value is Font:
+        return TYPE_FONT
     elif value is Resource:
         return TYPE_RESOURCE
     else:
@@ -162,10 +172,14 @@ static func get_type_string(type) -> String:
         return ""
     
     match type:
+        TYPE_COLOR_CONFIG:
+            return "TYPE_COLOR_CONFIG"
         TYPE_SCRIPT:
             return "TYPE_SCRIPT"
         TYPE_TILESET:
             return "TYPE_TILESET"
+        TYPE_FONT:
+            return "TYPE_FONT"
         TYPE_RESOURCE:
             return "TYPE_RESOURCE"
         TYPE_CUSTOM:
@@ -241,8 +255,12 @@ static func get_resource_class_name(type: int) -> String:
     match type:
         TYPE_SCRIPT:
             return "Script"
+        TYPE_SCRIPT:
+            return "Script"
         TYPE_TILESET:
             return "TileSet"
+        TYPE_FONT:
+            return "Font"
         TYPE_RESOURCE:
             return "Resource"
         TYPE_CUSTOM:

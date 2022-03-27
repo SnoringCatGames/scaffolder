@@ -147,8 +147,11 @@ func _create_value_editor() -> Control:
             return _create_rect2_editor()
         TYPE_VECTOR3:
             return _create_vector3_editor()
+        FrameworkSchema.TYPE_COLOR_CONFIG:
+            return _create_color_config_editor()
         FrameworkSchema.TYPE_SCRIPT, \
         FrameworkSchema.TYPE_TILESET, \
+        FrameworkSchema.TYPE_FONT, \
         FrameworkSchema.TYPE_RESOURCE:
             return _create_resource_editor()
         TYPE_DICTIONARY, \
@@ -222,11 +225,18 @@ func _create_vector3_editor() -> Vector3Editor:
     return control
 
 
+func _create_color_config_editor() -> ColorConfigEditorProperty:
+    # FIXME: LEFT OFF HERE: --------------------------------------
+    var control := ColorConfigEditorProperty.new()
+#    control.connect("value_changed", self, "_on_value_changed")
+#    control.set_up()
+    return control
+
+
 func _create_resource_editor() -> EditorResourcePicker:
     var control := EditorResourcePicker.new()
     control.edited_resource = node.value
-    control.base_type = \
-            FrameworkSchema.get_resource_class_name(node.type)
+    control.base_type = FrameworkSchema.get_resource_class_name(node.type)
     control.connect("resource_changed", self, "_on_value_changed")
     return control
 
