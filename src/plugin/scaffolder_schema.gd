@@ -849,7 +849,7 @@ var _colors_manifest := {
     
     surface_click_selection = \
         ColorFactory.opacify("white", ColorConfig.ALPHA_SOLID),
-    grid_indices = ColorFactory.opacify("white"), ColorConfig.ALPHA_FAINT),
+    grid_indices = ColorFactory.opacify("white", ColorConfig.ALPHA_FAINT),
     invalid = ColorFactory.palette("red"),
     inspector_origin = ColorFactory.opacify("orange", ColorConfig.ALPHA_FAINT),
 }
