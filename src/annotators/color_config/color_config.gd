@@ -15,8 +15,11 @@ extends Reference
 
 # FIXME: LEFT OFF HERE: -------------------
 # 
-# - DON'T SUBMIT until replacing all usages of old palette colors with
-#   ColorConfig unboxing.
+# - Update ColorConfigEditorProperyt key to be an OptionButton with all
+#   registered palette keys.
+# 
+# - Implement the PropertyEditor widget for ColorConfig.
+#   - Needs to work both in the inspector and in the Plugin main-screen.
 # 
 # - Replace all of the different color systems I'd built-up previously with this new simpler system.
 #   - ColorParams
