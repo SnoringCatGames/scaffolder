@@ -1,6 +1,8 @@
 tool
 class_name ColorPalette
 extends Node
+## -   This is a mapping from color names to color values.
+## -   These color mappings are referenced by PaletteColorConfig instances.
 
 
 # Dictionary<String, Color>
