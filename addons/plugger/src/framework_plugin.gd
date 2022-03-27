@@ -3,11 +3,13 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: ----------------------------------------------------
+# FIXME: LEFT OFF HERE: ---------
 # 
-# - Fix _get_common_overrides_for_annotations_mode.
+# - Implement new ColorConfig system.
 # 
 # - Add support for coloring rows that aren't strictly overridden.
+# - Also color ancestor rows?
+#   - Maybe more faintly.
 # 
 # - Update manifest.json files to only include non-default state.
 #   - I need these to serve as a clear indication of what has actually been
