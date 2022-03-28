@@ -1,5 +1,5 @@
 tool
-class_name FrameworkManifestAccordionHeaderCaret, \
+class_name PluginAccordionHeaderCaret, \
 "res://addons/scaffolder/addons/plugger/assets/images/caret_right_dark_theme_1.png"
 extends Control
 

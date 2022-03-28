@@ -1,5 +1,5 @@
 tool
-class_name FrameworkManifestAccordionBody, \
+class_name PluginAccordionBody, \
 "res://addons/scaffolder/assets/images/editor_icons/accordion_body.png"
 extends VBoxContainer
 

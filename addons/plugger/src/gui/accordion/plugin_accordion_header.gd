@@ -1,5 +1,5 @@
 tool
-class_name FrameworkManifestAccordionHeader, \
+class_name PluginAccordionHeader, \
 "res://addons/scaffolder/assets/images/editor_icons/accordion_header.png"
 extends Button
 
@@ -8,7 +8,7 @@ export var is_open: bool setget _set_is_open
 export var size_override := Vector2.ZERO setget _set_size_override
 
 var contents: Control
-var caret: FrameworkManifestAccordionHeaderCaret
+var caret: PluginAccordionHeaderCaret
 var _is_ready := false
 var _configuration_warning := ""
 
@@ -29,12 +29,12 @@ func _ready() -> void:
     
     var carets := Sc.utils.get_children_by_type(
             self,
-            FrameworkManifestAccordionHeaderCaret,
+            PluginAccordionHeaderCaret,
             true)
     if carets.size() > 1:
         _configuration_warning = \
                 "There must not be more than one " + \
-                "FrameworkManifestAccordionHeaderCaret descendant"
+                "PluginAccordionHeaderCaret descendant"
         update_configuration_warning()
         return
     if !carets.empty():
@@ -46,13 +46,9 @@ func _ready() -> void:
 
 
 func _update_size() -> void:
+    self.rect_min_size = size_override
     if is_instance_valid(contents):
-        self.rect_min_size = Vector2(
-                max(size_override.x, contents.rect_size.x),
-                max(size_override.y, contents.rect_size.y))
-        contents.rect_min_size = self.rect_size
-    else:
-        self.rect_min_size = size_override
+        contents.rect_min_size = size_override
 
 
 func _set_is_open(value: bool) -> void:

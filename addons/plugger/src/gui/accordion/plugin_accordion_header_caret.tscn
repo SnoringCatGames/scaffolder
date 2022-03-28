@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_accordion_header_caret.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_header_caret.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/addons/plugger/assets/images/caret_right_dark_theme_2.png" type="Texture" id=2]
 
-[node name="FrameworkManifestAccordionHeaderCaret" type="Control"]
+[node name="PluginAccordionHeaderCaret" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 32, 32 )
