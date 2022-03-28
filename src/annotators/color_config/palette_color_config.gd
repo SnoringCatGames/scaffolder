@@ -18,6 +18,9 @@ var s_delta := 0.0
 var v_delta := 0.0
 var a_delta := 0.0
 
+var override_color: Color setget _set_override_color,_get_override_color
+var delta_color: Color setget _set_delta_color,_get_delta_color
+
 
 func sample(_redirect_depth := 0) -> Color:
     var color: Color = Sc.palette.get_color(key, _redirect_depth)
@@ -45,3 +48,19 @@ func _get_v() -> float:
     return max(_v_override, 0.0)
 func _get_a() -> float:
     return max(_a_override, 0.0)
+
+func _set_override_color(value: Color) -> void:
+    _h_override = value.h
+    _s_override = value.s
+    _v_override = value.v
+    _a_override = value.a
+func _set_delta_color(value: Color) -> void:
+    h_delta = value.h
+    s_delta = value.s
+    v_delta = value.v
+    a_delta = value.a
+
+func _get_override_color() -> Color:
+    return Color.from_hsv(_h_override, _s_override, _v_override, _a_override)
+func _get_delta_color() -> Color:
+    return Color.from_hsv(h_delta, s_delta, v_delta, a_delta)
