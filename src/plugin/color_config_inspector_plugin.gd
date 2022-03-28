@@ -3,10 +3,6 @@ class_name ColorConfigInspectorPlugin
 extends EditorInspectorPlugin
 
 
-const _COLOR_CONFIG_EDITOR_SCENE := preload(
-    "res://addons/scaffolder/src/plugin/color_config_editor_property.tscn")
-
-
 func can_handle(object: Object) -> bool:
     return true
 
@@ -19,7 +15,7 @@ func parse_property(
         hint_text: String,
         usage: int) -> bool:
     if hint == ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG:
-        add_property_editor(path, _COLOR_CONFIG_EDITOR_SCENE.instance())
+        add_property_editor(path, ColorConfigEditorProperty.new())
         # Remove the default editor for this property.
         return true
     else:
