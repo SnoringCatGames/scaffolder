@@ -19,7 +19,7 @@ var total_position_count := 0
 
 func _init(character: ScaffolderCharacter) -> void:
     self.character = character
-    self.movement_color_base = character.navigation_annotation_color
+    self.movement_color_base = character.navigation_annotation_color.sample()
     self.recent_positions = PoolVector2Array()
     self.recent_positions.resize(Sc.ann_params.recent_positions_buffer_size)
     self.recent_beats = PoolIntArray()

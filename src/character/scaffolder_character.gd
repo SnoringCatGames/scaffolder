@@ -25,21 +25,33 @@ const _COLORS_GROUP := {
     group_name = "Colors",
     first_property_name = "primary_annotation_color",
     last_property_name = "position_annotation_color_override",
+    overrides = {
+        primary_annotation_color = \
+            {hint = ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG},
+        secondary_annotation_color = \
+            {hint = ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG},
+        navigation_annotation_color_override = \
+            {hint = ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG},
+        position_annotation_color_override = \
+            {hint = ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG},
+    },
 }
 
 ## Used for things like the fill-color of exclamation-mark annotations.
-var primary_annotation_color := Color.black
+var primary_annotation_color := ColorFactory.palette("black")
 ## Used for things like the border-color of exclamation-mark annotations.
-var secondary_annotation_color := Color.white
+var secondary_annotation_color := ColorFactory.palette("white")
 ## -   Used for things like the navigation trajectory annotation.
 ## -   If not defined, then primary_annotation_color will be used for this.
-var navigation_annotation_color_override := Color.black
+var navigation_annotation_color_override := ColorFactory.palette("black")
 ## -   Used for things like the character position annotation.
 ## -   If not defined, then primary_annotation_color will be used for this.
-var position_annotation_color_override := Color.black
+var position_annotation_color_override := ColorFactory.palette("black")
 
-var navigation_annotation_color: Color setget ,_get_navigation_annotation_color
-var position_annotation_color: Color setget ,_get_position_annotation_color
+var navigation_annotation_color: ColorConfig \
+    setget ,_get_navigation_annotation_color
+var position_annotation_color: ColorConfig \
+    setget ,_get_position_annotation_color
 
 # --- Exclamation mark ---
 
@@ -664,15 +676,17 @@ func _set_character_name(value: String) -> void:
     _update_editor_configuration()
 
 
-func _get_navigation_annotation_color() -> Color:
+func _get_navigation_annotation_color() -> ColorConfig:
     return navigation_annotation_color_override if \
-            navigation_annotation_color_override != Color.black else \
+            !navigation_annotation_color_override is PaletteColorConfig or \
+                navigation_annotation_color_override.key != "black" else \
             primary_annotation_color
 
 
-func _get_position_annotation_color() -> Color:
+func _get_position_annotation_color() -> ColorConfig:
     return position_annotation_color_override if \
-            position_annotation_color_override != Color.black else \
+            !position_annotation_color_override is PaletteColorConfig or \
+                position_annotation_color_override.key != "black" else \
             primary_annotation_color
 
 

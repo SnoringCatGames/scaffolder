@@ -11,13 +11,15 @@ var collider_color: Color
 func _init(character: ScaffolderCharacter) -> void:
     self.character = character
     
+    var position_annotation_color: Color = \
+        character.position_annotation_color.sample()
     self.position_color = Color.from_hsv(
-            character.position_annotation_color.h,
+            position_annotation_color.h,
             0.7,
             0.9,
             Sc.ann_params.character_position_opacity)
     self.collider_color = Color.from_hsv(
-            character.position_annotation_color.h,
+            position_annotation_color.h,
             0.7,
             0.9,
             Sc.ann_params.character_collider_opacity)

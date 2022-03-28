@@ -20,8 +20,8 @@ var opacity: float
 func _init(
         character,
         character_half_height := INF,
-        color := Color.white,
-        border_color := Color.white,
+        color = Color.white,
+        border_color = Color.white,
         width_start := Sc.ann_params.exclamation_mark_width_start,
         length_start := Sc.ann_params.exclamation_mark_length_start,
         stroke_width_start := Sc.ann_params.exclamation_mark_stroke_width_start,
@@ -35,14 +35,18 @@ func _init(
             character_half_height if \
             !is_inf(character_half_height) else \
             character.collider.half_width_height.y
-    self.color = \
-            color if \
-            color != Color.white else \
-            character.primary_annotation_color
-    self.border_color = \
-            border_color if \
-            border_color != Color.white else \
-            character.secondary_annotation_color
+    if color is ColorConfig:
+        self.color = color.sample
+    elif color != Color.white:
+        self.color = color
+    else:
+        self.color = character.primary_annotation_color.sample()
+    if border_color is ColorConfig:
+        self.border_color = border_color.sample
+    elif border_color != Color.white:
+        self.border_color = border_color
+    else:
+        self.border_color = character.secondary_annotation_color.sample()
     self.width_start = width_start
     self.length_start = length_start
     self.stroke_width_start = stroke_width_start
