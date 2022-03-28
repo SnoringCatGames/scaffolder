@@ -19,7 +19,37 @@ const _ROW_HEIGHT := 24.0
 
 var color_config: ColorConfig setget _set_color_config
 
+var _are_controls_referenced := false
 var _is_updating := false
+
+
+var _menu_button: MenuButton
+var _color_rect: ColorRect
+var _main_header: PluginAccordionHeader
+var _overrides_header: PluginAccordionHeader
+var _deltas_header: PluginAccordionHeader
+var _main_caret: PluginAccordionHeaderCaret
+var _overrides_caret: PluginAccordionHeaderCaret
+var _deltas_caret: PluginAccordionHeaderCaret
+var _static_section: VBoxContainer
+var _hsv_range_section: VBoxContainer
+var _palette_section: VBoxContainer
+var _static_color_picker: ColorPickerButton
+var _min_color_picker: ColorPickerButton
+var _max_color_picker: ColorPickerButton
+var _keys_option_button: OptionButton
+var _override_h_spin_box: SpinBox
+var _override_s_spin_box: SpinBox
+var _override_v_spin_box: SpinBox
+var _override_a_spin_box: SpinBox
+var _delta_h_spin_box: SpinBox
+var _delta_v_spin_box: SpinBox
+var _delta_s_spin_box: SpinBox
+var _delta_a_spin_box: SpinBox
+
+
+func _enter_tree() -> void:
+    _get_control_references()
 
 
 func _ready() -> void:
@@ -31,37 +61,78 @@ func _ready() -> void:
     _is_updating = false
 
 
+func _get_control_references() -> void:
+    if _are_controls_referenced:
+        return
+    _are_controls_referenced = true
+    _menu_button = $PluginAccordionHeader/MarginContainer/HBoxContainer/ \
+        PanelContainer/HBoxContainer/MenuButton
+    _color_rect = $PluginAccordionHeader/MarginContainer/HBoxContainer/ \
+        PanelContainer/HBoxContainer/ColorRect
+    _main_header = $PluginAccordionHeader
+    _overrides_header = $PluginAccordionBody/VBoxContainer/PaletteColorConfig/ \
+        Overrides/PluginAccordionHeader
+    _deltas_header = $PluginAccordionBody/VBoxContainer/PaletteColorConfig/ \
+        Deltas/PluginAccordionHeader
+    _main_caret = $PluginAccordionHeader/MarginContainer/HBoxContainer/ \
+        PluginAccordionHeaderCaret
+    _overrides_caret = $PluginAccordionBody/VBoxContainer/PaletteColorConfig/ \
+        Overrides/PluginAccordionHeader/MarginContainer/HBoxContainer/ \
+        PluginAccordionHeaderCaret
+    _deltas_caret = $PluginAccordionBody/VBoxContainer/PaletteColorConfig/ \
+        Deltas/PluginAccordionHeader/MarginContainer/HBoxContainer/ \
+        PluginAccordionHeaderCaret
+    _static_section = $PluginAccordionBody/VBoxContainer/StaticColorConfig
+    _hsv_range_section = $PluginAccordionBody/VBoxContainer/HsvRangeColorConfig
+    _palette_section = $PluginAccordionBody/VBoxContainer/PaletteColorConfig
+    _static_color_picker = $PluginAccordionBody/VBoxContainer/ \
+        StaticColorConfig/Color/ColorPickerButton
+    _min_color_picker = $PluginAccordionBody/VBoxContainer/ \
+        HsvRangeColorConfig/MinColor/ColorPickerButton
+    _max_color_picker = $PluginAccordionBody/VBoxContainer/ \
+        HsvRangeColorConfig/MaxColor/ColorPickerButton
+    _keys_option_button = $PluginAccordionBody/VBoxContainer/ \
+        PaletteColorConfig/Key/OptionButton
+    _override_h_spin_box = $PluginAccordionBody/VBoxContainer/ \
+        PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/H/SpinBox
+    _override_s_spin_box = $PluginAccordionBody/VBoxContainer/ \
+        PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/S/SpinBox
+    _override_v_spin_box = $PluginAccordionBody/VBoxContainer/ \
+        PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/V/SpinBox
+    _override_a_spin_box = $PluginAccordionBody/VBoxContainer/ \
+        PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/A/SpinBox
+    _delta_h_spin_box = $PluginAccordionBody/VBoxContainer/ \
+        PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/H/SpinBox
+    _delta_s_spin_box = $PluginAccordionBody/VBoxContainer/ \
+        PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/S/SpinBox
+    _delta_v_spin_box = $PluginAccordionBody/VBoxContainer/ \
+        PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/V/SpinBox
+    _delta_a_spin_box = $PluginAccordionBody/VBoxContainer/ \
+        PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/A/SpinBox
+
+
 func _set_dimensions() -> void:
-    var headers := [
-        $PluginAccordionHeader,
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionHeader,
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionHeader,
-    ]
-    var carets := [
-        $PluginAccordionHeader/MarginContainer/ \
-            HBoxContainer/PluginAccordionHeaderCaret,
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionHeader/ \
-            MarginContainer/HBoxContainer/PluginAccordionHeaderCaret,
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionHeader/ \
-            MarginContainer/HBoxContainer/PluginAccordionHeaderCaret,
-    ]
     var row_height: float = Pl.scale_dimension(_ROW_HEIGHT)
+    var headers := [
+        _main_header,
+        _overrides_header,
+        _deltas_header,
+    ]
     for header in headers:
         header.size_override = Vector2(0.0, row_height)
+    var carets := [
+        _main_caret,
+        _overrides_caret,
+        _deltas_caret,
+    ]
     for header in carets:
         header.rect_min_size.x = row_height
-    $PluginAccordionHeader/MarginContainer/HBoxContainer/ \
-        PanelContainer/MenuButton.rect_min_size.y = row_height
+    _menu_button.rect_min_size.y = row_height
+    _color_rect.rect_min_size = row_height * Vector2.ONE
 
 
 func _populate_popup_items() -> void:
-    var popup_menu: PopupMenu = \
-        $PluginAccordionHeader/MarginContainer/ \
-        HBoxContainer/PanelContainer/MenuButton.get_popup()
+    var popup_menu: PopupMenu = _menu_button.get_popup()
     popup_menu.clear()
     for id in _POPUP_ITEMS:
         var label: String = _POPUP_ITEMS[id][1]
@@ -70,12 +141,10 @@ func _populate_popup_items() -> void:
 
 
 func _populate_palette_options() -> void:
-    var option_button := $PluginAccordionBody/ \
-        VBoxContainer/PaletteColorConfig/Key/OptionButton
-    option_button.clear()
+    _keys_option_button.clear()
     for key in Sc.palette._colors:
-        option_button.add_item(key)
-    option_button.get_popup().allow_search = true
+        _keys_option_button.add_item(key)
+    _keys_option_button.get_popup().allow_search = true
 
 
 func _get_option_button_index_from_label(
@@ -88,12 +157,9 @@ func _get_option_button_index_from_label(
 
 
 func _hide_component_editors() -> void:
-    $PluginAccordionBody/VBoxContainer/StaticColorConfig \
-        .visible = false
-    $PluginAccordionBody/VBoxContainer/HsvRangeColorConfig \
-        .visible = false
-    $PluginAccordionBody/VBoxContainer/PaletteColorConfig \
-        .visible = false
+    _static_section.visible = false
+    _hsv_range_section.visible = false
+    _palette_section.visible = false
 
 
 func _show_component_editor(id: int) -> void:
@@ -107,52 +173,27 @@ func _show_component_editor(id: int) -> void:
         self.get_node(
                 "PluginAccordionBody/VBoxContainer/" +
                 color_config_class_name).visible = true
-        $PluginAccordionHeader/MarginContainer/ \
-            HBoxContainer/PanelContainer/MenuButton \
-            .text = color_config_class_name
+        _menu_button.text = color_config_class_name
     else:
         color_config = null
-        $PluginAccordionHeader/MarginContainer/ \
-            HBoxContainer/PanelContainer/MenuButton \
-            .text = _MENU_BUTTON_EMPTY_TEXT
+        _menu_button.text = _MENU_BUTTON_EMPTY_TEXT
 
 
 func add_focusables(editor: EditorProperty) -> void:
     var focusables := [
-        $PluginAccordionHeader/MarginContainer/ \
-            HBoxContainer/PanelContainer/MenuButton,
-        $PluginAccordionBody/VBoxContainer/ \
-            StaticColorConfig/Color/ColorPickerButton,
-        $PluginAccordionBody/VBoxContainer/ \
-            HsvRangeColorConfig/MinColor/ColorPickerButton,
-        $PluginAccordionBody/VBoxContainer/ \
-            HsvRangeColorConfig/MaxColor/ColorPickerButton,
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Key/OptionButton,
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/H/ \
-            SpinBox,
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/S/ \
-            SpinBox,
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/V/ \
-            SpinBox,
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/A/ \
-            SpinBox,
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/H/ \
-            SpinBox,
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/S/ \
-            SpinBox,
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/V/ \
-            SpinBox,
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/A/ \
-            SpinBox,
+        _menu_button,
+        _static_color_picker,
+        _min_color_picker,
+        _max_color_picker,
+        _keys_option_button,
+        _override_h_spin_box,
+        _override_s_spin_box,
+        _override_v_spin_box,
+        _override_a_spin_box,
+        _delta_h_spin_box,
+        _delta_v_spin_box,
+        _delta_s_spin_box,
+        _delta_a_spin_box,
     ]
     for control in focusables:
         editor.add_focusable(control)
@@ -161,94 +202,49 @@ func add_focusables(editor: EditorProperty) -> void:
 func _update_controls() -> void:
     _reset_controls()
     if color_config is StaticColorConfig:
-        $PluginAccordionBody/VBoxContainer/ \
-            StaticColorConfig/Color/ColorPickerButton.color = \
-            color_config.sample()
+        _static_color_picker.color = color_config.sample()
     elif color_config is HsvRangeColorConfig:
-        $PluginAccordionBody/VBoxContainer/ \
-            HsvRangeColorConfig/MinColor/ColorPickerButton.color = \
-            Color.from_hsv(
-                color_config.h_min,
-                color_config.s_min,
-                color_config.v_min,
-                color_config.a_min)
-        $PluginAccordionBody/VBoxContainer/ \
-            HsvRangeColorConfig/MaxColor/ColorPickerButton.color = \
-            Color.from_hsv(
-                color_config.h_max,
-                color_config.s_max,
-                color_config.v_max,
-                color_config.a_max)
+        _min_color_picker.color = Color.from_hsv(
+            color_config.h_min,
+            color_config.s_min,
+            color_config.v_min,
+            color_config.a_min)
+        _max_color_picker.color = Color.from_hsv(
+            color_config.h_max,
+            color_config.s_max,
+            color_config.v_max,
+            color_config.a_max)
     elif color_config is PaletteColorConfig:
         var key_option_index := _get_option_button_index_from_label(
-            color_config.key,
-            $PluginAccordionBody/VBoxContainer/ \
-                PaletteColorConfig/Key/OptionButton)
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Key/OptionButton.select(key_option_index)
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/H/ \
-            SpinBox.value = color_config._h_override
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/S/ \
-            SpinBox.value = color_config._s_override
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/V/ \
-            SpinBox.value = color_config._v_override
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/A/ \
-            SpinBox.value = color_config._a_override
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/H/ \
-            SpinBox.value = color_config.h_delta
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/S/ \
-            SpinBox.value = color_config.s_delta
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/V/ \
-            SpinBox.value = color_config.v_delta
-        $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/A/ \
-            SpinBox.value = color_config.a_delta
+            color_config.key, _keys_option_button)
+        _keys_option_button.select(key_option_index)
+        _override_h_spin_box.value = color_config._h_override
+        _override_s_spin_box.value = color_config._s_override
+        _override_v_spin_box.value = color_config._v_override
+        _override_a_spin_box.value = color_config._a_override
+        _delta_h_spin_box.value = color_config.h_delta
+        _delta_s_spin_box.value = color_config.s_delta
+        _delta_v_spin_box.value = color_config.v_delta
+        _delta_a_spin_box.value = color_config.a_delta
     else:
         pass
 
 
 func _reset_controls() -> void:
-    $PluginAccordionBody/VBoxContainer/StaticColorConfig/ \
-        Color/ColorPickerButton.color = Color.black
-    $PluginAccordionBody/VBoxContainer/ \
-        HsvRangeColorConfig/MinColor/ColorPickerButton.color = \
+    _static_color_picker.color = Color.black
+    _min_color_picker.color = \
         Color(0.0, 0.0, 0.0, 0.0)
-    $PluginAccordionBody/VBoxContainer/ \
-        HsvRangeColorConfig/MaxColor/ColorPickerButton.color = \
+    _max_color_picker.color = \
         Color(1.0, 1.0, 1.0, 1.0)
-    $PluginAccordionBody/VBoxContainer/ \
-        PaletteColorConfig/Key/OptionButton.select(-1)
-    $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/H/ \
-            SpinBox.value = -1.0
-    $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/S/ \
-            SpinBox.value = -1.0
-    $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/V/ \
-            SpinBox.value = -1.0
-    $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/A/ \
-            SpinBox.value = -1.0
-    $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/H/ \
-            SpinBox.value = 0.0
-    $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/S/ \
-            SpinBox.value = 0.0
-    $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/V/ \
-            SpinBox.value = 0.0
-    $PluginAccordionBody/VBoxContainer/ \
-            PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/A/ \
-            SpinBox.value = 0.0
+    _keys_option_button.select(-1)
+    _override_h_spin_box.value = -1.0
+    _override_s_spin_box.value = -1.0
+    _override_v_spin_box.value = -1.0
+    _override_a_spin_box.value = -1.0
+    _delta_h_spin_box.value = 0.0
+    _delta_s_spin_box.value = 0.0
+    _delta_v_spin_box.value = 0.0
+    _delta_a_spin_box.value = 0.0
 
 
 func _set_color_config(value: ColorConfig) -> void:
@@ -256,6 +252,8 @@ func _set_color_config(value: ColorConfig) -> void:
     
     if value == color_config:
         return
+    
+    _get_control_references()
     
     _is_updating = true
     color_config = value
@@ -266,9 +264,31 @@ func _set_color_config(value: ColorConfig) -> void:
 
 
 func _on_changed() -> void:
+    _get_control_references()
+    _update_color_rect()
     if _is_updating:
         return
     emit_signal("changed", color_config)
+
+
+func _update_color_rect() -> void:
+    if is_instance_valid(color_config):
+        _color_rect.visible = true
+        _color_rect.color = color_config.sample()
+        print(">>>>>>>>")
+        print(Sc.palette._colors["purple"])
+        print(Sc.palette._colors["purple"].r)
+        print(Sc.palette._colors["purple"].g)
+        print(Sc.palette._colors["purple"].b)
+        print(Sc.palette._colors["purple"].a)
+        print(">>>>>>>>")
+        print(color_config.sample())
+        print(color_config.sample().r)
+        print(color_config.sample().g)
+        print(color_config.sample().b)
+        print(color_config.sample().a)
+    else:
+        _color_rect.visible = false
 
 
 func _get_popup_id_from_color_config_script(script: Script) -> int:
@@ -280,13 +300,14 @@ func _get_popup_id_from_color_config_script(script: Script) -> int:
 
 func _on_popup_menu_id_pressed(id: int) -> void:
     _show_component_editor(id)
-    $PluginAccordionPanel.is_open = is_instance_valid(color_config)
+    self.is_open = is_instance_valid(color_config)
     _on_changed()
 
 
 func _on_static_color_changed(color: Color) -> void:
     if _is_updating:
         return
+    _get_control_references()
     color_config.color = color
     _on_changed()
 
@@ -308,8 +329,7 @@ func _on_max_hsv_color_changed(color: Color) -> void:
 func _on_key_item_selected(index: int) -> void:
     if _is_updating:
         return
-    color_config.key = $PluginAccordionBody/ \
-        VBoxContainer/PaletteColorConfig/Key/OptionButton.get_item_text(index)
+    color_config.key = _keys_option_button.get_item_text(index)
     _on_changed()
 
 

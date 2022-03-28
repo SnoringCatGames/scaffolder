@@ -67,7 +67,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PluginAccordionHeader/MarginContainer"]
-margin_right = 128.0
+margin_right = 157.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 128, 48 )
 size_flags_horizontal = 3
@@ -77,15 +77,29 @@ __meta__ = {
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="PluginAccordionHeader/MarginContainer/HBoxContainer"]
-margin_right = 80.0
+margin_right = 109.0
 margin_bottom = 48.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_styles/panel = SubResource( 6 )
 
-[node name="MenuButton" type="MenuButton" parent="PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer"]
-margin_right = 80.0
+[node name="HBoxContainer" type="HBoxContainer" parent="PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer"]
+margin_right = 109.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+margin_right = 48.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MenuButton" type="MenuButton" parent="PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+margin_left = 52.0
+margin_right = 109.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 0, 48 )
 size_flags_horizontal = 3
@@ -102,9 +116,9 @@ items = [ "Reset", null, 0, false, false, 0, 0, null, "", false, "New static col
 [node name="PluginAccordionHeaderCaret" parent="PluginAccordionHeader/MarginContainer/HBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 80.0
+margin_left = 109.0
 margin_top = 8.0
-margin_right = 128.0
+margin_right = 157.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 48, 32 )
 size_flags_vertical = 4
