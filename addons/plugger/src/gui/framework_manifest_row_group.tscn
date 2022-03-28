@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_row_group.gd" type="Script" id=1]
-[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_accordion_header.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_header.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_array_buttons.tscn" type="PackedScene" id=3]
-[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_accordion_body.tscn" type="PackedScene" id=5]
-[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_accordion_header_caret.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_body.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_header_caret.tscn" type="PackedScene" id=6]
 
 [node name="FrameworkManifestRowGroup" type="VBoxContainer"]
 margin_right = 460.0
@@ -14,17 +14,18 @@ rect_clip_content = true
 size_flags_horizontal = 3
 custom_constants/separation = 0
 script = ExtResource( 1 )
+is_open = true
 
 [node name="AccordionHeader" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 460.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 460, 40 )
+margin_bottom = 20.0
+rect_clip_content = true
 size_flags_horizontal = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="AccordionHeader"]
-margin_right = 40.0
+margin_right = 460.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 460, 40 )
 mouse_filter = 1
@@ -37,7 +38,7 @@ rect_min_size = Vector2( 460, 34 )
 size_flags_horizontal = 3
 custom_constants/separation = 0
 
-[node name="FrameworkManifestAccordionHeaderCaret" parent="AccordionHeader/MarginContainer/HBoxContainer" instance=ExtResource( 6 )]
+[node name="PluginAccordionHeaderCaret" parent="AccordionHeader/MarginContainer/HBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 4.0
@@ -64,9 +65,9 @@ size_flags_vertical = 4
 [node name="AccordionBody" parent="." instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 40.0
+margin_top = 20.0
 margin_right = 460.0
-margin_bottom = 40.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 is_open = true
 
