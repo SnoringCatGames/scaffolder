@@ -53,3 +53,7 @@ func _set_color(value: Color) -> void:
     _color = value
 func _get_color() -> Color:
     return _color
+
+
+func to_string() -> String:
+    return ("StaticColorConfig(%s)") % str(_color)

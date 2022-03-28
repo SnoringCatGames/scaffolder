@@ -82,3 +82,18 @@ func _get_min_color() -> Color:
     return Color.from_hsv(h_min, s_min, v_min, a_min)
 func _get_max_color() -> Color:
     return Color.from_hsv(h_max, s_max, v_max, a_max)
+
+
+func to_string() -> String:
+    return ("HsvRangeColorConfig(" +
+            "min=[%s, %s, %s, %s], " +
+            "max=[%s, %s, %s, %s])") % [
+        h_min,
+        s_min,
+        v_min,
+        a_min,
+        h_max,
+        s_max,
+        v_max,
+        a_max,
+    ]

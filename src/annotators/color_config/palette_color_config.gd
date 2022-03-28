@@ -64,3 +64,19 @@ func _get_override_color() -> Color:
     return Color.from_hsv(_h_override, _s_override, _v_override, _a_override)
 func _get_delta_color() -> Color:
     return Color.from_hsv(h_delta, s_delta, v_delta, a_delta)
+
+
+func to_string() -> String:
+    return ("PaletteColorConfig(%s, " +
+            "override=[%s, %s, %s, %s], " +
+            "delta=[%s, %s, %s, %s])") % [
+        key,
+        _h_override,
+        _s_override,
+        _v_override,
+        _a_override,
+        h_delta,
+        s_delta,
+        v_delta,
+        a_delta,
+    ]

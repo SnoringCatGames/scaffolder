@@ -231,7 +231,7 @@ func _create_vector3_editor() -> Vector3Editor:
 func _create_color_config_editor() -> ColorConfigEdit:
     var control: ColorConfigEdit = _COLOR_CONFIG_EDIT_SCENE.instance()
     control.color_config = node.value
-    control.connect("changed", self, "_on_value_changed")
+    control.connect("changed", self, "_on_value_mutated")
     return control
 
 
@@ -241,6 +241,10 @@ func _create_resource_editor() -> EditorResourcePicker:
     control.base_type = FrameworkSchema.get_resource_class_name(node.type)
     control.connect("resource_changed", self, "_on_value_changed")
     return control
+
+
+func _on_value_mutated(new_value) -> void:
+    emit_signal("changed")
 
 
 func _on_value_changed(new_value) -> void:
