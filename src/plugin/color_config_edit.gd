@@ -8,7 +8,7 @@ signal changed(color_config)
 const _POPUP_ITEMS := {
     0: [null, "Reset"],
     1: [StaticColorConfig, "New static color", "StaticColorConfig"],
-    2: [HsvRangeColorConfig, "New HSV-range color", "HsvRangeColorConfig"],
+    2: [HsvRangeColorConfig, "New hsv-range color", "HsvRangeColorConfig"],
     3: [PaletteColorConfig, "New palette color", "PaletteColorConfig"],
 }
 
@@ -27,6 +27,7 @@ func _ready() -> void:
 
 func _populate_popup_items() -> void:
     var popup_menu: PopupMenu = $MenuButton.get_popup()
+    popup_menu.clear()
     for id in _POPUP_ITEMS:
         var label: String = _POPUP_ITEMS[id][1]
         popup_menu.add_item(label, id)

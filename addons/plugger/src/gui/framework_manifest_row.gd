@@ -6,6 +6,9 @@ extends PanelContainer
 
 signal changed
 
+const _COLOR_CONFIG_EDIT_SCENE := preload(
+    "res://addons/scaffolder/src/plugin/color_config_edit.tscn")
+
 var _ZEBRA_STRIPE_COLOR := Color.from_hsv(0.0, 0.0, 0.7, 0.1)
 var _OVERRIDE_HIGHLIGHT_COLOR := Color("22ff2a00")
 var _OVERRIDE_HIGHLIGHT_ZEBRA_STRIPE_COLOR := Color.from_hsv(
@@ -225,11 +228,10 @@ func _create_vector3_editor() -> Vector3Editor:
     return control
 
 
-func _create_color_config_editor() -> ColorConfigEditorProperty:
-    # FIXME: LEFT OFF HERE: --------------------------------------
-    var control := ColorConfigEditorProperty.new()
-#    control.connect("value_changed", self, "_on_value_changed")
-#    control.set_up()
+func _create_color_config_editor() -> ColorConfigEdit:
+    var control: ColorConfigEdit = _COLOR_CONFIG_EDIT_SCENE.instance()
+    control.color_config = node.value
+    control.connect("changed", self, "_on_value_changed")
     return control
 
 
