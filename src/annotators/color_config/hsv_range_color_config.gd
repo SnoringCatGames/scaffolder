@@ -15,6 +15,9 @@ var s_max := 0.0 setget _set_s_max
 var v_max := 0.0 setget _set_v_max
 var a_max := 0.0 setget _set_a_max
 
+var min_color: Color setget _set_min_color,_get_min_color
+var max_color: Color setget _set_max_color,_get_max_color
+
 
 func sample(_redirect_depth := 0) -> Color:
     var h := randf() * (h_max - h_min) + h_min
@@ -63,3 +66,19 @@ func _get_v() -> float:
     return v_min
 func _get_a() -> float:
     return a_min
+
+func _set_min_color(value: Color) -> void:
+    h_min = value.h
+    s_min = value.s
+    v_min = value.v
+    a_min = value.a
+func _set_max_color(value: Color) -> void:
+    h_max = value.h
+    s_max = value.s
+    v_max = value.v
+    a_max = value.a
+
+func _get_min_color() -> Color:
+    return Color.from_hsv(h_min, s_min, v_min, a_min)
+func _get_max_color() -> Color:
+    return Color.from_hsv(h_max, s_max, v_max, a_max)

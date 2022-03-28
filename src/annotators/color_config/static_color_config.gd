@@ -8,6 +8,7 @@ extends ColorConfig
 var r: float setget _set_r,_get_r
 var g: float setget _set_g,_get_g
 var b: float setget _set_b,_get_b
+var color: Color setget _set_color,_get_color
 
 var _color := TRANSPARENT
 
@@ -47,3 +48,8 @@ func _get_g() -> float:
     return _color.g
 func _get_b() -> float:
     return _color.b
+
+func _set_color(value: Color) -> void:
+    _color = value
+func _get_color() -> Color:
+    return _color
