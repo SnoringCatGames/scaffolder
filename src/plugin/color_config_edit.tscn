@@ -1,7 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/plugin/color_config_edit.gd" type="Script" id=1]
-[ext_resource path="res://addons/scaffolder/addons/plugger/assets/images/caret_right_dark_theme_2.png" type="Texture" id=2]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_panel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_header_caret.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_body.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_header.tscn" type="PackedScene" id=6]
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0, 0, 0.321569 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 4.0
@@ -42,143 +48,244 @@ bg_color = Color( 0, 0, 0, 1 )
 margin_right = 40.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 script = ExtResource( 1 )
 
-[node name="MenuButton" type="MenuButton" parent="."]
-margin_right = 92.0
+[node name="PluginAccordionHeader" parent="." instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 48 )
+size_override = Vector2( 0, 48 )
+
+[node name="MarginContainer" type="MarginContainer" parent="PluginAccordionHeader"]
+margin_right = 40.0
 margin_bottom = 40.0
+rect_min_size = Vector2( 0, 48 )
+mouse_filter = 1
 size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PluginAccordionHeader/MarginContainer"]
+margin_right = 128.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 128, 48 )
+size_flags_horizontal = 3
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="PluginAccordionHeader/MarginContainer/HBoxContainer"]
+margin_right = 80.0
+margin_bottom = 48.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_styles/panel = SubResource( 6 )
+
+[node name="MenuButton" type="MenuButton" parent="PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer"]
+margin_right = 80.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 4
 custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
 custom_styles/disabled = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
 text = "[empty]"
-icon = ExtResource( 2 )
 icon_align = 2
 items = [ "Reset", null, 0, false, false, 0, 0, null, "", false, "New static color", null, 0, false, false, 1, 0, null, "", false, "New hsv-range color", null, 0, false, false, 2, 0, null, "", false, "New palette color", null, 0, false, false, 3, 0, null, "", false ]
 
-[node name="StaticColorConfig" type="VBoxContainer" parent="."]
+[node name="PluginAccordionHeaderCaret" parent="PluginAccordionHeader/MarginContainer/HBoxContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 80.0
+margin_top = 8.0
+margin_right = 128.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 48, 32 )
+size_flags_vertical = 4
+
+[node name="PluginAccordionBody" parent="." instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 48.0
+margin_right = 40.0
+margin_bottom = 48.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PluginAccordionBody"]
 visible = false
+margin_right = 128.0
+custom_constants/separation = 0
+
+[node name="StaticColorConfig" type="VBoxContainer" parent="PluginAccordionBody/VBoxContainer"]
+visible = false
+margin_top = -24.0
+margin_right = 88.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="Color" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/StaticColorConfig"]
 margin_right = 88.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Color" type="HBoxContainer" parent="StaticColorConfig"]
-margin_right = 88.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="StaticColorConfig/Color"]
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/StaticColorConfig/Color"]
 margin_top = 3.0
 margin_right = 33.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "Color"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="StaticColorConfig/Color"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="PluginAccordionBody/VBoxContainer/StaticColorConfig/Color"]
 margin_left = 37.0
 margin_right = 49.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 
-[node name="HsvRangeColorConfig" type="VBoxContainer" parent="."]
+[node name="HsvRangeColorConfig" type="VBoxContainer" parent="PluginAccordionBody/VBoxContainer"]
 visible = false
-margin_top = 24.0
 margin_right = 68.0
-margin_bottom = 68.0
+margin_bottom = 44.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="MinColor" type="HBoxContainer" parent="HsvRangeColorConfig"]
+[node name="MinColor" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/HsvRangeColorConfig"]
 margin_right = 68.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="HsvRangeColorConfig/MinColor"]
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/HsvRangeColorConfig/MinColor"]
 margin_top = 3.0
 margin_right = 50.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "Min hsv"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="HsvRangeColorConfig/MinColor"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="PluginAccordionBody/VBoxContainer/HsvRangeColorConfig/MinColor"]
 margin_left = 54.0
 margin_right = 68.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 color = Color( 0, 0, 0, 0 )
 
-[node name="MaxColor" type="HBoxContainer" parent="HsvRangeColorConfig"]
+[node name="MaxColor" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/HsvRangeColorConfig"]
 margin_top = 24.0
 margin_right = 68.0
 margin_bottom = 44.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="HsvRangeColorConfig/MaxColor"]
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/HsvRangeColorConfig/MaxColor"]
 margin_top = 3.0
 margin_right = 52.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "Max hsv"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="HsvRangeColorConfig/MaxColor"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="PluginAccordionBody/VBoxContainer/HsvRangeColorConfig/MaxColor"]
 margin_left = 56.0
 margin_right = 68.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 color = Color( 1, 1, 1, 1 )
 
-[node name="PaletteColorConfig" type="VBoxContainer" parent="."]
+[node name="PaletteColorConfig" type="VBoxContainer" parent="PluginAccordionBody/VBoxContainer"]
 visible = false
-margin_top = 72.0
-margin_right = 88.0
-margin_bottom = 356.0
+margin_top = 48.0
+margin_right = 129.0
+margin_bottom = 332.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Key" type="HBoxContainer" parent="PaletteColorConfig"]
+[node name="Key" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig"]
 margin_right = 88.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="PaletteColorConfig/Key"]
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Key"]
 margin_top = 5.0
 margin_right = 23.0
 margin_bottom = 19.0
 size_flags_horizontal = 3
 text = "Key"
 
-[node name="OptionButton" type="OptionButton" parent="PaletteColorConfig/Key"]
+[node name="OptionButton" type="OptionButton" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Key"]
 margin_right = 29.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 
-[node name="Overrides" type="VBoxContainer" parent="PaletteColorConfig"]
+[node name="Overrides" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig" instance=ExtResource( 3 )]
+is_open = false
+
+[node name="PluginAccordionHeader" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides" instance=ExtResource( 6 )]
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 4
+size_override = Vector2( 0, 48 )
+
+[node name="MarginContainer" type="MarginContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionHeader"]
+margin_right = 129.0
+margin_bottom = 284.0
+rect_min_size = Vector2( 0, 48 )
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionHeader/MarginContainer"]
+margin_top = 126.0
+margin_right = 129.0
+margin_bottom = 158.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_constants/separation = 0
+
+[node name="PluginAccordionHeaderCaret" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionHeader/MarginContainer/HBoxContainer" instance=ExtResource( 4 )]
+margin_top = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 48, 32 )
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionHeader/MarginContainer/HBoxContainer"]
+margin_top = 60.0
+margin_right = 88.0
+margin_bottom = 74.0
+size_flags_horizontal = 3
+text = "Overrides"
+align = 1
+
+[node name="PluginAccordionBody" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides" instance=ExtResource( 5 )]
+margin_bottom = 88.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody"]
+visible = false
 margin_top = 28.0
 margin_right = 88.0
 margin_bottom = 154.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="PaletteColorConfig/Overrides"]
-margin_right = 88.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
-text = "Override"
-align = 1
-
-[node name="H" type="HBoxContainer" parent="PaletteColorConfig/Overrides"]
+[node name="H" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer"]
 margin_top = 18.0
 margin_right = 88.0
 margin_bottom = 42.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="PaletteColorConfig/Overrides/H"]
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/H"]
 margin_right = 10.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "H"
 
-[node name="SpinBox" type="SpinBox" parent="PaletteColorConfig/Overrides/H"]
+[node name="SpinBox" type="SpinBox" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/H"]
 margin_left = 14.0
 margin_right = 88.0
 margin_bottom = 24.0
@@ -188,20 +295,21 @@ max_value = 1.0
 step = 0.0
 value = -1.0
 
-[node name="S" type="HBoxContainer" parent="PaletteColorConfig/Overrides"]
+[node name="S" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer"]
 margin_top = 46.0
 margin_right = 88.0
 margin_bottom = 70.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="PaletteColorConfig/Overrides/S"]
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/S"]
 margin_right = 10.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "S"
 
-[node name="SpinBox" type="SpinBox" parent="PaletteColorConfig/Overrides/S"]
+[node name="SpinBox" type="SpinBox" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/S"]
 margin_left = 14.0
 margin_right = 88.0
 margin_bottom = 24.0
@@ -211,20 +319,21 @@ max_value = 1.0
 step = 0.0
 value = -1.0
 
-[node name="V" type="HBoxContainer" parent="PaletteColorConfig/Overrides"]
+[node name="V" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer"]
 margin_top = 74.0
 margin_right = 88.0
 margin_bottom = 98.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="PaletteColorConfig/Overrides/V"]
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/V"]
 margin_right = 10.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "V"
 
-[node name="SpinBox" type="SpinBox" parent="PaletteColorConfig/Overrides/V"]
+[node name="SpinBox" type="SpinBox" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/V"]
 margin_left = 14.0
 margin_right = 88.0
 margin_bottom = 24.0
@@ -234,20 +343,21 @@ max_value = 1.0
 step = 0.0
 value = -1.0
 
-[node name="A" type="HBoxContainer" parent="PaletteColorConfig/Overrides"]
+[node name="A" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer"]
 margin_top = 102.0
 margin_right = 88.0
 margin_bottom = 126.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="PaletteColorConfig/Overrides/A"]
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/A"]
 margin_right = 10.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "A"
 
-[node name="SpinBox" type="SpinBox" parent="PaletteColorConfig/Overrides/A"]
+[node name="SpinBox" type="SpinBox" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/A"]
 margin_left = 14.0
 margin_right = 88.0
 margin_bottom = 24.0
@@ -257,33 +367,70 @@ max_value = 1.0
 step = 0.0
 value = -1.0
 
-[node name="Deltas" type="VBoxContainer" parent="PaletteColorConfig"]
-margin_top = 158.0
-margin_right = 88.0
+[node name="Deltas" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig" instance=ExtResource( 3 )]
+margin_top = -36.0
+margin_bottom = -36.0
+is_open = false
+
+[node name="PluginAccordionHeader" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas" instance=ExtResource( 6 )]
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 4
+size_override = Vector2( 0, 48 )
+
+[node name="MarginContainer" type="MarginContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionHeader"]
+margin_right = 129.0
 margin_bottom = 284.0
+rect_min_size = Vector2( 0, 48 )
+mouse_filter = 1
 size_flags_horizontal = 3
+size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="PaletteColorConfig/Deltas"]
-margin_right = 88.0
-margin_bottom = 14.0
+[node name="HBoxContainer" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionHeader/MarginContainer"]
+margin_top = 126.0
+margin_right = 129.0
+margin_bottom = 158.0
+rect_min_size = Vector2( 129, 0 )
 size_flags_horizontal = 3
-text = "Delta"
+size_flags_vertical = 4
+custom_constants/separation = 0
+
+[node name="PluginAccordionHeaderCaret" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionHeader/MarginContainer/HBoxContainer" instance=ExtResource( 4 )]
+rect_min_size = Vector2( 48, 32 )
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionHeader/MarginContainer/HBoxContainer"]
+margin_top = 194.0
+margin_right = 88.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "Deltas"
 align = 1
 
-[node name="H" type="HBoxContainer" parent="PaletteColorConfig/Deltas"]
+[node name="PluginAccordionBody" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas" instance=ExtResource( 5 )]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody"]
+visible = false
+margin_top = 194.0
+margin_right = 88.0
+margin_bottom = 320.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="H" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer"]
 margin_top = 18.0
 margin_right = 88.0
 margin_bottom = 42.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="PaletteColorConfig/Deltas/H"]
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/H"]
 margin_right = 10.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "H"
 
-[node name="SpinBox" type="SpinBox" parent="PaletteColorConfig/Deltas/H"]
+[node name="SpinBox" type="SpinBox" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/H"]
 margin_left = 14.0
 margin_right = 88.0
 margin_bottom = 24.0
@@ -292,20 +439,21 @@ min_value = -1.0
 max_value = 1.0
 step = 0.0
 
-[node name="S" type="HBoxContainer" parent="PaletteColorConfig/Deltas"]
+[node name="S" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer"]
 margin_top = 46.0
 margin_right = 88.0
 margin_bottom = 70.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="PaletteColorConfig/Deltas/S"]
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/S"]
 margin_right = 10.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "S"
 
-[node name="SpinBox" type="SpinBox" parent="PaletteColorConfig/Deltas/S"]
+[node name="SpinBox" type="SpinBox" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/S"]
 margin_left = 14.0
 margin_right = 88.0
 margin_bottom = 24.0
@@ -314,20 +462,21 @@ min_value = -1.0
 max_value = 1.0
 step = 0.0
 
-[node name="V" type="HBoxContainer" parent="PaletteColorConfig/Deltas"]
+[node name="V" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer"]
 margin_top = 74.0
 margin_right = 88.0
 margin_bottom = 98.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="PaletteColorConfig/Deltas/V"]
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/V"]
 margin_right = 10.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "V"
 
-[node name="SpinBox" type="SpinBox" parent="PaletteColorConfig/Deltas/V"]
+[node name="SpinBox" type="SpinBox" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/V"]
 margin_left = 14.0
 margin_right = 88.0
 margin_bottom = 24.0
@@ -336,20 +485,21 @@ min_value = -1.0
 max_value = 1.0
 step = 0.0
 
-[node name="A" type="HBoxContainer" parent="PaletteColorConfig/Deltas"]
+[node name="A" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer"]
 margin_top = 102.0
 margin_right = 88.0
 margin_bottom = 126.0
 size_flags_horizontal = 3
+custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="PaletteColorConfig/Deltas/A"]
+[node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/A"]
 margin_right = 10.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "A"
 
-[node name="SpinBox" type="SpinBox" parent="PaletteColorConfig/Deltas/A"]
+[node name="SpinBox" type="SpinBox" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/A"]
 margin_left = 14.0
 margin_right = 88.0
 margin_bottom = 24.0
@@ -358,15 +508,15 @@ min_value = -1.0
 max_value = 1.0
 step = 0.0
 
-[connection signal="color_changed" from="StaticColorConfig/Color/ColorPickerButton" to="." method="_on_static_color_changed"]
-[connection signal="color_changed" from="HsvRangeColorConfig/MinColor/ColorPickerButton" to="." method="_on_min_hsv_color_changed"]
-[connection signal="color_changed" from="HsvRangeColorConfig/MaxColor/ColorPickerButton" to="." method="_on_max_hsv_color_changed"]
-[connection signal="item_selected" from="PaletteColorConfig/Key/OptionButton" to="." method="_on_key_item_selected"]
-[connection signal="value_changed" from="PaletteColorConfig/Overrides/H/SpinBox" to="." method="_on_h_override_changed"]
-[connection signal="value_changed" from="PaletteColorConfig/Overrides/S/SpinBox" to="." method="_on_s_override_changed"]
-[connection signal="value_changed" from="PaletteColorConfig/Overrides/V/SpinBox" to="." method="_on_v_override_changed"]
-[connection signal="value_changed" from="PaletteColorConfig/Overrides/A/SpinBox" to="." method="_on_a_override_changed"]
-[connection signal="value_changed" from="PaletteColorConfig/Deltas/H/SpinBox" to="." method="_on_h_delta_changed"]
-[connection signal="value_changed" from="PaletteColorConfig/Deltas/S/SpinBox" to="." method="_on_s_delta_changed"]
-[connection signal="value_changed" from="PaletteColorConfig/Deltas/V/SpinBox" to="." method="_on_v_delta_changed"]
-[connection signal="value_changed" from="PaletteColorConfig/Deltas/A/SpinBox" to="." method="_on_a_delta_changed"]
+[connection signal="color_changed" from="PluginAccordionBody/VBoxContainer/StaticColorConfig/Color/ColorPickerButton" to="." method="_on_static_color_changed"]
+[connection signal="color_changed" from="PluginAccordionBody/VBoxContainer/HsvRangeColorConfig/MinColor/ColorPickerButton" to="." method="_on_min_hsv_color_changed"]
+[connection signal="color_changed" from="PluginAccordionBody/VBoxContainer/HsvRangeColorConfig/MaxColor/ColorPickerButton" to="." method="_on_max_hsv_color_changed"]
+[connection signal="item_selected" from="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Key/OptionButton" to="." method="_on_key_item_selected"]
+[connection signal="value_changed" from="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/H/SpinBox" to="." method="_on_h_override_changed"]
+[connection signal="value_changed" from="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/S/SpinBox" to="." method="_on_s_override_changed"]
+[connection signal="value_changed" from="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/V/SpinBox" to="." method="_on_v_override_changed"]
+[connection signal="value_changed" from="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionBody/VBoxContainer/A/SpinBox" to="." method="_on_a_override_changed"]
+[connection signal="value_changed" from="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/H/SpinBox" to="." method="_on_h_delta_changed"]
+[connection signal="value_changed" from="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/S/SpinBox" to="." method="_on_s_delta_changed"]
+[connection signal="value_changed" from="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/V/SpinBox" to="." method="_on_v_delta_changed"]
+[connection signal="value_changed" from="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionBody/VBoxContainer/A/SpinBox" to="." method="_on_a_delta_changed"]
