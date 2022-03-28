@@ -228,18 +228,18 @@ func _decode_color_config_json_object(json_object: Dictionary) -> ColorConfig:
     match json_object[_COLOR_CONFIG_KEY]:
         _STATIC_COLOR_CONFIG_TOKEN:
             var color_config := StaticColorConfig.new()
-            color_config._color = Color(json_object.c)
+            color_config._color = Color(int(json_object.c))
             return color_config
         _HSV_RANGE_COLOR_CONFIG_TOKEN:
             var color_config := HsvRangeColorConfig.new()
-            color_config.min_color = Color(json_object.min)
-            color_config.max_color = Color(json_object.max)
+            color_config.min_color = Color(int(json_object.min))
+            color_config.max_color = Color(int(json_object.max))
             return color_config
         _PALETTE_COLOR_CONFIG_TOKEN:
             var color_config := PaletteColorConfig.new()
             color_config.key = json_object.key
-            color_config.override_color = Color(json_object.o)
-            color_config.delta_color = Color(json_object.d)
+            color_config.override_color = Color(int(json_object.o))
+            color_config.delta_color = Color(int(json_object.d))
             return color_config
         _:
             Sc.logger.error("JsonUtil._decode_color_config_json_object: %s" % \
