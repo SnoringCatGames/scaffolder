@@ -13,7 +13,10 @@ extends Reference
 ##     of whichever color would otherwise have been returned from the subclass.
 
 
-# FIXME: LEFT OFF HERE: --------------------
+# FIXME: LEFT OFF HERE: ----------------------
+# 
+# - Render a small ColorRect in the left of the AccordionHeader to show a
+#   sample of the color.
 # 
 # - Test ColorConfigEdit for all cases.
 # 
@@ -39,6 +42,7 @@ extends Reference
 #   - Character property configs will need to define type `hint`s of
 #     ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG.
 # - Set up / register palette.
+# - Replace ColorConfigEdit MenuButton icon with a rotated caret image.
 
 
 const ALPHA_SOLID := 1.0
