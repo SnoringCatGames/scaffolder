@@ -1,7 +1,7 @@
 tool
 class_name FrameworkManifestPanel, \
 "res://addons/scaffolder/assets/images/editor_icons/accordion_panel.png"
-extends FrameworkManifestAccordionPanel
+extends PluginAccordionPanel
 
 
 signal descendant_toggled

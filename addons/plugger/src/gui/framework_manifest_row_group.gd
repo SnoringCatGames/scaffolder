@@ -1,11 +1,11 @@
 tool
 class_name FrameworkManifestRowGroup, \
 "res://addons/scaffolder/assets/images/editor_icons/accordion_panel.png"
-extends FrameworkManifestAccordionPanel
+extends PluginAccordionPanel
 
 
 const _ACCORDION_THEME := preload(
-        "res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_accordion_theme.tres")
+        "res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_theme.tres")
 
 var node: FrameworkManifestEditorNode
 var indent_level: int
