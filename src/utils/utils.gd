@@ -781,14 +781,16 @@ func get_property_list_for_contiguous_inspector_groups(
                 group.first_property_name,
                 default_property_list)
         if group.first_property_index < 0:
-            Sc.logger.error("Utils.get_property_list_for_contiguous_inspector_groups")
+            Sc.logger.error(
+                "Utils.get_property_list_for_contiguous_inspector_groups")
             return []
         if group.has("last_property_name"):
             group.last_property_index = _get_property_index(
                     group.last_property_name,
                     default_property_list)
             if group.last_property_index < 0:
-                Sc.logger.error("Utils.get_property_list_for_contiguous_inspector_groups")
+                Sc.logger.error(
+                    "Utils.get_property_list_for_contiguous_inspector_groups")
                 return []
         first_property_index_to_group[group.first_property_index] = group
     
@@ -836,10 +838,13 @@ func get_property_list_for_contiguous_inspector_groups(
                     property_overrides.type if \
                     property_overrides.has("type") else \
                     original_property_config.type
-            var hint: int = \
-                    property_overrides.hint if \
-                    property_overrides.has("hint") else \
-                    original_property_config.hint
+            var hint: int
+            if property_overrides.has("hint"):
+                hint = property_overrides.hint
+            elif node.get(name) is ColorConfig:
+                hint = ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG
+            else:
+                hint = original_property_config.hint
             var hint_string: String = \
                     property_overrides.hint_string if \
                     property_overrides.has("hint_string") else \

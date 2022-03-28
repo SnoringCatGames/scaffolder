@@ -9,7 +9,7 @@ static func rgb(
         r: float,
         g: float,
         b: float,
-        a := 1.0) -> StaticColorConfig:
+        a := 1.0) -> ColorConfig:
     return color(Color(r, g, b, a))
 
 
@@ -17,7 +17,7 @@ static func hsv(
         h: float,
         s: float,
         v: float,
-        a := 1.0) -> StaticColorConfig:
+        a := 1.0) -> ColorConfig:
     var color_config = StaticColorConfig.new()
     color_config.h = h
     color_config.s = s
@@ -26,7 +26,7 @@ static func hsv(
     return color_config
 
 
-static func color(color: Color) -> StaticColorConfig:
+static func color(color: Color) -> ColorConfig:
     var color_config = StaticColorConfig.new()
     color_config.h = color.h
     color_config.s = color.s
@@ -43,7 +43,7 @@ static func hsv_range(
         v_min: float,
         v_max: float,
         a_min := 1.0,
-        a_max := 1.0) -> HsvRangeColorConfig:
+        a_max := 1.0) -> ColorConfig:
     var color_config = HsvRangeColorConfig.new()
     color_config.h_min = h_min
     color_config.h_max = h_max
@@ -61,11 +61,11 @@ static func h_range(
         h_max: float,
         s: float,
         v: float,
-        a := 1.0) -> HsvRangeColorConfig:
+        a := 1.0) -> ColorConfig:
     return hsv_range(h_min, h_max, s, s, v, v, a, a)
 
 
-static func palette(key: String) -> PaletteColorConfig:
+static func palette(key: String) -> ColorConfig:
     var color_config := PaletteColorConfig.new()
     color_config.key = key
     return color_config
@@ -73,7 +73,7 @@ static func palette(key: String) -> PaletteColorConfig:
 
 static func delta(
         key: String,
-        delta: Dictionary) -> PaletteColorConfig:
+        delta: Dictionary) -> ColorConfig:
     var color_config := PaletteColorConfig.new()
     color_config.key = key
     var color := color_config.sample()
@@ -108,5 +108,5 @@ static func opacify(
     return color_config
 
 
-static func transparent() -> StaticColorConfig:
+static func transparent() -> ColorConfig:
     return StaticColorConfig.new()
