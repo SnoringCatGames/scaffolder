@@ -6,6 +6,26 @@ extends ColorConfig
 ## static Color representation will only be used when needed.
 
 
+const _property_list_addendum = [
+    # These fields should not be saved in .tscn files.
+    {name = "h", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "s", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "v", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "a", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "override_color", type = TYPE_COLOR, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "delta_color", type = TYPE_COLOR, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    # These fields should be saved in .tscn files.
+    {name = "key", type = TYPE_STRING, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "_h_override", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "_s_override", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "_v_override", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "_a_override", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "h_delta", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "s_delta", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "v_delta", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "a_delta", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+]
+
 var key: String
 
 var _h_override := -1.0
@@ -80,3 +100,7 @@ func to_string() -> String:
         v_delta,
         a_delta,
     ]
+
+
+func _get_property_list() -> Array:
+    return _property_list_addendum

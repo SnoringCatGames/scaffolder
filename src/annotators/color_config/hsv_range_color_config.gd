@@ -5,6 +5,25 @@ extends ColorConfig
 ## colors within these parameters.
 
 
+const _property_list_addendum = [
+    # These fields should not be saved in .tscn files.
+    {name = "h", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "s", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "v", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "a", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "min_color", type = TYPE_COLOR, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "max_color", type = TYPE_COLOR, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    # These fields should be saved in .tscn files.
+    {name = "h_min", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "s_min", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "v_min", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "a_min", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "h_max", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "s_max", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "v_max", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+    {name = "a_max", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+]
+
 var h_min := 0.0 setget _set_h_min
 var s_min := 0.0 setget _set_s_min
 var v_min := 0.0 setget _set_v_min
@@ -97,3 +116,7 @@ func to_string() -> String:
         v_max,
         a_max,
     ]
+
+
+func _get_property_list() -> Array:
+    return _property_list_addendum
