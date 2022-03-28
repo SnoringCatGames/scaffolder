@@ -26,7 +26,7 @@ const _property_list_addendum = [
     {name = "a_delta", type = TYPE_REAL, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
 ]
 
-var key: String
+var key := "transparent"
 
 var _h_override := -1.0
 var _s_override := -1.0
@@ -44,10 +44,10 @@ var delta_color: Color setget _set_delta_color,_get_delta_color
 
 func sample(_redirect_depth := 0) -> Color:
     var color: Color = Sc.palette.get_color(key, _redirect_depth)
-    color.h += clamp(max(color.h, _h_override) + h_delta, 0.0, 1.0)
-    color.s += clamp(max(color.s, _s_override) + s_delta, 0.0, 1.0)
-    color.v += clamp(max(color.v, _v_override) + v_delta, 0.0, 1.0)
-    color.a += clamp(max(color.a, _a_override) + a_delta, 0.0, 1.0)
+    color.h = clamp(max(color.h, _h_override) + h_delta, 0.0, 1.0)
+    color.s = clamp(max(color.s, _s_override) + s_delta, 0.0, 1.0)
+    color.v = clamp(max(color.v, _v_override) + v_delta, 0.0, 1.0)
+    color.a = clamp(max(color.a, _a_override) + a_delta, 0.0, 1.0)
     return color
 
 

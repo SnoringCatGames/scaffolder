@@ -10,7 +10,7 @@ extends Node
 var _DEFAULT_COLORS := {
     transparent = ColorConfig.TRANSPARENT,
     white = Color.white,
-    black = Color.white,
+    black = Color.black,
     purple = Color(0.734, 0.277, 1.0),
     teal = Color(0.277, 0.973, 1.0),
     red = Color(1.0, 0.305, 0.277),
@@ -68,8 +68,7 @@ var _colors := {}
 
 
 func _register_defaults() -> void:
-    for key in _DEFAULT_COLORS:
-        _colors[key] = _DEFAULT_COLORS[key]
+    Sc.utils.merge(_colors, _DEFAULT_COLORS)
 
 
 func set_color(
@@ -86,6 +85,7 @@ func get_color(
             ("ColorPalette contains a redirect chain that is too long: " +
             "key=%s") % key)
         return ColorConfig.TRANSPARENT
+    assert(_colors.has(key), "Key is not in ColorPalette: %s" % key)
     var color = _colors[key]
     if color is ColorConfig:
         return color.sample(_redirect_depth + 1)
