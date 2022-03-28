@@ -137,7 +137,7 @@ func encode_json_object(value):
             if value is Resource:
                 return _RESOURCE_PREFIX + value.resource_path
             elif value is ColorConfig:
-                return _encode_color_config_json_object(value)
+                return encode_color_config(value)
             else:
                 continue
         _:
@@ -175,7 +175,7 @@ func decode_json_object(json):
                     json.has("h"):
                 return Rect2(json.x, json.y, json.w, json.h)
             elif json.has(_COLOR_CONFIG_KEY):
-                return _decode_color_config_json_object(json)
+                return decode_color_config(json)
             else:
                 json = json.duplicate()
                 for key in json.keys():
@@ -204,7 +204,7 @@ func decode_json_object(json):
             return json
 
 
-func _encode_color_config_json_object(color_config: ColorConfig) -> Dictionary:
+func encode_color_config(color_config: ColorConfig) -> Dictionary:
     var json_object := {}
     if color_config is StaticColorConfig:
         json_object[_COLOR_CONFIG_KEY] = _STATIC_COLOR_CONFIG_TOKEN
@@ -240,11 +240,11 @@ func _encode_color_config_json_object(color_config: ColorConfig) -> Dictionary:
         ]
     else:
         Sc.logger.error(
-            "JsonUtils._encode_color_config_json_object: %s" % str(json_object))
+            "JsonUtils.encode_color_config: %s" % str(json_object))
     return json_object
 
 
-func _decode_color_config_json_object(json_object: Dictionary) -> ColorConfig:
+func decode_color_config(json_object: Dictionary) -> ColorConfig:
     match json_object[_COLOR_CONFIG_KEY]:
         _STATIC_COLOR_CONFIG_TOKEN:
             var color_config := StaticColorConfig.new()
@@ -274,7 +274,7 @@ func _decode_color_config_json_object(json_object: Dictionary) -> ColorConfig:
             color_config.a_delta = json_object.d[3]
             return color_config
         _:
-            Sc.logger.error("JsonUtil._decode_color_config_json_object: %s" % \
+            Sc.logger.error("JsonUtil.decode_color_config: %s" % \
                 str(json_object))
             return null
 
