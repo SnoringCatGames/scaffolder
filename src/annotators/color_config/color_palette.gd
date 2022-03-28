@@ -9,8 +9,8 @@ extends Node
 # Dictionary<String, Color|ColorConfig>
 var _DEFAULT_COLORS := {
     transparent = ColorConfig.TRANSPARENT,
-    
     white = Color.white,
+    black = Color.white,
     purple = Color(0.734, 0.277, 1.0),
     teal = Color(0.277, 0.973, 1.0),
     red = Color(1.0, 0.305, 0.277),
