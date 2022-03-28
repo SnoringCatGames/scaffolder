@@ -211,13 +211,33 @@ func _encode_color_config_json_object(color_config: ColorConfig) -> Dictionary:
         json_object.c = color_config._color.to_rgba32()
     elif color_config is HsvRangeColorConfig:
         json_object[_COLOR_CONFIG_KEY] = _HSV_RANGE_COLOR_CONFIG_TOKEN
-        json_object.min = color_config.min_color.to_rgba32()
-        json_object.max = color_config.max_color.to_rgba32()
+        json_object.min = [
+            color_config.h_min,
+            color_config.s_min,
+            color_config.v_min,
+            color_config.a_min,
+        ]
+        json_object.max = [
+            color_config.h_max,
+            color_config.s_max,
+            color_config.v_max,
+            color_config.a_max,
+        ]
     elif color_config is PaletteColorConfig:
         json_object[_COLOR_CONFIG_KEY] = _PALETTE_COLOR_CONFIG_TOKEN
         json_object.key = color_config.key
-        json_object.o = color_config.override_color.to_rgba32()
-        json_object.d = color_config.delta_color.to_rgba32()
+        json_object.o = [
+            color_config._h_override,
+            color_config._s_override,
+            color_config._v_override,
+            color_config._a_override,
+        ]
+        json_object.d = [
+            color_config.h_delta,
+            color_config.s_delta,
+            color_config.v_delta,
+            color_config.a_delta,
+        ]
     else:
         Sc.logger.error(
             "JsonUtils._encode_color_config_json_object: %s" % str(json_object))
@@ -232,14 +252,26 @@ func _decode_color_config_json_object(json_object: Dictionary) -> ColorConfig:
             return color_config
         _HSV_RANGE_COLOR_CONFIG_TOKEN:
             var color_config := HsvRangeColorConfig.new()
-            color_config.min_color = Color(int(json_object.min))
-            color_config.max_color = Color(int(json_object.max))
+            color_config.h_min = json_object.min[0]
+            color_config.s_min = json_object.min[1]
+            color_config.v_min = json_object.min[2]
+            color_config.a_min = json_object.min[3]
+            color_config.h_max = json_object.max[0]
+            color_config.s_max = json_object.max[1]
+            color_config.v_max = json_object.max[2]
+            color_config.a_max = json_object.max[3]
             return color_config
         _PALETTE_COLOR_CONFIG_TOKEN:
             var color_config := PaletteColorConfig.new()
             color_config.key = json_object.key
-            color_config.override_color = Color(int(json_object.o))
-            color_config.delta_color = Color(int(json_object.d))
+            color_config._h_override = json_object.o[0]
+            color_config._s_override = json_object.o[1]
+            color_config._v_override = json_object.o[2]
+            color_config._a_override = json_object.o[3]
+            color_config.h_delta = json_object.d[0]
+            color_config.s_delta = json_object.d[1]
+            color_config.v_delta = json_object.d[2]
+            color_config.a_delta = json_object.d[3]
             return color_config
         _:
             Sc.logger.error("JsonUtil._decode_color_config_json_object: %s" % \
