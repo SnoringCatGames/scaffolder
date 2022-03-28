@@ -5,6 +5,20 @@ extends ColorConfig
 ## types of ColorConfigs.
 
 
+const _property_list_addendum = [
+    # These fields should not be saved in .tscn files.
+    {name = "h", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "s", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "v", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "a", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "r", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "g", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "b", type = TYPE_REAL, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    {name = "color", type = TYPE_COLOR, usage = PROPERTY_USAGE_NO_INSTANCE_STATE},
+    # These fields should be saved in .tscn files.
+    {name = "_color", type = TYPE_COLOR, usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM},
+]
+
 var r: float setget _set_r,_get_r
 var g: float setget _set_g,_get_g
 var b: float setget _set_b,_get_b
@@ -57,3 +71,7 @@ func _get_color() -> Color:
 
 func to_string() -> String:
     return ("StaticColorConfig(%s)") % str(_color)
+
+
+func _get_property_list() -> Array:
+    return _property_list_addendum
