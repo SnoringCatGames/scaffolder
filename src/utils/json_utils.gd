@@ -207,10 +207,10 @@ func decode_json_object(json):
 func _encode_color_config_json_object(color_config: ColorConfig) -> Dictionary:
     var json_object := {}
     if color_config is StaticColorConfig:
-        json_object[_COLOR_CONFIG_TOKEN] = _STATIC_COLOR_CONFIG_TOKEN
-        json_object.c = _color.to_rgba32()
+        json_object[_COLOR_CONFIG_KEY] = _STATIC_COLOR_CONFIG_TOKEN
+        json_object.c = color_config._color.to_rgba32()
     elif color_config is HsvRangeColorConfig:
-        json_object[_COLOR_CONFIG_TOKEN] = _HSV_RANGE_COLOR_CONFIG_TOKEN
+        json_object[_COLOR_CONFIG_KEY] = _HSV_RANGE_COLOR_CONFIG_TOKEN
         json_object.min = [
             color_config.h_min,
             color_config.s_min,
@@ -224,7 +224,7 @@ func _encode_color_config_json_object(color_config: ColorConfig) -> Dictionary:
             color_config.a_max,
         ]
     elif color_config is PaletteColorConfig:
-        json_object[_COLOR_CONFIG_TOKEN] = _PALETTE_COLOR_CONFIG_TOKEN
+        json_object[_COLOR_CONFIG_KEY] = _PALETTE_COLOR_CONFIG_TOKEN
         json_object.key = color_config.key
         json_object.o = [
             color_config._h_override,
@@ -233,14 +233,14 @@ func _encode_color_config_json_object(color_config: ColorConfig) -> Dictionary:
             color_config._a_override,
         ]
         json_object.d = [
-            color_config._h_delta,
-            color_config._s_delta,
-            color_config._v_delta,
-            color_config._a_delta,
+            color_config.h_delta,
+            color_config.s_delta,
+            color_config.v_delta,
+            color_config.a_delta,
         ]
     else:
         Sc.logger.error(
-            "JsonUtils._encode_color_config_json_object: %s" % str(value))
+            "JsonUtils._encode_color_config_json_object: %s" % str(json_object))
     return json_object
 
 
@@ -268,10 +268,10 @@ func _decode_color_config_json_object(json_object: Dictionary) -> ColorConfig:
             color_config._s_override = json_object.o[1]
             color_config._v_override = json_object.o[2]
             color_config._a_override = json_object.o[3]
-            color_config._h_delta = json_object.d[0]
-            color_config._s_delta = json_object.d[1]
-            color_config._v_delta = json_object.d[2]
-            color_config._a_delta = json_object.d[3]
+            color_config.h_delta = json_object.d[0]
+            color_config.s_delta = json_object.d[1]
+            color_config.v_delta = json_object.d[2]
+            color_config.a_delta = json_object.d[3]
             return color_config
         _:
             Sc.logger.error("JsonUtil._decode_color_config_json_object: %s" % \
