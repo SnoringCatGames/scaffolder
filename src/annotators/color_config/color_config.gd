@@ -13,19 +13,9 @@ extends Reference
 ##     of whichever color would otherwise have been returned from the subclass.
 
 
-# FIXME: LEFT OFF HERE: -------------------
+# FIXME: LEFT OFF HERE: --------------------
 # 
-# - Create a ColorConfigEdit control that is separate from
-#   ColorConfigEditorProperty.
-#   - This will allow me to edit ColorConfigs separately from a property on a
-#     parent object.
-#   - Use this from within the manifest row.
-# 
-# - Update ColorConfigEditorProperty key to be an OptionButton with all
-#   registered palette keys.
-# 
-# - Implement the PropertyEditor widget for ColorConfig.
-#   - Needs to work both in the inspector and in the Plugin main-screen.
+# - Test ColorConfigEdit for all cases.
 # 
 # - Replace all of the different color systems I'd built-up previously with this new simpler system.
 #   - ColorParams

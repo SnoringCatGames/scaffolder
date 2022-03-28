@@ -147,10 +147,9 @@ margin_bottom = 19.0
 size_flags_horizontal = 3
 text = "Key"
 
-[node name="LineEdit" type="LineEdit" parent="PaletteColorConfig/Key"]
-margin_left = 27.0
-margin_right = 85.0
-margin_bottom = 24.0
+[node name="OptionButton" type="OptionButton" parent="PaletteColorConfig/Key"]
+margin_right = 29.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 
 [node name="Overrides" type="VBoxContainer" parent="PaletteColorConfig"]
@@ -362,7 +361,7 @@ step = 0.0
 [connection signal="color_changed" from="StaticColorConfig/Color/ColorPickerButton" to="." method="_on_static_color_changed"]
 [connection signal="color_changed" from="HsvRangeColorConfig/MinColor/ColorPickerButton" to="." method="_on_min_hsv_color_changed"]
 [connection signal="color_changed" from="HsvRangeColorConfig/MaxColor/ColorPickerButton" to="." method="_on_max_hsv_color_changed"]
-[connection signal="text_changed" from="PaletteColorConfig/Key/LineEdit" to="." method="_on_key_text_changed"]
+[connection signal="item_selected" from="PaletteColorConfig/Key/OptionButton" to="." method="_on_key_item_selected"]
 [connection signal="value_changed" from="PaletteColorConfig/Overrides/H/SpinBox" to="." method="_on_h_override_changed"]
 [connection signal="value_changed" from="PaletteColorConfig/Overrides/S/SpinBox" to="." method="_on_s_override_changed"]
 [connection signal="value_changed" from="PaletteColorConfig/Overrides/V/SpinBox" to="." method="_on_v_override_changed"]
