@@ -3,28 +3,38 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: ----------
-# 
-# - Implement the PropertyEditor widget for ColorConfig.
-#   - Needs to work both in the inspector and in the Plugin main-screen.
+# FIXME: LEFT OFF HERE: -----------
 # 
 # - Implement new ColorConfig system.
-# 
-# - Add support for coloring rows that aren't strictly overridden.
-# - Also color ancestor rows?
-#   - Maybe more faintly.
 # 
 # - Update manifest.json files to only include non-default state.
 #   - I need these to serve as a clear indication of what has actually been
 #     changed by the user.
 # 
+# - Also, add a reset button to indicate and undo when there is a non-default
+#   value.
+# 
 # - Consolidate all manifest JSONs into one file, stored within the game
 #   config/, rather than in addons.
+# 
+# - Add support for coloring rows that aren't strictly overridden.
+#   - For highlighting without assigning values overrides, just include a fourth
+#      element in the array as false, and ignore the second element.
+# - Also color ancestor rows?
+#   - Maybe more faintly.
 # 
 # - In order to support pinned manifest entries:
 #   - Include an array of property-path strings in each schema constructor.
 #     - I could use an inline special-token key within schema Dictionaries, but 
 #       then I wouldn't have control over the ordering of pinned items.
+# 
+# - For pinning, do go ahead and add support for dynamic pinning now:
+#   - Just need to add a button at the right side of each row.
+#   - Then each node can have an is_pinned property
+#   - Then, can save all pinnings in a separate json, and in a separate save
+#     pass
+#   - Recreate the entire pin tree when a new pin is added or removed
+#   - Will need to include all parents of a pinned row.
 # 
 # - Add the ability to pin important properties:
 #   - Include defaults:
