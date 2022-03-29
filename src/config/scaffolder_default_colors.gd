@@ -3,30 +3,28 @@ class_name ScaffolderDefaultColors
 extends Reference
 
 
-var DEFAULTS := {
-    ### Click
+### Click
 
-    click_inner_color = ColorFactory.palette("click"),
-    click_outer_color = ColorFactory.palette("click"),
+var click_inner_color := ColorFactory.palette("click")
+var click_outer_color := ColorFactory.palette("click")
 
-    ### Ruler
+### Ruler
 
-    ruler_line_color = ColorFactory.opacify("ruler", ColorConfig.ALPHA_XFAINT),
-    ruler_text_color = ColorFactory.opacify("ruler", ColorConfig.ALPHA_FAINT),
+var ruler_line_color := ColorFactory.opacify("ruler", ColorConfig.ALPHA_XFAINT)
+var ruler_text_color := ColorFactory.opacify("ruler", ColorConfig.ALPHA_FAINT)
 
-    ### On-beat hash
+### On-beat hash
 
-    beat_opacity_start = 0.9,
-    beat_opacity_end = 0.0,
+var beat_opacity_start := 0.9
+var beat_opacity_end := 0.0
 
-    ### Recent movement
+### Recent movement
 
-    recent_movement_opacity_newest = 0.7,
-    recent_movement_opacity_oldest = 0.01,
+var recent_movement_opacity_newest := 0.7
+var recent_movement_opacity_oldest := 0.01
 
-    ### Character position
+### Character position
 
-    character_position_opacity = ColorConfig.ALPHA_XFAINT,
+var character_position_opacity := ColorConfig.ALPHA_XFAINT
 
-    character_collider_opacity = ColorConfig.ALPHA_FAINT,
-}
+var character_collider_opacity := ColorConfig.ALPHA_FAINT

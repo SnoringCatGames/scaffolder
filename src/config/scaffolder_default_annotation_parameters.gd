@@ -5,62 +5,60 @@ extends Reference
 ##       ScaffolderDefaultColors.
 
 
-var DEFAULTS := {
-    ### Click
+### Click
 
-    click_inner_end_radius = 58.0,
-    click_outer_end_radius = 100.0,
+var click_inner_end_radius := 58.0
+var click_outer_end_radius := 100.0
 
-    click_inner_duration = 0.27,
-    click_outer_duration = 0.23,
+var click_inner_duration := 0.27
+var click_outer_duration := 0.23
 
-    ### Ruler
+### Ruler
 
-    ruler_line_width = 1.0,
+var ruler_line_width := 1.0
 
-    ### Exclamation mark
+### Exclamation mark
 
-    exclamation_mark_width_start = 8.0,
-    exclamation_mark_length_start = 48.0,
-    exclamation_mark_stroke_width_start = 3.0,
-    exclamation_mark_scale_end = 2.0,
-    exclamation_mark_vertical_offset = 0.0,
-    exclamation_mark_duration = 1.0,
-    exclamation_mark_opacity_delay = 0.3,
+var exclamation_mark_width_start := 8.0
+var exclamation_mark_length_start := 48.0
+var exclamation_mark_stroke_width_start := 3.0
+var exclamation_mark_scale_end := 2.0
+var exclamation_mark_vertical_offset := 0.0
+var exclamation_mark_duration := 1.0
+var exclamation_mark_opacity_delay := 0.3
 
-    ### On-beat hash
+### On-beat hash
 
-    downbeat_duration = 0.35,
-    offbeat_duration = downbeat_duration,
+var downbeat_duration := 0.35
+var offbeat_duration := downbeat_duration
 
-    downbeat_hash_length_default = 5.0,
-    offbeat_hash_length_default = 3.0,
-    hash_stroke_width_default = 1.0,
+var downbeat_hash_length_default := 5.0
+var offbeat_hash_length_default := 3.0
+var hash_stroke_width_default := 1.0
 
-    downbeat_length_scale_start = 1.0,
-    downbeat_length_scale_end = 8.0,
-    downbeat_width_scale_start = downbeat_length_scale_start,
-    downbeat_width_scale_end = downbeat_length_scale_end,
+var downbeat_length_scale_start := 1.0
+var downbeat_length_scale_end := 8.0
+var downbeat_width_scale_start := downbeat_length_scale_start
+var downbeat_width_scale_end := downbeat_length_scale_end
 
-    offbeat_length_scale_start = downbeat_length_scale_start,
-    offbeat_length_scale_end = downbeat_length_scale_end,
-    offbeat_width_scale_start = offbeat_length_scale_start,
-    offbeat_width_scale_end = offbeat_length_scale_end,
+var offbeat_length_scale_start := downbeat_length_scale_start
+var offbeat_length_scale_end := downbeat_length_scale_end
+var offbeat_width_scale_start := offbeat_length_scale_start
+var offbeat_width_scale_end := offbeat_length_scale_end
 
-    ### Recent movement
+### Recent movement
 
-    recent_positions_buffer_size = 150,
+var recent_positions_buffer_size := 150
 
-    recent_movement_stroke_width = 1,
+var recent_movement_stroke_width := 1
 
-    recent_downbeat_hash_length = 20.0,
-    recent_offbeat_hash_length = 8.0,
-    recent_downbeat_hash_stroke_width = 1.0,
-    recent_offbeat_hash_stroke_width = 1.0,
+var recent_downbeat_hash_length := 20.0
+var recent_offbeat_hash_length := 8.0
+var recent_downbeat_hash_stroke_width := 1.0
+var recent_offbeat_hash_stroke_width := 1.0
 
-    ### Character position
+### Character position
 
-    character_position_radius = 3.0,
+var character_position_radius := 3.0
 
-    character_collider_thickness = 4.0,
-},
+var character_collider_thickness := 4.0
