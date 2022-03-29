@@ -89,7 +89,7 @@ func _parse_defaults(defaults_scripts: Array) -> void:
         var defaults: Reference = defaults_script.new()
         var property_list := defaults.get_property_list()
         for property_config in property_list:
-            if reference_property_map.has(property_config.name)  \
+            if reference_property_map.has(property_config.name) or \
                     property_config.name == "Script Variables":
                 continue
             params[property_config.name] = defaults.get(property_config.name)
