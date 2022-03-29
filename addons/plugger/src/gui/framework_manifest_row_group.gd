@@ -4,6 +4,8 @@ class_name FrameworkManifestRowGroup, \
 extends PluginAccordionPanel
 
 
+signal reset_pressed
+
 const _ACCORDION_THEME := preload(
         "res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_theme.tres")
 
@@ -142,3 +144,4 @@ func _on_is_changed_changed(is_changed: bool) -> void:
 func _on_reset_changes_pressed() -> void:
     node.reset_changes()
     $AccordionHeader/MarginContainer/HBoxContainer/ResetButton.visible = false
+    emit_signal("reset_pressed")

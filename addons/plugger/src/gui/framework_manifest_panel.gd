@@ -24,7 +24,7 @@ var manifest_controller: FrameworkManifestController
 
 var _debounced_save_manifest = Sc.time.debounce(
         funcref(self, "_save_manifest_debounced"),
-        0.01,
+        0.3,
         false)
 var _debounced_update_zebra_stripes = Sc.time.debounce(
         funcref(self, "_update_zebra_stripes_debounced"),
@@ -150,6 +150,7 @@ func _create_group_control(
                 "added", self, "_on_array_item_added", [row.group_buttons])
         row.group_buttons.connect(
                 "deleted", self, "_on_array_item_deleted", [row.group_buttons])
+        row.connect("reset_pressed", self, "_on_array_item_reset", [row])
     row.connect("toggled", self, "_on_row_group_toggled", [row])
     return row
 
@@ -175,9 +176,17 @@ func _on_array_item_added(buttons: FrameworkManifestArrayButtons) -> void:
 
 
 func _on_array_item_deleted(buttons: FrameworkManifestArrayButtons) -> void:
-    buttons.node.children.pop_back()
+    buttons.node.remove_array_element()
     buttons.group.group_body.get_children().back().queue_free()
     buttons.group.is_open = true
+    update_zebra_stripes()
+    _on_value_changed()
+
+
+func _on_array_item_reset(row: FrameworkManifestRowGroup) -> void:
+    Sc.utils.clear_children(row.group_body)
+    for child in row.node.children:
+        _create_property_controls(child, row.indent_level + 1, row.group_body)
     update_zebra_stripes()
     _on_value_changed()
 

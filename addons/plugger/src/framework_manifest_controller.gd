@@ -95,12 +95,12 @@ func load_manifest() -> Dictionary:
         # In case the schema has changed since we last saved the manifest, save
         # the up-to-date version of the manifest.
         save_manifest(false)
-    return root.get_manifest_value()
+    return root.get_manifest_value(true)
 
 
 func save_manifest(is_changed := true) -> void:
     Sc.json.save_file(
-            root.get_manifest_value(),
+            root.get_manifest_value(false),
             schema.manifest_path,
             true,
             true)
