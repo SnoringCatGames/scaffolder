@@ -22,13 +22,13 @@ func _init(
         character_half_height := INF,
         color = Color.white,
         border_color = Color.white,
-        width_start := Sc.ann_params.exclamation_mark_width_start,
-        length_start := Sc.ann_params.exclamation_mark_length_start,
-        stroke_width_start := Sc.ann_params.exclamation_mark_stroke_width_start,
-        duration := Sc.ann_params.exclamation_mark_duration,
-        scale_end := Sc.ann_params.exclamation_mark_scale_end,
-        vertical_offset := Sc.ann_params.exclamation_mark_vertical_offset,
-        opacity_delay := Sc.ann_params.exclamation_mark_opacity_delay) \
+        width_start := Sc.annotators.params.exclamation_mark_width_start,
+        length_start := Sc.annotators.params.exclamation_mark_length_start,
+        stroke_width_start := Sc.annotators.params.exclamation_mark_stroke_width_start,
+        duration := Sc.annotators.params.exclamation_mark_duration,
+        scale_end := Sc.annotators.params.exclamation_mark_scale_end,
+        vertical_offset := Sc.annotators.params.exclamation_mark_vertical_offset,
+        opacity_delay := Sc.annotators.params.exclamation_mark_opacity_delay) \
         .(duration) -> void:
     self.character = character
     self.character_half_height = \
