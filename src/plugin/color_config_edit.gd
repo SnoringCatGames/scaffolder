@@ -228,6 +228,7 @@ func _update_controls() -> void:
         _delta_a_spin_box.value = color_config.a_delta
     else:
         pass
+    _update_color_rect()
 
 
 func _reset_controls() -> void:
@@ -275,18 +276,6 @@ func _update_color_rect() -> void:
     if is_instance_valid(color_config):
         _color_rect.visible = true
         _color_rect.color = color_config.sample()
-        print(">>>>>>>>")
-        print(Sc.palette._colors["purple"])
-        print(Sc.palette._colors["purple"].r)
-        print(Sc.palette._colors["purple"].g)
-        print(Sc.palette._colors["purple"].b)
-        print(Sc.palette._colors["purple"].a)
-        print(">>>>>>>>")
-        print(color_config.sample())
-        print(color_config.sample().r)
-        print(color_config.sample().g)
-        print(color_config.sample().b)
-        print(color_config.sample().a)
     else:
         _color_rect.visible = false
 
