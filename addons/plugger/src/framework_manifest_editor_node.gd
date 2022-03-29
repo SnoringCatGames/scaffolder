@@ -3,6 +3,7 @@ class_name FrameworkManifestEditorNode
 extends Reference
 
 
+signal changed
 signal is_changed_changed(is_changed)
 
 var type: int
@@ -198,6 +199,7 @@ func _set_value(
         propagates := true) -> void:
     if value != new_value:
         value = new_value
+        emit_signal("changed")
         # Auto-update is_changed for non-group rows.
         if type != TYPE_DICTIONARY and \
                 type != TYPE_ARRAY:
@@ -211,6 +213,7 @@ func _set_is_changed(
         propagates := true) -> void:
     if is_changed != new_is_changed:
         is_changed = new_is_changed
+        emit_signal("changed")
         emit_signal("is_changed_changed", is_changed)
         _propagate_is_changed()
 

@@ -12,9 +12,8 @@ extends FrameworkGlobal
 
 signal splashed
 
-# ---
-
 const _SCHEMA_PATH := "res://addons/scaffolder/src/plugin/scaffolder_schema.gd"
+const _DEFAULT_MANIFEST_PATH := "res://manifest.json"
 
 const _LOGS_EARLY_BOOTSTRAP_EVENTS := false
 
@@ -23,6 +22,7 @@ var utils: Utils
 var device: DeviceUtils
 var modes: FrameworkSchemaModes
 
+var manifest_controller: FrameworkManifestController
 var metadata: ScaffolderAppMetadata
 var audio_manifest: ScaffolderAudioManifest
 var audio: Audio
@@ -59,8 +59,7 @@ var gesture_reporter: GestureReporter
 # Array<FrameworkGlobal>
 var _framework_globals := []
 var _bootstrap: FrameworkBootstrap
-
-# ---
+var manifest_path := _DEFAULT_MANIFEST_PATH
 
 
 func _init().(_SCHEMA_PATH) -> void:
@@ -226,6 +225,7 @@ func _get_members_to_destroy() -> Array:
 #        json,
 #        _bootstrap,
         
+        manifest_controller,
         metadata,
         audio_manifest,
         audio,
