@@ -23,6 +23,9 @@ const _SCAFFOLDER_DEFAULT_ENABLEMENT := {
     AnnotatorType.RECENT_MOVEMENT: true,
 }
 
+# NOTE: This only stores non-Color/ColorConfig values.
+#       Color values are instead stored in Sc.palette.
+# Dictionary<String, Variant>
 var params := {}
 
 var character_sub_annotators: Array
@@ -62,8 +65,7 @@ func _init(
     self.level_specific_annotators = level_specific_annotators
     self.default_enablement = default_enablement
     self.character_annotation_class = character_annotation_class
-    _parse_defaults(
-        [ScaffolderDefaultColors, ScaffolderDefaultAnnotationParameters])
+    _parse_defaults([ScaffolderDefaultAnnotationParameters])
     if Engine.editor_hint:
         return
     annotation_layer = Sc.canvas_layers.layers.annotation
@@ -71,28 +73,11 @@ func _init(
 
 func _parse_defaults(defaults_scripts: Array) -> void:
     params.clear()
-    
-    # -   The problem with get_property_list() is that it also includes all of
-    #     the ancestor class properties.
-    # -   To get around this, we get all of the ancestor class properties--
-    #     without any of the default class's direct properties--here, so that
-    #     we can filter them out later.
-    # -   For this to work, all of our defaults classes must extend Reference
-    #     directly.
-    var reference_property_list := Reference.new().get_property_list()
-    var reference_property_map := {}
-    for property_config in reference_property_list:
-        reference_property_map[property_config.name] = property_config
-    
     for defaults_script in defaults_scripts:
         assert(defaults_script is Script)
-        var defaults: Reference = defaults_script.new()
-        var property_list := defaults.get_property_list()
-        for property_config in property_list:
-            if reference_property_map.has(property_config.name) or \
-                    property_config.name == "Script Variables":
-                continue
-            params[property_config.name] = defaults.get(property_config.name)
+        var properties: Dictionary = \
+                Utils.get_direct_non_color_properties(defaults_script.new())
+        Sc.utils.merge(params, properties)
 
 
 func _ready() -> void:

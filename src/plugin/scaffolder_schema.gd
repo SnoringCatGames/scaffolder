@@ -781,78 +781,8 @@ var _images_manifest_pixelated := {
             preload("res://addons/scaffolder/assets/images/gui/icons/stop_normal.png"),
 }
 
-var COLOR_BACKGROUND := Color("453d30")
-var COLOR_BACKGROUND_LIGHTER := Color("574d3d")
-var COLOR_BACKGROUND_DARKER := Color("362f25")
-
-var COLOR_TEXT := Color("eeeeee")
-var COLOR_HEADER := Color("faca7d")
-var COLOR_FOCUS := Color("faca7d")
-
-var COLOR_BUTTON := Color("c27e10")
-var COLOR_BUTTON_LIGHTER := Color("eba534")
-var COLOR_BUTTON_DARKER := Color("734905")
-
-var COLOR_SHADOW := Color("88000000")
-
-var HUD_KEY_VALUE_BOX_MODULATE_COLOR := Color(0.1, 0.7, 1.2, 1.0)
-var BUTTON_PULSE_MODULATE_COLOR := Color(1.5, 1.5, 3.0, 1.0)
-
-var _colors_manifest := {
-    # Scaffolder colors.
-    
-    # Should match Project Settings > Application > Boot Splash > Bg Color.
-    boot_splash_background = ColorFactory.palette("default_splash_background"),
-    # Should match
-    #     Project Settings > Rendering > Environment > Default Clear Color.
-    background = COLOR_BACKGROUND,
-    text = COLOR_TEXT,
-    header = COLOR_HEADER,
-    focus_border = COLOR_FOCUS,
-    link_normal = COLOR_BUTTON_LIGHTER,
-    link_hover = COLOR_BUTTON,
-    link_pressed = COLOR_BUTTON_DARKER,
-    button_normal = COLOR_BUTTON,
-    button_pulse_modulate = BUTTON_PULSE_MODULATE_COLOR,
-    button_disabled = COLOR_BUTTON_LIGHTER,
-    button_focused = COLOR_BUTTON_LIGHTER,
-    button_hover = COLOR_BUTTON_LIGHTER,
-    button_pressed = COLOR_BUTTON_DARKER,
-    button_border = COLOR_TEXT,
-    dropdown_normal = COLOR_BACKGROUND,
-    dropdown_disabled = COLOR_BACKGROUND_LIGHTER,
-    dropdown_focused = COLOR_BACKGROUND_LIGHTER,
-    dropdown_hover = COLOR_BACKGROUND_LIGHTER,
-    dropdown_pressed = COLOR_BACKGROUND_DARKER,
-    dropdown_border = COLOR_BACKGROUND_DARKER,
-    tooltip = COLOR_BACKGROUND,
-    tooltip_bg = COLOR_TEXT,
-    popup_background = COLOR_BACKGROUND_LIGHTER,
-    scroll_bar_background = COLOR_BACKGROUND_LIGHTER,
-    scroll_bar_grabber_normal = COLOR_BUTTON,
-    scroll_bar_grabber_hover = COLOR_BUTTON_LIGHTER,
-    scroll_bar_grabber_pressed = COLOR_BUTTON_DARKER,
-    slider_background = COLOR_BACKGROUND_DARKER,
-    zebra_stripe_even_row = COLOR_BACKGROUND_LIGHTER,
-    overlay_panel_background = COLOR_BACKGROUND_DARKER,
-    overlay_panel_border = COLOR_TEXT,
-    notification_panel_background = COLOR_BACKGROUND_DARKER,
-    notification_panel_border = COLOR_TEXT,
-    header_panel_background = COLOR_BACKGROUND,
-    screen_border = COLOR_TEXT,
-    shadow = COLOR_SHADOW,
-    
-    click = ColorFactory.opacify("white", ColorConfig.ALPHA_SLIGHTLY_FAINT),
-    ruler = ColorFactory.palette("white"),
-    
-    # Surfacer colors.
-    
-    surface_click_selection = \
-        ColorFactory.opacify("white", ColorConfig.ALPHA_SOLID),
-    grid_indices = ColorFactory.opacify("white", ColorConfig.ALPHA_FAINT),
-    invalid = ColorFactory.palette("red"),
-    inspector_origin = ColorFactory.opacify("orange", ColorConfig.ALPHA_FAINT),
-}
+var _colors_manifest := \
+        Utils.get_direct_color_properties(ScaffolderDefaultColors.new())
 
 var _settings_item_manifest := {
     groups = {
