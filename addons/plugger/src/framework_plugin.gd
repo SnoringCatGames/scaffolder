@@ -5,6 +5,21 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: -------------
 # 
+# - Add support for multi-line text-edit fields in manifest UI.
+#   - Use this for anything that contains a newline in the default value.
+# 
+# - Port all legacy framework manifests to new pattern.
+# 
+# - Search for FIXME in plugger, surface_tiler, and also all other places.
+# 
+# - Update schema defaults to not include squirrel-away-specific state.
+# 
+# - Search in each repo to make sure there are no references to other addons/
+#   directories that there shouldn't be.
+# 
+# - Scan manifests to make sure I have support for all types I've previously
+#   used.
+# 
 # ----- DEFER THE FOLLOWING UNTIL POST-JAM -----
 # 
 # - Add support for coloring rows that aren't strictly overridden.
@@ -52,50 +67,9 @@ extends EditorPlugin
 #   - Don't support modifying pins through the UI for now.
 #   - Do support overriding pins through GDScript though.
 # 
-# - Add TYPE_FONT.
-# 
-# - Add support for multi-line text-edit fields in manifest UI.
-#   - Use this for anything that contains a newline in the default value.
-# 
 # - Add a button for resetting frameworks within the editor.
 # 
-# - Scan manifests to make sure I have support for all types I've previously
-#   used.
-# 
-# - Port all legacy framework manifests to new pattern.
-# 
-# - Search for FIXME in plugger, surface_tiler, and also all other places.
-# 
-# 
-# - Update schema defaults to not include squirrel-away-specific state.
-# 
-# - Search in each repo to make sure there are no references to other addons/
-#   directories that there shouldn't be.
-# 
-# - Plan how to aggregate all the different plugins I now have in order to make
-#   it easier for folks to use:
-#   - 
-# 
-# - Add logic to adapt the main-screen content depending on which frameworks are present:
-#   - If more than one, then show a tab list across the top for switching between them?
-#   - List all framework manifest editors in a big vertical list with accordions
-#     to collapse each framework.
-#   - Create a manifest/config new icon for the main-screen tab.
-#     - Just a simple settings-list/menu/horizontal-lines icon.
-#   - Create clean icons for Scaffolder, Surfacer, SurfaceTiler, SurfaceParser,
-#     Gooier, and game (use a simple star).
-#     - Create the various different sizes and colors for each of these.
-#     - Show these in the configuration-main-screen accordion headers for each
-#       framework.
 # - Add a button for resetting all global manifest and autoload state.
-# - Refactor SurfaceTiler manifest to use the new plugin UI instead of GDScript
-#   in SquirrelAway.
-# - Create the multi-plugin scheme:
-#   - Expect that Scaffolder will be the one core plugin that all the others depend upon.
-#   - Expect that each individual plugin will register itself with Sc.
-#   - Refactor things to work regardless of the order that AutoLoads are included.
-#   - Expect that Scaffolder will force the order of plugin initialization to be as needed.
-#     - Expect that each plugin will define a priority value.
 # 
 # - Add a debug util for annotating GUIs:
 #   - Simply call Sc.utils.highlight_node_for_debugging(node)
