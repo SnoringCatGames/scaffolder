@@ -37,6 +37,10 @@ func get_icon(path_prefix: String) -> Texture:
     return _static_get_icon(path_prefix, editor)
 
 
+func get_editor_icon(icon_name: String) -> Texture:
+    return editor.get_base_control().get_icon(icon_name, "EditorIcons")
+
+
 func validate_icons(path_prefix: String) -> void:
     var file := File.new()
     for theme in ["light", "dark"]:

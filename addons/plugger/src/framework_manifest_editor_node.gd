@@ -5,6 +5,7 @@ extends Reference
 
 var type: int
 var value
+var default_value
 var children
 
 var parent
