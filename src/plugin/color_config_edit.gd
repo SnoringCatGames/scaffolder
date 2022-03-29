@@ -25,6 +25,8 @@ var _is_updating := false
 
 var _menu_button: MenuButton
 var _color_rect: ColorRect
+var _color_rect_backing_texture_rect: TextureRect
+var _color_rect_container: Control
 var _main_header: PluginAccordionHeader
 var _overrides_header: PluginAccordionHeader
 var _deltas_header: PluginAccordionHeader
@@ -55,6 +57,7 @@ func _enter_tree() -> void:
 func _ready() -> void:
     _is_updating = true
     _set_dimensions()
+    _update_editor_icons()
     _populate_popup_items()
     _populate_palette_options()
     _update_controls()
@@ -68,7 +71,13 @@ func _get_control_references() -> void:
     _menu_button = $PluginAccordionHeader/MarginContainer/HBoxContainer/ \
         PanelContainer/HBoxContainer/MenuButton
     _color_rect = $PluginAccordionHeader/MarginContainer/HBoxContainer/ \
-        PanelContainer/HBoxContainer/ColorRect
+        PanelContainer/HBoxContainer/Control/ColorRect
+    _color_rect_backing_texture_rect = \
+        $PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer/ \
+        HBoxContainer/Control/TextureRect
+    _color_rect_container = \
+        $PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer/ \
+        HBoxContainer/Control
     _main_header = $PluginAccordionHeader
     _overrides_header = $PluginAccordionBody/VBoxContainer/PaletteColorConfig/ \
         Overrides/PluginAccordionHeader
@@ -128,7 +137,15 @@ func _set_dimensions() -> void:
     for header in carets:
         header.rect_min_size.x = row_height
     _menu_button.rect_min_size.y = row_height
-    _color_rect.rect_min_size = row_height * Vector2.ONE
+    var color_rect_size := row_height * Vector2.ONE
+    _color_rect_container.rect_size = color_rect_size
+    _color_rect.rect_size = color_rect_size
+    _color_rect_backing_texture_rect.rect_size = color_rect_size
+
+
+func _update_editor_icons() -> void:
+    _color_rect_backing_texture_rect.texture = \
+        Pl.get_editor_icon("GuiMiniCheckerboard")
 
 
 func _populate_popup_items() -> void:

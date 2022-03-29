@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/plugin/color_config_edit.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_panel.tscn" type="PackedScene" id=3]
@@ -8,6 +8,21 @@
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0, 0, 0, 0.321569 )
+
+[sub_resource type="Image" id=9]
+data = {
+"data": PoolByteArray( 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 255 ),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id=8]
+flags = 0
+flags = 0
+image = SubResource( 9 )
+size = Vector2( 16, 16 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 4.0
@@ -55,21 +70,19 @@ script = ExtResource( 1 )
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 40.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 0, 48 )
-size_override = Vector2( 0, 48 )
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+size_override = Vector2( 0, 24 )
 
 [node name="MarginContainer" type="MarginContainer" parent="PluginAccordionHeader"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 0, 48 )
+margin_right = 81.0
+margin_bottom = 24.0
 mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PluginAccordionHeader/MarginContainer"]
-margin_right = 128.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 128, 48 )
+margin_right = 81.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 custom_constants/separation = 0
 __meta__ = {
@@ -77,33 +90,44 @@ __meta__ = {
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="PluginAccordionHeader/MarginContainer/HBoxContainer"]
-margin_right = 80.0
-margin_bottom = 48.0
+margin_right = 57.0
+margin_bottom = 24.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_styles/panel = SubResource( 6 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer"]
-margin_right = 80.0
-margin_bottom = 48.0
+margin_right = 57.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_constants/separation = 0
 
-[node name="ColorRect" type="ColorRect" parent="PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+margin_bottom = 24.0
+
+[node name="TextureRect" type="TextureRect" parent="PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer/HBoxContainer/Control"]
+margin_right = 24.0
+margin_bottom = 24.0
+texture = SubResource( 8 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer/HBoxContainer/Control"]
 visible = false
-margin_right = 48.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
+margin_right = 24.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
 mouse_filter = 1
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
 [node name="MenuButton" type="MenuButton" parent="PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer/HBoxContainer"]
-margin_right = 80.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 0, 48 )
+margin_right = 57.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_styles/hover = SubResource( 1 )
@@ -118,19 +142,19 @@ items = [ "Reset", null, 0, false, false, 0, 0, null, "", false, "New static col
 [node name="PluginAccordionHeaderCaret" parent="PluginAccordionHeader/MarginContainer/HBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 80.0
-margin_top = 8.0
-margin_right = 128.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 48, 32 )
+margin_left = 57.0
+margin_top = 4.0
+margin_right = 81.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 24, 16 )
 size_flags_vertical = 4
 
 [node name="PluginAccordionBody" parent="." instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 48.0
+margin_top = 24.0
 margin_right = 40.0
-margin_bottom = 48.0
+margin_bottom = 24.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PluginAccordionBody"]
 visible = false
@@ -245,22 +269,22 @@ selected = 0
 is_open = false
 
 [node name="PluginAccordionHeader" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides" instance=ExtResource( 6 )]
-rect_min_size = Vector2( 0, 48 )
+rect_min_size = Vector2( 0, 24 )
 size_flags_vertical = 4
-size_override = Vector2( 0, 48 )
+size_override = Vector2( 0, 24 )
 
 [node name="MarginContainer" type="MarginContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionHeader"]
 margin_right = 129.0
 margin_bottom = 284.0
-rect_min_size = Vector2( 0, 48 )
+rect_min_size = Vector2( 0, 24 )
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionHeader/MarginContainer"]
-margin_top = 126.0
+margin_top = 134.0
 margin_right = 129.0
-margin_bottom = 158.0
+margin_bottom = 150.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_constants/separation = 0
@@ -268,7 +292,7 @@ custom_constants/separation = 0
 [node name="PluginAccordionHeaderCaret" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionHeader/MarginContainer/HBoxContainer" instance=ExtResource( 4 )]
 margin_top = 32.0
 margin_bottom = 32.0
-rect_min_size = Vector2( 48, 32 )
+rect_min_size = Vector2( 24, 16 )
 size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Overrides/PluginAccordionHeader/MarginContainer/HBoxContainer"]
@@ -392,29 +416,29 @@ margin_bottom = -36.0
 is_open = false
 
 [node name="PluginAccordionHeader" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas" instance=ExtResource( 6 )]
-rect_min_size = Vector2( 0, 48 )
+rect_min_size = Vector2( 0, 24 )
 size_flags_vertical = 4
-size_override = Vector2( 0, 48 )
+size_override = Vector2( 0, 24 )
 
 [node name="MarginContainer" type="MarginContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionHeader"]
 margin_right = 129.0
 margin_bottom = 284.0
-rect_min_size = Vector2( 0, 48 )
+rect_min_size = Vector2( 0, 24 )
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionHeader/MarginContainer"]
-margin_top = 126.0
+margin_top = 134.0
 margin_right = 129.0
-margin_bottom = 158.0
+margin_bottom = 150.0
 rect_min_size = Vector2( 129, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_constants/separation = 0
 
 [node name="PluginAccordionHeaderCaret" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionHeader/MarginContainer/HBoxContainer" instance=ExtResource( 4 )]
-rect_min_size = Vector2( 48, 32 )
+rect_min_size = Vector2( 24, 16 )
 size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="PluginAccordionBody/VBoxContainer/PaletteColorConfig/Deltas/PluginAccordionHeader/MarginContainer/HBoxContainer"]

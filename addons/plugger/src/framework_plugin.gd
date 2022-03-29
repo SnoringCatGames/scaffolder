@@ -7,6 +7,10 @@ extends EditorPlugin
 # 
 # - Figure out SurfacerAnnotationsManifest.
 # 
+# - https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/Pin.svg
+# - https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/Reload.svg
+# - Pl.get_editor_icon("Reload")
+# 
 # - Implement new ColorConfig system.
 # 
 # - Update manifest.json files to only include non-default state.
