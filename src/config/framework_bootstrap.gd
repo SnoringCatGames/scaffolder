@@ -41,8 +41,8 @@ func _load_modes() -> void:
 
 
 func _load_manifest() -> void:
-    for global in Sc._framework_globals:
-        global._load_manifest()
+    Sc.manifest_controller = FrameworkManifestController.new()
+    Sc.manifest_controller.load_manifest()
     _log_app_name()
 
 

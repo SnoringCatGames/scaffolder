@@ -16,7 +16,7 @@ var is_initialized := false
 var _schema_class_or_path
 
 var schema: FrameworkSchema
-var manifest_controller: FrameworkManifestController
+var editor_node: FrameworkManifestEditorNode
 var manifest: Dictionary
 
 
@@ -47,7 +47,7 @@ func _destroy() -> void:
                 # Old Reference instances should be automatically cleaned up
                 # when re-assigned.
                 assert(member is Reference)
-    manifest_controller = null
+    editor_node = null
     manifest = {}
     is_initialized = false
 
@@ -57,13 +57,6 @@ func _get_members_to_destroy() -> Array:
             "Abstract FrameworkGlobal._get_members_to_destroy " +
             "is not implemented")
     return []
-
-
-func _load_manifest() -> void:
-    self.manifest_controller = FrameworkManifestController.new(schema)
-    self.manifest = manifest_controller.load_manifest()
-    manifest_controller \
-            .connect("manifest_changed", self, "_on_manifest_changed")
 
 
 ## This life-cycle event is called when all the AutoLoads that this framework
@@ -141,7 +134,7 @@ func _override_manifest(overrides: Array) -> void:
         assert(token == "manifest")
         var dictionary: Dictionary = global.manifest
         
-        var node := global.manifest_controller.root
+        var node := global.editor_node
         
         for i in range(2, tokens.size() - 1):
             token = tokens[i]
@@ -162,9 +155,22 @@ func _override_manifest(overrides: Array) -> void:
             node.is_overridden = true
 
 
+func set_editor_node(editor_node: FrameworkManifestEditorNode) -> void:
+    self.editor_node = editor_node
+    editor_node.connect("changed", self, "_on_manifest_changed")
+    self.manifest = editor_node.get_manifest_value(true)
+
+
+func _set_manifest_path() -> void:
+    for global in Sc._framework_globals:
+        if global.schema.manifest_path_override != "":
+            Sc.manifest_path = global.schema.manifest_path_override
+
+
 func _set_registered() -> void:
     if !is_registered:
         is_registered = true
+        _set_manifest_path()
         _on_auto_load_deps_ready()
         emit_signal("registered")
         Sc._trigger_debounced_run()

@@ -34,7 +34,7 @@ var folder_name: String
 var auto_load_name: String
 var auto_load_deps: Array
 var auto_load_path: String
-var manifest_path: String
+var manifest_path_override: String
 var plugin_icon_path_prefix: String
 var modes: Dictionary
 var properties: Dictionary
@@ -53,7 +53,7 @@ func _init(
     self.auto_load_deps = metadata.auto_load_deps
     self.auto_load_path = metadata.auto_load_path
     self.plugin_icon_path_prefix = metadata.plugin_icon_path_prefix
-    self.manifest_path = metadata.manifest_path
+    self.manifest_path_override = metadata.manifest_path_override
     self.modes = metadata.modes
     self.properties = properties
     self.overrides = overrides

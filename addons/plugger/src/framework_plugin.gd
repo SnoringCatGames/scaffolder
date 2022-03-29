@@ -5,13 +5,6 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: -------------
 # 
-# - Update manifest.json files to only include non-default state.
-#   - I need these to serve as a clear indication of what has actually been
-#     changed by the user.
-# 
-# - Consolidate all manifest JSONs into one file, stored within the game
-#   config/, rather than in addons.
-# 
 # - Add support for coloring rows that aren't strictly overridden.
 #   - For highlighting without assigning values overrides, just include a fourth
 #      element in the array as false, and ignore the second element.

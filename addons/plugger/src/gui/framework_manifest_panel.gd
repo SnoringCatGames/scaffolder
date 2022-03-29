@@ -4,6 +4,7 @@ class_name FrameworkManifestPanel, \
 extends PluginAccordionPanel
 
 
+signal value_changed
 signal descendant_toggled
 
 const _ROW_SCENE := \
@@ -20,12 +21,9 @@ const _PADDING := 4.0
 const _INDENT_WIDTH := 16.0
 const _LABEL_WIDTH := _PANEL_WIDTH - _CONTROL_WIDTH - _PADDING * 3.0
 
-var manifest_controller: FrameworkManifestController
+var editor_node: FrameworkManifestEditorNode
+var schema: FrameworkSchema
 
-var _debounced_save_manifest = Sc.time.debounce(
-        funcref(self, "_save_manifest_debounced"),
-        0.3,
-        false)
 var _debounced_update_zebra_stripes = Sc.time.debounce(
         funcref(self, "_update_zebra_stripes_debounced"),
         0.001,
@@ -36,13 +34,16 @@ func _ready() -> void:
     self.connect("toggled", self, "emit_signal", ["descendant_toggled"])
 
 
-func set_up(manifest_controller: FrameworkManifestController) -> void:
-    self.manifest_controller = manifest_controller
+func set_up(
+        editor_node: FrameworkManifestEditorNode,
+        schema: FrameworkSchema) -> void:
+    self.editor_node = editor_node
+    self.schema = schema
     
     $AccordionHeader/MarginContainer/HBoxContainer/Label.text = \
-            manifest_controller.schema.display_name
+            schema.display_name
     $AccordionHeader/MarginContainer/HBoxContainer/TextureRect.texture = \
-            Pl.get_icon(manifest_controller.schema.plugin_icon_path_prefix)
+            Pl.get_icon(schema.plugin_icon_path_prefix)
     
     $AccordionHeader.size_override = \
             Vector2(0.0, Pl.scale_dimension(_ROW_HEIGHT))
@@ -56,7 +57,7 @@ func set_up(manifest_controller: FrameworkManifestController) -> void:
     Sc.utils.clear_children($AccordionBody/HBoxContainer/VBoxContainer)
     
     _create_property_controls(
-            manifest_controller.root,
+            editor_node,
             0,
             $AccordionBody/HBoxContainer/VBoxContainer)
     
@@ -156,11 +157,7 @@ func _create_group_control(
 
 
 func _on_value_changed() -> void:
-    _debounced_save_manifest.call_func()
-
-
-func _save_manifest_debounced() -> void:
-    manifest_controller.save_manifest()
+    emit_signal("value_changed")
 
 
 func _on_array_item_added(buttons: FrameworkManifestArrayButtons) -> void:

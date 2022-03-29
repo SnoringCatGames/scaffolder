@@ -5,17 +5,21 @@ extends Reference
 
 signal manifest_changed(manifest)
 
-var schema: FrameworkSchema
-
 var root: FrameworkManifestEditorNode
 
 
-func _init(schema: FrameworkSchema) -> void:
-    self.schema = schema
-    _validate_schema_recursively(schema.properties)
+func _init() -> void:
+    var schema_properties := {}
+    for global in Sc._framework_globals:
+        _validate_schema_recursively(global.schema.properties)
+        schema_properties[global.schema.auto_load_name] = \
+                global.schema.properties
+    
+    root = FrameworkManifestEditorNode.new(null, "", schema_properties)
+    root.connect("changed", self, "emit_signal", ["manifest_changed"])
 
 
-func _validate_schema_recursively(
+static func _validate_schema_recursively(
         schema_value,
         prefix := "") -> void:
     if schema_value is Dictionary:
@@ -86,23 +90,21 @@ func _validate_schema_recursively(
                 ])
 
 
-func load_manifest() -> Dictionary:
+func load_manifest() -> void:
     var manifest_properties: Dictionary = \
-            Sc.json.load_file(schema.manifest_path, true, true)
-    root = FrameworkManifestEditorNode.new(null, "", schema.properties)
+            Sc.json.load_file(Sc.manifest_path, true, true)
     root.load_from_manifest(manifest_properties)
+    for global in Sc._framework_globals:
+        global.set_editor_node(root.children[global.schema.auto_load_name])
     if Engine.editor_hint:
-        # In case the schema has changed since we last saved the manifest, save
+        # In case a schema has changed since we last saved the manifest, save
         # the up-to-date version of the manifest.
-        save_manifest(false)
-    return root.get_manifest_value(true)
+        save_manifest()
 
 
-func save_manifest(is_changed := true) -> void:
+func save_manifest() -> void:
     Sc.json.save_file(
             root.get_manifest_value(false),
-            schema.manifest_path,
+            Sc.manifest_path,
             true,
             true)
-    if is_changed:
-        emit_signal("manifest_changed")

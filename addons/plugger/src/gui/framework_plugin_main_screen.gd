@@ -11,6 +11,10 @@ const _CENTER_PANEL_MARGIN_FOR_RESIZE_FORGIVENESS := Vector2(144.0, 144.0)
 const _MODE_OPTION_BUTTON_WIDTH := 150.0
 
 
+var _debounced_save_manifest = Sc.time.debounce(
+        funcref(Pl, "save_manifest"),
+        0.3,
+        false)
 var _throttled_on_resize: FuncRef = Sc.time.throttle(
         funcref(self, "adjust_size"),
         0.001,
@@ -42,7 +46,8 @@ func _reset_panels() -> void:
     for framework in Sc._framework_globals:
         var panel: FrameworkManifestPanel = \
                 Sc.utils.add_scene(container, _FRAMEWORK_MANIFEST_PANEL_SCENE)
-        panel.set_up(framework.manifest_controller)
+        panel.set_up(framework.editor_node, framework.schema)
+        panel.connect("value_changed", _debounced_save_manifest, "call_func")
         panel.connect(
                 "descendant_toggled", _debounced_save_open_rows, "call_func")
 
@@ -82,14 +87,13 @@ func _get_open_rows() -> Dictionary:
     var open_rows := {}
     for panel in $CenterContainer/ScrollContainer/VBoxContainer.get_children():
         if panel.is_open:
-            open_rows[panel.manifest_controller.schema.display_name] = \
-                    panel.get_open_rows()
+            open_rows[panel.schema.display_name] = panel.get_open_rows()
     return open_rows
 
 
 func _get_panel_with_label(label: String) -> FrameworkManifestPanel:
     for panel in $CenterContainer/ScrollContainer/VBoxContainer.get_children():
-        if panel.manifest_controller.schema.display_name == label:
+        if panel.schema.display_name == label:
             return panel
     return null
 

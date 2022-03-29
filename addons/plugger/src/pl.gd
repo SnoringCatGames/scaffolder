@@ -28,6 +28,10 @@ func make_visible(visible: bool) -> void:
         main_screen.visible = visible
 
 
+func save_manifest() -> void:
+    Sc.manifest_controller.save_manifest()
+    
+
 func scale_dimension(value):
     var scale := editor.get_editor_scale()
     return value * scale
