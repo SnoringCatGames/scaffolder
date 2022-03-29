@@ -12,6 +12,13 @@ extends EditorPlugin
 # - Pl.get_editor_icon("Reload")
 # 
 # - Implement new ColorConfig system.
+#   - Consolidate ScaffolderSchema.colors_manifest with ColorPalette defaults?:
+#     - Expose all color palette defaults on the manifest?
+#   - Refactor Sc.ann_params/ScaffolderAnnotationParameters/SurfacerAnnotationParameters
+#     to instead use a big const dictionary with string keys.
+#     - Then, I can dynamically populate the manifest defaults from this.
+#     - Then, I can update _get_common_overrides_for_annotations_mode to be DRY.
+#   - Set up / register palette.
 # 
 # - Update manifest.json files to only include non-default state.
 #   - I need these to serve as a clear indication of what has actually been
@@ -28,6 +35,8 @@ extends EditorPlugin
 #      element in the array as false, and ignore the second element.
 # - Also color ancestor rows?
 #   - Maybe more faintly.
+# 
+# ----- DEFER PIN SUPPORT UNTIL POST-JAM -----
 # 
 # - In order to support pinned manifest entries:
 #   - Include an array of property-path strings in each schema constructor.
