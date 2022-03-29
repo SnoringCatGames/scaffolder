@@ -5,31 +5,13 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: -------------
 # 
+# ----- DEFER THE FOLLOWING UNTIL POST-JAM -----
+# 
 # - Add support for coloring rows that aren't strictly overridden.
 #   - For highlighting without assigning values overrides, just include a fourth
 #      element in the array as false, and ignore the second element.
 # - Also color ancestor rows?
 #   - Maybe more faintly.
-# 
-# FIXME: ---------------- Move these to squirrel_away manifest.
-#var COLOR_BACKGROUND := Color("453d30")
-#var COLOR_BACKGROUND_LIGHTER := Color("574d3d")
-#var COLOR_BACKGROUND_DARKER := Color("362f25")
-#
-#var COLOR_TEXT := Color("eeeeee")
-#var COLOR_HEADER := Color("faca7d")
-#var COLOR_FOCUS := Color("faca7d")
-#
-#var COLOR_BUTTON := Color("c27e10")
-#var COLOR_BUTTON_LIGHTER := Color("eba534")
-#var COLOR_BUTTON_DARKER := Color("734905")
-#
-#var COLOR_SHADOW := Color("88000000")
-#
-#var HUD_KEY_VALUE_BOX_MODULATE_COLOR := Color(0.1, 0.7, 1.2, 1.0)
-#var BUTTON_PULSE_MODULATE_COLOR := Color(1.5, 1.5, 3.0, 1.0)
-# 
-# ----- DEFER PIN SUPPORT UNTIL POST-JAM -----
 # 
 # - Pl.get_editor_icon("Pin")
 # 
