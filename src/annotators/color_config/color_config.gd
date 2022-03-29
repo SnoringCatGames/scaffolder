@@ -13,21 +13,6 @@ extends Reference
 ##     of whichever color would otherwise have been returned from the subclass.
 
 
-# FIXME: LEFT OFF HERE: -----------------------
-# 
-# - Replace all of the different color systems I'd built-up previously with this new simpler system.
-#   - Sc.ann_params
-#   - ScaffolderAnnotationParameters
-#   - SurfacerAnnotationParameters
-# - Consolidate ScaffolderSchema.colors_manifest with ColorPalette defaults?:
-#   - Expose all color palette defaults on the manifest?
-# - Refactor Sc.ann_params/ScaffolderAnnotationParameters/SurfacerAnnotationParameters
-#   to instead use a big const dictionary with string keys.
-#   - Then, I can dynamically populate the manifest defaults from this.
-#   - Then, I can update _get_common_overrides_for_annotations_mode to be DRY.
-# - Set up / register palette.
-
-
 const ALPHA_SOLID := 1.0
 const ALPHA_SLIGHTLY_FAINT := 0.7
 const ALPHA_FAINT := 0.5
