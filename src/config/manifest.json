@@ -1,0 +1,1892 @@
+{
+  "metadata": {
+    "pauses_on_focus_out": true,
+    "also_prints_to_stdout": true,
+    "logs_character_events": true,
+    "logs_analytics_events": true,
+    "logs_bootstrap_events": true,
+    "logs_device_settings": true,
+    "logs_in_editor_events": true,
+    "is_profiler_enabled": true,
+    "are_all_levels_unlocked": true,
+    "are_test_levels_included": true,
+    "is_save_state_cleared_for_debugging": false,
+    "opens_directly_to_level_id": "",
+    "is_splash_skipped": false,
+    "uses_threads": false,
+    "thread_count": 1,
+    "rng_seed": 176,
+    "is_mobile_supported": true,
+    "uses_level_scores": false,
+    "must_restart_level_to_change_settings": true,
+    "overrides_project_settings": true,
+    "overrides_input_map": true,
+    "are_button_controls_enabled_by_default": false,
+    "base_path": "addons/squirrel_away/",
+    "app_name": "Squirrel Away",
+    "app_id": "games.snoringcat.squirrel_away",
+    "app_version": "0.0.3",
+    "score_version": "0.0.1",
+    "data_agreement_version": "0.0.1",
+    "google_analytics_id": "UA-186405125-2",
+    "privacy_policy_url": "https://snoringcat.games/squirrel-away/privacy-policy",
+    "terms_and_conditions_url": "https://snoringcat.games/squirrel-away/terms-and-conditions",
+    "android_app_store_url": "",
+    "ios_app_store_url": "",
+    "support_url": "https://snoringcat.games/support",
+    "log_gestures_url": "",
+    "error_logs_url": "https://storage.googleapis.com/upload/storage/v1/b/squirrel-away-logs/o",
+    "app_id_query_param": "squirrel-away",
+    "developer_name": "Snoring Cat LLC",
+    "developer_url": "https://snoringcat.games",
+    "github_url": "https://github.com/SnoringCatGames/squirrel_away",
+    "godot_splash_screen_duration": 0.8,
+    "developer_splash_screen_duration": 1
+  },
+  "audio_manifest": {
+    "sounds_manifest": [
+      {
+        "name": "fall",
+        "volume_db": 18,
+        "path_prefix": "res://addons/scaffolder/assets/sounds/"
+      },
+      {
+        "name": "cadence_win",
+        "volume_db": 10,
+        "path_prefix": "res://addons/scaffolder/assets/sounds/"
+      },
+      {
+        "name": "cadence_lose",
+        "volume_db": 10,
+        "path_prefix": "res://addons/scaffolder/assets/sounds/"
+      },
+      {
+        "name": "menu_select",
+        "volume_db": -2,
+        "path_prefix": "res://addons/scaffolder/assets/sounds/"
+      },
+      {
+        "name": "menu_select_fancy",
+        "volume_db": -6,
+        "path_prefix": "res://addons/scaffolder/assets/sounds/"
+      },
+      {
+        "name": "lock_low",
+        "volume_db": 0,
+        "path_prefix": "res://addons/scaffolder/assets/sounds/"
+      },
+      {
+        "name": "lock_high",
+        "volume_db": 0,
+        "path_prefix": "res://addons/scaffolder/assets/sounds/"
+      },
+      {
+        "name": "walk",
+        "volume_db": 15,
+        "path_prefix": "res://addons/scaffolder/assets/sounds/"
+      },
+      {
+        "name": "achievement",
+        "volume_db": 12,
+        "path_prefix": "res://addons/scaffolder/assets/sounds/"
+      },
+      {
+        "name": "single_cat_snore",
+        "volume_db": 17,
+        "path_prefix": "res://addons/scaffolder/assets/sounds/"
+      },
+      {
+        "name": "cat_jump",
+        "volume_db": 0,
+        "path_prefix": ""
+      },
+      {
+        "name": "cat_land",
+        "volume_db": 0,
+        "path_prefix": ""
+      },
+      {
+        "name": "cat_hit_surface",
+        "volume_db": 0,
+        "path_prefix": ""
+      },
+      {
+        "name": "contact",
+        "volume_db": 0,
+        "path_prefix": ""
+      },
+      {
+        "name": "squirrel_jump",
+        "volume_db": 0,
+        "path_prefix": ""
+      },
+      {
+        "name": "squirrel_land",
+        "volume_db": 0,
+        "path_prefix": ""
+      },
+      {
+        "name": "squirrel_yell",
+        "volume_db": 0,
+        "path_prefix": ""
+      }
+    ],
+    "default_sounds_path_prefix": "res://addons/squirrel_away/assets/sounds/",
+    "default_sounds_file_suffix": ".wav",
+    "default_sounds_bus_index": 1,
+    "music_manifest": [
+      {
+        "name": "on_a_quest",
+        "path_prefix": "res://addons/scaffolder/assets/music/",
+        "volume_db": 0,
+        "bpm": 75,
+        "meter": 4
+      },
+      {
+        "name": "pause_menu",
+        "path_prefix": "res://addons/scaffolder/assets/music/",
+        "volume_db": 0,
+        "bpm": 56.25,
+        "meter": 4
+      }
+    ],
+    "default_music_path_prefix": "res://addons/scaffolder/assets/music/",
+    "default_music_file_suffix": ".ogg",
+    "default_music_bus_index": 2,
+    "godot_splash_sound": "achievement",
+    "developer_splash_sound": "single_cat_snore",
+    "level_end_sound_win": "cadence_win",
+    "level_end_sound_lose": "cadence_lose",
+    "main_menu_music": "on_a_quest",
+    "game_over_music": "pause_menu",
+    "pause_menu_music": "pause_menu",
+    "default_level_music": "on_a_quest",
+    "pauses_level_music_on_pause": true,
+    "are_beats_tracked_by_default": true,
+    "is_arbitrary_music_speed_change_supported": true,
+    "is_music_speed_scaled_with_time_scale": true,
+    "is_music_speed_scaled_with_additional_debug_time_scale": true,
+    "is_music_paused_in_slow_motion": true,
+    "is_tick_tock_played_in_slow_motion": true,
+    "is_slow_motion_start_stop_sound_effect_played": true
+  },
+  "colors_manifest": {
+    "transparent": {
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 0
+    },
+    "white": {
+      "r": 1,
+      "g": 1,
+      "b": 1,
+      "a": 1
+    },
+    "black": {
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 1
+    },
+    "purple": {
+      "r": 0.734,
+      "g": 0.277,
+      "b": 1,
+      "a": 1
+    },
+    "teal": {
+      "r": 0.277,
+      "g": 0.973,
+      "b": 1,
+      "a": 1
+    },
+    "red": {
+      "r": 1,
+      "g": 0.305,
+      "b": 0.277,
+      "a": 1
+    },
+    "orange": {
+      "r": 1,
+      "g": 0.648,
+      "b": 0.277,
+      "a": 1
+    },
+    "default_splash_background": {
+      "r": 0.12549,
+      "g": 0.145098,
+      "b": 0.192157,
+      "a": 1
+    },
+    "background": {
+      "r": 0.270588,
+      "g": 0.239216,
+      "b": 0.188235,
+      "a": 1
+    },
+    "boot_splash_background": {
+      "$ColConf": "palette",
+      "key": "default_splash_background",
+      "o": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "text": {
+      "r": 0.933333,
+      "g": 0.933333,
+      "b": 0.933333,
+      "a": 1
+    },
+    "header": {
+      "r": 0.980392,
+      "g": 0.792157,
+      "b": 0.490196,
+      "a": 1
+    },
+    "focus_border": {
+      "r": 0.980392,
+      "g": 0.792157,
+      "b": 0.490196,
+      "a": 1
+    },
+    "link_normal": {
+      "r": 0.921569,
+      "g": 0.647059,
+      "b": 0.203922,
+      "a": 1
+    },
+    "link_hover": {
+      "r": 0.760784,
+      "g": 0.494118,
+      "b": 0.062745,
+      "a": 1
+    },
+    "link_pressed": {
+      "r": 0.45098,
+      "g": 0.286275,
+      "b": 0.019608,
+      "a": 1
+    },
+    "button_normal": {
+      "r": 0.760784,
+      "g": 0.494118,
+      "b": 0.062745,
+      "a": 1
+    },
+    "button_pulse_modulate": {
+      "r": 1.5,
+      "g": 1.5,
+      "b": 3,
+      "a": 1
+    },
+    "button_disabled": {
+      "r": 0.921569,
+      "g": 0.647059,
+      "b": 0.203922,
+      "a": 1
+    },
+    "button_focused": {
+      "r": 0.921569,
+      "g": 0.647059,
+      "b": 0.203922,
+      "a": 1
+    },
+    "button_hover": {
+      "r": 0.921569,
+      "g": 0.647059,
+      "b": 0.203922,
+      "a": 1
+    },
+    "button_pressed": {
+      "r": 0.45098,
+      "g": 0.286275,
+      "b": 0.019608,
+      "a": 1
+    },
+    "button_border": {
+      "r": 0.933333,
+      "g": 0.933333,
+      "b": 0.933333,
+      "a": 1
+    },
+    "dropdown_normal": {
+      "r": 0.270588,
+      "g": 0.239216,
+      "b": 0.188235,
+      "a": 1
+    },
+    "dropdown_disabled": {
+      "r": 0.341176,
+      "g": 0.301961,
+      "b": 0.239216,
+      "a": 1
+    },
+    "dropdown_focused": {
+      "r": 0.341176,
+      "g": 0.301961,
+      "b": 0.239216,
+      "a": 1
+    },
+    "dropdown_hover": {
+      "r": 0.341176,
+      "g": 0.301961,
+      "b": 0.239216,
+      "a": 1
+    },
+    "dropdown_pressed": {
+      "r": 0.211765,
+      "g": 0.184314,
+      "b": 0.145098,
+      "a": 1
+    },
+    "dropdown_border": {
+      "r": 0.211765,
+      "g": 0.184314,
+      "b": 0.145098,
+      "a": 1
+    },
+    "tooltip": {
+      "r": 0.270588,
+      "g": 0.239216,
+      "b": 0.188235,
+      "a": 1
+    },
+    "tooltip_bg": {
+      "r": 0.933333,
+      "g": 0.933333,
+      "b": 0.933333,
+      "a": 1
+    },
+    "popup_background": {
+      "r": 0.341176,
+      "g": 0.301961,
+      "b": 0.239216,
+      "a": 1
+    },
+    "scroll_bar_background": {
+      "r": 0.341176,
+      "g": 0.301961,
+      "b": 0.239216,
+      "a": 1
+    },
+    "scroll_bar_grabber_normal": {
+      "r": 0.760784,
+      "g": 0.494118,
+      "b": 0.062745,
+      "a": 1
+    },
+    "scroll_bar_grabber_hover": {
+      "r": 0.921569,
+      "g": 0.647059,
+      "b": 0.203922,
+      "a": 1
+    },
+    "scroll_bar_grabber_pressed": {
+      "r": 0.45098,
+      "g": 0.286275,
+      "b": 0.019608,
+      "a": 1
+    },
+    "slider_background": {
+      "r": 0.211765,
+      "g": 0.184314,
+      "b": 0.145098,
+      "a": 1
+    },
+    "zebra_stripe_even_row": {
+      "r": 0.341176,
+      "g": 0.301961,
+      "b": 0.239216,
+      "a": 1
+    },
+    "overlay_panel_background": {
+      "r": 0.211765,
+      "g": 0.184314,
+      "b": 0.145098,
+      "a": 1
+    },
+    "overlay_panel_border": {
+      "r": 0.933333,
+      "g": 0.933333,
+      "b": 0.933333,
+      "a": 1
+    },
+    "notification_panel_background": {
+      "r": 0.211765,
+      "g": 0.184314,
+      "b": 0.145098,
+      "a": 1
+    },
+    "notification_panel_border": {
+      "r": 0.933333,
+      "g": 0.933333,
+      "b": 0.933333,
+      "a": 1
+    },
+    "header_panel_background": {
+      "r": 0.270588,
+      "g": 0.239216,
+      "b": 0.188235,
+      "a": 1
+    },
+    "screen_border": {
+      "r": 0.933333,
+      "g": 0.933333,
+      "b": 0.933333,
+      "a": 1
+    },
+    "shadow": {
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 0.533333
+    },
+    "click": {
+      "$ColConf": "palette",
+      "key": "white",
+      "o": [
+        -1,
+        -1,
+        -1,
+        0.7
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "ruler": {
+      "$ColConf": "palette",
+      "key": "white",
+      "o": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "click_inner_color": {
+      "$ColConf": "palette",
+      "key": "click",
+      "o": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "click_outer_color": {
+      "$ColConf": "palette",
+      "key": "click",
+      "o": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "ruler_line_color": {
+      "$ColConf": "palette",
+      "key": "ruler",
+      "o": [
+        -1,
+        -1,
+        -1,
+        0.3
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "ruler_text_color": {
+      "$ColConf": "palette",
+      "key": "ruler",
+      "o": [
+        -1,
+        -1,
+        -1,
+        0.5
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "surface_click_selection": {
+      "$ColConf": "palette",
+      "key": "white",
+      "o": [
+        -1,
+        -1,
+        -1,
+        1
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "grid_indices": {
+      "$ColConf": "palette",
+      "key": "white",
+      "o": [
+        -1,
+        -1,
+        -1,
+        0.5
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "invalid": {
+      "$ColConf": "palette",
+      "key": "red",
+      "o": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "inspector_origin": {
+      "$ColConf": "palette",
+      "key": "orange",
+      "o": [
+        -1,
+        -1,
+        -1,
+        0.5
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "preselection_invalid_surface_color": {
+      "$ColConf": "palette",
+      "key": "invalid",
+      "o": [
+        -1,
+        -1,
+        -1,
+        0.3
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "preselection_invalid_position_indicator_color": {
+      "$ColConf": "palette",
+      "key": "invalid",
+      "o": [
+        -1,
+        -1,
+        -1,
+        0.3
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "click_valid_surface_color": {
+      "$ColConf": "palette",
+      "key": "surface_click_selection",
+      "o": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "click_invalid_surface_color": {
+      "$ColConf": "palette",
+      "key": "invalid",
+      "o": [
+        -1,
+        -1,
+        -1,
+        1
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "inspector_select_origin_surface_color": {
+      "$ColConf": "palette",
+      "key": "inspector_origin",
+      "o": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "d": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "panel_background_color": {
+      "r": 0.062051,
+      "g": 0.07,
+      "b": 0.0581,
+      "a": 1
+    },
+    "inspector_description_item_background_color": {
+      "r": 0.09332,
+      "g": 0.1,
+      "b": 0.09,
+      "a": 1
+    },
+    "inspector_step_calc_item_background_color": {
+      "r": 0.14,
+      "g": 0.1604,
+      "b": 0.2,
+      "a": 1
+    },
+    "surface_color": {
+      "$ColConf": "range",
+      "min": [
+        0,
+        0.9,
+        0.8,
+        0.6
+      ],
+      "max": [
+        1,
+        0.9,
+        0.8,
+        0.6
+      ]
+    },
+    "default_surface_color": {
+      "$ColConf": "static",
+      "c": 3435973785
+    },
+    "origin_surface_color": {
+      "$ColConf": "static",
+      "c": 3435973785
+    },
+    "destination_surface_color": {
+      "$ColConf": "static",
+      "c": 3435973785
+    },
+    "edge_discrete_trajectory_color": {
+      "$ColConf": "range",
+      "min": [
+        0,
+        0.8,
+        0.9,
+        0.8
+      ],
+      "max": [
+        1,
+        0.8,
+        0.9,
+        0.8
+      ]
+    },
+    "edge_continuous_trajectory_color": {
+      "$ColConf": "range",
+      "min": [
+        0,
+        0.6,
+        0.6,
+        0.7
+      ],
+      "max": [
+        1,
+        0.6,
+        0.6,
+        0.7
+      ]
+    },
+    "default_edge_discrete_trajectory_color": {
+      "$ColConf": "static",
+      "c": 3873892044
+    },
+    "default_edge_continuous_trajectory_color": {
+      "$ColConf": "static",
+      "c": 2576980403
+    },
+    "waypoint_color": {
+      "$ColConf": "range",
+      "min": [
+        0,
+        0.6,
+        0.7,
+        0.7
+      ],
+      "max": [
+        1,
+        0.6,
+        0.7,
+        0.7
+      ]
+    },
+    "default_waypoint_color": {
+      "$ColConf": "static",
+      "c": 3014898611
+    },
+    "instruction_color": {
+      "$ColConf": "range",
+      "min": [
+        0,
+        0.3,
+        0.9,
+        0.7
+      ],
+      "max": [
+        1,
+        0.3,
+        0.9,
+        0.7
+      ]
+    },
+    "default_instruction_color": {
+      "$ColConf": "static",
+      "c": 3873892019
+    },
+    "failed_edge_attempt_color": {
+      "$ColConf": "static",
+      "c": 3873892044
+    },
+    "invalid_edge_color": {
+      "$ColConf": "static",
+      "c": 3873892070
+    },
+    "collision_color_faint": {
+      "r": 0.9,
+      "g": 0.36,
+      "b": 0.36,
+      "a": 0.2
+    },
+    "collision_color_strong": {
+      "r": 0.9,
+      "g": 0.36,
+      "b": 0.36,
+      "a": 0.9
+    },
+    "collision_frame_start_color": {
+      "r": 0.9,
+      "g": 0.6858,
+      "b": 0.27,
+      "a": 0.5
+    },
+    "collision_frame_end_color": {
+      "r": 0.27,
+      "g": 0.4842,
+      "b": 0.9,
+      "a": 0.5
+    },
+    "collision_frame_previous_color": {
+      "r": 0.9,
+      "g": 0.27,
+      "b": 0.6102,
+      "a": 0.2
+    },
+    "collision_just_before_collision_color": {
+      "r": 0.6,
+      "g": 0.3,
+      "b": 0.3,
+      "a": 0.2
+    },
+    "collision_at_collision_color": {
+      "r": 0.9,
+      "g": 0.27,
+      "b": 0.27,
+      "a": 0.5
+    },
+    "jump_land_positions_color": {
+      "$ColConf": "range",
+      "min": [
+        0,
+        0.7,
+        0.7,
+        0.7
+      ],
+      "max": [
+        1,
+        0.7,
+        0.7,
+        0.7
+      ]
+    },
+    "default_jump_land_positions_color": {
+      "$ColConf": "static",
+      "c": 3014898611
+    },
+    "default_polyline_color": {
+      "$ColConf": "static",
+      "c": 3873892044
+    },
+    "fall_range_polygon_color": {
+      "$ColConf": "static",
+      "c": 3873892044
+    }
+  },
+  "styles_manifest_anti_aliased": {
+    "focus_border_corner_radius": 5,
+    "focus_border_corner_detail": 3,
+    "focus_border_shadow_size": 0,
+    "focus_border_border_width": 1,
+    "focus_border_expand_margin_left": 2,
+    "focus_border_expand_margin_top": 2,
+    "focus_border_expand_margin_right": 2,
+    "focus_border_expand_margin_bottom": 2,
+    "button_content_margin_left": 16,
+    "button_content_margin_top": 8,
+    "button_content_margin_right": 16,
+    "button_content_margin_bottom": 8,
+    "button_shine_margin_left": 0,
+    "button_shine_margin_top": 0,
+    "button_shine_margin_right": 0,
+    "button_shine_margin_bottom": 0,
+    "button_corner_radius": 4,
+    "button_corner_detail": 3,
+    "button_shadow_size": 3,
+    "button_border_width": 0,
+    "dropdown_corner_radius": 4,
+    "dropdown_corner_detail": 3,
+    "dropdown_shadow_size": 0,
+    "dropdown_border_width": 0,
+    "scroll_corner_radius": 6,
+    "scroll_corner_detail": 3,
+    "scroll_content_margin_left": 7,
+    "scroll_content_margin_top": 7,
+    "scroll_content_margin_right": 7,
+    "scroll_content_margin_bottom": 7,
+    "scroll_grabber_corner_radius": 8,
+    "scroll_grabber_corner_detail": 3,
+    "slider_corner_radius": 6,
+    "slider_corner_detail": 3,
+    "slider_content_margin_left": 5,
+    "slider_content_margin_top": 5,
+    "slider_content_margin_right": 5,
+    "slider_content_margin_bottom": 5,
+    "overlay_panel_border_width": 2,
+    "overlay_panel_corner_radius": 4,
+    "overlay_panel_corner_detail": 3,
+    "overlay_panel_content_margin_left": 0,
+    "overlay_panel_content_margin_top": 0,
+    "overlay_panel_content_margin_right": 0,
+    "overlay_panel_content_margin_bottom": 0,
+    "overlay_panel_shadow_size": 8,
+    "overlay_panel_shadow_offset": {
+      "x": -4,
+      "y": 4
+    },
+    "notification_panel_border_width": 2,
+    "notification_panel_corner_radius": 4,
+    "notification_panel_corner_detail": 3,
+    "notification_panel_content_margin_left": 0,
+    "notification_panel_content_margin_top": 0,
+    "notification_panel_content_margin_right": 0,
+    "notification_panel_content_margin_bottom": 0,
+    "notification_panel_shadow_size": 8,
+    "notification_panel_shadow_offset": {
+      "x": -4,
+      "y": 4
+    },
+    "header_panel_content_margin_left": 0,
+    "header_panel_content_margin_top": 0,
+    "header_panel_content_margin_right": 0,
+    "header_panel_content_margin_bottom": 0,
+    "hud_panel_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/overlay_panel.png",
+    "hud_panel_nine_patch_margin_left": 3.5,
+    "hud_panel_nine_patch_margin_top": 3.5,
+    "hud_panel_nine_patch_margin_right": 3.5,
+    "hud_panel_nine_patch_margin_bottom": 3.5,
+    "hud_panel_nine_patch_scale": 3,
+    "hud_panel_content_margin_left": 8,
+    "hud_panel_content_margin_top": 2,
+    "hud_panel_content_margin_right": 8,
+    "hud_panel_content_margin_bottom": 2,
+    "screen_shadow_size": 8,
+    "screen_shadow_offset": {
+      "x": -4,
+      "y": 4
+    },
+    "screen_border_width": 0
+  },
+  "styles_manifest_pixelated": {
+    "button_content_margin_left": 16,
+    "button_content_margin_top": 8,
+    "button_content_margin_right": 16,
+    "button_content_margin_bottom": 8,
+    "button_shine_margin_left": 6,
+    "button_shine_margin_top": 6,
+    "button_shine_margin_right": 6,
+    "button_shine_margin_bottom": 6,
+    "focus_border_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/focus_border.png",
+    "focus_border_nine_patch_margin_left": 3.5,
+    "focus_border_nine_patch_margin_top": 3.5,
+    "focus_border_nine_patch_margin_right": 3.5,
+    "focus_border_nine_patch_margin_bottom": 3.5,
+    "focus_border_nine_patch_scale": 3,
+    "focus_border_expand_margin_left": 3,
+    "focus_border_expand_margin_top": 3,
+    "focus_border_expand_margin_right": 3,
+    "focus_border_expand_margin_bottom": 3,
+    "button_pressed_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/button_pressed.png",
+    "button_disabled_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/button_hover.png",
+    "button_hover_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/button_hover.png",
+    "button_normal_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/button_normal.png",
+    "button_nine_patch_margin_left": 3.5,
+    "button_nine_patch_margin_top": 3.5,
+    "button_nine_patch_margin_right": 3.5,
+    "button_nine_patch_margin_bottom": 3.5,
+    "button_nine_patch_scale": 3,
+    "dropdown_pressed_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_pressed.png",
+    "dropdown_disabled_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_hover.png",
+    "dropdown_hover_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_hover.png",
+    "dropdown_normal_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_normal.png",
+    "dropdown_nine_patch_margin_left": 3.5,
+    "dropdown_nine_patch_margin_top": 3.5,
+    "dropdown_nine_patch_margin_right": 3.5,
+    "dropdown_nine_patch_margin_bottom": 3.5,
+    "dropdown_nine_patch_scale": 3,
+    "scroll_track_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/scroll_track.png",
+    "scroll_track_nine_patch_margin_left": 3.5,
+    "scroll_track_nine_patch_margin_top": 3.5,
+    "scroll_track_nine_patch_margin_right": 3.5,
+    "scroll_track_nine_patch_margin_bottom": 3.5,
+    "scroll_track_nine_patch_scale": 3,
+    "scroll_grabber_pressed_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/scroll_grabber_pressed.png",
+    "scroll_grabber_hover_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/scroll_grabber_hover.png",
+    "scroll_grabber_normal_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/scroll_grabber_normal.png",
+    "scroll_grabber_nine_patch_margin_left": 3.5,
+    "scroll_grabber_nine_patch_margin_top": 3.5,
+    "scroll_grabber_nine_patch_margin_right": 3.5,
+    "scroll_grabber_nine_patch_margin_bottom": 3.5,
+    "scroll_grabber_nine_patch_scale": 3,
+    "slider_track_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/slider_track.png",
+    "slider_track_nine_patch_margin_left": 1.5,
+    "slider_track_nine_patch_margin_top": 1.5,
+    "slider_track_nine_patch_margin_right": 1.5,
+    "slider_track_nine_patch_margin_bottom": 1.5,
+    "slider_track_nine_patch_scale": 3,
+    "overlay_panel_border_width": 2,
+    "overlay_panel_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/overlay_panel.png",
+    "overlay_panel_nine_patch_margin_left": 3.5,
+    "overlay_panel_nine_patch_margin_top": 3.5,
+    "overlay_panel_nine_patch_margin_right": 3.5,
+    "overlay_panel_nine_patch_margin_bottom": 3.5,
+    "overlay_panel_nine_patch_scale": 3,
+    "overlay_panel_content_margin_left": 3,
+    "overlay_panel_content_margin_top": 3,
+    "overlay_panel_content_margin_right": 3,
+    "overlay_panel_content_margin_bottom": 3,
+    "notification_panel_border_width": 2,
+    "notification_panel_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/notification_panel.png",
+    "notification_panel_nine_patch_margin_left": 3.5,
+    "notification_panel_nine_patch_margin_top": 3.5,
+    "notification_panel_nine_patch_margin_right": 3.5,
+    "notification_panel_nine_patch_margin_bottom": 3.5,
+    "notification_panel_nine_patch_scale": 3,
+    "notification_panel_content_margin_left": 3,
+    "notification_panel_content_margin_top": 3,
+    "notification_panel_content_margin_right": 3,
+    "notification_panel_content_margin_bottom": 3,
+    "header_panel_content_margin_left": 0,
+    "header_panel_content_margin_top": 0,
+    "header_panel_content_margin_right": 0,
+    "header_panel_content_margin_bottom": 0,
+    "hud_panel_nine_patch": "$Res:res://addons/scaffolder/assets/images/gui/nine_patch/overlay_panel.png",
+    "hud_panel_nine_patch_margin_left": 3.5,
+    "hud_panel_nine_patch_margin_top": 3.5,
+    "hud_panel_nine_patch_margin_right": 3.5,
+    "hud_panel_nine_patch_margin_bottom": 3.5,
+    "hud_panel_nine_patch_scale": 3,
+    "hud_panel_content_margin_left": 8,
+    "hud_panel_content_margin_top": 2,
+    "hud_panel_content_margin_right": 8,
+    "hud_panel_content_margin_bottom": 2,
+    "screen_shadow_size": 0,
+    "screen_shadow_offset": {
+      "x": 0,
+      "y": 0
+    },
+    "screen_border_width": 0
+  },
+  "images_manifest_anti_aliased": {
+    "checkbox_path_prefix": "res://addons/scaffolder/assets/images/gui/checkbox/checkbox_",
+    "default_checkbox_size": 32,
+    "checkbox_sizes": [
+      8,
+      16,
+      32,
+      64,
+      128
+    ],
+    "radio_button_path_prefix": "res://addons/scaffolder/assets/images/gui/radio_button/radio_button_",
+    "default_radio_button_size": 32,
+    "radio_button_sizes": [
+      16,
+      32,
+      64,
+      128
+    ],
+    "tree_arrow_path_prefix": "res://addons/scaffolder/assets/images/gui/tree_arrow/tree_arrow_",
+    "default_tree_arrow_size": 16,
+    "tree_arrow_sizes": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "dropdown_arrow_path_prefix": "res://addons/scaffolder/assets/images/gui/dropdown_arrow/dropdown_arrow_",
+    "default_dropdown_arrow_size": 32,
+    "dropdown_arrow_sizes": [
+      16,
+      32,
+      64,
+      128
+    ],
+    "slider_grabber_path_prefix": "res://addons/scaffolder/assets/images/gui/slider/slider_grabber_",
+    "default_slider_grabber_size": 16,
+    "slider_grabber_sizes": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "slider_tick_path_prefix": "res://addons/scaffolder/assets/images/gui/slider/slider_tick_",
+    "default_slider_tick_size": 2,
+    "slider_tick_sizes": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "app_logo": "$Res:res://addons/scaffolder/assets/images/logos/scaffolder_logo.png",
+    "app_logo_scale": 1,
+    "developer_logo": "$Res:res://addons/scaffolder/assets/images/logos/snoring_cat_logo_about.png",
+    "developer_splash": "$Res:res://addons/scaffolder/assets/images/logos/snoring_cat_logo_splash.png",
+    "go_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/go_normal.png",
+    "go_scale": 1.5,
+    "about_circle_pressed": "$Res:res://addons/scaffolder/assets/images/gui/icons/about_circle_pressed.png",
+    "about_circle_hover": "$Res:res://addons/scaffolder/assets/images/gui/icons/about_circle_hover.png",
+    "about_circle_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/about_circle_normal.png",
+    "alert_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/alert_normal.png",
+    "close_pressed": "$Res:res://addons/scaffolder/assets/images/gui/icons/close_pressed.png",
+    "close_hover": "$Res:res://addons/scaffolder/assets/images/gui/icons/close_hover.png",
+    "close_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/close_normal.png",
+    "gear_circle_pressed": "$Res:res://addons/scaffolder/assets/images/gui/icons/gear_circle_pressed.png",
+    "gear_circle_hover": "$Res:res://addons/scaffolder/assets/images/gui/icons/gear_circle_hover.png",
+    "gear_circle_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/gear_circle_normal.png",
+    "home_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/home_normal.png",
+    "left_caret_pressed": "$Res:res://addons/scaffolder/assets/images/gui/icons/left_caret_pressed.png",
+    "left_caret_hover": "$Res:res://addons/scaffolder/assets/images/gui/icons/left_caret_hover.png",
+    "left_caret_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/left_caret_normal.png",
+    "pause_circle_pressed": "$Res:res://addons/scaffolder/assets/images/gui/icons/pause_circle_pressed.png",
+    "pause_circle_hover": "$Res:res://addons/scaffolder/assets/images/gui/icons/pause_circle_hover.png",
+    "pause_circle_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/pause_circle_normal.png",
+    "pause_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/pause_normal.png",
+    "play_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/play_normal.png",
+    "retry_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/retry_normal.png",
+    "stop_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/stop_normal.png"
+  },
+  "images_manifest_pixelated": {
+    "checkbox_path_prefix": "res://addons/scaffolder/assets/images/gui/checkbox_pixel/checkbox_",
+    "default_checkbox_size": 32,
+    "checkbox_sizes": [
+      8,
+      16,
+      32,
+      64,
+      128
+    ],
+    "radio_button_path_prefix": "res://addons/scaffolder/assets/images/gui/radio_button_pixel/radio_button_",
+    "default_radio_button_size": 40,
+    "radio_button_sizes": [
+      10,
+      20,
+      40,
+      80,
+      160
+    ],
+    "tree_arrow_path_prefix": "res://addons/scaffolder/assets/images/gui/tree_arrow_pixel/tree_arrow_",
+    "default_tree_arrow_size": 16,
+    "tree_arrow_sizes": [
+      4,
+      8,
+      16,
+      32,
+      64,
+      128
+    ],
+    "dropdown_arrow_path_prefix": "res://addons/scaffolder/assets/images/gui/dropdown_arrow_pixel/dropdown_arrow_",
+    "default_dropdown_arrow_size": 20,
+    "dropdown_arrow_sizes": [
+      5,
+      10,
+      20,
+      40,
+      80
+    ],
+    "slider_grabber_path_prefix": "res://addons/scaffolder/assets/images/gui/slider_pixel/slider_grabber_",
+    "default_slider_grabber_size": 16,
+    "slider_grabber_sizes": [
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "slider_tick_path_prefix": "res://addons/scaffolder/assets/images/gui/slider_pixel/slider_tick_",
+    "default_slider_tick_size": 4,
+    "slider_tick_sizes": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "app_logo": "$Res:res://addons/scaffolder/assets/images/logos/scaffolder_logo.png",
+    "app_logo_scale": 1,
+    "developer_logo": "$Res:res://addons/scaffolder/assets/images/logos/snoring_cat_logo_about.png",
+    "developer_splash": "$Res:res://addons/scaffolder/assets/images/logos/snoring_cat_logo_splash.png",
+    "go_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/go_normal.png",
+    "go_scale": 1.5,
+    "about_circle_pressed": "$Res:res://addons/scaffolder/assets/images/gui/icons/about_circle_pressed.png",
+    "about_circle_hover": "$Res:res://addons/scaffolder/assets/images/gui/icons/about_circle_hover.png",
+    "about_circle_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/about_circle_normal.png",
+    "alert_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/alert_normal.png",
+    "close_pressed": "$Res:res://addons/scaffolder/assets/images/gui/icons/close_pressed.png",
+    "close_hover": "$Res:res://addons/scaffolder/assets/images/gui/icons/close_hover.png",
+    "close_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/close_normal.png",
+    "gear_circle_pressed": "$Res:res://addons/scaffolder/assets/images/gui/icons/gear_circle_pressed.png",
+    "gear_circle_hover": "$Res:res://addons/scaffolder/assets/images/gui/icons/gear_circle_hover.png",
+    "gear_circle_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/gear_circle_normal.png",
+    "home_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/home_normal.png",
+    "left_caret_pressed": "$Res:res://addons/scaffolder/assets/images/gui/icons/left_caret_pressed.png",
+    "left_caret_hover": "$Res:res://addons/scaffolder/assets/images/gui/icons/left_caret_hover.png",
+    "left_caret_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/left_caret_normal.png",
+    "pause_circle_pressed": "$Res:res://addons/scaffolder/assets/images/gui/icons/pause_circle_pressed.png",
+    "pause_circle_hover": "$Res:res://addons/scaffolder/assets/images/gui/icons/pause_circle_hover.png",
+    "pause_circle_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/pause_circle_normal.png",
+    "pause_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/pause_normal.png",
+    "play_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/play_normal.png",
+    "retry_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/retry_normal.png",
+    "stop_normal": "$Res:res://addons/scaffolder/assets/images/gui/icons/stop_normal.png"
+  },
+  "gui_manifest": {
+    "debug_window_size": {
+      "x": 0,
+      "y": 0
+    },
+    "default_pc_game_area_size": {
+      "x": 1024,
+      "y": 768
+    },
+    "default_mobile_game_area_size": {
+      "x": 500,
+      "y": 600
+    },
+    "aspect_ratio_max": 2,
+    "aspect_ratio_min": 0.5,
+    "camera_smoothing_speed": 10,
+    "default_camera_zoom": 0.4,
+    "button_height": 56,
+    "button_width": 230,
+    "screen_body_width": 460,
+    "is_data_deletion_button_shown": true,
+    "is_suggested_button_shine_line_shown": true,
+    "is_suggested_button_color_pulse_shown": true,
+    "third_party_license_text": "\r\n-------------------------------------------------------------------------------\r\n--- Godot Engine <https://godotengine.org>\r\n\r\nThe MIT License (MIT)\r\n=====================\r\n\r\nCopyright (c) 2007-2020 Juan Linietsky, Ariel Manzur.\r\nCopyright (c) 2014-2020 Godot Engine contributors.\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy\r\nof this software and associated documentation files (the \"Software\"), to deal\r\nin the Software without restriction, including without limitation the rights\r\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\r\ncopies of the Software, and to permit persons to whom the Software is\r\nfurnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in all\r\ncopies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\r\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\r\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\r\nSOFTWARE.\r\n\r\n-- Godot Engine <https://godotengine.org>\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- Roboto font <https://fonts.google.com/specimen/Roboto>\r\n\r\n                                 Apache License\r\n                           Version 2.0, January 2004\r\n                        http://www.apache.org/licenses/\r\n\r\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\r\n\r\n   1. Definitions.\r\n\r\n      \"License\" shall mean the terms and conditions for use, reproduction,\r\n      and distribution as defined by Sections 1 through 9 of this document.\r\n\r\n      \"Licensor\" shall mean the copyright owner or entity authorized by\r\n      the copyright owner that is granting the License.\r\n\r\n      \"Legal Entity\" shall mean the union of the acting entity and all\r\n      other entities that control, are controlled by, or are under common\r\n      control with that entity. For the purposes of this definition,\r\n      \"control\" means (i) the power, direct or indirect, to cause the\r\n      direction or management of such entity, whether by contract or\r\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\r\n      outstanding shares, or (iii) beneficial ownership of such entity.\r\n\r\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\r\n      exercising permissions granted by this License.\r\n\r\n      \"Source\" form shall mean the preferred form for making modifications,\r\n      including but not limited to software source code, documentation\r\n      source, and configuration files.\r\n\r\n      \"Object\" form shall mean any form resulting from mechanical\r\n      transformation or translation of a Source form, including but\r\n      not limited to compiled object code, generated documentation,\r\n      and conversions to other media types.\r\n\r\n      \"Work\" shall mean the work of authorship, whether in Source or\r\n      Object form, made available under the License, as indicated by a\r\n      copyright notice that is included in or attached to the work\r\n      (an example is provided in the Appendix below).\r\n\r\n      \"Derivative Works\" shall mean any work, whether in Source or Object\r\n      form, that is based on (or derived from) the Work and for which the\r\n      editorial revisions, annotations, elaborations, or other modifications\r\n      represent, as a whole, an original work of authorship. For the purposes\r\n      of this License, Derivative Works shall not include works that remain\r\n      separable from, or merely link (or bind by name) to the interfaces of,\r\n      the Work and Derivative Works thereof.\r\n\r\n      \"Contribution\" shall mean any work of authorship, including\r\n      the original version of the Work and any modifications or additions\r\n      to that Work or Derivative Works thereof, that is intentionally\r\n      submitted to Licensor for inclusion in the Work by the copyright owner\r\n      or by an individual or Legal Entity authorized to submit on behalf of\r\n      the copyright owner. For the purposes of this definition, \"submitted\"\r\n      means any form of electronic, verbal, or written communication sent\r\n      to the Licensor or its representatives, including but not limited to\r\n      communication on electronic mailing lists, source code control systems,\r\n      and issue tracking systems that are managed by, or on behalf of, the\r\n      Licensor for the purpose of discussing and improving the Work, but\r\n      excluding communication that is conspicuously marked or otherwise\r\n      designated in writing by the copyright owner as \"Not a Contribution.\"\r\n\r\n      \"Contributor\" shall mean Licensor and any individual or Legal Entity\r\n      on behalf of whom a Contribution has been received by Licensor and\r\n      subsequently incorporated within the Work.\r\n\r\n   2. Grant of Copyright License. Subject to the terms and conditions of\r\n      this License, each Contributor hereby grants to You a perpetual,\r\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\r\n      copyright license to reproduce, prepare Derivative Works of,\r\n      publicly display, publicly perform, sublicense, and distribute the\r\n      Work and such Derivative Works in Source or Object form.\r\n\r\n   3. Grant of Patent License. Subject to the terms and conditions of\r\n      this License, each Contributor hereby grants to You a perpetual,\r\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\r\n      (except as stated in this section) patent license to make, have made,\r\n      use, offer to sell, sell, import, and otherwise transfer the Work,\r\n      where such license applies only to those patent claims licensable\r\n      by such Contributor that are necessarily infringed by their\r\n      Contribution(s) alone or by combination of their Contribution(s)\r\n      with the Work to which such Contribution(s) was submitted. If You\r\n      institute patent litigation against any entity (including a\r\n      cross-claim or counterclaim in a lawsuit) alleging that the Work\r\n      or a Contribution incorporated within the Work constitutes direct\r\n      or contributory patent infringement, then any patent licenses\r\n      granted to You under this License for that Work shall terminate\r\n      as of the date such litigation is filed.\r\n\r\n   4. Redistribution. You may reproduce and distribute copies of the\r\n      Work or Derivative Works thereof in any medium, with or without\r\n      modifications, and in Source or Object form, provided that You\r\n      meet the following conditions:\r\n\r\n      (a) You must give any other recipients of the Work or\r\n          Derivative Works a copy of this License; and\r\n\r\n      (b) You must cause any modified files to carry prominent notices\r\n          stating that You changed the files; and\r\n\r\n      (c) You must retain, in the Source form of any Derivative Works\r\n          that You distribute, all copyright, patent, trademark, and\r\n          attribution notices from the Source form of the Work,\r\n          excluding those notices that do not pertain to any part of\r\n          the Derivative Works; and\r\n\r\n      (d) If the Work includes a \"NOTICE\" text file as part of its\r\n          distribution, then any Derivative Works that You distribute must\r\n          include a readable copy of the attribution notices contained\r\n          within such NOTICE file, excluding those notices that do not\r\n          pertain to any part of the Derivative Works, in at least one\r\n          of the following places: within a NOTICE text file distributed\r\n          as part of the Derivative Works; within the Source form or\r\n          documentation, if provided along with the Derivative Works; or,\r\n          within a display generated by the Derivative Works, if and\r\n          wherever such third-party notices normally appear. The contents\r\n          of the NOTICE file are for informational purposes only and\r\n          do not modify the License. You may add Your own attribution\r\n          notices within Derivative Works that You distribute, alongside\r\n          or as an addendum to the NOTICE text from the Work, provided\r\n          that such additional attribution notices cannot be construed\r\n          as modifying the License.\r\n\r\n      You may add Your own copyright statement to Your modifications and\r\n      may provide additional or different license terms and conditions\r\n      for use, reproduction, or distribution of Your modifications, or\r\n      for any such Derivative Works as a whole, provided Your use,\r\n      reproduction, and distribution of the Work otherwise complies with\r\n      the conditions stated in this License.\r\n\r\n   5. Submission of Contributions. Unless You explicitly state otherwise,\r\n      any Contribution intentionally submitted for inclusion in the Work\r\n      by You to the Licensor shall be under the terms and conditions of\r\n      this License, without any additional terms or conditions.\r\n      Notwithstanding the above, nothing herein shall supersede or modify\r\n      the terms of any separate license agreement you may have executed\r\n      with Licensor regarding such Contributions.\r\n\r\n   6. Trademarks. This License does not grant permission to use the trade\r\n      names, trademarks, service marks, or product names of the Licensor,\r\n      except as required for reasonable and customary use in describing the\r\n      origin of the Work and reproducing the content of the NOTICE file.\r\n\r\n   7. Disclaimer of Warranty. Unless required by applicable law or\r\n      agreed to in writing, Licensor provides the Work (and each\r\n      Contributor provides its Contributions) on an \"AS IS\" BASIS,\r\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\r\n      implied, including, without limitation, any warranties or conditions\r\n      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\r\n      PARTICULAR PURPOSE. You are solely responsible for determining the\r\n      appropriateness of using or redistributing the Work and assume any\r\n      risks associated with Your exercise of permissions under this License.\r\n\r\n   8. Limitation of Liability. In no event and under no legal theory,\r\n      whether in tort (including negligence), contract, or otherwise,\r\n      unless required by applicable law (such as deliberate and grossly\r\n      negligent acts) or agreed to in writing, shall any Contributor be\r\n      liable to You for damages, including any direct, indirect, special,\r\n      incidental, or consequential damages of any character arising as a\r\n      result of this License or out of the use or inability to use the\r\n      Work (including but not limited to damages for loss of goodwill,\r\n      work stoppage, computer failure or malfunction, or any and all\r\n      other commercial damages or losses), even if such Contributor\r\n      has been advised of the possibility of such damages.\r\n\r\n   9. Accepting Warranty or Additional Liability. While redistributing\r\n      the Work or Derivative Works thereof, You may choose to offer,\r\n      and charge a fee for, acceptance of support, warranty, indemnity,\r\n      or other liability obligations and/or rights consistent with this\r\n      License. However, in accepting such obligations, You may act only\r\n      on Your own behalf and on Your sole responsibility, not on behalf\r\n      of any other Contributor, and only if You agree to indemnify,\r\n      defend, and hold each Contributor harmless for any liability\r\n      incurred by, or claims asserted against, such Contributor by reason\r\n      of your accepting any such warranty or additional liability.\r\n\r\n   END OF TERMS AND CONDITIONS\r\n\r\n   APPENDIX: How to apply the Apache License to your work.\r\n\r\n      To apply the Apache License to your work, attach the following\r\n      boilerplate notice, with the fields enclosed by brackets \"[]\"\r\n      replaced with your own identifying information. (Don't include\r\n      the brackets!)  The text should be enclosed in the appropriate\r\n      comment syntax for the file format. We also recommend that a\r\n      file or class name and description of purpose be included on the\r\n      same \"printed page\" as the copyright notice for easier\r\n      identification within third-party archives.\r\n\r\n   Copyright [yyyy] [name of copyright owner]\r\n\r\n   Licensed under the Apache License, Version 2.0 (the \"License\");\r\n   you may not use this file except in compliance with the License.\r\n   You may obtain a copy of the License at\r\n\r\n       http://www.apache.org/licenses/LICENSE-2.0\r\n\r\n   Unless required by applicable law or agreed to in writing, software\r\n   distributed under the License is distributed on an \"AS IS\" BASIS,\r\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\r\n   See the License for the specific language governing permissions and\r\n   limitations under the License.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- Nunito font <https://fonts.google.com/specimen/Nunito>\r\n\r\nCopyright 2014 The Nunito Project Authors (https://github.com/googlefonts/nunito)\r\n\r\nThis Font Software is licensed under the SIL Open Font License, Version 1.1.\r\nThis license is copied below, and is also available with a FAQ at:\r\nhttp://scripts.sil.org/OFL\r\n\r\n\r\n-----------------------------------------------------------\r\nSIL OPEN FONT LICENSE Version 1.1 - 26 February 2007\r\n-----------------------------------------------------------\r\n\r\nPREAMBLE\r\nThe goals of the Open Font License (OFL) are to stimulate worldwide\r\ndevelopment of collaborative font projects, to support the font creation\r\nefforts of academic and linguistic communities, and to provide a free and\r\nopen framework in which fonts may be shared and improved in partnership\r\nwith others.\r\n\r\nThe OFL allows the licensed fonts to be used, studied, modified and\r\nredistributed freely as long as they are not sold by themselves. The\r\nfonts, including any derivative works, can be bundled, embedded, \r\nredistributed and/or sold with any software provided that any reserved\r\nnames are not used by derivative works. The fonts and derivatives,\r\nhowever, cannot be released under any other type of license. The\r\nrequirement for fonts to remain under this license does not apply\r\nto any document created using the fonts or their derivatives.\r\n\r\nDEFINITIONS\r\n\"Font Software\" refers to the set of files released by the Copyright\r\nHolder(s) under this license and clearly marked as such. This may\r\ninclude source files, build scripts and documentation.\r\n\r\n\"Reserved Font Name\" refers to any names specified as such after the\r\ncopyright statement(s).\r\n\r\n\"Original Version\" refers to the collection of Font Software components as\r\ndistributed by the Copyright Holder(s).\r\n\r\n\"Modified Version\" refers to any derivative made by adding to, deleting,\r\nor substituting -- in part or in whole -- any of the components of the\r\nOriginal Version, by changing formats or by porting the Font Software to a\r\nnew environment.\r\n\r\n\"Author\" refers to any designer, engineer, programmer, technical\r\nwriter or other person who contributed to the Font Software.\r\n\r\nPERMISSION & CONDITIONS\r\nPermission is hereby granted, free of charge, to any person obtaining\r\na copy of the Font Software, to use, study, copy, merge, embed, modify,\r\nredistribute, and sell modified and unmodified copies of the Font\r\nSoftware, subject to the following conditions:\r\n\r\n1) Neither the Font Software nor any of its individual components,\r\nin Original or Modified Versions, may be sold by itself.\r\n\r\n2) Original or Modified Versions of the Font Software may be bundled,\r\nredistributed and/or sold with any software, provided that each copy\r\ncontains the above copyright notice and this license. These can be\r\nincluded either as stand-alone text files, human-readable headers or\r\nin the appropriate machine-readable metadata fields within text or\r\nbinary files as long as those fields can be easily viewed by the user.\r\n\r\n3) No Modified Version of the Font Software may use the Reserved Font\r\nName(s) unless explicit written permission is granted by the corresponding\r\nCopyright Holder. This restriction only applies to the primary font name as\r\npresented to the users.\r\n\r\n4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font\r\nSoftware shall not be used to promote, endorse or advertise any\r\nModified Version, except to acknowledge the contribution(s) of the\r\nCopyright Holder(s) and the Author(s) or with their explicit written\r\npermission.\r\n\r\n5) The Font Software, modified or unmodified, in part or in whole,\r\nmust be distributed entirely under this license, and must not be\r\ndistributed under any other license. The requirement for fonts to\r\nremain under this license does not apply to any document created\r\nusing the Font Software.\r\n\r\nTERMINATION\r\nThis license becomes null and void if any of the above conditions are\r\nnot met.\r\n\r\nDISCLAIMER\r\nTHE FONT SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\r\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF\r\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT\r\nOF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE\r\nCOPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,\r\nINCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL\r\nDAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\r\nFROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM\r\nOTHER DEALINGS IN THE FONT SOFTWARE.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- FreeType (indirectly used through Godot)\r\n\r\nPortions of this software are copyright © <year> The FreeType Project\r\n(www.freetype.org). All rights reserved.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- ENet (indirectly used through Godot)\r\n\r\nCopyright (c) 2002-2016 Lee Salzman\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy of\r\nthis software and associated documentation files (the “Software”), to deal in\r\nthe Software without restriction, including without limitation the rights to\r\nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies\r\nof the Software, and to permit persons to whom the Software is furnished to do\r\nso, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in all\r\ncopies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\r\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\r\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\r\nSOFTWARE.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- MBedTLS (indirectly used through Godot)\r\n\r\nMBedTLS is Copyright (C) 2013-2019 ARM\r\n\r\nLicensed under the Apache License, Version 2.0 (the “License”); you may not use\r\nthis file except in compliance with the License. You may obtain a copy of the\r\nLicense at\r\n\r\nhttp://www.apache.org/licenses/LICENSE-2.0\r\n\r\nUnless required by applicable law or agreed to in writing, software distributed\r\nunder the License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR\r\nCONDITIONS OF ANY KIND, either express or implied. See the License for the\r\nspecific language governing permissions and limitations under the License.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- Crypto UUID v4 (Provides cryptographically secure UUID v4 objects)\r\n--- <https://github.com/Yukitty/godot-addon-crypto_uuid_v4>\r\n  \r\nMIT License\r\n\r\nCopyright (c) 2020 Yukita Mayako\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy\r\nof this software and associated documentation files (the \"Software\"), to deal\r\nin the Software without restriction, including without limitation the rights\r\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\r\ncopies of the Software, and to permit persons to whom the Software is\r\nfurnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in all\r\ncopies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\r\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\r\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\r\nSOFTWARE.\r\n-------------------------------------------------------------------------------\r\n\r\n\r\n-------------------------------------------------------------------------------\r\n--- Segment-polygon intersection calculation is based on the\r\n--- \"parametric line-clipping\" approach described by Dan Sunday\r\n--- <http://geomalgorithms.com/a13-_intersect-4.html>\r\n\r\nCopyright 2001 softSurfer, 2012 Dan Sunday\r\nThis code may be freely used and modified for any purpose\r\nproviding that this copyright notice is included with it.\r\nSoftSurfer makes no warranty for this code, and cannot be held\r\nliable for any real or imagined damage resulting from its use.\r\nUsers of this code must verify correctness for their application.\r\n-------------------------------------------------------------------------------\r\n\r\n-------------------------------------------------------------------------------\r\n--- Priority queue implementation based on a version by Hamfist McMutton\r\n--- <https://hamfistedgamedev.blogspot.com/p/godot-priorityqueue.html>\r\n\r\nLicense: CC0 1.0 Universal\r\n\r\nStatement of Purpose\r\nThe laws of most jurisdictions throughout the world automatically confer\r\nexclusive Copyright and Related Rights (defined below) upon the creator and\r\nsubsequent owner(s) (each and all, an \"owner\") of an original work of\r\nauthorship and/or a database (each, a \"Work\").\r\n\r\nCertain owners wish to permanently relinquish those rights to a Work for the\r\npurpose of contributing to a commons of creative, cultural and scientific works\r\n(\"Commons\") that the public can reliably and without fear of later claims of\r\ninfringement build upon, modify, incorporate in other works, reuse and\r\nredistribute as freely as possible in any form whatsoever and for any purposes,\r\nincluding without limitation commercial purposes. These owners may contribute\r\nto the Commons to promote the ideal of a free culture and the further\r\nproduction of creative, cultural and scientific works, or to gain reputation or\r\ngreater distribution for their Work in part through the use and efforts of\r\nothers.\r\n\r\nFor these and/or other purposes and motivations, and without any expectation of\r\nadditional consideration or compensation, the person associating CC0 with a\r\nWork (the \"Affirmer\"), to the extent that he or she is an owner of Copyright\r\nand Related Rights in the Work, voluntarily elects to apply CC0 to the Work and\r\npublicly distribute the Work under its terms, with knowledge of his or her\r\nCopyright and Related Rights in the Work and the meaning and intended legal\r\neffect of CC0 on those rights.\r\n\r\n1. Copyright and Related Rights. A Work made available under CC0 may be\r\nprotected by copyright and related or neighboring rights (\"Copyright and\r\nRelated Rights\"). Copyright and Related Rights include, but are not limited to,\r\nthe following:\r\n\r\n  i. the right to reproduce, adapt, distribute, perform, display, communicate,\r\n  and translate a Work;\r\n  ii. moral rights retained by the original author(s) and/or performer(s);\r\n  iii. publicity and privacy rights pertaining to a person's image or likeness\r\n  depicted in a Work;\r\n  iv. rights protecting against unfair competition in regards to a Work,\r\n  subject to the limitations in paragraph 4(a), below;\r\n  v. rights protecting the extraction, dissemination, use and reuse of data in\r\n  a Work;\r\n  vi. database rights (such as those arising under Directive 96/9/EC of the\r\n  European Parliament and of the Council of 11 March 1996 on the legal\r\n  protection of databases, and under any national implementation thereof,\r\n  including any amended or successor version of such directive); and\r\n  vii. other similar, equivalent or corresponding rights throughout the world\r\n  based on applicable law or treaty, and any national implementations thereof.\r\n\r\n2. Waiver. To the greatest extent permitted by, but not in contravention of,\r\napplicable law, Affirmer hereby overtly, fully, permanently, irrevocably and\r\nunconditionally waives, abandons, and surrenders all of Affirmer's Copyright\r\nand Related Rights and associated claims and causes of action, whether now\r\nknown or unknown (including existing as well as future claims and causes of\r\naction), in the Work (i) in all territories worldwide, (ii) for the maximum\r\nduration provided by applicable law or treaty (including future time\r\nextensions), (iii) in any current or future medium and for any number of\r\ncopies, and (iv) for any purpose whatsoever, including without limitation\r\ncommercial, advertising or promotional purposes (the \"Waiver\"). Affirmer makes\r\nthe Waiver for the benefit of each member of the public at large and to the\r\ndetriment of Affirmer's heirs and successors, fully intending that such Waiver\r\nshall not be subject to revocation, rescission, cancellation, termination, or\r\nany other legal or equitable action to disrupt the quiet enjoyment of the Work\r\nby the public as contemplated by Affirmer's express Statement of Purpose.\r\n\r\n3. Public License Fallback. Should any part of the Waiver for any reason be\r\njudged legally invalid or ineffective under applicable law, then the Waiver\r\nshall be preserved to the maximum extent permitted taking into account\r\nAffirmer's express Statement of Purpose. In addition, to the extent the Waiver\r\nis so judged Affirmer hereby grants to each affected person a royalty-free, non\r\ntransferable, non sublicensable, non exclusive, irrevocable and unconditional\r\nlicense to exercise Affirmer's Copyright and Related Rights in the Work (i) in\r\nall territories worldwide, (ii) for the maximum duration provided by applicable\r\nlaw or treaty (including future time extensions), (iii) in any current or\r\nfuture medium and for any number of copies, and (iv) for any purpose\r\nwhatsoever, including without limitation commercial, advertising or promotional\r\npurposes (the \"License\"). The License shall be deemed effective as of the date\r\nCC0 was applied by Affirmer to the Work. Should any part of the License for any\r\nreason be judged legally invalid or ineffective under applicable law, such\r\npartial invalidity or ineffectiveness shall not invalidate the remainder of the\r\nLicense, and in such case Affirmer hereby affirms that he or she will not (i)\r\nexercise any of his or her remaining Copyright and Related Rights in the Work\r\nor (ii) assert any associated claims and causes of action with respect to the\r\nWork, in either case contrary to Affirmer's express Statement of Purpose.\r\n\r\n4. Limitations and Disclaimers.\r\n\r\n  a. No trademark or patent rights held by Affirmer are waived, abandoned,\r\n  surrendered, licensed or otherwise affected by this document.\r\n  b. Affirmer offers the Work as-is and makes no representations or warranties\r\n  of any kind concerning the Work, express, implied, statutory or otherwise,\r\n  including without limitation warranties of title, merchantability, fitness\r\n  for a particular purpose, non infringement, or the absence of latent or other\r\n  defects, accuracy, or the present or absence of errors, whether or not\r\n  discoverable, all to the greatest extent permissible under applicable law.\r\n  c. Affirmer disclaims responsibility for clearing rights of other persons\r\n  that may apply to the Work or any use thereof, including without limitation\r\n  any person's Copyright and Related Rights in the Work. Further, Affirmer\r\n  disclaims responsibility for obtaining any necessary consents, permissions or\r\n  other rights required for any use of the Work.\r\n  d. Affirmer understands and acknowledges that Creative Commons is not a party\r\n  to this document and has no duty or obligation with respect to this CC0 or\r\n  use of the Work.\r\n-------------------------------------------------------------------------------\r\n\r\n",
+    "special_thanks_text": "\r\n",
+    "main_menu_image_scale": 1,
+    "game_over_image_scale": 0.5,
+    "loading_image_scale": 0.5,
+    "main_menu_image_scene": "$Res:res://addons/squirrel_away/src/gui/squirrel_away_loading_image.tscn",
+    "game_over_image_scene": "$Res:res://addons/squirrel_away/src/gui/squirrel_away_loading_image.tscn",
+    "loading_image_scene": "$Res:res://addons/squirrel_away/src/gui/squirrel_away_loading_image.tscn",
+    "welcome_panel_scene": "$Res:res://addons/scaffolder/src/gui/welcome_panel.tscn",
+    "debug_panel_scene": "$Res:res://addons/scaffolder/src/gui/debug_panel.tscn",
+    "theme": "$Res:res://addons/scaffolder/src/config/scaffolder_default_theme.tres",
+    "fonts_manifest_anti_aliased": {
+      "fonts": {
+        "main_xxs": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_xxs.tres",
+        "main_xxs_bold": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_xxs.tres",
+        "main_xxs_italic": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_xxs.tres",
+        "main_xs": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_xs.tres",
+        "main_xs_bold": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_xs.tres",
+        "main_xs_italic": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_xs_italic.tres",
+        "main_s": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_s.tres",
+        "main_s_bold": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_s.tres",
+        "main_s_italic": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_s.tres",
+        "main_m": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_m.tres",
+        "main_m_bold": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_m_bold.tres",
+        "main_m_italic": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_m_italic.tres",
+        "main_l": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_l.tres",
+        "main_l_bold": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_l.tres",
+        "main_l_italic": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_l.tres",
+        "main_xl": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_xl.tres",
+        "main_xl_bold": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_xl.tres",
+        "main_xl_italic": "$Res:res://addons/scaffolder/assets/fonts/roboto_font_xl.tres",
+        "header_s": "$Res:res://addons/scaffolder/assets/fonts/nunito_font_s.tres",
+        "header_m": "$Res:res://addons/scaffolder/assets/fonts/nunito_font_m.tres",
+        "header_l": "$Res:res://addons/scaffolder/assets/fonts/nunito_font_l.tres",
+        "header_xl": "$Res:res://addons/scaffolder/assets/fonts/nunito_font_xl.tres"
+      },
+      "sizes": {
+        "pc": {
+          "main_xxs": 10,
+          "main_xs": 15,
+          "main_s": 18,
+          "main_m": 30,
+          "main_l": 42,
+          "main_xl": 48
+        },
+        "mobile": {
+          "main_xxs": 12,
+          "main_xs": 16,
+          "main_s": 18,
+          "main_m": 28,
+          "main_l": 32,
+          "main_xl": 36
+        }
+      }
+    },
+    "fonts_manifest_pixelated": {
+      "fonts": {
+        "main_xxs": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_xxs.tres",
+        "main_xxs_bold": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_xxs.tres",
+        "main_xxs_italic": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_xxs.tres",
+        "main_xs": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_xs.tres",
+        "main_xs_bold": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_xs.tres",
+        "main_xs_italic": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_xs.tres",
+        "main_s": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres",
+        "main_s_bold": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres",
+        "main_s_italic": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres",
+        "main_m": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres",
+        "main_m_bold": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres",
+        "main_m_italic": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres",
+        "main_l": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_l.tres",
+        "main_l_bold": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_l.tres",
+        "main_l_italic": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_l.tres",
+        "main_xl": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_xl.tres",
+        "main_xl_bold": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_xl.tres",
+        "main_xl_italic": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_xl.tres",
+        "header_s": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres",
+        "header_m": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres",
+        "header_l": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_l.tres",
+        "header_xl": "$Res:res://addons/scaffolder/assets/fonts/pxlzr_font_xl.tres"
+      },
+      "sizes": {
+        "pc": {
+          "main_xxs": 10,
+          "main_xs": 15,
+          "main_s": 18,
+          "main_m": 30,
+          "main_l": 42,
+          "main_xl": 48
+        },
+        "mobile": {
+          "main_xxs": 12,
+          "main_xs": 16,
+          "main_s": 18,
+          "main_m": 28,
+          "main_l": 32,
+          "main_xl": 36
+        }
+      }
+    },
+    "settings_item_manifest": {
+      "groups": {
+        "main": {
+          "label": "",
+          "is_collapsible": false,
+          "item_classes": [
+            "$Res:res://addons/scaffolder/src/gui/control_rows/settings/music_control_row.gd",
+            "$Res:res://addons/scaffolder/src/gui/control_rows/settings/sound_effects_control_row.gd",
+            "$Res:res://addons/scaffolder/src/gui/control_rows/settings/haptic_feedback_control_row.gd"
+          ]
+        },
+        "annotations": {
+          "label": "Rendering",
+          "is_collapsible": true,
+          "item_classes": [
+            "$Res:res://addons/scaffolder/src/gui/control_rows/displays/ruler_annotator_control_row.gd",
+            "$Res:res://addons/scaffolder/src/gui/control_rows/displays/recent_movement_annotator_control_row.gd",
+            "$Res:res://addons/scaffolder/src/gui/control_rows/settings/character_annotator_control_row.gd",
+            "$Res:res://addons/scaffolder/src/gui/control_rows/settings/level_annotator_control_row.gd",
+            "$Res:res://addons/scaffolder/src/gui/control_rows/displays/ruler_annotator_control_row.gd",
+            "$Res:res://addons/scaffolder/src/gui/control_rows/displays/recent_movement_annotator_control_row.gd",
+            "$Res:res://addons/surfacer/src/gui/control_rows/surfaces_annotator_control_row.gd",
+            "$Res:res://addons/surfacer/src/gui/control_rows/character_position_annotator_control_row.gd"
+          ]
+        },
+        "hud": {
+          "label": "HUD",
+          "is_collapsible": true,
+          "item_classes": [
+            "$Res:res://addons/scaffolder/src/gui/control_rows/settings/debug_panel_control_row.gd",
+            "$Res:res://addons/surfacer/src/gui/control_rows/inspector_enabled_control_row.gd"
+          ]
+        },
+        "miscellaneous": {
+          "label": "Miscellaneous",
+          "is_collapsible": true,
+          "item_classes": [
+            "$Res:res://addons/scaffolder/src/gui/control_rows/settings/button_controls_control_row.gd",
+            "$Res:res://addons/scaffolder/src/gui/control_rows/settings/welcome_panel_control_row.gd",
+            "$Res:res://addons/scaffolder/src/gui/control_rows/settings/camera_zoom_control_row.gd",
+            "$Res:res://addons/scaffolder/src/gui/control_rows/settings/time_scale_control_row.gd",
+            "$Res:res://addons/scaffolder/src/gui/control_rows/settings/metronome_control_row.gd",
+            "$Res:res://addons/surfacer/src/gui/control_rows/intro_choreography_control_row.gd"
+          ]
+        }
+      }
+    },
+    "pause_item_manifest": [
+      "$Res:res://addons/scaffolder/src/gui/control_rows/displays/level_control_row.gd",
+      "$Res:res://addons/scaffolder/src/gui/control_rows/displays/time_control_row.gd",
+      "$Res:res://addons/scaffolder/src/gui/control_rows/displays/fastest_time_control_row.gd"
+    ],
+    "game_over_item_manifest": [
+      "$Res:res://addons/scaffolder/src/gui/control_rows/displays/level_control_row.gd",
+      "$Res:res://addons/scaffolder/src/gui/control_rows/displays/time_control_row.gd",
+      "$Res:res://addons/scaffolder/src/gui/control_rows/displays/fastest_time_control_row.gd"
+    ],
+    "level_select_item_manifest": [
+      "$Res:res://addons/scaffolder/src/gui/control_rows/displays/total_plays_control_row.gd",
+      "$Res:res://addons/scaffolder/src/gui/control_rows/displays/fastest_time_control_row.gd"
+    ],
+    "hud_manifest": {
+      "hud_class": "$Res:res://addons/surfacer/src/gui/surfacer_hud.gd",
+      "hud_key_value_box_size": {
+        "x": 256,
+        "y": 48
+      },
+      "hud_key_value_box_scene": "$Res:res://addons/scaffolder/src/gui/hud/hud_key_value_box.tscn",
+      "hud_key_value_list_scene": "$Res:res://addons/scaffolder/src/gui/hud/hud_key_value_list.tscn",
+      "hud_key_value_list_item_manifest": [
+        {
+          "item_class": "$Res:res://addons/scaffolder/src/gui/control_rows/displays/time_control_row.gd",
+          "settings_enablement_label": "ScaffolderTime",
+          "enabled_by_default": true,
+          "settings_group_key": "hud"
+        }
+      ],
+      "is_hud_visible_by_default": true,
+      "is_inspector_enabled_default": false,
+      "inspector_panel_starts_open": false
+    },
+    "welcome_panel_manifest": {
+      "items": [
+        [
+          "Walk/Climb",
+          "arrow key / wasd"
+        ],
+        [
+          "Jump",
+          "space / x"
+        ],
+        [
+          "*Auto nav*",
+          "click"
+        ]
+      ]
+    },
+    "screen_manifest": {
+      "screens": [
+        "$Res:res://addons/scaffolder/src/gui/screens/about_screen.tscn",
+        "$Res:res://addons/scaffolder/src/gui/screens/data_agreement_screen.tscn",
+        "$Res:res://addons/scaffolder/src/gui/screens/developer_splash_screen.tscn",
+        "$Res:res://addons/scaffolder/src/gui/screens/game_screen.tscn",
+        "$Res:res://addons/scaffolder/src/gui/screens/game_over_screen.tscn",
+        "$Res:res://addons/scaffolder/src/gui/screens/godot_splash_screen.tscn",
+        "$Res:res://addons/scaffolder/src/gui/screens/level_select_screen.tscn",
+        "$Res:res://addons/scaffolder/src/gui/screens/main_menu_screen.tscn",
+        "$Res:res://addons/scaffolder/src/gui/screens/notification_screen.tscn",
+        "$Res:res://addons/scaffolder/src/gui/screens/pause_screen.tscn",
+        "$Res:res://addons/scaffolder/src/gui/screens/scaffolder_loading_screen.tscn",
+        "$Res:res://addons/scaffolder/src/gui/screens/settings_screen.tscn",
+        "$Res:res://addons/scaffolder/src/gui/screens/third_party_licenses_screen.tscn",
+        "$Res:res://addons/scaffolder/src/gui/screens/confirm_data_deletion_screen_local.tscn",
+        "$Res:res://addons/surfacer/src/gui/screens/precompute_platform_graphs_screen.tscn",
+        "$Res:res://addons/surfacer/src/gui/screens/surfacer_loading_screen.tscn"
+      ],
+      "overlay_mask_transition_fade_in_texture": "$Res:res://addons/scaffolder/assets/images/transition_masks/radial_mask_transition_in.png",
+      "overlay_mask_transition_fade_out_texture": "$Res:res://addons/scaffolder/assets/images/transition_masks/radial_mask_transition_in.png",
+      "screen_mask_transition_fade_texture": "$Res:res://addons/scaffolder/assets/images/transition_masks/checkers_mask_transition.png",
+      "overlay_mask_transition_class": "$Res:res://addons/scaffolder/src/gui/overlay_mask_transition.gd",
+      "screen_mask_transition_class": "$Res:res://addons/scaffolder/src/gui/screen_mask_transition.gd",
+      "slide_transition_duration": 0.3,
+      "fade_transition_duration": 0.3,
+      "overlay_mask_transition_duration": 1.2,
+      "screen_mask_transition_duration": 1.2,
+      "slide_transition_easing": "ease_in_out",
+      "fade_transition_easing": "ease_in_out",
+      "overlay_mask_transition_fade_in_easing": "ease_out",
+      "overlay_mask_transition_fade_out_easing": "ease_in",
+      "screen_mask_transition_easing": "ease_in",
+      "default_transition_type": 4,
+      "fancy_transition_type": 6,
+      "overlay_mask_transition_color": {
+        "r": 0.066667,
+        "g": 0.066667,
+        "b": 0.066667,
+        "a": 1
+      },
+      "overlay_mask_transition_uses_pixel_snap": false,
+      "overlay_mask_transition_smooth_size": 0.02,
+      "screen_mask_transition_uses_pixel_snap": true,
+      "screen_mask_transition_smooth_size": 0
+    },
+    "splash_scale_pc": 1,
+    "splash_scale_mobile": 0.77
+  },
+  "notifications_manifest": {
+    "duration_short_sec": 2,
+    "duration_long_sec": 8,
+    "fade_in_duration": 0.15,
+    "fade_out_duration": 0.3,
+    "size_small": {
+      "x": 200,
+      "y": 67
+    },
+    "size_medium": {
+      "x": 400,
+      "y": 133
+    },
+    "size_large": {
+      "x": 600,
+      "y": 200
+    },
+    "margin_bottom": 16,
+    "margin_sides": 16,
+    "opacity": 0.9,
+    "slide_in_displacement": {
+      "x": 0,
+      "y": -67
+    }
+  },
+  "slow_motion_manifest": {
+    "time_scale": 0.5,
+    "tick_tock_tempo_multiplier": 1,
+    "saturation": 0.5
+  },
+  "input_map": [
+    {
+      "name": "screenshot",
+      "events": [
+        {
+          "key_scancode": 76,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 80,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "toggle_hud",
+      "events": [
+        {
+          "key_scancode": 72,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "sc_back",
+      "events": [
+        {
+          "mouse_button_index": 8,
+          "key_scancode": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "zoom_in",
+      "events": [
+        {
+          "mouse_button_index": 4,
+          "key_scancode": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 61,
+          "control": true,
+          "mouse_button_index": 0
+        },
+        {
+          "key_scancode": 125,
+          "control": true,
+          "mouse_button_index": 0
+        }
+      ]
+    },
+    {
+      "name": "zoom_out",
+      "events": [
+        {
+          "mouse_button_index": 5,
+          "key_scancode": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 45,
+          "control": true,
+          "mouse_button_index": 0
+        },
+        {
+          "key_scancode": 123,
+          "control": true,
+          "mouse_button_index": 0
+        }
+      ]
+    },
+    {
+      "name": "pan_up",
+      "events": [
+        {
+          "key_scancode": 16777232,
+          "control": true,
+          "mouse_button_index": 0
+        }
+      ]
+    },
+    {
+      "name": "pan_down",
+      "events": [
+        {
+          "key_scancode": 16777234,
+          "control": true,
+          "mouse_button_index": 0
+        }
+      ]
+    },
+    {
+      "name": "pan_left",
+      "events": [
+        {
+          "key_scancode": 16777231,
+          "control": true,
+          "mouse_button_index": 0
+        }
+      ]
+    },
+    {
+      "name": "pan_right",
+      "events": [
+        {
+          "key_scancode": 16777233,
+          "control": true,
+          "mouse_button_index": 0
+        }
+      ]
+    },
+    {
+      "name": "jump",
+      "events": [
+        {
+          "key_scancode": 32,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 81,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 88,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "move_up",
+      "events": [
+        {
+          "key_scancode": 16777232,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 87,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 44,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "move_down",
+      "events": [
+        {
+          "key_scancode": 16777234,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 83,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 79,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "move_left",
+      "events": [
+        {
+          "key_scancode": 16777231,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 65,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "move_right",
+      "events": [
+        {
+          "key_scancode": 16777233,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 68,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 69,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "dash",
+      "events": [
+        {
+          "key_scancode": 59,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 39,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 90,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "grab",
+      "events": [
+        {
+          "key_scancode": 67,
+          "mouse_button_index": 0,
+          "control": false
+        },
+        {
+          "key_scancode": 74,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "face_left",
+      "events": [
+        {
+          "key_scancode": 0,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    },
+    {
+      "name": "face_right",
+      "events": [
+        {
+          "key_scancode": 0,
+          "mouse_button_index": 0,
+          "control": false
+        }
+      ]
+    }
+  ],
+  "character_manifest": {
+    "default_character_name": "cat",
+    "character_scenes": [
+      "$Res:res://addons/squirrel_away/src/characters/cat/cat.tscn",
+      "$Res:res://addons/squirrel_away/src/characters/squirrel/squirrel.tscn"
+    ],
+    "character_categories": [
+      {
+        "name": "squirrels",
+        "characters": [
+          "squirrel"
+        ],
+        "movement_params": {
+          "collider_shape": null,
+          "collider_rotation": 1.570796,
+          "can_grab_walls": true,
+          "can_grab_ceilings": true,
+          "can_jump": true,
+          "can_dash": false,
+          "can_double_jump": false,
+          "surface_speed_multiplier": 1,
+          "air_horizontal_speed_multiplier": 1,
+          "gravity_multiplier": 1,
+          "gravity_slow_rise_multiplier_multiplier": 1,
+          "gravity_double_jump_slow_rise_multiplier_multiplier": 1,
+          "walk_acceleration_multiplier": 1.4,
+          "in_air_horizontal_acceleration_multiplier": 1.4,
+          "climb_up_speed_multiplier": 1.5,
+          "climb_down_speed_multiplier": 1.5,
+          "ceiling_crawl_speed_multiplier": 1.5,
+          "friction_coefficient_multiplier": 1,
+          "jump_boost_multiplier": 1.2,
+          "wall_jump_horizontal_boost_multiplier": 1,
+          "wall_fall_horizontal_boost_multiplier": 1,
+          "max_horizontal_speed_default_multiplier": 1.4,
+          "max_vertical_speed_multiplier": 1,
+          "uses_duration_instead_of_distance_for_edge_weight": true,
+          "additional_edge_weight_offset_override": -1,
+          "walking_edge_weight_multiplier_override": -1,
+          "ceiling_crawling_edge_weight_multiplier_override": -1,
+          "climbing_edge_weight_multiplier_override": -1,
+          "climb_to_adjacent_surface_edge_weight_multiplier_override": -1,
+          "move_to_collinear_surface_edge_weight_multiplier_override": -1,
+          "air_edge_weight_multiplier_override": -1,
+          "minimizes_velocity_change_when_jumping": false,
+          "optimizes_edge_jump_positions_at_run_time": true,
+          "optimizes_edge_land_positions_at_run_time": true,
+          "also_optimizes_preselection_path": true,
+          "forces_character_position_to_match_edge_at_start": true,
+          "forces_character_velocity_to_match_edge_at_start": true,
+          "forces_character_position_to_match_path_at_end": false,
+          "forces_character_velocity_to_zero_at_path_end": false,
+          "syncs_character_position_to_edge_trajectory": true,
+          "syncs_character_velocity_to_edge_trajectory": true,
+          "includes_continuous_trajectory_positions": true,
+          "includes_continuous_trajectory_velocities": true,
+          "includes_discrete_trajectory_state": false,
+          "is_trajectory_state_stored_at_build_time": false,
+          "bypasses_runtime_physics": false,
+          "default_nav_interrupt_resolution_mode": 4,
+          "min_intra_surface_distance_to_optimize_jump_for": 16,
+          "dist_sq_thres_for_considering_additional_jump_land_points": 1024,
+          "stops_after_finding_first_valid_edge_for_a_surface_pair": false,
+          "calculates_all_valid_edges_for_a_surface_pair": false,
+          "always_includes_jump_land_positions_at_surface_ends": false,
+          "includes_redundant_j_l_positions_with_zero_start_velocity": true,
+          "normal_jump_instruction_duration_increase": 0.08,
+          "exceptional_jump_instruction_duration_increase": 0.2,
+          "recurses_when_colliding_during_horizontal_step_calculations": true,
+          "backtracks_for_higher_jumps_during_hor_step_calculations": true,
+          "collision_margin_for_edge_calculations": 1,
+          "collision_margin_for_waypoint_positions": 4,
+          "skips_less_likely_jump_land_positions": false,
+          "reached_in_air_destination_distance_squared_threshold": 256,
+          "max_edges_to_remove_from_path_for_opt_to_in_air_dest": 2,
+          "always_tries_to_face_direction_of_motion": true,
+          "max_distance_for_reachable_surface_tracking": 1024
+        }
+      }
+    ],
+    "omits_npcs": false
+  },
+  "annotation_parameters_manifest": {
+
+  },
+  "level_config_class": "$Res:res://addons/squirrel_away/src/config/squirrel_away_level_config.gd",
+  "level_session_class": "$Res:res://addons/squirrel_away/src/config/squirrel_away_level_session.gd",
+  "annotators_class": "$Res:res://addons/surfacer/src/annotators/surfacer_annotators.gd"
+}

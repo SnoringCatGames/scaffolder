@@ -3,22 +3,33 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: ------------
-# 
-# - Figure out SurfacerAnnotationsManifest.
+# FIXME: LEFT OFF HERE: -------------
 # 
 # - https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/Pin.svg
 # - https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/Reload.svg
 # - Pl.get_editor_icon("Reload")
 # 
-# - Implement new ColorConfig system.
-#   - Consolidate ScaffolderSchema.colors_manifest with ColorPalette defaults?:
-#     - Expose all color palette defaults on the manifest?
-#   - Refactor Sc.ann_params/ScaffolderAnnotationParameters/SurfacerAnnotationParameters
-#     to instead use a big const dictionary with string keys.
-#     - Then, I can dynamically populate the manifest defaults from this.
-#     - Then, I can update _get_common_overrides_for_annotations_mode to be DRY.
-#   - Set up / register palette.
+# - Update _get_common_overrides_for_annotations_mode to be DRY.
+# 
+# 
+# FIXME: ---------------- Move these to squirrel_away manifest.
+#var COLOR_BACKGROUND := Color("453d30")
+#var COLOR_BACKGROUND_LIGHTER := Color("574d3d")
+#var COLOR_BACKGROUND_DARKER := Color("362f25")
+#
+#var COLOR_TEXT := Color("eeeeee")
+#var COLOR_HEADER := Color("faca7d")
+#var COLOR_FOCUS := Color("faca7d")
+#
+#var COLOR_BUTTON := Color("c27e10")
+#var COLOR_BUTTON_LIGHTER := Color("eba534")
+#var COLOR_BUTTON_DARKER := Color("734905")
+#
+#var COLOR_SHADOW := Color("88000000")
+#
+#var HUD_KEY_VALUE_BOX_MODULATE_COLOR := Color(0.1, 0.7, 1.2, 1.0)
+#var BUTTON_PULSE_MODULATE_COLOR := Color(1.5, 1.5, 3.0, 1.0)
+# 
 # 
 # - Update manifest.json files to only include non-default state.
 #   - I need these to serve as a clear indication of what has actually been

@@ -41,11 +41,11 @@ func _draw() -> void:
     
     if !is_inner_animation_complete:
         var alpha: float = \
-                Sc.annotators.params.click_inner_color.a * (1 - inner_progress)
+                Sc.palette.get_color("click_inner_color").a * (1 - inner_progress)
         var color := Color(
-                Sc.annotators.params.click_inner_color.r,
-                Sc.annotators.params.click_inner_color.g,
-                Sc.annotators.params.click_inner_color.b,
+                Sc.palette.get_color("click_inner_color").r,
+                Sc.palette.get_color("click_inner_color").g,
+                Sc.palette.get_color("click_inner_color").b,
                 alpha)
         var radius: float = \
                 Sc.annotators.params.click_inner_end_radius * inner_progress
@@ -57,11 +57,11 @@ func _draw() -> void:
     
     if !is_outer_animation_complete:
         var alpha: float = \
-                Sc.annotators.params.click_outer_color.a * (1 - outer_progress)
+                Sc.palette.get_color("click_outer_color").a * (1 - outer_progress)
         var color := Color(
-                Sc.annotators.params.click_outer_color.r,
-                Sc.annotators.params.click_outer_color.g,
-                Sc.annotators.params.click_outer_color.b,
+                Sc.palette.get_color("click_outer_color").r,
+                Sc.palette.get_color("click_outer_color").g,
+                Sc.palette.get_color("click_outer_color").b,
                 alpha)
         var radius: float = \
                 Sc.annotators.params.click_outer_end_radius * outer_progress

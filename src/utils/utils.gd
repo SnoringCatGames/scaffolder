@@ -1030,3 +1030,45 @@ static func get_type_string(type: int) -> String:
         _:
             Sc.logger.error("Utils.get_type_string: %d" % type)
             return ""
+
+
+static func get_direct_property_map(object: Reference) -> Dictionary:
+    # -   The problem with get_property_list() is that it also includes all of
+    #     the ancestor class properties.
+    # -   To get around this, we get all of the ancestor class properties--
+    #     without any of the subclass's direct properties--here, so that we can
+    #     filter them out later.
+    # -   For this to work, the object must extend Reference directly.
+    var reference_property_list := Reference.new().get_property_list()
+    var reference_property_map := {}
+    for property_config in reference_property_list:
+        reference_property_map[property_config.name] = property_config
+    
+    var property_map := {}
+    
+    var property_list := object.get_property_list()
+    for property_config in property_list:
+        if reference_property_map.has(property_config.name) or \
+                property_config.name == "Script Variables":
+            continue
+        property_map[property_config.name] = object.get(property_config.name)
+    
+    return property_map
+
+
+static func get_direct_color_properties(object: Reference) -> Dictionary:
+    var property_map := get_direct_property_map(object)
+    for key in property_map.keys():
+        if !property_map[key] is Color and \
+                !property_map[key] is ColorConfig:
+            property_map.erase(key)
+    return property_map
+
+
+static func get_direct_non_color_properties(object: Reference) -> Dictionary:
+    var property_map := get_direct_property_map(object)
+    for key in property_map.keys():
+        if property_map[key] is Color or \
+                property_map[key] is ColorConfig:
+            property_map.erase(key)
+    return property_map
