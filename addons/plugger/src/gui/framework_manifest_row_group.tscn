@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_row_group.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_header.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/framework_manifest_array_buttons.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/reset_button.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_body.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/addons/plugger/src/gui/accordion/plugin_accordion_header_caret.tscn" type="PackedScene" id=6]
 
@@ -27,7 +28,6 @@ size_flags_horizontal = 3
 [node name="MarginContainer" type="MarginContainer" parent="AccordionHeader"]
 margin_right = 460.0
 margin_bottom = 40.0
-rect_min_size = Vector2( 460, 40 )
 mouse_filter = 1
 size_flags_horizontal = 3
 
@@ -54,6 +54,13 @@ margin_bottom = 27.0
 mouse_filter = 1
 size_flags_horizontal = 3
 valign = 1
+
+[node name="ResetButton" parent="AccordionHeader/MarginContainer/HBoxContainer" instance=ExtResource( 4 )]
+visible = false
+margin_left = 326.0
+margin_top = 13.0
+margin_right = 326.0
+margin_bottom = 27.0
 
 [node name="Buttons" parent="AccordionHeader/MarginContainer/HBoxContainer" instance=ExtResource( 3 )]
 margin_left = 326.0
@@ -93,3 +100,5 @@ custom_constants/separation = 0
 __meta__ = {
 "sc_separation": 0
 }
+
+[connection signal="pressed" from="AccordionHeader/MarginContainer/HBoxContainer/ResetButton" to="." method="_on_reset_changes_pressed"]

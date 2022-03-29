@@ -27,11 +27,20 @@ func set_up(
     self.indent_level = indent_level
     self.indent_width = indent_width
     
+    node.connect("is_changed_changed", self, "_on_is_changed_changed")
+    
     group_buttons = $AccordionHeader/MarginContainer/HBoxContainer/Buttons
     group_body = $AccordionBody/HBoxContainer/Body
     
     $AccordionBody/HBoxContainer/Indent.rect_min_size.x = indent_width
     $AccordionHeader.size_override = Vector2(0.0, row_height)
+    
+    $AccordionHeader/MarginContainer/HBoxContainer/ResetButton \
+            .button_size = row_height * Vector2.ONE
+    $AccordionHeader/MarginContainer/HBoxContainer/ResetButton \
+            .texture_size = row_height * Vector2.ONE * 0.5
+    $AccordionHeader/MarginContainer/HBoxContainer/ResetButton \
+            .visible = node.is_changed
     
     var text: String
     if node.key is int:
@@ -123,3 +132,13 @@ func _get_row_with_key(key):
                 row.node.key == key:
             return row
     return null
+
+
+func _on_is_changed_changed(is_changed: bool) -> void:
+    $AccordionHeader/MarginContainer/HBoxContainer/ResetButton \
+            .visible = is_changed
+
+
+func _on_reset_changes_pressed() -> void:
+    node.reset_changes()
+    $AccordionHeader/MarginContainer/HBoxContainer/ResetButton.visible = false

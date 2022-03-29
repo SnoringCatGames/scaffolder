@@ -22,6 +22,10 @@ const _LABEL_WIDTH := _PANEL_WIDTH - _CONTROL_WIDTH - _PADDING * 3.0
 
 var manifest_controller: FrameworkManifestController
 
+var _debounced_save_manifest = Sc.time.debounce(
+        funcref(self, "_save_manifest_debounced"),
+        0.01,
+        false)
 var _debounced_update_zebra_stripes = Sc.time.debounce(
         funcref(self, "_update_zebra_stripes_debounced"),
         0.001,
@@ -151,6 +155,10 @@ func _create_group_control(
 
 
 func _on_value_changed() -> void:
+    _debounced_save_manifest.call_func()
+
+
+func _save_manifest_debounced() -> void:
     manifest_controller.save_manifest()
 
 
