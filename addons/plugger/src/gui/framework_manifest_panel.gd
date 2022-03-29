@@ -86,7 +86,7 @@ func _create_property_controls_from_dictionary(
         control_parent: Container) -> FrameworkManifestRowGroup:
     # Create the Dictionary row / label.
     var row: FrameworkManifestRowGroup
-    if is_instance_valid(node.parent):
+    if indent_level > 0:
         row = _create_group_control(node, indent_level, control_parent)
         control_parent = row.group_body
     
@@ -103,7 +103,7 @@ func _create_property_controls_from_array(
         control_parent: Container) -> FrameworkManifestRowGroup:
     # Create the Array row / label
     var row: FrameworkManifestRowGroup
-    if is_instance_valid(node.parent):
+    if indent_level > 0:
         row = _create_group_control(node, indent_level, control_parent)
         control_parent = row.group_body
     
