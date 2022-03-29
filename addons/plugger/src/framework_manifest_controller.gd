@@ -99,9 +99,8 @@ func load_manifest() -> Dictionary:
 
 
 func save_manifest(is_changed := true) -> void:
-    var manifest: Dictionary = root.get_manifest_value()
     Sc.json.save_file(
-            manifest,
+            root.get_manifest_value(),
             schema.manifest_path,
             true,
             true)

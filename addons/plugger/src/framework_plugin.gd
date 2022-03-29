@@ -9,8 +9,18 @@ extends EditorPlugin
 # - https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/Reload.svg
 # - Pl.get_editor_icon("Reload")
 # 
-# - Update _get_common_overrides_for_annotations_mode to be DRY.
+# - Update manifest.json files to only include non-default state.
+#   - I need these to serve as a clear indication of what has actually been
+#     changed by the user.
 # 
+# - Consolidate all manifest JSONs into one file, stored within the game
+#   config/, rather than in addons.
+# 
+# - Add support for coloring rows that aren't strictly overridden.
+#   - For highlighting without assigning values overrides, just include a fourth
+#      element in the array as false, and ignore the second element.
+# - Also color ancestor rows?
+#   - Maybe more faintly.
 # 
 # FIXME: ---------------- Move these to squirrel_away manifest.
 #var COLOR_BACKGROUND := Color("453d30")
@@ -29,23 +39,6 @@ extends EditorPlugin
 #
 #var HUD_KEY_VALUE_BOX_MODULATE_COLOR := Color(0.1, 0.7, 1.2, 1.0)
 #var BUTTON_PULSE_MODULATE_COLOR := Color(1.5, 1.5, 3.0, 1.0)
-# 
-# 
-# - Update manifest.json files to only include non-default state.
-#   - I need these to serve as a clear indication of what has actually been
-#     changed by the user.
-# 
-# - Also, add a reset button to indicate and undo when there is a non-default
-#   value.
-# 
-# - Consolidate all manifest JSONs into one file, stored within the game
-#   config/, rather than in addons.
-# 
-# - Add support for coloring rows that aren't strictly overridden.
-#   - For highlighting without assigning values overrides, just include a fourth
-#      element in the array as false, and ignore the second element.
-# - Also color ancestor rows?
-#   - Maybe more faintly.
 # 
 # ----- DEFER PIN SUPPORT UNTIL POST-JAM -----
 # 

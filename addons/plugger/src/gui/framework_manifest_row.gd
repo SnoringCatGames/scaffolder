@@ -19,6 +19,7 @@ var _OVERRIDE_HIGHLIGHT_ZEBRA_STRIPE_COLOR := Color.from_hsv(
 const _OVERRIDE_INDICATOR_WIDTH := 4.0
 
 var group
+var value_editor: Control
 var node: FrameworkManifestEditorNode
 var custom_property: FrameworkManifestCustomProperty
 var indent_level: int
@@ -35,21 +36,30 @@ func set_up(
     self.node = node
     self.indent_level = indent_level
     
+    node.connect("is_changed_changed", self, "_on_is_changed_changed")
+    
     $MarginContainer.add_constant_override("margin_top", 0.0)
     $MarginContainer.add_constant_override("margin_bottom", 0.0)
     $MarginContainer.add_constant_override("margin_left", 0.0)
     $MarginContainer.add_constant_override("margin_right", 0.0)
     
-    $MarginContainer/HBoxContainer \
-            .add_constant_override("separation", padding)
+    $MarginContainer/HBoxContainer.add_constant_override("separation", 0)
+    $MarginContainer/HBoxContainer/Spacer.rect_min_size.x = padding
     
-    $MarginContainer/HBoxContainer/Label.rect_min_size.y = row_height
+    $MarginContainer/HBoxContainer/HBoxContainer/Label.rect_min_size.y = row_height
     
     $MarginContainer/HBoxContainer/OverrideIndicator.rect_min_size.x = \
             Pl.scale_dimension(_OVERRIDE_INDICATOR_WIDTH)
     
+    $MarginContainer/HBoxContainer/HBoxContainer/ResetButton \
+            .button_size = row_height * Vector2.ONE
+    $MarginContainer/HBoxContainer/HBoxContainer/ResetButton \
+            .texture_size = row_height * Vector2.ONE * 0.5
+    $MarginContainer/HBoxContainer/HBoxContainer/ResetButton \
+            .visible = node.is_changed
+    
     if node.type == FrameworkSchema.TYPE_CUSTOM:
-        $MarginContainer/HBoxContainer/Label.queue_free()
+        $MarginContainer/HBoxContainer/HBoxContainer/Label.queue_free()
         
         assert(node.value is Script and \
                 node.value.get_base_script() == FrameworkManifestCustomProperty)
@@ -70,10 +80,11 @@ func set_up(
         else:
             text = node.key.capitalize()
         
-        $MarginContainer/HBoxContainer/Label.text = text
-        $MarginContainer/HBoxContainer/Label.hint_tooltip = text
+        $MarginContainer/HBoxContainer/HBoxContainer/Label.text = text
+        $MarginContainer/HBoxContainer/HBoxContainer/Label.hint_tooltip = text
         
-        var value_editor := _create_value_editor()
+        value_editor = _create_value_editor()
+        _update_control_value()
         value_editor.size_flags_horizontal = SIZE_EXPAND_FILL
         value_editor.rect_clip_content = true
         value_editor.rect_min_size.x = \
@@ -97,7 +108,7 @@ func set_up(
                     "" if \
                     node.override_source == "" else \
                     ("Overriding mode: %s\n" % node.override_source)
-            $MarginContainer/HBoxContainer/Label.hint_tooltip = (
+            $MarginContainer/HBoxContainer/HBoxContainer/Label.hint_tooltip = (
                 "%s\n" +
                 "**This property is overridden by FrameworkGlobal logic.**\n" +
                 "%s" +
@@ -110,6 +121,7 @@ func set_up(
 
 
 func open_recursively() -> void:
+    # Do nothing.
     pass
 
 
@@ -167,9 +179,39 @@ func _create_value_editor() -> Control:
             return null
 
 
+func _update_control_value() -> void:
+    match node.type:
+        TYPE_BOOL:
+            value_editor.pressed = node.value
+        TYPE_INT, \
+        TYPE_REAL:
+            value_editor.value = node.value
+        TYPE_STRING:
+            value_editor.text = node.value
+            value_editor.hint_tooltip = node.value
+        TYPE_COLOR:
+            value_editor.color = node.value
+        TYPE_VECTOR2, \
+        TYPE_RECT2, \
+        TYPE_VECTOR3:
+            value_editor.value = node.value
+        FrameworkSchema.TYPE_COLOR_CONFIG:
+            value_editor.color_config = node.value
+        FrameworkSchema.TYPE_SCRIPT, \
+        FrameworkSchema.TYPE_TILESET, \
+        FrameworkSchema.TYPE_FONT, \
+        FrameworkSchema.TYPE_RESOURCE:
+            value_editor.edited_resource = node.value
+        TYPE_DICTIONARY, \
+        TYPE_ARRAY:
+            # Do nothing.
+            pass
+        _:
+            Sc.logger.error("FrameworkManifestPanel._update_control_value")
+
+
 func _create_bool_editor() -> CheckBox:
     var control := CheckBox.new()
-    control.pressed = node.value
     control.connect("toggled", self, "_on_value_changed")
     return control
 
@@ -178,7 +220,6 @@ func _create_int_editor() -> SpinBox:
     var control := SpinBox.new()
     control.step = 1.0
     control.rounded = true
-    control.value = node.value
     control.connect("value_changed", self, "_on_value_changed")
     return control
 
@@ -187,22 +228,18 @@ func _create_float_editor() -> SpinBox:
     var control := SpinBox.new()
     control.step = 0.0
     control.rounded = false
-    control.value = node.value
     control.connect("value_changed", self, "_on_value_changed")
     return control
 
 
 func _create_string_editor() -> LineEdit:
     var control := LineEdit.new()
-    control.text = node.value
-    control.hint_tooltip = node.value
     control.connect("text_changed", self, "_on_string_changed", [control])
     return control
 
 
 func _create_color_editor() -> ColorPickerButton:
     var control := ColorPickerButton.new()
-    control.color = node.value
     control.connect("color_changed", self, "_on_value_changed")
     return control
 
@@ -230,14 +267,12 @@ func _create_vector3_editor() -> Vector3Editor:
 
 func _create_color_config_editor() -> ColorConfigEdit:
     var control: ColorConfigEdit = _COLOR_CONFIG_EDIT_SCENE.instance()
-    control.color_config = node.value
     control.connect("changed", self, "_on_value_changed_or_mutated")
     return control
 
 
 func _create_resource_editor() -> EditorResourcePicker:
     var control := EditorResourcePicker.new()
-    control.edited_resource = node.value
     control.base_type = FrameworkSchema.get_resource_class_name(node.type)
     control.connect("resource_changed", self, "_on_value_changed")
     return control
@@ -262,3 +297,17 @@ func _on_string_changed(control: LineEdit) -> void:
         node.value = new_value
         control.hint_tooltip = control.text
         emit_signal("changed")
+
+
+func _on_is_changed_changed(is_changed: bool) -> void:
+    _update_control_value()
+    $MarginContainer/HBoxContainer/HBoxContainer/ResetButton \
+            .visible = is_changed
+    emit_signal("changed")
+
+
+func _on_reset_changes_pressed() -> void:
+    node.reset_changes()
+    _update_control_value()
+    $MarginContainer/HBoxContainer/HBoxContainer/ResetButton.visible = false
+    emit_signal("changed")

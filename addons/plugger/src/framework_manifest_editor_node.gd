@@ -3,14 +3,17 @@ class_name FrameworkManifestEditorNode
 extends Reference
 
 
+signal is_changed_changed(is_changed)
+
 var type: int
-var value
-var default_value
+var value setget _set_value
 var children
 
 var parent
 var key
 var schema
+
+var is_changed := false setget _set_is_changed
 
 var is_overridden := false
 var override_source: String
@@ -35,7 +38,7 @@ func load_from_manifest(
     elif schema is Array:
         if FrameworkSchema.get_is_explicit_type_entry(schema):
             type = schema[0]
-            value = manifest
+            _set_value(manifest)
         else:
             _load_from_manifest_array(manifest, includes_defaults_from_schema)
     else:
@@ -43,7 +46,7 @@ func load_from_manifest(
         var schema_type := FrameworkSchema.get_type(schema)
         if FrameworkSchema.get_is_valid_type(schema_type):
             type = schema_type
-            value = manifest
+            _set_value(manifest)
         else:
             Sc.logger.error("FrameworkManifestEditorNode.load_from_manifest")
 
@@ -170,3 +173,53 @@ func _log_warning(
                 get_node_path(),
                 details,
             ])
+
+
+func _set_value(
+        new_value,
+        propagates := true) -> void:
+    if value != new_value:
+        value = new_value
+        # Auto-update is_changed for non-group rows.
+        if type != TYPE_DICTIONARY and \
+                type != TYPE_ARRAY:
+            _set_is_changed(
+                value != FrameworkSchema.get_default_value(schema),
+                propagates)
+
+
+func _set_is_changed(
+        new_is_changed: bool,
+        propagates := true) -> void:
+    if is_changed != new_is_changed:
+        is_changed = new_is_changed
+        emit_signal("is_changed_changed", is_changed)
+        _propagate_is_changed()
+
+
+func _propagate_is_changed() -> void:
+    if !is_instance_valid(parent):
+        return
+    if !is_changed:
+        # We need to check if any other child is still changed.
+        if parent.type == TYPE_DICTIONARY:
+            for child in parent.children.values():
+                if child.is_changed:
+                    return
+        elif parent.type == TYPE_ARRAY:
+            for child in parent.children:
+                if child.is_changed:
+                    return
+    parent._set_is_changed(is_changed, true)
+
+
+func reset_changes() -> void:
+    if !is_changed:
+        return
+    _set_value(FrameworkSchema.get_default_value(schema), false)
+    if type == TYPE_DICTIONARY:
+        for child in children.values():
+            child.reset_changes()
+    elif type == TYPE_ARRAY:
+        for child in children:
+            child.reset_changes()
