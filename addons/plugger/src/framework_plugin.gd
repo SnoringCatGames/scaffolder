@@ -5,10 +5,6 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: -------------
 # 
-# - https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/Pin.svg
-# - https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/Reload.svg
-# - Pl.get_editor_icon("Reload")
-# 
 # - Update manifest.json files to only include non-default state.
 #   - I need these to serve as a clear indication of what has actually been
 #     changed by the user.
@@ -41,6 +37,8 @@ extends EditorPlugin
 #var BUTTON_PULSE_MODULATE_COLOR := Color(1.5, 1.5, 3.0, 1.0)
 # 
 # ----- DEFER PIN SUPPORT UNTIL POST-JAM -----
+# 
+# - Pl.get_editor_icon("Pin")
 # 
 # - In order to support pinned manifest entries:
 #   - Include an array of property-path strings in each schema constructor.

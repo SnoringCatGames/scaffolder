@@ -5,6 +5,7 @@ extends PanelContainer
 
 
 signal changed
+signal reset_pressed
 
 const _COLOR_CONFIG_EDIT_SCENE := preload(
     "res://addons/scaffolder/src/plugin/color_config_edit.tscn")
@@ -290,9 +291,10 @@ func _on_value_changed(new_value) -> void:
         emit_signal("changed")
 
 
-func _on_string_changed(control: LineEdit) -> void:
+func _on_string_changed(
+        new_value: String,
+        control: LineEdit) -> void:
     var old_value: String = node.value
-    var new_value := control.text
     if old_value != new_value:
         node.value = new_value
         control.hint_tooltip = control.text
@@ -311,3 +313,4 @@ func _on_reset_changes_pressed() -> void:
     _update_control_value()
     $MarginContainer/HBoxContainer/HBoxContainer/ResetButton.visible = false
     emit_signal("changed")
+    emit_signal("reset_pressed")

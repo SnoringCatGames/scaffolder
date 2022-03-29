@@ -115,6 +115,14 @@ func _load_from_manifest_array(
             for j in schema.size():
                 manifest[j] = FrameworkSchema.get_default_value(schema[j])
     
+    var has_default_number_of_children: bool
+    if schema.size() == 1 and \
+            FrameworkSchema.get_is_explicit_type_entry(schema[0]):
+        has_default_number_of_children = manifest.empty()
+    else:
+        has_default_number_of_children = manifest.size() == schema.size()
+    _set_is_changed(!has_default_number_of_children)
+    
     type = TYPE_ARRAY
     children = []
     children.resize(manifest.size())
@@ -130,21 +138,31 @@ func add_array_element():
     var child = get_script().new(self, children.size(), schema[0])
     child.load_from_manifest(FrameworkSchema.get_default_value(schema[0]), true)
     children.push_back(child)
+    _set_is_changed(true)
     return child
 
 
-func get_manifest_value():
+func remove_array_element() -> void:
+    children.pop_back()
+    _set_is_changed(true)
+
+
+func get_manifest_value(includes_default_values: bool):
     match type:
         TYPE_DICTIONARY:
             var dictionary := {}
             for key in children:
-                dictionary[key] = children[key].get_manifest_value()
+                if includes_default_values or \
+                        children[key].is_changed:
+                    dictionary[key] = children[key] \
+                            .get_manifest_value(includes_default_values)
             return dictionary
         TYPE_ARRAY:
             var array := []
             array.resize(children.size())
             for i in children.size():
-                array[i] = children[i].get_manifest_value()
+                array[i] = children[i] \
+                        .get_manifest_value(includes_default_values)
             return array
         _:
             return value
@@ -184,8 +202,8 @@ func _set_value(
         if type != TYPE_DICTIONARY and \
                 type != TYPE_ARRAY:
             _set_is_changed(
-                value != FrameworkSchema.get_default_value(schema),
-                propagates)
+                    value != FrameworkSchema.get_default_value(schema),
+                    propagates)
 
 
 func _set_is_changed(
@@ -221,5 +239,5 @@ func reset_changes() -> void:
         for child in children.values():
             child.reset_changes()
     elif type == TYPE_ARRAY:
-        for child in children:
-            child.reset_changes()
+        children.clear()
+        self.load_from_manifest(FrameworkSchema.get_default_value(schema), true)
