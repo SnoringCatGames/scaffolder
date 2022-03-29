@@ -15,11 +15,6 @@ extends Reference
 
 # FIXME: LEFT OFF HERE: ----------------------
 # 
-# - Render a small ColorRect in the left of the AccordionHeader to show a
-#   sample of the color.
-# 
-# - Test ColorConfigEdit for all cases.
-# 
 # - Replace all of the different color systems I'd built-up previously with this new simpler system.
 #   - ColorParams
 #   - ColorParamsFactory
