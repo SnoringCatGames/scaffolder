@@ -6,6 +6,18 @@ extends MultiNumberEditor
 signal value_changed(new_value)
 
 
+var value: Vector3 setget _set_value
+
+
+func _set_value(new_value: Vector3) -> void:
+    value = new_value
+    _set_values({
+        x = new_value.x,
+        y = new_value.y,
+        z = new_value.z,
+    })
+
+
 func _init() -> void:
     keys = ["x", "y", "z"]
 

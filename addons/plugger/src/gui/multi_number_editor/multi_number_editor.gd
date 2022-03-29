@@ -8,37 +8,27 @@ signal property_changed
 var keys: Array
 var rounded := false
 var step := 0.0
-var default_value = 0.0
 var label_width := 32.0
 var padding_y := 0.0
 var padding_x := 2.0
 
+var values := {} setget _set_values
 var _controls := {}
+
+var _is_set_up := false
 
 
 func set_up() -> void:
-    self.add_constant_override("separation", padding_y)
+    _is_set_up = true
     
-    # Parse the default value.
-    assert(default_value is int or \
-            default_value is float or \
-            default_value is Dictionary)
-    var default_values := {}
-    if default_value is Dictionary:
-        assert(keys.size() == default_value.size())
-        for key in keys:
-            assert(default_value.has(key))
-            default_values[key] = default_value[key]
-    else:
-        for key in keys:
-            default_values[key] = default_value
+    self.add_constant_override("separation", padding_y)
     
     # Create the control for each number.
     for key in keys:
         var hbox := HBoxContainer.new()
         hbox.add_constant_override("separation", padding_x)
         self.add_child(hbox)
-
+        
         var label := Label.new()
         label.text = key
         label.hint_tooltip = key
@@ -50,12 +40,25 @@ func set_up() -> void:
         var control := SpinBox.new()
         control.rounded = rounded
         control.step = step
-        control.value = default_values[key]
         control.size_flags_horizontal = Control.SIZE_EXPAND_FILL
         control.connect("value_changed", self, "_on_property_changed")
         hbox.add_child(control)
         
         _controls[key] = control
+    
+    _update_controls()
+
+
+func _update_controls() -> void:
+    if !_is_set_up:
+        return
+    for key in values:
+        _controls[key].value = values[key]
+
+
+func _set_values(new_values: Dictionary) -> void:
+    values = new_values
+    _update_controls()
 
 
 func _get_values() -> Dictionary:
