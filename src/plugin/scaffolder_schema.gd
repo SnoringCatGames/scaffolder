@@ -1106,8 +1106,8 @@ var _character_manifest := {
     omits_npcs = false,
 }
 
-var _annotation_parameters_manifest := {
-}
+var _annotation_parameters_manifest := Utils.get_direct_non_color_properties(
+        ScaffolderDefaultAnnotationParameters.new())
 
 var _properties := {
     metadata = _metadata,
