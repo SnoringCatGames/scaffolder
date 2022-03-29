@@ -484,6 +484,7 @@ func _configure_sub_modules() -> void:
     self.images._parse_manifest(manifest.images_manifest)
     self.gui._parse_manifest(manifest.gui_manifest)
     self.palette._parse_manifest(manifest.colors_manifest)
+    self.annotators._parse_manifest(manifest.annotation_parameters_manifest)
     self.notify._parse_manifest(manifest.notifications_manifest)
     self.slow_motion._parse_manifest(manifest.slow_motion_manifest)
     self.characters._parse_manifest(manifest.character_manifest)

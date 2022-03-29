@@ -65,19 +65,15 @@ func _init(
     self.level_specific_annotators = level_specific_annotators
     self.default_enablement = default_enablement
     self.character_annotation_class = character_annotation_class
-    _parse_defaults([ScaffolderDefaultAnnotationParameters])
     if Engine.editor_hint:
         return
     annotation_layer = Sc.canvas_layers.layers.annotation
 
 
-func _parse_defaults(defaults_scripts: Array) -> void:
-    params.clear()
-    for defaults_script in defaults_scripts:
-        assert(defaults_script is Script)
-        var properties: Dictionary = \
-                Utils.get_direct_non_color_properties(defaults_script.new())
-        Sc.utils.merge(params, properties)
+func _parse_manifest(manifest: Dictionary) -> void:
+    for value in manifest.values():
+        assert(!value is Color and !value is ColorConfig)
+    Sc.utils.merge(params, manifest)
 
 
 func _ready() -> void:
