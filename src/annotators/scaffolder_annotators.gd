@@ -23,6 +23,8 @@ const _SCAFFOLDER_DEFAULT_ENABLEMENT := {
     AnnotatorType.RECENT_MOVEMENT: true,
 }
 
+var params := {}
+
 var character_sub_annotators: Array
 var level_specific_annotators: Array
 var default_enablement: Dictionary
@@ -63,6 +65,17 @@ func _init(
     if Engine.editor_hint:
         return
     annotation_layer = Sc.canvas_layers.layers.annotation
+    _parse_defaults()
+
+
+func _parse_defaults() -> void:
+    params.clear()
+    var default_colors := ScaffolderDefaultColors.new()
+    for key in default_colors.DEFAULTS:
+        params[key] = default_colors.DEFAULTS[key]
+    var default_ann_params := ScaffolderDefaultAnnotationParameters.new()
+    for key in default_ann_params.DEFAULTS:
+        params[key] = default_colors.DEFAULTS[key]
 
 
 func _ready() -> void:

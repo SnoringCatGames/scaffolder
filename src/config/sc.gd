@@ -46,7 +46,6 @@ var level_button_input: LevelButtonInput
 var characters: ScaffolderCharacterManifest
 # TODO: Cleanup the annotator system.
 var annotators: ScaffolderAnnotators
-var ann_params: ScaffolderAnnotationParameters
 var level_config: ScaffolderLevelConfig
 var level: ScaffolderLevel
 var level_session: ScaffolderLevelSession
@@ -248,7 +247,6 @@ func _get_members_to_destroy() -> Array:
         level_button_input,
         characters,
         annotators,
-        ann_params,
         level_config,
         level,
         level_session,
@@ -468,13 +466,6 @@ func _instantiate_sub_modules() -> void:
         self.characters = ScaffolderCharacterManifest.new()
     add_child(self.characters)
     
-    if manifest.has("ann_params_class"):
-        self.ann_params = manifest.ann_params_class.new()
-        assert(self.ann_params is ScaffolderAnnotationParameters)
-    else:
-        self.ann_params = ScaffolderAnnotationParameters.new()
-    add_child(self.ann_params)
-    
     if manifest.has("annotators_class"):
         self.annotators = manifest.annotators_class.new()
         assert(self.annotators is ScaffolderAnnotators)
@@ -496,7 +487,6 @@ func _configure_sub_modules() -> void:
     self.notify._parse_manifest(manifest.notifications_manifest)
     self.slow_motion._parse_manifest(manifest.slow_motion_manifest)
     self.characters._parse_manifest(manifest.character_manifest)
-    self.ann_params._parse_manifest(manifest.annotation_parameters_manifest)
     
     self.metadata.is_app_configured = true
     

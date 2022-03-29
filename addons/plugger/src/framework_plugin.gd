@@ -3,7 +3,9 @@ class_name FrameworkPlugin
 extends EditorPlugin
 
 
-# FIXME: LEFT OFF HERE: -----------
+# FIXME: LEFT OFF HERE: ------------
+# 
+# - Figure out SurfacerAnnotationsManifest.
 # 
 # - Implement new ColorConfig system.
 # 

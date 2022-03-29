@@ -13,11 +13,9 @@ extends Reference
 ##     of whichever color would otherwise have been returned from the subclass.
 
 
-# FIXME: LEFT OFF HERE: ----------------------
+# FIXME: LEFT OFF HERE: -----------------------
 # 
 # - Replace all of the different color systems I'd built-up previously with this new simpler system.
-#   - ColorParams
-#   - ColorParamsFactory
 #   - Sc.ann_params
 #   - ScaffolderAnnotationParameters
 #   - SurfacerAnnotationParameters
@@ -27,17 +25,7 @@ extends Reference
 #   to instead use a big const dictionary with string keys.
 #   - Then, I can dynamically populate the manifest defaults from this.
 #   - Then, I can update _get_common_overrides_for_annotations_mode to be DRY.
-# - I will need to create new editor widgets for my new ColorConfig type, and
-#   for each of its subclasses.
-#   - I might need to look into how other subclassed-type editors work, like
-#     StyleBox...
-# - Also, change Character export property colors to be ColorConfigs.
-#   - And then also register my new editor widgets to work as actual Inspector
-#     PropertyEditors.
-#   - Character property configs will need to define type `hint`s of
-#     ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG.
 # - Set up / register palette.
-# - Replace ColorConfigEdit MenuButton icon with a rotated caret image.
 
 
 const ALPHA_SOLID := 1.0

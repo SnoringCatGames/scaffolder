@@ -17,12 +17,12 @@ func _init(character: ScaffolderCharacter) -> void:
             position_annotation_color.h,
             0.7,
             0.9,
-            Sc.ann_params.character_position_opacity)
+            Sc.annotators.params.character_position_opacity)
     self.collider_color = Color.from_hsv(
             position_annotation_color.h,
             0.7,
             0.9,
-            Sc.ann_params.character_collider_opacity)
+            Sc.annotators.params.character_collider_opacity)
 
 
 func _draw() -> void:
@@ -33,7 +33,7 @@ func _draw() -> void:
 func _draw_character_position() -> void:
     draw_circle(
             character.position,
-            Sc.ann_params.character_position_radius,
+            Sc.annotators.params.character_position_radius,
             position_color)
 
 
@@ -43,7 +43,7 @@ func _draw_collider_outline() -> void:
             character.position,
             character.collider,
             collider_color,
-            Sc.ann_params.character_collider_thickness)
+            Sc.annotators.params.character_collider_thickness)
 
 
 func check_for_update() -> void:
