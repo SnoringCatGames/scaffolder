@@ -17,9 +17,9 @@ var _configuration_warning := ""
 func _ready() -> void:
     _is_ready = true
     
-    var headers := Sc.utils.get_children_by_type(
+    var headers: Array = Sc.utils.get_children_by_type(
             self, PluginAccordionHeader)
-    var bodies := Sc.utils.get_children_by_type(
+    var bodies: Array = Sc.utils.get_children_by_type(
             self, PluginAccordionBody)
     if headers.size() != 1:
         _configuration_warning = \

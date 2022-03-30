@@ -56,6 +56,8 @@ var analytics: Analytics
 var crash_reporter: CrashReporter
 var gesture_reporter: GestureReporter
 
+# Array<FrameworkPlugin>
+var _framework_plugins := []
 # Array<FrameworkGlobal>
 var _framework_globals := []
 var _bootstrap: FrameworkBootstrap
@@ -113,6 +115,18 @@ func _run(timer: Timer) -> void:
     # - Clear any preexisting app state.
 
 
+func _check_plugin_enablement() -> void:
+    if !Engine.editor_hint:
+        return
+    var enabled_plugin_names := {}
+    for plugin in _framework_plugins:
+        enabled_plugin_names[plugin._metadata.auto_load_name] = true
+    for global in Sc._framework_globals:
+        assert(enabled_plugin_names.has(global.schema.auto_load_name),
+                "Required plugin is not enabled: %s" % \
+                global.schema.auto_load_name)
+
+
 func _apply_schema_overrides() -> void:
     for global in Sc._framework_globals:
         for overridden_schema_script in global.schema.subtractive_overrides:
@@ -161,8 +175,13 @@ func reset() -> void:
         framework._destroy()
 
 
-func register_framework_global(config: FrameworkGlobal) -> void:
-    _framework_globals.push_back(config)
+func register_framework_global(global: FrameworkGlobal) -> void:
+    _framework_globals.push_back(global)
+
+
+func register_framework_plugin(plugin: FrameworkPlugin) -> void:
+    _framework_plugins.push_back(plugin)
+    call_deferred("_check_plugin_enablement")
 
 
 func _sort_registered_frameworks() -> void:

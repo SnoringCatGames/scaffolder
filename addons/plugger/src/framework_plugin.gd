@@ -5,6 +5,20 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: --------------
 # 
+# - Add a warning when the plugin for the framework is disabled?
+# 
+# - Search for plugin/** fixme (there are some).
+# - Fix "Recalculate cells" button in tilemap...
+# 
+# - Fix surface_tiler tilemap editorproperty button.
+#   - And stop the tilemap from automatically recalculating when opened.
+# 
+# - Get app running.
+# 
+# - Fix edited FIXME comments.
+# 
+# - Rename PluginMetadata to FrameworkMetadata.
+# 
 # - Update schema defaults to not include squirrel-away-specific state.
 #   - And update squirrel-away metadata and GDScript overrides to include it!
 # 
@@ -87,6 +101,7 @@ const _PLUGGER_AUTO_LOAD_PATH := \
 var _metadata: PluginMetadata
 
 var _auto_load
+var _sc_auto_load
 var Pl
 
 var _is_ready := false
@@ -135,6 +150,8 @@ func _connect_auto_load() -> void:
 
 
 func _on_framework_initialized() -> void:
+    _sc_auto_load = get_node("/root/Sc")
+    Pl._sc_auto_load = _sc_auto_load
     _check_set_up()
 
 
@@ -146,6 +163,7 @@ func _enter_tree() -> void:
 func _check_set_up() -> void:
     if _get_is_ready() and !_is_set_up:
         _is_set_up = true
+        _sc_auto_load.register_framework_plugin(self)
         _set_up()
 
 
