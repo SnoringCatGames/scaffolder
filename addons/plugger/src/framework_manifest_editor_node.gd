@@ -244,3 +244,7 @@ func reset_changes() -> void:
     elif type == TYPE_ARRAY:
         children.clear()
         self.load_from_manifest(FrameworkSchema.get_default_value(schema), true)
+
+
+func get_default_value():
+    return FrameworkSchema.get_default_value(schema)
