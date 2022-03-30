@@ -10,6 +10,7 @@ var editor: EditorInterface
 
 var main_screen
 
+var _sc_auto_load
 
 
 func _set_up() -> void:
@@ -29,7 +30,7 @@ func make_visible(visible: bool) -> void:
 
 
 func save_manifest() -> void:
-    Sc.manifest_controller.save_manifest()
+    _sc_auto_load.manifest_controller.save_manifest()
     
 
 func scale_dimension(value):

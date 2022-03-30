@@ -27,7 +27,7 @@ func _ready() -> void:
         return
     contents = children[0]
     
-    var carets := Sc.utils.get_children_by_type(
+    var carets: Array = Sc.utils.get_children_by_type(
             self,
             PluginAccordionHeaderCaret,
             true)
