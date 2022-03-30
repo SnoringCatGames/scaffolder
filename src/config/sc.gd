@@ -112,13 +112,25 @@ func _run(timer: Timer) -> void:
 
 func _apply_schema_overrides() -> void:
     for global in Sc._framework_globals:
-        for overridden_schema_script in global.schema.overrides:
+        for overridden_schema_script in global.schema.subtractive_overrides:
             var overridden_schema: FrameworkSchema = \
                     Singletons.instance(overridden_schema_script)
             var original_schema_properties: Dictionary = \
                     overridden_schema.properties
             var overriding_properties: Dictionary = \
-                    global.schema.overrides[overridden_schema_script]
+                    global.schema.subtractive_overrides[
+                        overridden_schema_script]
+            Sc.utils.subtract_nested_arrays(
+                    original_schema_properties,
+                    overriding_properties,
+                    true)
+        for overridden_schema_script in global.schema.additive_overrides:
+            var overridden_schema: FrameworkSchema = \
+                    Singletons.instance(overridden_schema_script)
+            var original_schema_properties: Dictionary = \
+                    overridden_schema.properties
+            var overriding_properties: Dictionary = \
+                    global.schema.additive_overrides[overridden_schema_script]
             Sc.utils.merge(
                     original_schema_properties,
                     overriding_properties,

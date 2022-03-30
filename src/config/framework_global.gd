@@ -103,56 +103,99 @@ func _load_state() -> void:
     pass
 
 
-func _override_manifest(overrides: Array) -> void:
+func _override_manifest(
+        additive_overrides: Array,
+        subtractive_overrides := []) -> void:
     var globals := {}
     for global in Sc._framework_globals:
         globals[global.schema.auto_load_name] = global
     
-    for entry in overrides:
-        var property_path: String = entry[0]
-        var property_value = entry[1]
-        var override_source: String = \
-                entry[2] if \
-                entry.size() > 2 else \
-                ""
+    for entry in subtractive_overrides:
+        var result := parse_override_entry(entry, globals)
         
-        assert(property_path.find("[") < 0,
-                "Array-element overrides are not currently supported.")
-        var tokens: PoolStringArray = property_path.split(".")
-        assert(tokens.size() > 2)
+        assert(result.was_key_in_manifest and \
+                result.was_key_in_manifest_node_tree)
         
-        assert(override_source == "" or \
-                Sc.modes.options.has(override_source),
-                "Override sources currently must correspond to a registered " +
-                "mode")
+        var manifest_index: int = \
+                result.manifest[result.token].find(result.property_value)
+        assert(manifest_index >= 0)
+        result.manifest[result.token].remove(manifest_index)
         
-        var token: String = tokens[0]
-        assert(globals.has(token))
-        var global: FrameworkGlobal = globals[token]
+        var node: FrameworkManifestEditorNode = \
+                result.node.children[result.token]
+        assert(node.type == TYPE_ARRAY)
+        var found_match := false
+        for i in node.children.size():
+            if node.children[i].value == result.property_value:
+                found_match = true
+                node.remove_array_element(i)
+                break
+        assert(found_match)
+        node.override_value = {subtract = result.property_value}
+        node.override_source = result.override_source
+        node.is_overridden = true
+    
+    for entry in additive_overrides:
+        var result := parse_override_entry(entry, globals)
+        result.manifest[result.token] = result.property_value
         
-        token = tokens[1]
-        assert(token == "manifest")
-        var dictionary: Dictionary = global.manifest
-        
-        var node := global.editor_node
-        
-        for i in range(2, tokens.size() - 1):
-            token = tokens[i]
-            dictionary = dictionary[token]
-            node = node.children[token]
-        
-        token = tokens[tokens.size() - 1]
-        
-        var was_key_in_manifest_dictionary := dictionary.has(token)
-        var was_key_in_manifest_node_tree: bool = node.children.has(token)
-        
-        dictionary[token] = property_value
-        
-        if was_key_in_manifest_node_tree:
-            node = node.children[token]
-            node.override_value = property_value
-            node.override_source = override_source
-            node.is_overridden = true
+        if result.was_key_in_manifest_node_tree:
+            result.node = result.node.children[result.token]
+            result.node.override_value = result.property_value
+            result.node.override_source = result.override_source
+            result.node.is_overridden = true
+
+
+func parse_override_entry(
+        entry: Array,
+        globals: Dictionary) -> Dictionary:
+    var property_path: String = entry[0]
+    var property_value = entry[1]
+    var override_source: String = \
+            entry[2] if \
+            entry.size() > 2 else \
+            ""
+    
+    assert(property_path.find("[") < 0,
+            "Array-element overrides are not currently supported.")
+    var tokens: PoolStringArray = property_path.split(".")
+    assert(tokens.size() > 2)
+    
+    assert(override_source == "" or \
+            Sc.modes.options.has(override_source),
+            "Override sources currently must correspond to a registered " +
+            "mode")
+    
+    var token: String = tokens[0]
+    assert(globals.has(token))
+    var global: FrameworkGlobal = globals[token]
+    
+    token = tokens[1]
+    assert(token == "manifest")
+    var manifest: Dictionary = global.manifest
+    
+    var node := global.editor_node
+    
+    for i in range(2, tokens.size() - 1):
+        token = tokens[i]
+        manifest = manifest[token]
+        node = node.children[token]
+    
+    token = tokens[tokens.size() - 1]
+    
+    var was_key_in_manifest := manifest.has(token)
+    var was_key_in_manifest_node_tree: bool = node.children.has(token)
+    
+    return {
+        token = token,
+        manifest = manifest,
+        node = node,
+        property_path = property_path,
+        property_value = property_value,
+        override_source = override_source,
+        was_key_in_manifest = was_key_in_manifest,
+        was_key_in_manifest_node_tree = was_key_in_manifest_node_tree,
+    }
 
 
 func set_editor_node(editor_node: FrameworkManifestEditorNode) -> void:

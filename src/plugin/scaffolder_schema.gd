@@ -1129,8 +1129,14 @@ var _properties := {
     annotators_class = ScaffolderAnnotators,
 }
 
-var _overrides := {}
+var _additive_overrides := {}
+
+var _subtractive_overrides := {}
 
 
-func _init().(_METADATA_SCRIPT, _properties, _overrides) -> void:
+func _init().(
+        _METADATA_SCRIPT,
+        _properties,
+        _additive_overrides,
+        _subtractive_overrides) -> void:
     pass

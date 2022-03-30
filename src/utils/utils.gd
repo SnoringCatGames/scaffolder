@@ -176,6 +176,45 @@ static func merge(
                     result[key] = other[key]
 
 
+static func subtract_nested_arrays(
+        result: Dictionary,
+        other: Dictionary,
+        expects_no_missing_matches := false) -> void:
+    for key in other:
+        if result.has(key):
+            if result[key] is Dictionary and other[key] is Dictionary:
+                subtract_nested_arrays(
+                        result[key], other[key], expects_no_missing_matches)
+            elif result[key] is Array and other[key] is Array:
+                subtract_arrays(
+                        result[key], other[key], expects_no_missing_matches)
+            elif expects_no_missing_matches:
+                Sc.logger.error(
+                        ("Utils.subtract_nested_arrays: Missing match: " +
+                        "key=%s, result=%s, other=%s") % \
+                        [key, result, other])
+        elif expects_no_missing_matches:
+            Sc.logger.error(
+                    ("Utils.subtract_nested_arrays: Missing match: " +
+                    "key=%s, result=%s, other=%s") % \
+                    [key, result, other])
+
+
+static func subtract_arrays(
+        result: Array,
+        other: Array,
+        expects_no_missing_matches := false) -> void:
+    for key in other:
+        var result_index := result.find(key)
+        if result_index >= 0:
+            result.remove(result_index)
+        else:
+            Sc.logger.error(
+                    ("Utils.subtract_arrays: Missing match: " +
+                    "key=%s, result=%s, other=%s") % \
+                    [key, result, other])
+
+
 static func join(
         array,
         delimiter := ",") -> String:
