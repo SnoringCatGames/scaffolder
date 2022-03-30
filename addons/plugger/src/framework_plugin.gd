@@ -5,20 +5,23 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: --------------
 # 
-# - Scan through Su and Sc properties, and move stuff to schema files.
-#   - Also, scan through their submodules.
+# - Update schema defaults to not include squirrel-away-specific state.
+#   - And update squirrel-away metadata and GDScript overrides to include it!
 # 
-# - Port all legacy framework manifests to new pattern.
+# - Scan manifests to make sure I have support for all types I've previously
+#   used.
 # 
 # - Search for FIXME in plugger, surface_tiler, and also all other places.
-# 
-# - Update schema defaults to not include squirrel-away-specific state.
 # 
 # - Search in each repo to make sure there are no references to other addons/
 #   directories that there shouldn't be.
 # 
-# - Scan manifests to make sure I have support for all types I've previously
-#   used.
+# - Add a new release_mode: recording
+#   - Disable HUDs and inspector.
+#   - Disable debug panel.
+#   - Disable music.
+#   - Enable SFX.
+#   - Set fullscreen.
 # 
 # ----- DEFER THE FOLLOWING UNTIL POST-JAM -----
 # 
