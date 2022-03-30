@@ -12,7 +12,7 @@ extends FrameworkGlobal
 
 signal splashed
 
-const _SCHEMA_PATH := "res://addons/scaffolder/src/plugin/scaffolder_schema.gd"
+const _SCHEMA_PATH := "res://addons/scaffolder/src/config/scaffolder_schema.gd"
 const _DEFAULT_MANIFEST_PATH := "res://manifest.json"
 
 const _LOGS_EARLY_BOOTSTRAP_EVENTS := false
