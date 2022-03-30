@@ -7,7 +7,7 @@ const DISPLAY_NAME := "Scaffolder"
 const FOLDER_NAME := "scaffolder"
 const AUTO_LOAD_NAME := "Sc"
 const AUTO_LOAD_DEPS := []
-const AUTO_LOAD_PATH := "res://addons/scaffolder/src/config/sc.gd"
+const AUTO_LOAD_PATH := "res://addons/scaffolder/src/global/sc.gd"
 const PLUGIN_ICON_PATH_PREFIX := \
         "res://addons/scaffolder/assets/images/editor_icons/plugin/scaffolder"
 const SCHEMA_PATH := "res://addons/scaffolder/src/config/scaffolder_schema.gd"
@@ -15,7 +15,7 @@ const MANIFEST_PATH_OVERRIDE := ""
 
 const PLUGIN_OPEN_ROWS_PATH := \
         "res://addons/scaffolder/src/config/plugin_open_rows.json"
-const MODES_PATH := "res://addons/scaffolder/src/config/manifest_modes.json"
+const MODES_PATH := "res://addons/scaffolder/src/global/manifest_modes.json"
 const METRIC_KEYS := []
 var MODES := {
     release = {
