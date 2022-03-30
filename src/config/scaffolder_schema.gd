@@ -866,18 +866,24 @@ var _hud_manifest := {
     is_hud_visible_by_default = true,
 }
 
+const WELCOME_PANEL_ITEM_MOVE := ["Walk/Climb", "arrow key / wasd"]
+const WELCOME_PANEL_ITEM_JUMP := ["Jump", "space / x"]
+const WELCOME_PANEL_ITEM_GRAB := ["Grab surface", "c / arrow key"]
+const WELCOME_PANEL_ITEM_DASH := ["Dash", "z"]
+const WELCOME_PANEL_ITEM_ZOOM := ["Zoom in/out", "ctrl + =/-"]
+const WELCOME_PANEL_ITEM_PAN := ["Pan", "ctrl + arrow key"]
+
 var _welcome_panel_manifest := {
 #    header = Sc.metadata.app_name,
 #    subheader = "(Click window to give focus)",
 #    is_header_shown = true,
     items = [
-        ["Walk/Climb", "arrow key / wasd"],
-        ["Jump", "space / x"],
-#        ["Grab surface", "c / arrow key"],
-#        ["Dash", "z"],
-#        ["Zoom in/out", "ctrl + =/-"],
-#        ["Pan", "ctrl + arrow key"],
-#        ["Inspect graph", "ctrl + click (x2)"],
+        WELCOME_PANEL_ITEM_MOVE,
+        WELCOME_PANEL_ITEM_JUMP,
+#        WELCOME_PANEL_ITEM_GRAB,
+#        WELCOME_PANEL_ITEM_DASH,
+#        WELCOME_PANEL_ITEM_ZOOM,
+#        WELCOME_PANEL_ITEM_PAN,
     ],
 }
 
