@@ -47,7 +47,8 @@ func set_up(
     $MarginContainer/HBoxContainer.add_constant_override("separation", 0)
     $MarginContainer/HBoxContainer/Spacer.rect_min_size.x = padding
     
-    $MarginContainer/HBoxContainer/HBoxContainer/Label.rect_min_size.y = row_height
+    $MarginContainer/HBoxContainer/HBoxContainer/Label \
+            .rect_min_size.y = row_height
     
     $MarginContainer/HBoxContainer/OverrideIndicator.rect_min_size.x = \
             Pl.scale_dimension(_OVERRIDE_INDICATOR_WIDTH)
@@ -154,7 +155,10 @@ func _create_value_editor() -> Control:
         TYPE_REAL:
             return _create_float_editor()
         TYPE_STRING:
-            return _create_string_editor()
+            if node.get_default_value().find("\n") < 0:
+                return _create_single_line_string_editor()
+            else:
+                return _create_multi_line_string_editor()
         TYPE_COLOR:
             return _create_color_editor()
         TYPE_VECTOR2:
@@ -233,9 +237,18 @@ func _create_float_editor() -> SpinBox:
     return control
 
 
-func _create_string_editor() -> LineEdit:
+func _create_single_line_string_editor() -> LineEdit:
     var control := LineEdit.new()
     control.connect("text_changed", self, "_on_string_changed", [control])
+    return control
+
+
+func _create_multi_line_string_editor() -> TextEdit:
+    var control := TextEdit.new()
+    control.rect_min_size.y = \
+            $MarginContainer/HBoxContainer/HBoxContainer/Label \
+                .rect_min_size.y * 5.0
+    control.connect("text_changed", self, "_on_string_changed", ["", control])
     return control
 
 
@@ -292,9 +305,10 @@ func _on_value_changed(new_value) -> void:
 
 
 func _on_string_changed(
-        new_value: String,
-        control: LineEdit) -> void:
+        __ := "",
+        control = null) -> void:
     var old_value: String = node.value
+    var new_value = control.text
     if old_value != new_value:
         node.value = new_value
         control.hint_tooltip = control.text
