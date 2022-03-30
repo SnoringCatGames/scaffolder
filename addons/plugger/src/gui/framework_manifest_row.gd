@@ -169,6 +169,7 @@ func _create_value_editor() -> Control:
             return _create_vector3_editor()
         FrameworkSchema.TYPE_COLOR_CONFIG:
             return _create_color_config_editor()
+        FrameworkSchema.TYPE_PACKED_SCENE, \
         FrameworkSchema.TYPE_SCRIPT, \
         FrameworkSchema.TYPE_TILESET, \
         FrameworkSchema.TYPE_FONT, \
@@ -180,7 +181,7 @@ func _create_value_editor() -> Control:
             return Control.new()
         _:
             Sc.logger.error(
-                    "FrameworkManifestPanel._create_property_control_from_value")
+                    "FrameworkManifestRow._create_property_control_from_value")
             return null
 
 
@@ -202,6 +203,7 @@ func _update_control_value() -> void:
             value_editor.value = node.value
         FrameworkSchema.TYPE_COLOR_CONFIG:
             value_editor.color_config = node.value
+        FrameworkSchema.TYPE_PACKED_SCENE, \
         FrameworkSchema.TYPE_SCRIPT, \
         FrameworkSchema.TYPE_TILESET, \
         FrameworkSchema.TYPE_FONT, \
@@ -212,7 +214,7 @@ func _update_control_value() -> void:
             # Do nothing.
             pass
         _:
-            Sc.logger.error("FrameworkManifestPanel._update_control_value")
+            Sc.logger.error("FrameworkManifestRow._update_control_value")
 
 
 func _create_bool_editor() -> CheckBox:
