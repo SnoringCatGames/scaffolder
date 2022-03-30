@@ -226,7 +226,7 @@ func _set_initialized() -> void:
 
 
 func _on_manifest_changed() -> void:
-    # FIXME: LEFT OFF HERE: --------------------------------
+    # FIXME: --------
     # - Reset this, and all dependent, frameworks.
     # - Save all dependent frameworks during the sorting / circular-deps check.
     pass

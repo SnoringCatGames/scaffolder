@@ -8,11 +8,6 @@ extends EditorPlugin
 # - Update schema defaults to not include squirrel-away-specific state.
 #   - And update squirrel-away metadata and GDScript overrides to include it!
 # 
-# - Scan manifests to make sure I have support for all types I've previously
-#   used.
-# 
-# - Search for FIXME in plugger, surface_tiler, and also all other places.
-# 
 # - Search in each repo to make sure there are no references to other addons/
 #   directories that there shouldn't be.
 # 
@@ -22,6 +17,8 @@ extends EditorPlugin
 #   - Disable music.
 #   - Enable SFX.
 #   - Set fullscreen.
+# 
+# - Search for FIXME in surface_tiler.
 # 
 # ----- DEFER THE FOLLOWING UNTIL POST-JAM -----
 # 
