@@ -61,6 +61,10 @@ func _ready() -> void:
     _populate_popup_items()
     _populate_palette_options()
     _update_controls()
+    var style := StyleBoxFlat.new()
+    style.bg_color = MultiNumberEditor._CONTROL_BACKGROUND_COLOR
+    $PluginAccordionHeader/MarginContainer/HBoxContainer/PanelContainer \
+            .add_stylebox_override("panel", style)
     _is_updating = false
 
 

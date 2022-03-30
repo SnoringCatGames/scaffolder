@@ -5,6 +5,8 @@ extends VBoxContainer
 
 signal property_changed
 
+const _CONTROL_BACKGROUND_COLOR := Color("52000000")
+
 var keys: Array
 var rounded := false
 var step := 0.0
@@ -29,13 +31,19 @@ func set_up() -> void:
         hbox.add_constant_override("separation", padding_x)
         self.add_child(hbox)
         
+        var panel_container := PanelContainer.new()
+        var style := StyleBoxFlat.new()
+        style.bg_color = _CONTROL_BACKGROUND_COLOR
+        panel_container.add_stylebox_override("panel", style)
+        hbox.add_child(panel_container)
+        
         var label := Label.new()
         label.text = key
         label.hint_tooltip = key
         label.mouse_filter = Control.MOUSE_FILTER_PASS
         label.rect_min_size.x = label_width
         label.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-        hbox.add_child(label)
+        panel_container.add_child(label)
         
         var control := SpinBox.new()
         control.rounded = rounded
