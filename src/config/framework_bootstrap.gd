@@ -72,6 +72,9 @@ func _initialize_framework() -> void:
         global._instantiate_sub_modules()
     
     for global in Sc._framework_globals:
+        Sc.profiler.preregister_metric_keys(global.schema.metric_keys)
+    
+    for global in Sc._framework_globals:
         global._configure_sub_modules()
     
     Sc.nav.connect("app_quit", self, "_on_app_quit")
