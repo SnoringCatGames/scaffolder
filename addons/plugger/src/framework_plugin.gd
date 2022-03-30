@@ -5,8 +5,8 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: -------------
 # 
-# - Add support for multi-line text-edit fields in manifest UI.
-#   - Use this for anything that contains a newline in the default value.
+# - Add support for removing properties with overrides too.
+#   - A separate removals object maybe?
 # 
 # - Port all legacy framework manifests to new pattern.
 # 
