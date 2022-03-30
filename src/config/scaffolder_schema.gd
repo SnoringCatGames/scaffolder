@@ -829,24 +829,28 @@ var _settings_item_manifest := {
 var _pause_item_manifest := [
     LevelControlRow,
     TimeControlRow,
-    FastestTimeControlRow,
+#     FastestTimeControlRow,
+#     ScoreControlRow,
+#     HighScoreControlRow,
 ]
 
 var _game_over_item_manifest := [
     LevelControlRow,
     TimeControlRow,
-    FastestTimeControlRow,
+#     FastestTimeControlRow,
+#     ScoreControlRow,
+#     HighScoreControlRow,
 ]
 
 var _level_select_item_manifest := [
     TotalPlaysControlRow,
     FastestTimeControlRow,
+#     HighScoreControlRow,
 ]
 
 var _hud_manifest := {
     hud_class = ScaffolderHud,
-    hud_key_value_box_size = \
-            ScaffolderGuiConfig.HUD_KEY_VALUE_BOX_DEFAULT_SIZE,
+    hud_key_value_box_size = Vector2(256.0, 48.0),
     hud_key_value_box_scene = \
             preload("res://addons/scaffolder/src/gui/hud/hud_key_value_box.tscn"),
     hud_key_value_list_scene = \
@@ -863,6 +867,9 @@ var _hud_manifest := {
 }
 
 var _welcome_panel_manifest := {
+#    header = Sc.metadata.app_name,
+#    subheader = "(Click window to give focus)",
+#    is_header_shown = true,
     items = [
         ["Walk/Climb", "arrow key / wasd"],
         ["Jump", "space / x"],

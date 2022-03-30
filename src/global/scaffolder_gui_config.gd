@@ -43,8 +43,6 @@ const DEFAULT_HUD_KEY_VALUE_LIST_PATH := \
 
 const MIN_GUI_SCALE := 0.2
 
-const HUD_KEY_VALUE_BOX_DEFAULT_SIZE := Vector2(256.0, 48.0)
-
 # Useful for getting screenshots at specific resolutions.
 const SCREEN_RESOLUTIONS := {
     # Should match Project Settings > Display > Window > Size > Width/Height
@@ -57,91 +55,6 @@ const SCREEN_RESOLUTIONS := {
     google_ads_landscape = Vector2(1024, 768),
     google_ads_portrait = Vector2(768, 1024),
 }
-
-var DEFAULT_WELCOME_PANEL_MANIFEST := {
-#    header = Sc.metadata.app_name,
-#    subheader = "(Click window to give focus)",
-#    is_header_shown = true,
-    items = [
-        ["*Auto nav*", "click"],
-        ["Inspect graph", "ctrl + click (x2)"],
-        ["Walk/Climb", "arrow key / wasd"],
-        ["Jump", "space / x"],
-        ["Dash", "z"],
-        ["Zoom in/out", "ctrl + =/-"],
-        ["Pan", "ctrl + arrow key"],
-    ],
-}
-
-var DEFAULT_HUD_MANIFEST := {
-    hud_class = ScaffolderHud,
-    hud_key_value_box_size = HUD_KEY_VALUE_BOX_DEFAULT_SIZE,
-    hud_key_value_box_scene = \
-            preload(DEFAULT_HUD_KEY_VALUE_BOX_PATH),
-    hud_key_value_list_scene = \
-            preload(DEFAULT_HUD_KEY_VALUE_LIST_PATH),
-    hud_key_value_list_item_manifest = [
-        {
-            item_class = TimeControlRow,
-            settings_enablement_label = "ScaffolderTime",
-            enabled_by_default = true,
-            settings_group_key = "hud",
-        },
-    ],
-}
-
-var DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST := {
-    groups = {
-        main = {
-            label = "",
-            is_collapsible = false,
-            item_classes = [
-                MusicControlRow,
-                SoundEffectsControlRow,
-                HapticFeedbackControlRow,
-            ],
-        },
-        hud = {
-            label = "HUD",
-            is_collapsible = true,
-            item_classes = [
-            ],
-        },
-        miscellaneous = {
-            label = "Miscellaneous",
-            is_collapsible = true,
-            item_classes = [
-                ButtonControlsControlRow,
-                WelcomePanelControlRow,
-                CameraZoomControlRow,
-                TimeScaleControlRow,
-                MetronomeControlRow,
-            ],
-        },
-    },
-}
-
-var DEFAULT_SCAFFOLDER_PAUSE_ITEM_MANIFEST := [
-    LevelControlRow,
-    TimeControlRow,
-    FastestTimeControlRow,
-    ScoreControlRow,
-    HighScoreControlRow,
-]
-
-var DEFAULT_SCAFFOLDER_GAME_OVER_ITEM_MANIFEST := [
-    LevelControlRow,
-    TimeControlRow,
-    FastestTimeControlRow,
-    ScoreControlRow,
-    HighScoreControlRow,
-]
-
-var DEFAULT_SCAFFOLDER_LEVEL_SELECT_ITEM_MANIFEST := [
-    TotalPlaysControlRow,
-    FastestTimeControlRow,
-    HighScoreControlRow,
-]
 
 # --- Static configuration state ---
 
@@ -247,36 +160,6 @@ func _init() -> void:
 
 
 func _amend_manifest(manifest: Dictionary) -> void:
-    if !manifest.has("settings_item_manifest"):
-        manifest.settings_item_manifest = \
-                DEFAULT_SCAFFOLDER_SETTINGS_ITEM_MANIFEST
-    if !manifest.has("pause_item_manifest"):
-        manifest.pause_item_manifest = \
-                DEFAULT_SCAFFOLDER_PAUSE_ITEM_MANIFEST
-    if !manifest.has("game_over_item_manifest"):
-        manifest.game_over_item_manifest = \
-                DEFAULT_SCAFFOLDER_GAME_OVER_ITEM_MANIFEST
-    if !manifest.has("level_select_item_manifest"):
-        manifest.level_select_item_manifest = \
-                DEFAULT_SCAFFOLDER_LEVEL_SELECT_ITEM_MANIFEST
-    if !manifest.has("screen_manifest"):
-        manifest.screen_manifest = {
-            screens = [],
-            overlay_mask_transition_class = OverlayMaskTransition,
-            screen_mask_transition_class = ScreenMaskTransition,
-            default_transition_type = ScreenTransition.FADE,
-            fancy_transition_type = ScreenTransition.SCREEN_MASK,
-            overlay_mask_transition_color = Color("111111"),
-            overlay_mask_transition_uses_pixel_snap = false,
-            overlay_mask_transition_smooth_size = 0.2,
-            screen_mask_transition_uses_pixel_snap = true,
-            screen_mask_transition_smooth_size = 0.0,
-        }
-    if !manifest.has("welcome_panel_manifest"):
-        manifest.welcome_panel_manifest = DEFAULT_WELCOME_PANEL_MANIFEST
-    if !manifest.has("hud_manifest"):
-        manifest.hud_manifest = DEFAULT_HUD_MANIFEST
-    
     # Configure settings-screen enablement items for each HUD key-value-list
     # item.
     for item_config in manifest.hud_manifest.hud_key_value_list_item_manifest:
