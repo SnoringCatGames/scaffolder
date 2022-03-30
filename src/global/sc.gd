@@ -107,7 +107,10 @@ func _run(timer: Timer) -> void:
     timer.queue_free()
     _apply_schema_overrides()
     Sc.run()
-    # FIXME: LEFT OFF HERE: --------------------- Add support for calling Sc.run more than once; clear any preexisting app state.
+    # FIXME: ---------
+    # - Add support for calling Sc.run more than once.
+    #   - This should be needed when resetting frameworks in-editor.
+    # - Clear any preexisting app state.
 
 
 func _apply_schema_overrides() -> void:
@@ -162,11 +165,6 @@ func register_framework_global(config: FrameworkGlobal) -> void:
     _framework_globals.push_back(config)
 
 
-# FIXME: LEFT OFF HERE: --------------------------------------------
-# - After finishing framework-to-plugin conversion, test the automatic
-#   framework+AutoLoad registration.
-# - And test that the sort ordering works here.
-# - And test the circular dependency check.
 func _sort_registered_frameworks() -> void:
     # Create framework nodes.
     var nodes := {}
