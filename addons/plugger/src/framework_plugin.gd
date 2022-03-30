@@ -5,8 +5,6 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: --------------
 # 
-# - Move schema and metadata files to config/.
-# 
 # - Add support for removing properties with overrides too.
 #   - A separate removals object maybe?
 #   - Check if this is really needed _right now_.

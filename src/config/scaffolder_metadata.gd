@@ -16,6 +16,7 @@ const MANIFEST_PATH_OVERRIDE := ""
 const PLUGIN_OPEN_ROWS_PATH := \
         "res://addons/scaffolder/src/config/plugin_open_rows.json"
 const MODES_PATH := "res://addons/scaffolder/src/config/manifest_modes.json"
+const METRIC_KEYS := []
 var MODES := {
     release = {
         options = ["local_dev", "playtest", "production"],
@@ -49,5 +50,6 @@ func _init().(
         PLUGIN_ICON_PATH_PREFIX,
         SCHEMA_PATH,
         MANIFEST_PATH_OVERRIDE,
+        METRIC_KEYS,
         MODES) -> void:
     pass
