@@ -143,9 +143,12 @@ func add_array_element():
     return child
 
 
-func remove_array_element() -> void:
-    children.pop_back()
-    _set_is_changed(true)
+func remove_array_element(i := -1) -> void:
+    if i < 0:
+        children.pop_back()
+    else:
+        children.remove(i)
+    _set_is_changed(true, true, true)
 
 
 func get_manifest_value(includes_default_values: bool):
@@ -196,7 +199,8 @@ func _log_warning(
 
 func _set_value(
         new_value,
-        propagates := true) -> void:
+        propagates := true,
+        forces_emit_changed := false) -> void:
     if value != new_value:
         value = new_value
         emit_signal("changed")
@@ -206,16 +210,21 @@ func _set_value(
             _set_is_changed(
                     value != FrameworkSchema.get_default_value(schema),
                     propagates)
+    elif forces_emit_changed:
+        emit_signal("changed")
 
 
 func _set_is_changed(
         new_is_changed: bool,
-        propagates := true) -> void:
+        propagates := true,
+        forces_emit_changed := false) -> void:
     if is_changed != new_is_changed:
         is_changed = new_is_changed
         emit_signal("changed")
         emit_signal("is_changed_changed", is_changed)
         _propagate_is_changed()
+    elif forces_emit_changed:
+        emit_signal("changed")
 
 
 func _propagate_is_changed() -> void:

@@ -38,13 +38,15 @@ var manifest_path_override: String
 var plugin_icon_path_prefix: String
 var modes: Dictionary
 var properties: Dictionary
-var overrides: Dictionary
+var additive_overrides: Dictionary
+var subtractive_overrides: Dictionary
 
 
 func _init(
         framework_metadata_script: Script,
         properties: Dictionary,
-        overrides: Dictionary) -> void:
+        additive_overrides: Dictionary,
+        subtractive_overrides: Dictionary) -> void:
     var metadata = framework_metadata_script.new()
     assert(metadata is PluginMetadata)
     self.display_name = metadata.display_name
@@ -56,7 +58,8 @@ func _init(
     self.manifest_path_override = metadata.manifest_path_override
     self.modes = metadata.modes
     self.properties = properties
-    self.overrides = overrides
+    self.additive_overrides = additive_overrides
+    self.subtractive_overrides = subtractive_overrides
 
 
 static func get_default_value(schema):
