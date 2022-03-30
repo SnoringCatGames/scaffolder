@@ -5,14 +5,6 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: --------------
 # 
-# - Add support for removing properties with overrides too.
-#   - A separate removals object maybe?
-#   - Check if this is really needed _right now_.
-#     - I could add this later if needed.
-#     - For now, maybe just add some custom negative-override GDScript logic in
-#       _amend_manifest, and also add some likely manifest values to the bootrap
-#       repo.
-# 
 # - Scan through Su and Sc properties, and move stuff to schema files.
 #   - Also, scan through their submodules.
 # 
