@@ -53,7 +53,7 @@ func _init(
         additive_overrides: Dictionary,
         subtractive_overrides: Dictionary) -> void:
     var metadata = framework_metadata_script.new()
-    assert(metadata is PluginMetadata)
+    assert(metadata is FrameworkMetadata)
     self.display_name = metadata.display_name
     self.folder_name = metadata.folder_name
     self.auto_load_name = metadata.auto_load_name
