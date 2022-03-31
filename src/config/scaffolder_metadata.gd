@@ -1,6 +1,6 @@
 tool
 class_name ScaffolderMetadata
-extends PluginMetadata
+extends FrameworkMetadata
 
 
 const DISPLAY_NAME := "Scaffolder"

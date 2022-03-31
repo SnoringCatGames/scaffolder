@@ -5,20 +5,6 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: --------------
 # 
-# - Fix "Recalculate cells" button in tilemap...
-# 
-# - Fix surface_tiler tilemap editorproperty button.
-#   - And stop the tilemap from automatically recalculating when opened.
-# 
-# - Get app running.
-# 
-# - Test the demo_tiles.tres in both Surfacer and SurfaceTiler.
-#   - Remove the other tiles from the SurfaceTiler version.
-# 
-# - Fix edited FIXME comments.
-# 
-# - Rename PluginMetadata to FrameworkMetadata.
-# 
 # - Update schema defaults to not include squirrel-away-specific state.
 #   - And update squirrel-away metadata and GDScript overrides to include it!
 # 
@@ -33,8 +19,6 @@ extends EditorPlugin
 #   - Set fullscreen.
 # 
 # - Search for FIXME in surface_tiler.
-# 
-# ----- DEFER THE FOLLOWING UNTIL POST-JAM -----
 # 
 # - Add support for coloring rows that aren't strictly overridden.
 #   - For highlighting without assigning values overrides, just include a fourth
@@ -98,7 +82,7 @@ const _PLUGGER_AUTO_LOAD_NAME := "Pl"
 const _PLUGGER_AUTO_LOAD_PATH := \
         "res://addons/scaffolder/addons/plugger/src/pl.gd"
 
-var _metadata: PluginMetadata
+var _metadata: FrameworkMetadata
 
 var _auto_load
 var _sc_auto_load

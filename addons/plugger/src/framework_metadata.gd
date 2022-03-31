@@ -1,5 +1,5 @@
 tool
-class_name PluginMetadata
+class_name FrameworkMetadata
 extends Reference
 
 
