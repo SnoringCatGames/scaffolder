@@ -313,7 +313,7 @@ func encode_vector2(value: Vector2) -> String:
 func decode_vector2(value: String) -> Vector2:
     var comma_index := value.find(",")
     return Vector2(
-            float(value.substr(0, comma_index - 1)),
+            float(value.substr(0, comma_index)),
             float(value.substr(comma_index + 1)))
 
 
@@ -329,7 +329,7 @@ func decode_vector3(value: String) -> Vector3:
     var comma_index_1 := value.find(",")
     var comma_index_2 := value.find(",", comma_index_1 + 1)
     return Vector3(
-            float(value.substr(0, comma_index_1 - 1)),
+            float(value.substr(0, comma_index_1)),
             float(value.substr(comma_index_1 + 1,
                     comma_index_2 - comma_index_1 - 1)),
             float(value.substr(comma_index_2 + 1)))
@@ -349,7 +349,7 @@ func decode_rect2(value: String) -> Rect2:
     var comma_index_2 := value.find(",", comma_index_1 + 1)
     var comma_index_3 := value.find(",", comma_index_2 + 1)
     return Rect2(
-            float(value.substr(0, comma_index_1 - 1)),
+            float(value.substr(0, comma_index_1)),
             float(value.substr(comma_index_1 + 1,
                     comma_index_2 - comma_index_1 - 1)),
             float(value.substr(comma_index_2 + 1,
@@ -372,7 +372,7 @@ func decode_color(value: String) -> Color:
     var comma_index_3 := value.find(",", comma_index_2 + 1)
     if comma_index_3 >= 0:
         return Color(
-                float(value.substr(0, comma_index_1 - 1)),
+                float(value.substr(0, comma_index_1)),
                 float(value.substr(comma_index_1 + 1,
                         comma_index_2 - comma_index_1 - 1)),
                 float(value.substr(comma_index_2 + 1,
@@ -380,7 +380,7 @@ func decode_color(value: String) -> Color:
                 float(value.substr(comma_index_3 + 1)))
     else:
         return Color(
-                float(value.substr(0, comma_index_1 - 1)),
+                float(value.substr(0, comma_index_1)),
                 float(value.substr(comma_index_1 + 1,
                         comma_index_2 - comma_index_1 - 1)),
                 float(value.substr(comma_index_2 + 1)))
