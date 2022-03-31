@@ -5,10 +5,6 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: --------------
 # 
-# - Fix Sc._framework_globals ordering.
-# 
-# - Resolve Su.manifest.tileset_manifest and St.manifest.tilesets[0].non_corner_match_tiles.
-# 
 # - Fix "Recalculate cells" button in tilemap...
 # 
 # - Fix surface_tiler tilemap editorproperty button.
