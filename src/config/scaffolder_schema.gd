@@ -1119,8 +1119,11 @@ var _character_manifest := {
     omits_npcs = false,
 }
 
-var _annotation_parameters_manifest := Utils.get_direct_non_color_properties(
-        ScaffolderDefaultAnnotationParameters.new())
+var _annotation_parameters_manifest := Sc.utils.merge(
+        Utils.get_direct_non_color_properties(
+            ScaffolderDefaultAnnotationParameters.new()),
+        Utils.get_direct_non_color_properties(
+            ScaffolderDefaultColors.new()))
 
 var _properties := {
     metadata = _metadata,

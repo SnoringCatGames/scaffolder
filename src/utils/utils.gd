@@ -120,7 +120,7 @@ static func splice(
 static func concat(
         result: Array,
         other: Array,
-        append_to_end := true) -> void:
+        append_to_end := true) -> Array:
     var old_result_size := result.size()
     var other_size := other.size()
     var new_result_size := old_result_size + other_size
@@ -135,6 +135,7 @@ static func concat(
         # Add new values to the front.
         for i in other_size:
             result[i] = other[i]
+    return result
 
 
 static func dedup(array: Array) -> Array:
@@ -153,7 +154,7 @@ static func merge(
         result: Dictionary,
         other: Dictionary,
         overrides_preexisting_properties := true,
-        recursive := false) -> void:
+        recursive := false) -> Dictionary:
     if recursive:
         if overrides_preexisting_properties:
             for key in other:
@@ -186,12 +187,13 @@ static func merge(
             for key in other:
                 if !result.has(key):
                     result[key] = other[key]
+    return result
 
 
 static func subtract_nested_arrays(
         result: Dictionary,
         other: Dictionary,
-        expects_no_missing_matches := false) -> void:
+        expects_no_missing_matches := false) -> Dictionary:
     for key in other:
         if result.has(key):
             if result[key] is Dictionary and other[key] is Dictionary:
@@ -213,12 +215,13 @@ static func subtract_nested_arrays(
                     ("Utils.subtract_nested_arrays: Missing match: " +
                     "\n    key=%s,\n    result=%s,\n    other=%s") % \
                     [key, result, other])
+    return result
 
 
 static func subtract_arrays(
         result: Array,
         other: Array,
-        expects_no_missing_matches := false) -> void:
+        expects_no_missing_matches := false) -> Array:
     for element in other:
         var result_index := result.find(element)
         if result_index >= 0:
@@ -228,6 +231,7 @@ static func subtract_arrays(
                     ("Utils.subtract_arrays: Missing match: " +
                     "\n    element=%s,\n    result=%s,\n    other=%s") % \
                     [element, result, other])
+    return result
 
 
 static func join(
