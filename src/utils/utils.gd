@@ -137,6 +137,18 @@ static func concat(
             result[i] = other[i]
 
 
+static func dedup(array: Array) -> Array:
+    var set := {}
+    for element in array:
+        set[element] = true
+    var set_values := set.values()
+    var deduped_size := set_values.size()
+    array.resize(deduped_size)
+    for i in deduped_size:
+        array[i] = set_values[i]
+    return array
+
+
 static func merge(
         result: Dictionary,
         other: Dictionary,
@@ -190,13 +202,16 @@ static func subtract_nested_arrays(
                         result[key], other[key], expects_no_missing_matches)
             elif expects_no_missing_matches:
                 Sc.logger.error(
-                        ("Utils.subtract_nested_arrays: Missing match: " +
-                        "key=%s, result=%s, other=%s") % \
+                        ("Utils.subtract_nested_arrays: Wrong-type match: " +
+                        "(We currently don't support subtracting properties " +
+                        "from a Dictionary. We only support subtracting " +
+                        "elements from Arrays.)" +
+                        "\n    key=%s,\n    result=%s,\n    other=%s") % \
                         [key, result, other])
         elif expects_no_missing_matches:
             Sc.logger.error(
                     ("Utils.subtract_nested_arrays: Missing match: " +
-                    "key=%s, result=%s, other=%s") % \
+                    "\n    key=%s,\n    result=%s,\n    other=%s") % \
                     [key, result, other])
 
 
