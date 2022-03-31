@@ -136,7 +136,7 @@ func _apply_schema_overrides() -> void:
             var original_schema_properties: Dictionary = \
                     overridden_schema.properties
             var overriding_properties: Dictionary = \
-                    global.schema.subtractive_overrides[
+                    global.schema.subtractive_overrides[ \
                         overridden_schema_script]
             Sc.utils.subtract_nested_arrays(
                     original_schema_properties,
