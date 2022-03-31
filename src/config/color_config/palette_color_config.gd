@@ -44,10 +44,22 @@ var delta_color: Color setget _set_delta_color,_get_delta_color
 
 func sample(_redirect_depth := 0) -> Color:
     var color: Color = Sc.palette.get_color(key, _redirect_depth)
-    color.h = clamp(max(color.h, _h_override) + h_delta, 0.0, 1.0)
-    color.s = clamp(max(color.s, _s_override) + s_delta, 0.0, 1.0)
-    color.v = clamp(max(color.v, _v_override) + v_delta, 0.0, 1.0)
-    color.a = clamp(max(color.a, _a_override) + a_delta, 0.0, 1.0)
+    color.h = clamp(
+        (_h_override if _h_override >= 0 else color.h) + h_delta,
+        0.0,
+        1.0)
+    color.s = clamp(
+        (_s_override if _s_override >= 0 else color.s) + s_delta,
+        0.0,
+        1.0)
+    color.v = clamp(
+        (_v_override if _v_override >= 0 else color.v) + v_delta,
+        0.0,
+        1.0)
+    color.a = clamp(
+        (_a_override if _a_override >= 0 else color.a) + a_delta,
+        0.0,
+        1.0)
     return color
 
 
