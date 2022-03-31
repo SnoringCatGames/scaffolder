@@ -5,15 +5,19 @@ extends EditorPlugin
 
 # FIXME: LEFT OFF HERE: --------------
 # 
-# - Add a warning when the plugin for the framework is disabled?
+# - Fix Sc._framework_globals ordering.
 # 
-# - Search for plugin/** fixme (there are some).
+# - Resolve Su.manifest.tileset_manifest and St.manifest.tilesets[0].non_corner_match_tiles.
+# 
 # - Fix "Recalculate cells" button in tilemap...
 # 
 # - Fix surface_tiler tilemap editorproperty button.
 #   - And stop the tilemap from automatically recalculating when opened.
 # 
 # - Get app running.
+# 
+# - Test the demo_tiles.tres in both Surfacer and SurfaceTiler.
+#   - Remove the other tiles from the SurfaceTiler version.
 # 
 # - Fix edited FIXME comments.
 # 

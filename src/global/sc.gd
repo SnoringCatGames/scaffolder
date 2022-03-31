@@ -107,6 +107,7 @@ func _trigger_debounced_run() -> void:
 func _run(timer: Timer) -> void:
     set_meta("debounced_run_timer", null)
     timer.queue_free()
+    _sort_registered_frameworks()
     _apply_schema_overrides()
     Sc.run()
     # FIXME: ---------
@@ -165,8 +166,6 @@ func run() -> void:
     if !self._bootstrap.is_inside_tree():
         add_child(_bootstrap)
     
-    _sort_registered_frameworks()
-    
     _bootstrap.run()
 
 
@@ -187,23 +186,22 @@ func register_framework_plugin(plugin: FrameworkPlugin) -> void:
 func _sort_registered_frameworks() -> void:
     # Create framework nodes.
     var nodes := {}
-    for framework in _framework_globals:
+    for global in _framework_globals:
         var node := {}
-        node.framework = framework
-        node.name = framework.schema.auto_load_name
+        node.global = global
+        node.name = global.schema.auto_load_name
         node.parents = []
         node.children = []
-        nodes[framework.schema.auto_load_name] = node
+        node.i = -1
+        nodes[global.schema.auto_load_name] = node
     
     # Collect parent dependencies.
-    for framework in _framework_globals:
-        var node: Dictionary = nodes[framework.schema.auto_load_name]
-        for name in framework.schema.auto_load_deps:
+    for node in nodes.values():
+        for name in node.global.schema.auto_load_deps:
             node.parents.push_back(nodes[name])
     
     # Collect children dependencies.
-    for name in nodes:
-        var node: Dictionary = nodes[name]
+    for node in nodes.values():
         for parent in node.parents:
             parent.children.push_back(node)
     
@@ -229,6 +227,7 @@ func _sort_registered_frameworks() -> void:
                 swap_count += 1
         if !swapped:
             i += 1
+            swap_count = 0
         if swap_count > node_array.size():
             Sc.logger.error(
                     "Framework AutoLoads contain circular dependencies: %s" % \
@@ -237,7 +236,7 @@ func _sort_registered_frameworks() -> void:
     
     # Record sorted frameworks.
     for j in node_array.size():
-        _framework_globals[j] = node_array[j].framework
+        _framework_globals[j] = node_array[j].global
 
 
 func _destroy() -> void:

@@ -204,15 +204,15 @@ static func subtract_arrays(
         result: Array,
         other: Array,
         expects_no_missing_matches := false) -> void:
-    for key in other:
-        var result_index := result.find(key)
+    for element in other:
+        var result_index := result.find(element)
         if result_index >= 0:
             result.remove(result_index)
         else:
             Sc.logger.error(
                     ("Utils.subtract_arrays: Missing match: " +
-                    "key=%s, result=%s, other=%s") % \
-                    [key, result, other])
+                    "\n    element=%s,\n    result=%s,\n    other=%s") % \
+                    [element, result, other])
 
 
 static func join(
