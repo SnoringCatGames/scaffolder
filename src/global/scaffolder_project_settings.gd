@@ -9,14 +9,14 @@ const DEFAULT_INPUT_MAP := [
     {
         name = "screenshot",
         events = [
-            {key_scancode = KEY_L},
-            {key_scancode = KEY_P},
+            {physical_scancode = KEY_L},
+            {physical_scancode = KEY_P},
         ],
     },
     {
         name = "toggle_hud",
         events = [
-            {key_scancode = KEY_H},
+            {physical_scancode = KEY_H},
         ],
     },
     {
@@ -29,94 +29,94 @@ const DEFAULT_INPUT_MAP := [
         name = "zoom_in",
         events = [
             {mouse_button_index = BUTTON_WHEEL_UP},
-            {key_scancode = KEY_EQUAL, control = true},
-            {key_scancode = KEY_BRACERIGHT, control = true},
+            {physical_scancode = KEY_EQUAL, control = true},
+            {physical_scancode = KEY_BRACERIGHT, control = true},
         ],
     },
     {
         name = "zoom_out",
         events = [
             {mouse_button_index = BUTTON_WHEEL_DOWN},
-            {key_scancode = KEY_MINUS, control = true},
-            {key_scancode = KEY_BRACELEFT, control = true},
+            {physical_scancode = KEY_MINUS, control = true},
+            {physical_scancode = KEY_BRACELEFT, control = true},
         ],
     },
     {
         name = "pan_up",
         events = [
-        {key_scancode = KEY_UP, control = true},
+        {physical_scancode = KEY_UP, control = true},
         ],
     },
     {
         name = "pan_down",
         events = [
-            {key_scancode = KEY_DOWN, control = true},
+            {physical_scancode = KEY_DOWN, control = true},
         ],
     },
     {
         name = "pan_left",
         events = [
-            {key_scancode = KEY_LEFT, control = true},
+            {physical_scancode = KEY_LEFT, control = true},
         ],
     },
     {
         name = "pan_right",
         events = [
-            {key_scancode = KEY_RIGHT, control = true},
+            {physical_scancode = KEY_RIGHT, control = true},
         ],
     },
     {
         name = "jump",
         events = [
-            {key_scancode = KEY_SPACE},
-            {key_scancode = KEY_Q},
-            {key_scancode = KEY_X},
+            {physical_scancode = KEY_SPACE},
+            {physical_scancode = KEY_Q},
+            {physical_scancode = KEY_X},
         ],
     },
     {
         name = "move_up",
         events = [
-            {key_scancode = KEY_UP},
-            {key_scancode = KEY_W},
-            {key_scancode = KEY_COMMA},
+            {physical_scancode = KEY_UP},
+            {physical_scancode = KEY_W},
+            {physical_scancode = KEY_COMMA},
         ],
     },
     {
         name = "move_down",
         events = [
-            {key_scancode = KEY_DOWN},
-            {key_scancode = KEY_S},
-            {key_scancode = KEY_O},
+            {physical_scancode = KEY_DOWN},
+            {physical_scancode = KEY_S},
+            {physical_scancode = KEY_O},
         ],
     },
     {
         name = "move_left",
         events = [
-            {key_scancode = KEY_LEFT},
-            {key_scancode = KEY_A},
+            {physical_scancode = KEY_LEFT},
+            {physical_scancode = KEY_A},
         ],
     },
     {
         name = "move_right",
         events = [
-            {key_scancode = KEY_RIGHT},
-            {key_scancode = KEY_D},
-            {key_scancode = KEY_E},
+            {physical_scancode = KEY_RIGHT},
+            {physical_scancode = KEY_D},
+            {physical_scancode = KEY_E},
         ],
     },
     {
         name = "dash",
         events = [
-            {key_scancode = KEY_SEMICOLON},
-            {key_scancode = KEY_APOSTROPHE},
-            {key_scancode = KEY_Z},
+            {physical_scancode = KEY_SEMICOLON},
+            {physical_scancode = KEY_APOSTROPHE},
+            {physical_scancode = KEY_Z},
         ],
     },
     {
         name = "grab",
         events = [
-            {key_scancode = KEY_C},
-            {key_scancode = KEY_J},
+            {physical_scancode = KEY_C},
+            {physical_scancode = KEY_J},
         ],
     },
     {
@@ -211,14 +211,20 @@ func _override_input_map(input_map_overrides: Array) -> void:
             InputMap.add_action(action_name)
         for event_config in input_map_map[action_name]:
             var event: InputEventWithModifiers
-            if event_config.has("mouse_button_index"):
+            if event_config.has("mouse_button_index") and \
+                    event_config.mouse_button_index >= 0:
                 event = InputEventMouseButton.new()
                 event.button_index = event_config.mouse_button_index
-            elif event_config.has("key_scancode"):
+            elif event_config.has("physical_scancode") and \
+                    event_config.physical_scancode >= 0:
                 event = InputEventKey.new()
-                event.scancode = event_config.key_scancode
+                event.physical_scancode = event_config.physical_scancode
             else:
-                Sc.logger.error("ScaffolderProjectSettings._override_input_map")
+                # FIXME: ----------
+                # - Think of a better way of distinguishing between an error
+                #   config and the default type-suggestion config that's added
+                #   automatically in _get_input_map_schema.
+#                Sc.logger.error("ScaffolderProjectSettings._override_input_map")
                 continue
             
             if event_config.has("control"):
@@ -229,16 +235,16 @@ func _override_input_map(input_map_overrides: Array) -> void:
     
     for action in DEFAULT_MOVEMENT_ACTIONS:
         for config in input_map_map[action]:
-            if !config.has("key_scancode"):
+            if !config.has("physical_scancode"):
                 continue
-            movement_action_key_set[config.key_scancode] = true
+            movement_action_key_set[config.physical_scancode] = true
 
 
 static func _get_input_map_schema() -> Array:
     var schema := DEFAULT_INPUT_MAP.duplicate(true)
     var event_default_key_values := [
-        ["key_scancode", 0],
-        ["mouse_button_index", 0],
+        ["physical_scancode", -1],
+        ["mouse_button_index", -1],
         ["control", false],
     ]
     for entry in schema:
