@@ -28,31 +28,28 @@ var _metadata := {
     overrides_project_settings = true,
     overrides_input_map = true,
     are_button_controls_enabled_by_default = false,
-    base_path = "addons/squirrel_away/",
+    base_path = "",
     
-    app_name = "Squirrel Away",
-    app_id = "games.snoringcat.squirrel_away",
-    app_version = "0.0.3",
+    app_name = "Scaffolder",
+    app_id = "games.snoringcat.scaffolder",
+    app_version = "0.0.1",
     score_version = "0.0.1",
     data_agreement_version = "0.0.1",
     
     # Must start with "UA-".
-    google_analytics_id = "UA-186405125-2",
-    privacy_policy_url = \
-            "https://snoringcat.games/squirrel-away/privacy-policy",
-    terms_and_conditions_url = \
-            "https://snoringcat.games/squirrel-away/terms-and-conditions",
+    google_analytics_id = "",
+    privacy_policy_url = "",
+    terms_and_conditions_url = "",
     android_app_store_url = "",
     ios_app_store_url = "",
-    support_url = "https://snoringcat.games/support",
+    support_url = "",
     log_gestures_url = "",
-    error_logs_url = \
-            "https://storage.googleapis.com/upload/storage/v1/b/squirrel-away-logs/o",
-    app_id_query_param = "squirrel-away",
+    error_logs_url = "",
+    app_id_query_param = "",
     
     developer_name = "Snoring Cat LLC",
     developer_url = "https://snoringcat.games",
-    github_url = "https://github.com/SnoringCatGames/squirrel_away",
+    github_url = "https://github.com/SnoringCatGames/scaffolder",
     
     godot_splash_screen_duration = 0.8,
     developer_splash_screen_duration = 1.0,
@@ -109,42 +106,6 @@ var _sounds_manifest := [
         volume_db = 17.0,
         path_prefix = "res://addons/scaffolder/assets/sounds/",
     },
-    
-    {
-        name = "cat_jump",
-        volume_db = 0.0,
-        path_prefix = "",
-    },
-    {
-        name = "cat_land",
-        volume_db = 0.0,
-        path_prefix = "",
-    },
-    {
-        name = "cat_hit_surface",
-        volume_db = 0.0,
-        path_prefix = "",
-    },
-    {
-        name = "contact",
-        volume_db = 0.0,
-        path_prefix = "",
-    },
-    {
-        name = "squirrel_jump",
-        volume_db = 0.0,
-        path_prefix = "",
-    },
-    {
-        name = "squirrel_land",
-        volume_db = 0.0,
-        path_prefix = "",
-    },
-    {
-        name = "squirrel_yell",
-        volume_db = 0.0,
-        path_prefix = "",
-    },
 ]
 
 var _music_manifest := [
@@ -166,7 +127,7 @@ var _music_manifest := [
 
 var _audio_manifest := {
     sounds_manifest = _sounds_manifest,
-    default_sounds_path_prefix = "res://addons/squirrel_away/assets/sounds/",
+    default_sounds_path_prefix = "res://addons/scaffolder/assets/sounds/",
     default_sounds_file_suffix = ".wav",
     default_sounds_bus_index = 1,
     
@@ -959,18 +920,19 @@ var _gui_manifest := {
     game_over_image_scale = 0.5,
     loading_image_scale = 0.5,
     
-    main_menu_image_scene = \
-            preload("res://addons/squirrel_away/src/gui/squirrel_away_loading_image.tscn"),
-    game_over_image_scene = \
-            preload("res://addons/squirrel_away/src/gui/squirrel_away_loading_image.tscn"),
-    loading_image_scene = \
-            preload("res://addons/squirrel_away/src/gui/squirrel_away_loading_image.tscn"),
-    welcome_panel_scene = \
-            preload("res://addons/scaffolder/src/gui/welcome_panel.tscn"),
-    debug_panel_scene = \
-            preload("res://addons/scaffolder/src/gui/debug_panel.tscn"),
+    main_menu_image_scene = preload(
+        "res://addons/scaffolder/src/gui/placeholder_loading_image.tscn"),
+    game_over_image_scene = preload(
+        "res://addons/scaffolder/src/gui/placeholder_loading_image.tscn"),
+    loading_image_scene = preload(
+        "res://addons/scaffolder/src/gui/placeholder_loading_image.tscn"),
+    welcome_panel_scene = preload(
+        "res://addons/scaffolder/src/gui/welcome_panel.tscn"),
+    debug_panel_scene = preload(
+        "res://addons/scaffolder/src/gui/debug_panel.tscn"),
     
-    theme = preload("res://addons/scaffolder/src/config/scaffolder_default_theme.tres"),
+    theme = preload(
+        "res://addons/scaffolder/src/config/scaffolder_default_theme.tres"),
     
     fonts_manifest_anti_aliased = _fonts_manifest_anti_aliased,
     fonts_manifest_pixelated = _fonts_manifest_pixelated,
@@ -1017,103 +979,99 @@ var _slow_motion_manifest := {
 var _input_map := ScaffolderProjectSettings._get_input_map_schema()
 
 var _character_scenes := [
-    preload("res://addons/squirrel_away/src/characters/cat/cat.tscn"),
+    # FIXME: ----------- Remove this.
     preload("res://addons/squirrel_away/src/characters/squirrel/squirrel.tscn"),
 ]
 
-
-func _get_squirrel_collider_shape() -> Shape2D:
-    var shape := CapsuleShape2D.new()
-    shape.radius = 17.0
-    shape.height = 9.0
-    return shape
-
+# FIXME: ----------- Remove this.
+const _SQUIRREL_CATEGORY := {
+    name = "category_name",
+    characters = [
+        # FIXME: ----------- Remove this.
+        "squirrel",
+    ],
+    # For a complete list of properties, see MovementParameters.
+    movement_params = {
+        collider_shape = [TYPE_RESOURCE, null],
+        collider_rotation = PI / 2.0,
+        
+        can_grab_walls = true,
+        can_grab_ceilings = true,
+        can_jump = true,
+        can_dash = false,
+        can_double_jump = false,
+        
+        surface_speed_multiplier = 1.0,
+        air_horizontal_speed_multiplier = 1.0,
+        gravity_multiplier = 1.0,
+        gravity_slow_rise_multiplier_multiplier = 1.0,
+        gravity_double_jump_slow_rise_multiplier_multiplier = 1.0,
+        walk_acceleration_multiplier = 1.4,
+        in_air_horizontal_acceleration_multiplier = 1.4,
+        climb_up_speed_multiplier = 1.5,
+        climb_down_speed_multiplier = 1.5,
+        ceiling_crawl_speed_multiplier = 1.5,
+        friction_coefficient_multiplier = 1.0,
+        jump_boost_multiplier = 1.2,
+        wall_jump_horizontal_boost_multiplier = 1.0,
+        wall_fall_horizontal_boost_multiplier = 1.0,
+        max_horizontal_speed_default_multiplier = 1.4,
+        max_vertical_speed_multiplier = 1.0,
+        
+        uses_duration_instead_of_distance_for_edge_weight = true,
+        additional_edge_weight_offset_override = -1.0,
+        walking_edge_weight_multiplier_override = -1.0,
+        ceiling_crawling_edge_weight_multiplier_override = -1.0,
+        climbing_edge_weight_multiplier_override = -1.0,
+        climb_to_adjacent_surface_edge_weight_multiplier_override = -1.0,
+        move_to_collinear_surface_edge_weight_multiplier_override = -1.0,
+        air_edge_weight_multiplier_override = -1.0,
+        
+        minimizes_velocity_change_when_jumping = false,
+        optimizes_edge_jump_positions_at_run_time = true,
+        optimizes_edge_land_positions_at_run_time = true,
+        also_optimizes_preselection_path = true,
+        forces_character_position_to_match_edge_at_start = true,
+        forces_character_velocity_to_match_edge_at_start = true,
+        forces_character_position_to_match_path_at_end = false,
+        forces_character_velocity_to_zero_at_path_end = false,
+        syncs_character_position_to_edge_trajectory = true,
+        syncs_character_velocity_to_edge_trajectory = true,
+        includes_continuous_trajectory_positions = true,
+        includes_continuous_trajectory_velocities = true,
+        includes_discrete_trajectory_state = false,
+        is_trajectory_state_stored_at_build_time = false,
+        bypasses_runtime_physics = false,
+        default_nav_interrupt_resolution_mode = \
+                NavigationInterruptionResolution.FORCE_EXPECTED_STATE,
+        min_intra_surface_distance_to_optimize_jump_for = 16.0,
+        dist_sq_thres_for_considering_additional_jump_land_points = \
+                32.0 * 32.0,
+        stops_after_finding_first_valid_edge_for_a_surface_pair = false,
+        calculates_all_valid_edges_for_a_surface_pair = false,
+        always_includes_jump_land_positions_at_surface_ends = false,
+        includes_redundant_j_l_positions_with_zero_start_velocity = true,
+        normal_jump_instruction_duration_increase = 0.08,
+        exceptional_jump_instruction_duration_increase = 0.2,
+        recurses_when_colliding_during_horizontal_step_calculations = true,
+        backtracks_for_higher_jumps_during_hor_step_calculations = true,
+        collision_margin_for_edge_calculations = 1.0,
+        collision_margin_for_waypoint_positions = 4.0,
+        skips_less_likely_jump_land_positions = false,
+        reached_in_air_destination_distance_squared_threshold = \
+                16.0 * 16.0,
+        max_edges_to_remove_from_path_for_opt_to_in_air_dest = 2,
+        always_tries_to_face_direction_of_motion = true,
+        max_distance_for_reachable_surface_tracking = 1024.0,
+    },
+}
 
 var _character_categories := [
-    {
-        name = "squirrels",
-        characters = [
-            "squirrel",
-        ],
-        # For a complete list of properties, see MovementParameters.
-        movement_params = {
-            collider_shape = _get_squirrel_collider_shape(),
-            collider_rotation = PI / 2.0,
-            
-            can_grab_walls = true,
-            can_grab_ceilings = true,
-            can_jump = true,
-            can_dash = false,
-            can_double_jump = false,
-            
-            surface_speed_multiplier = 1.0,
-            air_horizontal_speed_multiplier = 1.0,
-            gravity_multiplier = 1.0,
-            gravity_slow_rise_multiplier_multiplier = 1.0,
-            gravity_double_jump_slow_rise_multiplier_multiplier = 1.0,
-            walk_acceleration_multiplier = 1.4,
-            in_air_horizontal_acceleration_multiplier = 1.4,
-            climb_up_speed_multiplier = 1.5,
-            climb_down_speed_multiplier = 1.5,
-            ceiling_crawl_speed_multiplier = 1.5,
-            friction_coefficient_multiplier = 1.0,
-            jump_boost_multiplier = 1.2,
-            wall_jump_horizontal_boost_multiplier = 1.0,
-            wall_fall_horizontal_boost_multiplier = 1.0,
-            max_horizontal_speed_default_multiplier = 1.4,
-            max_vertical_speed_multiplier = 1.0,
-            
-            uses_duration_instead_of_distance_for_edge_weight = true,
-            additional_edge_weight_offset_override = -1.0,
-            walking_edge_weight_multiplier_override = -1.0,
-            ceiling_crawling_edge_weight_multiplier_override = -1.0,
-            climbing_edge_weight_multiplier_override = -1.0,
-            climb_to_adjacent_surface_edge_weight_multiplier_override = -1.0,
-            move_to_collinear_surface_edge_weight_multiplier_override = -1.0,
-            air_edge_weight_multiplier_override = -1.0,
-            
-            minimizes_velocity_change_when_jumping = false,
-            optimizes_edge_jump_positions_at_run_time = true,
-            optimizes_edge_land_positions_at_run_time = true,
-            also_optimizes_preselection_path = true,
-            forces_character_position_to_match_edge_at_start = true,
-            forces_character_velocity_to_match_edge_at_start = true,
-            forces_character_position_to_match_path_at_end = false,
-            forces_character_velocity_to_zero_at_path_end = false,
-            syncs_character_position_to_edge_trajectory = true,
-            syncs_character_velocity_to_edge_trajectory = true,
-            includes_continuous_trajectory_positions = true,
-            includes_continuous_trajectory_velocities = true,
-            includes_discrete_trajectory_state = false,
-            is_trajectory_state_stored_at_build_time = false,
-            bypasses_runtime_physics = false,
-            default_nav_interrupt_resolution_mode = \
-                    NavigationInterruptionResolution.FORCE_EXPECTED_STATE,
-            min_intra_surface_distance_to_optimize_jump_for = 16.0,
-            dist_sq_thres_for_considering_additional_jump_land_points = \
-                    32.0 * 32.0,
-            stops_after_finding_first_valid_edge_for_a_surface_pair = false,
-            calculates_all_valid_edges_for_a_surface_pair = false,
-            always_includes_jump_land_positions_at_surface_ends = false,
-            includes_redundant_j_l_positions_with_zero_start_velocity = true,
-            normal_jump_instruction_duration_increase = 0.08,
-            exceptional_jump_instruction_duration_increase = 0.2,
-            recurses_when_colliding_during_horizontal_step_calculations = true,
-            backtracks_for_higher_jumps_during_hor_step_calculations = true,
-            collision_margin_for_edge_calculations = 1.0,
-            collision_margin_for_waypoint_positions = 4.0,
-            skips_less_likely_jump_land_positions = false,
-            reached_in_air_destination_distance_squared_threshold = \
-                    16.0 * 16.0,
-            max_edges_to_remove_from_path_for_opt_to_in_air_dest = 2,
-            always_tries_to_face_direction_of_motion = true,
-            max_distance_for_reachable_surface_tracking = 1024.0,
-        },
-    },
+    _SQUIRREL_CATEGORY,
 ]
 
 var _character_manifest := {
-    default_character_name = "cat",
+    default_character_name = "",
     character_scenes = _character_scenes,
     character_categories = _character_categories,
     omits_npcs = false,

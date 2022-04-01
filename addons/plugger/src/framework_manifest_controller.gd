@@ -30,7 +30,8 @@ static func _validate_schema_recursively(
                     prefix + key + ">")
     elif schema_value is Array:
         assert(!schema_value.empty(),
-                ("Schema arrays must not be empty: %s") % [prefix])
+                ("Schema arrays must not be empty " +
+                "(at least include a type definition): %s") % [prefix])
         if FrameworkSchema.get_is_explicit_type_entry(schema_value):
             # Explicit-type value definition.
             var type = schema_value[0]
