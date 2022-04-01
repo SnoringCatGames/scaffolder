@@ -2,7 +2,7 @@ class_name TimeScaleControlRow
 extends SliderControlRow
 
 
-const LABEL := "ScaffolderTime scale"
+const LABEL := "Time scale"
 const DESCRIPTION := ""
 
 const MIN_RESULT_VALUE := 0.25
