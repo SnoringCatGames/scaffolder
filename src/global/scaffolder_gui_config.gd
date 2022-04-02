@@ -65,6 +65,7 @@ var aspect_ratio_max: float
 var aspect_ratio_min: float
 
 var debug_window_size: Vector2
+var moves_debug_game_window_to_other_monitor: bool
 
 var camera_smoothing_speed: float
 var default_camera_zoom := 1.0
@@ -191,6 +192,8 @@ func _parse_manifest(manifest: Dictionary) -> void:
     self.aspect_ratio_max = manifest.aspect_ratio_max
     self.aspect_ratio_min = manifest.aspect_ratio_min
     self.debug_window_size = manifest.debug_window_size
+    self.moves_debug_game_window_to_other_monitor = \
+            manifest.moves_debug_game_window_to_other_monitor
     self.is_data_deletion_button_shown = manifest.is_data_deletion_button_shown
     self.is_suggested_button_shine_line_shown = \
             manifest.is_suggested_button_shine_line_shown
