@@ -337,9 +337,10 @@ func _set_window_debug_size_and_position() -> void:
     if Sc.metadata.debug and \
             (Sc.device.get_is_windows_app() or \
             Sc.device.get_is_mac_app()):
-        # Show the game window on the other window, rather than over-top the
+        # Show the game window on the other monitor, rather than over-top the
         # editor.
-        if OS.get_screen_count() > 1:
+        if OS.get_screen_count() > 1 and \
+                Sc.gui.moves_debug_game_window_to_other_monitor:
             OS.current_screen = \
                     (OS.current_screen + 1) % OS.get_screen_count()
         

@@ -896,6 +896,7 @@ var _screen_manifest := {
 
 var _gui_manifest := {
     debug_window_size = ScaffolderGuiConfig.SCREEN_RESOLUTIONS.full_screen,
+    moves_debug_game_window_to_other_monitor = true,
     
     default_pc_game_area_size = Vector2(1024, 768),
     default_mobile_game_area_size = Vector2(500, 600),
