@@ -36,13 +36,13 @@ func _init(
             !is_inf(character_half_height) else \
             character.collider.half_width_height.y
     if color is ColorConfig:
-        self.color = color.sample
+        self.color = color.sample()
     elif color != Color.white:
         self.color = color
     else:
         self.color = character.primary_annotation_color.sample()
     if border_color is ColorConfig:
-        self.border_color = border_color.sample
+        self.border_color = border_color.sample()
     elif border_color != Color.white:
         self.border_color = border_color
     else:
