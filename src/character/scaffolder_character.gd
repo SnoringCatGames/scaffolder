@@ -119,8 +119,9 @@ const _PROPERTY_GROUPS := [
 ]
 
 var category: ScaffolderCharacterCategory
-var can_be_player_character := false
-var is_player_control_active: bool setget ,_get_is_player_control_active
+var can_be_player_character := false setget set_can_be_player_character
+var is_player_control_active: bool \
+        setget set_is_player_control_active,_get_is_player_control_active
 var _is_ready := false
 var _is_destroyed := false
 
@@ -167,7 +168,6 @@ func _ready() -> void:
     _is_ready = true
     
     start_position = position
-    print("<<<<<<<<><><><")
     _debounced_update_editor_configuration = Sc.time.debounce(
             funcref(self, "_update_editor_configuration_debounced"),
             0.02,
@@ -325,20 +325,31 @@ func set_can_be_player_character(value: bool) -> void:
         _create_camera()
 
 
-func set_is_player_control_active(value: bool) -> void:
-    is_player_control_active = value
+func set_is_player_control_active(
+        value: bool,
+        should_also_update_level := true) -> void:
+    assert(!value or can_be_player_character)
     
-    assert(!is_player_control_active or can_be_player_character)
-    
-    if is_player_control_active:
+    if value:
         self.add_to_group(Sc.characters.GROUP_NAME_PLAYERS)
         self.remove_from_group(Sc.characters.GROUP_NAME_NPCS)
     else:
         self.add_to_group(Sc.characters.GROUP_NAME_NPCS)
         self.remove_from_group(Sc.characters.GROUP_NAME_PLAYERS)
     
-    if is_player_control_active:
+    if value and \
+            is_instance_valid(_camera):
         Sc.camera_controller.set_current_camera(_camera, self)
+    
+    if should_also_update_level:
+        if value:
+            Sc.level.active_player_character = self
+        else:
+            Sc.level.active_player_character = null
+
+
+func _get_is_player_control_active() -> bool:
+    return Sc.characters.get_active_player_character() == self
 
 
 func _create_camera() -> void:
@@ -785,7 +796,3 @@ func _set_stores_logs_on_character_instances(value: bool) -> void:
         _recent_logs = CircularBuffer.new(
                 _RECENT_LOGS_COUNT_TO_STORE_ON_CHARACTER_INSTANCE)
     _update_editor_configuration()
-
-
-func _get_is_player_control_active() -> bool:
-    return Sc.characters.get_active_player_character() == self
