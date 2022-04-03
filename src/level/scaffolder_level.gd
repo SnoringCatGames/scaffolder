@@ -17,7 +17,8 @@ var exclusive_spawn_positions := []
 # Dictionary<String, Array<ScaffolderCharacter>>
 var characters: Dictionary
 
-var active_player_character: ScaffolderCharacter
+var active_player_character: ScaffolderCharacter \
+        setget _set_active_player_character
 
 var session: ScaffolderLevelSession
 
@@ -147,7 +148,7 @@ func _destroy() -> void:
     for character_name in characters:
         for character in characters[character_name]:
             character._destroy()
-    self.active_player_character = null
+    _set_active_player_character(null)
     Sc.level = null
     Sc.level_session._is_destroyed = true
     if Sc.level_session.is_restarting:
@@ -219,7 +220,7 @@ func add_character(
     character.set_can_be_player_character(can_be_player_character)
     character.set_is_player_control_active(is_active_player_character)
     if is_active_player_character:
-        active_player_character = character
+        _set_active_player_character(character)
     
     return character
 
@@ -437,3 +438,15 @@ func _set_level_id(value: String) -> void:
         assert(Sc.level_session.id == level_id)
     _update_editor_configuration()
     _update_session_in_editor()
+
+
+func _set_active_player_character(character: ScaffolderCharacter) -> void:
+    if character == active_player_character:
+        # No change.
+        return
+    
+    if is_instance_valid(active_player_character):
+        # De-activate previous character.
+        active_player_character.set_is_player_control_active(false, false)
+    
+    active_player_character = character
