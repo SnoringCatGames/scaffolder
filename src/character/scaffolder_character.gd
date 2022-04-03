@@ -343,9 +343,11 @@ func set_is_player_control_active(
     
     if should_also_update_level:
         if value:
-            Sc.level.active_player_character = self
+            if Sc.level.active_player_character != self:
+                Sc.level.active_player_character = self
         else:
-            Sc.level.active_player_character = null
+            if Sc.level.active_player_character == self:
+                Sc.level.active_player_character = null
 
 
 func _get_is_player_control_active() -> bool:
