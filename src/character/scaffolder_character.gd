@@ -451,7 +451,7 @@ func show_exclamation_mark() -> void:
 func _show_exclamation_mark_throttled() -> void:
     Sc.annotators.add_transient(ExclamationMarkAnnotator.new(
             self,
-            collider.half_width_height.y,
+            collider.half_width_height.y * 2.0,
             primary_annotation_color,
             secondary_annotation_color,
             exclamation_mark_width_start,
