@@ -75,6 +75,8 @@ func _on_resized() -> void:
 func set_current_camera(
         camera: Camera2D,
         character) -> void:
+    # FIXME: LEFT OFF HERE: -------------------------------- 
+    # - Tween from old camera position and zoom.
     camera.make_current()
     _current_camera = camera
     _current_character = character
