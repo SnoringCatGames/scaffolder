@@ -10,6 +10,7 @@ const ZOOM_FACTOR_STEP_RATIO := 0.05
 const PAN_STEP := 8.0
 
 const ZOOM_ANIMATION_DURATION := 0.3
+const OFFSET_ANIMATION_DURATION := 0.3
 
 var _current_camera: Camera2D
 var _current_character
@@ -18,6 +19,7 @@ var offset: Vector2 setget _set_offset,_get_offset
 var zoom_factor := 1.0 setget _set_zoom_factor
 
 var zoom_tween: ScaffolderTween
+var offset_tween: ScaffolderTween
 
 
 func _init() -> void:
@@ -27,6 +29,8 @@ func _init() -> void:
 func _ready() -> void:
     zoom_tween = ScaffolderTween.new()
     add_child(zoom_tween)
+    offset_tween = ScaffolderTween.new()
+    add_child(offset_tween)
 
 
 func _process(_delta: float) -> void:
@@ -75,12 +79,25 @@ func _on_resized() -> void:
 func set_current_camera(
         camera: Camera2D,
         character) -> void:
-    # FIXME: LEFT OFF HERE: -------------------------------- 
-    # - Tween from old camera position and zoom.
+    var old_camera := _current_camera
+    var old_character = _current_character
     camera.make_current()
     _current_camera = camera
     _current_character = character
     _update_zoom()
+    
+    # Pan smoothly to the new camera.
+    if is_instance_valid(old_camera):
+        var start_offset := old_camera.offset - camera.offset
+        if is_instance_valid(old_character):
+            start_offset += old_character.position
+        if is_instance_valid(_current_character):
+            start_offset -= _current_character.position
+        var end_offset := Vector2.ZERO
+        animate_to_offset(
+                end_offset,
+                OFFSET_ANIMATION_DURATION,
+                start_offset)
 
 
 func get_current_camera() -> Camera2D:
@@ -153,6 +170,30 @@ func animate_to_zoom_factor(
             0.0,
             TimeType.PLAY_PHYSICS_SCALED)
     zoom_tween.start()
+
+
+func animate_to_offset(
+        new_offset: Vector2,
+        duration := OFFSET_ANIMATION_DURATION,
+        old_offset := Vector2.INF) -> void:
+    var start_offset := \
+            _get_offset() if \
+            old_offset == Vector2.INF else \
+            old_offset
+    if new_offset == start_offset:
+        return
+    
+    offset_tween.stop_all()
+    offset_tween.interpolate_property(
+            self,
+            "offset",
+            start_offset,
+            new_offset,
+            duration,
+            "ease_in_out",
+            0.0,
+            TimeType.PLAY_PHYSICS_SCALED)
+    offset_tween.start()
 
 
 func _update_zoom() -> void:
