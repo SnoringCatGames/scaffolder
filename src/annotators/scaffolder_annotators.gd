@@ -130,9 +130,7 @@ func on_level_destroyed() -> void:
         destroy_character_annotator(character)
 
 
-func create_character_annotator(
-        character: ScaffolderCharacter,
-        is_player_character: bool) -> void:
+func create_character_annotator(character: ScaffolderCharacter) -> void:
     var character_annotator: ScaffolderCharacterAnnotator = \
             character_annotation_class.new(character)
     annotation_layer.add_child(character_annotator)

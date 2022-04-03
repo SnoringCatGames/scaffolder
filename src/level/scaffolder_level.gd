@@ -17,7 +17,7 @@ var exclusive_spawn_positions := []
 # Dictionary<String, Array<ScaffolderCharacter>>
 var characters: Dictionary
 
-var player_character: ScaffolderCharacter
+var active_player_character: ScaffolderCharacter
 
 var session: ScaffolderLevelSession
 
@@ -60,7 +60,8 @@ func _start() -> void:
     var includes_player_character := _add_player_character()
     _add_npcs()
     
-    if !includes_player_character:
+    if !includes_player_character or \
+            !Sc.characters.is_camera_auto_assigned_to_player_character:
         _set_non_player_camera()
     
     call_deferred("_on_started")
@@ -75,11 +76,11 @@ func _on_started() -> void:
 
 
 func _add_player_character() -> bool:
-    if Sc.characters.default_character_name == "":
+    if Sc.characters.default_player_character_name == "":
         # There is no player character configured.
         return false
     
-    var spawn_position := _get_default_character_spawn_position()
+    var spawn_position := _get_default_player_character_spawn_position()
     
     # TODO: Update the rest of the app to support running with no player
     #       character.
@@ -90,23 +91,24 @@ func _add_player_character() -> bool:
     
     # Add the player character.
     add_character(
-            Sc.characters.default_character_name,
+            Sc.characters.default_player_character_name,
             spawn_position,
+            true,
             true)
     
     return true
 
 
-func _get_default_character_spawn_position() -> ScaffolderSpawnPosition:
+func _get_default_player_character_spawn_position() -> ScaffolderSpawnPosition:
     # If no spawn position was defined for the default character, then start
     # them at 0,0. 
-    if !spawn_positions.has(Sc.characters.default_character_name):
+    if !spawn_positions.has(Sc.characters.default_player_character_name):
         var spawn_position := ScaffolderSpawnPosition.new()
-        spawn_position.character_name = Sc.characters.default_character_name
+        spawn_position.character_name = Sc.characters.default_player_character_name
         spawn_position.position = Vector2.ZERO
         register_spawn_position(
-                Sc.characters.default_character_name, spawn_position)
-    return spawn_positions[Sc.characters.default_character_name][0]
+                Sc.characters.default_player_character_name, spawn_position)
+    return spawn_positions[Sc.characters.default_player_character_name][0]
 
 
 func _add_npcs() -> void:
@@ -115,7 +117,7 @@ func _add_npcs() -> void:
     
     # Add npcs at the registered spawn positions.
     for character_name in spawn_positions:
-        if character_name == Sc.characters.default_character_name:
+        if character_name == Sc.characters.default_player_character_name:
             continue
         for spawn_position in spawn_positions[character_name]:
             if spawn_position.exclude:
@@ -128,6 +130,7 @@ func _add_npcs() -> void:
             add_character(
                     character_name,
                     spawn_position,
+                    false,
                     false)
 
 
@@ -144,7 +147,7 @@ func _destroy() -> void:
     for character_name in characters:
         for character in characters[character_name]:
             character._destroy()
-    self.player_character = null
+    self.active_player_character = null
     Sc.level = null
     Sc.level_session._is_destroyed = true
     if Sc.level_session.is_restarting:
@@ -184,7 +187,8 @@ func quit(
 func add_character(
         name_or_path_or_packed_scene,
         position_or_spawn_position,
-        is_player_character: bool,
+        can_be_player_character: bool,
+        is_active_player_character: bool,
         is_attached := true) -> ScaffolderCharacter:
     if name_or_path_or_packed_scene is String and \
             !name_or_path_or_packed_scene.begins_with("res://"):
@@ -212,9 +216,10 @@ func add_character(
     if is_attached:
         add_child(character)
     
-    character.set_is_player_character(is_player_character)
-    if is_player_character:
-        player_character = character
+    character.set_can_be_player_character(can_be_player_character)
+    character.set_is_player_control_active(is_active_player_character)
+    if is_active_player_character:
+        active_player_character = character
     
     return character
 
@@ -263,8 +268,8 @@ func _update_editor_configuration() -> void:
                 "LevelConfiguration file.")
         return
     
-    if spawn_positions.has(Sc.characters.default_character_name) and \
-            spawn_positions[Sc.characters.default_character_name].size() > 1:
+    if spawn_positions.has(Sc.characters.default_player_character_name) and \
+            spawn_positions[Sc.characters.default_player_character_name].size() > 1:
         _set_configuration_warning(
                 "There must not be more than one spawn position for the " +
                 "default character.")

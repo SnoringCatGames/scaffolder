@@ -7,12 +7,16 @@ const GROUP_NAME_PLAYERS := "players"
 const GROUP_NAME_NPCS := "npcs"
 const GROUP_NAME_CHARACTERS := "characters"
 
-var default_character_name: String
+var default_player_character_name: String
 
 # Dictionary<String, ScaffolderCharacterCategory>
 var categories := {}
 
 var omits_npcs := false
+
+var can_include_player_characters := true
+
+var is_camera_auto_assigned_to_player_character := true
 
 # Dictionary<String, PackedScene>
 var character_scenes := {}
@@ -26,9 +30,15 @@ var _character_name_to_category: Dictionary
 
 func _parse_manifest(manifest: Dictionary) -> void:
     self._character_scenes_list = manifest.character_scenes
-    self.default_character_name = manifest.default_character_name
+    self.default_player_character_name = manifest.default_player_character_name
     if manifest.has("omits_npcs"):
         self.omits_npcs = manifest.omits_npcs
+    if manifest.has("can_include_player_characters"):
+        self.can_include_player_characters = \
+                manifest.can_include_player_characters
+    if manifest.has("is_camera_auto_assigned_to_player_character"):
+        self.is_camera_auto_assigned_to_player_character = \
+                manifest.is_camera_auto_assigned_to_player_character
     
     _parse_character_scenes(self._character_scenes_list)
     _parse_character_categories(manifest.character_categories)
@@ -69,10 +79,10 @@ func _map_characters_to_categories() -> void:
             _character_name_to_category[character_name] = category
 
 
-func get_player_character() -> ScaffolderCharacter:
-    return Sc.level.player_character if \
+func get_active_player_character() -> ScaffolderCharacter:
+    return Sc.level.active_player_character if \
             is_instance_valid(Sc.level) and \
-                    is_instance_valid(Sc.level.player_character) else \
+                    is_instance_valid(Sc.level.active_player_character) else \
             null
 
 
