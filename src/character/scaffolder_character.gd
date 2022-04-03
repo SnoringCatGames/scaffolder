@@ -332,10 +332,12 @@ func set_is_player_control_active(
     
     if value:
         self.add_to_group(Sc.characters.GROUP_NAME_PLAYERS)
-        self.remove_from_group(Sc.characters.GROUP_NAME_NPCS)
+        if self.is_in_group(Sc.characters.GROUP_NAME_NPCS):
+            self.remove_from_group(Sc.characters.GROUP_NAME_NPCS)
     else:
         self.add_to_group(Sc.characters.GROUP_NAME_NPCS)
-        self.remove_from_group(Sc.characters.GROUP_NAME_PLAYERS)
+        if self.is_in_group(Sc.characters.GROUP_NAME_PLAYERS):
+            self.remove_from_group(Sc.characters.GROUP_NAME_PLAYERS)
     
     if value and \
             is_instance_valid(_camera):
