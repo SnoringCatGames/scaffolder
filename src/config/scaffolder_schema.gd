@@ -1072,10 +1072,12 @@ var _character_categories := [
 ]
 
 var _character_manifest := {
-    default_character_name = "",
+    default_player_character_name = "",
     character_scenes = _character_scenes,
     character_categories = _character_categories,
     omits_npcs = false,
+    can_include_player_characters = true,
+    is_camera_auto_assigned_to_player_character = true,
 }
 
 var _annotation_parameters_manifest := Sc.utils.merge(

@@ -119,7 +119,8 @@ const _PROPERTY_GROUPS := [
 ]
 
 var category: ScaffolderCharacterCategory
-var is_player_character := false
+var can_be_player_character := false
+var is_player_control_active: bool setget ,_get_is_player_control_active
 var _is_ready := false
 var _is_destroyed := false
 
@@ -134,6 +135,8 @@ var did_move_last_frame := false
 var collider := RotatedShape.new()
 var collision_shape: CollisionShape2D
 var animator: ScaffolderCharacterAnimator
+
+var _camera: Camera2D
 
 var _extra_collision_detection_area: Area2D
 # Dictionary<String, Area2D>
@@ -164,7 +167,7 @@ func _ready() -> void:
     _is_ready = true
     
     start_position = position
-    
+    print("<<<<<<<<><><><")
     _debounced_update_editor_configuration = Sc.time.debounce(
             funcref(self, "_update_editor_configuration_debounced"),
             0.02,
@@ -313,27 +316,36 @@ func _initialize_children_proximity_detectors() -> void:
                     detector.rotation)
 
 
-func set_is_player_character(value: bool) -> void:
-    is_player_character = value
+func set_can_be_player_character(value: bool) -> void:
+    can_be_player_character = value
     
-    var group: String = \
-            Sc.characters.GROUP_NAME_PLAYERS if \
-            is_player_character else \
-            Sc.characters.GROUP_NAME_NPCS
-    self.add_to_group(group)
-    
-    if is_player_character:
+    if can_be_player_character and \
+            Sc.characters.is_camera_auto_assigned_to_player_character:
         # Only a single, player-controlled character should have a camera.
-        _set_camera()
+        _create_camera()
 
 
-func _set_camera() -> void:
-    var camera := Camera2D.new()
-    camera.smoothing_enabled = true
-    camera.smoothing_speed = Sc.gui.camera_smoothing_speed
-    add_child(camera)
-    # Register the current camera, so it's globally accessible.
-    Sc.camera_controller.set_current_camera(camera, self)
+func set_is_player_control_active(value: bool) -> void:
+    is_player_control_active = value
+    
+    assert(!is_player_control_active or can_be_player_character)
+    
+    if is_player_control_active:
+        self.add_to_group(Sc.characters.GROUP_NAME_PLAYERS)
+        self.remove_from_group(Sc.characters.GROUP_NAME_NPCS)
+    else:
+        self.add_to_group(Sc.characters.GROUP_NAME_NPCS)
+        self.remove_from_group(Sc.characters.GROUP_NAME_PLAYERS)
+    
+    if is_player_control_active:
+        Sc.camera_controller.set_current_camera(_camera, self)
+
+
+func _create_camera() -> void:
+    self._camera = Camera2D.new()
+    _camera.smoothing_enabled = true
+    _camera.smoothing_speed = Sc.gui.camera_smoothing_speed
+    add_child(_camera)
 
 
 func _physics_process(delta: float) -> void:
@@ -773,3 +785,7 @@ func _set_stores_logs_on_character_instances(value: bool) -> void:
         _recent_logs = CircularBuffer.new(
                 _RECENT_LOGS_COUNT_TO_STORE_ON_CHARACTER_INSTANCE)
     _update_editor_configuration()
+
+
+func _get_is_player_control_active() -> bool:
+    return Sc.characters.get_active_player_character() == self
