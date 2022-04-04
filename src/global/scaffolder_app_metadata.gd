@@ -7,6 +7,7 @@ extends Node
 
 var debug: bool
 var playtest: bool
+var recording: bool
 var test := false
 var pauses_on_focus_out := true
 var is_profiler_enabled: bool
@@ -95,6 +96,7 @@ func _init() -> void:
 func _parse_manifest(manifest: Dictionary) -> void:
     self.debug = manifest.debug
     self.playtest = manifest.playtest
+    self.recording = manifest.recording
     if manifest.has("test"):
         self.test = manifest.test
     if manifest.has("are_all_levels_unlocked"):

@@ -19,7 +19,7 @@ const MODES_PATH := "res://addons/scaffolder/src/global/manifest_modes.json"
 const METRIC_KEYS := []
 var MODES := {
     release = {
-        options = ["local_dev", "playtest", "production"],
+        options = ["local_dev", "playtest", "production", "recording"],
         default = "local_dev",
         color = Color.from_hsv(0.153, 0.85, 0.98, 1.0),
     },
