@@ -3,10 +3,11 @@ class_name PlInterface
 extends Node
 
 
-const _MAIN_SCREEN_SCENE := preload(
-        "res://addons/scaffolder/addons/plugger/src/gui/framework_plugin_main_screen.tscn")
+const _MAIN_SCREEN_PATH := \
+        "res://addons/scaffolder/addons/plugger/src/gui/framework_plugin_main_screen.tscn"
 
-var editor: EditorInterface
+# EditorInterface
+var editor
 
 var main_screen
 
@@ -14,8 +15,12 @@ var _sc_auto_load
 
 
 func _set_up() -> void:
+    if !Engine.editor_hint:
+        Sc.logger.error(
+                "Pl._set_up should not be called from an exported game!")
+        return
     assert(!is_instance_valid(main_screen))
-    main_screen = _MAIN_SCREEN_SCENE.instance()
+    main_screen = load(_MAIN_SCREEN_PATH).instance()
     editor.get_editor_viewport().add_child(main_screen)
 
 
@@ -34,7 +39,7 @@ func save_manifest() -> void:
     
 
 func scale_dimension(value):
-    var scale := editor.get_editor_scale()
+    var scale: float = editor.get_editor_scale()
     return value * scale
 
 
@@ -62,13 +67,13 @@ func validate_icons(path_prefix: String) -> void:
 
 static func _static_get_icon(
         path_prefix: String,
-        editor: EditorInterface) -> Texture:
+        editor) -> Texture:
     # TODO: We need better support for updating icon colors based on theme: 
     # https://github.com/godotengine/godot-proposals/issues/572
     var is_light_theme: bool = editor.get_editor_settings() \
             .get_setting("interface/theme/base_color").v > 0.5
     var theme := "light" if is_light_theme else "dark"
-    var scale := editor.get_editor_scale()
+    var scale: float = editor.get_editor_scale()
     var icon_path := _get_icon_path(path_prefix, theme, scale)
     return load(icon_path) as Texture
 
