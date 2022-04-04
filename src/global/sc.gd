@@ -178,7 +178,7 @@ func register_framework_global(global: FrameworkGlobal) -> void:
     _framework_globals.push_back(global)
 
 
-func register_framework_plugin(plugin: FrameworkPlugin) -> void:
+func register_framework_plugin(plugin) -> void:
     _framework_plugins.push_back(plugin)
     call_deferred("_check_plugin_enablement")
 
