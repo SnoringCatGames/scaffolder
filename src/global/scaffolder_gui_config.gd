@@ -54,6 +54,7 @@ const SCREEN_RESOLUTIONS := {
     ipad_12_9 = Vector2(2732, 2048),
     google_ads_landscape = Vector2(1024, 768),
     google_ads_portrait = Vector2(768, 1024),
+    youtube = Vector2(3200, 1800),
 }
 
 # --- Static configuration state ---

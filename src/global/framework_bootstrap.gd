@@ -220,7 +220,8 @@ func _process(_delta: float) -> void:
         return
     
     if Sc.metadata.debug or \
-            Sc.metadata.playtest:
+            Sc.metadata.playtest or \
+            Sc.metadata.recording:
         if Input.is_action_just_pressed("screenshot"):
             Sc.metadata.were_screenshots_taken = true
             Sc.utils.take_screenshot()
@@ -334,7 +335,8 @@ func _set_global_visibility_for_resize(is_visible: bool) -> void:
 
 
 func _set_window_debug_size_and_position() -> void:
-    if Sc.metadata.debug and \
+    if (Sc.metadata.debug or \
+            Sc.metadata.recording) and \
             (Sc.device.get_is_windows_app() or \
             Sc.device.get_is_mac_app()):
         # Show the game window on the other monitor, rather than over-top the

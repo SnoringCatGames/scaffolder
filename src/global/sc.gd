@@ -294,6 +294,8 @@ func _amend_manifest() -> void:
             Sc.modes.get_is_active("release", "local_dev")
     Sc.manifest.metadata.playtest = \
             Sc.modes.get_is_active("release", "playtest")
+    Sc.manifest.metadata.recording = \
+            Sc.modes.get_is_active("release", "recording")
     Sc.manifest.metadata.is_using_threads = \
             Sc.modes.get_is_active("threading", "enabled")
     Sc.manifest.metadata.is_using_pixel_style = \
