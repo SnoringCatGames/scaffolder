@@ -24,6 +24,18 @@ export var faces_right_by_default := true
 export var uses_standard_sprite_frame_animations := true \
         setget _set_uses_standard_sprite_frame_animations
 
+## -   Set this to `true` if you want to be able to toggle whether your[br]
+##     character has an outline.[br]
+## -   However, you have to create the images for this outline![br]
+## -   That means you'll need to create a separate copy of all character[br]
+##     spritesheets to include this outline.[br]
+## -   These separate copies will need to have the same path and filename but
+##     with the suffix "_outline".[br]
+## -   You will need to use the OutlineableSprite scene to define these
+##     Sprites.[br]
+export var includes_outlined_versions_of_sprites := true \
+        setget _set_includes_outlined_versions_of_sprites
+
 ## -   This `Dictionary` is auto-populated with keys corresponding to each
 ##     animation in the `AnimationPlayer`.[br]
 ## -   You can configure some additional state for each of the animation
@@ -44,6 +56,8 @@ export var uses_standard_sprite_frame_animations := true \
 ##   speed: float,[br]
 ## }>[br]
 export var animations := {} setget _set_animations
+
+export var is_outlined := false setget _set_is_outlined
 
 var is_desaturatable := false setget _set_is_desaturatable
 
@@ -192,6 +206,25 @@ func _update_editor_configuration_debounced() -> void:
                             "Child matching sprite_name is not a Sprite: %s" %
                             sprite_name)
                     return
+    
+    if includes_outlined_versions_of_sprites and \
+            !uses_standard_sprite_frame_animations:
+        _set_configuration_warning(
+                "The default outlining system requires " +
+                "uses_standard_sprite_frame_animations to be true.")
+        return
+    if is_outlined and !includes_outlined_versions_of_sprites:
+        _set_configuration_warning(
+                "is_outlined cannot be true if " +
+                "includes_outlined_versions_of_sprites is false.")
+        return
+    if includes_outlined_versions_of_sprites:
+        for sprite in _sprites:
+            if !sprite is OutlineableSprite:
+                _set_configuration_warning(
+                        "includes_outlined_versions_of_sprites is true, but " +
+                        "not all Sprites are OutlineableSprites.")
+                return
     
     property_list_changed_notify()
     _set_configuration_warning("")
@@ -355,6 +388,11 @@ func _set_uses_standard_sprite_frame_animations(value: bool) -> void:
     _update_editor_configuration()
 
 
+func _set_includes_outlined_versions_of_sprites(value: bool) -> void:
+    includes_outlined_versions_of_sprites = value
+    _update_editor_configuration()
+
+
 func _set_animations(value: Dictionary) -> void:
     animations = value
     _update_editor_configuration()
@@ -373,3 +411,10 @@ func _set_is_desaturatable(value: bool) -> void:
             if sprite.is_in_group(Sc.slow_motion.GROUP_NAME_DESATURATABLES):
                 sprite.remove_from_group(
                         Sc.slow_motion.GROUP_NAME_DESATURATABLES)
+
+
+func _set_is_outlined(value: bool) -> void:
+    is_outlined = value
+    for sprite in _sprites:
+        sprite.is_outlined = is_outlined
+    _update_editor_configuration()
