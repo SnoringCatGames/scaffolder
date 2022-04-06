@@ -1,5 +1,5 @@
 {
-  "release": "recording",
+  "release": "local_dev",
   "threading": "disabled",
   "annotations": "default",
   "ui_smoothness": "pixelated"
