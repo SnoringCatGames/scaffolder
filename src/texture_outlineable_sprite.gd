@@ -1,11 +1,20 @@
 tool
-class_name OutlineableSprite, \
+class_name TextureOutlineableSprite, \
 "res://addons/scaffolder/assets/images/editor_icons/outlineable_sprite.png"
-extends Sprite
+extends OutlineableSprite
+## -   This supports toggling an outline around the sprite, and changing the[br]
+##     color of the outline.[br]
+## -   This implementation of OutlineableSprite requires that you provide[br]
+##     two versions of the texture, one with the outline and one without.[br]
+## -   TextureOutlineableSprite is more efficient than[br]
+##     ShaderOutlineableSprite.[br]
+##     -   By a factor of around x7, for a one-pixel border.[br]
+## -   But using a separate outline texture is more work for the sprite[br]
+##     author.[br]
+## -   So shader-based outlines might be better for prototyping, or when you[br]
+##     know you won't be rendering too many outlined sprites simultaneously.[br]
 
 
-export var is_outlined := false setget _set_is_outlined
-export var outline_color := Color.black setget _set_outline_color
 export var outline_suffix := "_outline" setget _set_outline_suffix
 export var normal_texture: Texture setget _set_normal_texture
 export var outlined_texture: Texture setget _set_outlined_texture
@@ -15,6 +24,7 @@ var _configuration_warning := ""
 
 func _ready() -> void:
     _update_textures()
+    _update_inner_sprite()
 
 
 func _update_textures() -> void:
@@ -75,6 +85,21 @@ func _update_outline() -> void:
     property_list_changed_notify()
 
 
+func _update_inner_sprite() -> void:
+    $Outline.centered = self.centered
+    $Outline.flip_h = self.flip_h
+    $Outline.flip_v = self.flip_v
+    $Outline.frame = self.frame
+    $Outline.frame_coords = self.frame_coords
+    $Outline.hframes = self.hframes
+    $Outline.vframes = self.vframes
+    $Outline.offset = self.offset
+    $Outline.region_enabled = self.region_enabled
+    $Outline.region_filter_clip = self.region_filter_clip
+    $Outline.region_rect = self.region_rect
+    
+
+
 func _set_configuration_warning(value: String) -> void:
     _configuration_warning = value
     update_configuration_warning()
@@ -97,7 +122,7 @@ func _set_is_outlined(value: bool) -> void:
 
 func _set_outline_color(value: Color) -> void:
     outline_color = value
-    outlined_texture.modulate = outline_color
+    $Outline.modulate = outline_color
 
 
 func _set_outline_suffix(value: String) -> void:
@@ -114,3 +139,58 @@ func _set_normal_texture(value: Texture) -> void:
     normal_texture = value
     _update_textures()
     property_list_changed_notify()
+
+
+func set_centered(value: bool) -> void:
+    .set_centered(value)
+    _update_inner_sprite()
+
+
+func set_flip_h(value: bool) -> void:
+    .set_flip_h(value)
+    _update_inner_sprite()
+
+
+func set_flip_v(value: bool) -> void:
+    .set_flip_v(value)
+    _update_inner_sprite()
+
+
+func set_frame(value: int) -> void:
+    .set_frame(value)
+    _update_inner_sprite()
+
+
+func set_frame_coords(value: Vector2) -> void:
+    .set_frame_coords(value)
+    _update_inner_sprite()
+
+
+func set_hframes(value: int) -> void:
+    .set_hframes(value)
+    _update_inner_sprite()
+
+
+func set_vframes(value: int) -> void:
+    .set_vframes(value)
+    _update_inner_sprite()
+
+
+func set_offset(value: Vector2) -> void:
+    .set_offset(value)
+    _update_inner_sprite()
+
+
+func set_region(value: bool) -> void:
+    .set_region(value)
+    _update_inner_sprite()
+
+
+func set_region_filter_clip(value: bool) -> void:
+    .set_region_filter_clip(value)
+    _update_inner_sprite()
+
+
+func set_region_rect(value: Rect2) -> void:
+    .set_region_rect(value)
+    _update_inner_sprite()
