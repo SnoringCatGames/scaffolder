@@ -25,6 +25,16 @@ Some features include:
 -   Lots of useful utility functions (e.g., ScaffolderTime, Geometry, DrawUtils, Audio).
 -   A widget library (e.g., AccordionPanel, LabeledControlList)
 
+<p align="center">
+  <img src="docs/scaffolder-gui.gif"
+       alt="Some of the GUI elements that Scaffolder makes it easy to set up and use.">
+</p>
+
+<p align="center">
+  <img src="docs/scaffolder-resizing.gif"
+       alt="GUI scaling depending on the screen size.">
+</p>
+
 ## ⚙️ Getting set up
 
 [See this separate doc](/docs/getting_set_up.md) for getting your project set up to work with Scaffolder.
