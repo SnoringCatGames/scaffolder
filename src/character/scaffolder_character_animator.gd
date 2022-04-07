@@ -59,6 +59,8 @@ export var animations := {} setget _set_animations
 
 export var is_outlined := false setget _set_is_outlined
 
+export var outline_color := Color.black setget _set_outline_color
+
 var is_desaturatable := false setget _set_is_desaturatable
 
 var animation_player: AnimationPlayer
@@ -415,6 +417,15 @@ func _set_is_desaturatable(value: bool) -> void:
 
 func _set_is_outlined(value: bool) -> void:
     is_outlined = value
+    _update_outlines()
+
+
+func _set_outline_color(value: Color) -> void:
+    outline_color = value
+    _update_outlines()
+
+
+func _update_outlines() -> void:
     for sprite in _sprites:
         sprite.is_outlined = is_outlined
-    _update_editor_configuration()
+        sprite.outline_color = outline_color
