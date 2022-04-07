@@ -5,6 +5,7 @@ extends Sprite
 
 
 export var is_outlined := false setget _set_is_outlined
+export var outline_color := Color.black setget _set_outline_color
 export var outline_suffix := "_outline" setget _set_outline_suffix
 export var normal_texture: Texture setget _set_normal_texture
 export var outlined_texture: Texture setget _set_outlined_texture
@@ -14,33 +15,6 @@ var _configuration_warning := ""
 
 func _ready() -> void:
     _update_textures()
-
-
-func _set_is_outlined(value: bool) -> void:
-    is_outlined = value
-    if !is_instance_valid(normal_texture):
-        _set_configuration_warning("normal_texture must be assigned.")
-        return
-    if !is_instance_valid(outlined_texture):
-        _set_configuration_warning("outlined_texture must be assigned.")
-        return
-    _update_outline()
-
-
-func _set_outline_suffix(value: String) -> void:
-    outline_suffix = value
-    _update_textures()
-
-
-func _set_outlined_texture(value: Texture) -> void:
-    outlined_texture = value
-    _update_textures()
-
-
-func _set_normal_texture(value: Texture) -> void:
-    normal_texture = value
-    _update_textures()
-    property_list_changed_notify()
 
 
 func _update_textures() -> void:
@@ -93,9 +67,11 @@ func _update_textures() -> void:
 
 func _update_outline() -> void:
     if is_outlined:
-        texture = outlined_texture
+        $Outline.texture = outlined_texture
     else:
-        texture = normal_texture
+        $Outline.texture = null
+    self.texture = normal_texture
+    _set_outline_color(outline_color)
     property_list_changed_notify()
 
 
@@ -106,3 +82,35 @@ func _set_configuration_warning(value: String) -> void:
 
 func _get_configuration_warning() -> String:
     return _configuration_warning
+
+
+func _set_is_outlined(value: bool) -> void:
+    is_outlined = value
+    if !is_instance_valid(normal_texture):
+        _set_configuration_warning("normal_texture must be assigned.")
+        return
+    if !is_instance_valid(outlined_texture):
+        _set_configuration_warning("outlined_texture must be assigned.")
+        return
+    _update_outline()
+
+
+func _set_outline_color(value: Color) -> void:
+    outline_color = value
+    outlined_texture.modulate = outline_color
+
+
+func _set_outline_suffix(value: String) -> void:
+    outline_suffix = value
+    _update_textures()
+
+
+func _set_outlined_texture(value: Texture) -> void:
+    outlined_texture = value
+    _update_textures()
+
+
+func _set_normal_texture(value: Texture) -> void:
+    normal_texture = value
+    _update_textures()
+    property_list_changed_notify()
