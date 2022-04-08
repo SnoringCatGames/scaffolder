@@ -22,27 +22,65 @@ const ANTIALIASED_OUTLINE_SHADER := \
 
 export var is_antialiased := false setget _set_is_antialiased
 
+export var thickness := 1.0 setget _set_thickness
+export(int, "Diamond", "Circle", "Square") var pattern := 2 setget _set_pattern
+export var is_inside := false setget _set_is_inside
+export var adds_margins := true setget _set_adds_margins
+
 var _outline_material: ShaderMaterial
 
 
 func _init() -> void:
     _outline_material = ShaderMaterial.new()
     _outline_material.shader = PIXELATED_OUTLINE_SHADER
-    
+
+
+func _ready() -> void:
+    _update_outline()
 
 
 func _update_outline() -> void:
-    # FIXME: LEFT OFF HERE: --------------------------------------------
-    # - Toggle shader with is_outlined.
-    # - Test shader auto-margin adding.
-    # - Test other params.
-    # - Remove extra sprite from bot animator.
-    material.set_shader_param("color", outline_color)
+    _outline_material.shader = ANTIALIASED_OUTLINE_SHADER
+    if is_outlined:
+        if is_antialiased:
+            _outline_material.shader = ANTIALIASED_OUTLINE_SHADER
+        else:
+            _outline_material.shader = PIXELATED_OUTLINE_SHADER
+            _outline_material.set_shader_param("pattern", pattern)
+            _outline_material.set_shader_param("is_inside", is_inside)
+            _outline_material.set_shader_param("adds_margins", adds_margins)
+        _outline_material.set_shader_param("color", outline_color)
+        _outline_material.set_shader_param("thickness", thickness)
+        self.material = _outline_material
+    else:
+        self.material = null
 
 
 func _set_is_antialiased(value: bool) -> void:
     is_antialiased = value
-    _outline_material.shader = \
-            ANTIALIASED_OUTLINE_SHADER if \
-            is_antialiased else \
-            PIXELATED_OUTLINE_SHADER
+    _update_outline()
+
+
+func _set_outline_color(value: Color) -> void:
+    outline_color = value
+    _outline_material.set_shader_param("color", outline_color)
+
+
+func _set_thickness(value: float) -> void:
+    thickness = value
+    _outline_material.set_shader_param("thickness", thickness)
+
+
+func _set_pattern(value: int) -> void:
+    pattern = value
+    _outline_material.set_shader_param("pattern", pattern)
+
+
+func _set_is_inside(value: bool) -> void:
+    is_inside = value
+    _outline_material.set_shader_param("is_inside", is_inside)
+
+
+func _set_adds_margins(value: bool) -> void:
+    adds_margins = value
+    _outline_material.set_shader_param("adds_margins", adds_margins)
