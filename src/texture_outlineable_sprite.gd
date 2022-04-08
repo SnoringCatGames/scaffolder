@@ -19,6 +19,17 @@ export var outline_suffix := "_outline" setget _set_outline_suffix
 export var normal_texture: Texture setget _set_normal_texture
 export var outlined_texture: Texture setget _set_outlined_texture
 
+## -   NOTE: Animate on this field instead of frame!
+## -   This is an unfortunate hack.
+## -   But Godot's AnimationPlayer apparently bypasses the getter/setter for
+##     frame, so we cannot use set_frame to sync the outline sprite with the
+##     normal sprite.
+export var my_frame: int setget _set_my_frame,_get_my_frame
+func _set_my_frame(value) -> void:
+    set_frame(value)
+func _get_my_frame() -> int:
+    return get_frame()
+
 var _configuration_warning := ""
 
 
@@ -97,7 +108,6 @@ func _update_inner_sprite() -> void:
     $Outline.region_enabled = self.region_enabled
     $Outline.region_filter_clip = self.region_filter_clip
     $Outline.region_rect = self.region_rect
-    
 
 
 func _set_configuration_warning(value: String) -> void:
