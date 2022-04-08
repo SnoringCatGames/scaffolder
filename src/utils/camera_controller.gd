@@ -10,10 +10,10 @@ const ZOOM_FACTOR_STEP_RATIO := 0.05
 const PAN_STEP := 8.0
 
 const ZOOM_ANIMATION_DURATION := 0.3
-const OFFSET_ANIMATION_DURATION := 0.3
+const OFFSET_ANIMATION_DURATION := 0.8
 
-var _current_camera: Camera2D
-var _current_character
+var _camera: Camera2D
+var _character
 
 var offset: Vector2 setget _set_offset,_get_offset
 var zoom_factor := 1.0 setget _set_zoom_factor
@@ -37,7 +37,7 @@ func _process(_delta: float) -> void:
     if Engine.editor_hint:
         return
     
-    if !is_instance_valid(_current_camera):
+    if !is_instance_valid(_camera):
         return
     
     # Handle zooming.
@@ -48,13 +48,13 @@ func _process(_delta: float) -> void:
     
     # Handle Panning.
     if Sc.level_button_input.is_action_pressed("pan_up"):
-        _current_camera.offset.y -= PAN_STEP
+        _camera.offset.y -= PAN_STEP
     elif Sc.level_button_input.is_action_pressed("pan_down"):
-        _current_camera.offset.y += PAN_STEP
+        _camera.offset.y += PAN_STEP
     elif Sc.level_button_input.is_action_pressed("pan_left"):
-        _current_camera.offset.x -= PAN_STEP
+        _camera.offset.x -= PAN_STEP
     elif Sc.level_button_input.is_action_pressed("pan_right"):
-        _current_camera.offset.x += PAN_STEP
+        _camera.offset.x += PAN_STEP
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -65,7 +65,7 @@ func _unhandled_input(event: InputEvent) -> void:
     # only ever considered to have just happened.
     if Sc.gui.is_player_interaction_enabled and \
             event is InputEventMouseButton and \
-            is_instance_valid(_current_camera):
+            is_instance_valid(_camera):
         if event.button_index == BUTTON_WHEEL_UP:
             _set_zoom_factor(zoom_factor * (1 - ZOOM_FACTOR_STEP_RATIO))
         if event.button_index == BUTTON_WHEEL_DOWN:
@@ -79,64 +79,66 @@ func _on_resized() -> void:
 func set_current_camera(
         camera: Camera2D,
         character) -> void:
-    var old_camera := _current_camera
-    var old_character = _current_character
+    var old_camera := _camera
+    var old_character = _character
+    self._camera = camera
+    self._character = character
     camera.make_current()
-    _current_camera = camera
-    _current_character = character
     _update_zoom()
     
     # Pan smoothly to the new camera.
     if is_instance_valid(old_camera):
-        var start_offset := old_camera.offset - camera.offset
-        if is_instance_valid(old_character):
-            start_offset += old_character.position
-        if is_instance_valid(_current_character):
-            start_offset -= _current_character.position
+        # NOTE: We have to use camera.get_camera_screen_center, rather than
+        #       calculating the position difference ourselves, because
+        #       camera.smoothing_enabled is likely true.
+        var start_offset := Vector2.ZERO
+        start_offset += old_camera.get_camera_screen_center()
+        start_offset -= _camera.get_camera_screen_center()
         var end_offset := Vector2.ZERO
         animate_to_offset(
                 end_offset,
                 OFFSET_ANIMATION_DURATION,
                 start_offset)
+        old_camera.offset = Vector2.ZERO
 
 
-func get_current_camera() -> Camera2D:
-    return _current_camera
+func get_camera() -> Camera2D:
+    return _camera
 
 
 func _set_offset(offset: Vector2) -> void:
-    if !is_instance_valid(_current_camera):
+    if !is_instance_valid(_camera):
         return
-    if _current_camera.offset == offset:
+    if _camera.offset == offset:
         return
-    _current_camera.offset = offset
+    _camera.offset = offset
     emit_signal("panned")
 
 
 func _get_offset() -> Vector2:
-    if !is_instance_valid(_current_camera):
+    if !is_instance_valid(_camera):
         return Vector2.ZERO
-    return _current_camera.offset
+    return _camera.offset
 
 
 func get_bounds() -> Rect2:
-    if !is_instance_valid(_current_camera):
+    if !is_instance_valid(_camera):
         return Rect2()
     
-    var canvas_transform := _current_camera.get_canvas_transform()
+    var canvas_transform := _camera.get_canvas_transform()
     var position := \
             -canvas_transform.get_origin() / canvas_transform.get_scale()
     var size := \
-            _current_camera.get_viewport_rect().size / \
+            _camera.get_viewport_rect().size / \
             canvas_transform.get_scale()
     
     return Rect2(position, size)
 
 
 func get_position() -> Vector2:
-    if !is_instance_valid(_current_camera):
+    if !is_instance_valid(_camera):
         return Vector2.ZERO
-    return _current_camera.get_camera_screen_center()
+    return _camera.get_camera_screen_center()
 
 
 func get_derived_zoom() -> float:
@@ -184,6 +186,7 @@ func animate_to_offset(
         return
     
     offset_tween.stop_all()
+    _set_offset(start_offset)
     offset_tween.interpolate_property(
             self,
             "offset",
@@ -197,7 +200,7 @@ func animate_to_offset(
 
 
 func _update_zoom() -> void:
-    if !is_instance_valid(_current_camera):
+    if !is_instance_valid(_camera):
         return
     var zoom := get_derived_zoom()
-    _current_camera.zoom = Vector2(zoom, zoom)
+    _camera.zoom = Vector2(zoom, zoom)
