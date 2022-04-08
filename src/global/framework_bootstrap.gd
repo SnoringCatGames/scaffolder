@@ -352,6 +352,9 @@ func _set_window_debug_size_and_position() -> void:
             OS.window_borderless = true
         else:
             OS.window_size = Sc.gui.debug_window_size
+            # Center the window.
+            OS.window_position = \
+                    (OS.get_screen_size() - Sc.gui.debug_window_size) / 2.0
     
     _on_resized()
 
