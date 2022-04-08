@@ -446,6 +446,13 @@ func _get_should_log_this_type(
             Sc.metadata.logs_character_events
 
 
+func get_next_position_prediction() -> Vector2:
+    # Since move_and_slide automatically accounts for delta, we need to
+    # compensate for that in order to support our modified framerate.
+    var modified_velocity: Vector2 = velocity * Sc.time.get_combined_scale()
+    return position + modified_velocity * Sc.time.PHYSICS_TIME_STEP
+
+
 func show_exclamation_mark() -> void:
     _throttled_show_exclamation_mark.call_func()
 
