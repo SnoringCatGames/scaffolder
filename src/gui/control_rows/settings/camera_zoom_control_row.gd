@@ -30,16 +30,16 @@ func _init(__ = null).(
 func on_value_changed(control_value: float) -> void:
     var result_value := _control_value_to_result_value(control_value)
     if Sc.geometry.are_floats_equal_with_epsilon(
-            Sc.camera_controller.zoom_factor, result_value, 0.0001):
+            Sc.camera_controller._manual_zoom, result_value, 0.0001):
         return
-    Sc.camera_controller.zoom_factor = result_value
+    Sc.camera_controller._set_manual_zoom(result_value)
     Sc.save_state.set_setting(
             SaveState.ZOOM_FACTOR_SETTINGS_KEY,
             result_value)
 
 
 func get_value() -> float:
-    return _result_value_to_control_value(Sc.camera_controller.zoom_factor)
+    return _result_value_to_control_value(Sc.camera_controller._manual_zoom)
 
 
 func get_is_enabled() -> bool:
@@ -48,7 +48,7 @@ func get_is_enabled() -> bool:
 
 func _on_camera_zoomed() -> void:
     var new_control_value := \
-            _result_value_to_control_value(Sc.camera_controller.zoom_factor)
+            _result_value_to_control_value(Sc.camera_controller._manual_zoom)
     if control.value != new_control_value:
         _is_change_triggered_indirectly = true
         control.value = new_control_value
