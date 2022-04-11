@@ -44,6 +44,7 @@ var project_settings: ScaffolderProjectSettings
 var camera_controller: CameraController
 var level_button_input: LevelButtonInput
 var characters: ScaffolderCharacterManifest
+var camera: ScaffolderCameraManifest
 # TODO: Cleanup the annotator system.
 var annotators: ScaffolderAnnotators
 var level_config: ScaffolderLevelConfig
@@ -274,6 +275,7 @@ func _get_members_to_destroy() -> Array:
         camera_controller,
         level_button_input,
         characters,
+        camera,
         annotators,
         level_config,
         level,
@@ -496,6 +498,13 @@ func _instantiate_sub_modules() -> void:
         self.characters = ScaffolderCharacterManifest.new()
     add_child(self.characters)
     
+    if manifest.has("camera_manifest_class"):
+        self.camera = manifest.camera_manifest_class.new()
+        assert(self.camera is ScaffolderCameraManifest)
+    else:
+        self.camera = ScaffolderCameraManifest.new()
+    add_child(self.camera)
+    
     if manifest.has("annotators_class"):
         self.annotators = manifest.annotators_class.new()
         assert(self.annotators is ScaffolderAnnotators)
@@ -518,6 +527,7 @@ func _configure_sub_modules() -> void:
     self.notify._parse_manifest(manifest.notifications_manifest)
     self.slow_motion._parse_manifest(manifest.slow_motion_manifest)
     self.characters._parse_manifest(manifest.character_manifest)
+    self.camera._parse_manifest(manifest.camera_manifest)
     
     self.metadata.is_app_configured = true
     

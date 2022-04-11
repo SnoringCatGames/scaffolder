@@ -1080,6 +1080,11 @@ var _character_manifest := {
     is_camera_auto_assigned_to_player_character = true,
 }
 
+var _camera_manifest := {
+    default_camera_pan_controller_class = DefaultPanController,
+    snaps_camera_back_to_character = true,
+}
+
 var _annotation_parameters_manifest := Sc.utils.merge(
         Utils.get_direct_non_color_properties(
             ScaffolderDefaultAnnotationParameters.new()),
@@ -1099,6 +1104,7 @@ var _properties := {
     slow_motion_manifest = _slow_motion_manifest,
     input_map = _input_map,
     character_manifest = _character_manifest,
+    camera_manifest = _camera_manifest,
     annotation_parameters_manifest = _annotation_parameters_manifest,
 
     level_config_class = SquirrelAwayLevelConfig,
