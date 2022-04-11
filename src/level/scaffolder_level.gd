@@ -20,12 +20,18 @@ var characters: Dictionary
 var active_player_character: ScaffolderCharacter \
         setget _set_active_player_character
 
+var pointer_listener: LevelPointerListener
 var camera_pan_controller: CameraPanController
 
 var session: ScaffolderLevelSession
 
 var _is_ready := false
 var _configuration_warning := ""
+
+
+func _init() -> void:
+    self.pointer_listener = LevelPointerListener.new()
+    add_child(pointer_listener)
 
 
 func _enter_tree() -> void:
