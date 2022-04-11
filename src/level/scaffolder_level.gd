@@ -58,12 +58,10 @@ func _start() -> void:
     if Sc.gui.hud_manifest.is_hud_visible_by_default:
         Sc.gui.hud.visible = true
     
-    var includes_player_character := _add_player_character()
+    var includes_default_player_character := _add_default_player_character()
     _add_npcs()
     
-    if !includes_player_character or \
-            !Sc.characters.is_camera_auto_assigned_to_player_character:
-        _set_non_player_camera()
+    _set_default_camera()
     
     call_deferred("_on_started")
 
@@ -76,7 +74,7 @@ func _on_started() -> void:
     Sc.logger.print("Level started:               %8.3f" % start_time_unscaled)
 
 
-func _add_player_character() -> bool:
+func _add_default_player_character() -> bool:
     if Sc.characters.default_player_character_name == "":
         # There is no player character configured.
         return false
@@ -408,6 +406,10 @@ func _get_is_rate_app_screen_next() -> bool:
             "Abstract ScaffolderLevel._get_is_rate_app_screen_next " +
             "is not implemented")
     return false
+
+
+func _set_default_camera() -> void:
+    _set_non_player_camera()
 
 
 func _set_non_player_camera() -> void:
