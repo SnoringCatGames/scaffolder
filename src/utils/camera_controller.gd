@@ -6,7 +6,7 @@ extends Node2D
 signal zoomed
 signal panned
 
-const ZOOM_FACTOR_STEP_RATIO := 0.05
+const _MANUAL_ZOOM_STEP_RATIO := 0.05
 const PAN_STEP := 8.0
 
 const ZOOM_ANIMATION_DURATION := 0.3
@@ -16,10 +16,17 @@ var _camera: Camera2D
 var _character
 
 var offset: Vector2 setget _set_offset,_get_offset
-var zoom_factor := 1.0 setget _set_zoom_factor
 
-var zoom_tween: ScaffolderTween
-var offset_tween: ScaffolderTween
+var _manual_offset := Vector2.ZERO
+var _camera_swap_offset := Vector2.ZERO
+var _camera_pan_controller_offset := Vector2.ZERO
+var _misc_offset := Vector2.ZERO
+
+var _manual_zoom := 1.0
+var _camera_pan_controller_zoom := 1.0
+var _misc_zoom := 1.0
+
+var _camera_swap_offset_tween: ScaffolderTween
 
 
 func _init() -> void:
@@ -27,10 +34,8 @@ func _init() -> void:
 
 
 func _ready() -> void:
-    zoom_tween = ScaffolderTween.new()
-    add_child(zoom_tween)
-    offset_tween = ScaffolderTween.new()
-    add_child(offset_tween)
+    _camera_swap_offset_tween = ScaffolderTween.new()
+    add_child(_camera_swap_offset_tween)
 
 
 func _process(_delta: float) -> void:
@@ -42,19 +47,27 @@ func _process(_delta: float) -> void:
     
     # Handle zooming.
     if Sc.level_button_input.is_action_pressed("zoom_in"):
-        _set_zoom_factor(zoom_factor * (1 - ZOOM_FACTOR_STEP_RATIO))
+        _set_manual_zoom(_manual_zoom * (1 - _MANUAL_ZOOM_STEP_RATIO))
     elif Sc.level_button_input.is_action_pressed("zoom_out"):
-        _set_zoom_factor(zoom_factor * (1 + ZOOM_FACTOR_STEP_RATIO))
+        _set_manual_zoom(_manual_zoom * (1 + _MANUAL_ZOOM_STEP_RATIO))
     
     # Handle Panning.
     if Sc.level_button_input.is_action_pressed("pan_up"):
-        _camera.offset.y -= PAN_STEP
+        _set_manual_offset(Vector2(
+                _manual_offset.x,
+                _manual_offset.y - PAN_STEP))
     elif Sc.level_button_input.is_action_pressed("pan_down"):
-        _camera.offset.y += PAN_STEP
+        _set_manual_offset(Vector2(
+                _manual_offset.x,
+                _manual_offset.y + PAN_STEP))
     elif Sc.level_button_input.is_action_pressed("pan_left"):
-        _camera.offset.x -= PAN_STEP
+        _set_manual_offset(Vector2(
+                _manual_offset.x - PAN_STEP,
+                _manual_offset.y))
     elif Sc.level_button_input.is_action_pressed("pan_right"):
-        _camera.offset.x += PAN_STEP
+        _set_manual_offset(Vector2(
+                _manual_offset.x + PAN_STEP,
+                _manual_offset.y))
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -67,13 +80,13 @@ func _unhandled_input(event: InputEvent) -> void:
             event is InputEventMouseButton and \
             is_instance_valid(_camera):
         if event.button_index == BUTTON_WHEEL_UP:
-            _set_zoom_factor(zoom_factor * (1 - ZOOM_FACTOR_STEP_RATIO))
+            _set_manual_zoom(_manual_zoom * (1 - _MANUAL_ZOOM_STEP_RATIO))
         if event.button_index == BUTTON_WHEEL_DOWN:
-            _set_zoom_factor(zoom_factor * (1 + ZOOM_FACTOR_STEP_RATIO))
+            _set_manual_zoom(_manual_zoom * (1 + _MANUAL_ZOOM_STEP_RATIO))
 
 
 func _on_resized() -> void:
-    _update_zoom()
+    _update_offset_and_zoom()
 
 
 func set_current_camera(
@@ -84,7 +97,7 @@ func set_current_camera(
     self._camera = camera
     self._character = character
     camera.make_current()
-    _update_zoom()
+    _update_offset_and_zoom()
     
     # Pan smoothly to the new camera.
     if is_instance_valid(old_camera):
@@ -95,10 +108,10 @@ func set_current_camera(
         start_offset += old_camera.get_camera_screen_center()
         start_offset -= _camera.get_camera_screen_center()
         var end_offset := Vector2.ZERO
-        animate_to_offset(
+        _transition_offset_from_old_camera(
+                start_offset,
                 end_offset,
-                OFFSET_ANIMATION_DURATION,
-                start_offset)
+                OFFSET_ANIMATION_DURATION)
         old_camera.offset = Vector2.ZERO
 
 
@@ -141,66 +154,94 @@ func get_position() -> Vector2:
     return _camera.get_camera_screen_center()
 
 
-func get_derived_zoom() -> float:
-    return zoom_factor * \
-            Sc.gui.default_camera_zoom / \
-            Sc.gui.scale
+func get_zoom() -> float:
+    if !is_instance_valid(_camera):
+        return 1.0
+    return _camera.zoom.x
 
 
-func _set_zoom_factor(value: float) -> void:
-    if zoom_factor == value:
-        return
-    zoom_factor = value
-    _update_zoom()
-    emit_signal("zoomed")
+func _set_manual_offset(offset: Vector2) -> void:
+    self._manual_offset = offset
+    _update_offset_and_zoom()
 
 
-func animate_to_zoom_factor(
-        zoom_factor: float,
-        duration := ZOOM_ANIMATION_DURATION) -> void:
-    if self.zoom_factor == zoom_factor:
-        return
-    
-    zoom_tween.stop_all()
-    zoom_tween.interpolate_property(
-            self,
-            "zoom_factor",
-            self.zoom_factor,
-            zoom_factor,
-            duration,
-            "ease_in_out",
-            0.0,
-            TimeType.PLAY_PHYSICS_SCALED)
-    zoom_tween.start()
+func _set_camera_swap_offset(offset: Vector2) -> void:
+    self._camera_swap_offset = offset
+    _update_offset_and_zoom()
 
 
-func animate_to_offset(
+func set_camera_pan_controller_offset(offset: Vector2) -> void:
+    self._camera_pan_controller_offset = offset
+    _update_offset_and_zoom()
+
+
+func set_misc_offset(offset: Vector2) -> void:
+    self._misc_offset = offset
+    _update_offset_and_zoom()
+
+
+func _set_manual_zoom(offset: float) -> void:
+    self._manual_zoom = offset
+    _update_offset_and_zoom()
+
+
+func set_camera_pan_controller_zoom(zoom: float) -> void:
+    self._camera_pan_controller_zoom = zoom
+    _update_offset_and_zoom()
+
+
+func set_misc_zoom(zoom: float) -> void:
+    self._misc_zoom = zoom
+    _update_offset_and_zoom()
+
+
+func _transition_offset_from_old_camera(
+        old_offset: Vector2,
         new_offset: Vector2,
-        duration := OFFSET_ANIMATION_DURATION,
-        old_offset := Vector2.INF) -> void:
+        duration: float) -> void:
     var start_offset := \
             _get_offset() if \
             old_offset == Vector2.INF else \
             old_offset
+    _set_camera_swap_offset(start_offset)
+    _camera_swap_offset_tween.stop_all()
     if new_offset == start_offset:
         return
-    
-    offset_tween.stop_all()
-    _set_offset(start_offset)
-    offset_tween.interpolate_property(
+    _camera_swap_offset_tween.interpolate_method(
             self,
-            "offset",
+            "_set_camera_swap_offset",
             start_offset,
             new_offset,
             duration,
             "ease_in_out",
             0.0,
             TimeType.PLAY_PHYSICS_SCALED)
-    offset_tween.start()
+    _camera_swap_offset_tween.start()
 
 
-func _update_zoom() -> void:
+func _update_offset_and_zoom() -> void:
     if !is_instance_valid(_camera):
         return
-    var zoom := get_derived_zoom()
-    _camera.zoom = Vector2(zoom, zoom)
+    
+    var old_offset := _camera.offset
+    var old_zoom := _camera.zoom.x
+    
+    var new_zoom: float = \
+            _manual_zoom * \
+            _camera_pan_controller_zoom * \
+            _misc_zoom * \
+            Sc.gui.default_camera_zoom / \
+            Sc.gui.scale
+    var new_offset := \
+            _manual_offset + \
+            _camera_swap_offset + \
+            _camera_pan_controller_offset + \
+            _misc_offset
+
+    _camera.offset = new_offset
+    _camera.zoom = Vector2(new_zoom, new_zoom)
+    
+    if old_offset != new_offset:
+        emit_signal("panned")
+    if old_zoom != new_zoom:
+        emit_signal("zoomed")
