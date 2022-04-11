@@ -20,6 +20,8 @@ var characters: Dictionary
 var active_player_character: ScaffolderCharacter \
         setget _set_active_player_character
 
+var camera_pan_controller: CameraPanController
+
 var session: ScaffolderLevelSession
 
 var _is_ready := false
@@ -147,6 +149,8 @@ func _destroy() -> void:
         for character in characters[character_name]:
             character._destroy()
     _set_active_player_character(null)
+    if is_instance_valid(camera_pan_controller):
+        camera_pan_controller._destroy()
     Sc.level = null
     Sc.level_session._is_destroyed = true
     if Sc.level_session.is_restarting:
@@ -246,6 +250,18 @@ func register_spawn_position(
     
     if spawn_position.include_exclusively:
         exclusive_spawn_positions.push_back(spawn_position)
+
+
+func swap_camera_pan_controllers(camera_pan_controller_class: Script) -> void:
+    var previous_camera_pan_controller := camera_pan_controller
+    self.camera_pan_controller = null
+    if is_instance_valid(camera_pan_controller_class):
+        self.camera_pan_controller = \
+                camera_pan_controller_class.new(previous_camera_pan_controller)
+        add_child(camera_pan_controller)
+    if is_instance_valid(previous_camera_pan_controller):
+        previous_camera_pan_controller._destroy()
+        previous_camera_pan_controller.queue_free()
 
 
 func _update_editor_configuration() -> void:
@@ -409,7 +425,19 @@ func _get_is_rate_app_screen_next() -> bool:
 
 
 func _set_default_camera() -> void:
-    _set_non_player_camera()
+    if Sc.characters.default_player_character_name == "" or \
+            !Sc.characters.is_camera_auto_assigned_to_player_character:
+        _set_non_player_camera()
+    else:
+        # The camera is created by the character in this case.
+        
+        if is_instance_valid(Sc.camera.default_camera_pan_controller_class):
+            camera_pan_controller = \
+                    Sc.camera.default_camera_pan_controller_class.new()
+            assert(self.camera_pan_controller is CameraPanController)
+            add_child(camera_pan_controller)
+        else:
+            camera_pan_controller = null
 
 
 func _set_non_player_camera() -> void:
