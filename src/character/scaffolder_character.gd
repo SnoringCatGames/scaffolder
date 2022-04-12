@@ -589,7 +589,7 @@ func _on_detection_area_enter_exit(
         detection_area: Area2D) -> void:
     # Ignore any events that are triggered at invalid times.
     if _is_destroyed or \
-            !Sc.level_session.has_started:
+            !Sc.levels.session.has_started:
         return
     
     # Get a list of the collision-layer names that are matched between the

@@ -46,9 +46,8 @@ var characters: ScaffolderCharacterManifest
 var camera: ScaffolderCameraManifest
 # TODO: Cleanup the annotator system.
 var annotators: ScaffolderAnnotators
-var level_config: ScaffolderLevelConfig
+var levels: ScaffolderLevelConfig
 var level: ScaffolderLevel
-var level_session: ScaffolderLevelSession
 var legend: Legend
 
 var nav: ScreenNavigator
@@ -275,9 +274,8 @@ func _get_members_to_destroy() -> Array:
         characters,
         camera,
         annotators,
-        level_config,
+        levels,
         level,
-        level_session,
         legend,
         
         nav,
@@ -339,9 +337,6 @@ func initialize_crash_reporter() -> void:
 
 
 func _instantiate_sub_modules() -> void:
-    self.level_session = manifest.level_session_class.new()
-    assert(self.level_session is ScaffolderLevelSession)
-    
     if manifest.has("audio_manifest_class"):
         self.audio_manifest = manifest.audio_manifest_class.new()
         assert(self.audio_manifest is ScaffolderAudioManifest)
@@ -504,11 +499,15 @@ func _instantiate_sub_modules() -> void:
     add_child(self.annotators)
     
     # This depends on SaveState, and must be instantiated after.
-    self.level_config = manifest.level_config_class.new()
-    add_child(self.level_config)
+    self.levels = manifest.level_manifest.level_config_class.new()
+    add_child(self.levels)
+    
+    self.levels.session = manifest.level_manifest.level_session_class.new()
+    assert(self.levels.session is ScaffolderLevelSession)
 
 
 func _configure_sub_modules() -> void:
+    self.levels._parse_manifest(manifest.level_manifest)
     self.audio_manifest._parse_manifest(manifest.audio_manifest)
     self.styles._parse_manifest(manifest.styles_manifest)
     self.images._parse_manifest(manifest.images_manifest)

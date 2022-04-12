@@ -72,7 +72,7 @@ func reset(id: String) -> void:
     _is_new_fastest_time = false
     _pre_pause_music_name = ""
     _pre_pause_music_position = INF
-    config = Sc.level_config.get_level_config(id)
+    config = Sc.levels.get_level_config(id)
     _update_high_score()
     _update_fastest_time()
 
@@ -179,7 +179,7 @@ func _handle_new_score() -> void:
     Sc.analytics.event(
             "score",
             "v" + Sc.metadata.score_version,
-            Sc.level_config.get_level_version_string(_id),
+            Sc.levels.get_level_version_string(_id),
             int(_score))
     
     var all_scores: Array = Sc.save_state.get_level_all_scores(_id)
@@ -222,12 +222,12 @@ func _update_fastest_time() -> void:
 
 
 func _update_new_unlocked_levels() -> void:
-    _new_unlocked_levels = Sc.level_config.get_new_unlocked_levels()
+    _new_unlocked_levels = Sc.levels.get_new_unlocked_levels()
     Sc.save_state.set_new_unlocked_levels(_new_unlocked_levels)
     for other_level_id in _new_unlocked_levels:
         Sc.save_state.set_level_is_unlocked(other_level_id, true)
         Sc.analytics.event(
                 "level",
                 "unlocked",
-                Sc.level_config.get_level_version_string(other_level_id),
-                Sc.level_config.get_level_config(other_level_id).number)
+                Sc.levels.get_level_version_string(other_level_id),
+                Sc.levels.get_level_config(other_level_id).number)

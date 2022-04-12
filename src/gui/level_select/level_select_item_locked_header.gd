@@ -88,9 +88,9 @@ func update_size(header_size: Vector2) -> bool:
 
 func update_is_unlocked(is_unlocked: bool) -> void:
     var unlock_hint_message: String = \
-            Sc.level_config.get_unlock_hint(level_id)
+            Sc.levels.get_unlock_hint(level_id)
     var is_next_level_to_unlock: bool = \
-            Sc.level_config.get_next_level_to_unlock() == level_id
+            Sc.levels.get_next_level_to_unlock() == level_id
     
     $HintWrapper/Hint.text = unlock_hint_message
     visible = !is_unlocked

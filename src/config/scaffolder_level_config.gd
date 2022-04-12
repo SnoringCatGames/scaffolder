@@ -23,8 +23,25 @@ extends Node
 # -   number: int
 
 
+const DEFAULT_CAMERA_BOUNDS_LEVEL_MARGIN := {
+    top = 768.0,
+    bottom = 384.0,
+    left = 384.0,
+    right = 384.0,
+}
+
+const DEFAULT_CHARACTER_BOUNDS_LEVEL_MARGIN := \
+        DEFAULT_CAMERA_BOUNDS_LEVEL_MARGIN
+
 var are_levels_scene_based: bool
 var test_level_count := 0
+
+var default_camera_bounds_level_margin := \
+        DEFAULT_CAMERA_BOUNDS_LEVEL_MARGIN
+var default_character_bounds_level_margin := \
+        DEFAULT_CHARACTER_BOUNDS_LEVEL_MARGIN
+
+var session: ScaffolderLevelSession
 
 var _level_configs_by_id := {}
 var _level_configs_by_number := {}
@@ -50,6 +67,15 @@ func _ready() -> void:
             is_a_level_unlocked_at_the_start = true
             Sc.save_state.set_level_is_unlocked(level_id, true)
     assert(is_a_level_unlocked_at_the_start)
+
+
+func _parse_manifest(manifest: Dictionary) -> void:
+    if manifest.has("default_camera_bounds_level_margin"):
+        self.default_camera_bounds_level_margin = \
+                manifest.default_camera_bounds_level_margin
+    if manifest.has("default_character_bounds_level_margin"):
+        self.default_character_bounds_level_margin = \
+                manifest.default_character_bounds_level_margin
 
 
 func _sanitize_level_configs() -> void:
@@ -236,17 +262,17 @@ func calculate_suggested_next_level() -> String:
         # If we haven't ever played any level, then suggest the first level.
         return get_first_always_unlocked_level()
         
-    elif Sc.level_session.has_finished:
+    elif self.session.has_finished:
         # If we have already finished a level during this play session, then
         # suggest the next level.
-        var next_level_id := get_next_level_id(Sc.level_session.id)
+        var next_level_id := get_next_level_id(self.session.id)
         if next_level_id != "" and \
                 Sc.save_state.get_level_is_unlocked(next_level_id):
             # The next level is available, so suggest it.
             return next_level_id
         else:
             # The next level isn't available, so suggest the same level.
-            return Sc.level_session.id
+            return self.session.id
         
     else:
         # If we haven't yet finished a level during this play session, then

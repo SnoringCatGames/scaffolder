@@ -44,13 +44,13 @@ func _on_transition_in_ended(previous_screen: Screen) -> void:
 
 
 func _load_level() -> void:
-    Sc.level_session.reset(level_id)
+    Sc.levels.session.reset(level_id)
     
     Sc.save_state.set_last_level_played(level_id)
     
     var level: ScaffolderLevel = Sc.utils.add_scene(
             null,
-            Sc.level_config.get_level_config(level_id).scene_path,
+            Sc.levels.get_level_config(level_id).scene_path,
             false,
             true)
     

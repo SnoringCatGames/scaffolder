@@ -20,6 +20,10 @@ var characters: Dictionary
 var active_player_character: ScaffolderCharacter \
         setget _set_active_player_character
 
+var level_bounds: Rect2
+var camera_bounds: Rect2
+var character_bounds: Rect2
+
 var pointer_listener: LevelPointerListener
 var camera_pan_controller: CameraPanController
 
@@ -35,12 +39,13 @@ func _init() -> void:
 
 
 func _enter_tree() -> void:
-    session = Sc.level_session
+    session = Sc.levels.session
     _update_session_in_editor()
 
 
 func _ready() -> void:
     _is_ready = true
+    _establish_boundaries()
     _update_editor_configuration()
     Sc.device.connect(
             "display_resized",
@@ -56,12 +61,12 @@ func _load() -> void:
 func _start() -> void:
     Sc.audio.play_music(get_music_name())
     Sc.save_state.set_level_total_plays(
-            Sc.level_session.id,
-            Sc.save_state.get_level_total_plays(Sc.level_session.id) + 1)
+            Sc.levels.session.id,
+            Sc.save_state.get_level_total_plays(Sc.levels.session.id) + 1)
     Sc.analytics.event(
             "level",
             "start",
-            Sc.level_config.get_level_version_string(Sc.level_session.id))
+            Sc.levels.get_level_version_string(Sc.levels.session.id))
     
     if Sc.gui.hud_manifest.is_hud_visible_by_default:
         Sc.gui.hud.visible = true
@@ -77,8 +82,8 @@ func _start() -> void:
 func _on_started() -> void:
     var start_time_scaled: float = Sc.time.get_scaled_play_time()
     var start_time_unscaled: float = Sc.time.get_play_time()
-    Sc.level_session._level_start_play_time_scaled = start_time_scaled
-    Sc.level_session._level_start_play_time_unscaled = start_time_unscaled
+    Sc.levels.session._level_start_play_time_scaled = start_time_scaled
+    Sc.levels.session._level_start_play_time_unscaled = start_time_unscaled
     Sc.logger.print("Level started:               %8.3f" % start_time_unscaled)
 
 
@@ -159,12 +164,12 @@ func _destroy() -> void:
         camera_pan_controller._destroy()
     pointer_listener.queue_free()
     Sc.level = null
-    Sc.level_session._is_destroyed = true
-    if Sc.level_session.is_restarting:
+    Sc.levels.session._is_destroyed = true
+    if Sc.levels.session.is_restarting:
         Sc.nav.open(
                 "loading",
                 ScreenTransition.DEFAULT,
-                {level_id = Sc.level_session.id})
+                {level_id = Sc.levels.session.id})
     if !is_queued_for_deletion():
         queue_free()
 
@@ -172,12 +177,12 @@ func _destroy() -> void:
 func quit(
         has_finished: bool,
         immediately: bool) -> void:
-    Sc.level_session._level_end_play_time_unscaled = Sc.time.get_play_time()
+    Sc.levels.session._level_end_play_time_unscaled = Sc.time.get_play_time()
     Sc.audio.stop_music()
-    Sc.level_session._update_for_level_end(has_finished)
+    Sc.levels.session._update_for_level_end(has_finished)
     _record_suggested_next_level()
     if immediately:
-        if !Sc.level_session.is_restarting:
+        if !Sc.levels.session.is_restarting:
             Sc.nav.open("game_over", ScreenTransition.FANCY)
         _destroy()
     else:
@@ -284,7 +289,7 @@ func _update_editor_configuration() -> void:
         _set_configuration_warning("Level ID must be defined.")
         return
     
-    if !Sc.level_config._level_configs_by_id.has(level_id):
+    if !Sc.levels._level_configs_by_id.has(level_id):
         _set_configuration_warning(
                 "Level ID must match a value configured in your " +
                 "LevelConfiguration file.")
@@ -317,14 +322,14 @@ func _get_configuration_warning() -> String:
 
 func _record_suggested_next_level() -> void:
     var suggested_next_level_id: String = \
-            Sc.level_config.calculate_suggested_next_level()
+            Sc.levels.calculate_suggested_next_level()
     Sc.save_state.set_setting(
             SaveState.SUGGESTED_NEXT_LEVEL_SETTINGS_KEY,
             suggested_next_level_id)
 
 
 func restart() -> void:
-    Sc.level_session._is_restarting = true
+    Sc.levels.session._is_restarting = true
     quit(false, true)
 
 
@@ -332,14 +337,14 @@ func _input(event: InputEvent) -> void:
     if Engine.editor_hint:
         return
     
-    if !Sc.level_session.has_initial_input_happened and \
+    if !Sc.levels.session.has_initial_input_happened and \
             Sc.gui.is_player_interaction_enabled and \
-            Sc.level_session.level_play_time_unscaled > \
+            Sc.levels.session.level_play_time_unscaled > \
                     MIN_CONTROLS_DISPLAY_TIME and \
             (event is InputEventMouseButton or \
                     event is InputEventScreenTouch or \
                     event is InputEventKey) and \
-            Sc.level_session.has_started:
+            Sc.levels.session.has_started:
         _on_initial_input()
 
 
@@ -358,7 +363,7 @@ func _on_initial_input() -> void:
     Sc.logger.print(
             "_on_initial_input():         %8.3f" % \
             Sc.time.get_play_time())
-    Sc.level_session._has_initial_input_happened = true
+    Sc.levels.session._has_initial_input_happened = true
     # Close the welcome panel on any mouse or key click event.
     if is_instance_valid(Sc.gui.welcome_panel):
         _hide_welcome_panel()
@@ -370,8 +375,8 @@ func _on_resized() -> void:
 
 func pause() -> void:
     if Sc.audio_manifest.pauses_level_music_on_pause:
-        Sc.level_session._pre_pause_music_name = Sc.audio.get_music_name()
-        Sc.level_session._pre_pause_music_position = \
+        Sc.levels.session._pre_pause_music_name = Sc.audio.get_music_name()
+        Sc.levels.session._pre_pause_music_position = \
                 Sc.audio.get_playback_position()
         if Sc.audio_manifest.pause_menu_music != "":
             Sc.audio.play_music(Sc.audio_manifest.pause_menu_music)
@@ -380,8 +385,8 @@ func pause() -> void:
 
 func on_unpause() -> void:
     if Sc.audio_manifest.pauses_level_music_on_pause:
-        Sc.audio.play_music(Sc.level_session._pre_pause_music_name)
-        Sc.audio.seek(Sc.level_session._pre_pause_music_position)
+        Sc.audio.play_music(Sc.levels.session._pre_pause_music_name)
+        Sc.audio.seek(Sc.levels.session._pre_pause_music_position)
 
 
 func _show_welcome_panel() -> void:
@@ -467,10 +472,10 @@ func _update_session_in_editor() -> void:
     if !Engine.editor_hint:
         return
     
-    Sc.level_session.reset(level_id)
+    Sc.levels.session.reset(level_id)
     
     var tilemaps: Array = Sc.utils.get_children_by_type(self, TileMap)
-    Sc.level_session.config.cell_size = \
+    Sc.levels.session.config.cell_size = \
             Vector2.INF if \
             tilemaps.empty() else \
             tilemaps[0].cell_size
@@ -479,7 +484,7 @@ func _update_session_in_editor() -> void:
 func _set_level_id(value: String) -> void:
     level_id = value
     if !Engine.editor_hint:
-        assert(Sc.level_session.id == level_id)
+        assert(Sc.levels.session.id == level_id)
     _update_editor_configuration()
     _update_session_in_editor()
 
@@ -494,3 +499,30 @@ func _set_active_player_character(character: ScaffolderCharacter) -> void:
         active_player_character.set_is_player_control_active(false, false)
     
     active_player_character = character
+
+
+func _establish_boundaries() -> void:
+    level_bounds = _get_combined_tilemaps_region()
+    camera_bounds = level_bounds.grow_individual(
+            Sc.levels.default_camera_bounds_level_margin.left,
+            Sc.levels.default_camera_bounds_level_margin.top,
+            Sc.levels.default_camera_bounds_level_margin.right,
+            Sc.levels.default_camera_bounds_level_margin.bottom)
+    character_bounds = level_bounds.grow_individual(
+            Sc.levels.default_character_bounds_level_margin.left,
+            Sc.levels.default_character_bounds_level_margin.top,
+            Sc.levels.default_character_bounds_level_margin.right,
+            Sc.levels.default_character_bounds_level_margin.bottom)
+
+
+func _get_combined_tilemaps_region() -> Rect2:
+    var tile_maps: Array = Sc.utils.get_children_by_type(self, TileMap, true)
+    assert(!tile_maps.empty())
+    var tile_map: TileMap = tile_maps[0]
+    var tile_map_region: Rect2 = \
+            Sc.geometry.get_tilemap_bounds_in_world_coordinates(tile_map)
+    for i in range(1, tile_maps.size()):
+        tile_map = tile_maps[i]
+        tile_map_region = tile_map_region.merge(
+                Sc.geometry.get_tilemap_bounds_in_world_coordinates(tile_map))
+    return tile_map_region

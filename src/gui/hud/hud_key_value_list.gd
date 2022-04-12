@@ -52,7 +52,7 @@ func update_list() -> void:
                 Sc.gui.hud_manifest.hud_key_value_box_scene,
                 false,
                 true)
-        box.item = item_config.item_class.new(Sc.level_session)
+        box.item = item_config.item_class.new(Sc.levels.session)
         if item_config.has("animation"):
             box.animation_config = item_config.animation
         add_child(box)
