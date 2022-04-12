@@ -230,7 +230,7 @@ func _update_offset_and_zoom() -> void:
             _manual_zoom * \
             _camera_pan_controller_zoom * \
             _misc_zoom * \
-            Sc.gui.default_camera_zoom / Sc.gui.scale
+            Sc.gui.gui_camera_zoom_factor / Sc.gui.scale
     var new_offset := \
             _manual_offset + \
             _camera_swap_offset + \
@@ -251,7 +251,7 @@ func _update_offset_and_zoom() -> void:
 #        _manual_zoom,
 #        _camera_pan_controller_zoom,
 #        _misc_zoom,
-#        Sc.gui.default_camera_zoom / Sc.gui.scale,
+#        Sc.gui.gui_camera_zoom_factor / Sc.gui.scale,
 #    ])
     
     _camera.offset = new_offset
