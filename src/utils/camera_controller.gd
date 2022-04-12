@@ -134,7 +134,7 @@ func _get_offset() -> Vector2:
     return _camera.offset
 
 
-func get_bounds() -> Rect2:
+func get_visible_region() -> Rect2:
     if !is_instance_valid(_camera):
         return Rect2()
     
