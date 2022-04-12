@@ -209,7 +209,7 @@ func _destroy() -> void:
 
 
 func _on_resized() -> void:
-    Sc.camera_controller._on_resized()
+    Sc.camera.controller._on_resized()
 
 
 func _on_annotators_ready() -> void:
@@ -341,7 +341,7 @@ func set_is_player_control_active(
     
     if value and \
             is_instance_valid(_camera):
-        Sc.camera_controller.set_current_camera(_camera, self)
+        Sc.camera.controller.set_current_camera(_camera, self)
     
     if should_also_update_level:
         if value:

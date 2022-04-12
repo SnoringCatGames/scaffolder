@@ -41,7 +41,6 @@ var slow_motion: SlowMotionController
 var beats: BeatTracker
 var canvas_layers: CanvasLayers
 var project_settings: ScaffolderProjectSettings
-var camera_controller: CameraController
 var level_button_input: LevelButtonInput
 var characters: ScaffolderCharacterManifest
 var camera: ScaffolderCameraManifest
@@ -272,7 +271,6 @@ func _get_members_to_destroy() -> Array:
         beats,
         canvas_layers,
         project_settings,
-        camera_controller,
         level_button_input,
         characters,
         camera,
@@ -470,13 +468,6 @@ func _instantiate_sub_modules() -> void:
         self.beats = BeatTracker.new()
     add_child(self.beats)
     
-    if manifest.has("camera_controller_class"):
-        self.camera_controller = manifest.camera_controller_class.new()
-        assert(self.camera_controller is CameraController)
-    else:
-        self.camera_controller = CameraController.new()
-    add_child(self.camera_controller)
-    
     if manifest.has("canvas_layers_class"):
         self.canvas_layers = manifest.canvas_layers_class.new()
         assert(self.canvas_layers is CanvasLayers)
@@ -564,6 +555,6 @@ func _load_state() -> void:
     Sc.time.additional_debug_time_scale = Sc.save_state.get_setting(
             SaveState.ADDITIONAL_DEBUG_TIME_SCALE_SETTINGS_KEY,
             1.0)
-    Sc.camera_controller._set_manual_zoom(Sc.save_state.get_setting(
+    Sc.camera.controller._set_manual_zoom(Sc.save_state.get_setting(
             SaveState.ZOOM_FACTOR_SETTINGS_KEY,
             1.0))

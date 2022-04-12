@@ -452,7 +452,7 @@ func _set_non_player_camera() -> void:
     camera.smoothing_speed = Sc.gui.camera_smoothing_speed
     add_child(camera)
     # Register the current camera, so it's globally accessible.
-    Sc.camera_controller.set_current_camera(camera, null)
+    Sc.camera.controller.set_current_camera(camera, null)
 
 
 func _update_session_in_editor() -> void:
