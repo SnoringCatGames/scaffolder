@@ -230,14 +230,30 @@ func _update_offset_and_zoom() -> void:
             _manual_zoom * \
             _camera_pan_controller_zoom * \
             _misc_zoom * \
-            Sc.gui.default_camera_zoom / \
-            Sc.gui.scale
+            Sc.gui.default_camera_zoom / Sc.gui.scale
     var new_offset := \
             _manual_offset + \
             _camera_swap_offset + \
             _camera_pan_controller_offset + \
             _misc_offset
-
+    
+#    Sc.logger.print((
+#        "CameraController._update_offset_and_zoom:" +
+#        "\n  offset: %s (ma=%s, cs=%s, pc=%s, mi=%s)" +
+#        "\n  zoom: %1.1f (ma=%1.1f, pc=%1.1f, mi=%1.1f, gu=%1.1f)"
+#    ) % [
+#        Sc.utils.get_vector_string(new_offset, 0),
+#        Sc.utils.get_vector_string(_manual_offset, 0),
+#        Sc.utils.get_vector_string(_camera_swap_offset, 0),
+#        Sc.utils.get_vector_string(_camera_pan_controller_offset, 0),
+#        Sc.utils.get_vector_string(_misc_offset, 0),
+#        new_zoom,
+#        _manual_zoom,
+#        _camera_pan_controller_zoom,
+#        _misc_zoom,
+#        Sc.gui.default_camera_zoom / Sc.gui.scale,
+#    ])
+    
     _camera.offset = new_offset
     _camera.zoom = Vector2(new_zoom, new_zoom)
     
