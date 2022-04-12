@@ -46,9 +46,9 @@ func _process(_delta: float) -> void:
     
     $PanelContainer/ScaffolderTime.text = Sc.utils.get_time_string_from_seconds(
             Sc.time.get_app_time(),
-            true,
             false,
-            false) + " "
+            false,
+            true) + " "
 
 
 func _on_resized() -> void:
