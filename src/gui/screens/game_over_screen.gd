@@ -58,13 +58,13 @@ func _update_stats() -> void:
             $VBoxContainer/AccordionPanel/AccordionBody/LabeledControlList
     
     unlocked_new_level_label.visible = \
-            !Sc.level_session.new_unlocked_levels.empty()
+            !Sc.levels.session.new_unlocked_levels.empty()
     
     was_best_playthrough_label.visible = \
-            Sc.level_session.is_new_high_score
+            Sc.levels.session.is_new_high_score
     
     was_fastest_playthrough_label.visible = \
-            Sc.level_session.is_fastest_time
+            Sc.levels.session.is_fastest_time
     
     control_list.items = _get_items()
 
@@ -72,7 +72,7 @@ func _update_stats() -> void:
 func _get_items() -> Array:
     var items := []
     for item_class in Sc.gui.game_over_item_manifest:
-        items.push_back(item_class.new(Sc.level_session.id))
+        items.push_back(item_class.new(Sc.levels.session.id))
     return items
 
 
@@ -90,4 +90,4 @@ func _on_RetryButton_pressed() -> void:
     Sc.nav.open(
             "loading",
             ScreenTransition.DEFAULT,
-            {level_id = Sc.level_session.id})
+            {level_id = Sc.levels.session.id})

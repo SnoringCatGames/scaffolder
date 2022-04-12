@@ -21,7 +21,7 @@ func _on_transition_in_started(previous_screen: Screen) -> void:
 func _get_items() -> Array:
     var items := []
     for item_class in Sc.gui.pause_item_manifest:
-        items.push_back(item_class.new(Sc.level_session))
+        items.push_back(item_class.new(Sc.levels.session))
     return items
 
 

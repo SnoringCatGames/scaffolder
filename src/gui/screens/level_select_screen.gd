@@ -16,9 +16,9 @@ var _new_unlocked_item: LevelSelectItem
 
 
 func _ready() -> void:
-    for level_number in Sc.level_config.get_level_numbers():
+    for level_number in Sc.levels.get_level_numbers():
         var level_config: Dictionary = \
-                Sc.level_config.get_level_config_by_number(level_number)
+                Sc.levels.get_level_config_by_number(level_number)
         var item: LevelSelectItem = Sc.utils.add_scene(
                 $VBoxContainer/LevelSelectItems,
                 LEVEL_SELECT_ITEM_SCENE,
@@ -53,7 +53,7 @@ func _deferred_update() -> void:
     if _new_unlocked_item == null:
         if previous_open_item == null:
             var suggested_level_id: String = \
-                    Sc.level_config.get_recorded_suggested_next_level()
+                    Sc.levels.get_recorded_suggested_next_level()
             var item_to_open: LevelSelectItem
             for item in level_items:
                 if item.level_id == suggested_level_id:

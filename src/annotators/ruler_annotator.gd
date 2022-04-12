@@ -43,7 +43,7 @@ func _draw() -> void:
         return
     
     var grid_spacing: Vector2 = \
-            Sc.level_session.config.cell_size / previous_camera_zoom
+            Sc.levels.session.config.cell_size / previous_camera_zoom
     var screen_start_position: Vector2 = \
             previous_camera_position / previous_camera_zoom - \
             viewport_size / 2.0

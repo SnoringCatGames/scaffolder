@@ -49,7 +49,7 @@ func _on_transition_in_started(previous_screen: Screen) -> void:
     
     _is_first_activation_with_level = false
     
-    if !Sc.level_session.has_started:
+    if !Sc.levels.session.has_started:
         Sc.level._start()
 
 
