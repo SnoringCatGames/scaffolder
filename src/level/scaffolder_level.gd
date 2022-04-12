@@ -31,7 +31,7 @@ var _configuration_warning := ""
 
 func _init() -> void:
     self.pointer_listener = LevelPointerListener.new()
-    add_child(pointer_listener)
+    Sc.canvas_layers.layers.top.add_child(pointer_listener)
 
 
 func _enter_tree() -> void:
@@ -157,6 +157,7 @@ func _destroy() -> void:
     _set_active_player_character(null)
     if is_instance_valid(camera_pan_controller):
         camera_pan_controller._destroy()
+    pointer_listener.queue_free()
     Sc.level = null
     Sc.level_session._is_destroyed = true
     if Sc.level_session.is_restarting:
@@ -431,19 +432,26 @@ func _get_is_rate_app_screen_next() -> bool:
 
 
 func _set_default_camera() -> void:
-    if Sc.characters.default_player_character_name == "" or \
-            !Sc.characters.is_camera_auto_assigned_to_player_character:
+    var is_camera_assigned_by_default_player_character: bool = \
+            Sc.characters.default_player_character_name != "" and \
+            Sc.characters.is_camera_auto_assigned_to_player_character
+    if !is_camera_assigned_by_default_player_character:
         _set_non_player_camera()
     else:
         # The camera is created by the character in this case.
-        
-        if is_instance_valid(Sc.camera.default_camera_pan_controller_class):
-            camera_pan_controller = \
-                    Sc.camera.default_camera_pan_controller_class.new()
-            assert(self.camera_pan_controller is CameraPanController)
-            add_child(camera_pan_controller)
-        else:
-            camera_pan_controller = null
+        pass
+    
+    assert(is_camera_assigned_by_default_player_character or \
+            Sc.camera.default_camera_pan_controller_class != \
+                NavigationPreselectionDragPanController)
+    
+    if is_instance_valid(Sc.camera.default_camera_pan_controller_class):
+        camera_pan_controller = \
+                Sc.camera.default_camera_pan_controller_class.new()
+        assert(self.camera_pan_controller is CameraPanController)
+        add_child(camera_pan_controller)
+    else:
+        camera_pan_controller = null
 
 
 func _set_non_player_camera() -> void:
