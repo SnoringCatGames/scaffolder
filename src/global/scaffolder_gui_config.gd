@@ -69,7 +69,7 @@ var debug_window_size: Vector2
 var moves_debug_game_window_to_other_monitor: bool
 
 var camera_smoothing_speed: float
-var default_camera_zoom := 1.0
+var gui_camera_zoom_factor := 1.0
 
 var button_height := 56.0
 var button_width := 230.0
@@ -232,8 +232,8 @@ func _parse_manifest(manifest: Dictionary) -> void:
     if manifest.has("debug_panel_scene"):
         self.debug_panel_scene = manifest.debug_panel_scene
     
-    if manifest.has("default_camera_zoom"):
-        self.default_camera_zoom = manifest.default_camera_zoom
+    if manifest.has("gui_camera_zoom_factor"):
+        self.gui_camera_zoom_factor = manifest.gui_camera_zoom_factor
     if manifest.has("camera_smoothing_speed"):
         self.camera_smoothing_speed = manifest.camera_smoothing_speed
     if manifest.has("button_height"):
