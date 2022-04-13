@@ -6,7 +6,7 @@ extends Node2D
 signal zoomed
 signal panned
 
-const _MANUAL_ZOOM_STEP_RATIO := 0.05
+const _MANUAL_ZOOM_STEP_RATIO := 1.05
 const PAN_STEP := 8.0
 
 const ZOOM_ANIMATION_DURATION := 0.3
@@ -47,9 +47,9 @@ func _process(_delta: float) -> void:
     
     # Handle zooming.
     if Sc.level_button_input.is_action_pressed("zoom_in"):
-        _set_manual_zoom(_manual_zoom * (1 - _MANUAL_ZOOM_STEP_RATIO))
+        _set_manual_zoom(_manual_zoom / _MANUAL_ZOOM_STEP_RATIO)
     elif Sc.level_button_input.is_action_pressed("zoom_out"):
-        _set_manual_zoom(_manual_zoom * (1 + _MANUAL_ZOOM_STEP_RATIO))
+        _set_manual_zoom(_manual_zoom * _MANUAL_ZOOM_STEP_RATIO)
     
     # Handle Panning.
     if Sc.level_button_input.is_action_pressed("pan_up"):
@@ -68,21 +68,6 @@ func _process(_delta: float) -> void:
         _set_manual_offset(Vector2(
                 _manual_offset.x + PAN_STEP,
                 _manual_offset.y))
-
-
-func _unhandled_input(event: InputEvent) -> void:
-    if Engine.editor_hint:
-        return
-    
-    # Mouse wheel events are never considered pressed by Godot--rather they are
-    # only ever considered to have just happened.
-    if Sc.gui.is_player_interaction_enabled and \
-            event is InputEventMouseButton and \
-            is_instance_valid(_camera):
-        if event.button_index == BUTTON_WHEEL_UP:
-            _set_manual_zoom(_manual_zoom * (1 - _MANUAL_ZOOM_STEP_RATIO))
-        if event.button_index == BUTTON_WHEEL_DOWN:
-            _set_manual_zoom(_manual_zoom * (1 + _MANUAL_ZOOM_STEP_RATIO))
 
 
 func _on_resized() -> void:
