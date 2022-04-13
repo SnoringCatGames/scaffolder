@@ -32,8 +32,11 @@ var previous_pinch_angle := INF
 var current_pinch_angle := INF
 var current_pinch_angle_change: float setget ,_get_current_pinch_angle_change
 
-# Dictionary<int, Vector2>
-var _active_touch_screen_positions := {}
+var previous_pinch_center_level_position := Vector2.INF
+var current_pinch_center_level_position := Vector2.INF
+
+# Dictionary<int, [Vector2, Vector2]>
+var _active_touch_positions := {}
 
 
 func _init() -> void:
@@ -80,33 +83,33 @@ func _unhandled_input(event: InputEvent) -> void:
         event_type = "TOUCH_UP   "
         pointer_up_screen_position = event.position
         pointer_up_level_position = Sc.utils.get_level_touch_position(event)
-        _active_touch_screen_positions.erase(event.index)
+        _active_touch_positions.erase(event.index)
     
     # Touch-down: Position pre-selection.
     if event is InputEventScreenTouch and \
             event.pressed:
-        if _active_touch_screen_positions.size() == 0:
+        if _active_touch_positions.size() == 0:
             # This is the first touch of a new touch set.
             was_latest_touch_part_of_multi_touch = false
         event_type = "TOUCH_DOWN "
         pointer_drag_screen_position = event.position
         pointer_drag_level_position = Sc.utils.get_level_touch_position(event)
-        _active_touch_screen_positions[event.index] = \
-                pointer_drag_screen_position
-        if _active_touch_screen_positions.size() > 1:
+        _active_touch_positions[event.index] = \
+                [pointer_drag_screen_position, pointer_drag_level_position]
+        if _active_touch_positions.size() > 1:
             was_latest_touch_part_of_multi_touch = true
     
     # Touch-move: Position pre-selection.
     if event is InputEventScreenDrag:
-        if _active_touch_screen_positions.size() == 0:
+        if _active_touch_positions.size() == 0:
             # This is the first touch of a new touch set.
             was_latest_touch_part_of_multi_touch = false
         event_type = "TOUCH_DRAG "
         pointer_drag_screen_position = event.position
         pointer_drag_level_position = Sc.utils.get_level_touch_position(event)
-        _active_touch_screen_positions[event.index] = \
-                pointer_drag_screen_position
-        if _active_touch_screen_positions.size() > 1:
+        _active_touch_positions[event.index] = \
+                [pointer_drag_screen_position, pointer_drag_level_position]
+        if _active_touch_positions.size() > 1:
             was_latest_touch_part_of_multi_touch = true
     
 #    if pointer_up_position != Vector2.INF or \
@@ -125,16 +128,16 @@ func _unhandled_input(event: InputEvent) -> void:
 #                ]
 #        Sc.logger.print(message)
     
-    if _active_touch_screen_positions.size() == 1:
+    if _active_touch_positions.size() == 1:
         # This could be false if we just released one touch in a multi-touch
         # set.
         if pointer_drag_level_position != Vector2.INF:
             _on_single_touch_moved(
                     pointer_drag_screen_position,
                     pointer_drag_level_position)
-    elif _active_touch_screen_positions.size() == 2:
+    elif _active_touch_positions.size() == 2:
         _on_pinch_changed()
-    elif _active_touch_screen_positions.size() == 0:
+    elif _active_touch_positions.size() == 0:
         if pointer_up_level_position != Vector2.INF:
             _on_single_touch_released(
                     pointer_up_screen_position,
@@ -159,6 +162,8 @@ func _on_single_touch_moved(
     self.current_pinch_screen_distance = INF
     self.previous_pinch_angle = INF
     self.current_pinch_angle = INF
+    self.previous_pinch_center_level_position = Vector2.INF
+    self.current_pinch_center_level_position = Vector2.INF
     emit_signal("dragged", pointer_screen_position, pointer_level_position)
 
 
@@ -175,6 +180,8 @@ func _on_single_touch_released(
     self.current_pinch_screen_distance = INF
     self.previous_pinch_angle = INF
     self.current_pinch_angle = INF
+    self.previous_pinch_center_level_position = Vector2.INF
+    self.current_pinch_center_level_position = Vector2.INF
     emit_signal("released", pointer_screen_position, pointer_level_position)
 
 
@@ -187,12 +194,17 @@ func _on_pinch_changed() -> void:
     self.release_level_position = Vector2.INF
     self.previous_pinch_screen_distance = self.current_pinch_screen_distance
     self.current_pinch_screen_distance = \
-            _active_touch_screen_positions[0].distance_to(
-                _active_touch_screen_positions[1])
+            _active_touch_positions[0][0].distance_to(
+                _active_touch_positions[1][0])
     self.previous_pinch_angle = self.current_pinch_angle
     self.current_pinch_angle = \
-            _active_touch_screen_positions[0].angle_to_point(
-                _active_touch_screen_positions[1])
+            _active_touch_positions[0][0].angle_to_point(
+                _active_touch_positions[1][0])
+    self.previous_pinch_center_level_position = self.current_pinch_center_level_position
+    self.current_pinch_center_level_position = lerp(
+            _active_touch_positions[0][1],
+            _active_touch_positions[1][1],
+            0.5)
     emit_signal(
             "pinch_changed",
             current_pinch_screen_distance,
@@ -210,15 +222,17 @@ func _on_pinch_finished() -> void:
     self.current_pinch_screen_distance = INF
     self.previous_pinch_angle = INF
     self.current_pinch_angle = INF
+    self.previous_pinch_center_level_position = Vector2.INF
+    self.current_pinch_center_level_position = Vector2.INF
     emit_signal("pinch_released")
 
 
 func _get_is_touch_active() -> bool:
-    return _active_touch_screen_positions.size() > 0
+    return _active_touch_positions.size() > 0
 
 
 func _get_is_multi_touch_active() -> bool:
-    return _active_touch_screen_positions.size() > 1
+    return _active_touch_positions.size() > 1
 
 
 func _get_current_drag_screen_displacement() -> Vector2:
