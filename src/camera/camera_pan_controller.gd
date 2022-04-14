@@ -73,6 +73,7 @@ func _zoom_to_position(
         zoom: float,
         zoom_target_level_position: Vector2,
         includes_tween := true) -> void:
+    zoom = _clamp_zoom(zoom)
     var camera_level_position: Vector2 = \
             _get_camera_parent_position() + Sc.camera.controller.offset
     var cursor_camera_position := \
@@ -91,14 +92,11 @@ func _update_camera(
     var previous_target_zoom := _target_zoom
     
     # Ensure the pan-controller keeps the camera in-bounds.
+    next_zoom = _clamp_zoom(next_zoom)
     var other_zoom_factor: float = \
             Sc.camera.controller.get_zoom() / \
             Sc.camera.controller._manual_zoom / \
             Sc.camera.controller._camera_pan_controller_zoom
-    next_zoom = clamp(
-            next_zoom,
-            Sc.camera.pan_controller_min_zoom / other_zoom_factor,
-            _max_zoom / other_zoom_factor)
     var accountable_camera_zoom := next_zoom * other_zoom_factor
     var camera_position_without_pan_controller: Vector2 = \
             _get_camera_parent_position() + \
@@ -151,6 +149,17 @@ func _update_camera(
                 0.0,
                 TimeType.PLAY_PHYSICS)
         _tween.start()
+
+
+func _clamp_zoom(zoom: float) -> float:
+    var other_zoom_factor: float = \
+            Sc.camera.controller.get_zoom() / \
+            Sc.camera.controller._manual_zoom / \
+            Sc.camera.controller._camera_pan_controller_zoom
+    return clamp(
+            zoom,
+            Sc.camera.pan_controller_min_zoom / other_zoom_factor,
+            _max_zoom / other_zoom_factor)
 
 
 func _update_pan(offset: Vector2) -> void:
