@@ -24,7 +24,6 @@ func _init(previous_pan_controller: CameraPanController = null).(
 
 
 func _validate() -> void:
-    # FIXME: LEFT OFF HERE: --------------------------------------
     assert(Sc.gui.is_player_interaction_enabled)
 
 
@@ -99,6 +98,14 @@ func _update_pan_continuation(physics_play_time_delta: float) -> void:
 
 
 func _update_zoom_continuation(physics_play_time_delta: float) -> void:
+    # FIXME: ------
+    # - Test/implement this.
+    # - Also, LevelPointerListener's
+    #   _get_current_pinch_screen_distance_speed and
+    #   _get_current_pinch_angle_speed.
+    # - Will probably need to do some clever touch pinch-basis logic similar to
+    #   Touch.velocity_basis_index.
+    
     if !_is_zoom_continuation_active:
         return
     

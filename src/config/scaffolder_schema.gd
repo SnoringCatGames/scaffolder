@@ -1098,7 +1098,9 @@ var _camera_manifest := {
     zoom_transition_duration = 0.3,
     offset_transition_duration = 0.8,
     
-    pan_controller_min_zoom = 0.01,
+    pan_controller_min_zoom = 0.05,
+    pan_controller_max_zoom = 1.0,
+    pan_controller_also_limits_max_zoom_to_level_bounds = true,
     pan_controller_zoom_speed_multiplier = 1.08,
     
     swipe_pan_speed_multiplier = 1.5,

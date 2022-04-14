@@ -12,7 +12,7 @@ var _target_zoom := 1.0
 var _tween_offset := Vector2.ZERO
 var _tween_zoom := 1.0
 
-var _max_zoom_for_camera_bounds: float
+var _max_zoom: float
 
 
 func _init(previous_pan_controller: CameraPanController = null) -> void:
@@ -20,7 +20,13 @@ func _init(previous_pan_controller: CameraPanController = null) -> void:
     add_child(_tween)
     if is_instance_valid(previous_pan_controller):
         sync_to_pan_controller(previous_pan_controller)
-    _max_zoom_for_camera_bounds = _calculate_max_zoom_for_camera_bounds()
+    
+    if Sc.camera.pan_controller_also_limits_max_zoom_to_level_bounds:
+        _max_zoom = min(
+                Sc.camera.pan_controller_max_zoom,
+                _calculate_max_zoom_for_camera_bounds())
+    else:
+        _max_zoom = Sc.camera.pan_controller_max_zoom
 
 
 func sync_to_pan_controller(
@@ -92,7 +98,7 @@ func _update_camera(
     next_zoom = clamp(
             next_zoom,
             Sc.camera.pan_controller_min_zoom / other_zoom_factor,
-            _max_zoom_for_camera_bounds / other_zoom_factor)
+            _max_zoom / other_zoom_factor)
     var accountable_camera_zoom := next_zoom * other_zoom_factor
     var camera_position_without_pan_controller: Vector2 = \
             _get_camera_parent_position() + \
