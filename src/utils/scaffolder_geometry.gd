@@ -573,6 +573,19 @@ static func is_float_lte_with_epsilon(
     return a <= b or (-epsilon < diff and diff < epsilon)
 
 
+static func clamp_vector_length(
+        vector: Vector2,
+        min_length: float,
+        max_length: float) -> Vector2:
+    var length_squared := vector.length_squared()
+    if length_squared > max_length * max_length:
+        return vector.normalized() * max_length
+    elif length_squared < min_length * min_length:
+        return vector.normalized() * min_length
+    else:
+        return vector
+
+
 # Determine whether the points of the polygon are defined in a clockwise
 # direction. This uses the shoelace formula.
 static func is_polygon_clockwise(vertices: Array) -> bool:
