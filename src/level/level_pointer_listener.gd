@@ -16,7 +16,7 @@ var _DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING := \
         Sc.device.get_is_mobile_device() else \
         _DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING_FOR_PC
 var _TOUCH_EVENT_CIRCULAR_BUFFER_SIZE := \
-        int(_DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING * 400)
+        int(_DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING * 400) + 1
 
 var is_touch_active: bool setget ,_get_is_touch_active
 var is_multi_touch_active: bool setget ,_get_is_multi_touch_active
