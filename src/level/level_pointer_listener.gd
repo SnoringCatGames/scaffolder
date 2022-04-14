@@ -337,6 +337,8 @@ func _add_touch_to_buffer(
     var current_time: float = Sc.time.get_play_time()
     var touch_buffer := _get_circular_buffer(touch_index)
     
+    _active_gestures[touch_index] = touch_buffer
+    
     # Get the previous drag touch.
     var previous_drag_touch: Touch
     if touch_buffer.empty():
@@ -432,7 +434,6 @@ func _add_touch_to_buffer(
     touch.other_pinch_touch = other_pinch_touch
     
     touch_buffer.push(touch)
-    _active_gestures[touch_index] = touch_buffer
     
     return touch
 
