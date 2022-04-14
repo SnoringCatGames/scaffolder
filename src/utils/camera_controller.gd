@@ -6,7 +6,7 @@ extends Node2D
 signal zoomed
 signal panned
 
-const _MANUAL_ZOOM_STEP_RATIO := 1.05
+const _MANUAL_ZOOM_KEY_STEP_RATIO := 1.08
 const PAN_STEP := 8.0
 
 const ZOOM_ANIMATION_DURATION := 0.3
@@ -47,9 +47,9 @@ func _process(_delta: float) -> void:
     
     # Handle zooming.
     if Sc.level_button_input.is_action_pressed("zoom_in"):
-        _set_manual_zoom(_manual_zoom / _MANUAL_ZOOM_STEP_RATIO)
+        _set_manual_zoom(_manual_zoom / _MANUAL_ZOOM_KEY_STEP_RATIO)
     elif Sc.level_button_input.is_action_pressed("zoom_out"):
-        _set_manual_zoom(_manual_zoom * _MANUAL_ZOOM_STEP_RATIO)
+        _set_manual_zoom(_manual_zoom * _MANUAL_ZOOM_KEY_STEP_RATIO)
     
     # Handle Panning.
     if Sc.level_button_input.is_action_pressed("pan_up"):

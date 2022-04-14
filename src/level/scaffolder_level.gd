@@ -162,7 +162,8 @@ func _destroy() -> void:
     _set_active_player_character(null)
     if is_instance_valid(camera_pan_controller):
         camera_pan_controller._destroy()
-    pointer_listener.queue_free()
+    if is_instance_valid(pointer_listener):
+        pointer_listener._destroy()
     Sc.level = null
     Sc.levels.session._is_destroyed = true
     if Sc.levels.session.is_restarting:
