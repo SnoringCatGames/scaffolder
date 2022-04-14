@@ -1092,6 +1092,22 @@ var _level_manifest := {
 var _camera_manifest := {
     default_camera_pan_controller_class = DefaultPanController,
     snaps_camera_back_to_character = true,
+    
+    manual_zoom_key_step_ratio = 1.08,
+    manual_pan_key_step_distance = 8.0,
+    zoom_transition_duration = 0.3,
+    offset_transition_duration = 0.8,
+    
+    pan_controller_min_zoom = 0.01,
+    pan_controller_zoom_speed_multiplier = 1.08,
+    
+    swipe_pan_speed_multiplier = 1.5,
+    swipe_pinch_zoom_speed_multiplier = 1.0,
+    swipe_max_pan_speed = 1000.0,
+    swipe_pan_continuation_deceleration = -6000.0,
+    swipe_zoom_continuation_deceleration = -6000.0,
+    swipe_pan_continuation_min_speed = 0.2,
+    swipe_zoom_continuation_min_speed = 0.001,
 }
 
 var _annotation_parameters_manifest := Sc.utils.merge(
