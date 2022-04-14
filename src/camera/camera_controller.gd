@@ -6,12 +6,6 @@ extends Node2D
 signal zoomed
 signal panned
 
-const _MANUAL_ZOOM_KEY_STEP_RATIO := 1.08
-const PAN_STEP := 8.0
-
-const ZOOM_ANIMATION_DURATION := 0.3
-const OFFSET_ANIMATION_DURATION := 0.8
-
 var _camera: Camera2D
 var _character
 
@@ -47,26 +41,26 @@ func _process(_delta: float) -> void:
     
     # Handle zooming.
     if Sc.level_button_input.is_action_pressed("zoom_in"):
-        _set_manual_zoom(_manual_zoom / _MANUAL_ZOOM_KEY_STEP_RATIO)
+        _set_manual_zoom(_manual_zoom / Sc.camera.manual_zoom_key_step_ratio)
     elif Sc.level_button_input.is_action_pressed("zoom_out"):
-        _set_manual_zoom(_manual_zoom * _MANUAL_ZOOM_KEY_STEP_RATIO)
+        _set_manual_zoom(_manual_zoom * Sc.camera.manual_zoom_key_step_ratio)
     
     # Handle Panning.
     if Sc.level_button_input.is_action_pressed("pan_up"):
         _set_manual_offset(Vector2(
                 _manual_offset.x,
-                _manual_offset.y - PAN_STEP))
+                _manual_offset.y - Sc.camera.manual_pan_key_step_distance))
     elif Sc.level_button_input.is_action_pressed("pan_down"):
         _set_manual_offset(Vector2(
                 _manual_offset.x,
-                _manual_offset.y + PAN_STEP))
+                _manual_offset.y + Sc.camera.manual_pan_key_step_distance))
     elif Sc.level_button_input.is_action_pressed("pan_left"):
         _set_manual_offset(Vector2(
-                _manual_offset.x - PAN_STEP,
+                _manual_offset.x - Sc.camera.manual_pan_key_step_distance,
                 _manual_offset.y))
     elif Sc.level_button_input.is_action_pressed("pan_right"):
         _set_manual_offset(Vector2(
-                _manual_offset.x + PAN_STEP,
+                _manual_offset.x + Sc.camera.manual_pan_key_step_distance,
                 _manual_offset.y))
 
 
@@ -96,7 +90,7 @@ func set_current_camera(
         _transition_offset_from_old_camera(
                 start_offset,
                 end_offset,
-                OFFSET_ANIMATION_DURATION)
+                Sc.camera.offset_transition_duration)
         old_camera.offset = Vector2.ZERO
 
 

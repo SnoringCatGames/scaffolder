@@ -3,9 +3,6 @@ extends Node2D
 
 
 const _TWEEN_DURATION := 0.1
-const _MIN_CAMERA_ZOOM := 0.01
-
-const _SCROLL_ZOOM_SPEED_MULTIPLIER := 1.08
 
 var _tween: ScaffolderTween
 
@@ -55,10 +52,12 @@ func _unhandled_input(event: InputEvent) -> void:
         if event.button_index == BUTTON_WHEEL_UP or \
                 event.button_index == BUTTON_WHEEL_DOWN:
             # Zoom toward the cursor.
-            var zoom := \
-                    _target_zoom / _SCROLL_ZOOM_SPEED_MULTIPLIER if \
+            var zoom: float = \
+                    _target_zoom / \
+                        Sc.camera.pan_controller_zoom_speed_multiplier if \
                     event.button_index == BUTTON_WHEEL_UP else \
-                    _target_zoom * _SCROLL_ZOOM_SPEED_MULTIPLIER
+                    _target_zoom * \
+                        Sc.camera.pan_controller_zoom_speed_multiplier
             var cursor_level_position: Vector2 = \
                     Sc.utils.get_level_touch_position(event)
             _zoom_to_position(zoom, cursor_level_position)
@@ -92,7 +91,7 @@ func _update_camera(
             Sc.camera.controller._camera_pan_controller_zoom
     next_zoom = clamp(
             next_zoom,
-            _MIN_CAMERA_ZOOM / other_zoom_factor,
+            Sc.camera.pan_controller_min_zoom / other_zoom_factor,
             _max_zoom_for_camera_bounds / other_zoom_factor)
     var accountable_camera_zoom := next_zoom * other_zoom_factor
     var camera_position_without_pan_controller: Vector2 = \

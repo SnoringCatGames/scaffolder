@@ -8,13 +8,15 @@ signal pinch_changed(pinch_distance, pinch_angle)
 signal pinch_first_touch_released()
 signal pinch_second_touch_released()
 
-# FIXME: LEFT OFF HERE: ------------------
-# - Move configs out into camera_manifest.
+const _DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING_FOR_PC := 0.07
+const _DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING_FOR_ANDROID := 0.04
 
-#const _DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING := 0.07 # For PC
-const _DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING := 0.04 # For Android
-const _TOUCH_EVENT_CIRCULAR_BUFFER_SIZE := \
-        int(_DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING * 300)
+var _DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING := \
+        _DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING_FOR_ANDROID if \
+        Sc.device.get_is_mobile_device() else \
+        _DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING_FOR_PC
+var _TOUCH_EVENT_CIRCULAR_BUFFER_SIZE := \
+        int(_DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING * 400)
 
 var is_touch_active: bool setget ,_get_is_touch_active
 var is_multi_touch_active: bool setget ,_get_is_multi_touch_active
