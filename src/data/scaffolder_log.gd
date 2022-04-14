@@ -11,7 +11,9 @@ func _ready() -> void:
     self.on_global_init(self, "ScaffolderLog")
 
 
-func print(message: String) -> void:
+func print(message = "") -> void:
+    if !(message is String):
+        message = str(message)
     if is_instance_valid(Sc.gui) and \
             is_instance_valid(Sc.gui.debug_panel):
         Sc.gui.debug_panel.add_message(message)
