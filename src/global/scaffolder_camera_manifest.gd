@@ -14,6 +14,8 @@ var zoom_transition_duration := 0.3
 var offset_transition_duration := 0.8
 
 var pan_controller_min_zoom := 0.01
+var pan_controller_max_zoom := 1.0
+var pan_controller_also_limits_max_zoom_to_level_bounds := true
 var pan_controller_zoom_speed_multiplier := 1.08
 
 var swipe_pan_speed_multiplier := 1.5
@@ -54,6 +56,12 @@ func _parse_manifest(manifest: Dictionary) -> void:
     if manifest.has("pan_controller_min_zoom"):
         self.pan_controller_min_zoom = \
                 manifest.pan_controller_min_zoom
+    if manifest.has("pan_controller_max_zoom"):
+        self.pan_controller_max_zoom = \
+                manifest.pan_controller_max_zoom
+    if manifest.has("pan_controller_also_limits_max_zoom_to_level_bounds"):
+        self.pan_controller_also_limits_max_zoom_to_level_bounds = \
+                manifest.pan_controller_also_limits_max_zoom_to_level_bounds
     if manifest.has("pan_controller_zoom_speed_multiplier"):
         self.pan_controller_zoom_speed_multiplier = \
                 manifest.pan_controller_zoom_speed_multiplier

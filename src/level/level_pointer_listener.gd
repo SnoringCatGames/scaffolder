@@ -299,7 +299,7 @@ func _get_current_pinch_screen_distance_ratio_from_previous() -> float:
 
 
 func _get_current_pinch_screen_distance_speed() -> float:
-    # FIXME: LEFT OFF HERE: ---------------------------------
+    # FIXME: ------ Implement this.
     return 0.0
 
 
@@ -315,7 +315,7 @@ func _get_current_pinch_angle_change() -> float:
 
 
 func _get_current_pinch_angle_speed() -> float:
-    # FIXME: LEFT OFF HERE: ---------------------------------
+    # FIXME: ------ Implement this.
     return 0.0
 
 
