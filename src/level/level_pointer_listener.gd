@@ -10,7 +10,6 @@ signal pinch_second_touch_released()
 
 # FIXME: LEFT OFF HERE: ------------------
 # - Move configs out into camera_manifest.
-# - Move CameraPanController to Scaffolder.
 
 #const _DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING := 0.07 # For PC
 const _DRAG_DELTA_TIME_FOR_VELOCITY_TRACKING := 0.04 # For Android
