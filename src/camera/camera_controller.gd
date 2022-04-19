@@ -7,7 +7,6 @@ signal zoomed
 signal panned
 
 var _camera: Camera2D
-var _character
 
 var offset: Vector2 setget _set_offset,_get_offset
 
@@ -68,13 +67,9 @@ func _on_resized() -> void:
     _update_offset_and_zoom()
 
 
-func set_current_camera(
-        camera: Camera2D,
-        character) -> void:
+func set_current_camera(camera: Camera2D) -> void:
     var old_camera := _camera
-    var old_character = _character
     self._camera = camera
-    self._character = character
     camera.make_current()
     _update_offset_and_zoom()
     
