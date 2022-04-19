@@ -341,7 +341,7 @@ func set_is_player_control_active(
     
     if value and \
             is_instance_valid(_camera):
-        Sc.camera.controller.set_current_camera(_camera, self)
+        Sc.camera.controller.set_current_camera(_camera)
     else:
         Sc.level.activate_non_player_camera()
     

@@ -472,7 +472,7 @@ func _set_non_player_camera() -> void:
 
 func activate_non_player_camera() -> void:
     # Register the current camera, so it's globally accessible.
-    Sc.camera.controller.set_current_camera(non_player_camera, null)
+    Sc.camera.controller.set_current_camera(non_player_camera)
 
 
 func _update_session_in_editor() -> void:
