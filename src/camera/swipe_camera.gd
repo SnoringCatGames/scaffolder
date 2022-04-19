@@ -1,5 +1,5 @@
 class_name SwipePanController
-extends CameraPanController
+extends ScaffolderCamera
 
 
 var _is_pan_continuation_active := false
@@ -9,8 +9,7 @@ var _zoom_speed := 0.0
 var _zoom_target_level_position := Vector2.INF
 
 
-func _init(previous_pan_controller: CameraPanController = null).(
-        previous_pan_controller) -> void:
+func _init() -> void:
     Sc.level.pointer_listener.connect(
             "single_touch_dragged", self, "_on_single_touch_dragged")
     Sc.level.pointer_listener.connect(
@@ -72,7 +71,7 @@ func _update_pan_continuation(physics_play_time_delta: float) -> void:
         max_velocity_y = _pan_velocity.y
     
     var deceleration := \
-            Sc.camera.swipe_pan_continuation_deceleration * Sc.camera.controller.get_zoom()
+            Sc.camera.swipe_pan_continuation_deceleration * self.zoom.x
     
     _pan_velocity += pan_direction * deceleration * physics_play_time_delta
     
@@ -172,7 +171,7 @@ func _on_single_touch_dragged(
             _target_offset - \
             Sc.level.pointer_listener.current_drag_screen_displacement * \
             Sc.camera.swipe_pan_speed_multiplier * \
-            Sc.camera.controller.get_zoom()
+            self.zoom.x
     _update_camera(offset, _target_zoom, false)
 
 
@@ -207,7 +206,3 @@ func _on_pinch_changed(
 
 func _on_pinch_first_touch_released() -> void:
     _start_zoom_continuation()
-
-
-func _get_camera_parent_position() -> Vector2:
-    return Vector2.ZERO

@@ -18,18 +18,18 @@ var exclusive_spawn_positions := []
 var characters: Dictionary
 
 var active_player_character: ScaffolderCharacter \
-        setget _set_active_player_character
+        setget _set_active_player_character,_get_active_player_character
+var _active_player_character: ScaffolderCharacter
 
 var level_bounds: Rect2
 var camera_bounds: Rect2
 var character_bounds: Rect2
 
 var pointer_listener: LevelPointerListener
-var camera_pan_controller: CameraPanController
+var camera: ScaffolderCamera
+var _default_camera: ScaffolderCamera
 
 var session: ScaffolderLevelSession
-
-var non_player_camera: Camera2D
 
 var _is_ready := false
 var _configuration_warning := ""
@@ -162,8 +162,8 @@ func _destroy() -> void:
         for character in characters[character_name]:
             character._destroy()
     _set_active_player_character(null)
-    if is_instance_valid(camera_pan_controller):
-        camera_pan_controller._destroy()
+    if is_instance_valid(camera):
+        camera._destroy()
     if is_instance_valid(pointer_listener):
         pointer_listener._destroy()
     Sc.level = null
@@ -267,16 +267,39 @@ func register_spawn_position(
         exclusive_spawn_positions.push_back(spawn_position)
 
 
-func swap_camera_pan_controllers(camera_pan_controller_class: Script) -> void:
-    var previous_camera_pan_controller := camera_pan_controller
-    self.camera_pan_controller = null
-    if is_instance_valid(camera_pan_controller_class):
-        self.camera_pan_controller = \
-                camera_pan_controller_class.new(previous_camera_pan_controller)
-        add_child(camera_pan_controller)
-    if is_instance_valid(previous_camera_pan_controller):
-        previous_camera_pan_controller._destroy()
-        previous_camera_pan_controller.queue_free()
+func swap_camera(
+        camera_or_class,
+        destroys_previous_camera := false) -> void:
+    var previous_camera := camera
+    var previous_class: Script = \
+            previous_camera.get_script() if \
+            is_instance_valid(previous_camera) else \
+            null
+    var next_class: Script = \
+            camera_or_class if \
+            camera_or_class is Script else \
+            camera_or_class.get_script()
+    if previous_class == next_class:
+        # No change.
+        return
+    
+    var is_next_camera_already_instantiated := \
+            camera_or_class is ScaffolderCamera
+    var next_camera: ScaffolderCamera = \
+            camera_or_class if \
+            is_next_camera_already_instantiated else \
+            camera_or_class.new(previous_camera)
+    self.camera = next_camera
+    if !is_next_camera_already_instantiated:
+        add_child(next_camera)
+    next_camera.is_active = true
+    
+    if is_instance_valid(previous_camera):
+        next_camera.sync_to_camera(previous_camera)
+        
+        if destroys_previous_camera:
+            previous_camera._destroy()
+            previous_camera.queue_free()
 
 
 func _update_editor_configuration() -> void:
@@ -373,7 +396,8 @@ func _on_initial_input() -> void:
 
 
 func _on_resized() -> void:
-    pass
+    if is_instance_valid(camera):
+        camera._on_resized()
 
 
 func pause() -> void:
@@ -440,39 +464,11 @@ func _get_is_rate_app_screen_next() -> bool:
 
 
 func _set_default_camera() -> void:
-    var is_camera_assigned_by_default_player_character: bool = \
-            Sc.characters.default_player_character_name != "" and \
-            Sc.characters.is_camera_auto_assigned_to_player_character
-    if !is_camera_assigned_by_default_player_character:
-        _set_non_player_camera()
-    else:
-        # The camera is created by the character in this case.
-        pass
-    
-    assert(is_camera_assigned_by_default_player_character or \
-            Sc.camera.default_camera_pan_controller_class != \
-                NavigationPreselectionDragPanController)
-    
-    if is_instance_valid(Sc.camera.default_camera_pan_controller_class):
-        camera_pan_controller = \
-                Sc.camera.default_camera_pan_controller_class.new()
-        assert(self.camera_pan_controller is CameraPanController)
-        add_child(camera_pan_controller)
-    else:
-        camera_pan_controller = null
-
-
-func _set_non_player_camera() -> void:
-    self.non_player_camera = Camera2D.new()
-    non_player_camera.smoothing_enabled = true
-    non_player_camera.smoothing_speed = Sc.gui.camera_smoothing_speed
-    add_child(non_player_camera)
-    activate_non_player_camera()
-
-
-func activate_non_player_camera() -> void:
-    # Register the current camera, so it's globally accessible.
-    Sc.camera.controller.set_current_camera(non_player_camera)
+    camera = Sc.camera.default_camera_class.new()
+    assert(camera is ScaffolderCamera)
+    add_child(camera)
+    camera.is_active = true
+    _default_camera = camera
 
 
 func _update_session_in_editor() -> void:
@@ -497,15 +493,21 @@ func _set_level_id(value: String) -> void:
 
 
 func _set_active_player_character(character: ScaffolderCharacter) -> void:
-    if character == active_player_character:
+    var previous_active_player_character := _active_player_character
+    _active_player_character = character
+    
+    if previous_active_player_character == _active_player_character:
         # No change.
         return
     
-    if is_instance_valid(active_player_character):
+    if is_instance_valid(previous_active_player_character):
         # De-activate previous character.
-        active_player_character.set_is_player_control_active(false, false)
-    
-    active_player_character = character
+        previous_active_player_character \
+                .set_is_player_control_active(false, false)
+
+
+func _get_active_player_character() -> ScaffolderCharacter:
+    return _active_player_character
 
 
 func _establish_boundaries() -> void:

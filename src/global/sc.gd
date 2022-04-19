@@ -554,6 +554,6 @@ func _load_state() -> void:
     Sc.time.additional_debug_time_scale = Sc.save_state.get_setting(
             SaveState.ADDITIONAL_DEBUG_TIME_SCALE_SETTINGS_KEY,
             1.0)
-    Sc.camera.controller._set_manual_zoom(Sc.save_state.get_setting(
+    Sc.camera.manual_zoom = Sc.save_state.get_setting(
             SaveState.ZOOM_FACTOR_SETTINGS_KEY,
-            1.0))
+            1.0)

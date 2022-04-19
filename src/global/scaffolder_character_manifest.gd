@@ -16,8 +16,6 @@ var omits_npcs := false
 
 var can_include_player_characters := true
 
-var is_camera_auto_assigned_to_player_character := true
-
 # Dictionary<String, PackedScene>
 var character_scenes := {}
 
@@ -36,9 +34,6 @@ func _parse_manifest(manifest: Dictionary) -> void:
     if manifest.has("can_include_player_characters"):
         self.can_include_player_characters = \
                 manifest.can_include_player_characters
-    if manifest.has("is_camera_auto_assigned_to_player_character"):
-        self.is_camera_auto_assigned_to_player_character = \
-                manifest.is_camera_auto_assigned_to_player_character
     
     _parse_character_scenes(self._character_scenes_list)
     _parse_character_categories(manifest.character_categories)

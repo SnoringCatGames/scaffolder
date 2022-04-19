@@ -27,8 +27,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-    var next_camera_position: Vector2 = Sc.camera.controller.get_position()
-    var next_camera_zoom: float = Sc.camera.controller.get_derived_zoom()
+    var next_camera_position: Vector2 = Sc.level.camera.get_center()
+    var next_camera_zoom: float = Sc.level.camera.zoom.x
     
     if next_camera_position != previous_camera_position or \
             next_camera_zoom != previous_camera_zoom:

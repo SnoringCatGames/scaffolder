@@ -137,8 +137,6 @@ var collider := RotatedShape.new()
 var collision_shape: CollisionShape2D
 var animator: ScaffolderCharacterAnimator
 
-var _camera: Camera2D
-
 var _extra_collision_detection_area: Area2D
 # Dictionary<String, Area2D>
 var _layers_for_entered_proximity_detection := {}
@@ -209,7 +207,7 @@ func _destroy() -> void:
 
 
 func _on_resized() -> void:
-    Sc.camera.controller._on_resized()
+    pass
 
 
 func _on_annotators_ready() -> void:
@@ -318,11 +316,6 @@ func _initialize_children_proximity_detectors() -> void:
 
 func set_can_be_player_character(value: bool) -> void:
     can_be_player_character = value
-    
-    if can_be_player_character and \
-            Sc.characters.is_camera_auto_assigned_to_player_character:
-        # Only a single, player-controlled character should have a camera.
-        _create_camera()
 
 
 func set_is_player_control_active(
@@ -339,12 +332,6 @@ func set_is_player_control_active(
         if self.is_in_group(Sc.characters.GROUP_NAME_PLAYERS):
             self.remove_from_group(Sc.characters.GROUP_NAME_PLAYERS)
     
-    if value and \
-            is_instance_valid(_camera):
-        Sc.camera.controller.set_current_camera(_camera)
-    else:
-        Sc.level.activate_non_player_camera()
-    
     if should_also_update_level:
         if value:
             if Sc.level.active_player_character != self:
@@ -356,13 +343,6 @@ func set_is_player_control_active(
 
 func _get_is_player_control_active() -> bool:
     return Sc.characters.get_active_player_character() == self
-
-
-func _create_camera() -> void:
-    self._camera = Camera2D.new()
-    _camera.smoothing_enabled = true
-    _camera.smoothing_speed = Sc.gui.camera_smoothing_speed
-    add_child(_camera)
 
 
 func _physics_process(delta: float) -> void:
