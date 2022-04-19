@@ -339,13 +339,6 @@ func _set_window_debug_size_and_position() -> void:
             Sc.metadata.recording) and \
             (Sc.device.get_is_windows_app() or \
             Sc.device.get_is_mac_app()):
-        # Show the game window on the other monitor, rather than over-top the
-        # editor.
-        if OS.get_screen_count() > 1 and \
-                Sc.gui.moves_debug_game_window_to_other_monitor:
-            OS.current_screen = \
-                    (OS.current_screen + 1) % OS.get_screen_count()
-        
         # Useful for getting screenshots at specific resolutions.
         if Sc.gui.debug_window_size == Vector2.INF:
             OS.window_fullscreen = true
@@ -355,7 +348,13 @@ func _set_window_debug_size_and_position() -> void:
             # Center the window.
             OS.window_position = \
                     (OS.get_screen_size() - Sc.gui.debug_window_size) / 2.0
-    
+        
+        # Show the game window on the other monitor, rather than over-top the
+        # editor.
+        if OS.get_screen_count() > 1 and \
+                Sc.gui.moves_debug_game_window_to_other_monitor:
+            OS.current_screen = \
+                    (OS.current_screen + 1) % OS.get_screen_count()
     _on_resized()
 
 
