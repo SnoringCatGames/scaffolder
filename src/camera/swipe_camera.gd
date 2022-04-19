@@ -93,7 +93,7 @@ func _update_pan_continuation(physics_play_time_delta: float) -> void:
             Sc.camera.swipe_pan_speed_multiplier
     var offset := _target_offset + delta_offset
     
-    _update_camera(offset, _target_zoom, false)
+    _update_controller_pan_and_zoom(offset, _target_zoom, false)
 
 
 func _update_zoom_continuation(physics_play_time_delta: float) -> void:
@@ -172,7 +172,7 @@ func _on_single_touch_dragged(
             Sc.level.pointer_listener.current_drag_screen_displacement * \
             Sc.camera.swipe_pan_speed_multiplier * \
             self.zoom.x
-    _update_camera(offset, _target_zoom, false)
+    _update_controller_pan_and_zoom(offset, _target_zoom, false)
 
 
 func _on_single_touch_released(
