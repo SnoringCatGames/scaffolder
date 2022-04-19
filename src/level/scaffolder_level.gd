@@ -29,6 +29,8 @@ var camera_pan_controller: CameraPanController
 
 var session: ScaffolderLevelSession
 
+var non_player_camera: Camera2D
+
 var _is_ready := false
 var _configuration_warning := ""
 
@@ -461,12 +463,16 @@ func _set_default_camera() -> void:
 
 
 func _set_non_player_camera() -> void:
-    var camera := Camera2D.new()
-    camera.smoothing_enabled = true
-    camera.smoothing_speed = Sc.gui.camera_smoothing_speed
-    add_child(camera)
+    self.non_player_camera = Camera2D.new()
+    non_player_camera.smoothing_enabled = true
+    non_player_camera.smoothing_speed = Sc.gui.camera_smoothing_speed
+    add_child(non_player_camera)
+    activate_non_player_camera()
+
+
+func activate_non_player_camera() -> void:
     # Register the current camera, so it's globally accessible.
-    Sc.camera.controller.set_current_camera(camera, null)
+    Sc.camera.controller.set_current_camera(non_player_camera, null)
 
 
 func _update_session_in_editor() -> void:
