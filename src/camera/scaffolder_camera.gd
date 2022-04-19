@@ -9,10 +9,13 @@ const _TWEEN_DURATION := 0.1
 
 var is_active := false setget _set_is_active,_get_is_active
 
+var transitions_smoothly_from_previous_camera := true
+
 var _camera_swap_offset := Vector2.ZERO
 var _controller_offset := Vector2.ZERO
 var _misc_offset := Vector2.ZERO
 
+var _camera_swap_zoom := 1.0
 var _controller_zoom := 1.0
 var _misc_zoom := 1.0
 
@@ -47,15 +50,6 @@ func _ready() -> void:
         _max_zoom = Sc.camera.camera_max_zoom
 
 
-func sync_to_camera(
-        previous_camera: ScaffolderCamera) -> void:
-    self._tween_offset = previous_camera._tween_offset
-    self._tween_zoom = previous_camera._tween_zoom
-    _update_camera(
-            previous_camera._target_offset,
-            previous_camera._target_zoom)
-
-
 func _destroy() -> void:
     pass
 
@@ -65,7 +59,7 @@ func _validate() -> void:
 
 
 func reset() -> void:
-    _update_camera(Vector2.ZERO, 1.0)
+    _update_controller_pan_and_zoom(Vector2.ZERO, 1.0)
 
 
 func _on_resized() -> void:
@@ -79,37 +73,13 @@ func _set_is_active(value: bool) -> void:
         self.make_current()
         _update_offset_and_zoom()
         # Pan smoothly from the old camera.
-        if is_instance_valid(previous_camera) and previous_camera != self:
+        if is_instance_valid(previous_camera) and \
+                previous_camera != self and \
+                transitions_smoothly_from_previous_camera:
             _transition_offset_from_previous_camera(previous_camera)
     else:
         if Sc.level.camera == self:
             Sc.level.camera = null
-
-
-func _transition_offset_from_previous_camera(
-        previous_camera: ScaffolderCamera) -> void:
-    # NOTE: We have to use camera.get_camera_screen_center, rather than
-    #       calculating the position difference ourselves, because
-    #       camera.smoothing_enabled is likely true.
-    var start_offset := Vector2.ZERO
-    start_offset += previous_camera.get_camera_screen_center()
-    start_offset -= self.get_camera_screen_center()
-    var end_offset := Vector2.ZERO
-    
-    _set_camera_swap_offset(start_offset)
-    _camera_swap_tween.stop_all()
-    if end_offset == start_offset:
-        return
-    _camera_swap_tween.interpolate_method(
-            self,
-            "_set_camera_swap_offset",
-            start_offset,
-            end_offset,
-            Sc.camera.offset_transition_duration,
-            "ease_in_out",
-            0.0,
-            TimeType.PLAY_PHYSICS_SCALED)
-    _camera_swap_tween.start()
 
 
 func _get_is_active() -> bool:
@@ -157,14 +127,54 @@ func _unhandled_input(event: InputEvent) -> void:
                 event.button_index == BUTTON_WHEEL_DOWN:
             # Zoom toward the cursor.
             var zoom: float = \
-                    _target_zoom / \
-                        Sc.camera.camera_zoom_speed_multiplier if \
+                    _target_zoom / Sc.camera.camera_zoom_speed_multiplier if \
                     event.button_index == BUTTON_WHEEL_UP else \
-                    _target_zoom * \
-                        Sc.camera.camera_zoom_speed_multiplier
+                    _target_zoom * Sc.camera.camera_zoom_speed_multiplier
             var cursor_level_position: Vector2 = \
                     Sc.utils.get_level_touch_position(event)
             _zoom_to_position(zoom, cursor_level_position)
+
+
+func _transition_offset_from_previous_camera(
+        previous_camera: ScaffolderCamera) -> void:
+    # NOTE: We have to use camera.get_camera_screen_center, rather than
+    #       calculating the position difference ourselves, because of
+    #       Camera2D.smoothing_enabled.
+    var start_offset := \
+            previous_camera.get_camera_screen_center() - \
+            self.get_camera_screen_center()
+    var end_offset := Vector2.ZERO
+    
+    var start_zoom := previous_camera.zoom.x / self.zoom.x
+    var end_zoom := 1.0
+    
+    _set_camera_swap_offset(start_offset)
+    _set_camera_swap_zoom(start_zoom)
+    
+    _camera_swap_tween.stop_all()
+    if end_offset == start_offset and \
+            end_zoom == start_zoom:
+        return
+    # FIXME: ----------- Combine this into a single interpolate_method.
+    _camera_swap_tween.interpolate_method(
+            self,
+            "_set_camera_swap_offset",
+            start_offset,
+            end_offset,
+            Sc.camera.offset_transition_duration,
+            "ease_in_out",
+            0.0,
+            TimeType.PLAY_PHYSICS_SCALED)
+    _camera_swap_tween.interpolate_method(
+            self,
+            "_set_camera_swap_zoom",
+            start_zoom,
+            end_zoom,
+            Sc.camera.offset_transition_duration,
+            "ease_in_out",
+            0.0,
+            TimeType.PLAY_PHYSICS_SCALED)
+    _camera_swap_tween.start()
 
 
 func _zoom_to_position(
@@ -175,7 +185,7 @@ func _zoom_to_position(
     var cursor_camera_position := zoom_target_level_position - self.offset
     var delta_offset := cursor_camera_position * (1 - zoom / _target_zoom)
     var offset := _target_offset + delta_offset
-    _update_camera(offset, zoom, includes_tween)
+    _update_controller_pan_and_zoom(offset, zoom, includes_tween)
 
 
 func get_visible_region() -> Rect2:
@@ -214,7 +224,7 @@ func _calculate_max_position_for_zoom_for_camera_bounds(zoom: float) -> Vector2:
     return Sc.level.camera_bounds.end - camera_region_size / 2.0
 
 
-func _update_camera(
+func _update_controller_pan_and_zoom(
         next_offset: Vector2,
         next_zoom: float,
         includes_tween := true) -> void:
@@ -224,22 +234,18 @@ func _update_camera(
     # Ensure the pan-controller keeps the camera in-bounds.
     next_zoom = _clamp_zoom(next_zoom)
     var other_zoom_factor: float = \
-            self.zoom.x / \
-            Sc.camera.manual_zoom / \
-            self._controller_zoom
+            self.zoom.x / Sc.camera.manual_zoom / _controller_zoom
     var accountable_camera_zoom := next_zoom * other_zoom_factor
-    var camera_position_without_camera: Vector2 = \
-            self.offset - \
-            Sc.camera.manual_offset - \
-            self._controller_offset
+    var offset_without_controller_and_manual: Vector2 = \
+            self.offset - Sc.camera.manual_offset - _controller_offset
     var min_offset := \
             _calculate_min_position_for_zoom_for_camera_bounds(
                 accountable_camera_zoom) - \
-            camera_position_without_camera
+            offset_without_controller_and_manual
     var max_offset := \
             _calculate_max_position_for_zoom_for_camera_bounds(
                 accountable_camera_zoom) - \
-            camera_position_without_camera
+            offset_without_controller_and_manual
     next_offset.x = clamp(next_offset.x, min_offset.x, max_offset.x)
     next_offset.y = clamp(next_offset.y, min_offset.y, max_offset.y)
     
@@ -254,11 +260,13 @@ func _update_camera(
         if Sc.geometry.are_points_equal_with_epsilon(
                     previous_target_offset, _target_offset) and \
                 Sc.geometry.are_floats_equal_with_epsilon(
-                    previous_target_zoom, _target_zoom):
+                    previous_target_zoom, _target_zoom) and \
+                _main_tween.is_active():
             return
         
         # Transition to the new values.
         _main_tween.stop_all()
+        # FIXME: ----------- Combine this into a single interpolate_method.
         _main_tween.interpolate_method(
                 self,
                 "_update_pan",
@@ -284,7 +292,7 @@ func _clamp_zoom(zoom: float) -> float:
     var other_zoom_factor: float = \
             self.zoom.x / \
             Sc.camera.manual_zoom / \
-            self._controller_zoom
+            _controller_zoom
     return clamp(
             zoom,
             Sc.camera.camera_min_zoom / other_zoom_factor,
@@ -292,13 +300,13 @@ func _clamp_zoom(zoom: float) -> float:
 
 
 func _update_pan(offset: Vector2) -> void:
-    self._tween_offset = offset
-    self._set_controller_offset(offset)
+    _tween_offset = offset
+    _set_controller_offset(offset)
 
 
 func _update_zoom(zoom: float) -> void:
-    self._tween_zoom = zoom
-    self._set_controller_zoom(zoom)
+    _tween_zoom = zoom
+    _set_controller_zoom(zoom)
 
 
 func _update_offset_and_zoom() -> void:
@@ -307,6 +315,7 @@ func _update_offset_and_zoom() -> void:
     
     var new_zoom: float = \
             Sc.camera.manual_zoom * \
+            _camera_swap_zoom * \
             _controller_zoom * \
             _misc_zoom * \
             Sc.camera.gui_camera_zoom_factor / Sc.gui.scale
@@ -328,6 +337,7 @@ func _update_offset_and_zoom() -> void:
 #        Sc.utils.get_vector_string(_misc_offset, 0),
 #        new_zoom,
 #        Sc.camera.manual_zoom,
+#        _camera_swap_zoom,
 #        _controller_zoom,
 #        _misc_zoom,
 #        Sc.camera.gui_camera_zoom_factor / Sc.gui.scale,
@@ -348,25 +358,30 @@ func set_position(value: Vector2) -> void:
 
 
 func _set_camera_swap_offset(offset: Vector2) -> void:
-    self._camera_swap_offset = offset
+    _camera_swap_offset = offset
     _update_offset_and_zoom()
 
 
 func _set_controller_offset(offset: Vector2) -> void:
-    self._controller_offset = offset
+    _controller_offset = offset
     _update_offset_and_zoom()
 
 
 func _set_misc_offset(offset: Vector2) -> void:
-    self._misc_offset = offset
+    _misc_offset = offset
+    _update_offset_and_zoom()
+
+
+func _set_camera_swap_zoom(zoom: float) -> void:
+    _camera_swap_zoom = zoom
     _update_offset_and_zoom()
 
 
 func _set_controller_zoom(zoom: float) -> void:
-    self._controller_zoom = zoom
+    _controller_zoom = zoom
     _update_offset_and_zoom()
 
 
 func _set_misc_zoom(zoom: float) -> void:
-    self._misc_zoom = zoom
+    _misc_zoom = zoom
     _update_offset_and_zoom()

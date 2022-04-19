@@ -294,12 +294,10 @@ func swap_camera(
         add_child(next_camera)
     next_camera.is_active = true
     
-    if is_instance_valid(previous_camera):
-        next_camera.sync_to_camera(previous_camera)
-        
-        if destroys_previous_camera:
-            previous_camera._destroy()
-            previous_camera.queue_free()
+    if is_instance_valid(previous_camera) and \
+            destroys_previous_camera:
+        previous_camera._destroy()
+        previous_camera.queue_free()
 
 
 func _update_editor_configuration() -> void:
