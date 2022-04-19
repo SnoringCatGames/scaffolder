@@ -1,2 +1,2 @@
-class_name DefaultPanController
+class_name DefaultCamera
 extends ScaffolderCamera

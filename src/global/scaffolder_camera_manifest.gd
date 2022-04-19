@@ -8,7 +8,7 @@ signal manually_panned
 
 var active_camera: ScaffolderCamera
 
-var default_camera_class: Script = DefaultPanController
+var default_camera_class: Script = DefaultCamera
 var snaps_camera_back_to_character := true
 
 var smoothing_speed: float

@@ -1087,7 +1087,7 @@ var _level_manifest := {
 }
 
 var _camera_manifest := {
-    default_camera_class = DefaultPanController,
+    default_camera_class = DefaultCamera,
     snaps_camera_back_to_character = true,
     
     smoothing_speed = 10.0,
