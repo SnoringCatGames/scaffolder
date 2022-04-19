@@ -1,4 +1,4 @@
-class_name SwipePanController
+class_name SwipeCamera
 extends ScaffolderCamera
 
 
