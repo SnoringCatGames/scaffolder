@@ -902,8 +902,6 @@ var _gui_manifest := {
     default_mobile_game_area_size = Vector2(500, 600),
     aspect_ratio_max = 2.0 / 1.0,
     aspect_ratio_min = 1.0 / 2.0,
-    camera_smoothing_speed = 10.0,
-    gui_camera_zoom_factor = 0.4,
     button_height = 56.0,
     button_width = 230.0,
     screen_body_width = 460.0,
@@ -1077,7 +1075,6 @@ var _character_manifest := {
     character_categories = _character_categories,
     omits_npcs = false,
     can_include_player_characters = true,
-    is_camera_auto_assigned_to_player_character = true,
 }
 
 var _level_manifest := {
@@ -1090,18 +1087,21 @@ var _level_manifest := {
 }
 
 var _camera_manifest := {
-    default_camera_pan_controller_class = DefaultPanController,
+    default_camera_class = DefaultPanController,
     snaps_camera_back_to_character = true,
+    
+    smoothing_speed = 10.0,
+    gui_camera_zoom_factor = 0.4,
     
     manual_zoom_key_step_ratio = 1.08,
     manual_pan_key_step_distance = 8.0,
     zoom_transition_duration = 0.3,
     offset_transition_duration = 0.8,
     
-    pan_controller_min_zoom = 0.05,
-    pan_controller_max_zoom = 1.0,
-    pan_controller_also_limits_max_zoom_to_level_bounds = true,
-    pan_controller_zoom_speed_multiplier = 1.08,
+    camera_min_zoom = 0.05,
+    camera_max_zoom = 1.0,
+    camera_also_limits_max_zoom_to_level_bounds = true,
+    camera_zoom_speed_multiplier = 1.08,
     
     swipe_pan_speed_multiplier = 1.5,
     swipe_pinch_zoom_speed_multiplier = 1.0,
