@@ -31,12 +31,20 @@ func _set_is_active(value: bool) -> void:
     if value and is_instance_valid(previous_camera):
         _update_controller_pan_and_zoom(
                 previous_camera.offset,
-                self.zoom.x,
+                _target_zoom,
                 false)
     ._set_is_active(value)
+    if !value:
+        _is_pan_continuation_active = false
+        _is_zoom_continuation_active = false
+        _pan_velocity = Vector2.ZERO
+        _zoom_speed = 0.0
+        _zoom_target_level_position = Vector2.INF
 
 
 func _physics_process(physics_play_time_delta: float) -> void:
+    if !_get_is_active():
+        return
     _update_pan_continuation(physics_play_time_delta)
     _update_zoom_continuation(physics_play_time_delta)
 
@@ -172,7 +180,8 @@ func _on_single_touch_dragged(
         pointer_screen_position: Vector2,
         pointer_level_position: Vector2,
         has_corresponding_touch_down: bool) -> void:
-    if !has_corresponding_touch_down or \
+    if !_get_is_active() or \
+            !has_corresponding_touch_down or \
             Sc.level.touch_listener.get_is_control_pressed():
         return
     self._pan_velocity = Sc.geometry.clamp_vector_length(
@@ -191,7 +200,8 @@ func _on_single_touch_released(
         pointer_screen_position: Vector2,
         pointer_level_position: Vector2,
         has_corresponding_touch_down: bool) -> void:
-    if Sc.level.touch_listener.get_is_control_pressed():
+    if !_get_is_active() or \
+            Sc.level.touch_listener.get_is_control_pressed():
         return
     _start_pan_continuation()
 
@@ -199,6 +209,8 @@ func _on_single_touch_released(
 func _on_pinch_changed(
         pinch_distance: float,
         pinch_angle: float) -> void:
+    if !_get_is_active():
+        return
     self._zoom_target_level_position = \
             Sc.level.touch_listener.current_pinch_center_level_position
     self._zoom_speed = \
@@ -218,4 +230,6 @@ func _on_pinch_changed(
 
 
 func _on_pinch_first_touch_released() -> void:
+    if !_get_is_active():
+        return
     _start_zoom_continuation()
