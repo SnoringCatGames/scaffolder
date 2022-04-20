@@ -26,6 +26,16 @@ func _validate() -> void:
     assert(Sc.gui.is_player_interaction_enabled)
 
 
+func _set_is_active(value: bool) -> void:
+    var previous_camera: ScaffolderCamera = Sc.level.camera
+    if value:
+        _update_controller_pan_and_zoom(
+                previous_camera.offset,
+                previous_camera.zoom.x,
+                false)
+    ._set_is_active(value)
+
+
 func _physics_process(physics_play_time_delta: float) -> void:
     _update_pan_continuation(physics_play_time_delta)
     _update_zoom_continuation(physics_play_time_delta)

@@ -76,7 +76,7 @@ func _set_is_active(value: bool) -> void:
         if is_instance_valid(previous_camera) and \
                 previous_camera != self and \
                 transitions_smoothly_from_previous_camera:
-            _transition_offset_from_previous_camera(previous_camera)
+            _transition_from_previous_camera(previous_camera)
     else:
         if Sc.level.camera == self:
             Sc.level.camera = null
@@ -135,7 +135,7 @@ func _unhandled_input(event: InputEvent) -> void:
             _zoom_to_position(zoom, cursor_level_position)
 
 
-func _transition_offset_from_previous_camera(
+func _transition_from_previous_camera(
         previous_camera: ScaffolderCamera) -> void:
     # NOTE: We have to use camera.get_camera_screen_center, rather than
     #       calculating the position difference ourselves, because of
