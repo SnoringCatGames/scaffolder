@@ -6,6 +6,9 @@ extends Node
 signal manually_zoomed
 signal manually_panned
 
+signal zoomed
+signal panned
+
 var active_camera: ScaffolderCamera
 
 var default_camera_class: Script = DefaultCamera
@@ -108,6 +111,7 @@ func _set_manual_zoom(value: float) -> void:
     _update_active_camera()
     if manual_zoom != previous_manual_zoom:
         emit_signal("manually_zoomed")
+        emit_signal("zoomed")
 
 
 func _set_manual_offset(value: Vector2) -> void:
@@ -116,6 +120,7 @@ func _set_manual_offset(value: Vector2) -> void:
     _update_active_camera()
     if manual_offset != previous_manual_offset:
         emit_signal("manually_panned")
+        emit_signal("panned")
 
 
 func _update_active_camera() -> void:
