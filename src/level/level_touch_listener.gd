@@ -92,45 +92,60 @@ func _unhandled_input(event: InputEvent) -> void:
     var event_type := "UNKNOWN_INP"
     var touch: Touch
     
-    # NOTE: Shouldn't need to handle mouse events, since we should be emulating
-    #       touch events.
+    # NOTE:
+    # -   We don't handle mouse left-click events, since we should be emulating
+    #     touch events for those.
+    # -   We _do_ handle mouse middle-click events, since Godot's
+    #     touch-emulation doesn't recognize those.
     
-#    # Mouse-up: Position selection.
-#    if event is InputEventMouseButton and \
-#            event.button_index == BUTTON_LEFT and \
-#            !event.pressed and \
-#            !event.control:
-#        event_type = "MOUSE_UP   "
-#        pointer_up_position = Sc.utils.get_level_touch_position(event)
-#
-#    # Mouse-down: Position pre-selection.
-#    if event is InputEventMouseButton and \
-#            event.button_index == BUTTON_LEFT and \
-#            event.pressed and \
-#            !event.control:
-#        event_type = "MOUSE_DOWN "
-#        pointer_drag_level_position = \
-#                Sc.utils.get_level_touch_position(event)
-#
-#    # Mouse-move: Position pre-selection.
-#    if event is InputEventMouseMotion and \
-#            _last_pointer_drag_level_position != Vector2.INF:
-#        event_type = "MOUSE_DRAG "
-#        pointer_drag_level_position = \
-#                Sc.utils.get_level_touch_position(event)
-    
+    # Mouse-up: Position selection.
+    if event is InputEventMouseButton and \
+            event.button_index == BUTTON_MIDDLE and \
+            !event.pressed:
+        was_latest_touch_part_of_multi_touch = false
+        event_type = "MOUSE_UP   "
+        pointer_up_screen_position = event.position
+        pointer_up_level_position = Sc.utils.get_level_touch_position(event)
+        _clear_touch_buffer(0)
+        
+    # Mouse-down: Position pre-selection.
+    elif event is InputEventMouseButton and \
+            event.button_index == BUTTON_MIDDLE and \
+            event.pressed:
+        was_latest_touch_part_of_multi_touch = false
+        event_type = "MOUSE_DOWN "
+        is_touch_down = true
+        pointer_drag_screen_position = event.position
+        pointer_drag_level_position = Sc.utils.get_level_touch_position(event)
+        touch = _add_touch_to_buffer(
+                0,
+                pointer_drag_screen_position,
+                pointer_drag_level_position)
+        
+    # Mouse-move: Position pre-selection.
+    elif event is InputEventMouseMotion and \
+            !_active_gestures.empty():
+        was_latest_touch_part_of_multi_touch = false
+        event_type = "MOUSE_DRAG "
+        pointer_drag_screen_position = event.position
+        pointer_drag_level_position = Sc.utils.get_level_touch_position(event)
+        touch = _add_touch_to_buffer(
+                0,
+                pointer_drag_screen_position,
+                pointer_drag_level_position)
+        
     # Touch-up: Position selection.
-    if event is InputEventScreenTouch and \
+    elif event is InputEventScreenTouch and \
             !event.pressed:
         event_type = "TOUCH_UP   "
         pointer_up_screen_position = event.position
         pointer_up_level_position = Sc.utils.get_level_touch_position(event)
         _clear_touch_buffer(event.index)
-    
+        
     # Touch-down: Position pre-selection.
     elif event is InputEventScreenTouch and \
             event.pressed:
-        if _active_gestures.size() == 0:
+        if _active_gestures.empty():
             # This is the first touch of a new touch set.
             was_latest_touch_part_of_multi_touch = false
         event_type = "TOUCH_DOWN "
@@ -143,10 +158,10 @@ func _unhandled_input(event: InputEvent) -> void:
                 pointer_drag_level_position)
         if _active_gestures.size() > 1:
             was_latest_touch_part_of_multi_touch = true
-    
+        
     # Touch-move: Position pre-selection.
     elif event is InputEventScreenDrag:
-        if _active_gestures.size() == 0:
+        if _active_gestures.empty():
             # This is the first touch of a new touch set.
             was_latest_touch_part_of_multi_touch = false
         event_type = "TOUCH_DRAG "
@@ -192,7 +207,7 @@ func _unhandled_input(event: InputEvent) -> void:
                     pointer_up_level_position)
     elif _active_gestures.size() == 2:
         _on_pinch_changed(touch)
-    elif _active_gestures.size() == 0:
+    elif _active_gestures.empty():
         _current_touch = null
         if pointer_up_level_position != Vector2.INF:
             _on_single_touch_released(
