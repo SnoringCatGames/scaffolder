@@ -292,6 +292,7 @@ func swap_camera(
     if !is_next_camera_already_instantiated:
         add_child(next_camera)
     next_camera.is_active = true
+    previous_camera.is_active = false
     
     if is_instance_valid(previous_camera) and \
             destroys_previous_camera:
