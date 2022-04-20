@@ -25,7 +25,7 @@ var level_bounds: Rect2
 var camera_bounds: Rect2
 var character_bounds: Rect2
 
-var pointer_listener: LevelPointerListener
+var touch_listener: LevelTouchListener
 var camera: ScaffolderCamera
 var _default_camera: ScaffolderCamera
 
@@ -36,8 +36,8 @@ var _configuration_warning := ""
 
 
 func _init() -> void:
-    self.pointer_listener = LevelPointerListener.new()
-    Sc.canvas_layers.layers.top.add_child(pointer_listener)
+    self.touch_listener = LevelTouchListener.new()
+    Sc.canvas_layers.layers.top.add_child(touch_listener)
 
 
 func _enter_tree() -> void:
@@ -164,8 +164,8 @@ func _destroy() -> void:
     _set_active_player_character(null)
     if is_instance_valid(camera):
         camera._destroy()
-    if is_instance_valid(pointer_listener):
-        pointer_listener._destroy()
+    if is_instance_valid(touch_listener):
+        touch_listener._destroy()
     Sc.level = null
     Sc.levels.session._is_destroyed = true
     if Sc.levels.session.is_restarting:
@@ -461,11 +461,10 @@ func _get_is_rate_app_screen_next() -> bool:
 
 
 func _set_default_camera() -> void:
-    camera = Sc.camera.default_camera_class.new()
-    assert(camera is ScaffolderCamera)
+    var camera: ScaffolderCamera = Sc.camera.default_camera_class.new()
     add_child(camera)
     camera.is_active = true
-    _default_camera = camera
+    self._default_camera = camera
 
 
 func _update_session_in_editor() -> void:

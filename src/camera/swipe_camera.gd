@@ -10,13 +10,13 @@ var _zoom_target_level_position := Vector2.INF
 
 
 func _init() -> void:
-    Sc.level.pointer_listener.connect(
+    Sc.level.touch_listener.connect(
             "single_touch_dragged", self, "_on_single_touch_dragged")
-    Sc.level.pointer_listener.connect(
+    Sc.level.touch_listener.connect(
             "single_touch_released", self, "_on_single_touch_released")
-    Sc.level.pointer_listener.connect(
+    Sc.level.touch_listener.connect(
             "pinch_changed", self, "_on_pinch_changed")
-    Sc.level.pointer_listener.connect(
+    Sc.level.touch_listener.connect(
             "pinch_first_touch_released",
             self,
             "_on_pinch_first_touch_released")
@@ -28,10 +28,10 @@ func _validate() -> void:
 
 func _set_is_active(value: bool) -> void:
     var previous_camera: ScaffolderCamera = Sc.level.camera
-    if value:
+    if value and is_instance_valid(previous_camera):
         _update_controller_pan_and_zoom(
                 previous_camera.offset,
-                previous_camera.zoom.x,
+                self.zoom.x,
                 false)
     ._set_is_active(value)
 
@@ -45,7 +45,7 @@ func _update_pan_continuation(physics_play_time_delta: float) -> void:
     if !_is_pan_continuation_active:
         return
     
-    if Sc.level.pointer_listener.is_touch_active:
+    if Sc.level.touch_listener.is_touch_active:
         # Stopped by a touch.
         _pan_velocity = Vector2.ZERO
         _is_pan_continuation_active = false
@@ -109,7 +109,7 @@ func _update_pan_continuation(physics_play_time_delta: float) -> void:
 func _update_zoom_continuation(physics_play_time_delta: float) -> void:
     # FIXME: ------
     # - Test/implement this.
-    # - Also, LevelPointerListener's
+    # - Also, LevelTouchListener's
     #   _get_current_pinch_screen_distance_speed and
     #   _get_current_pinch_angle_speed.
     # - Will probably need to do some clever touch pinch-basis logic similar to
@@ -118,7 +118,7 @@ func _update_zoom_continuation(physics_play_time_delta: float) -> void:
     if !_is_zoom_continuation_active:
         return
     
-    if Sc.level.pointer_listener.is_multi_touch_active:
+    if Sc.level.touch_listener.is_multi_touch_active:
         # Stopped by a touch.
         _zoom_speed = 0.0
         _zoom_target_level_position = Vector2.INF
@@ -170,16 +170,18 @@ func _start_zoom_continuation() -> void:
 
 func _on_single_touch_dragged(
         pointer_screen_position: Vector2,
-        pointer_level_position: Vector2) -> void:
-    if Sc.level.pointer_listener.get_is_control_pressed():
+        pointer_level_position: Vector2,
+        has_corresponding_touch_down: bool) -> void:
+    if !has_corresponding_touch_down or \
+            Sc.level.touch_listener.get_is_control_pressed():
         return
     self._pan_velocity = Sc.geometry.clamp_vector_length(
-            Sc.level.pointer_listener.current_drag_level_velocity,
+            Sc.level.touch_listener.current_drag_level_velocity,
             0.0,
             Sc.camera.swipe_max_pan_speed)
     var offset: Vector2 = \
             _target_offset - \
-            Sc.level.pointer_listener.current_drag_screen_displacement * \
+            Sc.level.touch_listener.current_drag_screen_displacement * \
             Sc.camera.swipe_pan_speed_multiplier * \
             self.zoom.x
     _update_controller_pan_and_zoom(offset, _target_zoom, false)
@@ -187,8 +189,9 @@ func _on_single_touch_dragged(
 
 func _on_single_touch_released(
         pointer_screen_position: Vector2,
-        pointer_level_position: Vector2) -> void:
-    if Sc.level.pointer_listener.get_is_control_pressed():
+        pointer_level_position: Vector2,
+        has_corresponding_touch_down: bool) -> void:
+    if Sc.level.touch_listener.get_is_control_pressed():
         return
     _start_pan_continuation()
 
@@ -197,13 +200,13 @@ func _on_pinch_changed(
         pinch_distance: float,
         pinch_angle: float) -> void:
     self._zoom_target_level_position = \
-            Sc.level.pointer_listener.current_pinch_center_level_position
+            Sc.level.touch_listener.current_pinch_center_level_position
     self._zoom_speed = \
-            Sc.level.pointer_listener.current_pinch_screen_distance_speed / \
-            Sc.level.pointer_listener.current_pinch_screen_distance
+            Sc.level.touch_listener.current_pinch_screen_distance_speed / \
+            Sc.level.touch_listener.current_pinch_screen_distance
     
     var distance_ratio := \
-            Sc.level.pointer_listener.current_pinch_screen_distance_ratio_from_previous
+            Sc.level.touch_listener.current_pinch_screen_distance_ratio_from_previous
     var foo := distance_ratio
     if distance_ratio > 1.0:
         distance_ratio = 1.0 + (distance_ratio - 1.0) * Sc.camera.swipe_pinch_zoom_speed_multiplier
