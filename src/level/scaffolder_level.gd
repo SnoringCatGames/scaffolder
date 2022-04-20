@@ -289,7 +289,6 @@ func swap_camera(
             camera_or_class if \
             is_next_camera_already_instantiated else \
             camera_or_class.new(previous_camera)
-    self.camera = next_camera
     if !is_next_camera_already_instantiated:
         add_child(next_camera)
     next_camera.is_active = true
