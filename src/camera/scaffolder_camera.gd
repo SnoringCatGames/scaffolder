@@ -140,9 +140,9 @@ func _transition_from_previous_camera(
     # NOTE: We have to use camera.get_camera_screen_center, rather than
     #       calculating the position difference ourselves, because of
     #       Camera2D.smoothing_enabled.
-    var start_offset := \
-            previous_camera.get_camera_screen_center() - \
-            self.get_camera_screen_center()
+    var previous_camera_center := previous_camera.get_camera_screen_center()
+    var current_camera_center := self.get_camera_screen_center()
+    var start_offset := previous_camera_center - current_camera_center
     var end_offset := Vector2.ZERO
     
     var start_zoom := previous_camera.zoom.x / self.zoom.x
