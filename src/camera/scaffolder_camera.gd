@@ -348,8 +348,10 @@ func _update_offset_and_zoom() -> void:
     
     if old_offset != new_offset:
         emit_signal("panned")
+        Sc.camera.emit_signal("panned")
     if old_zoom != new_zoom:
         emit_signal("zoomed")
+        Sc.camera.emit_signal("zoomed")
 
 
 func set_position(value: Vector2) -> void:
