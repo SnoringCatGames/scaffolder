@@ -3,7 +3,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_rect.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_m.tres" type="DynamicFont" id=2]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.gd" type="Script" id=3]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/nine_patch/button_normal.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/gui/nine_patch/button_normal.png" type="Texture" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/style_box_texture_scalable.gd" type="Script" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=1]
@@ -50,9 +50,6 @@ custom_styles/focus = SubResource( 3 )
 custom_styles/disabled = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_right = 230.0
