@@ -5,6 +5,9 @@ extends Node
 
 # --- Constants ---
 
+const GUI_COLLISION_LAYER_BIT := 30
+const GUI_COLLISION_LAYER := 1 << GUI_COLLISION_LAYER_BIT
+
 const ACCORDION_PANEL_SCENE := preload( \
         "res://addons/scaffolder/src/gui/widgets/accordion_panel.tscn")
 const CENTERED_PANEL_SCENE := preload( \
