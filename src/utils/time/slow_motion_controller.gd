@@ -35,8 +35,7 @@ func _init() -> void:
     music = SlowMotionMusic.new()
     add_child(music)
     
-    _tween = ScaffolderTween.new()
-    add_child(_tween)
+    _tween = ScaffolderTween.new(self)
     
     _desaturation_material = ShaderMaterial.new()
     _desaturation_material.shader = DESATURATION_SHADER

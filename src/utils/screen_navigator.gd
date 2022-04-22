@@ -61,7 +61,8 @@ func close_app() -> void:
     transitions.clear_transitions()
     Sc.analytics.end_session()
     Sc.time.set_timeout(
-            funcref(self, "_on_session_end"),
+            self,
+            "_on_session_end",
             SESSION_END_TIMEOUT)
 
 

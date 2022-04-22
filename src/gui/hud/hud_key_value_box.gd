@@ -12,8 +12,7 @@ var _tween: ScaffolderTween
 
 
 func _ready() -> void:
-    _tween = ScaffolderTween.new()
-    add_child(_tween)
+    _tween = ScaffolderTween.new(self)
     _on_gui_scale_changed()
 
 

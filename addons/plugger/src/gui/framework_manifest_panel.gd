@@ -25,9 +25,7 @@ var editor_node: FrameworkManifestEditorNode
 var schema: FrameworkSchema
 
 var _debounced_update_zebra_stripes = Sc.time.debounce(
-        funcref(self, "_update_zebra_stripes_debounced"),
-        0.001,
-        false)
+        self, "_update_zebra_stripes_debounced", 0.001, false)
 
 
 func _ready() -> void:

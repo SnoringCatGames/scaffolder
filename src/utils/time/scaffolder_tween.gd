@@ -8,15 +8,21 @@ signal tween_all_completed
 #       Use tween_all_completed instead.
 signal _tween_completed(object, key)
 
+var parent
 var id := -1
 
 var _pending_sub_tweens := []
 var _active_sub_tweens := []
 
 
-func _init() -> void:
+func _init(
+        parent,
+        adds_self_as_child_of_parent := true) -> void:
+    self.parent = parent
     name = "ScaffolderTween"
     self.id = Sc.time.get_next_task_id()
+    if adds_self_as_child_of_parent:
+        parent.add_child(self)
 
 
 func _process(_delta: float) -> void:

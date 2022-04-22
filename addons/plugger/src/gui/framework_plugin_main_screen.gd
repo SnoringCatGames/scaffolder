@@ -12,17 +12,11 @@ const _MODE_OPTION_BUTTON_WIDTH := 150.0
 
 
 var _debounced_save_manifest = Sc.time.debounce(
-        funcref(Pl, "save_manifest"),
-        0.3,
-        false)
+        Pl, "save_manifest", 0.3, false)
 var _throttled_on_resize: FuncRef = Sc.time.throttle(
-        funcref(self, "adjust_size"),
-        0.001,
-        false)
+        self, "adjust_size", 0.001, false)
 var _debounced_save_open_rows = Sc.time.debounce(
-        funcref(self, "_save_open_rows"),
-        3.0,
-        false)
+        self, "_save_open_rows", 3.0, false)
 
 # Dictionary<String, OptionButton>
 var _option_buttons := {}

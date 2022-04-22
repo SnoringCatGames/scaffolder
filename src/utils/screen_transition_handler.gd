@@ -283,11 +283,11 @@ func start_transition(
 
 func _start_immediate_transition(transition: ScreenTransition) -> void:
     if transition.delay > 0.0:
-        transition.start_immediate_transition_timeout_id = \
-                Sc.time.set_timeout( \
-                        funcref(self, "_start_immediate_transition"), \
-                        transition.delay,
-                        [transition])
+        transition.start_immediate_transition_timeout_id = Sc.time.set_timeout(
+                self,
+                "_start_immediate_transition",
+                transition.delay,
+                [transition])
     else:
         _update_z_indices(
                 transition,
@@ -429,8 +429,9 @@ func _start_overlay_mask_transition(transition: ScreenTransition) -> void:
             true,
             false)
     
-    transition.start_transition_helper_timeout_id = Sc.time.set_timeout( \
-            funcref(_overlay_mask_transition, "start"), \
+    transition.start_transition_helper_timeout_id = Sc.time.set_timeout(
+            _overlay_mask_transition,
+            "start",
             transition.delay,
             [
                 transition.duration,
@@ -438,8 +439,9 @@ func _start_overlay_mask_transition(transition: ScreenTransition) -> void:
                 transition.next_screen_container,
             ])
     
-    transition.start_immediate_transition_timeout_id = Sc.time.set_timeout( \
-            funcref(self, "_on_overlay_mask_transition_middle"), \
+    transition.start_immediate_transition_timeout_id = Sc.time.set_timeout(
+            self,
+            "_on_overlay_mask_transition_middle",
             transition.duration / 2.0 + transition.delay,
             [
                 transition,
@@ -502,9 +504,10 @@ func _start_screen_mask_transition(transition: ScreenTransition) -> void:
             transition,
             transition.is_forward)
     
-    transition.start_transition_helper_timeout_id = Sc.time.set_timeout( \
-            funcref(self, "_on_screen_mask_transition_start"), \
-            transition.delay, \
+    transition.start_transition_helper_timeout_id = Sc.time.set_timeout(
+            self,
+            "_on_screen_mask_transition_start",
+            transition.delay,
             [
                 tween_screen_container,
                 is_fading_in,

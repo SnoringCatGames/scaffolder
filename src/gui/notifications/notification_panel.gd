@@ -132,11 +132,13 @@ func open() -> void:
     
     if _data.duration == NotificationDuration.SHORT:
         Sc.time.set_timeout(
-                funcref(self, "close"),
+                self,
+                "close",
                 Sc.notify.fade_in_duration + Sc.notify.duration_short_sec)
     elif _data.duration == NotificationDuration.LONG:
         Sc.time.set_timeout(
-                funcref(self, "close"),
+                self,
+                "close",
                 Sc.notify.fade_in_duration + Sc.notify.duration_long_sec)
 
 

@@ -104,7 +104,8 @@ func _enter_tree() -> void:
 func _ready() -> void:
     _is_ready = true
     _debounced_update_editor_configuration = Sc.time.debounce(
-            funcref(self, "_update_editor_configuration_debounced"),
+            self,
+            "_update_editor_configuration_debounced",
             0.02,
             false)
     _update_editor_configuration()

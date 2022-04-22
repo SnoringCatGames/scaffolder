@@ -167,11 +167,13 @@ func _ready() -> void:
     
     start_position = position
     _debounced_update_editor_configuration = Sc.time.debounce(
-            funcref(self, "_update_editor_configuration_debounced"),
+            self,
+            "_update_editor_configuration_debounced",
             0.02,
             true)
     _throttled_show_exclamation_mark = Sc.time.throttle(
-            funcref(self, "_show_exclamation_mark_throttled"),
+            self,
+            "_show_exclamation_mark_throttled",
             exclamation_mark_throttle_interval,
             false,
             TimeType.PLAY_PHYSICS_SCALED)

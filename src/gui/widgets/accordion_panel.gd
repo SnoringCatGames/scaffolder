@@ -23,9 +23,7 @@ var _tween: ScaffolderTween
 var _start_scroll_vertical: int
 
 var _debounced_update_children: FuncRef = Sc.time.debounce(
-        funcref(self, "_update_children_debounced"),
-        0.02,
-        true)
+        self, "_update_children_debounced", 0.02, true)
 
 
 func _ready() -> void:
@@ -35,7 +33,7 @@ func _ready() -> void:
 
 func _on_gui_scale_changed() -> bool:
     _update_children()
-    Sc.time.set_timeout(funcref(self, "_trigger_open_change"), 0.2, [false])
+    Sc.time.set_timeout(self, "_trigger_open_change", 0.2, [false])
     return true
 
 
@@ -55,7 +53,7 @@ func _on_gui_scale_changed_debounced() -> void:
     _header._on_gui_scale_changed()
     _body._on_gui_scale_changed()
     
-    Sc.time.set_timeout(funcref(self, "_set_size"), 0.01, [size])
+    Sc.time.set_timeout(self, "_set_size", 0.01, [size])
     
     call_deferred("_on_is_open_tween_completed")
 
@@ -83,12 +81,11 @@ func _update_children_debounced() -> void:
         return
     
     if !is_instance_valid(_tween):
-        _tween = ScaffolderTween.new()
+        _tween = ScaffolderTween.new(self)
         _tween.connect(
                 "tween_all_completed",
                 self,
                 "_on_is_open_tween_completed")
-        add_child(_tween)
         move_child(_tween, 0)
     
     var children := get_children()
