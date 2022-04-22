@@ -21,6 +21,7 @@ func _ready() -> void:
     self.input_pickable = false
     Sc.camera.connect("panned", _throttled_on_panned_or_zoomed, "call_func")
     Sc.camera.connect("zoomed", _throttled_on_panned_or_zoomed, "call_func")
+    _check_camera_intersection()
 
 
 func _get_is_viewport_intersecting() -> bool:
