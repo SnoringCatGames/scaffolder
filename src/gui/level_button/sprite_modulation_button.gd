@@ -1,6 +1,6 @@
 tool
 class_name SpriteModulationButton
-extends LevelOverlayButton
+extends LevelButton
 
 
 const _DEFAULT_NORMAL_MODULATE := Color("cc6abe30")

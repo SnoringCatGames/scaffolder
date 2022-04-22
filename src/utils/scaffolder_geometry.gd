@@ -305,6 +305,16 @@ static func is_point_in_triangle(
     return u >= 0 and v >= 0 and u + v < 1
 
 
+static func is_point_in_rectangle(
+        point: Vector2,
+        rectangle_min: Vector2,
+        rectangle_max: Vector2) -> bool:
+    return point.x > rectangle_min.x and \
+            point.y > rectangle_min.y and \
+            point.x < rectangle_max.x and \
+            point.y < rectangle_max.y
+
+
 static func do_rectangles_intersect(
         a_min: Vector2,
         a_max: Vector2,
@@ -314,6 +324,36 @@ static func do_rectangles_intersect(
             a_min.y <= b_max.y and \
             a_max.x >= b_min.x and \
             a_max.y >= b_min.y
+
+
+static func does_rectangle_and_circle_intersect(
+        rectangle_min: Vector2,
+        rectangle_max: Vector2,
+        circle_center: Vector2,
+        circle_radius: float) -> bool:
+    var rectangle_extents := (rectangle_max - rectangle_min) / 2.0
+    var rectangle_center := rectangle_min + rectangle_extents
+    
+    var centers_distance_x := abs(circle_center.x - rectangle_center.x)
+    var centers_distance_y := abs(circle_center.y - rectangle_center.y)
+    
+    if centers_distance_x >= rectangle_extents.x + circle_radius:
+        return false
+    if centers_distance_y >= rectangle_extents.y + circle_radius:
+        return false
+    
+    if centers_distance_x < rectangle_extents.x:
+        return true
+    if centers_distance_y < rectangle_extents.y:
+        return true
+    
+    var rectangle_diagonal_extent_distance_squared := \
+            (centers_distance_x - rectangle_extents.x) * \
+            (centers_distance_x - rectangle_extents.x) + \
+            (centers_distance_y - rectangle_extents.y) * \
+            (centers_distance_y - rectangle_extents.y)
+    return rectangle_diagonal_extent_distance_squared < \
+            circle_radius * circle_radius
 
 
 static func do_segment_and_rectangle_intersect(

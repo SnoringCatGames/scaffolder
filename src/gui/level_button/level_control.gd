@@ -1,5 +1,6 @@
 tool
-class_name LevelOverlayControl
+class_name LevelControl, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_node.png"
 extends Area2D
 ## -   This bypasses Godot's normal Control logic, and re-implements mouse/touch
 ##     behavior from scratch.
@@ -33,6 +34,8 @@ func _ready() -> void:
     self.connect("mouse_exited", self, "_on_mouse_exited")
     self.connect("input_event", self, "_on_input_event")
     self.collision_layer = Sc.gui.GUI_COLLISION_LAYER
+    self.monitoring = false
+    self.monitorable = false
     self.input_pickable = true
     _update_interaction_mode(InteractionMode.NORMAL)
 

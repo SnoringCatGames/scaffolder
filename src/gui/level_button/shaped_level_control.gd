@@ -1,15 +1,8 @@
 tool
-class_name LevelOverlayButton, \
-"res://addons/scaffolder/assets/images/editor_icons/scaffolder_button.png"
-extends LevelOverlayControl
-## -   This button bypasses Godot's normal Control logic, and re-implements
-##     button behavior from scratch.
-## -   This is needed, because Godot's normal Button behavior captures scroll
-##     events, and prevents the level from processing them.
-##     -   This capturing is not disablable in the normal way with mouse_filter.
+class_name ShapedLevelControl, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_node.png"
+extends LevelControl
 
-
-signal pressed
 
 export var is_rectangular := true \
         setget _set_is_rectangular
@@ -49,18 +42,6 @@ func _update() -> void:
         _shape.shape.radius = circle_radius
 
 
-func _on_full_press(
-        level_position: Vector2,
-        screen_position: Vector2) -> void:
-    emit_signal("pressed")
-
-
-func _on_interaction_mode_changed(interaction_mode: int) -> void:
-    Sc.logger.error(
-            "Abstract LevelOverlayButton._on_interaction_mode_changed " +
-            "is not implemented")
-
-
 func _set_is_rectangular(value: bool) -> void:
     is_rectangular = value
     if is_rectangular:
@@ -91,3 +72,4 @@ func _set_circle_radius(value: float) -> void:
         rectangle_extents = Vector2(-1, -1)
     _update()
     property_list_changed_notify()
+
