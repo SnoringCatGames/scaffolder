@@ -50,9 +50,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.599063"
-     inkscape:cx="-26.256834"
-     inkscape:cy="983.31148"
+     inkscape:zoom="14.396252"
+     inkscape:cx="12.155942"
+     inkscape:cy="1093.6874"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -65,7 +65,8 @@
      inkscape:lockguides="false"
      inkscape:pagecheckerboard="0"
      inkscape:snap-others="false"
-     inkscape:snap-global="true" />
+     inkscape:snap-global="true"
+     inkscape:snap-bbox="false" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -4277,8 +4278,8 @@
        y="557.99969"
        rx="0"
        ry="0"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\scaffolder_node.png" />
     <rect
        style="vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.0807;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -4289,8 +4290,8 @@
        y="557.99969"
        rx="0"
        ry="0"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\scaffolder_node.png" />
     <path
        id="rect80499-1"
@@ -4365,6 +4366,30 @@
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\plugger_dark_theme_2.png" />
+    <rect
+       style="vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.0807;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5342-2-7-69-8"
+       width="4.2333336"
+       height="4.2333336"
+       x="-0.62418497"
+       y="573.01172"
+       rx="0"
+       ry="0"
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\generic_button.png" />
+    <rect
+       style="vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.0807;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect80497-9-3-9"
+       width="4.2333336"
+       height="4.2333336"
+       x="-0.62418497"
+       y="573.01172"
+       rx="0"
+       ry="0"
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\generic_button.png" />
     <path
        d="m 0.64524741,563.12858 c -0.586317,0 -1.058333,0.47202 -1.058333,1.05834 v 1.5875 c 0,0.58631 0.472016,1.05833 1.058333,1.05833 H 2.2327474 c 0.586317,0 1.058333,-0.47202 1.058333,-1.05833 v -1.5875 c 0,-0.58632 -0.472016,-1.05834 -1.058333,-1.05834 z m -0.264583,1.32292 c 0.146579,0 0.264583,0.118 0.264583,0.26458 v 0.52917 c 0,0.14658 -0.118004,0.26458 -0.264583,0.26458 -0.14658,0 -0.264584,-0.118 -0.264584,-0.26458 v -0.52917 c 0,-0.14658 0.118004,-0.26458 0.264584,-0.26458 z m 2.11666599,0 c 0.146579,0 0.264584,0.118 0.264584,0.26458 v 0.52917 c 0,0.14658 -0.118005,0.26458 -0.264584,0.26458 -0.146579,0 -0.264583,-0.118 -0.264583,-0.26458 v -0.52917 c 0,-0.14658 0.118004,-0.26458 0.264583,-0.26458 z m -0.499718,1.35133 a 0.26460979,0.26460979 0 0 1 0.189653,0.45527 c -0.198403,0.1984 -0.467677,0.31007 -0.748268,0.31007 -0.280591,0 -0.54988399,-0.11166 -0.74826799,-0.31007 a 0.26460979,0.26460979 0 0 1 0.184486,-0.45424 0.26460979,0.26460979 0 0 1 0.18965299,0.0801 c 0.09931,0.0993 0.233693,0.15503 0.374147,0.15503 0.140455,0 0.274823,-0.0557 0.374148,-0.15503 a 0.26460979,0.26460979 0 0 1 0.184486,-0.0811 z"
        fill="#8da5f3"
@@ -4433,7 +4458,59 @@
        id="path1363-5"
        style="stroke-width:0.264583;fill:#f6ed7a;fill-opacity:1"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\scaffolder_node.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192" />
+    <path
+       id="path1086-7"
+       d="m 1.2278982,573.4086 v 0.82889 l -0.38240197,-0.25528 -0.293529,0.44029 0.79374997,0.52917 a 0.26460979,0.26460979 0 0 0 0.2935287,0 l 0.79375,-0.52917 -0.293529,-0.44029 -0.382402,0.25528 v -0.82889 z m -0.39687497,2.11667 c -0.219868,0 -0.396875,0.17701 -0.396875,0.39688 v 0.39687 h -0.529166 v 0.52917 H 3.0799815 v -0.52917 H 2.5508149 v -0.39687 c 0,-0.21987 -0.177006,-0.39688 -0.396875,-0.39688 z"
+       inkscape:connector-curvature="0"
+       style="fill:#f6ed7a;stroke-width:0.264583;fill-opacity:1"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\generic_button.png"
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192" />
+    <rect
+       style="vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.0807;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5342-2-7-69-8-4"
+       width="4.2333336"
+       height="4.2333336"
+       x="-0.56379002"
+       y="577.88104"
+       rx="0"
+       ry="0"
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\camera_detector.png" />
+    <rect
+       style="vector-effect:none;fill:#000000;fill-opacity:0;stroke:none;stroke-width:63.0807;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect80497-9-3-9-7"
+       width="4.2333336"
+       height="4.2333336"
+       x="-0.56379002"
+       y="577.88104"
+       rx="0"
+       ry="0"
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\camera_detector.png" />
+    <path
+       d="m 1.7513146,579.27011 a 0.396875,0.396875 0 0 0 -0.3953275,0.36743 0.396875,0.396875 0 0 0 -0.266131,-0.10285 0.396875,0.396875 0 0 0 -0.39687505,0.39688 0.396875,0.396875 0 0 0 0.2645835,0.37363 v 0.28783 c 0,0.0733 0.0590004,0.13229 0.13229155,0.13229 h 0.79375 c 0.073291,0 0.1322915,-0.059 0.1322915,-0.13229 v -0.13229 l 0.396875,0.26458 v -0.79375 l -0.396875,0.26458 v -0.23409 a 0.396875,0.396875 0 0 0 0.132292,-0.29507 0.396875,0.396875 0 0 0 -0.396875,-0.39688 z"
+       fill="#8da5f3"
+       id="path4336"
+       style="fill:#f6ed7a;fill-opacity:1;stroke-width:0.132291"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\camera_detector.png"
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192" />
+    <path
+       d="m -4.1426456,311.41767 a 0.79375,0.79375 0 0 0 -0.790655,0.73485 0.79375,0.79375 0 0 0 -0.532262,-0.20569 0.79375,0.79375 0 0 0 -0.79375,0.79375 0.79375,0.79375 0 0 0 0.529167,0.74727 v 0.57565 c 0,0.14658 0.118001,0.26458 0.264583,0.26458 h 1.5875 c 0.146582,0 0.264583,-0.118 0.264583,-0.26458 v -0.26458 l 0.79375,0.52916 v -1.5875 l -0.79375,0.52917 v -0.46818 a 0.79375,0.79375 0 0 0 0.264584,-0.59015 0.79375,0.79375 0 0 0 -0.79375,-0.79375 z"
+       fill="#8da5f3"
+       id="path4336-8"
+       style="stroke-width:0.264583" />
+    <path
+       id="path6929"
+       style="fill:#f6ed7a;fill-opacity:1;stroke:none;stroke-width:0.292777;stroke-linecap:round;stop-color:#000000"
+       d="m 3.0495861,578.50101 -0.1870887,0.18708 a 1.8520832,1.8520832 0 0 1 10e-8,2.61925 l 0.1870887,0.18708 a 2.1166667,2.1166667 0 0 0 -10e-8,-2.99341 z m -0.3741773,0.37417 -0.1870887,0.18709 a 1.3229165,1.3229165 0 0 1 10e-8,1.87089 l 0.1870887,0.18709 a 1.5875,1.5875 0 0 0 -10e-8,-2.24507 z m -2.61924135,-0.37417 a 2.1166667,2.1166667 0 0 0 0,2.99341 l 0.18708866,-0.18708 a 1.8520832,1.8520832 0 0 1 0,-2.61925 z m 0.37417733,0.37417 a 1.5875,1.5875 0 0 0 0,2.24507 l 0.18708867,-0.18709 a 1.3229165,1.3229165 0 0 1 0,-1.87089 z"
+       inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\editor_icons\camera_detector.png"
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192" />
   </g>
 </svg>
