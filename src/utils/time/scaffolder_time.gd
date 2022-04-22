@@ -358,9 +358,12 @@ func throttle(
     return throttled_callback
 
 
-func clear_throttle(throttled_callback: FuncRef) -> void:
-    assert(_throttled_callbacks.has(throttled_callback))
+func clear_throttle(throttled_callback: FuncRef) -> bool:
+    if !_throttled_callbacks.has(throttled_callback):
+        return false
     _throttled_callbacks[throttled_callback].cancel()
+    _throttled_callbacks.erase(throttled_callback)
+    return true
 
 
 func debounce(
@@ -380,6 +383,9 @@ func debounce(
     return debounced_callback
 
 
-func clear_debounce(debounced_callback: FuncRef) -> void:
-    assert(_debounced_callbacks.has(debounced_callback))
+func clear_debounce(debounced_callback: FuncRef) -> bool:
+    if !_debounced_callbacks.has(debounced_callback):
+        return false
     _debounced_callbacks[debounced_callback].cancel()
+    _debounced_callbacks.erase(debounced_callback)
+    return true

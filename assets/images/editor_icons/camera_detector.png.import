@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/scaffolder_node.png-21fa78c92b90d1dcf75e9ec21e7f0097.stex"
+path="res://.import/camera_detector.png-1f851118b7ba1d8fd101532099033328.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scaffolder/assets/images/editor_icons/scaffolder_node.png"
-dest_files=[ "res://.import/scaffolder_node.png-21fa78c92b90d1dcf75e9ec21e7f0097.stex" ]
+source_file="res://addons/scaffolder/assets/images/editor_icons/camera_detector.png"
+dest_files=[ "res://.import/camera_detector.png-1f851118b7ba1d8fd101532099033328.stex" ]
 
 [params]
 
