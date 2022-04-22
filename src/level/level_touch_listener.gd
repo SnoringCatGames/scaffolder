@@ -31,12 +31,17 @@ var is_multi_touch_active: bool setget ,_get_is_multi_touch_active
 var was_latest_touch_part_of_multi_touch := false
 
 var touch_down_screen_position := Vector2.INF
-var current_drag_screen_position := Vector2.INF
+var latest_drag_screen_position := Vector2.INF
 var release_screen_position := Vector2.INF
 
 var touch_down_level_position := Vector2.INF
-var current_drag_level_position := Vector2.INF
+var latest_drag_level_position := Vector2.INF
 var release_level_position := Vector2.INF
+
+var _latest_drag_event: InputEvent
+
+var current_drag_level_position_with_current_camera_pan: Vector2 \
+        setget ,_get_current_drag_level_position_with_current_camera_pan
 
 var has_corresponding_touch_down: bool \
         setget ,_get_has_corresponding_touch_down
@@ -114,6 +119,7 @@ func _unhandled_input(event: InputEvent) -> void:
             event.pressed:
         was_latest_touch_part_of_multi_touch = false
         event_type = "MOUSE_DOWN "
+        _latest_drag_event = event
         is_touch_down = true
         pointer_drag_screen_position = event.position
         pointer_drag_level_position = Sc.utils.get_level_touch_position(event)
@@ -127,6 +133,7 @@ func _unhandled_input(event: InputEvent) -> void:
             !_active_gestures.empty():
         was_latest_touch_part_of_multi_touch = false
         event_type = "MOUSE_DRAG "
+        _latest_drag_event = event
         pointer_drag_screen_position = event.position
         pointer_drag_level_position = Sc.utils.get_level_touch_position(event)
         touch = _add_touch_to_buffer(
@@ -149,6 +156,7 @@ func _unhandled_input(event: InputEvent) -> void:
             # This is the first touch of a new touch set.
             was_latest_touch_part_of_multi_touch = false
         event_type = "TOUCH_DOWN "
+        _latest_drag_event = event
         is_touch_down = true
         pointer_drag_screen_position = event.position
         pointer_drag_level_position = Sc.utils.get_level_touch_position(event)
@@ -165,6 +173,7 @@ func _unhandled_input(event: InputEvent) -> void:
             # This is the first touch of a new touch set.
             was_latest_touch_part_of_multi_touch = false
         event_type = "TOUCH_DRAG "
+        _latest_drag_event = event
         pointer_drag_screen_position = event.position
         pointer_drag_level_position = Sc.utils.get_level_touch_position(event)
         touch = _add_touch_to_buffer(
@@ -224,10 +233,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_single_touch_down(touch: Touch) -> void:
     touch_down_screen_position = touch.screen_position
-    current_drag_screen_position = touch.screen_position
+    latest_drag_screen_position = touch.screen_position
     release_screen_position = Vector2.INF
     touch_down_level_position = touch.level_position
-    current_drag_level_position = touch.level_position
+    latest_drag_level_position = touch.level_position
     release_level_position = Vector2.INF
     touch_down_time = Sc.time.get_play_time()
     current_pinch_screen_distance = INF
@@ -240,9 +249,9 @@ func _on_single_touch_down(touch: Touch) -> void:
 
 
 func _on_single_touch_moved(touch: Touch) -> void:
-    current_drag_screen_position = touch.screen_position
+    latest_drag_screen_position = touch.screen_position
     release_screen_position = Vector2.INF
-    current_drag_level_position = touch.level_position
+    latest_drag_level_position = touch.level_position
     release_level_position = Vector2.INF
     current_pinch_screen_distance = INF
     current_pinch_angle = INF
@@ -257,9 +266,9 @@ func _on_single_touch_moved(touch: Touch) -> void:
 func _on_single_touch_released(
         pointer_screen_position: Vector2,
         pointer_level_position: Vector2) -> void:
-    current_drag_screen_position = Vector2.INF
+    latest_drag_screen_position = Vector2.INF
     release_screen_position = pointer_screen_position
-    current_drag_level_position = Vector2.INF
+    latest_drag_level_position = Vector2.INF
     release_level_position = pointer_level_position
     release_time = Sc.time.get_play_time()
     current_pinch_screen_distance = INF
@@ -273,9 +282,9 @@ func _on_single_touch_released(
 
 
 func _on_pinch_changed(touch: Touch) -> void:
-    current_drag_screen_position = Vector2.INF
+    latest_drag_screen_position = Vector2.INF
     release_screen_position = Vector2.INF
-    current_drag_level_position = Vector2.INF
+    latest_drag_level_position = Vector2.INF
     release_level_position = Vector2.INF
     current_pinch_screen_distance = touch.pinch_distance
     current_pinch_angle = touch.pinch_angle
@@ -293,9 +302,9 @@ func _on_pinch_first_touch_released(
 func _on_pinch_second_touch_released(
         pointer_screen_position: Vector2,
         pointer_level_position: Vector2) -> void:
-    current_drag_screen_position = Vector2.INF
+    latest_drag_screen_position = Vector2.INF
     release_screen_position = Vector2.INF
-    current_drag_level_position = Vector2.INF
+    latest_drag_level_position = Vector2.INF
     release_level_position = Vector2.INF
     current_pinch_screen_distance = INF
     current_pinch_angle = INF
@@ -368,6 +377,10 @@ func _get_current_pinch_angle_change() -> float:
 func _get_current_pinch_angle_speed() -> float:
     # FIXME: ------ Implement this.
     return 0.0
+
+
+func _get_current_drag_level_position_with_current_camera_pan() -> Vector2:
+    return Sc.utils.get_level_touch_position(_latest_drag_event)
 
 
 func _get_has_corresponding_touch_down() -> bool:
