@@ -1,5 +1,6 @@
 tool
-class_name SpriteModulationButton
+class_name SpriteModulationButton, \
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_texture_button.png"
 extends LevelButton
 
 
@@ -25,7 +26,7 @@ export var alpha_multiplier := -1.0 \
 
 func _update() -> void:
     ._update()
-    assert(is_rectangular)
+    assert(shape_is_rectangular)
 
 
 func _update_modulation() -> void:
