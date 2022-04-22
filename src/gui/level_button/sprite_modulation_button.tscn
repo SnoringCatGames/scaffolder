@@ -1,23 +1,16 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://addons/scaffolder/src/gui/level_overlay_button/sprite_modulation_button.gd" type="Script" id=1]
+[ext_resource path="res://addons/scaffolder/src/gui/level_button/sprite_modulation_button.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
 
 [node name="SpriteModulationButton" type="Area2D"]
 collision_layer = 1073741824
+monitoring = false
+monitorable = false
 script = ExtResource( 1 )
-is_disabled = null
-is_focused = null
-is_rectangular = null
-rectangle_extents = null
-circle_radius = null
-normal_modulate = null
-hover_modulate = null
 pressed_modulate = Color( 0.0470588, 0.439216, 0.666667, 0.8 )
-disabled_modulate = null
-alpha_multiplier = null
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 0.160784, 0.160784, 0.160784, 0.466667 )
