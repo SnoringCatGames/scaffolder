@@ -28,6 +28,8 @@ const _DEFAULT_TIME_SCALE := 1.0
 const _DEFAULT_ADDITIONAL_DEBUG_TIME_SCALE := 1.0
 #const _DEFAULT_ADDITIONAL_DEBUG_TIME_SCALE := 0.1
 
+const _GARBAGE_COLLECTION_INTERVAL := 30.0
+
 var time_scale := _DEFAULT_TIME_SCALE setget _set_time_scale
 var additional_debug_time_scale := _DEFAULT_ADDITIONAL_DEBUG_TIME_SCALE \
         setget _set_additional_debug_time_scale
@@ -62,7 +64,7 @@ func _ready() -> void:
     _play_time.pause_mode = Node.PAUSE_MODE_STOP
     add_child(_play_time)
     
-    set_interval(self, "collect_garbage", 30.0)
+    set_interval(self, "collect_garbage", _GARBAGE_COLLECTION_INTERVAL)
 
 
 func _process(_delta: float) -> void:
@@ -408,7 +410,6 @@ func clear_throttle(throttled_callback: FuncRef) -> bool:
     if !_throttled_callbacks.has(throttled_callback):
         return false
     _throttled_callbacks[throttled_callback].cancel()
-    _throttled_callbacks.erase(throttled_callback)
     return true
 
 
@@ -436,5 +437,4 @@ func clear_debounce(debounced_callback: FuncRef) -> bool:
     if !_debounced_callbacks.has(debounced_callback):
         return false
     _debounced_callbacks[debounced_callback].cancel()
-    _debounced_callbacks.erase(debounced_callback)
     return true
