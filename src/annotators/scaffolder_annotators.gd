@@ -48,7 +48,8 @@ var annotation_layer: CanvasLayer
 var ruler_layer: CanvasLayer
 
 var _throttled_frame_rate_notification: FuncRef = Sc.time.throttle(
-        funcref(self, "_show_reduced_frame_rate_notification_throttled"),
+        self,
+        "_show_reduced_frame_rate_notification_throttled",
         4.0,
         false,
         TimeType.APP_PHYSICS)

@@ -69,7 +69,8 @@ func start(time_scale_duration: float) -> void:
     _is_transition_complete = false
     Sc.time.clear_timeout(_is_transition_complete_timeout_id)
     _is_transition_complete_timeout_id = Sc.time.set_timeout(
-            funcref(self, "_on_transition_complete"),
+            self,
+            "_on_transition_complete",
             time_scale_duration)
 
 
@@ -77,7 +78,8 @@ func stop(time_scale_duration: float) -> void:
     _is_transition_complete = false
     Sc.time.clear_timeout(_is_transition_complete_timeout_id)
     _is_transition_complete_timeout_id = Sc.time.set_timeout(
-            funcref(self, "_on_transition_complete"),
+            self,
+            "_on_transition_complete",
             time_scale_duration)
     
     if Sc.audio_manifest.is_slow_motion_start_stop_sound_effect_played:

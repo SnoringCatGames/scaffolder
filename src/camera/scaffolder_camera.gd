@@ -35,10 +35,8 @@ func _init() -> void:
     self.smoothing_enabled = true
     self.smoothing_speed = Sc.camera.smoothing_speed
     
-    _main_tween = ScaffolderTween.new()
-    add_child(_main_tween)
-    _camera_swap_tween = ScaffolderTween.new()
-    add_child(_camera_swap_tween)
+    _main_tween = ScaffolderTween.new(self)
+    _camera_swap_tween = ScaffolderTween.new(self)
 
 
 func _ready() -> void:

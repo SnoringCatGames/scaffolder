@@ -24,8 +24,7 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-    hint_tween = ScaffolderTween.new()
-    $HintWrapper/Hint.add_child(hint_tween)
+    hint_tween = ScaffolderTween.new($HintWrapper/Hint)
 
 
 func _exit_tree() -> void:
@@ -111,22 +110,19 @@ func update_is_unlocked(is_unlocked: bool) -> void:
 #                LOCK_LOW_PART_DELAY + \
 #                LockAnimation.UNLOCK_DURATION + \
 #                FADE_TWEEN_DURATION)
-        Sc.time.set_timeout(funcref(self, "pulse_unlock_hint"), delay)
+        Sc.time.set_timeout(self, "pulse_unlock_hint", delay)
 
 
 func unlock() -> void:
     visible = true
     
-    Sc.time.set_timeout(
-            funcref($LockAnimation, "unlock"),
-            LOCK_LOW_PART_DELAY)
+    Sc.time.set_timeout($LockAnimation, "unlock", LOCK_LOW_PART_DELAY)
     
     Sc.time.set_timeout(
-            funcref(Sc.audio, "play_sound"),
-            LOCK_LOW_PART_DELAY,
-            ["lock_low"])
+            Sc.audio, "play_sound", LOCK_LOW_PART_DELAY, ["lock_low"])
     Sc.time.set_timeout(
-            funcref(Sc.audio, "play_sound"),
+            Sc.audio,
+            "play_sound",
             LOCK_LOW_PART_DELAY + LOCK_HIGH_PART_DELAY,
             ["lock_high"])
 

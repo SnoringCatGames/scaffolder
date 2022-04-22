@@ -145,8 +145,7 @@ func _on_LevelSelectItemLockedHeader_unlock_finished() -> void:
     locked_header.visible = true
     accordion.visible = true
     
-    var fade_tween := ScaffolderTween.new()
-    locked_header.add_child(fade_tween)
+    var fade_tween := ScaffolderTween.new(locked_header)
     fade_tween.connect(
             "tween_all_completed",
             self,
@@ -167,4 +166,4 @@ func _on_LevelSelectItemLockedHeader_unlock_finished() -> void:
             FADE_TWEEN_DURATION,
             "ease_in_out")
     fade_tween.start()
-    Sc.time.set_timeout(funcref(Sc.audio, "play_sound"), 0.3, ["achievement"])
+    Sc.time.set_timeout(Sc.audio, "play_sound", 0.3, ["achievement"])

@@ -196,7 +196,7 @@ func _on_item_pressed(item: LevelSelectItem) -> void:
     elif expanded_item == item:
         previous_expanded_item = expanded_item
         expanded_item = null
-    Sc.time.set_timeout(funcref(item, "toggle"), delay)
+    Sc.time.set_timeout(item, "toggle", delay)
 
 
 func _on_item_toggled(item: LevelSelectItem) -> void:

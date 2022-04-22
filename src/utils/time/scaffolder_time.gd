@@ -1,6 +1,23 @@
 tool
 class_name ScaffolderTime
 extends Node
+## -   This supports tracking many different modes of time:
+##     -   App time vs play (unpaused) time
+##     -   Wall-clock time vs physics time vs render time
+##     -   Scaled (e.g., slow-motion) time vs unscaled time
+## -   This also supports many different convenience methods for common
+##     scheduling tasks:
+##     -   set_timeout: One-shot callback scheduling (just like in JavaScript).
+##     -   set_interval Repeated callback scheduling (just like in JavaScript).
+##     -   tween_method / tween_property:
+##         -   Less boilerplate than Godot's normal Tweens.
+##         -   Support configuring which time modes are tracked.
+##     -   throttle: Throttling a callback.
+##     -   debounce: Debouncing a callback.
+## -   This has a built-in garbage-collection mechanism, to clean-up stale
+##     timeouts, intervals, tweens, throttles, and debounces.
+## -   For an high-level description of this time-tracking, check-out this post:
+## https://devlog.levi.dev/2021/05/wibbly-wobbly-timey-wimey-tracking-time.html
 
 
 const PHYSICS_FPS := 60.0
@@ -44,6 +61,8 @@ func _ready() -> void:
     _play_time = _TimeTracker.new()
     _play_time.pause_mode = Node.PAUSE_MODE_STOP
     add_child(_play_time)
+    
+    set_interval(self, "collect_garbage", 30.0)
 
 
 func _process(_delta: float) -> void:
@@ -89,6 +108,23 @@ func _handle_intervals() -> void:
     
     if triggered_interval_id >= 0:
         _intervals[triggered_interval_id].trigger()
+
+
+func collect_garbage() -> void:
+    for collection in [
+        _timeouts,
+        _intervals,
+        _tweens,
+        _throttled_callbacks,
+        _debounced_callbacks,
+    ]:
+        for key in collection.keys():
+            if !is_instance_valid(collection[key]):
+                collection.erase(key)
+            elif !is_instance_valid(collection[key].parent):
+                if !collection[key] is Reference:
+                    collection[key].free()
+                collection.erase(key)
 
 
 func get_next_task_id() -> int:
@@ -252,7 +288,7 @@ func _tween(
         time_type := TimeType.APP_PHYSICS,
         on_completed_callback: FuncRef = null,
         arguments := []) -> int:
-    var tween := ScaffolderTween.new()
+    var tween := ScaffolderTween.new(object, false)
     tween._interpolate(
             object,
             key,
@@ -287,16 +323,20 @@ func clear_tween(
         return false
     if triggers_completed:
         _tweens[tween_id].trigger_completed()
+    _tweens[tween_id].free()
     _tweens.erase(tween_id)
     return true
 
 
 func set_timeout(
-        callback: FuncRef,
+        instance,
+        method_name,
         delay: float,
         arguments := [],
         time_type := TimeType.APP_PHYSICS) -> int:
+    var callback := funcref(instance, method_name)
     var timeout := _Timeout.new(
+            instance,
             time_type,
             callback,
             delay,
@@ -317,11 +357,14 @@ func clear_timeout(
 
 
 func set_interval(
-        callback: FuncRef,
+        instance,
+        method_name,
         period: float,
         arguments := [],
         time_type := TimeType.APP_PHYSICS) -> int:
+    var callback := funcref(instance, method_name)
     var interval := _Interval.new(
+            instance,
             time_type,
             callback,
             period,
@@ -342,11 +385,14 @@ func clear_interval(
 
 
 func throttle(
-        callback: FuncRef,
+        instance,
+        method_name,
         interval: float,
         invokes_at_end := true,
         time_type := TimeType.APP_PHYSICS) -> FuncRef:
+    var callback := funcref(instance, method_name)
     var throttler := _Throttler.new(
+            instance,
             time_type,
             callback,
             interval,
@@ -367,11 +413,14 @@ func clear_throttle(throttled_callback: FuncRef) -> bool:
 
 
 func debounce(
-        callback: FuncRef,
+        instance,
+        method_name,
         interval: float,
         invokes_at_start := false,
         time_type := TimeType.APP_PHYSICS) -> FuncRef:
+    var callback := funcref(instance, method_name)
     var debouncer := _Debouncer.new(
+            instance,
             time_type,
             callback,
             interval,

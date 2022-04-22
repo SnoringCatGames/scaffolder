@@ -111,7 +111,8 @@ func _initialize_framework() -> void:
     get_tree().root.set_pause_mode(Node.PAUSE_MODE_PROCESS)
     
     _throttled_size_changed = Sc.time.throttle(
-            funcref(self, "_on_throttled_size_changed"),
+            self,
+            "_on_throttled_size_changed",
             Sc.gui.display_resize_throttle_interval)
     get_viewport().connect(
             "size_changed",
@@ -124,7 +125,8 @@ func _initialize_framework() -> void:
     
     # Wait until the first resize event has propogated.
     Sc.time.set_timeout(
-            funcref(self, "_on_window_size_set"),
+            self,
+            "_on_window_size_set",
             Sc.gui.display_resize_throttle_interval + 0.01)
 
 
@@ -141,7 +143,8 @@ func _on_window_size_set() -> void:
         # Initialize the app after a second resize event has propogated. For
         # some reason, the HTML export seems to need this additional resize.
         Sc.time.set_timeout(
-                funcref(self, "_on_app_initialized"),
+                self,
+                "_on_app_initialized",
                 Sc.gui.display_resize_throttle_interval + 0.01)
     else:
         _on_app_initialized()
@@ -316,7 +319,8 @@ func _on_gui_scale_changed(is_first_call := true) -> void:
         call_deferred("_on_gui_scale_changed", false)
     else:
         Sc.time.set_timeout(
-                funcref(self, "_set_global_visibility_for_resize"),
+                self,
+                "_set_global_visibility_for_resize",
                 0.05,
                 [true])
 

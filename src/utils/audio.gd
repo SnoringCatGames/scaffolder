@@ -49,10 +49,8 @@ func register_sounds(
     if Engine.editor_hint:
         return
     
-    _fade_out_tween = ScaffolderTween.new()
-    add_child(_fade_out_tween)
-    _fade_in_tween = ScaffolderTween.new()
-    add_child(_fade_in_tween)
+    _fade_out_tween = ScaffolderTween.new(self)
+    _fade_in_tween = ScaffolderTween.new(self)
     _fade_in_tween.connect(
             "tween_all_completed",
             self,

@@ -18,8 +18,7 @@ var is_camera_center_intersecting := false
 var is_camera_bounds_intersecting := false
 
 var _throttled_on_panned_or_zoomed: FuncRef = Sc.time.throttle(
-        funcref(self, "_on_panned_or_zoomed"),
-        0.1)
+        self, "_on_panned_or_zoomed", 0.1)
 
 
 func _ready() -> void:

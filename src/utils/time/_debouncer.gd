@@ -9,8 +9,8 @@ var elapsed_time_key: String
 var callback: FuncRef
 var interval: float
 var invokes_at_start: bool
+var parent
 
-var trigger_callback_callback := funcref(self, "_trigger_callback")
 var last_timeout_id := -1
 
 var last_call_time := -INF
@@ -18,10 +18,12 @@ var is_callback_scheduled := false
 
 
 func _init(
+        parent,
         time_type: int,
         callback: FuncRef,
         interval: float,
         invokes_at_start: bool) -> void:
+    self.parent = parent
     self.time_type = time_type
     self.time_tracker = Sc.time._get_time_tracker_for_time_type(time_type)
     self.elapsed_time_key = \
@@ -41,7 +43,8 @@ func on_call() -> void:
     
     Sc.time.clear_timeout(last_timeout_id)
     last_timeout_id = Sc.time.set_timeout(
-            trigger_callback_callback,
+            self,
+            "_trigger_callback",
             interval,
             [],
             time_type)

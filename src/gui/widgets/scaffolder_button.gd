@@ -29,15 +29,10 @@ var shine_end_x: float
 
 var button_style_pulse: StyleBox
 
-var shine_tween := ScaffolderTween.new()
-var color_pulse_tween := ScaffolderTween.new()
+var shine_tween := ScaffolderTween.new(self)
+var color_pulse_tween := ScaffolderTween.new(self)
 
 var _is_ready := false
-
-
-func _init() -> void:
-    add_child(shine_tween)
-    add_child(color_pulse_tween)
 
 
 func _enter_tree() -> void:
@@ -134,15 +129,13 @@ func _update() -> void:
             Sc.gui.is_suggested_button_shine_line_shown:
         _trigger_shine()
         shine_interval_id = Sc.time.set_interval(
-                funcref(self, "_trigger_shine"),
-                SHINE_INTERVAL)
+                self, "_trigger_shine", SHINE_INTERVAL)
     
     if includes_color_pulse and \
             Sc.gui.is_suggested_button_color_pulse_shown:
         _trigger_color_pulse()
         color_pulse_interval_id = Sc.time.set_interval(
-                funcref(self, "_trigger_color_pulse"),
-                COLOR_PULSE_INTERVAL)
+                self, "_trigger_color_pulse", COLOR_PULSE_INTERVAL)
 
 
 func _trigger_shine() -> void:

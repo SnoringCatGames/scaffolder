@@ -31,7 +31,7 @@ func _ready() -> void:
             "font_color", FONT_COLOR)
     $PanelContainer/ScaffolderTime.add_color_override("font_color", FONT_COLOR)
     
-    Sc.time.set_timeout(funcref(self, "_delayed_init"), 0.8)
+    Sc.time.set_timeout(self, "_delayed_init", 0.8)
     
     Sc.device.connect(
             "display_resized",
@@ -59,7 +59,7 @@ func _on_resized() -> void:
 
 func _delayed_init() -> void:
     $PanelContainer/ScrollContainer/Label.text = text
-    Sc.time.set_timeout(funcref(self, "_scroll_to_bottom"), 0.2)
+    Sc.time.set_timeout(self, "_scroll_to_bottom", 0.2)
 
 
 func add_message(message: String) -> void:
@@ -68,7 +68,7 @@ func add_message(message: String) -> void:
     _remove_surplus_message()
     if _is_ready:
         $PanelContainer/ScrollContainer/Label.text = text
-        Sc.time.set_timeout(funcref(self, "_scroll_to_bottom"), 0.2)
+        Sc.time.set_timeout(self, "_scroll_to_bottom", 0.2)
 
 
 func _remove_surplus_message() -> void:

@@ -37,7 +37,7 @@ func _on_resized() -> void:
     
     # TODO: This hack seems to be needed in order for the viewport to actually
     #       update its dimensions correctly.
-    Sc.time.set_timeout(funcref(self, "_update_viewport_region_helper"), 1.0)
+    Sc.time.set_timeout(self, "_update_viewport_region_helper", 1.0)
 
 
 func _on_transition_in_started(previous_screen: Screen) -> void:
@@ -78,7 +78,7 @@ func _fix_viewport_dimensions_hack() -> void:
         # TODO: This hack seems to be needed in order for the viewport to
         #       actually update its dimensions correctly.
         visible = false
-        Sc.time.set_timeout(funcref(self, "set_visible"), 0.4, [true])
+        Sc.time.set_timeout(self, "set_visible", 0.4, [true])
 
 
 func add_level(level: ScaffolderLevel) -> void:
