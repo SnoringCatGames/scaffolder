@@ -4,7 +4,7 @@
 
 [node name="GameScreen" type="VBoxContainer"]
 margin_right = 3840.0
-margin_bottom = 2035.0
+margin_bottom = 2019.0
 rect_min_size = Vector2( 1024, 768 )
 mouse_filter = 2
 script = ExtResource( 1 )
@@ -33,3 +33,4 @@ transparent_bg = true
 handle_input_locally = false
 usage = 0
 render_target_update_mode = 3
+physics_object_picking = true
