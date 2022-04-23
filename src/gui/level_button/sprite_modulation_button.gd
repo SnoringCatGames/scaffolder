@@ -52,6 +52,9 @@ func _update_modulation() -> void:
 
 
 func _on_interaction_mode_changed(interaction_mode: int) -> void:
+#    Sc.logger.print(
+#            "_on_interaction_mode_changed: %s" % \
+#            get_interaction_mode_string(interaction_mode))
     _update_modulation()
 
 

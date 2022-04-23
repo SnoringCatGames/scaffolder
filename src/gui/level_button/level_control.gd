@@ -63,11 +63,13 @@ func _update_interaction_mode(attempted_interaction_mode: int) -> void:
 
 
 func _on_mouse_entered() -> void:
+#    Sc.logger.print("LevelControl._on_mouse_entered")
     _was_touch_down_in_this_control = false
     _update_interaction_mode(InteractionMode.HOVER)
 
 
 func _on_mouse_exited() -> void:
+#    Sc.logger.print("LevelControl._on_mouse_exited")
     _was_touch_down_in_this_control = false
     _update_interaction_mode(InteractionMode.NORMAL)
 
@@ -76,6 +78,7 @@ func _on_input_event(
         viewport: Node,
         event: InputEvent,
         shape_idx: int) -> void:
+#    Sc.logger.print("LevelControl._on_input_event")
     var screen_position := Vector2.INF
     var level_position := Vector2.INF
     var is_touch_down := false
@@ -178,3 +181,20 @@ func _on_full_press(
 
 func _on_interaction_mode_changed(interaction_mode: int) -> void:
     pass
+
+
+static func get_interaction_mode_string(type: int) -> String:
+    match type:
+        InteractionMode.UNKNOWN:
+            return "UNKNOWN"
+        InteractionMode.HOVER:
+            return "HOVER"
+        InteractionMode.PRESSED:
+            return "PRESSED"
+        InteractionMode.DISABLED:
+            return "DISABLED"
+        InteractionMode.NORMAL:
+            return "NORMAL"
+        _:
+            Sc.logger.error("LevelControl.get_interaction_mode_string")
+            return ""
