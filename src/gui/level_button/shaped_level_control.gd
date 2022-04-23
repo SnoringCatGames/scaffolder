@@ -6,7 +6,7 @@ extends LevelControl
 
 export var shape_is_rectangular := true \
         setget _set_shape_is_rectangular
-export var shape_rectangle_extents := Vector2(16.0, 16.0) \
+export var shape_rectangle_extents := Vector2(8.0, 8.0) \
         setget _set_shape_rectangle_extents
 export var shape_circle_radius := -1.0 \
         setget _set_shape_circle_radius
