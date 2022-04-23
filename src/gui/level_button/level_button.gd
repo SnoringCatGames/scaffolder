@@ -15,6 +15,7 @@ signal pressed
 func _on_full_press(
         level_position: Vector2,
         screen_position: Vector2) -> void:
+#    Sc.logger.print("LevelButton._on_full_press")
     emit_signal("pressed")
 
 
