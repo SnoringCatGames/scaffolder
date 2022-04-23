@@ -10,7 +10,6 @@ collision_layer = 1073741824
 monitoring = false
 monitorable = false
 script = ExtResource( 1 )
-shape_rectangle_extents = Vector2( 8, 8 )
 pressed_modulate = Color( 0.0470588, 0.439216, 0.666667, 0.8 )
 
 [node name="Sprite" type="Sprite" parent="."]
