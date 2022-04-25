@@ -23,14 +23,10 @@ func _ready() -> void:
 func _set_up_shape() -> void:
     var preexisting_shapes := \
             Sc.utils.get_children_by_type(self, CollisionShape2D)
-    if !preexisting_shapes.empty():
-        _shape = preexisting_shapes[0]
-        for i in range(1, preexisting_shapes.size()):
-            remove_child(preexisting_shapes[i])
-    else:
-        _shape = CollisionShape2D.new()
-        add_child(_shape)
-        _shape.owner = self
+    for shape in preexisting_shapes:
+        remove_child(shape)
+    _shape = CollisionShape2D.new()
+    add_child(_shape)
     _update_shape()
 
 
