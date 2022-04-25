@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/scaffolder/src/texture_outlineable_animated_sprite.gd" type="Script" id=1]
+
+[node name="TextureOutlineableAnimatedSprite" type="AnimatedSprite"]
+script = ExtResource( 1 )
+
+[node name="Outline" type="AnimatedSprite" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
