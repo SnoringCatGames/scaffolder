@@ -66,12 +66,32 @@ func _on_gui_scale_changed() -> bool:
     rect_size.y = height
     
     var viewport_size: Vector2 = Sc.device.get_viewport_size()
-    _target_position.x = (viewport_size.x - rect_size.x) / 2.0
-    _target_position.y = viewport_size.y - rect_size.y
-    if _data != null and \
-            _data.size != NotificationSize.FULL_WIDTH and \
-            _data.size != NotificationSize.FULL_SCREEN:
-        _target_position.y -= Sc.notify.margin_bottom
+    var size_type := _data.size if _data != null else MessagePanelSize.MEDIUM
+    match size_type:
+        MessagePanelSize.SMALL, \
+        MessagePanelSize.MEDIUM, \
+        MessagePanelSize.LARGE:
+            _target_position.x = (viewport_size.x - rect_size.x) / 2.0
+            _target_position.y = \
+                    viewport_size.y - rect_size.y - Sc.notify.margin_bottom
+        MessagePanelSize.TOP_SIDE:
+            _target_position.x = (viewport_size.x - rect_size.x) / 2.0
+            _target_position.y = 0.0
+        MessagePanelSize.BOTTOM_SIDE:
+            _target_position.x = (viewport_size.x - rect_size.x) / 2.0
+            _target_position.y = viewport_size.y - rect_size.y
+        MessagePanelSize.LEFT_SIDE:
+            _target_position.x = 0.0
+            _target_position.y = (viewport_size.y - rect_size.y) / 2.0
+        MessagePanelSize.RIGHT_SIDE:
+            _target_position.x = viewport_size.x - rect_size.x
+            _target_position.y = (viewport_size.y - rect_size.y) / 2.0
+        MessagePanelSize.FULL_SCREEN:
+            _target_position.x = 0.0
+            _target_position.y = 0.0
+        _:
+            Sc.logger.print("NotificationPanel._on_gui_scale_changed")
+    
     rect_position = _target_position
     
     return true

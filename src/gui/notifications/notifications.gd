@@ -3,8 +3,8 @@ class_name Notifications
 extends Node
 
 
-const _NOTIFICATION_PANEL_SCENE := \
-        preload("res://addons/scaffolder/src/gui/notifications/notification_panel.tscn")
+const _NOTIFICATION_PANEL_SCENE := preload(
+        "res://addons/scaffolder/src/gui/notifications/notification_panel.tscn")
 
 const CLOSED_WITH_TAP_ANYWHERE_MIN_DELAY := 0.3
 
@@ -85,19 +85,25 @@ func get_panel_size(type: int) -> Vector2:
     
     var target_size: Vector2
     match type:
-        NotificationSize.SMALL:
+        MessagePanelSize.SMALL:
             target_size = size_small * Sc.gui.scale
-        NotificationSize.MEDIUM:
+        MessagePanelSize.MEDIUM:
             target_size = size_medium * Sc.gui.scale
-        NotificationSize.LARGE:
+        MessagePanelSize.LARGE:
             target_size = size_large * Sc.gui.scale
-        NotificationSize.FULL_WIDTH:
+        MessagePanelSize.TOP_SIDE, \
+        MessagePanelSize.BOTTOM_SIDE:
             return Vector2(
                     viewport_size.x,
                     size_large.y * Sc.gui.scale)
-        NotificationSize.FULL_SCREEN:
+        MessagePanelSize.LEFT_SIDE, \
+        MessagePanelSize.RIGHT_SIDE:
+            return Vector2(
+                    size_large.x * Sc.gui.scale,
+                    viewport_size.y)
+        MessagePanelSize.FULL_SCREEN:
             return viewport_size
-        NotificationSize.UNKNOWN, \
+        MessagePanelSize.UNKNOWN, \
         _:
             Sc.logger.error("Notifications.get_panel_size")
             return Vector2.INF
