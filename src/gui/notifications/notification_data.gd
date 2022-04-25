@@ -5,14 +5,14 @@ extends Reference
 var header_text := ""
 var body_text := ""
 var duration := NotificationDuration.UNKNOWN
-var size := NotificationSize.UNKNOWN
+var size := MessagePanelSize.UNKNOWN
 
 
 func _init(
         header_text := "",
         body_text := "",
         duration := NotificationDuration.SHORT,
-        size := NotificationSize.SMALL) -> void:
+        size := MessagePanelSize.SMALL) -> void:
     self.header_text = header_text
     self.body_text = body_text
     self.duration = duration
