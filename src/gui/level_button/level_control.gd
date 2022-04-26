@@ -22,6 +22,8 @@ signal interaction_mode_changed(interaction_mode)
 export var is_disabled := false setget _set_is_disabled
 export var is_focused := false setget _set_is_focused
 
+export var screen_radius := 16.0 setget _set_screen_radius
+
 export var mouse_cursor_override := -1
 
 var interaction_mode: int = InteractionMode.NORMAL
@@ -51,6 +53,11 @@ func _set_is_disabled(value: bool) -> void:
 func _set_is_focused(value: bool) -> void:
     is_focused = value
     _update_interaction_mode(interaction_mode)
+
+
+func _set_screen_radius(value: float) -> void:
+    screen_radius = value
+    # TODO: Update storage in BVH/RTree?
 
 
 func _update_interaction_mode(attempted_interaction_mode: int) -> void:

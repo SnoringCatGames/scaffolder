@@ -7,6 +7,7 @@ collision_layer = 1073741824
 monitoring = false
 monitorable = false
 script = ExtResource( 1 )
+screen_radius = null
 mouse_cursor_override = 2
 pressed_modulate = Color( 0.0470588, 0.439216, 0.666667, 0.8 )
 
