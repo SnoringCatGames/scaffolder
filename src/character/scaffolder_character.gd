@@ -19,6 +19,10 @@ export var character_name := "" setget _set_character_name
 ##     collisions without adjusting our movement.[br]
 export(int, LAYERS_2D_PHYSICS) var collision_detection_layers := 0
 
+export var detects_pointer := true setget _set_detects_pointer
+
+export var pointer_screen_radius := 16.0 setget _set_pointer_screen_radius
+
 # --- Colors ---
 
 const _COLORS_GROUP := {
@@ -142,6 +146,8 @@ var _extra_collision_detection_area: Area2D
 var _layers_for_entered_proximity_detection := {}
 # Dictionary<String, Area2D>
 var _layers_for_exited_proximity_detection := {}
+
+var _pointer_detector: LevelControl
 
 var _resized_character_name: String
 var _recent_logs: CircularBuffer
@@ -269,6 +275,7 @@ func _update_editor_configuration_debounced() -> void:
         collision_shape = Sc.utils.get_child_by_type(self, CollisionShape2D)
         if is_instance_valid(collision_shape):
             collider.update(collision_shape.shape, collision_shape.rotation)
+            _update_pointer_detector()
             # Ensure that collision boundaries are only ever axially aligned.
             if !collider.is_axially_aligned:
                 _set_configuration_warning(
@@ -692,6 +699,41 @@ func _set_character_name(value: String) -> void:
     _resized_character_name = Sc.utils.resize_string(character_name, 8, false)
     category = Sc.characters.get_category_for_character(character_name)
     _update_editor_configuration()
+
+
+func _set_detects_pointer(value: bool) -> void:
+    detects_pointer = value
+    _update_pointer_detector()
+
+
+func _set_pointer_screen_radius(value: float) -> void:
+    pointer_screen_radius = value
+    _update_pointer_detector()
+
+
+func _update_pointer_detector() -> void:
+    if detects_pointer:
+        if !is_instance_valid(_pointer_detector):
+            _pointer_detector = LevelControl.new()
+            add_child(_pointer_detector)
+            var detector_shape := CollisionShape2D.new()
+            _pointer_detector.add_child(detector_shape)
+        
+        # Sync the detector shape to the character's collision shape.
+        var detector_shape: CollisionShape2D = \
+                Sc.utils.get_child_by_type(_pointer_detector, CollisionShape2D)
+        if is_instance_valid(collision_shape):
+            detector_shape.shape = collision_shape.shape
+            detector_shape.position = collision_shape.position
+        elif !is_instance_valid(detector_shape.shape):
+            detector_shape.shape = CircleShape2D.new()
+            detector_shape.shape.radius = 8.0
+        
+        _pointer_detector.screen_radius = pointer_screen_radius
+    else:
+        if is_instance_valid(_pointer_detector):
+            _pointer_detector.queue_free()
+            _pointer_detector = null
 
 
 func _get_navigation_annotation_color() -> ColorConfig:
