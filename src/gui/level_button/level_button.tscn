@@ -3,6 +3,7 @@
 [ext_resource path="res://addons/scaffolder/src/gui/level_button/level_button.gd" type="Script" id=1]
 
 [node name="LevelButton" type="Area2D"]
+collision_layer = 1073741824
+monitoring = false
+monitorable = false
 script = ExtResource( 1 )
-is_rectangular = false
-rectangle_extents = Vector2( -1, -1 )

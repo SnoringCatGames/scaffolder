@@ -4,21 +4,21 @@ class_name SpriteModulationButton, \
 extends LevelButton
 
 
-const _DEFAULT_NORMAL_MODULATE := Color("cc6abe30")
-const _DEFAULT_HOVER_MODULATE := Color("ff1cb0ff")
-const _DEFAULT_PRESSED_MODULATE := Color("cc003066")
-const _DEFAULT_DISABLED_MODULATE := Color("77292929")
-#const _DEFAULT_ERROR_MODULATE := Color("ffcc2c16")
+const DEFAULT_NORMAL_MODULATE := Color("cc6abe30")
+const DEFAULT_HOVER_MODULATE := Color("ff1cb0ff")
+const DEFAULT_PRESSED_MODULATE := Color("cc003066")
+const DEFAULT_DISABLED_MODULATE := Color("77292929")
+#const DEFAULT_ERROR_MODULATE := Color("ffcc2c16")
 
 export var texture: Texture setget _set_texture,_get_texture
 
-export var normal_modulate := _DEFAULT_NORMAL_MODULATE \
+export var normal_modulate := DEFAULT_NORMAL_MODULATE \
         setget _set_normal_modulate
-export var hover_modulate := _DEFAULT_HOVER_MODULATE \
+export var hover_modulate := DEFAULT_HOVER_MODULATE \
         setget _set_hover_modulate
-export var pressed_modulate := _DEFAULT_PRESSED_MODULATE \
+export var pressed_modulate := DEFAULT_PRESSED_MODULATE \
         setget _set_pressed_modulate
-export var disabled_modulate := _DEFAULT_DISABLED_MODULATE \
+export var disabled_modulate := DEFAULT_DISABLED_MODULATE \
         setget _set_disabled_modulate
 export var alpha_multiplier := -1.0 \
         setget _set_alpha_multiplier
@@ -52,6 +52,7 @@ func _update_modulation() -> void:
 
 
 func _on_interaction_mode_changed(interaction_mode: int) -> void:
+    ._on_interaction_mode_changed(interaction_mode)
 #    Sc.logger.print(
 #            "_on_interaction_mode_changed: %s" % \
 #            get_interaction_mode_string(interaction_mode))
