@@ -1,4 +1,4 @@
-class_name MessagePanelSize
+class_name NotificationsSize
 
 
 enum {
@@ -34,7 +34,7 @@ static func get_string(type: int) -> String:
             return "FULL_SCREEN"
         UNKNOWN, \
         _:
-            Sc.logger.error("MessagePanelSize.get_string")
+            Sc.logger.error("NotificationsSize.get_string")
             return ""
 
 
@@ -58,5 +58,5 @@ static func get_prefix(type: int) -> String:
             return "FULL_SCREEN"
         UNKNOWN, \
         _:
-            Sc.logger.error("MessagePanelSize.get_prefix")
+            Sc.logger.error("NotificationsSize.get_prefix")
             return ""

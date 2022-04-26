@@ -66,27 +66,27 @@ func _on_gui_scale_changed() -> bool:
     rect_size.y = height
     
     var viewport_size: Vector2 = Sc.device.get_viewport_size()
-    var size_type := _data.size if _data != null else MessagePanelSize.MEDIUM
+    var size_type := _data.size if _data != null else NotificationsSize.MEDIUM
     match size_type:
-        MessagePanelSize.SMALL, \
-        MessagePanelSize.MEDIUM, \
-        MessagePanelSize.LARGE:
+        NotificationsSize.SMALL, \
+        NotificationsSize.MEDIUM, \
+        NotificationsSize.LARGE:
             _target_position.x = (viewport_size.x - rect_size.x) / 2.0
             _target_position.y = \
                     viewport_size.y - rect_size.y - Sc.notify.margin_bottom
-        MessagePanelSize.TOP_SIDE:
+        NotificationsSize.TOP_SIDE:
             _target_position.x = (viewport_size.x - rect_size.x) / 2.0
             _target_position.y = 0.0
-        MessagePanelSize.BOTTOM_SIDE:
+        NotificationsSize.BOTTOM_SIDE:
             _target_position.x = (viewport_size.x - rect_size.x) / 2.0
             _target_position.y = viewport_size.y - rect_size.y
-        MessagePanelSize.LEFT_SIDE:
+        NotificationsSize.LEFT_SIDE:
             _target_position.x = 0.0
             _target_position.y = (viewport_size.y - rect_size.y) / 2.0
-        MessagePanelSize.RIGHT_SIDE:
+        NotificationsSize.RIGHT_SIDE:
             _target_position.x = viewport_size.x - rect_size.x
             _target_position.y = (viewport_size.y - rect_size.y) / 2.0
-        MessagePanelSize.FULL_SCREEN:
+        NotificationsSize.FULL_SCREEN:
             _target_position.x = 0.0
             _target_position.y = 0.0
         _:
@@ -128,7 +128,7 @@ func open() -> void:
     _open_time = Sc.time.get_app_time()
     
     var start_position: Vector2 = \
-            _target_position - Sc.notify.slide_in_displacement
+            _target_position - Sc.notify.slide_in_displacement * Sc.gui.scale
     var end_position := _target_position
     Sc.time.tween_property(
             self,
@@ -170,7 +170,7 @@ func close() -> void:
     
     var start_position := _target_position
     var end_position: Vector2 = \
-            _target_position - Sc.notify.slide_in_displacement
+            _target_position - Sc.notify.slide_in_displacement * Sc.gui.scale
     Sc.time.tween_property(
             self,
             "rect_position",

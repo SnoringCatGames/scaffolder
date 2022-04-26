@@ -21,7 +21,7 @@ func _ready() -> void:
 
 
 func _set_up_shape() -> void:
-    var preexisting_shapes := \
+    var preexisting_shapes: Array = \
             Sc.utils.get_children_by_type(self, CollisionShape2D)
     for shape in preexisting_shapes:
         remove_child(shape)

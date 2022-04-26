@@ -389,6 +389,7 @@ var _styles_manifest_anti_aliased := {
     hud_panel_nine_patch_margin_right = 3.5,
     hud_panel_nine_patch_margin_bottom = 3.5,
     hud_panel_nine_patch_scale = 3.0,
+    hud_panel_nine_patch_border_width = 1.0,
     hud_panel_content_margin_left = 8.0,
     hud_panel_content_margin_top = 2.0,
     hud_panel_content_margin_right = 8.0,
@@ -417,6 +418,7 @@ var _styles_manifest_pixelated := {
     focus_border_nine_patch_margin_right = 3.5,
     focus_border_nine_patch_margin_bottom = 3.5,
     focus_border_nine_patch_scale = 3.0,
+    focus_border_nine_patch_border_width = 1.0,
     focus_border_expand_margin_left = 3.0,
     focus_border_expand_margin_top = 3.0,
     focus_border_expand_margin_right = 3.0,
@@ -435,6 +437,7 @@ var _styles_manifest_pixelated := {
     button_nine_patch_margin_right = 3.5,
     button_nine_patch_margin_bottom = 3.5,
     button_nine_patch_scale = 3.0,
+    button_nine_patch_border_width = 1.0,
     
     dropdown_pressed_nine_patch = \
             preload("res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_pressed.png"),
@@ -449,6 +452,7 @@ var _styles_manifest_pixelated := {
     dropdown_nine_patch_margin_right = 3.5,
     dropdown_nine_patch_margin_bottom = 3.5,
     dropdown_nine_patch_scale = 3.0,
+    dropdown_nine_patch_border_width = 1.0,
     
     scroll_track_nine_patch = \
             preload("res://addons/scaffolder/assets/images/gui/nine_patch/scroll_track.png"),
@@ -487,6 +491,7 @@ var _styles_manifest_pixelated := {
     overlay_panel_nine_patch_margin_right = 3.5,
     overlay_panel_nine_patch_margin_bottom = 3.5,
     overlay_panel_nine_patch_scale = 3.0,
+    overlay_panel_nine_patch_border_width = 1.0,
     overlay_panel_content_margin_left = 3.0,
     overlay_panel_content_margin_top = 3.0,
     overlay_panel_content_margin_right = 3.0,
@@ -501,6 +506,7 @@ var _styles_manifest_pixelated := {
     notification_panel_nine_patch_margin_right = 3.5,
     notification_panel_nine_patch_margin_bottom = 3.5,
     notification_panel_nine_patch_scale = 3.0,
+    notification_panel_nine_patch_border_width = 1.0,
     notification_panel_content_margin_left = 3.0,
     notification_panel_content_margin_top = 3.0,
     notification_panel_content_margin_right = 3.0,
@@ -518,6 +524,7 @@ var _styles_manifest_pixelated := {
     hud_panel_nine_patch_margin_right = 3.5,
     hud_panel_nine_patch_margin_bottom = 3.5,
     hud_panel_nine_patch_scale = 3.0,
+    hud_panel_nine_patch_border_width = 1.0,
     hud_panel_content_margin_left = 8.0,
     hud_panel_content_margin_top = 2.0,
     hud_panel_content_margin_right = 8.0,
@@ -963,7 +970,22 @@ var _notifications_manifest := {
     
     opacity = 0.9,
     
-    slide_in_displacement = Vector2(0.0, -67.0),
+    slide_in_displacement = Vector2(0.0, -25.0),
+}
+
+# FIXME: ---------------------------------
+var _info_panel_manifest := {
+    fade_in_duration = 0.15,
+    fade_out_duration = 0.3,
+    
+    opacity = 0.9,
+    
+    slide_in_distance = 110.0,
+    
+    min_depth = 500.0,
+    
+    content_margin = 12.0,
+    past_screen_edge_overhang = 4.0,
 }
 
 var _slow_motion_manifest := {
@@ -1128,6 +1150,7 @@ var _properties := {
     images_manifest_pixelated = _images_manifest_pixelated,
     gui_manifest = _gui_manifest,
     notifications_manifest = _notifications_manifest,
+    info_panel_manifest = _info_panel_manifest,
     slow_motion_manifest = _slow_motion_manifest,
     input_map = _input_map,
     character_manifest = _character_manifest,
