@@ -17,9 +17,12 @@ enum InteractionMode {
     NORMAL,
 }
 
+signal interaction_mode_changed(interaction_mode)
 
 export var is_disabled := false setget _set_is_disabled
 export var is_focused := false setget _set_is_focused
+
+export var mouse_cursor_override := -1
 
 var interaction_mode: int = InteractionMode.NORMAL
 
@@ -65,12 +68,20 @@ func _update_interaction_mode(attempted_interaction_mode: int) -> void:
 func _on_mouse_entered() -> void:
 #    Sc.logger.print("LevelControl._on_mouse_entered")
     _was_touch_down_in_this_control = false
+    if mouse_cursor_override >= 0:
+        Input.set_default_cursor_shape(mouse_cursor_override)
     _update_interaction_mode(InteractionMode.HOVER)
 
 
 func _on_mouse_exited() -> void:
 #    Sc.logger.print("LevelControl._on_mouse_exited")
     _was_touch_down_in_this_control = false
+    if mouse_cursor_override >= 0:
+        # FIXME: -----------------------
+        # - Configure the default in ScaffolderGuiConfig.
+        # - Add logic to check whether the cursor was also assigned to a
+        #   non-default value this frame, and, if so, don't reset it.
+        Input.set_default_cursor_shape(Input.CURSOR_ARROW)
     _update_interaction_mode(InteractionMode.NORMAL)
 
 
@@ -180,7 +191,7 @@ func _on_full_press(
 
 
 func _on_interaction_mode_changed(interaction_mode: int) -> void:
-    pass
+    emit_signal("interaction_mode_changed", interaction_mode)
 
 
 static func get_interaction_mode_string(type: int) -> String:

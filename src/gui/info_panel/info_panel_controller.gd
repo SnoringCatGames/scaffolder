@@ -64,6 +64,27 @@ func close_panel() -> void:
         _active_panel.close()
 
 
+func get_is_open() -> bool:
+    if is_instance_valid(_active_panel):
+        return _active_panel.is_open
+    else:
+        return false
+
+
+func get_current_data() -> InfoPanelData:
+    if is_instance_valid(_active_panel):
+        return _active_panel._data
+    else:
+        return null
+
+
+func get_is_transitioning() -> bool:
+    if is_instance_valid(_active_panel):
+        return _active_panel.get_is_transitioning()
+    else:
+        return false
+
+
 func _on_fade_out_started(panel: Control) -> void:
     pass
 

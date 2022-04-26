@@ -20,12 +20,15 @@ signal fade_out_started
 var _data: InfoPanelData
 var _target_position: Vector2
 var _slide_in_displacement: Vector2
+var _tween: ScaffolderTween
 
 var is_open := false
 
 
 func _init() -> void:
     modulate.a = 0.0
+    _tween = ScaffolderTween.new(self)
+    _tween.connect("tween_all_completed", self, "_on_transitioned")
 
 
 func _ready() -> void:
@@ -150,7 +153,8 @@ func open() -> void:
     
     var start_position := _target_position - _slide_in_displacement
     var end_position := _target_position
-    Sc.time.tween_property(
+    _tween.stop_all()
+    _tween.interpolate_property(
             self,
             "rect_position",
             start_position,
@@ -159,7 +163,7 @@ func open() -> void:
             "ease_out",
             0.0,
             TimeType.APP_PHYSICS)
-    Sc.time.tween_property(
+    _tween.interpolate_property(
             self,
             "modulate:a",
             0.0,
@@ -167,8 +171,8 @@ func open() -> void:
             Sc.info_panel.fade_in_duration,
             "ease_in_out",
             0.0,
-            TimeType.APP_PHYSICS,
-            funcref(self, "_on_faded_in"))
+            TimeType.APP_PHYSICS)
+    _tween.start()
 
 
 func close() -> void:
@@ -179,7 +183,8 @@ func close() -> void:
     
     var start_position := _target_position
     var end_position := _target_position - _slide_in_displacement
-    Sc.time.tween_property(
+    _tween.stop_all()
+    _tween.interpolate_property(
             self,
             "rect_position",
             start_position,
@@ -188,7 +193,7 @@ func close() -> void:
             "ease_in",
             0.0,
             TimeType.APP_PHYSICS)
-    Sc.time.tween_property(
+    _tween.interpolate_property(
             self,
             "modulate:a",
             Sc.info_panel.opacity,
@@ -196,17 +201,20 @@ func close() -> void:
             Sc.info_panel.fade_out_duration,
             "ease_in_out",
             0.0,
-            TimeType.APP_PHYSICS,
-            funcref(self, "_on_faded_out"))
+            TimeType.APP_PHYSICS)
+    _tween.start()
     emit_signal("fade_out_started")
 
 
-func _on_faded_in() -> void:
-    emit_signal("faded_in")
+func get_is_transitioning() -> bool:
+    return _tween.is_active()
 
 
-func _on_faded_out() -> void:
-    emit_signal("faded_out")
+func _on_transitioned() -> void:
+    if is_open:
+        emit_signal("faded_in")
+    else:
+        emit_signal("faded_out")
 
 
 func _on_ScaffolderTextureButton_pressed() -> void:
