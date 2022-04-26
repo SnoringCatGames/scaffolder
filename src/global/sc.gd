@@ -37,6 +37,7 @@ var geometry: ScaffolderGeometry
 var draw: ScaffolderDrawUtils
 var palette: ColorPalette
 var notify: Notifications
+var info_panel: InfoPanelController
 var slow_motion: SlowMotionController
 var beats: BeatTracker
 var canvas_layers: CanvasLayers
@@ -266,6 +267,7 @@ func _get_members_to_destroy() -> Array:
         draw,
         palette,
         notify,
+        info_panel,
         slow_motion,
         beats,
         canvas_layers,
@@ -435,6 +437,13 @@ func _instantiate_sub_modules() -> void:
         self.notify = Notifications.new()
     add_child(self.notify)
     
+    if manifest.has("info_panel_class"):
+        self.info_panel = manifest.info_panel_class.new()
+        assert(self.info_panel is InfoPanelController)
+    else:
+        self.info_panel = InfoPanelController.new()
+    add_child(self.info_panel)
+    
     if manifest.has("nav_class"):
         self.nav = manifest.nav_class.new()
         assert(self.nav is ScreenNavigator)
@@ -515,6 +524,7 @@ func _configure_sub_modules() -> void:
     self.palette._parse_manifest(manifest.colors_manifest)
     self.annotators._parse_manifest(manifest.annotation_parameters_manifest)
     self.notify._parse_manifest(manifest.notifications_manifest)
+    self.info_panel._parse_manifest(manifest.info_panel_manifest)
     self.slow_motion._parse_manifest(manifest.slow_motion_manifest)
     self.characters._parse_manifest(manifest.character_manifest)
     self.camera._parse_manifest(manifest.camera_manifest)

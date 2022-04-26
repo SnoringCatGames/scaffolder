@@ -20,6 +20,7 @@ var focus_border_nine_patch_margin_top: float
 var focus_border_nine_patch_margin_right: float
 var focus_border_nine_patch_margin_bottom: float
 var focus_border_nine_patch_scale: float
+var focus_border_nine_patch_border_width: float
 
 var focus_border_expand_margin_left: float
 var focus_border_expand_margin_top: float
@@ -46,6 +47,7 @@ var button_disabled_nine_patch: Texture
 var button_hover_nine_patch: Texture
 var button_normal_nine_patch: Texture
 var button_nine_patch_scale: float
+var button_nine_patch_border_width: float
 var button_nine_patch_margin_left: float
 var button_nine_patch_margin_top: float
 var button_nine_patch_margin_right: float
@@ -61,6 +63,7 @@ var dropdown_disabled_nine_patch: Texture
 var dropdown_hover_nine_patch: Texture
 var dropdown_normal_nine_patch: Texture
 var dropdown_nine_patch_scale: float
+var dropdown_nine_patch_border_width: float
 var dropdown_nine_patch_margin_left: float
 var dropdown_nine_patch_margin_top: float
 var dropdown_nine_patch_margin_right: float
@@ -109,6 +112,7 @@ var slider_track_nine_patch_margin_bottom: float
 
 var overlay_panel_nine_patch: Texture
 var overlay_panel_nine_patch_scale: float
+var overlay_panel_nine_patch_border_width: float
 var overlay_panel_nine_patch_margin_left: float
 var overlay_panel_nine_patch_margin_top: float
 var overlay_panel_nine_patch_margin_right: float
@@ -128,6 +132,7 @@ var overlay_panel_content_margin_bottom: int
 
 var notification_panel_nine_patch: Texture
 var notification_panel_nine_patch_scale: float
+var notification_panel_nine_patch_border_width: float
 var notification_panel_nine_patch_margin_left: float
 var notification_panel_nine_patch_margin_top: float
 var notification_panel_nine_patch_margin_right: float
@@ -147,6 +152,7 @@ var notification_panel_content_margin_bottom: int
 
 var header_panel_nine_patch: Texture
 var header_panel_nine_patch_scale: float
+var header_panel_nine_patch_border_width: float
 var header_panel_nine_patch_margin_left: float
 var header_panel_nine_patch_margin_top: float
 var header_panel_nine_patch_margin_right: float
@@ -159,6 +165,7 @@ var header_panel_content_margin_bottom: int
 
 var hud_panel_nine_patch: Texture
 var hud_panel_nine_patch_scale: float
+var hud_panel_nine_patch_border_width: float
 var hud_panel_nine_patch_margin_left: float
 var hud_panel_nine_patch_margin_top: float
 var hud_panel_nine_patch_margin_right: float
@@ -184,6 +191,8 @@ func _parse_manifest(manifest: Dictionary) -> void:
         self.focus_border_nine_patch = manifest.focus_border_nine_patch
         self.focus_border_nine_patch_scale = \
                 manifest.focus_border_nine_patch_scale
+        self.focus_border_nine_patch_border_width = \
+                manifest.focus_border_nine_patch_border_width
         self.focus_border_nine_patch_margin_left = \
                 manifest.focus_border_nine_patch_margin_left
         self.focus_border_nine_patch_margin_top = \
@@ -228,6 +237,8 @@ func _parse_manifest(manifest: Dictionary) -> void:
         self.button_hover_nine_patch = manifest.button_hover_nine_patch
         self.button_normal_nine_patch = manifest.button_normal_nine_patch
         self.button_nine_patch_scale = manifest.button_nine_patch_scale
+        self.button_nine_patch_border_width = \
+                manifest.button_nine_patch_border_width
         self.button_nine_patch_margin_left = \
                 manifest.button_nine_patch_margin_left
         self.button_nine_patch_margin_top = \
@@ -249,6 +260,8 @@ func _parse_manifest(manifest: Dictionary) -> void:
         self.dropdown_hover_nine_patch = manifest.dropdown_hover_nine_patch
         self.dropdown_normal_nine_patch = manifest.dropdown_normal_nine_patch
         self.dropdown_nine_patch_scale = manifest.dropdown_nine_patch_scale
+        self.dropdown_nine_patch_border_width = \
+                manifest.dropdown_nine_patch_border_width
         self.dropdown_nine_patch_margin_left = \
                 manifest.dropdown_nine_patch_margin_left
         self.dropdown_nine_patch_margin_top = \
@@ -338,6 +351,8 @@ func _parse_manifest(manifest: Dictionary) -> void:
         self.overlay_panel_nine_patch = manifest.overlay_panel_nine_patch
         self.overlay_panel_nine_patch_scale = \
                 manifest.overlay_panel_nine_patch_scale
+        self.overlay_panel_nine_patch_border_width = \
+                manifest.overlay_panel_nine_patch_border_width
         self.overlay_panel_nine_patch_margin_left = \
                 manifest.overlay_panel_nine_patch_margin_left
         self.overlay_panel_nine_patch_margin_top = \
@@ -362,9 +377,12 @@ func _parse_manifest(manifest: Dictionary) -> void:
             manifest.overlay_panel_content_margin_bottom
     
     if manifest.has("notification_panel_nine_patch"):
-        self.notification_panel_nine_patch = manifest.notification_panel_nine_patch
+        self.notification_panel_nine_patch = \
+                manifest.notification_panel_nine_patch
         self.notification_panel_nine_patch_scale = \
                 manifest.notification_panel_nine_patch_scale
+        self.notification_panel_nine_patch_border_width = \
+                manifest.notification_panel_nine_patch_border_width
         self.notification_panel_nine_patch_margin_left = \
                 manifest.notification_panel_nine_patch_margin_left
         self.notification_panel_nine_patch_margin_top = \
@@ -374,11 +392,16 @@ func _parse_manifest(manifest: Dictionary) -> void:
         self.notification_panel_nine_patch_margin_bottom = \
                 manifest.notification_panel_nine_patch_margin_bottom
     else:
-        self.notification_panel_corner_radius = manifest.notification_panel_corner_radius
-        self.notification_panel_corner_detail = manifest.notification_panel_corner_detail
-        self.notification_panel_shadow_size = manifest.notification_panel_shadow_size
-        self.notification_panel_shadow_offset = manifest.notification_panel_shadow_offset
-        self.notification_panel_border_width = manifest.notification_panel_border_width
+        self.notification_panel_corner_radius = \
+                manifest.notification_panel_corner_radius
+        self.notification_panel_corner_detail = \
+                manifest.notification_panel_corner_detail
+        self.notification_panel_shadow_size = \
+                manifest.notification_panel_shadow_size
+        self.notification_panel_shadow_offset = \
+                manifest.notification_panel_shadow_offset
+        self.notification_panel_border_width = \
+                manifest.notification_panel_border_width
     self.notification_panel_content_margin_left = \
             manifest.notification_panel_content_margin_left
     self.notification_panel_content_margin_top = \
@@ -392,6 +415,8 @@ func _parse_manifest(manifest: Dictionary) -> void:
         self.header_panel_nine_patch = manifest.header_panel_nine_patch
         self.header_panel_nine_patch_scale = \
                 manifest.header_panel_nine_patch_scale
+        self.header_panel_nine_patch_border_width = \
+                manifest.header_panel_nine_patch_border_width
         self.header_panel_nine_patch_margin_left = \
                 manifest.header_panel_nine_patch_margin_left
         self.header_panel_nine_patch_margin_top = \
@@ -411,6 +436,8 @@ func _parse_manifest(manifest: Dictionary) -> void:
     
     self.hud_panel_nine_patch = manifest.hud_panel_nine_patch
     self.hud_panel_nine_patch_scale = manifest.hud_panel_nine_patch_scale
+    self.hud_panel_nine_patch_border_width = \
+            manifest.hud_panel_nine_patch_border_width
     self.hud_panel_nine_patch_margin_left = \
             manifest.hud_panel_nine_patch_margin_left
     self.hud_panel_nine_patch_margin_top = \
@@ -440,6 +467,7 @@ func _parse_manifest(manifest: Dictionary) -> void:
 func _validate_manifest(manifest: Dictionary) -> void:
     assert(((manifest.has("focus_border_nine_patch") and \
             manifest.has("focus_border_nine_patch_scale") and \
+            manifest.has("focus_border_nine_patch_border_width") and \
             manifest.has("focus_border_nine_patch_margin_left") and \
             manifest.has("focus_border_nine_patch_margin_top") and \
             manifest.has("focus_border_nine_patch_margin_right") and \
@@ -458,6 +486,7 @@ func _validate_manifest(manifest: Dictionary) -> void:
             manifest.has("button_hover_nine_patch") and \
             manifest.has("button_normal_nine_patch") and \
             manifest.has("button_nine_patch_scale") and \
+            manifest.has("button_nine_patch_border_width") and \
             manifest.has("button_nine_patch_margin_left") and \
             manifest.has("button_nine_patch_margin_top") and \
             manifest.has("button_nine_patch_margin_right") and \
@@ -472,6 +501,7 @@ func _validate_manifest(manifest: Dictionary) -> void:
             manifest.has("dropdown_hover_nine_patch") and \
             manifest.has("dropdown_normal_nine_patch") and \
             manifest.has("dropdown_nine_patch_scale") and \
+            manifest.has("dropdown_nine_patch_border_width") and \
             manifest.has("dropdown_nine_patch_margin_left") and \
             manifest.has("dropdown_nine_patch_margin_top") and \
             manifest.has("dropdown_nine_patch_margin_right") and \
@@ -519,6 +549,7 @@ func _validate_manifest(manifest: Dictionary) -> void:
     
     assert((manifest.has("overlay_panel_nine_patch") and \
             manifest.has("overlay_panel_nine_patch_scale") and \
+            manifest.has("overlay_panel_nine_patch_border_width") and \
             manifest.has("overlay_panel_nine_patch_margin_left") and \
             manifest.has("overlay_panel_nine_patch_margin_top") and \
             manifest.has("overlay_panel_nine_patch_margin_right") and \
@@ -539,6 +570,7 @@ func _validate_manifest(manifest: Dictionary) -> void:
     
     assert((manifest.has("notification_panel_nine_patch") and \
             manifest.has("notification_panel_nine_patch_scale") and \
+            manifest.has("notification_panel_nine_patch_border_width") and \
             manifest.has("notification_panel_nine_patch_margin_left") and \
             manifest.has("notification_panel_nine_patch_margin_top") and \
             manifest.has("notification_panel_nine_patch_margin_right") and \
@@ -559,6 +591,7 @@ func _validate_manifest(manifest: Dictionary) -> void:
     
     assert((manifest.has("header_panel_nine_patch") and \
             manifest.has("header_panel_nine_patch_scale") and \
+            manifest.has("header_panel_nine_patch_border_width") and \
             manifest.has("header_panel_nine_patch_margin_left") and \
             manifest.has("header_panel_nine_patch_margin_top") and \
             manifest.has("header_panel_nine_patch_margin_right") and \
@@ -574,6 +607,7 @@ func _validate_manifest(manifest: Dictionary) -> void:
     
     assert(manifest.has("hud_panel_nine_patch") and \
             manifest.has("hud_panel_nine_patch_scale") and \
+            manifest.has("hud_panel_nine_patch_border_width") and \
             manifest.has("hud_panel_nine_patch_margin_left") and \
             manifest.has("hud_panel_nine_patch_margin_top") and \
             manifest.has("hud_panel_nine_patch_margin_right") and \

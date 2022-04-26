@@ -23,7 +23,7 @@ var margin_sides := 16.0
 
 var opacity := 0.9
 
-var slide_in_displacement := Vector2(0.0, -67.0)
+var slide_in_displacement := Vector2(0.0, -25.0)
 
 var _active_panel: Control
 
@@ -85,25 +85,25 @@ func get_panel_size(type: int) -> Vector2:
     
     var target_size: Vector2
     match type:
-        MessagePanelSize.SMALL:
+        NotificationsSize.SMALL:
             target_size = size_small * Sc.gui.scale
-        MessagePanelSize.MEDIUM:
+        NotificationsSize.MEDIUM:
             target_size = size_medium * Sc.gui.scale
-        MessagePanelSize.LARGE:
+        NotificationsSize.LARGE:
             target_size = size_large * Sc.gui.scale
-        MessagePanelSize.TOP_SIDE, \
-        MessagePanelSize.BOTTOM_SIDE:
+        NotificationsSize.TOP_SIDE, \
+        NotificationsSize.BOTTOM_SIDE:
             return Vector2(
                     viewport_size.x,
                     size_large.y * Sc.gui.scale)
-        MessagePanelSize.LEFT_SIDE, \
-        MessagePanelSize.RIGHT_SIDE:
+        NotificationsSize.LEFT_SIDE, \
+        NotificationsSize.RIGHT_SIDE:
             return Vector2(
                     size_large.x * Sc.gui.scale,
                     viewport_size.y)
-        MessagePanelSize.FULL_SCREEN:
+        NotificationsSize.FULL_SCREEN:
             return viewport_size
-        MessagePanelSize.UNKNOWN, \
+        NotificationsSize.UNKNOWN, \
         _:
             Sc.logger.error("Notifications.get_panel_size")
             return Vector2.INF
