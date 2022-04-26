@@ -5,6 +5,7 @@ extends Reference
 var header_text := ""
 var contents: Control
 var includes_close_button := true
+var meta
 
 
 func _init(

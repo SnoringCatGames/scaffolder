@@ -4,6 +4,8 @@ class_name ScaffolderLevel, \
 extends Node2D
 
 
+signal active_player_character_changed()
+
 const MIN_CONTROLS_DISPLAY_TIME := 0.5
 
 export var level_id := "" setget _set_level_id
@@ -501,6 +503,8 @@ func _set_active_player_character(character: ScaffolderCharacter) -> void:
         # De-activate previous character.
         previous_active_player_character \
                 .set_is_player_control_active(false, false)
+    
+    emit_signal("active_player_character_changed")
 
 
 func _get_active_player_character() -> ScaffolderCharacter:
