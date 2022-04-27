@@ -23,6 +23,11 @@ enum TouchType {
     TOUCH_MOVE,
 }
 
+signal touch_entered
+signal touch_exited
+signal touch_up(level_position)
+signal touch_down(level_position)
+signal full_pressed(level_position)
 signal interaction_mode_changed(interaction_mode)
 
 export var is_disabled := false setget _set_is_disabled
@@ -40,8 +45,8 @@ var _is_ready := false
 
 func _ready() -> void:
     _is_ready = true
-    self.connect("mouse_entered", self, "_on_mouse_entered_unfiltered")
-    self.connect("mouse_exited", self, "_on_mouse_exited_unfiltered")
+    self.connect("mouse_entered", self, "_on_touch_entered_unfiltered")
+    self.connect("mouse_exited", self, "_on_touch_exited_unfiltered")
     self.connect("input_event", self, "_on_input_event")
     self.collision_layer = Sc.gui.GUI_COLLISION_LAYER
     self.monitoring = false
@@ -176,19 +181,19 @@ func _on_input_event(
     elif is_touch_up:
         _on_touch_up_unfiltered(level_position)
         if is_full_press:
-            _on_full_press_unfiltered(level_position)
+            _on_full_pressed_unfiltered(level_position)
 
 
-func _on_mouse_entered_unfiltered() -> void:
-#    Sc.logger.print("LevelControl._on_mouse_entered_unfiltered")
+func _on_touch_entered_unfiltered() -> void:
+#    Sc.logger.print("LevelControl._on_touch_entered_unfiltered")
     _was_touch_down_in_this_control = false
-    Sc.level.level_control_press_controller.register_mouse_entered(self)
+    Sc.level.level_control_press_controller.register_touch_entered(self)
 
 
-func _on_mouse_exited_unfiltered() -> void:
-#    Sc.logger.print("LevelControl._on_mouse_exited_unfiltered")
+func _on_touch_exited_unfiltered() -> void:
+#    Sc.logger.print("LevelControl._on_touch_exited_unfiltered")
     _was_touch_down_in_this_control = false
-    Sc.level.level_control_press_controller.register_mouse_exited(self)
+    Sc.level.level_control_press_controller.register_touch_exited(self)
 
 
 func _on_touch_down_unfiltered(level_position: Vector2) -> void:
@@ -208,35 +213,40 @@ func _on_touch_up_unfiltered(level_position: Vector2) -> void:
     _was_touch_down_in_this_control = false
 
 
-func _on_full_press_unfiltered(level_position: Vector2) -> void:
+func _on_full_pressed_unfiltered(level_position: Vector2) -> void:
     pass
 
 
-func _on_mouse_entered() -> void:
-#    Sc.logger.print("LevelControl._on_mouse_entered")
+func _on_touch_entered() -> void:
+#    Sc.logger.print("LevelControl._on_touch_entered")
     _was_touch_up_a_full_press = false
     _update_interaction_mode(InteractionMode.HOVER)
+    emit_signal("touch_entered")
 
 
-func _on_mouse_exited() -> void:
-#    Sc.logger.print("LevelControl._on_mouse_exited")
+func _on_touch_exited() -> void:
+#    Sc.logger.print("LevelControl._on_touch_exited")
     _was_touch_up_a_full_press = false
     _update_interaction_mode(InteractionMode.NORMAL)
+    emit_signal("touch_exited")
 
 
 func _on_touch_down(level_position: Vector2) -> void:
     _update_interaction_mode(InteractionMode.PRESSED)
+    emit_signal("touch_down", level_position)
 
 
 func _on_touch_up(level_position: Vector2) -> void:
     _update_interaction_mode(InteractionMode.HOVER)
     if _was_touch_up_a_full_press:
-        _on_full_press(level_position)
+        _on_full_pressed(level_position)
     _was_touch_up_a_full_press = false
+    emit_signal("touch_up", level_position)
 
 
-func _on_full_press(level_position: Vector2) -> void:
-    pass
+func _on_full_pressed(level_position: Vector2) -> void:
+#    Sc.logger.print("LevelControl._on_full_pressed")
+    emit_signal("full_pressed", level_position)
 
 
 func _on_interaction_mode_changed(interaction_mode: int) -> void:
