@@ -9,8 +9,6 @@ signal manually_panned
 signal zoomed
 signal panned
 
-var active_camera: ScaffolderCamera
-
 var default_camera_class: Script = DefaultCamera
 var snaps_camera_back_to_character := true
 
@@ -40,8 +38,7 @@ var manual_offset := Vector2.ZERO setget _set_manual_offset
 
 
 func _destroy() -> void:
-    if is_instance_valid(active_camera):
-        active_camera.queue_free()
+    pass
 
 
 func _parse_manifest(manifest: Dictionary) -> void:

@@ -21,7 +21,7 @@ export(int, LAYERS_2D_PHYSICS) var collision_detection_layers := 0
 
 export var detects_pointer := true setget _set_detects_pointer
 
-export var pointer_screen_radius := 16.0 setget _set_pointer_screen_radius
+export var pointer_screen_radius := 64.0 setget _set_pointer_screen_radius
 
 # --- Colors ---
 
@@ -210,6 +210,8 @@ func _destroy() -> void:
     _is_destroyed = true
     if is_instance_valid(animator):
         animator._destroy()
+    if is_instance_valid(_pointer_detector):
+        _pointer_detector._destroy()
     if !is_queued_for_deletion():
         queue_free()
 
@@ -732,7 +734,7 @@ func _update_pointer_detector() -> void:
         _pointer_detector.screen_radius = pointer_screen_radius
     else:
         if is_instance_valid(_pointer_detector):
-            _pointer_detector.queue_free()
+            _pointer_detector._destroy()
             _pointer_detector = null
 
 

@@ -82,3 +82,11 @@ func _set_shape_offset(value: Vector2) -> void:
     shape_offset = value
     _update_shape()
     property_list_changed_notify()
+
+
+func get_center_in_level_space() -> Vector2:
+    return _shape.global_position
+
+
+func get_center_in_screen_space() -> Vector2:
+    return _shape.get_global_transform_with_canvas().origin
