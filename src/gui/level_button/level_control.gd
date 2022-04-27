@@ -17,6 +17,12 @@ enum InteractionMode {
     NORMAL,
 }
 
+enum TouchType {
+    TOUCH_DOWN,
+    TOUCH_UP,
+    TOUCH_MOVE,
+}
+
 signal interaction_mode_changed(interaction_mode)
 
 export var is_disabled := false setget _set_is_disabled
@@ -24,25 +30,30 @@ export var is_focused := false setget _set_is_focused
 
 export var screen_radius := 16.0 setget _set_screen_radius
 
-export var mouse_cursor_override := -1
-
 var interaction_mode: int = InteractionMode.NORMAL
 
 var _was_touch_down_in_this_control := false
+var _was_touch_up_a_full_press := false
 
 var _is_ready := false
 
 
 func _ready() -> void:
     _is_ready = true
-    self.connect("mouse_entered", self, "_on_mouse_entered")
-    self.connect("mouse_exited", self, "_on_mouse_exited")
+    self.connect("mouse_entered", self, "_on_mouse_entered_unfiltered")
+    self.connect("mouse_exited", self, "_on_mouse_exited_unfiltered")
     self.connect("input_event", self, "_on_input_event")
     self.collision_layer = Sc.gui.GUI_COLLISION_LAYER
     self.monitoring = false
     self.monitorable = false
     self.input_pickable = true
     _update_interaction_mode(InteractionMode.NORMAL)
+    Sc.level.level_control_press_controller.add_control(self)
+
+
+func _destroy() -> void:
+    Sc.level.level_control_press_controller.remove_control(self)
+    queue_free()
 
 
 func _set_is_disabled(value: bool) -> void:
@@ -57,7 +68,18 @@ func _set_is_focused(value: bool) -> void:
 
 func _set_screen_radius(value: float) -> void:
     screen_radius = value
-    # TODO: Update storage in BVH/RTree?
+
+
+func get_screen_radius_in_level_space() -> float:
+    return screen_radius / get_global_transform_with_canvas().get_scale().x
+
+
+func get_center_in_level_space() -> Vector2:
+    return global_position
+
+
+func get_center_in_screen_space() -> Vector2:
+    return get_global_transform_with_canvas().origin
 
 
 func _update_interaction_mode(attempted_interaction_mode: int) -> void:
@@ -70,26 +92,6 @@ func _update_interaction_mode(attempted_interaction_mode: int) -> void:
     
     if interaction_mode != previous_interaction_mode:
         _on_interaction_mode_changed(interaction_mode)
-
-
-func _on_mouse_entered() -> void:
-#    Sc.logger.print("LevelControl._on_mouse_entered")
-    _was_touch_down_in_this_control = false
-    if mouse_cursor_override >= 0:
-        Input.set_default_cursor_shape(mouse_cursor_override)
-    _update_interaction_mode(InteractionMode.HOVER)
-
-
-func _on_mouse_exited() -> void:
-#    Sc.logger.print("LevelControl._on_mouse_exited")
-    _was_touch_down_in_this_control = false
-    if mouse_cursor_override >= 0:
-        # FIXME: -----------------------
-        # - Configure the default in ScaffolderGuiConfig.
-        # - Add logic to check whether the cursor was also assigned to a
-        #   non-default value this frame, and, if so, don't reset it.
-        Input.set_default_cursor_shape(Input.CURSOR_ARROW)
-    _update_interaction_mode(InteractionMode.NORMAL)
 
 
 func _on_input_event(
@@ -170,30 +172,70 @@ func _on_input_event(
     var is_full_press := is_touch_up and _was_touch_down_in_this_control
     
     if is_touch_down:
-        _on_touch_down(level_position, screen_position)
+        _on_touch_down_unfiltered(level_position)
     elif is_touch_up:
-        _on_touch_up(level_position, screen_position)
+        _on_touch_up_unfiltered(level_position)
         if is_full_press:
-            _on_full_press(level_position, screen_position)
+            _on_full_press_unfiltered(level_position)
 
 
-func _on_touch_down(
-        level_position: Vector2,
-        screen_position: Vector2) -> void:
-    _was_touch_down_in_this_control = true
-    _update_interaction_mode(InteractionMode.PRESSED)
-
-
-func _on_touch_up(
-        level_position: Vector2,
-        screen_position: Vector2) -> void:
+func _on_mouse_entered_unfiltered() -> void:
+#    Sc.logger.print("LevelControl._on_mouse_entered_unfiltered")
     _was_touch_down_in_this_control = false
+    Sc.level.level_control_press_controller.register_mouse_entered(self)
+
+
+func _on_mouse_exited_unfiltered() -> void:
+#    Sc.logger.print("LevelControl._on_mouse_exited_unfiltered")
+    _was_touch_down_in_this_control = false
+    Sc.level.level_control_press_controller.register_mouse_exited(self)
+
+
+func _on_touch_down_unfiltered(level_position: Vector2) -> void:
+    Sc.level.level_control_press_controller.register_touch_event(
+            TouchType.TOUCH_DOWN,
+            level_position,
+            self)
+    _was_touch_down_in_this_control = true
+
+
+func _on_touch_up_unfiltered(level_position: Vector2) -> void:
+    _was_touch_up_a_full_press = _was_touch_down_in_this_control
+    Sc.level.level_control_press_controller.register_touch_event(
+            TouchType.TOUCH_UP,
+            level_position,
+            self)
+    _was_touch_down_in_this_control = false
+
+
+func _on_full_press_unfiltered(level_position: Vector2) -> void:
+    pass
+
+
+func _on_mouse_entered() -> void:
+#    Sc.logger.print("LevelControl._on_mouse_entered")
+    _was_touch_up_a_full_press = false
     _update_interaction_mode(InteractionMode.HOVER)
 
 
-func _on_full_press(
-        level_position: Vector2,
-        screen_position: Vector2) -> void:
+func _on_mouse_exited() -> void:
+#    Sc.logger.print("LevelControl._on_mouse_exited")
+    _was_touch_up_a_full_press = false
+    _update_interaction_mode(InteractionMode.NORMAL)
+
+
+func _on_touch_down(level_position: Vector2) -> void:
+    _update_interaction_mode(InteractionMode.PRESSED)
+
+
+func _on_touch_up(level_position: Vector2) -> void:
+    _update_interaction_mode(InteractionMode.HOVER)
+    if _was_touch_up_a_full_press:
+        _on_full_press(level_position)
+    _was_touch_up_a_full_press = false
+
+
+func _on_full_press(level_position: Vector2) -> void:
     pass
 
 

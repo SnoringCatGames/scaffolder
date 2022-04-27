@@ -12,14 +12,6 @@ extends ShapedLevelControl
 signal pressed
 
 
-func _ready() -> void:
-    if mouse_cursor_override == -1:
-        mouse_cursor_override = Input.CURSOR_POINTING_HAND
-        property_list_changed_notify()
-
-
-func _on_full_press(
-        level_position: Vector2,
-        screen_position: Vector2) -> void:
+func _on_full_press(level_position: Vector2) -> void:
 #    Sc.logger.print("LevelButton._on_full_press")
     emit_signal("pressed")

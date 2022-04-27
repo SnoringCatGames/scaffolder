@@ -28,6 +28,7 @@ var camera_bounds: Rect2
 var character_bounds: Rect2
 
 var touch_listener: LevelTouchListener
+var level_control_press_controller: LevelControlPressController
 var camera: ScaffolderCamera
 var _default_camera: ScaffolderCamera
 
@@ -40,6 +41,8 @@ var _configuration_warning := ""
 func _init() -> void:
     self.touch_listener = LevelTouchListener.new()
     Sc.canvas_layers.layers.top.add_child(touch_listener)
+    self.level_control_press_controller = LevelControlPressController.new()
+    Sc.canvas_layers.layers.top.add_child(level_control_press_controller)
 
 
 func _enter_tree() -> void:
@@ -168,6 +171,8 @@ func _destroy() -> void:
         camera._destroy()
     if is_instance_valid(touch_listener):
         touch_listener._destroy()
+    if is_instance_valid(level_control_press_controller):
+        level_control_press_controller._destroy()
     Sc.level = null
     Sc.levels.session._is_destroyed = true
     if Sc.levels.session.is_restarting:
