@@ -7,11 +7,3 @@ extends ShapedLevelControl
 ## -   This is needed, because Godot's normal Button behavior captures scroll
 ##     events, and prevents the level from processing them.
 ##     -   This capturing is not disablable in the normal way with mouse_filter.
-
-
-signal pressed
-
-
-func _on_full_press(level_position: Vector2) -> void:
-#    Sc.logger.print("LevelButton._on_full_press")
-    emit_signal("pressed")

@@ -618,6 +618,30 @@ func _on_exited_proximity(target: Node2D, layer_names: Array) -> void:
     pass
 
 
+func _on_touch_entered() -> void:
+    pass
+
+
+func _on_touch_exited() -> void:
+    pass
+
+
+func _on_touch_down(level_position: Vector2) -> void:
+    pass
+
+
+func _on_touch_up(level_position: Vector2) -> void:
+    pass
+
+
+func _on_full_pressed(level_position: Vector2) -> void:
+    pass
+
+
+func _on_interaction_mode_changed(interaction_mode: int) -> void:
+    pass
+
+
 func _add_detection_area(
         detection_shape: Shape2D,
         detection_shape_rotation: float,
@@ -717,6 +741,14 @@ func _update_pointer_detector() -> void:
     if detects_pointer:
         if !is_instance_valid(_pointer_detector):
             _pointer_detector = LevelControl.new()
+            _pointer_detector.connect(
+                "touch_entered", self, "_on_touch_entered")
+            _pointer_detector.connect("touch_exited", self, "_on_touch_exited")
+            _pointer_detector.connect("touch_up", self, "_on_touch_up")
+            _pointer_detector.connect("touch_down", self, "_on_touch_down")
+            _pointer_detector.connect("full_pressed", self, "_on_full_pressed")
+            _pointer_detector.connect(
+                "interaction_mode_changed", self, "_on_interaction_mode_changed")
             add_child(_pointer_detector)
             var detector_shape := CollisionShape2D.new()
             _pointer_detector.add_child(detector_shape)

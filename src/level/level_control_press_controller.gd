@@ -86,13 +86,13 @@ func register_touch_event(
     _trigger_digest()
 
 
-func register_mouse_entered(control: LevelControl) -> void:
+func register_touch_entered(control: LevelControl) -> void:
     _hovered_controls[control] = true
     Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
     _trigger_digest()
 
 
-func register_mouse_exited(control: LevelControl) -> void:
+func register_touch_exited(control: LevelControl) -> void:
     _hovered_controls.erase(control)
     if _hovered_controls.empty():
         Input.set_default_cursor_shape(Input.CURSOR_ARROW)
@@ -107,9 +107,10 @@ func _trigger_digest() -> void:
 
 func _digest_touches() -> void:
     assert(_is_digest_scheduled)
+    _is_digest_scheduled = false
     
     if _events_in_current_frame.empty():
-        # This happens on control-local mouse_enter/mouse_exit, since the
+        # This happens on control-local touch_enter/touch_exit, since the
         # corresponding level-global event is throttled.
         _update_hovered_control()
         return
@@ -137,7 +138,6 @@ func _digest_touches() -> void:
         assert(_events_in_current_frame.size() >= 2,
                 "If there was control-local event, then there should have " +
                 "also been a level-global event.")
-        assert(closest_event[1] == _latest_touch_level_position)
         _set_hovered_control(closest_control)
         match closest_event[0]:
             LevelControl.TouchType.TOUCH_DOWN:
@@ -195,7 +195,6 @@ func _digest_touches() -> void:
                 Sc.logger.error("LevelControlPressController._digest_touches")
     
     _events_in_current_frame.clear()
-    _is_digest_scheduled = false
 
 
 func _update_hovered_control() -> void:
@@ -229,9 +228,9 @@ func _set_hovered_control(control: LevelControl) -> void:
         var previous_hovered_control := _hovered_control
         _hovered_control = control
         if is_instance_valid(previous_hovered_control):
-            previous_hovered_control._on_mouse_exited()
+            previous_hovered_control._on_touch_exited()
         if is_instance_valid(_hovered_control):
-            _hovered_control._on_mouse_entered()
+            _hovered_control._on_touch_entered()
 
 
 func _get_closest_control_within_screen_space_radius() -> LevelControl:
