@@ -76,7 +76,9 @@ func _set_screen_radius(value: float) -> void:
 
 
 func get_screen_radius_in_level_space() -> float:
-    return screen_radius / get_global_transform_with_canvas().get_scale().x
+    return screen_radius / \
+            get_global_transform_with_canvas().get_scale().x * \
+            Sc.gui.scale
 
 
 func get_center_in_level_space() -> Vector2:

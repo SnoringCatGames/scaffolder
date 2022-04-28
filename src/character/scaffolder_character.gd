@@ -21,7 +21,7 @@ export(int, LAYERS_2D_PHYSICS) var collision_detection_layers := 0
 
 export var detects_pointer := true setget _set_detects_pointer
 
-export var pointer_screen_radius := 64.0 setget _set_pointer_screen_radius
+export var pointer_screen_radius := 40.0 setget _set_pointer_screen_radius
 
 # --- Colors ---
 

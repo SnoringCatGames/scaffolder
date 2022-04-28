@@ -253,7 +253,8 @@ func _get_closest_control_within_screen_space_radius() -> LevelControl:
                     control.get_center_in_screen_space())
         if current_distance_squared < closest_distance_squared and \
                 current_distance_squared < \
-                    control.screen_radius * control.screen_radius:
+                    control.screen_radius * control.screen_radius * \
+                    Sc.gui.scale * Sc.gui.scale:
             closest_valid_control = control
             closest_distance_squared = current_distance_squared
     for control in controls_to_erase:
