@@ -34,6 +34,8 @@ func _init(character: ScaffolderCharacter) -> void:
 
 
 func _draw() -> void:
+    if !is_instance_valid(Sc.level):
+        return
     _draw_character_position()
     _draw_collider_outline()
     _draw_pointer_detector_screen_radius()
