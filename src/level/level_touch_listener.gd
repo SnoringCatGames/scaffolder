@@ -12,6 +12,7 @@ signal single_touch_released(
         pointer_level_position,
         has_corresponding_touch_down)
 signal pinch_changed(pinch_distance, pinch_angle)
+signal pinch_second_touch_down()
 signal pinch_first_touch_released()
 signal pinch_second_touch_released()
 
@@ -96,6 +97,7 @@ func _unhandled_input(event: InputEvent) -> void:
     var is_touch_down := false
     var event_type := "UNKNOWN_INP"
     var touch: Touch
+    var previous_touch_count := _active_gestures.size()
     
     # NOTE:
     # -   We don't handle mouse left-click events, since we should be emulating
@@ -215,6 +217,8 @@ func _unhandled_input(event: InputEvent) -> void:
                     pointer_up_screen_position,
                     pointer_up_level_position)
     elif _active_gestures.size() == 2:
+        if previous_touch_count == 1:
+            _on_pinch_second_touch_down(touch)
         _on_pinch_changed(touch)
     elif _active_gestures.empty():
         _current_touch = null
@@ -279,6 +283,10 @@ func _on_single_touch_released(
             pointer_screen_position,
             pointer_level_position,
             _get_has_corresponding_touch_down())
+
+
+func _on_pinch_second_touch_down(touch: Touch) -> void:
+    emit_signal("pinch_second_touch_down")
 
 
 func _on_pinch_changed(touch: Touch) -> void:
