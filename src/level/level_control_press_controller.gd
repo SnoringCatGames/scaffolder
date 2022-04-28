@@ -88,15 +88,22 @@ func register_touch_event(
 
 func register_touch_entered(control: LevelControl) -> void:
     _hovered_controls[control] = true
-    Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+    _update_cursor()
     _trigger_digest()
 
 
 func register_touch_exited(control: LevelControl) -> void:
     _hovered_controls.erase(control)
-    if _hovered_controls.empty():
-        Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+    _update_cursor()
     _trigger_digest()
+
+
+func _update_cursor() -> void:
+    if _hovered_controls.empty() and \
+            !is_instance_valid(_hovered_control):
+        Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+    else:
+        Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
 
 
 func _trigger_digest() -> void:
@@ -231,6 +238,7 @@ func _set_hovered_control(control: LevelControl) -> void:
             previous_hovered_control._on_touch_exited()
         if is_instance_valid(_hovered_control):
             _hovered_control._on_touch_entered()
+    _update_cursor()
 
 
 func _get_closest_control_within_screen_space_radius() -> LevelControl:
