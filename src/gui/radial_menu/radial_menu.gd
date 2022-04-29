@@ -3,7 +3,7 @@ class_name RadialMenu
 extends Node2D
 
 
-# FIXME: LEFT OFF HERE: ---------------------
+# FIXME: LEFT OFF HERE: ----------------------
 # - Show the description for the current item above the radial menu.
 # - For the meteor-power menu subclass, also show the cost above the
 #   description.
@@ -57,6 +57,7 @@ func set_items(items: Array) -> void:
 
 
 func open(position: Vector2) -> void:
+    self.position = position
     _center_area_control = ShapedLevelControl.new()
     _center_area_control.screen_radius = 0.0
     _center_area_control.shape_circle_radius = Sc.gui.hud.radial_menu_radius
@@ -122,9 +123,9 @@ func _create_item_level_control(
     var offset := Vector2(0.0, -Sc.gui.hud.radial_menu_radius).rotated(angle)
     
     var control := ShapedLevelControl.new()
+    control.position = offset
     control.screen_radius = 0.0
     control.shape_circle_radius = item_radius
-    control.shape_offset = offset
     control.connect("touch_entered", self, "_on_item_touch_entered", [item])
     control.connect("touch_exited", self, "_on_item_touch_exited", [item])
     control.connect("touch_up", self, "_on_item_touch_up", [item])
@@ -218,7 +219,7 @@ func _interpolate_item_hover(
             radius - \
             Sc.gui.hud.radial_menu_item_radius * Sc.gui.scale
     var offset := Vector2(0.0, -menu_radius).rotated(item._angle)
-    item._control.shape_offset = offset
+    item._control.position = offset
     
     var hovered_color: Color = \
             Sc.gui.hud.radial_menu_item_hover_outline_color.sample()
