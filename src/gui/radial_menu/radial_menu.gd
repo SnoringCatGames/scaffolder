@@ -52,7 +52,7 @@ func set_items(items: Array) -> void:
     for i in _items.size():
         var item: RadialMenuItemData = _items[i]
         assert(is_instance_valid(item.texture))
-        assert(item.id != "")
+        assert(!(item.id is String) or item.id != "")
         _create_item_level_control(item, i, angular_spread)
 
 
