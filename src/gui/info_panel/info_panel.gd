@@ -3,7 +3,7 @@ class_name InfoPanel
 extends ScaffolderPanelContainer
 
 
-# FIXME: LEFT OFF HERE: ------------------------------------------
+# FIXME: LEFT OFF HERE: -------------------------------------------
 # - Set placement based on screen aspect ratio.
 # - Listen for aspect ratio change.
 # - Make width/height be one-third that of the screen, or a min value.
