@@ -7,7 +7,7 @@ var texture: Texture
 ## -   If omitted, then ShaderOutlineableSprite will be used instead.
 var outlined_texture: Texture
 
-var id := ""
+var id = ""
 var description := ""
 
 var is_visible := true
