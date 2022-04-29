@@ -770,6 +770,10 @@ func _update_pointer_detector() -> void:
             _pointer_detector = null
 
 
+func get_position_in_screen_space() -> Vector2:
+    return get_global_transform_with_canvas().origin
+
+
 func _get_navigation_annotation_color() -> ColorConfig:
     return navigation_annotation_color_override if \
             !navigation_annotation_color_override is PaletteColorConfig or \
