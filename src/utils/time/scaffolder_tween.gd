@@ -25,6 +25,10 @@ func _init(
         parent.add_child(self)
 
 
+func _destroy() -> void:
+    Sc.time.clear_tween(id)
+
+
 func _process(_delta: float) -> void:
     step()
 

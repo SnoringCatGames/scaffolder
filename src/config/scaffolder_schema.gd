@@ -832,6 +832,16 @@ var _hud_manifest := {
         },
     ],
     is_hud_visible_by_default = true,
+    
+    radial_menu_class = RadialMenu,
+    radial_menu_item_hovered_scale = 2.0,
+    radial_menu_radius = 128.0,
+    radial_menu_item_radius = 8.0,
+    radial_menu_open_duration = 0.1,
+    radial_menu_close_duration = 0.2,
+    radial_menu_item_hover_duration = 0.1,
+    radial_menu_closed_item_angular_offset = -PI,
+    radial_menu_item_hover_outline_color = ColorFactory.palette("focus_border"),
 }
 
 const WELCOME_PANEL_ITEM_MOVE := ["Walk/Climb", "arrow key / wasd"]
