@@ -213,6 +213,7 @@ func _update_hovered_control() -> void:
         for control in _hovered_controls:
             if !is_instance_valid(control):
                 controls_to_erase.push_back(control)
+                continue
             var current_distance_squared: float = \
                     _latest_touch_level_position.distance_squared_to(
                         control.get_center_in_level_space())
@@ -248,6 +249,7 @@ func _get_closest_control_within_screen_space_radius() -> LevelControl:
     for control in _level_controls:
         if !is_instance_valid(control):
             controls_to_erase.push_back(control)
+            continue
         var current_distance_squared: float = \
                 _latest_touch_screen_position.distance_squared_to(
                     control.get_center_in_screen_space())
