@@ -94,7 +94,7 @@ func _transition_open() -> void:
             0.0,
             1.0,
             Sc.gui.hud.radial_menu_open_duration,
-            "ease_in_out",
+            "ease_out_strong",
             0.0,
             TimeType.PLAY_PHYSICS_SCALED)
     _tween.start()
@@ -108,7 +108,7 @@ func _transition_closed() -> void:
             1.0,
             0.0,
             Sc.gui.hud.radial_menu_close_duration,
-            "ease_in_out",
+            "ease_in_strong",
             0.0,
             TimeType.PLAY_PHYSICS_SCALED)
     _tween.start()
@@ -120,7 +120,8 @@ func _create_item_level_control(
         angular_spread: float) -> void:
     var item_radius: float = Sc.gui.hud.radial_menu_item_radius * Sc.gui.scale
     var angle := angular_spread * index
-    var offset := Vector2(0.0, -Sc.gui.hud.radial_menu_radius).rotated(angle)
+    var offset := Vector2(0.0, -Sc.gui.hud.radial_menu_radius * Sc.gui.scale) \
+            .rotated(angle)
     
     var control := ShapedLevelControl.new()
     control.position = offset
@@ -134,9 +135,9 @@ func _create_item_level_control(
     var sprite := item._create_outlineable_sprite()
     sprite.scale = \
             Vector2.ONE * \
-            Sc.gui.hud.radial_menu_item_radius * 2.0 * \
-            Sc.gui.scale / \
-            item.texture.get_size()
+            Sc.gui.hud.radial_menu_item_radius * 2.0 / \
+            item.texture.get_size() * \
+            Sc.gui.scale
     control.add_child(sprite)
     
     var item_tween := ScaffolderTween.new(self)
@@ -162,7 +163,7 @@ func _on_item_touch_entered(item: RadialMenuItemData) -> void:
             0.0,
             1.0,
             Sc.gui.hud.radial_menu_item_hover_duration,
-            "ease_in_out",
+            "ease_out_strong",
             0.0,
             TimeType.PLAY_PHYSICS_SCALED)
     item._tween.start()
@@ -176,7 +177,7 @@ func _on_item_touch_exited(item: RadialMenuItemData) -> void:
             1.0,
             0.0,
             Sc.gui.hud.radial_menu_item_hover_duration,
-            "ease_in_out",
+            "ease_in_strong",
             0.0,
             TimeType.PLAY_PHYSICS_SCALED)
     item._tween.start()
@@ -211,14 +212,14 @@ func _interpolate_item_hover(
     item._sprite.scale = \
             Vector2.ONE * \
             scale * \
-            Sc.gui.hud.radial_menu_item_radius * 2.0 * \
-            Sc.gui.scale / \
-            item.texture.get_size()
+            Sc.gui.hud.radial_menu_item_radius * 2.0 / \
+            item.texture.get_size() * \
+            Sc.gui.scale
     
     var menu_radius: float = \
-            Sc.gui.hud.radial_menu_radius * Sc.gui.scale + \
-            radius - \
-            Sc.gui.hud.radial_menu_item_radius * Sc.gui.scale
+            (Sc.gui.hud.radial_menu_radius + \
+            scale * Sc.gui.hud.radial_menu_item_radius - \
+            Sc.gui.hud.radial_menu_item_radius) * Sc.gui.scale
     var offset := Vector2(0.0, -menu_radius).rotated(item._angle)
     item._control.position = offset
     
