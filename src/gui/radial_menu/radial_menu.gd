@@ -133,8 +133,10 @@ func _create_item_level_control(
     
     var sprite := item._create_outlineable_sprite()
     sprite.scale = \
-            Vector2.ONE * item_radius / \
-            (item.texture.get_size() * Sc.gui.scale)
+            Vector2.ONE * \
+            Sc.gui.hud.radial_menu_item_radius * 2.0 * \
+            Sc.gui.scale / \
+            item.texture.get_size()
     control.add_child(sprite)
     
     var item_tween := ScaffolderTween.new(self)
@@ -169,7 +171,7 @@ func _on_item_touch_entered(item: RadialMenuItemData) -> void:
 func _on_item_touch_exited(item: RadialMenuItemData) -> void:
     item._tween.stop_all()
     item._tween.interpolate_method(
-            self,
+            item,
             "_interpolate_item_hover",
             1.0,
             0.0,
@@ -189,8 +191,6 @@ func _on_center_area_touch_up() -> void:
 
 
 func _interpolate_openness(progress: float) -> void:
-    var radius: float = lerp(
-            0.0, Sc.gui.hud.radial_menu_radius * Sc.gui.scale, progress)
     var scale: float = lerp(0.0001, 1.0, progress)
     self.scale = Vector2.ONE * scale
     
@@ -211,7 +211,8 @@ func _interpolate_item_hover(
     item._sprite.scale = \
             Vector2.ONE * \
             scale * \
-            Sc.gui.hud.radial_menu_item_radius / \
+            Sc.gui.hud.radial_menu_item_radius * 2.0 * \
+            Sc.gui.scale / \
             item.texture.get_size()
     
     var menu_radius: float = \
@@ -223,7 +224,7 @@ func _interpolate_item_hover(
     
     var hovered_color: Color = \
             Sc.gui.hud.radial_menu_item_hover_outline_color.sample()
-    var normal_color := ColorFactory.opacify(hovered_color, 0.0)
+    var normal_color := ColorFactory.opacify(hovered_color, 0.0).sample()
     var color: Color = lerp(normal_color, hovered_color, progress)
     item._sprite.outline_color = color
 
