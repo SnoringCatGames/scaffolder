@@ -835,8 +835,8 @@ var _hud_manifest := {
     
     radial_menu_class = RadialMenu,
     radial_menu_item_hovered_scale = 2.0,
-    radial_menu_radius = 128.0,
-    radial_menu_item_radius = 8.0,
+    radial_menu_radius = 192.0,
+    radial_menu_item_radius = 16.0,
     radial_menu_open_duration = 0.1,
     radial_menu_close_duration = 0.2,
     radial_menu_item_hover_duration = 0.1,
