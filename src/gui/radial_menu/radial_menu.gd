@@ -29,7 +29,8 @@ func _ready() -> void:
     _tween = ScaffolderTween.new(self)
     _tween.connect("tween_all_completed", self, "_on_menu_tween_completed")
     
-    Sc.level.touch_listener.connect("single_touch_released", self, "close")
+    Sc.level.touch_listener.connect(
+            "single_touch_released", self, "_on_level_touch_up")
 
 
 func _destroy() -> void:
@@ -183,11 +184,20 @@ func _on_item_touch_exited(item: RadialMenuItemData) -> void:
     item._tween.start()
 
 
-func _on_item_touch_up(item: RadialMenuItemData) -> void:
+func _on_level_touch_up(
+        pointer_screen_position: Vector2,
+        pointer_level_position: Vector2,
+        has_corresponding_touch_down: bool) -> void:
+    close()
+
+
+func _on_item_touch_up(
+        touch_position: Vector2,
+        item: RadialMenuItemData) -> void:
     _deferred_close(item, false)
 
 
-func _on_center_area_touch_up() -> void:
+func _on_center_area_touch_up(touch_position: Vector2) -> void:
     _deferred_close(null, true)
 
 
