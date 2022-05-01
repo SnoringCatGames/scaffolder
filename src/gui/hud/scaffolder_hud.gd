@@ -61,7 +61,8 @@ func _ready() -> void:
 func open_radial_menu(
         radial_menu_class: Script,
         items: Array,
-        position: Vector2) -> RadialMenu:
+        position: Vector2,
+        metadata = null) -> RadialMenu:
     if is_instance_valid(_previous_radial_menu):
         _previous_radial_menu._destroy()
         _previous_radial_menu = null
@@ -70,6 +71,7 @@ func open_radial_menu(
         _previous_radial_menu = _radial_menu
         
     _radial_menu = radial_menu_class.new()
+    _radial_menu.metadata = metadata
     _radial_menu.set_items(items)
     add_child(_radial_menu)
     _radial_menu.open(position)
