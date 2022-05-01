@@ -15,6 +15,8 @@ signal touch_up_item(item_data)
 signal touch_up_center()
 signal touch_up_outside()
 
+var metadata
+
 # Array<RadialMenuItemData>
 var _items := []
 
@@ -61,7 +63,8 @@ func open(position: Vector2) -> void:
     self.position = position
     _center_area_control = ShapedLevelControl.new()
     _center_area_control.screen_radius = 0.0
-    _center_area_control.shape_circle_radius = Sc.gui.hud.radial_menu_radius
+    _center_area_control.shape_circle_radius = \
+            Sc.gui.hud.radial_menu_radius * Sc.gui.scale
     _center_area_control.connect("touch_up", self, "_on_center_area_touch_up")
     add_child(_center_area_control)
     _transition_open()
