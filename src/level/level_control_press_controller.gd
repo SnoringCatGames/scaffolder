@@ -13,6 +13,12 @@ var _events_in_current_frame := []
 # Dictinary<LevelControl, bool>
 var _hovered_controls := {}
 
+# Dictinary<LevelControl, bool>
+var _excluded_controls := {}
+
+# Dictinary<LevelControl, bool>
+var _included_exclusively_controls := {}
+
 var _hovered_control: LevelControl
 
 var _is_digest_scheduled := false
@@ -51,6 +57,28 @@ func add_control(control: LevelControl) -> void:
 
 func remove_control(control: LevelControl) -> void:
     _level_controls.erase(control)
+
+
+func exclude_control(control: LevelControl) -> void:
+    _included_exclusively_controls.erase(control)
+    _excluded_controls[control] = true
+
+
+func included_exclusively_control(control: LevelControl) -> void:
+    _included_exclusively_controls[control] = true
+    _excluded_controls.erase(control)
+
+
+func reset_control_exclusivity(control: LevelControl) -> void:
+    _included_exclusively_controls.erase(control)
+    _excluded_controls.erase(control)
+
+
+func _erase_control(control: LevelControl) -> void:
+    _level_controls.erase(control)
+    _hovered_controls.erase(control)
+    _excluded_controls.erase(control)
+    _included_exclusively_controls.erase(control)
 
 
 func _on_level_touch_down() -> void:
@@ -131,6 +159,11 @@ func _digest_touches() -> void:
         var current_control: LevelControl = event[2]
         if !is_instance_valid(current_control):
             # This is a level-global event rather than a control-local event.
+            continue
+        if current_control.is_touch_disabled or \
+                _excluded_controls.has(current_control) or \
+                !_included_exclusively_controls.empty() and \
+                !_included_exclusively_controls.has(current_control):
             continue
         var current_distance_squared: float = event[1].distance_squared_to(
                 current_control.get_center_in_level_space())
@@ -214,6 +247,11 @@ func _update_hovered_control() -> void:
             if !is_instance_valid(control):
                 controls_to_erase.push_back(control)
                 continue
+            if control.is_touch_disabled or \
+                    _excluded_controls.has(control) or \
+                    !_included_exclusively_controls.empty() and \
+                    !_included_exclusively_controls.has(control):
+                continue
             var current_distance_squared: float = \
                     _latest_touch_level_position.distance_squared_to(
                         control.get_center_in_level_space())
@@ -221,7 +259,7 @@ func _update_hovered_control() -> void:
                 closest_valid_control = control
                 closest_distance_squared = current_distance_squared
         for control in controls_to_erase:
-            _hovered_controls.erase(control)
+            _erase_control(control)
     else:
         # The current touch isn't within the bounds of any control's
         # collision-area, but it might be within the bounds of a control's
@@ -250,6 +288,11 @@ func _get_closest_control_within_screen_space_radius() -> LevelControl:
         if !is_instance_valid(control):
             controls_to_erase.push_back(control)
             continue
+        if control.is_touch_disabled or \
+                _excluded_controls.has(control) or \
+                !_included_exclusively_controls.empty() and \
+                !_included_exclusively_controls.has(control):
+            continue
         var current_distance_squared: float = \
                 _latest_touch_screen_position.distance_squared_to(
                     control.get_center_in_screen_space())
@@ -260,5 +303,5 @@ func _get_closest_control_within_screen_space_radius() -> LevelControl:
             closest_valid_control = control
             closest_distance_squared = current_distance_squared
     for control in controls_to_erase:
-        _level_controls.erase(control)
+        _erase_control(control)
     return closest_valid_control
