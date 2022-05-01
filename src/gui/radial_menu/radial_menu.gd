@@ -3,7 +3,7 @@ class_name RadialMenu
 extends Node2D
 
 
-# FIXME: LEFT OFF HERE: ----------------------
+# FIXME: LEFT OFF HERE: -----------------------
 # - Show the description for the current item above the radial menu.
 # - For the meteor-power menu subclass, also show the cost above the
 #   description.
@@ -67,6 +67,8 @@ func open(position: Vector2) -> void:
             Sc.gui.hud.radial_menu_radius * Sc.level.camera.zoom.x * Sc.gui.scale
     _center_area_control.connect("touch_up", self, "_on_center_area_touch_up")
     add_child(_center_area_control)
+    Sc.level.level_control_press_controller.included_exclusively_control(
+            _center_area_control)
     _transition_open()
 
 
@@ -81,6 +83,11 @@ func _deferred_close(
         touch_up_item_data: RadialMenuItemData,
         is_touch_in_center: bool) -> void:
     _destroyed = true
+    for item in _items:
+        Sc.level.level_control_press_controller.reset_control_exclusivity(
+                item._control)
+    Sc.level.level_control_press_controller.reset_control_exclusivity(
+            _center_area_control)
     if is_instance_valid(touch_up_item_data):
         emit_signal("touch_up_item", touch_up_item_data)
     elif is_touch_in_center:
@@ -135,6 +142,7 @@ func _create_item_level_control(
     control.connect("touch_exited", self, "_on_item_touch_exited", [item])
     control.connect("touch_up", self, "_on_item_touch_up", [item])
     add_child(control)
+    Sc.level.level_control_press_controller.included_exclusively_control(control)
     
     var sprite := item._create_outlineable_sprite()
     sprite.scale = \
