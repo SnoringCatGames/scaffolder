@@ -33,8 +33,6 @@ signal interaction_mode_changed(interaction_mode)
 export var is_disabled := false setget _set_is_disabled
 export var is_focused := false setget _set_is_focused
 
-export var is_touch_disabled := false setget _set_is_touch_disabled
-
 export var screen_radius := 16.0 setget _set_screen_radius
 
 export var mouse_filter := Control.MOUSE_FILTER_STOP
@@ -73,10 +71,6 @@ func _set_is_disabled(value: bool) -> void:
 func _set_is_focused(value: bool) -> void:
     is_focused = value
     _update_interaction_mode(interaction_mode)
-
-
-func _set_is_touch_disabled(value: bool) -> void:
-    is_touch_disabled = value
 
 
 func _set_screen_radius(value: float) -> void:

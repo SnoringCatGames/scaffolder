@@ -160,7 +160,7 @@ func _digest_touches() -> void:
         if !is_instance_valid(current_control):
             # This is a level-global event rather than a control-local event.
             continue
-        if current_control.is_touch_disabled or \
+        if current_control.mouse_filter == Control.MOUSE_FILTER_IGNORE or \
                 _excluded_controls.has(current_control) or \
                 !_included_exclusively_controls.empty() and \
                 !_included_exclusively_controls.has(current_control):
@@ -259,7 +259,7 @@ func _update_hovered_control() -> void:
             if !is_instance_valid(control):
                 controls_to_erase.push_back(control)
                 continue
-            if control.is_touch_disabled or \
+            if control.mouse_filter == Control.MOUSE_FILTER_IGNORE or \
                     _excluded_controls.has(control) or \
                     !_included_exclusively_controls.empty() and \
                     !_included_exclusively_controls.has(control):
@@ -300,7 +300,7 @@ func _get_closest_control_within_screen_space_radius() -> LevelControl:
         if !is_instance_valid(control):
             controls_to_erase.push_back(control)
             continue
-        if control.is_touch_disabled or \
+        if control.mouse_filter == Control.MOUSE_FILTER_IGNORE or \
                 _excluded_controls.has(control) or \
                 !_included_exclusively_controls.empty() and \
                 !_included_exclusively_controls.has(control):
