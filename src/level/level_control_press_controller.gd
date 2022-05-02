@@ -181,9 +181,15 @@ func _digest_touches() -> void:
         _set_hovered_control(closest_control)
         match closest_event[0]:
             LevelControl.TouchType.TOUCH_DOWN:
-                closest_control._on_touch_down(_latest_touch_level_position)
+                closest_control._on_touch_down(
+                        _latest_touch_level_position,
+                        Sc.level.touch_listener \
+                            .get_is_current_touch_handled())
             LevelControl.TouchType.TOUCH_UP:
-                closest_control._on_touch_up(_latest_touch_level_position)
+                closest_control._on_touch_up(
+                        _latest_touch_level_position,
+                        Sc.level.touch_listener \
+                            .get_is_current_touch_handled())
             LevelControl.TouchType.TOUCH_MOVE, \
             _:
                 Sc.logger.error("LevelControlPressController._digest_touches")
@@ -221,14 +227,20 @@ func _digest_touches() -> void:
                 # control's screen-space radius.
                 var control := _get_closest_control_within_screen_space_radius()
                 if is_instance_valid(control):
-                    control._on_touch_down(_latest_touch_level_position)
+                    control._on_touch_down(
+                            _latest_touch_level_position,
+                            Sc.level.touch_listener \
+                                .get_is_current_touch_handled())
             LevelControl.TouchType.TOUCH_UP:
                 # The touch-up event didn't happen within the collision-area
                 # of a LevelControl, but it might be within the bounds of a
                 # control's screen-space radius.
                 var control := _get_closest_control_within_screen_space_radius()
                 if is_instance_valid(control):
-                    control._on_touch_up(_latest_touch_level_position)
+                    control._on_touch_up(
+                            _latest_touch_level_position,
+                            Sc.level.touch_listener \
+                                .get_is_current_touch_handled())
             LevelControl.TouchType.TOUCH_MOVE:
                 _update_hovered_control()
             _:

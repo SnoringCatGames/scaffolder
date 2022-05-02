@@ -626,15 +626,21 @@ func _on_touch_exited() -> void:
     pass
 
 
-func _on_touch_down(level_position: Vector2) -> void:
+func _on_touch_down(
+        level_position: Vector2,
+        is_already_handled: bool) -> void:
     pass
 
 
-func _on_touch_up(level_position: Vector2) -> void:
+func _on_touch_up(
+        level_position: Vector2,
+        is_already_handled: bool) -> void:
     pass
 
 
-func _on_full_pressed(level_position: Vector2) -> void:
+func _on_full_pressed(
+        level_position: Vector2,
+        is_already_handled: bool) -> void:
     pass
 
 

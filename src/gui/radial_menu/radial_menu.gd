@@ -208,6 +208,7 @@ func _on_level_touch_up(
 
 func _on_item_touch_up(
         touch_position: Vector2,
+        is_already_handled: bool,
         item: RadialMenuItemData) -> void:
     _deferred_close(item, false)
 
