@@ -1,2 +1,2 @@
-class_name DefaultCamera
+class_name StaticCamera
 extends ScaffolderCamera
