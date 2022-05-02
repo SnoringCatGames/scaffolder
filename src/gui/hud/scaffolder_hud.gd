@@ -86,7 +86,8 @@ func open_radial_menu(
 
 
 func get_is_radial_menu_open() -> bool:
-    return is_instance_valid(_radial_menu)
+    return is_instance_valid(_radial_menu) and \
+            !_radial_menu._destroyed
 
 
 func _destroy() -> void:
