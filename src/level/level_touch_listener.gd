@@ -6,12 +6,27 @@ signal single_touch_dragged(
         pointer_screen_position,
         pointer_level_position,
         has_corresponding_touch_down)
-signal single_touch_down(pointer_screen_position, pointer_level_position)
+signal single_touch_down(
+        pointer_screen_position,
+        pointer_level_position)
 signal single_touch_released(
         pointer_screen_position,
         pointer_level_position,
         has_corresponding_touch_down)
-signal pinch_changed(pinch_distance, pinch_angle)
+signal single_unhandled_touch_dragged(
+        pointer_screen_position,
+        pointer_level_position,
+        has_corresponding_touch_down)
+signal single_unhandled_touch_down(
+        pointer_screen_position,
+        pointer_level_position)
+signal single_unhandled_touch_released(
+        pointer_screen_position,
+        pointer_level_position,
+        has_corresponding_touch_down)
+signal pinch_changed(
+        pinch_distance,
+        pinch_angle)
 signal pinch_second_touch_down()
 signal pinch_first_touch_released()
 signal pinch_second_touch_released()
@@ -76,6 +91,8 @@ var _active_gestures := {}
 
 # Dictionary<int, CircularBuffer<Touch>>
 var _touch_index_to_touch_buffer := {}
+
+var _touch_handled_time := -INF
 
 
 func _init() -> void:
@@ -250,6 +267,7 @@ func _on_single_touch_down(touch: Touch) -> void:
             "single_touch_down",
             touch.screen_position,
             touch.level_position)
+    call_deferred("call_deferred", "_check_for_unhandled_single_touch_down")
 
 
 func _on_single_touch_moved(touch: Touch) -> void:
@@ -265,6 +283,7 @@ func _on_single_touch_moved(touch: Touch) -> void:
             touch.screen_position,
             touch.level_position,
             _get_has_corresponding_touch_down())
+    call_deferred("call_deferred", "_check_for_unhandled_single_touch_dragged")
 
 
 func _on_single_touch_released(
@@ -283,6 +302,34 @@ func _on_single_touch_released(
             pointer_screen_position,
             pointer_level_position,
             _get_has_corresponding_touch_down())
+    call_deferred("call_deferred", "_check_for_unhandled_single_touch_released")
+
+
+func _check_for_unhandled_single_touch_down() -> void:
+    if !get_is_current_touch_handled():
+        emit_signal(
+                "single_unhandled_touch_down",
+                touch_down_screen_position,
+                touch_down_level_position,
+                _get_has_corresponding_touch_down())
+
+
+func _check_for_unhandled_single_touch_dragged() -> void:
+    if !get_is_current_touch_handled():
+        emit_signal(
+                "single_unhandled_touch_dragged",
+                latest_drag_screen_position,
+                latest_drag_level_position,
+                _get_has_corresponding_touch_down())
+
+
+func _check_for_unhandled_single_touch_released() -> void:
+    if !get_is_current_touch_handled():
+        emit_signal(
+                "single_unhandled_touch_released",
+                release_screen_position,
+                release_level_position,
+                _get_has_corresponding_touch_down())
 
 
 func _on_pinch_second_touch_down(touch: Touch) -> void:
@@ -318,6 +365,14 @@ func _on_pinch_second_touch_released(
     current_pinch_angle = INF
     current_pinch_center_level_position = Vector2.INF
     emit_signal("pinch_second_touch_released")
+
+
+func set_current_touch_as_handled() -> void:
+    _touch_handled_time = Sc.time.get_play_time()
+
+
+func get_is_current_touch_handled() -> bool:
+    return release_time == _touch_handled_time
 
 
 func _get_is_touch_active() -> bool:

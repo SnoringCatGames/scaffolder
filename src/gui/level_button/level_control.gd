@@ -25,9 +25,9 @@ enum TouchType {
 
 signal touch_entered
 signal touch_exited
-signal touch_up(level_position)
-signal touch_down(level_position)
-signal full_pressed(level_position)
+signal touch_up(level_position, is_already_handled)
+signal touch_down(level_position, is_already_handled)
+signal full_pressed(level_position, is_already_handled)
 signal interaction_mode_changed(interaction_mode)
 
 export var is_disabled := false setget _set_is_disabled
@@ -36,6 +36,8 @@ export var is_focused := false setget _set_is_focused
 export var is_touch_disabled := false setget _set_is_touch_disabled
 
 export var screen_radius := 16.0 setget _set_screen_radius
+
+export var mouse_filter := Control.MOUSE_FILTER_STOP
 
 var interaction_mode: int = InteractionMode.NORMAL
 
@@ -227,6 +229,8 @@ func _on_touch_entered() -> void:
 #    Sc.logger.print("LevelControl._on_touch_entered")
     _was_touch_up_a_full_press = false
     _update_interaction_mode(InteractionMode.HOVER)
+    if mouse_filter == Control.MOUSE_FILTER_STOP:
+        Sc.level.touch_listener.set_current_touch_as_handled()
     emit_signal("touch_entered")
 
 
@@ -237,22 +241,33 @@ func _on_touch_exited() -> void:
     emit_signal("touch_exited")
 
 
-func _on_touch_down(level_position: Vector2) -> void:
-    _update_interaction_mode(InteractionMode.PRESSED)
-    emit_signal("touch_down", level_position)
+func _on_touch_down(
+        level_position: Vector2,
+        is_already_handled: bool) -> void:
+    if !is_already_handled:
+        _update_interaction_mode(InteractionMode.PRESSED)
+    if mouse_filter == Control.MOUSE_FILTER_STOP:
+        Sc.level.touch_listener.set_current_touch_as_handled()
+    emit_signal("touch_down", level_position, is_already_handled)
 
 
-func _on_touch_up(level_position: Vector2) -> void:
+func _on_touch_up(
+        level_position: Vector2,
+        is_already_handled: bool) -> void:
     _update_interaction_mode(InteractionMode.HOVER)
+    if mouse_filter == Control.MOUSE_FILTER_STOP:
+        Sc.level.touch_listener.set_current_touch_as_handled()
     if _was_touch_up_a_full_press:
-        _on_full_pressed(level_position)
+        _on_full_pressed(level_position, is_already_handled)
     _was_touch_up_a_full_press = false
-    emit_signal("touch_up", level_position)
+    emit_signal("touch_up", level_position, is_already_handled)
 
 
-func _on_full_pressed(level_position: Vector2) -> void:
+func _on_full_pressed(
+        level_position: Vector2,
+        is_already_handled: bool) -> void:
 #    Sc.logger.print("LevelControl._on_full_pressed")
-    emit_signal("full_pressed", level_position)
+    emit_signal("full_pressed", level_position, is_already_handled)
 
 
 func _on_interaction_mode_changed(interaction_mode: int) -> void:
