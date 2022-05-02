@@ -350,6 +350,13 @@ static func get_level_touch_position(input_event: InputEvent) -> Vector2:
     return Sc.level.make_input_local(input_event).position
 
 
+static func transform_screen_position_to_level_position(
+        screen_position: Vector2) -> Vector2:
+    return (Sc.level.get_canvas_transform() * Sc.level.get_global_transform()) \
+            .affine_inverse() \
+            .xform(screen_position)
+
+
 func add_overlay_to_current_scene(node: Node) -> void:
     get_tree().get_current_scene().add_child(node)
 

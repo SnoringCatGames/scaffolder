@@ -82,7 +82,8 @@ func get_screen_radius_in_level_space() -> float:
 
 
 func get_center_in_level_space() -> Vector2:
-    return global_position
+    return Sc.utils.transform_screen_position_to_level_position(
+            get_center_in_screen_space())
 
 
 func get_center_in_screen_space() -> Vector2:
