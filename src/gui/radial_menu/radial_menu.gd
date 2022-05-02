@@ -67,7 +67,9 @@ func open(position: Vector2) -> void:
     _center_area_control = ShapedLevelControl.new()
     _center_area_control.screen_radius = 0.0
     _center_area_control.shape_circle_radius = \
-            Sc.gui.hud.radial_menu_radius * Sc.gui.scale
+            (Sc.gui.hud.radial_menu_radius - \
+            Sc.gui.hud.radial_menu_item_radius) * \
+            Sc.gui.scale
     _center_area_control.connect("touch_up", self, "_on_center_area_touch_up")
     add_child(_center_area_control)
     Sc.level.level_control_press_controller.included_exclusively_control(
