@@ -33,7 +33,7 @@ func _ready() -> void:
     _tween.connect("tween_all_completed", self, "_on_menu_tween_completed")
     
     Sc.level.touch_listener.connect(
-            "single_touch_released", self, "_on_level_touch_up")
+            "single_unhandled_touch_released", self, "_on_level_touch_up")
 
 
 func _destroy() -> void:
@@ -76,15 +76,14 @@ func open(position: Vector2) -> void:
 
 
 func close() -> void:
-    if _destroyed:
-        return
-    _destroyed = true
-    call_deferred("_deferred_close", null, false)
+    _close(null, false)
 
 
-func _deferred_close(
+func _close(
         touch_up_item_data: RadialMenuItemData,
         is_touch_in_center: bool) -> void:
+    if _destroyed:
+        return
     _destroyed = true
     for item in _items:
         Sc.level.level_control_press_controller.reset_control_exclusivity(
@@ -210,11 +209,13 @@ func _on_item_touch_up(
         touch_position: Vector2,
         is_already_handled: bool,
         item: RadialMenuItemData) -> void:
-    _deferred_close(item, false)
+    _close(item, false)
 
 
-func _on_center_area_touch_up(touch_position: Vector2) -> void:
-    _deferred_close(null, true)
+func _on_center_area_touch_up(
+        touch_position: Vector2,
+        is_already_handled: bool) -> void:
+    _close(null, true)
 
 
 func _interpolate_openness(progress: float) -> void:

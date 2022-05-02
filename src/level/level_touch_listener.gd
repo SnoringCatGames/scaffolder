@@ -67,6 +67,7 @@ var current_drag_screen_displacement: Vector2 \
 var current_drag_level_velocity: Vector2 \
         setget ,_get_current_drag_level_velocity
 
+var latest_touch_time := INF
 var touch_down_time := INF
 var release_time := INF
 
@@ -259,6 +260,7 @@ func _on_single_touch_down(touch: Touch) -> void:
     touch_down_level_position = touch.level_position
     latest_drag_level_position = touch.level_position
     release_level_position = Vector2.INF
+    latest_touch_time = Sc.time.get_play_time()
     touch_down_time = Sc.time.get_play_time()
     current_pinch_screen_distance = INF
     current_pinch_angle = INF
@@ -275,6 +277,7 @@ func _on_single_touch_moved(touch: Touch) -> void:
     release_screen_position = Vector2.INF
     latest_drag_level_position = touch.level_position
     release_level_position = Vector2.INF
+    latest_touch_time = Sc.time.get_play_time()
     current_pinch_screen_distance = INF
     current_pinch_angle = INF
     current_pinch_center_level_position = Vector2.INF
@@ -293,6 +296,7 @@ func _on_single_touch_released(
     release_screen_position = pointer_screen_position
     latest_drag_level_position = Vector2.INF
     release_level_position = pointer_level_position
+    latest_touch_time = Sc.time.get_play_time()
     release_time = Sc.time.get_play_time()
     current_pinch_screen_distance = INF
     current_pinch_angle = INF
@@ -333,6 +337,7 @@ func _check_for_unhandled_single_touch_released() -> void:
 
 
 func _on_pinch_second_touch_down(touch: Touch) -> void:
+    latest_touch_time = Sc.time.get_play_time()
     emit_signal("pinch_second_touch_down")
 
 
@@ -341,6 +346,7 @@ func _on_pinch_changed(touch: Touch) -> void:
     release_screen_position = Vector2.INF
     latest_drag_level_position = Vector2.INF
     release_level_position = Vector2.INF
+    latest_touch_time = Sc.time.get_play_time()
     current_pinch_screen_distance = touch.pinch_distance
     current_pinch_angle = touch.pinch_angle
     current_pinch_center_level_position = touch.pinch_center_level_position
@@ -351,6 +357,7 @@ func _on_pinch_changed(touch: Touch) -> void:
 func _on_pinch_first_touch_released(
         pointer_screen_position: Vector2,
         pointer_level_position: Vector2) -> void:
+    latest_touch_time = Sc.time.get_play_time()
     emit_signal("pinch_first_touch_released")
 
 
@@ -361,6 +368,7 @@ func _on_pinch_second_touch_released(
     release_screen_position = Vector2.INF
     latest_drag_level_position = Vector2.INF
     release_level_position = Vector2.INF
+    latest_touch_time = Sc.time.get_play_time()
     current_pinch_screen_distance = INF
     current_pinch_angle = INF
     current_pinch_center_level_position = Vector2.INF
@@ -371,8 +379,13 @@ func set_current_touch_as_handled() -> void:
     _touch_handled_time = Sc.time.get_play_time()
 
 
+func set_current_touch_as_not_handled() -> void:
+    _touch_handled_time = -INF
+
+
 func get_is_current_touch_handled() -> bool:
-    return release_time == _touch_handled_time
+    return latest_touch_time - _touch_handled_time < \
+            Sc.time.PHYSICS_TIME_STEP + 0.001
 
 
 func _get_is_touch_active() -> bool:

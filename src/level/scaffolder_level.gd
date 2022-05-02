@@ -161,6 +161,7 @@ func _create_hud() -> void:
 
 func _destroy() -> void:
     _hide_welcome_panel()
+    Sc.info_panel.close_panel()
     if is_instance_valid(Sc.gui.hud):
         Sc.gui.hud._destroy()
     for character_name in characters:
