@@ -13,6 +13,8 @@ var description := ""
 var is_visible := true
 var is_disabled := false
 
+var _hover_progress := 0.0
+
 var _menu
 var _index: int
 var _angle: float

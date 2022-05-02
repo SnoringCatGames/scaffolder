@@ -11,6 +11,7 @@ extends Node2D
 #   meteor-power subclass).
 
 
+signal closed()
 signal touch_up_item(item_data)
 signal touch_up_center()
 signal touch_up_outside()
@@ -39,6 +40,8 @@ func _destroy() -> void:
     for item in _items:
         if is_instance_valid(item._control):
             item._control._destroy()
+        if is_instance_valid(item._tween):
+            item._tween._destroy()
     if is_instance_valid(_center_area_control):
         _center_area_control._destroy()
     queue_free()
@@ -94,6 +97,7 @@ func _deferred_close(
         emit_signal("touch_up_center")
     else:
         emit_signal("touch_up_outside")
+    emit_signal("closed")
     _transition_closed()
 
 
@@ -172,7 +176,7 @@ func _on_item_touch_entered(item: RadialMenuItemData) -> void:
     item._tween.interpolate_method(
             item,
             "_interpolate_item_hover",
-            0.0,
+            item._hover_progress,
             1.0,
             Sc.gui.hud.radial_menu_item_hover_duration,
             "ease_out_strong",
@@ -186,7 +190,7 @@ func _on_item_touch_exited(item: RadialMenuItemData) -> void:
     item._tween.interpolate_method(
             item,
             "_interpolate_item_hover",
-            1.0,
+            item._hover_progress,
             0.0,
             Sc.gui.hud.radial_menu_item_hover_duration,
             "ease_in_strong",

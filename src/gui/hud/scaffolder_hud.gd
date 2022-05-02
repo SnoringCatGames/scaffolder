@@ -3,6 +3,9 @@ class_name ScaffolderHud
 extends Node2D
 
 
+signal radial_menu_opened()
+signal radial_menu_closed()
+
 var radial_menu_class: Script
 var radial_menu_item_hovered_scale: float
 var radial_menu_radius: float
@@ -73,10 +76,17 @@ func open_radial_menu(
     _radial_menu = radial_menu_class.new()
     _radial_menu.metadata = metadata
     _radial_menu.set_items(items)
+    _radial_menu.connect("closed", self, "emit_signal", ["radial_menu_closed"])
     add_child(_radial_menu)
     _radial_menu.open(position)
     
+    emit_signal("radial_menu_opened")
+    
     return _radial_menu
+
+
+func get_is_radial_menu_open() -> bool:
+    return is_instance_valid(_radial_menu)
 
 
 func _destroy() -> void:

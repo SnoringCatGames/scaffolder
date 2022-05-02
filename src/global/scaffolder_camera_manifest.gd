@@ -9,7 +9,7 @@ signal manually_panned
 signal zoomed
 signal panned
 
-var default_camera_class: Script = DefaultCamera
+var default_camera_class: Script = StaticCamera
 var snaps_camera_back_to_character := true
 
 var smoothing_speed: float
