@@ -999,7 +999,8 @@ var _info_panel_manifest := {
 }
 
 var _slow_motion_manifest := {
-    time_scale = 0.5,
+    default_time_scale = 0.5,
+    gui_mode_time_scale = 0.02,
     tick_tock_tempo_multiplier = 1,
     saturation = 0.5,
 #    time_scale = 0.02,

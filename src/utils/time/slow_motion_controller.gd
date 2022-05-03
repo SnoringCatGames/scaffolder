@@ -17,7 +17,9 @@ const DISABLE_SLOW_MOTION_SATURATION_DURATION_MULTIPLIER := 0.9
 var is_enabled := false setget set_slow_motion_enabled
 var is_transitioning := false
 
-var time_scale := 0.02
+var default_time_scale := 0.1
+var gui_mode_time_scale := 0.02
+var time_scale := default_time_scale
 var tick_tock_tempo_multiplier := 25.0
 var saturation := 0.2
 
@@ -48,8 +50,11 @@ func _init() -> void:
 
 
 func _parse_manifest(manifest: Dictionary) -> void:
-    if manifest.has("time_scale"):
-        self.time_scale = manifest.time_scale
+    if manifest.has("default_time_scale"):
+        self.default_time_scale = manifest.default_time_scale
+        self.time_scale = default_time_scale
+    if manifest.has("gui_mode_time_scale"):
+        self.gui_mode_time_scale = manifest.gui_mode_time_scale
     if manifest.has("tick_tock_tempo_multiplier"):
         self.tick_tock_tempo_multiplier = manifest.tick_tock_tempo_multiplier
     if manifest.has("saturation"):
