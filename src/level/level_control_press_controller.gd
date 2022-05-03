@@ -270,9 +270,15 @@ func _update_hovered_control() -> void:
             if current_distance_squared < closest_distance_squared:
                 closest_valid_control = control
                 closest_distance_squared = current_distance_squared
+        # TODO:
+        # - This is a hack!
+        # - For some reason, attempting to erase a null value (or probably
+        #   actually a freed object) from the Dictionary is failing here.
+        if controls_to_erase.size() == _hovered_controls.size():
+            _hovered_controls.clear()
         for control in controls_to_erase:
             _erase_control(control)
-    else:
+    if _hovered_controls.empty():
         # The current touch isn't within the bounds of any control's
         # collision-area, but it might be within the bounds of a control's
         # screen-space radius.
