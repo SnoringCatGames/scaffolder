@@ -18,9 +18,11 @@ var _misc_offset := Vector2.ZERO
 var _camera_swap_zoom := 1.0
 var _controller_zoom := 1.0
 var _misc_zoom := 1.0
+var _extra_zoom := 1.0
 
 var _controller_tween: ScaffolderTween
 var _camera_swap_tween: ScaffolderTween
+var _extra_zoom_tween: ScaffolderTween
 
 var _target_controller_offset := Vector2.ZERO
 var _target_controller_zoom := 1.0
@@ -34,6 +36,7 @@ func _init() -> void:
     
     _controller_tween = ScaffolderTween.new(self)
     _camera_swap_tween = ScaffolderTween.new(self)
+    _extra_zoom_tween = ScaffolderTween.new(self)
 
 
 func _ready() -> void:
@@ -54,19 +57,21 @@ func _validate() -> void:
 
 
 func reset(emits_signal := true) -> void:
-    self._camera_swap_offset = Vector2.ZERO
-    self._controller_offset = Vector2.ZERO
-    self._misc_offset = Vector2.ZERO
+    _camera_swap_offset = Vector2.ZERO
+    _controller_offset = Vector2.ZERO
+    _misc_offset = Vector2.ZERO
     
-    self._camera_swap_zoom = 1.0
-    self._controller_zoom = 1.0
-    self._misc_zoom = 1.0
+    _camera_swap_zoom = 1.0
+    _controller_zoom = 1.0
+    _misc_zoom = 1.0
+    _extra_zoom = 1.0
     
-    self._target_controller_offset = Vector2.ZERO
-    self._target_controller_zoom = 1.0
+    _target_controller_offset = Vector2.ZERO
+    _target_controller_zoom = 1.0
     
-    self._controller_tween.stop_all()
-    self._camera_swap_tween.stop_all()
+    _controller_tween.stop_all()
+    _camera_swap_tween.stop_all()
+    _extra_zoom_tween.stop_all()
     
     _update_offset_and_zoom(true, emits_signal)
 
@@ -152,6 +157,7 @@ func match_camera(other: ScaffolderCamera) -> void:
             other._target_controller_zoom * other._misc_zoom
     _controller_offset = _target_controller_offset
     _controller_zoom = _target_controller_zoom
+    _extra_zoom = other._extra_zoom
     _update_offset_and_zoom(true, false)
 
 
@@ -178,28 +184,28 @@ func _transition_from_offset_and_zoom(
     var start_zoom := other_zoom / self.zoom.x
     var end_zoom := 1.0
     
-    _set_camera_swap_offset(start_offset)
-    _set_camera_swap_zoom(start_zoom)
+    _camera_swap_offset = start_offset
+    _camera_swap_zoom = start_zoom
+    _update_offset_and_zoom()
     
     _camera_swap_tween.stop_all()
     if end_offset == start_offset and \
             end_zoom == start_zoom:
         return
-    # FIXME: ----------- Combine this into a single interpolate_method.
+    
+    var start := Vector3(
+            start_offset.x,
+            start_offset.y,
+            start_zoom)
+    var end := Vector3(
+            end_offset.x,
+            end_offset.y,
+            end_zoom)
     _camera_swap_tween.interpolate_method(
             self,
-            "_set_camera_swap_offset",
-            start_offset,
-            end_offset,
-            duration,
-            "ease_in_out",
-            0.0,
-            TimeType.PLAY_PHYSICS_SCALED)
-    _camera_swap_tween.interpolate_method(
-            self,
-            "_set_camera_swap_zoom",
-            start_zoom,
-            end_zoom,
+            "_interpolate_camera_swap_offset_and_zoom",
+            start,
+            end,
             duration,
             "ease_in_out",
             0.0,
@@ -216,6 +222,26 @@ func _zoom_to_position(
     var delta_offset := cursor_camera_position * (1 - zoom / _target_controller_zoom)
     var offset := _target_controller_offset + delta_offset
     _update_controller_pan_and_zoom(offset, zoom, includes_tween)
+
+
+func transition_extra_zoom(
+        new_extra_zoom: float,
+        duration := Sc.camera.offset_transition_duration) -> void:
+    _extra_zoom_tween.stop_all()
+    
+    if _extra_zoom == new_extra_zoom:
+        return
+    
+    _extra_zoom_tween.interpolate_method(
+            self,
+            "_set_extra_zoom",
+            _extra_zoom,
+            new_extra_zoom,
+            duration,
+            "ease_in_out",
+            0.0,
+            TimeType.PLAY_PHYSICS_SCALED)
+    _extra_zoom_tween.start()
 
 
 func get_visible_region() -> Rect2:
@@ -284,8 +310,9 @@ func _update_controller_pan_and_zoom(
     
     if !includes_tween:
         _controller_tween.stop_all()
-        _interpolate_controller_offset(_target_controller_offset)
-        _interpolate_controller_zoom(_target_controller_zoom)
+        _controller_offset = _target_controller_offset
+        _controller_zoom = _target_controller_zoom
+        _update_offset_and_zoom()
     else:
         if Sc.geometry.are_points_equal_with_epsilon(
                     previous_target_controller_offset, _target_controller_offset) and \
@@ -294,27 +321,22 @@ func _update_controller_pan_and_zoom(
                 _controller_tween.is_active():
             return
         
-        # FIXME: ---------------
-        if !Sc.geometry.are_points_equal_with_epsilon(next_controller_offset, previous_target_controller_offset):
-            pass
+        var start := Vector3(
+                _controller_offset.x,
+                _controller_offset.y,
+                _controller_zoom)
+        var end := Vector3(
+                next_controller_offset.x,
+                next_controller_offset.y,
+                next_controller_zoom)
         
         # Transition to the new values.
         _controller_tween.stop_all()
-        # FIXME: ----------- Combine this into a single interpolate_method.
         _controller_tween.interpolate_method(
                 self,
-                "_interpolate_controller_offset",
-                _controller_offset,
-                next_controller_offset,
-                _TWEEN_DURATION,
-                "linear",
-                0.0,
-                TimeType.PLAY_PHYSICS)
-        _controller_tween.interpolate_method(
-                self,
-                "_interpolate_controller_zoom",
-                _controller_zoom,
-                next_controller_zoom,
+                "_interpolate_controller_offset_and_zoom",
+                start,
+                end,
                 _TWEEN_DURATION,
                 "linear",
                 0.0,
@@ -344,6 +366,7 @@ func _update_offset_and_zoom(
             _camera_swap_zoom * \
             _controller_zoom * \
             _misc_zoom * \
+            _extra_zoom * \
             Sc.camera.gui_camera_zoom_factor / Sc.gui.scale
     var new_offset: Vector2 = \
             Sc.camera.manual_offset + \
@@ -391,19 +414,21 @@ func _update_offset_and_zoom(
             Sc.camera.emit_signal("zoomed")
 
 
+func _interpolate_controller_offset_and_zoom(offset_and_zoom: Vector3) -> void:
+    _controller_offset = Vector2(offset_and_zoom.x, offset_and_zoom.y)
+    _controller_zoom = offset_and_zoom.z
+    _update_offset_and_zoom()
+
+
+func _interpolate_camera_swap_offset_and_zoom(offset_and_zoom: Vector3) -> void:
+    _camera_swap_offset = Vector2(offset_and_zoom.x, offset_and_zoom.y)
+    _camera_swap_zoom = offset_and_zoom.z
+    _update_offset_and_zoom()
+
+
 func set_position(value: Vector2) -> void:
     .set_position(value)
     assert(value == Vector2.ZERO, "Use `offset` instead of `position`.")
-
-
-func _set_camera_swap_offset(offset: Vector2) -> void:
-    _camera_swap_offset = offset
-    _update_offset_and_zoom()
-
-
-func _interpolate_controller_offset(offset: Vector2) -> void:
-    _controller_offset = offset
-    _update_offset_and_zoom()
 
 
 func _set_misc_offset(offset: Vector2) -> void:
@@ -411,16 +436,11 @@ func _set_misc_offset(offset: Vector2) -> void:
     _update_offset_and_zoom()
 
 
-func _set_camera_swap_zoom(zoom: float) -> void:
-    _camera_swap_zoom = zoom
-    _update_offset_and_zoom()
-
-
-func _interpolate_controller_zoom(zoom: float) -> void:
-    _controller_zoom = zoom
-    _update_offset_and_zoom()
-
-
 func _set_misc_zoom(zoom: float) -> void:
     _misc_zoom = zoom
+    _update_offset_and_zoom()
+
+
+func _set_extra_zoom(zoom: float) -> void:
+    _extra_zoom = zoom
     _update_offset_and_zoom()
