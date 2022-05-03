@@ -3,6 +3,9 @@ class_name InfoPanelController
 extends Node
 
 
+signal opened(data)
+signal closed(data)
+
 const _INFO_PANEL_SCENE := preload(
         "res://addons/scaffolder/src/gui/info_panel/info_panel.tscn")
 
