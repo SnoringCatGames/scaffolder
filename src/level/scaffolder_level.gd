@@ -277,6 +277,7 @@ func register_spawn_position(
 
 func swap_camera(
         camera_or_class,
+        matches_previous_camera_pan_and_zoom: bool,
         destroys_previous_camera := false) -> void:
     var previous_camera := camera
     var previous_class: Script = \
@@ -296,9 +297,13 @@ func swap_camera(
     var next_camera: ScaffolderCamera = \
             camera_or_class if \
             is_next_camera_already_instantiated else \
-            camera_or_class.new(previous_camera)
+            camera_or_class.new()
     if !is_next_camera_already_instantiated:
         add_child(next_camera)
+    
+    if matches_previous_camera_pan_and_zoom:
+        next_camera.match_camera(previous_camera)
+    
     next_camera.is_active = true
     previous_camera.is_active = false
     

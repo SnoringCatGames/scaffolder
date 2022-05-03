@@ -26,12 +26,21 @@ func _validate() -> void:
     assert(Sc.gui.is_player_interaction_enabled)
 
 
+func reset(emits_signal := true) -> void:
+    _is_pan_continuation_active = false
+    _is_zoom_continuation_active = false
+    _pan_velocity = Vector2.ZERO
+    _zoom_speed = 0.0
+    _zoom_target_level_position = Vector2.INF
+    .reset(emits_signal)
+
+
 func _set_is_active(value: bool) -> void:
     var previous_camera: ScaffolderCamera = Sc.level.camera
     if value and is_instance_valid(previous_camera):
         _update_controller_pan_and_zoom(
                 previous_camera.offset,
-                _target_zoom,
+                _target_controller_zoom,
                 false)
     ._set_is_active(value)
     if !value:
@@ -109,9 +118,9 @@ func _update_pan_continuation(physics_play_time_delta: float) -> void:
     var delta_offset := \
             _pan_velocity * physics_play_time_delta * \
             Sc.camera.swipe_pan_speed_multiplier
-    var offset := _target_offset + delta_offset
+    var offset := _target_controller_offset + delta_offset
     
-    _update_controller_pan_and_zoom(offset, _target_zoom, false)
+    _update_controller_pan_and_zoom(offset, _target_controller_zoom, false)
 
 
 func _update_zoom_continuation(physics_play_time_delta: float) -> void:
@@ -155,7 +164,7 @@ func _update_zoom_continuation(physics_play_time_delta: float) -> void:
     else:
         zoom_speed_distance_ratio = \
                 1.0 - (1.0 - zoom_speed_distance_ratio) * Sc.camera.swipe_pinch_zoom_speed_multiplier
-    var zoom: float = _target_zoom / zoom_speed_distance_ratio
+    var zoom: float = _target_controller_zoom / zoom_speed_distance_ratio
     
     _zoom_to_position(zoom, _zoom_target_level_position, false)
 
@@ -189,11 +198,11 @@ func _on_single_touch_dragged(
             0.0,
             Sc.camera.swipe_max_pan_speed)
     var offset: Vector2 = \
-            _target_offset - \
+            _target_controller_offset - \
             Sc.level.touch_listener.current_drag_screen_displacement * \
             Sc.camera.swipe_pan_speed_multiplier * \
             self.zoom.x
-    _update_controller_pan_and_zoom(offset, _target_zoom, false)
+    _update_controller_pan_and_zoom(offset, _target_controller_zoom, false)
 
 
 func _on_single_touch_released(
@@ -219,12 +228,11 @@ func _on_pinch_changed(
     
     var distance_ratio := \
             Sc.level.touch_listener.current_pinch_screen_distance_ratio_from_previous
-    var foo := distance_ratio
     if distance_ratio > 1.0:
         distance_ratio = 1.0 + (distance_ratio - 1.0) * Sc.camera.swipe_pinch_zoom_speed_multiplier
     else:
         distance_ratio = 1.0 - (1.0 - distance_ratio) * Sc.camera.swipe_pinch_zoom_speed_multiplier
-    var zoom: float = _target_zoom / distance_ratio
+    var zoom: float = _target_controller_zoom / distance_ratio
     
     _zoom_to_position(zoom, _zoom_target_level_position, false)
 
