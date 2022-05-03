@@ -442,5 +442,12 @@ func _set_misc_zoom(zoom: float) -> void:
 
 
 func _set_extra_zoom(zoom: float) -> void:
-    _extra_zoom = zoom
+    var max_extra_zoom: float = \
+            _max_zoom / \
+            Sc.camera.manual_zoom / \
+            _camera_swap_zoom / \
+            _controller_zoom / \
+            _misc_zoom / \
+            (Sc.camera.gui_camera_zoom_factor / Sc.gui.scale)
+    _extra_zoom = clamp(zoom, 0.0001, max_extra_zoom)
     _update_offset_and_zoom()
