@@ -221,7 +221,7 @@ func _zoom_to_position(
     var cursor_camera_position := zoom_target_level_position - self.offset
     var delta_offset := cursor_camera_position * (1 - zoom / _target_controller_zoom)
     var offset := _target_controller_offset + delta_offset
-    _update_controller_pan_and_zoom(offset, zoom, includes_tween)
+    _update_controller_offset_and_zoom(offset, zoom, includes_tween)
 
 
 func transition_extra_zoom(
@@ -242,6 +242,13 @@ func transition_extra_zoom(
             0.0,
             TimeType.PLAY_PHYSICS_SCALED)
     _extra_zoom_tween.start()
+
+
+func nudge_offset(delta: Vector2) -> void:
+    _update_controller_offset_and_zoom(
+            _target_controller_offset + delta,
+            _target_controller_zoom,
+            true)
 
 
 func get_visible_region() -> Rect2:
@@ -280,7 +287,7 @@ func _calculate_max_position_for_zoom_for_camera_bounds(zoom: float) -> Vector2:
     return Sc.level.camera_bounds.end - camera_region_size / 2.0
 
 
-func _update_controller_pan_and_zoom(
+func _update_controller_offset_and_zoom(
         next_controller_offset: Vector2,
         next_controller_zoom: float,
         includes_tween := true) -> void:
@@ -317,8 +324,7 @@ func _update_controller_pan_and_zoom(
         if Sc.geometry.are_points_equal_with_epsilon(
                     previous_target_controller_offset, _target_controller_offset) and \
                 Sc.geometry.are_floats_equal_with_epsilon(
-                    previous_target_controller_zoom, _target_controller_zoom) and \
-                _controller_tween.is_active():
+                    previous_target_controller_zoom, _target_controller_zoom):
             return
         
         var start := Vector3(

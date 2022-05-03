@@ -25,12 +25,14 @@ var _center_area_control: LevelControl
 
 var _destroyed := false
 
-var _tween: ScaffolderTween
+var _openness_tween: ScaffolderTween
+var _position_tween: ScaffolderTween
 
 
 func _ready() -> void:
-    _tween = ScaffolderTween.new(self)
-    _tween.connect("tween_all_completed", self, "_on_menu_tween_completed")
+    _openness_tween = ScaffolderTween.new(self)
+    _openness_tween.connect("tween_all_completed", self, "_on_menu_tween_completed")
+    _position_tween = ScaffolderTween.new(self)
     
     Sc.level.touch_listener.connect(
             "single_unhandled_touch_released", self, "_on_level_touch_up")
@@ -62,8 +64,9 @@ func set_items(items: Array) -> void:
         _create_item_level_control(item, i, angular_spread)
 
 
-func open(position: Vector2) -> void:
-    self.position = position
+func open(screen_position: Vector2) -> void:
+    self.position = screen_position
+    
     _center_area_control = ShapedLevelControl.new()
     _center_area_control.screen_radius = 0.0
     _center_area_control.shape_circle_radius = \
@@ -72,6 +75,32 @@ func open(position: Vector2) -> void:
             Sc.gui.scale
     _center_area_control.connect("touch_up", self, "_on_center_area_touch_up")
     add_child(_center_area_control)
+    
+    # -   Adjust the position so the radial-menu will fit in the screen.
+    # -   Adjust the camera so the level will still line-up with the
+    #     radial-menu.
+    var screen_margin: float = \
+            (Sc.gui.hud.radial_menu_radius + \
+            Sc.gui.hud.radial_menu_item_radius) * \
+            Sc.gui.scale
+    var position_boundaries := \
+            Rect2(Vector2.ZERO, Sc.device.get_viewport_size()) \
+                .grow(-screen_margin)
+    var clamped_screen_position := Vector2(
+            clamp(screen_position.x,
+                    position_boundaries.position.x,
+                    position_boundaries.end.x),
+            clamp(screen_position.y,
+                    position_boundaries.position.y,
+                    position_boundaries.end.y))
+    if clamped_screen_position != screen_position:
+        var screen_displacement := clamped_screen_position - screen_position
+        var level_displacement: Vector2 = \
+                screen_displacement * Sc.level.camera.zoom.x
+        Sc.level.camera.nudge_offset(-level_displacement)
+        _transition_position(
+                screen_displacement, Sc.camera.offset_transition_duration)
+    
     Sc.level.level_control_press_controller.included_exclusively_control(
             _center_area_control)
     _transition_open()
@@ -103,8 +132,8 @@ func _close(
 
 
 func _transition_open() -> void:
-    _tween.stop_all()
-    _tween.interpolate_method(
+    _openness_tween.stop_all()
+    _openness_tween.interpolate_method(
             self,
             "_interpolate_openness",
             0.0,
@@ -112,13 +141,13 @@ func _transition_open() -> void:
             Sc.gui.hud.radial_menu_open_duration,
             "ease_out_strong",
             0.0,
-            TimeType.PLAY_PHYSICS_SCALED)
-    _tween.start()
+            TimeType.PLAY_PHYSICS)
+    _openness_tween.start()
 
 
 func _transition_closed() -> void:
-    _tween.stop_all()
-    _tween.interpolate_method(
+    _openness_tween.stop_all()
+    _openness_tween.interpolate_method(
             self,
             "_interpolate_openness",
             1.0,
@@ -126,8 +155,24 @@ func _transition_closed() -> void:
             Sc.gui.hud.radial_menu_close_duration,
             "ease_in_strong",
             0.0,
+            TimeType.PLAY_PHYSICS)
+    _openness_tween.start()
+
+
+func _transition_position(
+        screen_displacement: Vector2,
+        duration: float) -> void:
+    _position_tween.stop_all()
+    _position_tween.interpolate_property(
+            self,
+            "position",
+            position,
+            position + screen_displacement,
+            duration,
+            "ease_in_out",
+            0.0,
             TimeType.PLAY_PHYSICS_SCALED)
-    _tween.start()
+    _position_tween.start()
 
 
 func _create_item_level_control(
@@ -182,7 +227,7 @@ func _on_item_touch_entered(item: RadialMenuItemData) -> void:
             Sc.gui.hud.radial_menu_item_hover_duration,
             "ease_out_strong",
             0.0,
-            TimeType.PLAY_PHYSICS_SCALED)
+            TimeType.PLAY_PHYSICS)
     item._tween.start()
 
 
@@ -196,7 +241,7 @@ func _on_item_touch_exited(item: RadialMenuItemData) -> void:
             Sc.gui.hud.radial_menu_item_hover_duration,
             "ease_in_strong",
             0.0,
-            TimeType.PLAY_PHYSICS_SCALED)
+            TimeType.PLAY_PHYSICS)
     item._tween.start()
 
 
