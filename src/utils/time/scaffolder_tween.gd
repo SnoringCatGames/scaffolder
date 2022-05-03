@@ -59,6 +59,12 @@ func is_active() -> bool:
     return !_active_sub_tweens.empty()
 
 
+func get_progress() -> float:
+    return 0.0 if \
+            _active_sub_tweens.empty() else \
+            _active_sub_tweens[0].progress
+
+
 func start() -> bool:
     if _pending_sub_tweens.empty():
         return false
@@ -199,6 +205,8 @@ class _SubTween extends Reference:
     
     var start_time := INF
     
+    var progress := 0.0
+    
     
     func _init(
             object: Object,
@@ -242,7 +250,7 @@ class _SubTween extends Reference:
         var elapsed_time := current_time - start_time
         if elapsed_time < delay:
             return
-        var progress := clamp(
+        progress = clamp(
                 (elapsed_time - delay) / duration,
                 0,
                 1)
