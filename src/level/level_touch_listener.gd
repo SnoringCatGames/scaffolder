@@ -2,28 +2,30 @@ class_name LevelTouchListener
 extends Node2D
 
 
+signal single_touch_down(
+        pointer_screen_position,
+        pointer_level_position)
 signal single_touch_dragged(
         pointer_screen_position,
         pointer_level_position,
         has_corresponding_touch_down)
-signal single_touch_down(
-        pointer_screen_position,
-        pointer_level_position)
 signal single_touch_released(
         pointer_screen_position,
         pointer_level_position,
         has_corresponding_touch_down)
+
+signal single_unhandled_touch_down(
+        pointer_screen_position,
+        pointer_level_position)
 signal single_unhandled_touch_dragged(
         pointer_screen_position,
         pointer_level_position,
         has_corresponding_touch_down)
-signal single_unhandled_touch_down(
-        pointer_screen_position,
-        pointer_level_position)
 signal single_unhandled_touch_released(
         pointer_screen_position,
         pointer_level_position,
         has_corresponding_touch_down)
+
 signal pinch_changed(
         pinch_distance,
         pinch_angle)
@@ -314,8 +316,7 @@ func _check_for_unhandled_single_touch_down() -> void:
         emit_signal(
                 "single_unhandled_touch_down",
                 touch_down_screen_position,
-                touch_down_level_position,
-                _get_has_corresponding_touch_down())
+                touch_down_level_position)
 
 
 func _check_for_unhandled_single_touch_dragged() -> void:
