@@ -76,13 +76,28 @@ func open_radial_menu(
     _radial_menu = radial_menu_class.new()
     _radial_menu.metadata = metadata
     _radial_menu.set_items(items)
-    _radial_menu.connect("closed", self, "emit_signal", ["radial_menu_closed"])
+    _radial_menu.connect("closed", self, "_on_radial_menu_closed")
     add_child(_radial_menu)
     _radial_menu.open(position)
+    
+    Sc.slow_motion.time_scale = Sc.slow_motion.gui_mode_time_scale
+    Sc.slow_motion.set_slow_motion_enabled(true)
     
     emit_signal("radial_menu_opened")
     
     return _radial_menu
+
+
+func clase_radial_menu() -> void:
+    if is_instance_valid(_radial_menu):
+        _radial_menu.close()
+        _previous_radial_menu = _radial_menu
+
+
+func _on_radial_menu_closed() -> void:
+    Sc.slow_motion.set_slow_motion_enabled(false)
+    Sc.slow_motion.time_scale = Sc.slow_motion.default_time_scale
+    emit_signal("radial_menu_closed")
 
 
 func get_is_radial_menu_open() -> bool:
