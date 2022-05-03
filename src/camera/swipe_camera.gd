@@ -38,7 +38,7 @@ func reset(emits_signal := true) -> void:
 func _set_is_active(value: bool) -> void:
     var previous_camera: ScaffolderCamera = Sc.level.camera
     if value and is_instance_valid(previous_camera):
-        _update_controller_pan_and_zoom(
+        _update_controller_offset_and_zoom(
                 previous_camera.offset,
                 _target_controller_zoom,
                 false)
@@ -120,7 +120,7 @@ func _update_pan_continuation(physics_play_time_delta: float) -> void:
             Sc.camera.swipe_pan_speed_multiplier
     var offset := _target_controller_offset + delta_offset
     
-    _update_controller_pan_and_zoom(offset, _target_controller_zoom, false)
+    _update_controller_offset_and_zoom(offset, _target_controller_zoom, false)
 
 
 func _update_zoom_continuation(physics_play_time_delta: float) -> void:
@@ -202,7 +202,7 @@ func _on_single_touch_dragged(
             Sc.level.touch_listener.current_drag_screen_displacement * \
             Sc.camera.swipe_pan_speed_multiplier * \
             self.zoom.x
-    _update_controller_pan_and_zoom(offset, _target_controller_zoom, false)
+    _update_controller_offset_and_zoom(offset, _target_controller_zoom, false)
 
 
 func _on_single_touch_released(
