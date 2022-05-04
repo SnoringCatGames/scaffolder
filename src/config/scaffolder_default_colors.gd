@@ -30,6 +30,12 @@ var teal := Color(0.277, 0.973, 1.0)
 var red := Color(1.0, 0.305, 0.277)
 var orange := Color(1.0, 0.648, 0.277)
 
+var highlight_green := Color("cc6abe30")
+var highlight_light_blue := Color("ff1cb0ff")
+var highlight_dark_blue := Color("cc003066")
+var highlight_disabled := Color("77292929")
+var highlight_red := Color("ffcc2c16")
+
 # Should match Project Settings > Application > Boot Splash > Bg Color.
 var default_splash_background := Color("202531")
 # Should match Project Settings > Rendering > Environment > Default Clear Color.
