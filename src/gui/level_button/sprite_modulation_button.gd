@@ -4,24 +4,61 @@ class_name SpriteModulationButton, \
 extends LevelButton
 
 
-const DEFAULT_NORMAL_MODULATE := Color("cc6abe30")
-const DEFAULT_HOVER_MODULATE := Color("ff1cb0ff")
-const DEFAULT_PRESSED_MODULATE := Color("cc003066")
-const DEFAULT_DISABLED_MODULATE := Color("77292929")
-#const DEFAULT_ERROR_MODULATE := Color("ffcc2c16")
+var texture: Texture setget _set_texture,_get_texture
 
-export var texture: Texture setget _set_texture,_get_texture
-
-export var normal_modulate := DEFAULT_NORMAL_MODULATE \
+var normal_modulate := ColorFactory.palette("highlight_green") \
         setget _set_normal_modulate
-export var hover_modulate := DEFAULT_HOVER_MODULATE \
+var hover_modulate := ColorFactory.palette("highlight_light_blue") \
         setget _set_hover_modulate
-export var pressed_modulate := DEFAULT_PRESSED_MODULATE \
+var pressed_modulate := ColorFactory.palette("highlight_dark_blue") \
         setget _set_pressed_modulate
-export var disabled_modulate := DEFAULT_DISABLED_MODULATE \
+var disabled_modulate := ColorFactory.palette("highlight_disabled") \
         setget _set_disabled_modulate
-export var alpha_multiplier := -1.0 \
+var alpha_multiplier := -1.0 \
         setget _set_alpha_multiplier
+
+const _PROPERTY_LIST_ADDENDUM := [
+    {
+        name = "texture",
+        type = TYPE_OBJECT,
+        hint = PROPERTY_HINT_RESOURCE_TYPE,
+        usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+        hint_string = "Texture",
+    },
+    {
+        name = "normal_modulate",
+        type = TYPE_OBJECT,
+        usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+        hint = ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG,
+    },
+    {
+        name = "hover_modulate",
+        type = TYPE_OBJECT,
+        usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+        hint = ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG,
+    },
+    {
+        name = "pressed_modulate",
+        type = TYPE_OBJECT,
+        usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+        hint = ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG,
+    },
+    {
+        name = "disabled_modulate",
+        type = TYPE_OBJECT,
+        usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+        hint = ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG,
+    },
+    {
+        name = "alpha_multiplier",
+        type = TYPE_REAL,
+        usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+    },
+]
+
+
+func _get_property_list() -> Array:
+    return _PROPERTY_LIST_ADDENDUM
 
 
 func _update() -> void:
@@ -67,22 +104,22 @@ func _get_texture() -> Texture:
     return $Sprite.texture
 
 
-func _set_normal_modulate(value: Color) -> void:
+func _set_normal_modulate(value: ColorConfig) -> void:
     normal_modulate = value
     _update_modulation()
 
 
-func _set_hover_modulate(value: Color) -> void:
+func _set_hover_modulate(value: ColorConfig) -> void:
     hover_modulate = value
     _update_modulation()
 
 
-func _set_pressed_modulate(value: Color) -> void:
+func _set_pressed_modulate(value: ColorConfig) -> void:
     pressed_modulate = value
     _update_modulation()
 
 
-func _set_disabled_modulate(value: Color) -> void:
+func _set_disabled_modulate(value: ColorConfig) -> void:
     disabled_modulate = value
     _update_modulation()
 
