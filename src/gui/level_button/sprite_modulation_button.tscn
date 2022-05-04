@@ -7,9 +7,15 @@ collision_layer = 1073741824
 monitoring = false
 monitorable = false
 script = ExtResource( 1 )
-screen_radius = null
-mouse_cursor_override = 2
-pressed_modulate = Color( 0.0470588, 0.439216, 0.666667, 0.8 )
+texture = null
+normal_modulate = Object(Reference,"script":Resource( "res://addons/scaffolder/src/config/color_config/palette_color_config.gd" ),"h":0.0,"s":0.0,"v":0.0,"a":0.0,"key":"highlight_green","_h_override":-1.0,"_s_override":-1.0,"_v_override":-1.0,"_a_override":-1.0,"h_delta":0.0,"s_delta":0.0,"v_delta":0.0,"a_delta":0.0,"override_color":Color( -1, -2, -2, -1 ),"delta_color":Color( 0, 0, 0, 0 ),"key":"highlight_green","_h_override":-1.0,"_s_override":-1.0,"_v_override":-1.0,"_a_override":-1.0,"h_delta":0.0,"s_delta":0.0,"v_delta":0.0,"a_delta":0.0)
+
+hover_modulate = Object(Reference,"script":Resource( "res://addons/scaffolder/src/config/color_config/palette_color_config.gd" ),"h":0.0,"s":0.0,"v":0.0,"a":0.0,"key":"highlight_light_blue","_h_override":-1.0,"_s_override":-1.0,"_v_override":-1.0,"_a_override":-1.0,"h_delta":0.0,"s_delta":0.0,"v_delta":0.0,"a_delta":0.0,"override_color":Color( -1, -2, -2, -1 ),"delta_color":Color( 0, 0, 0, 0 ),"key":"highlight_light_blue","_h_override":-1.0,"_s_override":-1.0,"_v_override":-1.0,"_a_override":-1.0,"h_delta":0.0,"s_delta":0.0,"v_delta":0.0,"a_delta":0.0)
+
+pressed_modulate = Object(Reference,"script":Resource( "res://addons/scaffolder/src/config/color_config/palette_color_config.gd" ),"h":0.0,"s":0.0,"v":0.0,"a":0.0,"key":"highlight_dark_blue","_h_override":-1.0,"_s_override":-1.0,"_v_override":-1.0,"_a_override":-1.0,"h_delta":0.0,"s_delta":0.0,"v_delta":0.0,"a_delta":0.0,"override_color":Color( -1, -2, -2, -1 ),"delta_color":Color( 0, 0, 0, 0 ),"key":"highlight_dark_blue","_h_override":-1.0,"_s_override":-1.0,"_v_override":-1.0,"_a_override":-1.0,"h_delta":0.0,"s_delta":0.0,"v_delta":0.0,"a_delta":0.0)
+
+disabled_modulate = Object(Reference,"script":Resource( "res://addons/scaffolder/src/config/color_config/palette_color_config.gd" ),"h":0.0,"s":0.0,"v":0.0,"a":0.0,"key":"highlight_disabled","_h_override":-1.0,"_s_override":-1.0,"_v_override":-1.0,"_a_override":-1.0,"h_delta":0.0,"s_delta":0.0,"v_delta":0.0,"a_delta":0.0,"override_color":Color( -1, -2, -2, -1 ),"delta_color":Color( 0, 0, 0, 0 ),"key":"highlight_disabled","_h_override":-1.0,"_s_override":-1.0,"_v_override":-1.0,"_a_override":-1.0,"h_delta":0.0,"s_delta":0.0,"v_delta":0.0,"a_delta":0.0)
+
+alpha_multiplier = -1.0
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 0.160784, 0.160784, 0.160784, 0.466667 )

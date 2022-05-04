@@ -14,7 +14,9 @@ var radial_menu_open_duration: float
 var radial_menu_close_duration: float
 var radial_menu_item_hover_duration: float
 var radial_menu_closed_item_angular_offset: float
-var radial_menu_item_hover_outline_color: ColorConfig
+var radial_menu_item_normal_color_modulate: ColorConfig
+var radial_menu_item_hover_color_modulate: ColorConfig
+var radial_menu_item_disabled_color_modulate: ColorConfig
 
 var hud_key_value_list: HudKeyValueList
 
@@ -44,8 +46,12 @@ func _ready() -> void:
             Sc.gui.hud_manifest.radial_menu_item_hover_duration
     self.radial_menu_closed_item_angular_offset = \
             Sc.gui.hud_manifest.radial_menu_closed_item_angular_offset
-    self.radial_menu_item_hover_outline_color = \
-            Sc.gui.hud_manifest.radial_menu_item_hover_outline_color
+    self.radial_menu_item_normal_color_modulate = \
+            Sc.gui.hud_manifest.radial_menu_item_normal_color_modulate
+    self.radial_menu_item_hover_color_modulate = \
+            Sc.gui.hud_manifest.radial_menu_item_hover_color_modulate
+    self.radial_menu_item_disabled_color_modulate = \
+            Sc.gui.hud_manifest.radial_menu_item_disabled_color_modulate
     
     var is_hud_key_value_list_shown: bool = false
     for item_config in Sc.gui.hud_manifest.hud_key_value_list_item_manifest:

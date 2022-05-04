@@ -12,13 +12,16 @@ extends Node2D
 
 
 signal closed()
-signal touch_up_item(item_data)
+signal touch_up_item(item)
 signal touch_up_center()
 signal touch_up_outside()
 
+const _SPRITE_MODULATION_BUTTON_SCENE := preload(
+    "res://addons/scaffolder/src/gui/level_button/sprite_modulation_button.tscn")
+
 var metadata
 
-# Array<RadialMenuItemData>
+# Array<RadialMenuItem>
 var _items := []
 
 var _center_area_control: LevelControl
@@ -35,7 +38,7 @@ func _ready() -> void:
     _position_tween = ScaffolderTween.new(self)
     
     Sc.level.touch_listener.connect(
-            "single_unhandled_touch_released", self, "_on_level_touch_up")
+        "single_unhandled_touch_released", self, "_on_level_touch_up")
 
 
 func _destroy() -> void:
@@ -58,10 +61,10 @@ func set_items(items: Array) -> void:
     _items = items
     var angular_spread := PI * 2.0 / items.size()
     for i in _items.size():
-        var item: RadialMenuItemData = _items[i]
+        var item: RadialMenuItem = _items[i]
         assert(is_instance_valid(item.texture))
         assert(!(item.id is String) or item.id != "")
-        _create_item_level_control(item, i, angular_spread)
+        item.set_up(self, i, angular_spread)
 
 
 func open(screen_position: Vector2) -> void:
@@ -111,7 +114,7 @@ func close() -> void:
 
 
 func _close(
-        touch_up_item_data: RadialMenuItemData,
+        touch_up_item: RadialMenuItem,
         is_touch_in_center: bool) -> void:
     if _destroyed:
         return
@@ -121,8 +124,8 @@ func _close(
                 item._control)
     Sc.level.level_control_press_controller.reset_control_exclusivity(
             _center_area_control)
-    if is_instance_valid(touch_up_item_data):
-        emit_signal("touch_up_item", touch_up_item_data)
+    if is_instance_valid(touch_up_item):
+        emit_signal("touch_up_item", touch_up_item)
     elif is_touch_in_center:
         emit_signal("touch_up_center")
     else:
@@ -175,74 +178,8 @@ func _transition_position(
     _position_tween.start()
 
 
-func _create_item_level_control(
-        item: RadialMenuItemData,
-        index: int,
-        angular_spread: float) -> void:
-    var item_radius: float = Sc.gui.hud.radial_menu_item_radius * Sc.gui.scale
-    var angle := angular_spread * index
-    var offset := Vector2(0.0, -Sc.gui.hud.radial_menu_radius * Sc.gui.scale) \
-            .rotated(angle)
-    
-    var control := ShapedLevelControl.new()
-    control.position = offset
-    control.screen_radius = 0.0
-    control.shape_circle_radius = item_radius
-    control.connect("touch_entered", self, "_on_item_touch_entered", [item])
-    control.connect("touch_exited", self, "_on_item_touch_exited", [item])
-    control.connect("touch_up", self, "_on_item_touch_up", [item])
-    add_child(control)
-    Sc.level.level_control_press_controller.included_exclusively_control(control)
-    
-    var sprite := item._create_outlineable_sprite()
-    sprite.scale = \
-            Vector2.ONE * \
-            Sc.gui.hud.radial_menu_item_radius * 2.0 / \
-            item.texture.get_size() * \
-            Sc.gui.scale
-    control.add_child(sprite)
-    
-    var item_tween := ScaffolderTween.new(self)
-    item_tween.connect("tween_all_completed", self, "_on_item_tween_completed")
-    
-    item._menu = self
-    item._control = control
-    item._sprite = sprite
-    item._tween = item_tween
-    item._index = index
-    item._angle = angle
-
-
-func update_item_control(item: RadialMenuItemData) -> void:
+func update_item_control(item: RadialMenuItem) -> void:
     item._control.is_disabled = item.is_disabled
-
-
-func _on_item_touch_entered(item: RadialMenuItemData) -> void:
-    item._tween.stop_all()
-    item._tween.interpolate_method(
-            item,
-            "_interpolate_item_hover",
-            item._hover_progress,
-            1.0,
-            Sc.gui.hud.radial_menu_item_hover_duration,
-            "ease_out_strong",
-            0.0,
-            TimeType.PLAY_PHYSICS)
-    item._tween.start()
-
-
-func _on_item_touch_exited(item: RadialMenuItemData) -> void:
-    item._tween.stop_all()
-    item._tween.interpolate_method(
-            item,
-            "_interpolate_item_hover",
-            item._hover_progress,
-            0.0,
-            Sc.gui.hud.radial_menu_item_hover_duration,
-            "ease_in_strong",
-            0.0,
-            TimeType.PLAY_PHYSICS)
-    item._tween.start()
 
 
 func _on_level_touch_up(
@@ -250,13 +187,6 @@ func _on_level_touch_up(
         pointer_level_position: Vector2,
         has_corresponding_touch_down: bool) -> void:
     close()
-
-
-func _on_item_touch_up(
-        touch_position: Vector2,
-        is_already_handled: bool,
-        item: RadialMenuItemData) -> void:
-    _close(item, false)
 
 
 func _on_center_area_touch_up(
@@ -274,42 +204,6 @@ func _interpolate_openness(progress: float) -> void:
     self.rotation = item_angular_offset
 
 
-func _interpolate_item_hover(
-        item: RadialMenuItemData,
-        progress: float) -> void:
-    item._hover_progress = progress
-    
-    var scale: float = lerp(
-            1.0, Sc.gui.hud.radial_menu_item_hovered_scale, progress)
-    var radius: float = \
-            scale * Sc.gui.hud.radial_menu_item_radius * Sc.gui.scale
-    item._control.shape_circle_radius = radius
-    
-    item._sprite.scale = \
-            Vector2.ONE * \
-            scale * \
-            Sc.gui.hud.radial_menu_item_radius * 2.0 / \
-            item.texture.get_size() * \
-            Sc.gui.scale
-    
-    var menu_radius: float = \
-            (Sc.gui.hud.radial_menu_radius + \
-            scale * Sc.gui.hud.radial_menu_item_radius - \
-            Sc.gui.hud.radial_menu_item_radius) * Sc.gui.scale
-    var offset := Vector2(0.0, -menu_radius).rotated(item._angle)
-    item._control.position = offset
-    
-    var hovered_color: Color = \
-            Sc.gui.hud.radial_menu_item_hover_outline_color.sample()
-    var normal_color := ColorFactory.opacify(hovered_color, 0.0).sample()
-    var color: Color = lerp(normal_color, hovered_color, progress)
-    item._sprite.outline_color = color
-
-
 func _on_menu_tween_completed() -> void:
     if _destroyed:
         _destroy()
-
-
-func _on_item_tween_completed() -> void:
-    pass
