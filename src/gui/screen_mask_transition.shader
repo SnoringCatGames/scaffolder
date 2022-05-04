@@ -1,6 +1,7 @@
 shader_type canvas_item;
 render_mode unshaded;
 
+
 uniform float cutoff : hint_range(0.0, 1.0);
 uniform float smooth_size : hint_range(0.0, 1.0);
 uniform sampler2D mask : hint_albedo;
@@ -8,6 +9,7 @@ uniform vec2 mask_size;
 uniform vec2 mask_scale;
 uniform vec2 mask_offset;
 uniform bool pixel_snap;
+
 
 void fragment() {
     vec2 mask_uv = UV;

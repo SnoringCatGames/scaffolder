@@ -1,6 +1,10 @@
 tool
 class_name SlowMotionController
 extends Node
+## -   Controls slow-motion.[br]
+## -   Desaturates all nodes in the "desaturatables" group.[br]
+##     -   Any custom shaders applied to desaturatable nodes must define a[br]
+##         `saturation` property and define their own desaturation logic.
 
 
 signal slow_motion_toggled(is_enabled)
@@ -28,7 +32,10 @@ var music: SlowMotionMusic
 var _slow_motionable_animators := []
 
 var _tween: ScaffolderTween
-var _desaturation_material: ShaderMaterial
+var _default_desaturation_material: ShaderMaterial
+
+# Dictionary<ShaderMaterial, true>
+var _desaturation_materials := {}
 
 
 func _init() -> void:
@@ -39,8 +46,9 @@ func _init() -> void:
     
     _tween = ScaffolderTween.new(self)
     
-    _desaturation_material = ShaderMaterial.new()
-    _desaturation_material.shader = DESATURATION_SHADER
+    _default_desaturation_material = ShaderMaterial.new()
+    _default_desaturation_material.shader = DESATURATION_SHADER
+    _desaturation_materials[_default_desaturation_material] = true
     _set_saturation(1.0)
     
     music.connect(
@@ -106,7 +114,12 @@ func set_slow_motion_enabled(value: bool) -> void:
     var desaturatables: Array = Sc.utils.get_all_nodes_in_group(
             GROUP_NAME_DESATURATABLES)
     for node in desaturatables:
-        node.material = _desaturation_material
+        if !is_instance_valid(node.material):
+            node.material = _default_desaturation_material
+        elif !is_instance_valid(node.material.shader):
+            assert(node.material is ShaderMaterial)
+            _desaturation_materials[node.material] = true
+            node.material = DESATURATION_SHADER
     _tween.interpolate_method(
             self,
             "_set_saturation",
@@ -129,11 +142,12 @@ func set_slow_motion_enabled(value: bool) -> void:
 
 
 func _get_saturation() -> float:
-    return _desaturation_material.get_shader_param("saturation")
+    return _default_desaturation_material.get_shader_param("saturation")
 
 
 func _set_saturation(saturation: float) -> void:
-    _desaturation_material.set_shader_param("saturation", saturation)
+    for material in _desaturation_materials:
+        material.set_shader_param("saturation", saturation)
 
 
 func _get_time_scale() -> float:
