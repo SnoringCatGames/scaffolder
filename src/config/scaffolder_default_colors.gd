@@ -25,16 +25,20 @@ const _BUTTON_PULSE_MODULATE_COLOR := Color(2.0, 2.0, 2.0, 1.0)
 var transparent := ColorConfig.TRANSPARENT
 var white := Color.white
 var black := Color.black
-var purple := Color(0.734, 0.277, 1.0)
-var teal := Color(0.277, 0.973, 1.0)
-var red := Color(1.0, 0.305, 0.277)
-var orange := Color(1.0, 0.648, 0.277)
+var purple := Color("bb46ff")
+var teal := Color("46f8ff")
+var red := Color("ff4d46")
+var orange := Color("ffa546")
 
-var highlight_green := Color("cc6abe30")
-var highlight_light_blue := Color("ff1cb0ff")
-var highlight_dark_blue := Color("cc003066")
-var highlight_disabled := Color("77292929")
-var highlight_red := Color("ffcc2c16")
+var highlight_green := Color("6abe30")
+var highlight_light_blue := Color("a8ecff")
+var highlight_blue := Color("1cb0ff")
+var highlight_dark_blue := Color("003066")
+var highlight_disabled := Color("292929")
+var highlight_yellow := Color("ccc016")
+var highlight_orange := Color("cc7a16")
+var highlight_red := Color("cc2c16")
+var highlight_purple := Color("9f16cc")
 
 # Should match Project Settings > Application > Boot Splash > Bg Color.
 var default_splash_background := Color("202531")

@@ -4,7 +4,8 @@ class_name SpriteModulationButton, \
 extends LevelButton
 
 
-var texture: Texture setget _set_texture,_get_texture
+var texture: Texture setget _set_texture
+var sprite_scale := Vector2.ONE setget _set_sprite_scale
 
 var normal_modulate := ColorFactory.palette("highlight_green") \
         setget _set_normal_modulate
@@ -61,9 +62,16 @@ func _get_property_list() -> Array:
     return _PROPERTY_LIST_ADDENDUM
 
 
-func _update() -> void:
-    ._update()
-    assert(shape_is_rectangular)
+func _ready() -> void:
+    _set_texture(texture)
+    _set_sprite_scale(sprite_scale)
+    _update_modulation()
+
+
+func _update_shape() -> void:
+    ._update_shape()
+    # FIXME: LEFT OFF HERE: --------------------------------
+#    assert(shape_is_rectangular)
 
 
 func _update_modulation() -> void:
@@ -72,13 +80,13 @@ func _update_modulation() -> void:
     
     match interaction_mode:
         InteractionMode.NORMAL:
-            $Sprite.modulate = normal_modulate
+            $Sprite.modulate = normal_modulate.sample()
         InteractionMode.HOVER:
-            $Sprite.modulate = hover_modulate
+            $Sprite.modulate = hover_modulate.sample()
         InteractionMode.PRESSED:
-            $Sprite.modulate = pressed_modulate
+            $Sprite.modulate = pressed_modulate.sample()
         InteractionMode.DISABLED:
-            $Sprite.modulate = disabled_modulate
+            $Sprite.modulate = disabled_modulate.sample()
         _:
             Sc.logger.error(
                 "SpriteModulationButton._on_interaction_mode_changed: %s" % \
@@ -96,12 +104,18 @@ func _on_interaction_mode_changed(interaction_mode: int) -> void:
     _update_modulation()
 
 
+func _set_sprite_scale(value: Vector2) -> void:
+    sprite_scale = value
+    if !_is_ready:
+        return
+    $Sprite.scale = value
+
+
 func _set_texture(value: Texture) -> void:
+    texture = value
+    if !_is_ready:
+        return
     $Sprite.texture = value
-
-
-func _get_texture() -> Texture:
-    return $Sprite.texture
 
 
 func _set_normal_modulate(value: ColorConfig) -> void:
