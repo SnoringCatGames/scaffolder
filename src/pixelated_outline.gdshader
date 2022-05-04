@@ -9,6 +9,8 @@ uniform int pattern : hint_range(0, 2) = 0; // Diamond, Circle, Square.
 uniform bool is_inside = false;
 uniform bool adds_margins = true; // Ignored when is_inside is false.
 
+uniform float saturation = 1.0;
+
 
 void vertex()
 {
@@ -89,4 +91,7 @@ void fragment()
         COLOR.rgb = is_inside ? mix(COLOR.rgb, color.rgb, color.a) : color.rgb;
         COLOR.a += (1.0 - COLOR.a) * color.a;
     }
+    
+    // Desaturate.
+    COLOR.rgb = mix(vec3(dot(COLOR.rgb, vec3(0.299, 0.587, 0.114))), COLOR.rgb, saturation);
 }

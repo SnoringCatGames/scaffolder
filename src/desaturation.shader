@@ -1,6 +1,8 @@
 shader_type canvas_item;
 
-uniform float saturation;
+
+uniform float saturation = 1.0;
+
 
 void fragment() {
     vec4 tex_color = texture(TEXTURE, UV);
