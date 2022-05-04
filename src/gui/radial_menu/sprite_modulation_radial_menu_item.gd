@@ -10,10 +10,14 @@ func _create_item_level_control() -> ShapedLevelControl:
     var control: SpriteModulationButton = \
         _SPRITE_MODULATION_BUTTON_SCENE.instance()
     control.texture = texture
-    control.normal_modulate = ColorFactory.palette("highlight_green")
-    control.hover_modulate = ColorFactory.palette("highlight_light_blue")
-    control.pressed_modulate = ColorFactory.palette("highlight_light_blue")
-    control.disabled_modulate = ColorFactory.palette("highlight_disabled")
+    control.normal_modulate = \
+        Sc.gui.hud.radial_menu_item_normal_color_modulate
+    control.hover_modulate = \
+        Sc.gui.hud.radial_menu_item_hover_color_modulate
+    control.pressed_modulate = \
+        Sc.gui.hud.radial_menu_item_hover_color_modulate
+    control.disabled_modulate = \
+        Sc.gui.hud.radial_menu_item_disabled_color_modulate
     control.alpha_multiplier = 0.999
     control.sprite_scale = \
         Vector2.ONE * \

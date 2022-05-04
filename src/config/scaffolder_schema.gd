@@ -842,11 +842,11 @@ var _hud_manifest := {
     radial_menu_item_hover_duration = 0.2,
     radial_menu_closed_item_angular_offset = -PI / 3,
     radial_menu_item_normal_color_modulate = \
-        ColorFactory.palette("highlight_green"),
+        ColorFactory.palette("modulation_button_normal"),
     radial_menu_item_hover_color_modulate = \
-        ColorFactory.palette("highlight_light_blue"),
+        ColorFactory.palette("modulation_button_hover"),
     radial_menu_item_disabled_color_modulate = \
-        ColorFactory.palette("highlight_disabled"),
+        ColorFactory.palette("modulation_button_disabled"),
 }
 
 const WELCOME_PANEL_ITEM_MOVE := ["Walk/Climb", "arrow key / wasd"]
