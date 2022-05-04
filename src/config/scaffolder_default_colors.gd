@@ -38,7 +38,11 @@ var highlight_disabled := Color("292929")
 var highlight_yellow := Color("ccc016")
 var highlight_orange := Color("cc7a16")
 var highlight_red := Color("cc2c16")
-var highlight_purple := Color("9f16cc")
+
+var modulation_button_normal := highlight_green
+var modulation_button_hover := highlight_light_blue
+var modulation_button_pressed := highlight_dark_blue
+var modulation_button_disabled := highlight_disabled
 
 # Should match Project Settings > Application > Boot Splash > Bg Color.
 var default_splash_background := Color("202531")

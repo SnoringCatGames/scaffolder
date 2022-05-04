@@ -7,13 +7,13 @@ extends LevelButton
 var texture: Texture setget _set_texture
 var sprite_scale := Vector2.ONE setget _set_sprite_scale
 
-var normal_modulate := ColorFactory.palette("highlight_green") \
+var normal_modulate := ColorFactory.palette("modulation_button_normal") \
         setget _set_normal_modulate
-var hover_modulate := ColorFactory.palette("highlight_light_blue") \
+var hover_modulate := ColorFactory.palette("modulation_button_hover") \
         setget _set_hover_modulate
-var pressed_modulate := ColorFactory.palette("highlight_dark_blue") \
+var pressed_modulate := ColorFactory.palette("modulation_button_pressed") \
         setget _set_pressed_modulate
-var disabled_modulate := ColorFactory.palette("highlight_disabled") \
+var disabled_modulate := ColorFactory.palette("modulation_button_disabled") \
         setget _set_disabled_modulate
 var alpha_multiplier := -1.0 \
         setget _set_alpha_multiplier
@@ -70,8 +70,6 @@ func _ready() -> void:
 
 func _update_shape() -> void:
     ._update_shape()
-    # FIXME: LEFT OFF HERE: --------------------------------
-#    assert(shape_is_rectangular)
 
 
 func _update_modulation() -> void:
