@@ -15,6 +15,7 @@ const DESATURATION_SHADER := \
 const GROUP_NAME_DESATURATABLES := "desaturatables"
 const GROUP_NAME_NON_SHADER_BASED_DESATURATABLES := \
     "non_shader_based_desaturatables"
+const GROUP_NAME_SLOW_MOTIONABLES := "slow_motionables"
 
 const ENABLE_SLOW_MOTION_DURATION := 0.3
 const DISABLE_SLOW_MOTION_DURATION := 0.2
@@ -168,6 +169,24 @@ func _set_time_scale(value: float) -> void:
     # Update ScaffolderCharacterAnimators.
     for animator in _slow_motionable_animators:
         animator.match_rate_to_time_scale()
+    
+    var slow_motionables: Array = \
+        Sc.utils.get_all_nodes_in_group(GROUP_NAME_SLOW_MOTIONABLES)
+    for node in slow_motionables:
+        if node is AnimatedSprite:
+            if !node.has_meta("non_slow_motion_speed_scale"):
+                node.set_meta("non_slow_motion_speed_scale", node.speed_scale)
+            node.speed_scale = \
+                    node.get_meta("non_slow_motion_speed_scale") * \
+                    Sc.time.time_scale
+        elif node is AnimationPlayer:
+            if !node.has_meta("non_slow_motion_speed_scale"):
+                node.set_meta("non_slow_motion_speed_scale", node.playback_speed)
+            node.playback_speed = \
+                    node.get_meta("non_slow_motion_speed_scale") * \
+                    Sc.time.time_scale
+        else:
+            Sc.logger.error("SlowMotionController._set_time_scale")
 
 
 func _on_music_transition_complete(is_active: bool) -> void:
