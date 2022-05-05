@@ -86,6 +86,8 @@ var display_resize_throttle_interval := 0.1
 
 var recent_gesture_events_for_debugging_buffer_size := 1000
 
+var display_time_type := TimeType.PLAY_PHYSICS_SCALED
+
 var third_party_license_text: String
 var special_thanks_text: String
 
@@ -247,6 +249,8 @@ func _parse_manifest(manifest: Dictionary) -> void:
     if manifest.has("recent_gesture_events_for_debugging_buffer_size"):
         self.recent_gesture_events_for_debugging_buffer_size = \
                 manifest.recent_gesture_events_for_debugging_buffer_size
+    if manifest.has("display_time_type"):
+        self.display_time_type = manifest.display_time_type
     
     if fonts_manifest.has("sizes"):
         if Sc.device.get_is_mobile_device():

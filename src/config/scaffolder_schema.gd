@@ -930,6 +930,8 @@ var _gui_manifest := {
     
     is_data_deletion_button_shown = true,
     
+    display_time_type = TimeType.PLAY_PHYSICS_SCALED,
+    
     is_suggested_button_shine_line_shown = true,
     is_suggested_button_color_pulse_shown = true,
     
