@@ -19,6 +19,8 @@ var _excluded_controls := {}
 # Dictinary<LevelControl, bool>
 var _included_exclusively_controls := {}
 
+var are_touches_disabled := false
+
 var _hovered_control: LevelControl
 
 var _is_digest_scheduled := false
@@ -161,6 +163,7 @@ func _digest_touches() -> void:
             # This is a level-global event rather than a control-local event.
             continue
         if current_control.mouse_filter == Control.MOUSE_FILTER_IGNORE or \
+                are_touches_disabled or \
                 _excluded_controls.has(current_control) or \
                 !_included_exclusively_controls.empty() and \
                 !_included_exclusively_controls.has(current_control):
@@ -260,6 +263,7 @@ func _update_hovered_control() -> void:
                 controls_to_erase.push_back(control)
                 continue
             if control.mouse_filter == Control.MOUSE_FILTER_IGNORE or \
+                    are_touches_disabled or \
                     _excluded_controls.has(control) or \
                     !_included_exclusively_controls.empty() and \
                     !_included_exclusively_controls.has(control):
@@ -307,6 +311,7 @@ func _get_closest_control_within_screen_space_radius() -> LevelControl:
             controls_to_erase.push_back(control)
             continue
         if control.mouse_filter == Control.MOUSE_FILTER_IGNORE or \
+                are_touches_disabled or \
                 _excluded_controls.has(control) or \
                 !_included_exclusively_controls.empty() and \
                 !_included_exclusively_controls.has(control):
