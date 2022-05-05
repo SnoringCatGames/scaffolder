@@ -1010,7 +1010,7 @@ var _slow_motion_manifest := {
     gui_mode_time_scale = 0.02,
     tick_tock_tempo_multiplier = 1,
     saturation = 0.5,
-#    time_scale = 0.02,
+#    default_time_scale = 0.02,
 #    tick_tock_tempo_multiplier = 25,
 #    saturation = 0.2,
 }

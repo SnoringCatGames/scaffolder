@@ -418,6 +418,8 @@ func pause() -> void:
                 Sc.audio.get_playback_position()
         if Sc.audio_manifest.pause_menu_music != "":
             Sc.audio.play_music(Sc.audio_manifest.pause_menu_music)
+        else:
+            Sc.audio.stop_music()
     Sc.nav.open("pause")
 
 
