@@ -37,6 +37,8 @@ export var screen_radius := 16.0 setget _set_screen_radius
 
 export var mouse_filter := Control.MOUSE_FILTER_STOP
 
+export var is_desaturatable := false setget _set_is_desaturatable
+
 var interaction_mode: int = InteractionMode.NORMAL
 
 var _was_touch_down_in_this_control := false
@@ -55,6 +57,7 @@ func _ready() -> void:
     self.monitorable = false
     self.input_pickable = true
     _update_interaction_mode(InteractionMode.NORMAL)
+    _set_is_desaturatable(is_desaturatable)
     if Engine.editor_hint:
         return
     Sc.level.level_control_press_controller.add_control(self)
@@ -77,6 +80,10 @@ func _set_is_focused(value: bool) -> void:
 
 func _set_screen_radius(value: float) -> void:
     screen_radius = value
+
+
+func _set_is_desaturatable(value: bool) -> void:
+    is_desaturatable = value
 
 
 func get_screen_radius_in_level_space() -> float:

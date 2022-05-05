@@ -15,8 +15,9 @@ var pressed_modulate := ColorFactory.palette("modulation_button_pressed") \
         setget _set_pressed_modulate
 var disabled_modulate := ColorFactory.palette("modulation_button_disabled") \
         setget _set_disabled_modulate
-var alpha_multiplier := -1.0 \
-        setget _set_alpha_multiplier
+var alpha_multiplier := -1.0 setget _set_alpha_multiplier
+
+var saturation := 1.0 setget _set_saturation
 
 const _PROPERTY_LIST_ADDENDUM := [
     {
@@ -92,6 +93,8 @@ func _update_modulation() -> void:
     
     if alpha_multiplier >= 0.0:
         $Sprite.modulate.a *= alpha_multiplier
+    
+    $Sprite.modulate.s *= saturation
 
 
 func _on_interaction_mode_changed(interaction_mode: int) -> void:
@@ -100,6 +103,18 @@ func _on_interaction_mode_changed(interaction_mode: int) -> void:
 #            "_on_interaction_mode_changed: %s" % \
 #            get_interaction_mode_string(interaction_mode))
     _update_modulation()
+
+
+func _set_is_desaturatable(value: bool) -> void:
+    is_desaturatable = value
+    if value:
+        self.add_to_group(Sc.slow_motion \
+            .GROUP_NAME_NON_SHADER_BASED_DESATURATABLES)
+    else:
+        if self.is_in_group(Sc.slow_motion \
+            .GROUP_NAME_NON_SHADER_BASED_DESATURATABLES):
+            self.remove_from_group(Sc.slow_motion \
+                .GROUP_NAME_NON_SHADER_BASED_DESATURATABLES)
 
 
 func _set_sprite_scale(value: Vector2) -> void:
@@ -138,4 +153,9 @@ func _set_disabled_modulate(value: ColorConfig) -> void:
 
 func _set_alpha_multiplier(value: float) -> void:
     alpha_multiplier = value
+    _update_modulation()
+
+
+func _set_saturation(value: float) -> void:
+    saturation = value
     _update_modulation()
