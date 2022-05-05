@@ -10,6 +10,17 @@ export var image_size := Vector2(1024, 1024) setget _set_image_size
 
 func _ready() -> void:
     Sc.camera.connect("zoomed", self, "_on_zoomed")
+    _set_up_desaturatable()
+
+
+func _set_up_desaturatable() -> void:
+    var sprites: Array = \
+        Sc.utils.get_children_by_type(self, Sprite, true)
+    var animated_sprites: Array = \
+        Sc.utils.get_children_by_type(self, AnimatedSprite, true)
+    for collection in [sprites, animated_sprites]:
+        for node in collection:
+            node.add_to_group(Sc.slow_motion.GROUP_NAME_DESATURATABLES)
 
 
 func _update_layers() -> void:
