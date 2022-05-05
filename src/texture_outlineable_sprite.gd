@@ -30,6 +30,12 @@ func _set_my_frame(value) -> void:
 func _get_my_frame() -> int:
     return get_frame()
 
+var saturation := 1.0 setget _set_saturation
+func _set_saturation(value: float) -> void:
+    saturation = value
+    _set_outline_color(outline_color)
+
+
 var _configuration_warning := ""
 
 
@@ -133,6 +139,7 @@ func _set_is_outlined(value: bool) -> void:
 func _set_outline_color(value: Color) -> void:
     outline_color = value
     $Outline.modulate = outline_color
+    $Outline.modulate.s *= saturation
 
 
 func _set_outline_suffix(value: String) -> void:
@@ -204,3 +211,18 @@ func set_region_filter_clip(value: bool) -> void:
 func set_region_rect(value: Rect2) -> void:
     .set_region_rect(value)
     _update_inner_sprite()
+
+
+func _set_is_desaturatable(value: bool) -> void:
+    is_desaturatable = value
+    if value:
+        self.add_to_group(Sc.slow_motion.GROUP_NAME_DESATURATABLES)
+        self.add_to_group(Sc.slow_motion \
+            .GROUP_NAME_NON_SHADER_BASED_DESATURATABLES)
+    else:
+        if self.is_in_group(Sc.slow_motion.GROUP_NAME_DESATURATABLES):
+            self.remove_from_group(Sc.slow_motion.GROUP_NAME_DESATURATABLES)
+        if self.is_in_group(Sc.slow_motion \
+            .GROUP_NAME_NON_SHADER_BASED_DESATURATABLES):
+            self.remove_from_group(Sc.slow_motion \
+                .GROUP_NAME_NON_SHADER_BASED_DESATURATABLES)

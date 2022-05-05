@@ -401,19 +401,12 @@ func _set_animations(value: Dictionary) -> void:
     _update_editor_configuration()
 
 
+# Register as desaturatable for the slow-motion effect.
 func _set_is_desaturatable(value: bool) -> void:
     is_desaturatable = value
-    
-    # Possibly register these as desaturatable for the slow-motion effect.
     var sprites: Array = Sc.utils.get_children_by_type(self, Sprite, true)
-    if is_desaturatable:
-        for sprite in sprites:
-            sprite.add_to_group(Sc.slow_motion.GROUP_NAME_DESATURATABLES)
-    else:
-        for sprite in sprites:
-            if sprite.is_in_group(Sc.slow_motion.GROUP_NAME_DESATURATABLES):
-                sprite.remove_from_group(
-                        Sc.slow_motion.GROUP_NAME_DESATURATABLES)
+    for sprite in sprites:
+        Sc.utils.set_is_desaturatable(sprite, is_desaturatable)
 
 
 func _set_is_outlined(value: bool) -> void:

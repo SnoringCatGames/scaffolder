@@ -15,6 +15,11 @@ extends Sprite
 
 export var is_outlined := false setget _set_is_outlined
 export var outline_color := Color.black setget _set_outline_color
+export var is_desaturatable := true setget _set_is_desaturatable
+
+
+func _ready() -> void:
+    _set_is_desaturatable(is_desaturatable)
 
 
 func _set_is_outlined(value: bool) -> void:
@@ -25,6 +30,11 @@ func _set_is_outlined(value: bool) -> void:
 func _set_outline_color(value: Color) -> void:
     outline_color = value
     _update_outline()
+
+
+func _set_is_desaturatable(value: bool) -> void:
+    Sc.logger.error("Abstract OutlineableSprite._set_is_desaturatable " +
+        "is not implemented")
 
 
 func _update_outline() -> void:

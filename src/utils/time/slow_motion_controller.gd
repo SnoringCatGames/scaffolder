@@ -13,6 +13,8 @@ const DESATURATION_SHADER := \
         preload("res://addons/scaffolder/src/desaturation.shader")
 
 const GROUP_NAME_DESATURATABLES := "desaturatables"
+const GROUP_NAME_NON_SHADER_BASED_DESATURATABLES := \
+    "non_shader_based_desaturatables"
 
 const ENABLE_SLOW_MOTION_DURATION := 0.3
 const DISABLE_SLOW_MOTION_DURATION := 0.2
@@ -35,7 +37,7 @@ var _tween: ScaffolderTween
 var _default_desaturation_material: ShaderMaterial
 
 # Dictionary<ShaderMaterial, true>
-var _desaturation_materials := {}
+var _desaturatable_materials := {}
 
 
 func _init() -> void:
@@ -48,7 +50,7 @@ func _init() -> void:
     
     _default_desaturation_material = ShaderMaterial.new()
     _default_desaturation_material.shader = DESATURATION_SHADER
-    _desaturation_materials[_default_desaturation_material] = true
+    _desaturatable_materials[_default_desaturation_material] = true
     _set_saturation(1.0)
     
     music.connect(
@@ -118,8 +120,8 @@ func set_slow_motion_enabled(value: bool) -> void:
             node.material = _default_desaturation_material
         elif !is_instance_valid(node.material.shader):
             assert(node.material is ShaderMaterial)
-            _desaturation_materials[node.material] = true
             node.material = DESATURATION_SHADER
+        _desaturatable_materials[node.material] = true
     _tween.interpolate_method(
             self,
             "_set_saturation",
@@ -146,8 +148,13 @@ func _get_saturation() -> float:
 
 
 func _set_saturation(saturation: float) -> void:
-    for material in _desaturation_materials:
+    for material in _desaturatable_materials:
         material.set_shader_param("saturation", saturation)
+    var non_shader_based_desaturatables: Array = \
+        Sc.utils.get_all_nodes_in_group(
+            GROUP_NAME_NON_SHADER_BASED_DESATURATABLES)
+    for node in non_shader_based_desaturatables:
+        node.saturation = saturation
 
 
 func _get_time_scale() -> float:
