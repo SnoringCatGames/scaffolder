@@ -135,6 +135,17 @@ func _get_level_play_time_unscaled() -> float:
         return 0.0
 
 
+func get_level_play_time_by_type(type: int) -> float:
+    match type:
+        TimeType.PLAY_PHYSICS:
+            return _get_level_play_time_unscaled()
+        TimeType.PLAY_PHYSICS_SCALED:
+            return _get_level_play_time_scaled()
+        _:
+            Sc.logger.error("ScaffolderLevelSession.get_level_play_time_by_type")
+            return INF
+
+
 func _get_score() -> float:
     return _score
 
