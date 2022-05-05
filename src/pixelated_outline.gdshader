@@ -9,7 +9,7 @@ uniform int pattern : hint_range(0, 2) = 0; // Diamond, Circle, Square.
 uniform bool is_inside = false;
 uniform bool adds_margins = true; // Ignored when is_inside is false.
 
-uniform float saturation = 1.0;
+uniform float saturation : hint_range(0, 1) = 1.0;
 
 
 void vertex()

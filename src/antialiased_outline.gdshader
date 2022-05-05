@@ -4,7 +4,7 @@ shader_type canvas_item;
 uniform vec4 color : hint_color = vec4(0, 0, 0, 1);
 uniform float thickness : hint_range(0, 8) = 1.0;
 
-uniform float saturation = 1.0;
+uniform float saturation : hint_range(0, 1) = 1.0;
 
 
 void fragment()

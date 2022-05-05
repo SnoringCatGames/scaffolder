@@ -760,6 +760,17 @@ func get_node_in_group(group_name: String) -> Node:
     return nodes[0]
 
 
+# Registers nodes as desaturatable for the slow-motion effect.
+func set_is_desaturatable(
+        node: Node2D,
+        is_desaturatable: bool) -> void:
+    if is_desaturatable:
+        node.add_to_group(Sc.slow_motion.GROUP_NAME_DESATURATABLES)
+    else:
+        if node.is_in_group(Sc.slow_motion.GROUP_NAME_DESATURATABLES):
+            node.remove_from_group(Sc.slow_motion.GROUP_NAME_DESATURATABLES)
+
+
 func get_render_layer_bitmask_from_name(layer_name: String) -> int:
     return Sc.metadata._render_layer_name_to_bitmask[layer_name] if \
             Sc.metadata._render_layer_name_to_bitmask.has(layer_name) else \

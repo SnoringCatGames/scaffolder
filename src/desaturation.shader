@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
 
-uniform float saturation = 1.0;
+uniform float saturation : hint_range(0, 1) = 1.0;
 
 
 void fragment() {

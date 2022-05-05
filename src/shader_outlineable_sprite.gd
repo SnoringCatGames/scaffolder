@@ -84,3 +84,12 @@ func _set_is_inside(value: bool) -> void:
 func _set_adds_margins(value: bool) -> void:
     adds_margins = value
     _outline_material.set_shader_param("adds_margins", adds_margins)
+
+
+func _set_is_desaturatable(value: bool) -> void:
+    is_desaturatable = value
+    if value:
+        self.add_to_group(Sc.slow_motion.GROUP_NAME_DESATURATABLES)
+    else:
+        if self.is_in_group(Sc.slow_motion.GROUP_NAME_DESATURATABLES):
+            self.remove_from_group(Sc.slow_motion.GROUP_NAME_DESATURATABLES)
