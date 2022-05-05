@@ -55,6 +55,8 @@ func _ready() -> void:
     self.monitorable = false
     self.input_pickable = true
     _update_interaction_mode(InteractionMode.NORMAL)
+    if Engine.editor_hint:
+        return
     Sc.level.level_control_press_controller.add_control(self)
 
 
