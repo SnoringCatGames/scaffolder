@@ -5,7 +5,6 @@ extends LevelButton
 
 
 var texture: Texture setget _set_texture
-var sprite_scale := Vector2.ONE setget _set_sprite_scale
 
 var normal_modulate := ColorFactory.palette("modulation_button_normal") \
         setget _set_normal_modulate
@@ -65,12 +64,22 @@ func _get_property_list() -> Array:
 
 func _ready() -> void:
     _set_texture(texture)
-    _set_sprite_scale(sprite_scale)
     _update_modulation()
 
 
 func _update_shape() -> void:
     ._update_shape()
+    
+    if !_is_ready:
+        return
+    
+    var sprite_scale: Vector2
+    if shape_is_rectangular:
+        sprite_scale = shape_rectangle_extents * 2.0 / texture.get_size()
+    else:
+        sprite_scale = \
+            Vector2.ONE * shape_circle_radius * 2.0 / texture.get_size()
+    $Sprite.scale = sprite_scale
 
 
 func _update_modulation() -> void:
@@ -115,13 +124,6 @@ func _set_is_desaturatable(value: bool) -> void:
             .GROUP_NAME_NON_SHADER_BASED_DESATURATABLES):
             self.remove_from_group(Sc.slow_motion \
                 .GROUP_NAME_NON_SHADER_BASED_DESATURATABLES)
-
-
-func _set_sprite_scale(value: Vector2) -> void:
-    sprite_scale = value
-    if !_is_ready:
-        return
-    $Sprite.scale = value
 
 
 func _set_texture(value: Texture) -> void:
