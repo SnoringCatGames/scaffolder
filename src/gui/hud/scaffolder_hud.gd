@@ -6,6 +6,12 @@ extends Node2D
 signal radial_menu_opened()
 signal radial_menu_closed()
 
+const _HUD_FADE_DURATION := 0.35
+const _HUD_FADE_OUT_OPACITY := 0.4
+
+const _REGION_FADE_DURATION := 0.25
+const _REGION_FADE_OUT_OPACITY := 0.25
+
 var radial_menu_class: Script
 var radial_menu_item_hovered_scale: float
 var radial_menu_radius: float
@@ -22,6 +28,11 @@ var hud_key_value_list: HudKeyValueList
 
 var _previous_radial_menu: RadialMenu
 var _radial_menu: RadialMenu
+
+# Dictionary<CanvasItem, ScaffolderTween>
+var _fade_tweens := {}
+
+var _is_faded_in := true
 
 
 func _ready() -> void:
@@ -65,6 +76,9 @@ func _ready() -> void:
                 Sc.gui.hud_manifest.hud_key_value_list_scene,
                 true,
                 true)
+        _set_up_fade_tween_for_region_mouse_over(hud_key_value_list)
+    
+    _fade_tweens[self] = ScaffolderTween.new(self)
 
 
 func open_radial_menu(
@@ -109,6 +123,55 @@ func _on_radial_menu_closed() -> void:
 func get_is_radial_menu_open() -> bool:
     return is_instance_valid(_radial_menu) and \
             !_radial_menu._destroyed
+
+
+func _set_up_fade_tween_for_region_mouse_over(region: Control) -> void:
+    _fade_tweens[region] = ScaffolderTween.new(region)
+    region.connect(
+            "mouse_entered", self, "_on_touch_entered_region", [region])
+    region.connect(
+            "mouse_exited", self, "_on_touch_exited_region", [region])
+
+
+func _on_touch_entered_region(region: Control) -> void:
+    _trigger_fade_transition(
+        region,
+        _REGION_FADE_OUT_OPACITY,
+        _REGION_FADE_DURATION)
+
+
+func _on_touch_exited_region(region: Control) -> void:
+    _trigger_fade_transition(
+        region,
+        1.0,
+        _REGION_FADE_DURATION)
+
+
+func _trigger_fade_transition(
+        region: CanvasItem,
+        end_opacity: float,
+        duration: float) -> void:
+    var tween: ScaffolderTween = _fade_tweens[region]
+    tween.stop_all()
+    tween.interpolate_property(
+        region,
+        "modulate:a",
+        region.modulate.a,
+        end_opacity,
+        duration)
+    tween.start()
+
+
+func fade(fading_in: bool) -> void:
+    if fading_in == _is_faded_in:
+        # No change.
+        return
+    _is_faded_in = fading_in
+    var end_opacity := \
+            1.0 if \
+            fading_in else \
+            _HUD_FADE_OUT_OPACITY
+    _trigger_fade_transition(self, end_opacity, _HUD_FADE_DURATION)
 
 
 func _destroy() -> void:
