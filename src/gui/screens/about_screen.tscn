@@ -7,30 +7,17 @@
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label_link.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_texture_link.tscn" type="PackedScene" id=7]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_hover.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/gui/nine_patch/dropdown_normal.png" type="Texture" id=8]
 [ext_resource path="res://addons/scaffolder/src/gui/screens/about_screen.gd" type="Script" id=9]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/scaffolder/src/gui/style_box_texture_scalable.gd" type="Script" id=11]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_pressed.png" type="Texture" id=12]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/nine_patch/dropdown_normal.png" type="Texture" id=13]
+[ext_resource path="res://assets/images/gui/nine_patch/dropdown_hover.png" type="Texture" id=12]
+[ext_resource path="res://assets/images/gui/nine_patch/focus_border.png" type="Texture" id=13]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_body.tscn" type="PackedScene" id=14]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_header.tscn" type="PackedScene" id=15]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/nine_patch/focus_border.png" type="Texture" id=16]
+[ext_resource path="res://assets/images/gui/nine_patch/dropdown_pressed.png" type="Texture" id=16]
 
-[sub_resource type="StyleBoxTexture" id=1]
-content_margin_left = 16.0
-content_margin_right = 16.0
-content_margin_top = 8.0
-content_margin_bottom = 8.0
-texture = ExtResource( 8 )
-region_rect = Rect2( 0, 0, 9, 9 )
-margin_left = 3.5
-margin_right = 3.5
-margin_top = 3.5
-margin_bottom = 3.5
-script = ExtResource( 11 )
-
-[sub_resource type="StyleBoxTexture" id=2]
+[sub_resource type="StyleBoxTexture" id=21]
 content_margin_left = 16.0
 content_margin_right = 16.0
 content_margin_top = 8.0
@@ -43,12 +30,25 @@ margin_top = 3.5
 margin_bottom = 3.5
 script = ExtResource( 11 )
 
-[sub_resource type="StyleBoxTexture" id=3]
+[sub_resource type="StyleBoxTexture" id=23]
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource( 16 )
+region_rect = Rect2( 0, 0, 9, 9 )
+margin_left = 3.5
+margin_right = 3.5
+margin_top = 3.5
+margin_bottom = 3.5
+script = ExtResource( 11 )
+
+[sub_resource type="StyleBoxTexture" id=20]
 content_margin_left = 0.0
 content_margin_right = 0.0
 content_margin_top = 0.0
 content_margin_bottom = 0.0
-texture = ExtResource( 16 )
+texture = ExtResource( 13 )
 region_rect = Rect2( 0, 0, 9, 9 )
 margin_left = 3.5
 margin_right = 3.5
@@ -60,7 +60,20 @@ expand_margin_top = 3.0
 expand_margin_bottom = 3.0
 script = ExtResource( 11 )
 
-[sub_resource type="StyleBoxTexture" id=4]
+[sub_resource type="StyleBoxTexture" id=19]
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource( 12 )
+region_rect = Rect2( 0, 0, 9, 9 )
+margin_left = 3.5
+margin_right = 3.5
+margin_top = 3.5
+margin_bottom = 3.5
+script = ExtResource( 11 )
+
+[sub_resource type="StyleBoxTexture" id=22]
 content_margin_left = 16.0
 content_margin_right = 16.0
 content_margin_top = 8.0
@@ -73,31 +86,15 @@ margin_top = 3.5
 margin_bottom = 3.5
 script = ExtResource( 11 )
 
-[sub_resource type="StyleBoxTexture" id=5]
-content_margin_left = 16.0
-content_margin_right = 16.0
-content_margin_top = 8.0
-content_margin_bottom = 8.0
-texture = ExtResource( 13 )
-region_rect = Rect2( 0, 0, 9, 9 )
-margin_left = 3.5
-margin_right = 3.5
-margin_top = 3.5
-margin_bottom = 3.5
-script = ExtResource( 11 )
-
 [node name="AboutScreen" type="VBoxContainer"]
 rect_min_size = Vector2( 1024, 768 )
 script = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 screen_name = "about"
 nav_bar_text = "About"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 1024.0
-margin_bottom = 768.0
+margin_bottom = 814.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -105,27 +102,27 @@ __meta__ = {
 }
 
 [node name="Title" parent="VBoxContainer" instance=ExtResource( 3 )]
-margin_left = 383.0
-margin_right = 641.0
-margin_bottom = 44.0
-rect_min_size = Vector2( 258, 44 )
+margin_left = 224.0
+margin_right = 800.0
+margin_bottom = 69.0
+rect_min_size = Vector2( 576, 69 )
 texture_key = "app_logo"
 
 [node name="Spacer2" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 512.0
-margin_top = 48.0
+margin_top = 73.0
 margin_right = 512.0
-margin_bottom = 78.0
+margin_bottom = 103.0
 rect_min_size = Vector2( 0, 30 )
 size = Vector2( 0, 30 )
 
 [node name="DeveloperSection" type="VBoxContainer" parent="VBoxContainer"]
-margin_left = 396.0
-margin_top = 82.0
-margin_right = 628.0
-margin_bottom = 247.0
+margin_left = 280.0
+margin_top = 107.0
+margin_right = 744.0
+margin_bottom = 441.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 4
@@ -133,58 +130,73 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Spacer4" parent="VBoxContainer/DeveloperSection" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 232.0
+margin_right = 232.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+size = Vector2( 0, 40 )
+
 [node name="DeveloperLogoLink" parent="VBoxContainer/DeveloperSection" instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 232.0
-margin_bottom = 85.0
-rect_min_size = Vector2( 232, 85 )
+margin_top = 44.0
+margin_right = 464.0
+margin_bottom = 214.0
+rect_min_size = Vector2( 464, 170 )
 texture_key = "developer_logo"
-texture_scale = Vector2( 0.5, 0.5 )
 url = "https://snoringcat.games"
 
 [node name="DeveloperNameLink" parent="VBoxContainer/DeveloperSection" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 31.0
-margin_top = 89.0
-margin_right = 200.0
-margin_bottom = 103.0
-custom_colors/font_color = Color( 0.921569, 0.647059, 0.203922, 1 )
-custom_colors/font_color_hover = Color( 0.760784, 0.494118, 0.0627451, 1 )
-custom_colors/font_color_pressed = Color( 0.45098, 0.286275, 0.0196078, 1 )
-text = "Created by Snoring Cat LLC"
+margin_left = 160.0
+margin_top = 218.0
+margin_right = 303.0
+margin_bottom = 232.0
+custom_colors/font_color = Color( 0.388235, 0.415686, 0.580392, 1 )
+custom_colors/font_color_hover = Color( 0.247059, 0.262745, 0.380392, 1 )
+custom_colors/font_color_pressed = Color( 0.192157, 0.196078, 0.360784, 1 )
+text = "Created by Snoring Cat"
 url = "https://snoringcat.games"
 
 [node name="DeveloperUrlLink" parent="VBoxContainer/DeveloperSection" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 36.0
-margin_top = 107.0
-margin_right = 195.0
-margin_bottom = 121.0
+margin_left = 152.0
+margin_top = 236.0
+margin_right = 311.0
+margin_bottom = 250.0
 focus_mode = 2
-custom_colors/font_color = Color( 0.921569, 0.647059, 0.203922, 1 )
-custom_colors/font_color_hover = Color( 0.760784, 0.494118, 0.0627451, 1 )
-custom_colors/font_color_pressed = Color( 0.45098, 0.286275, 0.0196078, 1 )
+custom_colors/font_color = Color( 0.388235, 0.415686, 0.580392, 1 )
+custom_colors/font_color_hover = Color( 0.247059, 0.262745, 0.380392, 1 )
+custom_colors/font_color_pressed = Color( 0.192157, 0.196078, 0.360784, 1 )
 text = "https://snoringcat.games"
 url = "https://snoringcat.games"
 
-[node name="Spacer4" parent="VBoxContainer/DeveloperSection" instance=ExtResource( 5 )]
+[node name="Spacer5" parent="VBoxContainer/DeveloperSection" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 116.0
-margin_top = 125.0
-margin_right = 116.0
-margin_bottom = 165.0
-rect_min_size = Vector2( 0, 40 )
-size = Vector2( 0, 40 )
+margin_left = 232.0
+margin_top = 254.0
+margin_right = 232.0
+margin_bottom = 334.0
+rect_min_size = Vector2( 0, 80 )
+size = Vector2( 0, 80 )
 
-[node name="GodotSection" type="VBoxContainer" parent="VBoxContainer"]
-margin_left = 395.0
-margin_top = 251.0
-margin_right = 629.0
-margin_bottom = 398.0
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_left = 331.0
+margin_top = 445.0
+margin_right = 692.0
+margin_bottom = 598.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="GodotSection" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+margin_right = 140.0
+margin_bottom = 153.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 4
@@ -192,45 +204,55 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GodotLogoLink" parent="VBoxContainer/GodotSection" instance=ExtResource( 7 )]
+[node name="GodotLogoLink" parent="VBoxContainer/HBoxContainer/GodotSection" instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = -1.0
-margin_right = 233.5
-margin_bottom = 85.0
-rect_min_size = Vector2( 234.5, 85 )
+margin_top = -1.0
+margin_right = 139.7
+margin_bottom = 50.0
+rect_min_size = Vector2( 140.7, 51 )
 texture_key = "godot_logo"
-texture_scale = Vector2( 0.5, 0.5 )
+texture_scale = Vector2( 0.3, 0.3 )
 url = "https://godotengine.org"
 
-[node name="GodotTextLink" parent="VBoxContainer/GodotSection" instance=ExtResource( 6 )]
+[node name="GodotTextLink" parent="VBoxContainer/HBoxContainer/GodotSection" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 62.0
-margin_top = 89.0
-margin_right = 171.0
-margin_bottom = 103.0
-custom_colors/font_color = Color( 0.921569, 0.647059, 0.203922, 1 )
-custom_colors/font_color_hover = Color( 0.760784, 0.494118, 0.0627451, 1 )
-custom_colors/font_color_pressed = Color( 0.45098, 0.286275, 0.0196078, 1 )
+margin_left = 15.0
+margin_top = 55.0
+margin_right = 124.0
+margin_bottom = 69.0
+custom_colors/font_color = Color( 0.388235, 0.415686, 0.580392, 1 )
+custom_colors/font_color_hover = Color( 0.247059, 0.262745, 0.380392, 1 )
+custom_colors/font_color_pressed = Color( 0.192157, 0.196078, 0.360784, 1 )
 text = "Made with Godot"
 url = "https://godotengine.org"
 
-[node name="Spacer5" parent="VBoxContainer/GodotSection" instance=ExtResource( 5 )]
+[node name="Spacer5" parent="VBoxContainer/HBoxContainer/GodotSection" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 117.0
-margin_top = 107.0
-margin_right = 117.0
-margin_bottom = 147.0
-rect_min_size = Vector2( 0, 40 )
-size = Vector2( 0, 40 )
+margin_left = 70.0
+margin_top = 73.0
+margin_right = 70.0
+margin_bottom = 153.0
+rect_min_size = Vector2( 0, 80 )
+size = Vector2( 0, 80 )
 
-[node name="GithubSection" type="VBoxContainer" parent="VBoxContainer"]
-margin_left = 395.0
-margin_top = 402.0
-margin_right = 629.0
-margin_bottom = 549.0
+[node name="Spacer" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 144.0
+margin_top = 76.0
+margin_right = 224.0
+margin_bottom = 76.0
+rect_min_size = Vector2( 80, 0 )
+size = Vector2( 80, 0 )
+
+[node name="GithubSection" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+margin_left = 228.0
+margin_right = 361.0
+margin_bottom = 153.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 4
@@ -238,41 +260,42 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GithubLogoLink" parent="VBoxContainer/GithubSection" instance=ExtResource( 7 )]
+[node name="GithubLogoLink" parent="VBoxContainer/HBoxContainer/GithubSection" instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = -1.0
-margin_right = 233.5
-margin_bottom = 85.0
-rect_min_size = Vector2( 234.5, 85 )
+margin_top = -1.0
+margin_right = 132.2
+margin_bottom = 50.0
+rect_min_size = Vector2( 133.2, 51 )
 focus_mode = 2
 texture_key = "github_logo"
-texture_scale = Vector2( 0.5, 0.5 )
-url = "https://godotengine.org"
+texture_scale = Vector2( 0.3, 0.3 )
+url = "https://github.com/SnoringCatGames/meteor_power"
 
-[node name="GithubTextLink" parent="VBoxContainer/GithubSection" instance=ExtResource( 6 )]
+[node name="GithubTextLink" parent="VBoxContainer/HBoxContainer/GithubSection" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 76.0
-margin_top = 89.0
-margin_right = 158.0
-margin_bottom = 103.0
+margin_left = 25.0
+margin_top = 55.0
+margin_right = 107.0
+margin_bottom = 69.0
 focus_mode = 2
-custom_colors/font_color = Color( 0.921569, 0.647059, 0.203922, 1 )
-custom_colors/font_color_hover = Color( 0.760784, 0.494118, 0.0627451, 1 )
-custom_colors/font_color_pressed = Color( 0.45098, 0.286275, 0.0196078, 1 )
+custom_colors/font_color = Color( 0.388235, 0.415686, 0.580392, 1 )
+custom_colors/font_color_hover = Color( 0.247059, 0.262745, 0.380392, 1 )
+custom_colors/font_color_pressed = Color( 0.192157, 0.196078, 0.360784, 1 )
 text = "Open source"
-url = "https://godotengine.org"
+url = "https://github.com/SnoringCatGames/meteor_power"
 
-[node name="Spacer5" parent="VBoxContainer/GithubSection" instance=ExtResource( 5 )]
+[node name="Spacer5" parent="VBoxContainer/HBoxContainer/GithubSection" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 117.0
-margin_top = 107.0
-margin_right = 117.0
-margin_bottom = 147.0
-rect_min_size = Vector2( 0, 40 )
-size = Vector2( 0, 40 )
+margin_left = 66.0
+margin_top = 73.0
+margin_right = 66.0
+margin_bottom = 153.0
+rect_min_size = Vector2( 0, 80 )
+size = Vector2( 0, 80 )
 
 [node name="SpecialThanksContainer" type="VBoxContainer" parent="VBoxContainer"]
 visible = false
@@ -315,9 +338,9 @@ rect_min_size = Vector2( 0, 40 )
 size = Vector2( 0, 40 )
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 553.0
+margin_top = 602.0
 margin_right = 1024.0
-margin_bottom = 661.0
+margin_bottom = 710.0
 custom_constants/separation = 12
 __meta__ = {
 "_edit_use_anchors_": false
@@ -329,11 +352,11 @@ anchor_bottom = 0.0
 margin_left = 449.0
 margin_right = 575.0
 margin_bottom = 14.0
-custom_colors/font_color = Color( 0.921569, 0.647059, 0.203922, 1 )
-custom_colors/font_color_hover = Color( 0.760784, 0.494118, 0.0627451, 1 )
-custom_colors/font_color_pressed = Color( 0.45098, 0.286275, 0.0196078, 1 )
+custom_colors/font_color = Color( 0.388235, 0.415686, 0.580392, 1 )
+custom_colors/font_color_hover = Color( 0.247059, 0.262745, 0.380392, 1 )
+custom_colors/font_color_pressed = Color( 0.192157, 0.196078, 0.360784, 1 )
 text = "Terms & Conditions"
-url = "https://snoringcat.games/squirrel-away/terms-and-conditions"
+url = "https://docs.google.com/document/d/1aegg8nErqIRX0rMwzv1pfe_y6ralXeLPpTXM4TMwQUg/preview"
 
 [node name="PrivacyPolicyLink" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 6 )]
 anchor_right = 0.0
@@ -343,11 +366,11 @@ margin_top = 26.0
 margin_right = 555.0
 margin_bottom = 40.0
 focus_mode = 2
-custom_colors/font_color = Color( 0.921569, 0.647059, 0.203922, 1 )
-custom_colors/font_color_hover = Color( 0.760784, 0.494118, 0.0627451, 1 )
-custom_colors/font_color_pressed = Color( 0.45098, 0.286275, 0.0196078, 1 )
+custom_colors/font_color = Color( 0.388235, 0.415686, 0.580392, 1 )
+custom_colors/font_color_hover = Color( 0.247059, 0.262745, 0.380392, 1 )
+custom_colors/font_color_pressed = Color( 0.192157, 0.196078, 0.360784, 1 )
 text = "Privacy Policy"
-url = "https://snoringcat.games/squirrel-away/privacy-policy"
+url = "https://docs.google.com/document/d/1WYzGSfv1Xywpk9rYWDr0yf78o1Th_5m-4009Q_XEKlk/preview"
 
 [node name="SupportLink" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 6 )]
 anchor_right = 0.0
@@ -357,11 +380,11 @@ margin_top = 52.0
 margin_right = 536.0
 margin_bottom = 66.0
 focus_mode = 2
-custom_colors/font_color = Color( 0.921569, 0.647059, 0.203922, 1 )
-custom_colors/font_color_hover = Color( 0.760784, 0.494118, 0.0627451, 1 )
-custom_colors/font_color_pressed = Color( 0.45098, 0.286275, 0.0196078, 1 )
+custom_colors/font_color = Color( 0.388235, 0.415686, 0.580392, 1 )
+custom_colors/font_color_hover = Color( 0.247059, 0.262745, 0.380392, 1 )
+custom_colors/font_color_pressed = Color( 0.192157, 0.196078, 0.360784, 1 )
 text = "Support"
-url = "https://snoringcat.games/support?source=Windows&app=squirrel-away"
+url = "https://snoringcat.games/support?source=Windows&app=meteor-power"
 
 [node name="Spacer7" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -375,9 +398,9 @@ size = Vector2( 0, 30 )
 
 [node name="AccordionPanel" parent="VBoxContainer" instance=ExtResource( 2 )]
 margin_left = 282.0
-margin_top = 665.0
+margin_top = 714.0
 margin_right = 742.0
-margin_bottom = 721.0
+margin_bottom = 770.0
 rect_min_size = Vector2( 460, 0 )
 
 [node name="AccordionHeader" parent="VBoxContainer/AccordionPanel" instance=ExtResource( 15 )]
@@ -385,11 +408,11 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 460.0
 margin_bottom = 56.0
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
+custom_styles/hover = SubResource( 21 )
+custom_styles/pressed = SubResource( 23 )
+custom_styles/focus = SubResource( 20 )
+custom_styles/disabled = SubResource( 19 )
+custom_styles/normal = SubResource( 22 )
 text = "More details"
 header_text = "More details"
 is_text_centered = true
@@ -453,9 +476,9 @@ size_override = Vector2( 360, 0 )
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 512.0
-margin_top = 725.0
+margin_top = 774.0
 margin_right = 512.0
-margin_bottom = 765.0
+margin_bottom = 814.0
 rect_min_size = Vector2( 0, 40 )
 size = Vector2( 0, 40 )
 

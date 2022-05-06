@@ -11,11 +11,11 @@ func _ready() -> void:
     var developer_logo_link := $VBoxContainer/DeveloperSection/DeveloperLogoLink
     var developer_name_link := $VBoxContainer/DeveloperSection/DeveloperNameLink
     var developer_url_link := $VBoxContainer/DeveloperSection/DeveloperUrlLink
-    var godot_logo_link := $VBoxContainer/GodotSection/GodotLogoLink
-    var godot_text_link := $VBoxContainer/GodotSection/GodotTextLink
-    var github_section := $VBoxContainer/GithubSection
-    var github_logo_link := $VBoxContainer/GithubSection/GithubLogoLink
-    var github_text_link := $VBoxContainer/GithubSection/GithubTextLink
+    var godot_logo_link := $VBoxContainer/HBoxContainer/GodotSection/GodotLogoLink
+    var godot_text_link := $VBoxContainer/HBoxContainer/GodotSection/GodotTextLink
+    var github_section := $VBoxContainer/HBoxContainer/GithubSection
+    var github_logo_link := $VBoxContainer/HBoxContainer/GithubSection/GithubLogoLink
+    var github_text_link := $VBoxContainer/HBoxContainer/GithubSection/GithubTextLink
     var terms_and_conditions_link := \
             $VBoxContainer/VBoxContainer2/TermsAndConditionsLink
     var privacy_policy_link := $VBoxContainer/VBoxContainer2/PrivacyPolicyLink
