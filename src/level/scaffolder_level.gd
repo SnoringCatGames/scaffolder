@@ -43,6 +43,10 @@ func _init() -> void:
     Sc.canvas_layers.layers.top.add_child(touch_listener)
     self.level_control_press_controller = LevelControlPressController.new()
     Sc.canvas_layers.layers.top.add_child(level_control_press_controller)
+    self.connect(
+            "active_player_character_changed",
+            self,
+            "_on_active_player_character_changed")
 
 
 func _enter_tree() -> void:
@@ -522,6 +526,10 @@ func _set_active_player_character(character: ScaffolderCharacter) -> void:
 
 func _get_active_player_character() -> ScaffolderCharacter:
     return _active_player_character
+
+
+func _on_active_player_character_changed() -> void:
+    pass
 
 
 func _establish_boundaries() -> void:
