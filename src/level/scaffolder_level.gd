@@ -22,6 +22,7 @@ var characters: Dictionary
 var active_player_character: ScaffolderCharacter \
         setget _set_active_player_character,_get_active_player_character
 var _active_player_character: ScaffolderCharacter
+var _previous_active_player_character: ScaffolderCharacter
 
 var level_bounds: Rect2
 var camera_bounds: Rect2
@@ -515,6 +516,8 @@ func _set_active_player_character(character: ScaffolderCharacter) -> void:
     if previous_active_player_character == _active_player_character:
         # No change.
         return
+    
+    _previous_active_player_character = previous_active_player_character
     
     if is_instance_valid(previous_active_player_character):
         # De-activate previous character.
