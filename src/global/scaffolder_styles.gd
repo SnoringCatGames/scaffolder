@@ -8,6 +8,7 @@ var overlay_panel_stylebox: StyleBox
 var notification_panel_stylebox: StyleBox
 var header_panel_stylebox: StyleBox
 var hud_panel_stylebox: StyleBox
+var simple_transparent_black_panel_stylebox: StyleBox
 
 var focus_border_corner_radius: int
 var focus_border_corner_detail: int
@@ -174,6 +175,13 @@ var hud_panel_content_margin_left: int
 var hud_panel_content_margin_top: int
 var hud_panel_content_margin_right: int
 var hud_panel_content_margin_bottom: int
+    
+var simple_transparent_black_panel_corner_radius: int
+var simple_transparent_black_panel_corner_detail: int
+var simple_transparent_black_panel_content_margin_left: int
+var simple_transparent_black_panel_content_margin_top: int
+var simple_transparent_black_panel_content_margin_right: int
+var simple_transparent_black_panel_content_margin_bottom: int
 
 var screen_shadow_size: int
 var screen_shadow_offset: Vector2
@@ -455,6 +463,19 @@ func _parse_manifest(manifest: Dictionary) -> void:
     self.hud_panel_content_margin_bottom = \
             manifest.hud_panel_content_margin_bottom
     
+    self.simple_transparent_black_panel_corner_radius = \
+            manifest.simple_transparent_black_panel_corner_radius
+    self.simple_transparent_black_panel_corner_detail = \
+            manifest.simple_transparent_black_panel_corner_detail
+    self.simple_transparent_black_panel_content_margin_left = \
+            manifest.simple_transparent_black_panel_content_margin_left
+    self.simple_transparent_black_panel_content_margin_top = \
+            manifest.simple_transparent_black_panel_content_margin_top
+    self.simple_transparent_black_panel_content_margin_right = \
+            manifest.simple_transparent_black_panel_content_margin_right
+    self.simple_transparent_black_panel_content_margin_bottom = \
+            manifest.simple_transparent_black_panel_content_margin_bottom
+    
     self.screen_shadow_size = manifest.screen_shadow_size
     self.screen_shadow_offset = manifest.screen_shadow_offset
     self.screen_border_width = manifest.screen_border_width
@@ -616,6 +637,13 @@ func _validate_manifest(manifest: Dictionary) -> void:
             manifest.has("hud_panel_content_margin_top") and \
             manifest.has("hud_panel_content_margin_right") and \
             manifest.has("hud_panel_content_margin_bottom"))
+    
+    assert(manifest.has("simple_transparent_black_panel_corner_radius") and \
+            manifest.has("simple_transparent_black_panel_corner_detail") and \
+            manifest.has("simple_transparent_black_panel_content_margin_left") and \
+            manifest.has("simple_transparent_black_panel_content_margin_top") and \
+            manifest.has("simple_transparent_black_panel_content_margin_right") and \
+            manifest.has("simple_transparent_black_panel_content_margin_bottom"))
 
 
 func configure_theme() -> void:
@@ -737,6 +765,25 @@ func configure_theme() -> void:
         content_margin_top = Sc.styles.hud_panel_content_margin_top,
         content_margin_right = Sc.styles.hud_panel_content_margin_right,
         content_margin_bottom = Sc.styles.hud_panel_content_margin_bottom,
+    }, false)
+    
+    simple_transparent_black_panel_stylebox = Sc.styles.create_stylebox_scalable({
+        bg_color = Sc.palette.get_color("simple_transparent_black"),
+        corner_radius = Sc.styles.simple_transparent_black_panel_corner_radius,
+        corner_detail = Sc.styles.simple_transparent_black_panel_corner_detail,
+        shadow_size = 0.0,
+        shadow_offset = Vector2.ZERO,
+        shadow_color = Sc.palette.get_color("transparent"),
+        border_width = 0.0,
+        border_color = Sc.palette.get_color("transparent"),
+        content_margin_left = \
+                Sc.styles.simple_transparent_black_panel_content_margin_left,
+        content_margin_top = \
+                Sc.styles.simple_transparent_black_panel_content_margin_top,
+        content_margin_right = \
+                Sc.styles.simple_transparent_black_panel_content_margin_right,
+        content_margin_bottom = \
+                Sc.styles.simple_transparent_black_panel_content_margin_bottom,
     }, false)
     
     _configure_theme_color(

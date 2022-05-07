@@ -395,6 +395,13 @@ var _styles_manifest_anti_aliased := {
     hud_panel_content_margin_right = 8.0,
     hud_panel_content_margin_bottom = 2.0,
     
+    simple_transparent_black_panel_corner_radius = 0.0,
+    simple_transparent_black_panel_corner_detail = 1,
+    simple_transparent_black_panel_content_margin_left = 0.0,
+    simple_transparent_black_panel_content_margin_top = 0.0,
+    simple_transparent_black_panel_content_margin_right = 0.0,
+    simple_transparent_black_panel_content_margin_bottom = 0.0,
+    
     screen_shadow_size = 8,
     screen_shadow_offset = Vector2(-4.0, 4.0),
     screen_border_width = 0,
@@ -529,6 +536,13 @@ var _styles_manifest_pixelated := {
     hud_panel_content_margin_top = 2.0,
     hud_panel_content_margin_right = 8.0,
     hud_panel_content_margin_bottom = 2.0,
+    
+    simple_transparent_black_panel_corner_radius = 0.0,
+    simple_transparent_black_panel_corner_detail = 1,
+    simple_transparent_black_panel_content_margin_left = 0.0,
+    simple_transparent_black_panel_content_margin_top = 0.0,
+    simple_transparent_black_panel_content_margin_right = 0.0,
+    simple_transparent_black_panel_content_margin_bottom = 0.0,
     
     screen_shadow_size = 0,
     screen_shadow_offset = Vector2.ZERO,

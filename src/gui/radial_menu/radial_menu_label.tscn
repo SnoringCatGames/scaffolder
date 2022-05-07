@@ -1,31 +1,15 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/scaffolder/src/gui/radial_menu/radial_menu_label.gd" type="Script" id=1]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scaffolder/assets/fonts/pxlzr_font_s.tres" type="DynamicFont" id=3]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_panel_container.tscn" type="PackedScene" id=4]
-[ext_resource path="res://addons/scaffolder/src/gui/style_box_texture_scalable.gd" type="Script" id=5]
-[ext_resource path="res://assets/images/gui/nine_patch/overlay_panel.png" type="Texture" id=6]
-
-[sub_resource type="StyleBoxTexture" id=37]
-content_margin_left = 4.0
-content_margin_right = 4.0
-content_margin_top = 4.0
-content_margin_bottom = 4.0
-texture = ExtResource( 6 )
-region_rect = Rect2( 0, 0, 7, 7 )
-margin_left = 3.5
-margin_right = 3.5
-margin_top = 3.5
-margin_bottom = 3.5
-script = ExtResource( 5 )
 
 [node name="RadialMenuLabel" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="ScaffolderPanelContainer" parent="." instance=ExtResource( 4 )]
-custom_styles/panel = SubResource( 37 )
-style = 1
+style = 5
 is_unique = true
 content_margin_left_override = 4
 content_margin_top_override = 4
@@ -35,9 +19,9 @@ content_margin_bottom_override = 4
 [node name="ScaffolderLabel" parent="ScaffolderPanelContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 4.0
-margin_bottom = 27.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 7.0
+margin_bottom = 30.0
 custom_fonts/font = ExtResource( 3 )
 font_size = "S"
