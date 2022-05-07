@@ -81,6 +81,7 @@ func _on_item_touch_entered() -> void:
             0.0,
             TimeType.PLAY_PHYSICS)
     _tween.start()
+    _menu.set_text(description)
 
 
 func _on_item_touch_exited() -> void:
@@ -95,6 +96,7 @@ func _on_item_touch_exited() -> void:
             0.0,
             TimeType.PLAY_PHYSICS)
     _tween.start()
+    _menu.set_text("")
 
 
 func _on_item_touch_up(

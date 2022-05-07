@@ -18,6 +18,8 @@ signal touch_up_outside()
 
 const _SPRITE_MODULATION_BUTTON_SCENE := preload(
     "res://addons/scaffolder/src/gui/level_button/sprite_modulation_button.tscn")
+const _RADIAL_MENU_LABEL_SCENE := preload(
+    "res://addons/scaffolder/src/gui/radial_menu/radial_menu_label.tscn")
 
 var metadata
 
@@ -25,6 +27,8 @@ var metadata
 var _items := []
 
 var _center_area_control: LevelControl
+
+var _label: RadialMenuLabel
 
 var _destroyed := false
 
@@ -39,6 +43,9 @@ func _ready() -> void:
     
     Sc.level.touch_listener.connect(
         "single_unhandled_touch_released", self, "_on_level_touch_up")
+    
+    _label = Sc.utils.add_scene(self, _RADIAL_MENU_LABEL_SCENE)
+    _label.visible = false
 
 
 func _destroy() -> void:
@@ -49,6 +56,8 @@ func _destroy() -> void:
             item._tween._destroy()
     if is_instance_valid(_center_area_control):
         _center_area_control._destroy()
+    if is_instance_valid(_label):
+        _label._destroy()
     queue_free()
 
 
@@ -180,6 +189,11 @@ func _transition_position(
 
 func update_item_control(item: RadialMenuItem) -> void:
     item._control.is_disabled = item.is_disabled
+
+
+func set_text(text: String) -> void:
+    _label.visible = text != ""
+    _label.text = text
 
 
 func _on_level_touch_up(
