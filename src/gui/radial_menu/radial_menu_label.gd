@@ -5,6 +5,7 @@ extends Node2D
 const _BOTTOM_MARGIN := 8.0
 
 var text := "" setget _set_text
+var color: Color = Sc.palette.get_color("white") setget _set_color
 
 
 func _ready() -> void:
@@ -12,8 +13,8 @@ func _ready() -> void:
         (Sc.gui.hud.radial_menu_radius + \
             Sc.gui.hud.radial_menu_item_radius) * 2.0,
         0.0)
-    $ScaffolderPanelContainer/ScaffolderLabel.add_color_override(
-        "font_color", Sc.palette.get_color("white"))
+    
+    _set_color(color)
     
     Sc.gui.add_gui_to_scale(self)
     
@@ -52,3 +53,9 @@ func _set_text(value: String) -> void:
     if old_text != text:
         $ScaffolderPanelContainer/ScaffolderLabel.text = text
         _on_gui_scale_changed()
+
+
+func _set_color(value: Color) -> void:
+    color = value
+    $ScaffolderPanelContainer/ScaffolderLabel.add_color_override(
+        "font_color", color)

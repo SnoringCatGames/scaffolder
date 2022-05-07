@@ -45,6 +45,7 @@ func _ready() -> void:
         "single_unhandled_touch_released", self, "_on_level_touch_up")
     
     _label = Sc.utils.add_scene(self, _RADIAL_MENU_LABEL_SCENE)
+    _label.color = Sc.gui.hud.radial_menu_item_normal_color_modulate.sample()
     _label.visible = false
 
 

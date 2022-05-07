@@ -10,6 +10,7 @@ enum PanelStyle {
     NOTIFICATION,
     HEADER,
     HUD,
+    SIMPLE_TRANSPARENT_BLACK,
 }
 
 export(PanelStyle) var style := PanelStyle.TRANSPARENT setget _set_style
@@ -61,6 +62,8 @@ func _set_style(value: int) -> void:
             _stylebox = Sc.styles.header_panel_stylebox
         PanelStyle.HUD:
             _stylebox = Sc.styles.hud_panel_stylebox
+        PanelStyle.SIMPLE_TRANSPARENT_BLACK:
+            _stylebox = Sc.styles.simple_transparent_black_panel_stylebox
         _:
             Sc.logger.error("ScaffolderPanelContainer._set_style")
             _stylebox = null
