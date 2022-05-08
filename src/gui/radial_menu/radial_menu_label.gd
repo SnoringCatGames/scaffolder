@@ -7,9 +7,14 @@ const _BOTTOM_MARGIN := 8.0
 var text := "" setget _set_text
 var color: Color = Sc.palette.get_color("white") setget _set_color
 
+var panel_container: ScaffolderPanelContainer
+var label: ScaffolderLabel
+
 
 func _ready() -> void:
-    $ScaffolderPanelContainer/ScaffolderLabel.size_override = Vector2(
+    _initialize_node_references()
+    
+    label.size_override = Vector2(
         (Sc.gui.hud.radial_menu_radius + \
             Sc.gui.hud.radial_menu_item_radius) * 2.0,
         0.0)
@@ -19,6 +24,11 @@ func _ready() -> void:
     Sc.gui.add_gui_to_scale(self)
     
     _on_gui_scale_changed()
+
+
+func _initialize_node_references() -> void:
+    panel_container = $ScaffolderPanelContainer
+    label = $ScaffolderPanelContainer/ScaffolderLabel
 
 
 func _destroy() -> void:
@@ -40,9 +50,9 @@ func _on_gui_scale_changed() -> bool:
         Sc.gui.scale
     
     # Anchored at the bottom middle.
-    $ScaffolderPanelContainer.rect_position = Vector2(
-        -$ScaffolderPanelContainer.rect_size.x / 2.0,
-        -$ScaffolderPanelContainer.rect_size.y)
+    panel_container.rect_position = Vector2(
+        -panel_container.rect_size.x / 2.0,
+        -panel_container.rect_size.y)
     
     return true
 
@@ -51,11 +61,10 @@ func _set_text(value: String) -> void:
     var old_text := text
     text = value
     if old_text != text:
-        $ScaffolderPanelContainer/ScaffolderLabel.text = text
+        label.text = text
         _on_gui_scale_changed()
 
 
 func _set_color(value: Color) -> void:
     color = value
-    $ScaffolderPanelContainer/ScaffolderLabel.add_color_override(
-        "font_color", color)
+    label.add_color_override("font_color", color)

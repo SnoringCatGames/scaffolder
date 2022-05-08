@@ -18,8 +18,6 @@ signal touch_up_outside()
 
 const _SPRITE_MODULATION_BUTTON_SCENE := preload(
     "res://addons/scaffolder/src/gui/level_button/sprite_modulation_button.tscn")
-const _RADIAL_MENU_LABEL_SCENE := preload(
-    "res://addons/scaffolder/src/gui/radial_menu/radial_menu_label.tscn")
 
 var metadata
 
@@ -44,7 +42,7 @@ func _ready() -> void:
     Sc.level.touch_listener.connect(
         "single_unhandled_touch_released", self, "_on_level_touch_up")
     
-    _label = Sc.utils.add_scene(self, _RADIAL_MENU_LABEL_SCENE)
+    _label = Sc.utils.add_scene(self, Sc.gui.hud.radial_menu_label_scene)
     _label.color = Sc.gui.hud.radial_menu_item_normal_color_modulate.sample()
     _label.visible = false
 

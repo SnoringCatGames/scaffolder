@@ -13,6 +13,7 @@ const _REGION_FADE_DURATION := 0.25
 const _REGION_FADE_OUT_OPACITY := 0.25
 
 var radial_menu_class: Script
+var radial_menu_label_scene: PackedScene
 var radial_menu_item_hovered_scale: float
 var radial_menu_radius: float
 var radial_menu_item_radius: float
@@ -43,6 +44,8 @@ func _ready() -> void:
     
     self.radial_menu_class = \
             Sc.gui.hud_manifest.radial_menu_class
+    self.radial_menu_label_scene = \
+            Sc.gui.hud_manifest.radial_menu_label_scene
     self.radial_menu_item_hovered_scale = \
             Sc.gui.hud_manifest.radial_menu_item_hovered_scale
     self.radial_menu_radius = \

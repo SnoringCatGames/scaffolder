@@ -834,9 +834,9 @@ var _hud_manifest := {
     hud_class = ScaffolderHud,
     hud_key_value_box_size = Vector2(256.0, 48.0),
     hud_key_value_box_scene = \
-            preload("res://addons/scaffolder/src/gui/hud/hud_key_value_box.tscn"),
+        preload("res://addons/scaffolder/src/gui/hud/hud_key_value_box.tscn"),
     hud_key_value_list_scene = \
-            preload("res://addons/scaffolder/src/gui/hud/hud_key_value_list.tscn"),
+        preload("res://addons/scaffolder/src/gui/hud/hud_key_value_list.tscn"),
     hud_key_value_list_item_manifest = [
         {
             item_class = TimeControlRow,
@@ -848,6 +848,8 @@ var _hud_manifest := {
     is_hud_visible_by_default = true,
     
     radial_menu_class = RadialMenu,
+    radial_menu_label_scene = preload(
+        "res://addons/scaffolder/src/gui/radial_menu/radial_menu_label.tscn"),
     radial_menu_item_hovered_scale = 2.0,
     radial_menu_radius = 96.0,
     radial_menu_item_radius = 32.0,
