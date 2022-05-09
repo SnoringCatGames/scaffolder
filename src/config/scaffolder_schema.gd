@@ -969,6 +969,8 @@ var _gui_manifest := {
         "res://addons/scaffolder/src/gui/welcome_panel.tscn"),
     debug_panel_scene = preload(
         "res://addons/scaffolder/src/gui/debug_panel.tscn"),
+    info_panel_scene = preload(
+        "res://addons/scaffolder/src/gui/info_panel/info_panel.tscn"),
     
     theme = preload(
         "res://addons/scaffolder/src/config/scaffolder_default_theme.tres"),

@@ -139,6 +139,7 @@ func _close(
     else:
         emit_signal("touch_up_outside")
     emit_signal("closed")
+    _label.visible = false
     _transition_closed()
 
 

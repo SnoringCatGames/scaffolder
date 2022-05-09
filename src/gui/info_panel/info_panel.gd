@@ -123,26 +123,31 @@ func set_up(data: InfoPanelData) -> void:
         active_header = \
             $VBoxContainer/ScaffolderPanelContainer/HeaderWithCloseButton
         inactive_header = \
-            $VBoxContainer/ScaffolderPanelContainer2/HeaderWithoutCloseButton
+            $VBoxContainer/ScaffolderPanelContainer2/VBoxContainer/HeaderWithoutCloseButton
     else:
         active_header = \
-            $VBoxContainer/ScaffolderPanelContainer2/HeaderWithoutCloseButton
+            $VBoxContainer/ScaffolderPanelContainer2/VBoxContainer/HeaderWithoutCloseButton
         inactive_header = \
             $VBoxContainer/ScaffolderPanelContainer/HeaderWithCloseButton
     
-    $VBoxContainer/ScaffolderPanelContainer2/HeaderWithoutCloseButton \
+    $VBoxContainer/ScaffolderPanelContainer2/VBoxContainer/HeaderWithoutCloseButton \
             .text = _data.header_text
     $VBoxContainer/ScaffolderPanelContainer/HeaderWithCloseButton/ScaffolderLabel \
             .text = _data.header_text
     
+    $VBoxContainer/ScaffolderPanelContainer2/VBoxContainer/HeaderWithoutCloseButton \
+            .add_color_override("font_color", Sc.palette.get_color("header"))
+    $VBoxContainer/ScaffolderPanelContainer/HeaderWithCloseButton/ScaffolderLabel \
+            .add_color_override("font_color", Sc.palette.get_color("header"))
+    
     Sc.utils.clear_children(
-            $VBoxContainer/ScaffolderPanelContainer2/ScrollContainer/Body)
-    $VBoxContainer/ScaffolderPanelContainer2/ScrollContainer/Body \
+            $VBoxContainer/ScaffolderPanelContainer2/VBoxContainer/ScrollContainer/Body)
+    $VBoxContainer/ScaffolderPanelContainer2/VBoxContainer/ScrollContainer/Body \
             .add_child(_data.contents)
     
     inactive_header.visible = false
     active_header.visible = _data.header_text != ""
-    $VBoxContainer/ScaffolderPanelContainer2/Spacer \
+    $VBoxContainer/ScaffolderPanelContainer2/VBoxContainer/Spacer \
             .visible = _data.header_text != ""
     
     _on_gui_scale_changed()
