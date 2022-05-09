@@ -38,16 +38,26 @@ func _interpolate_item_hover(progress: float) -> void:
     
     var scale: float = lerp(
             1.0, Sc.gui.hud.radial_menu_item_hovered_scale, progress)
-    _sprite.scale = \
-            Vector2.ONE * \
-            scale * \
-            Sc.gui.hud.radial_menu_item_radius * 2.0 / \
-            texture.get_size() * \
-            Sc.gui.scale
     
     var normal_color: Color = \
             Sc.gui.hud.radial_menu_item_normal_color_modulate.sample()
     var hovered_color: Color = \
             Sc.gui.hud.radial_menu_item_hover_color_modulate.sample()
     var color: Color = lerp(normal_color, hovered_color, progress)
+    
+    if is_disabled:
+        scale = 1.0
+        color = Sc.gui.hud.radial_menu_item_disabled_color_modulate.sample()
+    
+    _sprite.scale = \
+            Vector2.ONE * \
+            scale * \
+            Sc.gui.hud.radial_menu_item_radius * 2.0 / \
+            texture.get_size() * \
+            Sc.gui.scale
     _sprite.outline_color = color
+
+
+func _set_is_disabled(value: bool) -> void:
+    ._set_is_disabled(value)
+    _interpolate_item_hover(0.0)

@@ -5,10 +5,14 @@ extends Node2D
 const _BOTTOM_MARGIN := 8.0
 
 var text := "" setget _set_text
+var disablement_explanation := "" setget _set_disablement_explanation
 var color: Color = Sc.palette.get_color("white") setget _set_color
+var disablement_color: Color = Sc.palette.get_color("invalid") \
+    setget _set_disablement_color
 
 var panel_container: ScaffolderPanelContainer
 var label: ScaffolderLabel
+var disablement_explanation_label: ScaffolderLabel
 
 
 func _ready() -> void:
@@ -20,6 +24,7 @@ func _ready() -> void:
         0.0)
     
     _set_color(color)
+    _set_disablement_color(color)
     
     Sc.gui.add_gui_to_scale(self)
     
@@ -28,7 +33,9 @@ func _ready() -> void:
 
 func _initialize_node_references() -> void:
     panel_container = $ScaffolderPanelContainer
-    label = $ScaffolderPanelContainer/ScaffolderLabel
+    label = $ScaffolderPanelContainer/VBoxContainer/ScaffolderLabel
+    disablement_explanation_label = \
+        $ScaffolderPanelContainer/VBoxContainer/DisablementExplanation
 
 
 func _destroy() -> void:
@@ -65,6 +72,21 @@ func _set_text(value: String) -> void:
         _on_gui_scale_changed()
 
 
+func _set_disablement_explanation(value: String) -> void:
+    var old_disablement_explanation := disablement_explanation
+    disablement_explanation = value
+    if old_disablement_explanation != disablement_explanation:
+        disablement_explanation_label.text = disablement_explanation
+        disablement_explanation_label.visible = disablement_explanation != ""
+        _on_gui_scale_changed()
+
+
 func _set_color(value: Color) -> void:
     color = value
     label.add_color_override("font_color", color)
+
+
+func _set_disablement_color(value: Color) -> void:
+    disablement_color = value
+    disablement_explanation_label \
+        .add_color_override("font_color", disablement_color)

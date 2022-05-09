@@ -8,7 +8,7 @@ var id = ""
 var description := ""
 
 var is_visible := true
-var is_disabled := false
+var is_disabled := false setget _set_is_disabled
 
 var _hover_progress := 0.0
 
@@ -18,11 +18,15 @@ var _angle: float
 var _control: ShapedLevelControl
 var _tween: ScaffolderTween
 
+var _is_ready := false
+
 
 func set_up(
         menu,
         index: int,
         angular_spread: float) -> void:
+    _is_ready = true
+    
     _menu = menu
     _index = index
     _angle = angular_spread * index
@@ -57,15 +61,19 @@ func _interpolate_item_hover(progress: float) -> void:
     
     var scale: float = lerp(
             1.0, Sc.gui.hud.radial_menu_item_hovered_scale, progress)
+    
+    if is_disabled:
+        scale = 1.0
+    
     var radius: float = \
             scale * Sc.gui.hud.radial_menu_item_radius * Sc.gui.scale
-    _control.shape_circle_radius = radius
-    
     var menu_radius: float = \
             (Sc.gui.hud.radial_menu_radius + \
             scale * Sc.gui.hud.radial_menu_item_radius - \
             Sc.gui.hud.radial_menu_item_radius) * Sc.gui.scale
     var offset := Vector2(0.0, -menu_radius).rotated(_angle)
+    
+    _control.shape_circle_radius = radius
     _control.position = offset
 
 
@@ -107,3 +115,7 @@ func _on_item_touch_up(
 
 func _on_item_tween_completed() -> void:
     pass
+
+
+func _set_is_disabled(value: bool) -> void:
+    is_disabled = value

@@ -133,7 +133,10 @@ func _close(
     Sc.level.level_control_press_controller.reset_control_exclusivity(
             _center_area_control)
     if is_instance_valid(touch_up_item):
-        emit_signal("touch_up_item", touch_up_item)
+        if touch_up_item.is_disabled:
+            emit_signal("touch_up_outside")
+        else:
+            emit_signal("touch_up_item", touch_up_item)
     elif is_touch_in_center:
         emit_signal("touch_up_center")
     else:
