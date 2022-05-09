@@ -100,6 +100,7 @@ var game_over_image_scene: PackedScene
 var loading_image_scene: PackedScene
 var welcome_panel_scene: PackedScene
 var debug_panel_scene: PackedScene
+var info_panel_scene: PackedScene
 
 var theme: Theme
 
@@ -233,6 +234,8 @@ func _parse_manifest(manifest: Dictionary) -> void:
         self.welcome_panel_scene = manifest.welcome_panel_scene
     if manifest.has("debug_panel_scene"):
         self.debug_panel_scene = manifest.debug_panel_scene
+    if manifest.has("info_panel_scene"):
+        self.info_panel_scene = manifest.info_panel_scene
     
     if manifest.has("button_height"):
         self.button_height = manifest.button_height

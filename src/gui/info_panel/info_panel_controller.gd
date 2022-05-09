@@ -6,9 +6,6 @@ extends Node
 signal opened(data)
 signal closed(data)
 
-const _INFO_PANEL_SCENE := preload(
-        "res://addons/scaffolder/src/gui/info_panel/info_panel.tscn")
-
 var fade_in_duration := 0.15
 var fade_out_duration := 0.3
 
@@ -48,7 +45,7 @@ func _parse_manifest(manifest: Dictionary) -> void:
 
 func show_panel(data: InfoPanelData) -> void:
     var container: CanvasLayer = Sc.canvas_layers.layers["in_game_dialog"]
-    var panel: Control = _INFO_PANEL_SCENE.instance()
+    var panel: Control = Sc.gui.info_panel_scene.instance()
     container.add_child(panel)
     container.move_child(panel, 0)
     panel.connect("fade_out_started", self, "_on_fade_out_started", [panel])
