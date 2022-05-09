@@ -182,7 +182,7 @@ func _transition_position(
             duration,
             "ease_in_out",
             0.0,
-            TimeType.PLAY_PHYSICS_SCALED)
+            TimeType.PLAY_PHYSICS)
     _position_tween.start()
 
 

@@ -61,7 +61,7 @@ func _update_display() -> void:
                 half_duration,
                 "ease_out",
                 0.0,
-                TimeType.PLAY_PHYSICS_SCALED)
+                TimeType.PLAY_PHYSICS)
         _tween.interpolate_property(
                 $HBoxContainer/Value,
                 "modulate",
@@ -70,5 +70,5 @@ func _update_display() -> void:
                 half_duration,
                 "ease_out",
                 half_duration,
-                TimeType.PLAY_PHYSICS_SCALED)
+                TimeType.PLAY_PHYSICS)
         _tween.start()
