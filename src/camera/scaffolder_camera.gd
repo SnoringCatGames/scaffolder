@@ -209,7 +209,7 @@ func _transition_from_offset_and_zoom(
             duration,
             "ease_in_out",
             0.0,
-            TimeType.PLAY_PHYSICS_SCALED)
+            TimeType.PLAY_PHYSICS)
     _camera_swap_tween.start()
 
 
@@ -240,7 +240,7 @@ func transition_extra_zoom(
             duration,
             "ease_in_out",
             0.0,
-            TimeType.PLAY_PHYSICS_SCALED)
+            TimeType.PLAY_PHYSICS)
     _extra_zoom_tween.start()
 
 
