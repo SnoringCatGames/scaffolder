@@ -6,6 +6,14 @@ const _SPRITE_MODULATION_BUTTON_SCENE := preload(
     "res://addons/scaffolder/src/gui/level_button/sprite_modulation_button.tscn")
 
 
+func set_up(
+        menu,
+        index: int,
+        angular_spread: float) -> void:
+    .set_up(menu, index, angular_spread)
+    _set_is_disabled(is_disabled)
+
+
 func _create_item_level_control() -> ShapedLevelControl:
     var control: SpriteModulationButton = \
         _SPRITE_MODULATION_BUTTON_SCENE.instance()
@@ -20,3 +28,10 @@ func _create_item_level_control() -> ShapedLevelControl:
         Sc.gui.hud.radial_menu_item_disabled_color_modulate
     control.alpha_multiplier = 0.999
     return control
+
+
+func _set_is_disabled(value: bool) -> void:
+    ._set_is_disabled(value)
+    if !_is_ready:
+        return
+    _control.is_disabled = value
