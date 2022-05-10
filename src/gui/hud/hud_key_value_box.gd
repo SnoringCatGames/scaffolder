@@ -3,7 +3,8 @@ class_name HudKeyValueBox
 extends ScaffolderPanelContainer
 
 
-const SEPARATION := 12.0
+const CONSOLIDATED_SEPARATION := 4.0
+const UNCONSOLIDATED_SEPARATION := 12.0
 
 var item: ControlRow
 var animation_config: Dictionary
@@ -13,13 +14,19 @@ var _tween: ScaffolderTween
 
 func _ready() -> void:
     _tween = ScaffolderTween.new(self)
+    
+    if Sc.gui.hud.is_key_value_list_consolidated:
+        self.style = ScaffolderPanelContainer.PanelStyle.TRANSPARENT
+    else:
+        self.style = ScaffolderPanelContainer.PanelStyle.HUD
+    
     _on_gui_scale_changed()
 
 
 func _on_gui_scale_changed() -> bool:
     var size: Vector2 = \
             Sc.gui.hud_manifest.hud_key_value_box_size * Sc.gui.scale
-    var spacer_size: float = SEPARATION * Sc.gui.scale
+    var spacer_size: float = get_separation() * Sc.gui.scale
     rect_min_size = size
     rect_size = size
     $HBoxContainer.rect_min_size = size
@@ -74,3 +81,9 @@ func _update_display() -> void:
                 half_duration,
                 TimeType.PLAY_PHYSICS)
         _tween.start()
+
+
+static func get_separation() -> float:
+    return CONSOLIDATED_SEPARATION if \
+            Sc.gui.hud.is_key_value_list_consolidated else \
+            UNCONSOLIDATED_SEPARATION

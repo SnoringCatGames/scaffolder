@@ -18,6 +18,10 @@ const SCAFFOLDER_BUTTON_SCENE := preload( \
         "res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn")
 const SCAFFOLDER_CHECK_BOX_SCENE := preload( \
         "res://addons/scaffolder/src/gui/widgets/scaffolder_check_box.tscn")
+const SCAFFOLDER_H_SEPARATOR := preload( \
+        "res://addons/scaffolder/src/gui/widgets/scaffolder_h_separator.tscn")
+const SCAFFOLDER_V_SEPARATOR := preload( \
+        "res://addons/scaffolder/src/gui/widgets/scaffolder_v_separator.tscn")
 const SCAFFOLDER_LABEL_SCENE := preload( \
         "res://addons/scaffolder/src/gui/widgets/scaffolder_label.tscn")
 const SCAFFOLDER_LABEL_LINK_SCENE := preload( \
