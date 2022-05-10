@@ -809,25 +809,12 @@ var _settings_item_manifest := {
 }
 
 var _pause_item_manifest := [
-    LevelControlRow,
-    TimeControlRow,
-#     FastestTimeControlRow,
-#     ScoreControlRow,
-#     HighScoreControlRow,
 ]
 
 var _game_over_item_manifest := [
-    LevelControlRow,
-    TimeControlRow,
-#     FastestTimeControlRow,
-#     ScoreControlRow,
-#     HighScoreControlRow,
 ]
 
 var _level_select_item_manifest := [
-    TotalPlaysControlRow,
-    FastestTimeControlRow,
-#     HighScoreControlRow,
 ]
 
 var _hud_manifest := {
@@ -835,15 +822,11 @@ var _hud_manifest := {
     hud_key_value_box_size = Vector2(256.0, 48.0),
     hud_key_value_box_scene = \
         preload("res://addons/scaffolder/src/gui/hud/hud_key_value_box.tscn"),
+    hud_custom_value_box_scene = \
+        preload("res://addons/scaffolder/src/gui/hud/hud_custom_value_box.tscn"),
     hud_key_value_list_scene = \
         preload("res://addons/scaffolder/src/gui/hud/hud_key_value_list.tscn"),
     hud_key_value_list_item_manifest = [
-        {
-            item_class = TimeControlRow,
-            settings_enablement_label = "Time",
-            enabled_by_default = true,
-            settings_group_key = "hud",
-        },
     ],
     is_hud_visible_by_default = true,
     
