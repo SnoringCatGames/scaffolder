@@ -1,6 +1,6 @@
 tool
 class_name HudKeyValueList
-extends VBoxContainer
+extends ScaffolderPanelContainer
 
 
 var boxes := []
@@ -10,6 +10,11 @@ var font_size := "Xs"
 
 func _ready() -> void:
     update_list()
+    
+    if Sc.gui.hud.is_key_value_list_consolidated:
+        self.style = ScaffolderPanelContainer.PanelStyle.HUD
+    else:
+        self.style = ScaffolderPanelContainer.PanelStyle.TRANSPARENT
     
     Sc.gui.add_gui_to_scale(self)
     
@@ -23,16 +28,18 @@ func _destroy() -> void:
 
 
 func _on_gui_scale_changed() -> bool:
-    var separation: float = HudKeyValueBox.SEPARATION * Sc.gui.scale
+    var separation: float = HudKeyValueBox.get_separation() * Sc.gui.scale
     
     rect_position = Vector2(separation, separation)
+    
+    $VBoxContainer.add_constant_override("separation", separation)
     
     return false
 
 
 func get_bottom_coordinate() -> float:
     var row_count := boxes.size()
-    var separation: float = HudKeyValueBox.SEPARATION * Sc.gui.scale
+    var separation: float = HudKeyValueBox.get_separation() * Sc.gui.scale
     var box_height: float = \
             boxes[0].rect_size.y if \
             !boxes.empty() else \
@@ -45,7 +52,9 @@ func update_list() -> void:
         box.queue_free()
     boxes.clear()
     
-    for item_config in Sc.gui.hud_manifest.hud_key_value_list_item_manifest:
+    for i in Sc.gui.hud_manifest.hud_key_value_list_item_manifest.size():
+        var item_config: Dictionary = \
+            Sc.gui.hud_manifest.hud_key_value_list_item_manifest[i]
         if !item_config.enabled:
             continue
         
@@ -56,12 +65,19 @@ func update_list() -> void:
                 item is TextControlRow else \
                 Sc.gui.hud_manifest.hud_custom_value_box_scene
         var box: HudKeyValueBox = Sc.utils.add_scene(
-                self,
+                $VBoxContainer,
                 hud_key_value_box_scene,
                 false,
                 true)
         if item_config.has("animation"):
             box.animation_config = item_config.animation
         box.item = item
-        add_child(box)
+        $VBoxContainer.add_child(box)
         boxes.push_back(box)
+        
+        if Sc.gui.hud.is_key_value_list_consolidated and \
+                i < Sc.gui.hud_manifest.hud_key_value_list_item_manifest.size() - 1:
+            var separator: ScaffolderHSeparator = Sc.utils.add_scene(
+                $VBoxContainer, Sc.gui.SCAFFOLDER_H_SEPARATOR)
+            separator.size_override = Vector2(0.0, 0.2)
+            separator.modulate = Sc.palette.get_color("separator")

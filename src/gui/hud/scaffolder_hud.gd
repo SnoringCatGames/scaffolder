@@ -25,6 +25,8 @@ var radial_menu_item_normal_color_modulate: ColorConfig
 var radial_menu_item_hover_color_modulate: ColorConfig
 var radial_menu_item_disabled_color_modulate: ColorConfig
 
+var is_key_value_list_consolidated: bool
+
 var hud_key_value_list: HudKeyValueList
 
 var _previous_radial_menu: RadialMenu
@@ -67,6 +69,9 @@ func _ready() -> void:
             Sc.gui.hud_manifest.radial_menu_item_hover_color_modulate
     self.radial_menu_item_disabled_color_modulate = \
             Sc.gui.hud_manifest.radial_menu_item_disabled_color_modulate
+    
+    self.is_key_value_list_consolidated = \
+            Sc.gui.hud_manifest.is_key_value_list_consolidated
     
     var is_hud_key_value_list_shown: bool = false
     for item_config in Sc.gui.hud_manifest.hud_key_value_list_item_manifest:

@@ -846,6 +846,7 @@ var _hud_manifest := {
         ColorFactory.palette("modulation_button_hover"),
     radial_menu_item_disabled_color_modulate = \
         ColorFactory.palette("modulation_button_disabled"),
+    is_key_value_list_consolidated = true,
 }
 
 const WELCOME_PANEL_ITEM_MOVE := ["Walk/Climb", "arrow key / wasd"]
