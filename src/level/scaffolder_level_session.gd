@@ -21,9 +21,11 @@ var _score := 0.0
 
 var _high_score := 0.0
 var _fastest_time := INF
+var _longest_time := INF
 
 var _is_new_high_score := false
 var _is_new_fastest_time := false
+var _is_new_longest_time := false
 
 var _pre_pause_music_name := ""
 var _pre_pause_music_position := INF
@@ -49,8 +51,10 @@ var level_play_time_unscaled: float setget ,_get_level_play_time_unscaled
 var score: float setget ,_get_score
 var high_score: float setget ,_get_high_score
 var fastest_time: float setget ,_get_fastest_time
+var longest_time: float setget ,_get_longest_time
 var is_new_high_score: bool setget ,_get_is_new_high_score
 var is_fastest_time: bool setget ,_get_is_new_fastest_time
+var is_longest_time: bool setget ,_get_is_new_longest_time
 var new_unlocked_levels: Array setget ,_get_new_unlocked_levels
 
 var config: Dictionary
@@ -68,13 +72,16 @@ func reset(id: String) -> void:
     _score = 0.0
     _high_score = 0.0
     _fastest_time = INF
+    _longest_time = INF
     _is_new_high_score = false
     _is_new_fastest_time = false
+    _is_new_longest_time = false
     _pre_pause_music_name = ""
     _pre_pause_music_position = INF
     config = Sc.levels.get_level_config(id)
     _update_high_score()
     _update_fastest_time()
+    _update_longest_time()
 
 
 func _get_id() -> String:
@@ -158,12 +165,20 @@ func _get_fastest_time() -> float:
     return _fastest_time
 
 
+func _get_longest_time() -> float:
+    return _longest_time
+
+
 func _get_is_new_high_score() -> bool:
     return _is_new_high_score
 
 
 func _get_is_new_fastest_time() -> bool:
     return _is_new_fastest_time
+
+
+func _get_is_new_longest_time() -> bool:
+    return _is_new_longest_time
 
 
 func _get_new_unlocked_levels() -> Array:
@@ -183,6 +198,7 @@ func _update_for_level_end(has_finished: bool) -> void:
     if Sc.metadata.uses_level_scores:
         _handle_new_score()
     _update_fastest_time()
+    _update_longest_time()
     _update_new_unlocked_levels()
 
 
@@ -228,6 +244,26 @@ func _update_fastest_time() -> void:
     if _is_new_fastest_time:
         _fastest_time = current_time
         Sc.save_state.set_level_fastest_time(
+                _id,
+                current_time)
+
+
+func _update_longest_time() -> void:
+    var current_time := _get_level_play_time_unscaled()
+    var save_state_longest_time: float = \
+            Sc.save_state.get_level_longest_time(_id)
+    _longest_time = \
+            save_state_longest_time if \
+            save_state_longest_time != Utils.MAX_INT and \
+                    !is_inf(save_state_longest_time) else \
+            INF
+    _is_new_longest_time = \
+            _has_finished and \
+            !is_inf(current_time) and \
+            current_time > _longest_time
+    if _is_new_longest_time:
+        _longest_time = current_time
+        Sc.save_state.set_level_longest_time(
                 _id,
                 current_time)
 

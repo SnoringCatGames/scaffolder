@@ -6,18 +6,21 @@
 [ext_resource path="res://addons/scaffolder/src/gui/screens/game_over_screen.gd" type="Script" id=4]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/spacer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/scaffolder/src/gui/control_row_list/control_row_list.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/images/gui/nine_patch/dropdown_hover.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/gui/nine_patch/dropdown_normal.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/gui/nine_patch/dropdown_pressed.png" type="Texture" id=9]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/scaffolder_button.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_panel.tscn" type="PackedScene" id=11]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_body.tscn" type="PackedScene" id=12]
 [ext_resource path="res://addons/scaffolder/src/gui/widgets/accordion_header.tscn" type="PackedScene" id=13]
-[ext_resource path="res://addons/scaffolder/assets/images/gui/nine_patch/focus_border.png" type="Texture" id=15]
-
+[ext_resource path="res://assets/images/gui/nine_patch/focus_border.png" type="Texture" id=14]
 
 [sub_resource type="StyleBoxTexture" id=1]
 content_margin_left = 16.0
 content_margin_right = 16.0
 content_margin_top = 8.0
 content_margin_bottom = 8.0
+texture = ExtResource( 7 )
 region_rect = Rect2( 0, 0, 9, 9 )
 margin_left = 3.5
 margin_right = 3.5
@@ -30,6 +33,7 @@ content_margin_left = 16.0
 content_margin_right = 16.0
 content_margin_top = 8.0
 content_margin_bottom = 8.0
+texture = ExtResource( 9 )
 region_rect = Rect2( 0, 0, 9, 9 )
 margin_left = 3.5
 margin_right = 3.5
@@ -42,6 +46,7 @@ content_margin_left = 0.0
 content_margin_right = 0.0
 content_margin_top = 0.0
 content_margin_bottom = 0.0
+texture = ExtResource( 14 )
 region_rect = Rect2( 0, 0, 9, 9 )
 margin_left = 3.5
 margin_right = 3.5
@@ -58,6 +63,7 @@ content_margin_left = 16.0
 content_margin_right = 16.0
 content_margin_top = 8.0
 content_margin_bottom = 8.0
+texture = ExtResource( 7 )
 region_rect = Rect2( 0, 0, 9, 9 )
 margin_left = 3.5
 margin_right = 3.5
@@ -70,6 +76,7 @@ content_margin_left = 16.0
 content_margin_right = 16.0
 content_margin_top = 8.0
 content_margin_bottom = 8.0
+texture = ExtResource( 8 )
 region_rect = Rect2( 0, 0, 9, 9 )
 margin_left = 3.5
 margin_right = 3.5
@@ -108,10 +115,10 @@ rect_min_size = Vector2( 0, 10 )
 size = Vector2( 0, 10 )
 
 [node name="GameOverImageContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_left = 384.0
+margin_left = 448.0
 margin_top = 14.0
-margin_right = 640.0
-margin_bottom = 124.0
+margin_right = 576.0
+margin_bottom = 156.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 __meta__ = {
@@ -121,16 +128,16 @@ __meta__ = {
 [node name="Spacer2" parent="VBoxContainer/GameOverImageContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 128.0
-margin_right = 128.0
+margin_left = 64.0
+margin_right = 64.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 size = Vector2( 0, 10 )
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 128.0
+margin_top = 160.0
 margin_right = 1024.0
-margin_bottom = 128.0
+margin_bottom = 160.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -141,8 +148,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 382.0
 margin_bottom = 39.0
-custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 0.945098, 0.458824, 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "You unlocked a new level!"
 valign = 0
 
@@ -153,8 +160,8 @@ anchor_bottom = 0.0
 margin_top = 18.0
 margin_right = 352.0
 margin_bottom = 57.0
-custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 0.945098, 0.458824, 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "That's a new high score!"
 valign = 0
 
@@ -165,26 +172,38 @@ anchor_bottom = 0.0
 margin_top = 36.0
 margin_right = 372.0
 margin_bottom = 75.0
-custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 0.945098, 0.458824, 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "That's your fastest time!"
+valign = 0
+
+[node name="WasLongestPlaythroughLabel" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 1 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 36.0
+margin_right = 372.0
+margin_bottom = 75.0
+custom_colors/font_color = Color( 1, 0.945098, 0.458824, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "That's your longest time!"
 valign = 0
 
 [node name="Spacer6" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 512.0
-margin_top = 132.0
+margin_top = 164.0
 margin_right = 512.0
-margin_bottom = 142.0
+margin_bottom = 174.0
 rect_min_size = Vector2( 0, 10 )
 size = Vector2( 0, 10 )
 
 [node name="AccordionPanel" parent="VBoxContainer" instance=ExtResource( 11 )]
 margin_left = 282.0
-margin_top = 146.0
+margin_top = 178.0
 margin_right = 742.0
-margin_bottom = 202.0
+margin_bottom = 234.0
 rect_min_size = Vector2( 460, 0 )
 
 [node name="AccordionHeader" parent="VBoxContainer/AccordionPanel" instance=ExtResource( 13 )]
@@ -210,22 +229,26 @@ rect_min_size = Vector2( 460, 0 )
 [node name="LabeledControlList" parent="VBoxContainer/AccordionPanel/AccordionBody" instance=ExtResource( 6 )]
 visible = false
 margin_right = 460.0
+__meta__ = {
+"_edit_use_anchors_": false,
+"sc_separation": 0
+}
 
 [node name="Spacer8" parent="VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 512.0
-margin_top = 206.0
+margin_top = 238.0
 margin_right = 512.0
-margin_bottom = 226.0
+margin_bottom = 258.0
 rect_min_size = Vector2( 0, 20 )
 size = Vector2( 0, 20 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
 margin_left = 448.0
-margin_top = 230.0
+margin_top = 262.0
 margin_right = 576.0
-margin_bottom = 390.0
+margin_bottom = 422.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 16
@@ -268,9 +291,9 @@ size_override = Vector2( 56, 56 )
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 512.0
-margin_top = 394.0
+margin_top = 426.0
 margin_right = 512.0
-margin_bottom = 424.0
+margin_bottom = 456.0
 rect_min_size = Vector2( 0, 30 )
 size = Vector2( 0, 30 )
 
