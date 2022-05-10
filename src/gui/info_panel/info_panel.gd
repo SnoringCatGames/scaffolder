@@ -136,9 +136,9 @@ func set_up(data: InfoPanelData) -> void:
             .text = _data.header_text
     
     $VBoxContainer/ScaffolderPanelContainer2/VBoxContainer/HeaderWithoutCloseButton \
-            .add_color_override("font_color", Sc.palette.get_color("header"))
+            .add_color_override("font_color", Sc.palette.get_color("info_panel_header"))
     $VBoxContainer/ScaffolderPanelContainer/HeaderWithCloseButton/ScaffolderLabel \
-            .add_color_override("font_color", Sc.palette.get_color("header"))
+            .add_color_override("font_color", Sc.palette.get_color("info_panel_header"))
     
     Sc.utils.clear_children(
             $VBoxContainer/ScaffolderPanelContainer2/VBoxContainer/ScrollContainer/Body)
