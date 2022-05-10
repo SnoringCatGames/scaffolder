@@ -5,6 +5,8 @@ extends VBoxContainer
 
 var boxes := []
 
+var font_size := "Xs"
+
 
 func _ready() -> void:
     update_list()
@@ -48,6 +50,7 @@ func update_list() -> void:
             continue
         
         var item: ControlRow = item_config.item_class.new(Sc.levels.session)
+        item.font_size = font_size
         var hud_key_value_box_scene: PackedScene = \
                 Sc.gui.hud_manifest.hud_key_value_box_scene if \
                 item is TextControlRow else \
@@ -59,6 +62,6 @@ func update_list() -> void:
                 true)
         if item_config.has("animation"):
             box.animation_config = item_config.animation
-        box.item = item_config.item_class.new(Sc.levels.session)
+        box.item = item
         add_child(box)
         boxes.push_back(box)
