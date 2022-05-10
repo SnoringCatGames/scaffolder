@@ -133,7 +133,7 @@ func _close(
     Sc.level.level_control_press_controller.reset_control_exclusivity(
             _center_area_control)
     if is_instance_valid(touch_up_item):
-        if touch_up_item.is_disabled:
+        if touch_up_item.disabled_message != "":
             emit_signal("touch_up_outside")
         else:
             emit_signal("touch_up_item", touch_up_item)
@@ -191,12 +191,15 @@ func _transition_position(
 
 
 func update_item_control(item: RadialMenuItem) -> void:
-    item._control.is_disabled = item.is_disabled
+    item._control.is_disabled = item.disabled_message != ""
 
 
-func set_text(text: String) -> void:
+func set_label(
+        text: String,
+        disabled_message: String) -> void:
     _label.visible = text != ""
     _label.text = text
+    _label.disablement_explanation = disabled_message
 
 
 func _on_level_touch_up(

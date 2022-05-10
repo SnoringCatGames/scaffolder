@@ -8,7 +8,7 @@ var id = ""
 var description := ""
 
 var is_visible := true
-var is_disabled := false setget _set_is_disabled
+var disabled_message := "" setget _set_disabled_message
 
 var _hover_progress := 0.0
 
@@ -62,7 +62,7 @@ func _interpolate_item_hover(progress: float) -> void:
     var scale: float = lerp(
             1.0, Sc.gui.hud.radial_menu_item_hovered_scale, progress)
     
-    if is_disabled:
+    if disabled_message != "":
         scale = 1.0
     
     var radius: float = \
@@ -89,7 +89,7 @@ func _on_item_touch_entered() -> void:
             0.0,
             TimeType.PLAY_PHYSICS)
     _tween.start()
-    _menu.set_text(description)
+    _menu.set_label(description, disabled_message)
 
 
 func _on_item_touch_exited() -> void:
@@ -104,7 +104,7 @@ func _on_item_touch_exited() -> void:
             0.0,
             TimeType.PLAY_PHYSICS)
     _tween.start()
-    _menu.set_text("")
+    _menu.set_label("", "")
 
 
 func _on_item_touch_up(
@@ -117,5 +117,5 @@ func _on_item_tween_completed() -> void:
     pass
 
 
-func _set_is_disabled(value: bool) -> void:
-    is_disabled = value
+func _set_disabled_message(value: String) -> void:
+    disabled_message = value

@@ -45,7 +45,7 @@ func _interpolate_item_hover(progress: float) -> void:
             Sc.gui.hud.radial_menu_item_hover_color_modulate.sample()
     var color: Color = lerp(normal_color, hovered_color, progress)
     
-    if is_disabled:
+    if disabled_message != "":
         scale = 1.0
         color = Sc.gui.hud.radial_menu_item_disabled_color_modulate.sample()
     
@@ -58,6 +58,6 @@ func _interpolate_item_hover(progress: float) -> void:
     _sprite.outline_color = color
 
 
-func _set_is_disabled(value: bool) -> void:
-    ._set_is_disabled(value)
+func _set_disabled_message(value: String) -> void:
+    ._set_disabled_message(value)
     _interpolate_item_hover(0.0)
