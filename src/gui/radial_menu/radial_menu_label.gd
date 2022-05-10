@@ -24,7 +24,7 @@ func _ready() -> void:
         0.0)
     
     _set_color(color)
-    _set_disablement_color(color)
+    _set_disablement_color(disablement_color)
     
     Sc.gui.add_gui_to_scale(self)
     
