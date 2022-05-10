@@ -2,7 +2,7 @@ class_name RadialMenuLabel
 extends Node2D
 
 
-const _BOTTOM_MARGIN := 8.0
+const _BOTTOM_MARGIN := 0.0
 
 var text := "" setget _set_text
 var disablement_explanation := "" setget _set_disablement_explanation
@@ -56,29 +56,40 @@ func _on_gui_scale_changed() -> bool:
         _BOTTOM_MARGIN) * \
         Sc.gui.scale
     
+    var height := _get_height()
+    panel_container.rect_size.y = height
+    
     # Anchored at the bottom middle.
     panel_container.rect_position = Vector2(
         -panel_container.rect_size.x / 2.0,
-        -panel_container.rect_size.y)
+        -panel_container.rect_size.y / 2.0)
     
     return true
+
+
+func _get_height() -> float:
+    var height := 0.0
+    for child in $ScaffolderPanelContainer/VBoxContainer.get_children():
+        height += \
+            child.rect_size.y if \
+            child.visible else \
+            0.0
+    return height
 
 
 func _set_text(value: String) -> void:
     var old_text := text
     text = value
-    if old_text != text:
-        label.text = text
-        _on_gui_scale_changed()
+    label.text = text
+    _on_gui_scale_changed()
 
 
 func _set_disablement_explanation(value: String) -> void:
     var old_disablement_explanation := disablement_explanation
     disablement_explanation = value
-    if old_disablement_explanation != disablement_explanation:
-        disablement_explanation_label.text = disablement_explanation
-        disablement_explanation_label.visible = disablement_explanation != ""
-        _on_gui_scale_changed()
+    disablement_explanation_label.text = disablement_explanation
+    disablement_explanation_label.visible = disablement_explanation != ""
+    _on_gui_scale_changed()
 
 
 func _set_color(value: Color) -> void:
