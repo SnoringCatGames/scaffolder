@@ -40,6 +40,7 @@ func _ready() -> void:
     assert(Sc.gui.hud_manifest.has("hud_key_value_box_size"))
     assert(Sc.gui.hud_manifest.has("hud_key_value_list_item_manifest"))
     assert(Sc.gui.hud_manifest.has("hud_key_value_box_scene"))
+    assert(Sc.gui.hud_manifest.has("hud_custom_value_box_scene"))
     assert(Sc.gui.hud_manifest.has("hud_key_value_list_scene"))
     
     self.radial_menu_class = \

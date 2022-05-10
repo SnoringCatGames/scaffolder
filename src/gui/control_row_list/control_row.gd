@@ -10,6 +10,7 @@ enum {
     DROPDOWN,
     SLIDER,
     HEADER,
+    CUSTOM,
 }
 
 const ENABLED_ALPHA := 1.0
@@ -25,6 +26,7 @@ var label: String
 var type: int
 var description: String
 var is_control_on_right_side: bool
+var renders_label: bool
 var enabled := true
 
 
@@ -32,11 +34,13 @@ func _init(
         type: int,
         label: String,
         description: String,
-        is_control_on_right_side := true) -> void:
+        is_control_on_right_side := true,
+        renders_label := true) -> void:
     self.type = type
     self.label = label
     self.description = description
     self.is_control_on_right_side = is_control_on_right_side
+    self.renders_label = renders_label
 
 
 func get_is_enabled() -> bool:
@@ -78,16 +82,17 @@ func create_row(
             hbox, Sc.gui.SPACER_SCENE, true, true)
     spacer1.size = Vector2(outer_padding_horizontal, height)
     
-    label_control = Sc.utils.add_scene(
-            null, Sc.gui.SCAFFOLDER_LABEL_SCENE, false, true)
-    label_control.text = label
-    label_control.modulate.a = \
-            ENABLED_ALPHA if \
-            self.enabled else \
-            DISABLED_ALPHA
-    label_control.align = Label.ALIGN_LEFT
-    label_control.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-    label_control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+    if renders_label:
+        label_control = Sc.utils.add_scene(
+                null, Sc.gui.SCAFFOLDER_LABEL_SCENE, false, true)
+        label_control.text = label
+        label_control.modulate.a = \
+                ENABLED_ALPHA if \
+                self.enabled else \
+                DISABLED_ALPHA
+        label_control.align = Label.ALIGN_LEFT
+        label_control.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+        label_control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     
     if description != "" and \
             includes_description:
@@ -120,13 +125,17 @@ func create_row(
         control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
         self.control = control
     else:
-        label_control.align = Label.ALIGN_CENTER
+        if is_instance_valid(label_control):
+            label_control.align = Label.ALIGN_CENTER
     
     if is_control_on_right_side:
-        hbox.add_child(label_control)
+        if is_instance_valid(label_control):
+            hbox.add_child(label_control)
         if is_instance_valid(description_button):
             hbox.add_child(description_button)
-        hbox.add_child(spacer3)
+        if is_instance_valid(label_control) or \
+                is_instance_valid(description_button):
+            hbox.add_child(spacer3)
         if is_instance_valid(control):
             control.size_flags_horizontal = Control.SIZE_SHRINK_END
             hbox.add_child(control)
@@ -134,8 +143,11 @@ func create_row(
         if is_instance_valid(control):
             control.size_flags_horizontal = 0
             hbox.add_child(control)
-        hbox.add_child(spacer3)
-        hbox.add_child(label_control)
+        if is_instance_valid(label_control) or \
+                is_instance_valid(description_button):
+            hbox.add_child(spacer3)
+        if is_instance_valid(label_control):
+            hbox.add_child(label_control)
         if is_instance_valid(description_button):
             hbox.add_child(description_button)
     
