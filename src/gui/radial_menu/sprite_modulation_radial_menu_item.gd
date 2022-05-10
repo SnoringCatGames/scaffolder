@@ -11,7 +11,7 @@ func set_up(
         index: int,
         angular_spread: float) -> void:
     .set_up(menu, index, angular_spread)
-    _set_is_disabled(is_disabled)
+    _set_disabled_message(disabled_message)
 
 
 func _create_item_level_control() -> ShapedLevelControl:
@@ -30,8 +30,8 @@ func _create_item_level_control() -> ShapedLevelControl:
     return control
 
 
-func _set_is_disabled(value: bool) -> void:
-    ._set_is_disabled(value)
+func _set_disabled_message(value: String) -> void:
+    ._set_disabled_message(value)
     if !_is_ready:
         return
-    _control.is_disabled = value
+    _control.is_disabled = value != ""
