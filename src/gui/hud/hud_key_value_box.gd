@@ -5,7 +5,7 @@ extends ScaffolderPanelContainer
 
 const SEPARATION := 12.0
 
-var item: TextControlRow
+var item: ControlRow
 var animation_config: Dictionary
 
 var _tween: ScaffolderTween
@@ -38,6 +38,8 @@ func _process(_delta: float) -> void:
 
 
 func _update_display() -> void:
+    var item: TextControlRow = self.item
+    
     item.update_item()
     
     $HBoxContainer/Key.text = item.label

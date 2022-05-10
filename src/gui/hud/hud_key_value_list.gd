@@ -47,13 +47,18 @@ func update_list() -> void:
         if !item_config.enabled:
             continue
         
+        var item: ControlRow = item_config.item_class.new(Sc.levels.session)
+        var hud_key_value_box_scene: PackedScene = \
+                Sc.gui.hud_manifest.hud_key_value_box_scene if \
+                item is TextControlRow else \
+                Sc.gui.hud_manifest.hud_custom_value_box_scene
         var box: HudKeyValueBox = Sc.utils.add_scene(
                 self,
-                Sc.gui.hud_manifest.hud_key_value_box_scene,
+                hud_key_value_box_scene,
                 false,
                 true)
-        box.item = item_config.item_class.new(Sc.levels.session)
         if item_config.has("animation"):
             box.animation_config = item_config.animation
+        box.item = item_config.item_class.new(Sc.levels.session)
         add_child(box)
         boxes.push_back(box)
