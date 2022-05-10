@@ -32,6 +32,8 @@ func _ready() -> void:
             .add_color_override("font_color", ACHIEVEMENT_COLOR)
     $VBoxContainer/VBoxContainer2/WasFastestPlaythroughLabel \
             .add_color_override("font_color", ACHIEVEMENT_COLOR)
+    $VBoxContainer/VBoxContainer2/WasLongestPlaythroughLabel \
+            .add_color_override("font_color", ACHIEVEMENT_COLOR)
     
     _update_stats()
 
@@ -54,6 +56,8 @@ func _update_stats() -> void:
             $VBoxContainer/VBoxContainer2/WasBestPlaythroughLabel
     var was_fastest_playthrough_label := \
             $VBoxContainer/VBoxContainer2/WasFastestPlaythroughLabel
+    var was_longest_playthrough_label := \
+            $VBoxContainer/VBoxContainer2/WasLongestPlaythroughLabel
     var control_list := \
             $VBoxContainer/AccordionPanel/AccordionBody/LabeledControlList
     
@@ -65,6 +69,9 @@ func _update_stats() -> void:
     
     was_fastest_playthrough_label.visible = \
             Sc.levels.session.is_fastest_time
+    
+    was_longest_playthrough_label.visible = \
+            Sc.levels.session.is_longest_time
     
     control_list.items = _get_items()
 

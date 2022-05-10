@@ -9,6 +9,7 @@ const MISCELLANEOUS_SECTION_KEY := "miscellaneous"
 const HAS_FINISHED_SECTION_KEY := "has_finished"
 const HIGH_SCORES_SECTION_KEY := "high_scores"
 const FASTEST_TIMES_SECTION_KEY := "fastest_times"
+const LONGEST_TIMES_SECTION_KEY := "longest_times"
 const TOTAL_PLAYS_SECTION_KEY := "total_plays"
 const ALL_SCORES_SECTION_KEY := "all_scores"
 const IS_UNLOCKED_SECTION_KEY := "is_unlocked"
@@ -104,6 +105,7 @@ func erase_level_state(level_id: String) -> void:
         TOTAL_PLAYS_SECTION_KEY,
         ALL_SCORES_SECTION_KEY,
         FASTEST_TIMES_SECTION_KEY,
+        LONGEST_TIMES_SECTION_KEY,
         HAS_FINISHED_SECTION_KEY,
     ]
     for section_key in sections:
@@ -243,6 +245,23 @@ func set_level_fastest_time(
 func get_level_fastest_time(level_id: String) -> float:
     return _get_value(
             FASTEST_TIMES_SECTION_KEY,
+            level_id,
+            Utils.MAX_INT) as float
+
+
+func set_level_longest_time(
+        level_id: String,
+        longest_time: float) -> void:
+    config.set_value(
+            LONGEST_TIMES_SECTION_KEY,
+            level_id,
+            longest_time)
+    _save_config()
+
+
+func get_level_longest_time(level_id: String) -> float:
+    return _get_value(
+            LONGEST_TIMES_SECTION_KEY,
             level_id,
             Utils.MAX_INT) as float
 
