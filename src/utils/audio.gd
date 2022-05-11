@@ -160,6 +160,8 @@ func stop_music() -> bool:
     var current_music_player := _get_current_music_player()
     if current_music_player != null:
         current_music_player.stop()
+        _fade_out_tween.stop_all()
+        _fade_in_tween.stop_all()
         emit_signal("music_changed", "")
         return true
     else:

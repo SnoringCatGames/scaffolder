@@ -429,7 +429,8 @@ func pause() -> void:
 
 
 func on_unpause() -> void:
-    if Sc.audio_manifest.pauses_level_music_on_pause:
+    if Sc.audio_manifest.pauses_level_music_on_pause and \
+            !session.is_ended:
         Sc.audio.play_music(Sc.levels.session._pre_pause_music_name)
         Sc.audio.seek(Sc.levels.session._pre_pause_music_position)
 
