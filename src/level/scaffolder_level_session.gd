@@ -148,6 +148,11 @@ func _get_level_play_time_unscaled() -> float:
         return 0.0
 
 
+func get_level_display_time() -> float:
+    return Sc.levels.session.get_level_play_time_by_type(
+        Sc.gui.display_time_type)
+
+
 func get_level_play_time_by_type(type: int) -> float:
     match type:
         TimeType.PLAY_PHYSICS:
@@ -203,6 +208,7 @@ func _update_for_level_end(has_finished: bool) -> void:
     
     if Sc.metadata.uses_level_scores:
         _handle_new_score()
+    _update_cumulative_time()
     _update_fastest_time()
     _update_longest_time()
     _update_new_unlocked_levels()
@@ -234,8 +240,17 @@ func _update_high_score() -> void:
                 _score)
 
 
+func _update_cumulative_time() -> void:
+    Sc.save_state.set_level_cumulative_time(
+            _id,
+            Sc.save_state.get_level_cumulative_time(_id) + \
+                get_level_display_time())
+    Sc.save_state.set_cumulative_time(
+            Sc.save_state.get_cumulative_time() + get_level_display_time())
+
+
 func _update_fastest_time() -> void:
-    var current_time := _get_level_play_time_unscaled()
+    var current_time := get_level_display_time()
     var save_state_fastest_time: float = \
             Sc.save_state.get_level_fastest_time(_id)
     _fastest_time = \
@@ -255,7 +270,7 @@ func _update_fastest_time() -> void:
 
 
 func _update_longest_time() -> void:
-    var current_time := _get_level_play_time_unscaled()
+    var current_time := get_level_display_time()
     var save_state_longest_time: float = \
             Sc.save_state.get_level_longest_time(_id)
     _longest_time = \

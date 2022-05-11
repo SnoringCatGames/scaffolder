@@ -16,8 +16,7 @@ func _init(__ = null).(
 
 func get_text() -> String:
     return Sc.utils.get_time_string_from_seconds(
-            Sc.levels.session.get_level_play_time_by_type(
-                Sc.gui.display_time_type),
+            Sc.levels.session.get_level_display_time(),
             false,
             false) if \
             Sc.levels.session.has_started else \

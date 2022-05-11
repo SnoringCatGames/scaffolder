@@ -8,6 +8,7 @@ const SETTINGS_SECTION_KEY := "settings"
 const MISCELLANEOUS_SECTION_KEY := "miscellaneous"
 const HAS_FINISHED_SECTION_KEY := "has_finished"
 const HIGH_SCORES_SECTION_KEY := "high_scores"
+const CUMULATIVE_TIME_SECTION_KEY := "cumulative_time"
 const FASTEST_TIMES_SECTION_KEY := "fastest_times"
 const LONGEST_TIMES_SECTION_KEY := "longest_times"
 const TOTAL_PLAYS_SECTION_KEY := "total_plays"
@@ -80,6 +81,28 @@ func get_setting(
             config.has_section_key(
                     SETTINGS_SECTION_KEY,
                     setting_key) else \
+            default
+
+
+func set_level_setting(
+        level_id: String,
+        setting_key: String,
+        setting_value) -> void:
+    var section_key := SETTINGS_SECTION_KEY + ":" + level_id
+    config.set_value(
+            section_key,
+            setting_key,
+            setting_value)
+    _save_config()
+
+
+func get_level_setting(
+        level_id: String,
+        setting_key: String,
+        default = null):
+    var section_key := SETTINGS_SECTION_KEY + ":" + level_id
+    return _get_value(section_key, setting_key) if \
+            config.has_section_key(section_key, setting_key) else \
             default
 
 
@@ -181,6 +204,22 @@ func get_score_version() -> String:
             "") as String
 
 
+func set_cumulative_time(
+        cumulative_time: float) -> void:
+    config.set_value(
+            MISCELLANEOUS_SECTION_KEY,
+            CUMULATIVE_TIME_SECTION_KEY,
+            cumulative_time)
+    _save_config()
+
+
+func get_cumulative_time() -> float:
+    return _get_value(
+            MISCELLANEOUS_SECTION_KEY,
+            CUMULATIVE_TIME_SECTION_KEY,
+            Utils.MAX_INT) as float
+
+
 func set_level_version(
         level_id: String,
         version: String) -> void:
@@ -230,6 +269,23 @@ func get_level_high_score(level_id: String) -> float:
             HIGH_SCORES_SECTION_KEY,
             level_id,
             0) as float
+
+
+func set_level_cumulative_time(
+        level_id: String,
+        cumulative_time: float) -> void:
+    config.set_value(
+            CUMULATIVE_TIME_SECTION_KEY,
+            level_id,
+            cumulative_time)
+    _save_config()
+
+
+func get_level_cumulative_time(level_id: String) -> float:
+    return _get_value(
+            CUMULATIVE_TIME_SECTION_KEY,
+            level_id,
+            Utils.MAX_INT) as float
 
 
 func set_level_fastest_time(
