@@ -4,6 +4,8 @@ extends Screen
 
 
 const ACHIEVEMENT_COLOR := Color("fff175")
+var SUCCESS_COLOR := Sc.palette.get_color("green")
+var FAILURE_COLOR :=Sc.palette.get_color("red")
 
 var go_scale_multiplier := 1.0
 
@@ -26,6 +28,12 @@ func _ready() -> void:
     $VBoxContainer/VBoxContainer/HBoxContainer/RetryButton \
             .texture_scale = Vector2(2.0, 2.0)
     
+    var game_over_explanation_color := \
+            SUCCESS_COLOR if \
+            Sc.levels.session.has_finished else \
+            FAILURE_COLOR
+    $VBoxContainer/VBoxContainer2/GameOverExplanation \
+            .add_color_override("font_color", game_over_explanation_color)
     $VBoxContainer/VBoxContainer2/UnlockedNewLevelLabel \
             .add_color_override("font_color", ACHIEVEMENT_COLOR)
     $VBoxContainer/VBoxContainer2/WasBestPlaythroughLabel \
@@ -50,6 +58,8 @@ func _get_focused_button() -> ScaffolderButton:
 
 
 func _update_stats() -> void:
+    var game_over_explanation_label := \
+            $VBoxContainer/VBoxContainer2/GameOverExplanation
     var unlocked_new_level_label := \
             $VBoxContainer/VBoxContainer2/UnlockedNewLevelLabel
     var was_best_playthrough_label := \
@@ -60,6 +70,10 @@ func _update_stats() -> void:
             $VBoxContainer/VBoxContainer2/WasLongestPlaythroughLabel
     var control_list := \
             $VBoxContainer/AccordionPanel/AccordionBody/LabeledControlList
+    
+    game_over_explanation_label.visible = \
+            Sc.levels.session.game_over_explanation != ""
+    game_over_explanation_label.text = Sc.levels.session.game_over_explanation
     
     unlocked_new_level_label.visible = \
             !Sc.levels.session.new_unlocked_levels.empty()

@@ -30,6 +30,7 @@ var purple := Color("bb46ff")
 var teal := Color("46f8ff")
 var red := Color("ff4d46")
 var orange := Color("ffa546")
+var green := Color("66ff6e")
 
 var highlight_green := Color("6abe30")
 var highlight_light_blue := Color("a8ecff")

@@ -13,6 +13,7 @@ var _is_destroyed := false
 var _is_restarting := false
 var _has_initial_input_happened := false
 var _has_finished := false
+var _game_over_explanation := ""
 
 var _level_start_play_time_scaled := -INF
 var _level_start_play_time_unscaled := -INF
@@ -40,6 +41,7 @@ var has_initial_input_happened: bool setget ,_get_has_initial_input_happened
 var has_started: bool setget ,_get_has_started
 var is_ended: bool setget ,_get_is_ended
 var has_finished: bool setget ,_get_has_finished
+var game_over_explanation: String setget ,_get_game_over_explanation
 var level_start_play_time_scaled: float \
         setget ,_get_level_start_play_time_scaled
 var level_start_play_time_unscaled: float \
@@ -110,6 +112,10 @@ func _get_is_ended() -> bool:
 
 func _get_has_finished() -> bool:
     return _has_finished
+
+
+func _get_game_over_explanation() -> String:
+    return _game_over_explanation
 
 
 func _get_level_start_play_time_scaled() -> float:
