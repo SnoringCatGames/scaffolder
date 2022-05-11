@@ -141,6 +141,12 @@ var collider := RotatedShape.new()
 var collision_shape: CollisionShape2D
 var animator: ScaffolderCharacterAnimator
 
+var distance_travelled := INF
+
+var start_time := INF
+var previous_total_time := INF
+var total_time := INF
+
 var _extra_collision_detection_area: Area2D
 # Dictionary<String, Area2D>
 var _layers_for_entered_proximity_detection := {}
@@ -170,6 +176,10 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
     _is_ready = true
+    
+    distance_travelled = 0.0
+    start_time = Sc.time.get_scaled_play_time()
+    total_time = 0.0
     
     start_position = position
     _debounced_update_editor_configuration = Sc.time.debounce(
@@ -362,10 +372,15 @@ func _physics_process(delta: float) -> void:
             Engine.editor_hint:
         return
     
+    previous_total_time = total_time
+    total_time = Sc.time.get_scaled_play_time() - start_time
+    
     previous_position = position
     _on_physics_process(delta)
     did_move_last_frame = !Sc.geometry.are_points_equal_with_epsilon(
             previous_position, position, 0.00001)
+    
+    distance_travelled += position.distance_to(previous_position)
 
 
 func _on_physics_process(delta: float) -> void:

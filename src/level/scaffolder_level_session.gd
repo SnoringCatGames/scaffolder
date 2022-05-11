@@ -149,8 +149,7 @@ func _get_level_play_time_unscaled() -> float:
 
 
 func get_level_display_time() -> float:
-    return Sc.levels.session.get_level_play_time_by_type(
-        Sc.gui.display_time_type)
+    return get_level_play_time_by_type(Sc.gui.display_time_type)
 
 
 func get_level_play_time_by_type(type: int) -> float:
