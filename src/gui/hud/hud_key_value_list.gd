@@ -30,9 +30,14 @@ func _destroy() -> void:
 func _on_gui_scale_changed() -> bool:
     var separation: float = HudKeyValueBox.get_separation() * Sc.gui.scale
     
-    rect_position = Vector2(separation, separation)
-    
     $VBoxContainer.add_constant_override("separation", separation)
+    
+    if Sc.gui.hud.is_key_value_list_consolidated:
+        rect_position = Vector2(8.0, 8.0) * Sc.gui.scale
+        self.content_margin_top_override = 4.0
+        self.content_margin_bottom_override = 4.0
+    else:
+        rect_position = Vector2(separation, separation)
     
     return false
 

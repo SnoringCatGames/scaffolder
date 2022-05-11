@@ -3,7 +3,7 @@ class_name HudKeyValueBox
 extends ScaffolderPanelContainer
 
 
-const CONSOLIDATED_SEPARATION := 4.0
+const CONSOLIDATED_SEPARATION := 0.0
 const UNCONSOLIDATED_SEPARATION := 12.0
 
 var item: ControlRow
