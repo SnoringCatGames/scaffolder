@@ -14,6 +14,6 @@ func _init(__ = null).(
 
 
 func get_text() -> String:
-    return str(int(Sc.level.score)) if \
-            is_instance_valid(Sc.level) else \
+    return str(int(Sc.levels.session.score)) if \
+            is_instance_valid(Sc.levels.session) else \
             "—"
