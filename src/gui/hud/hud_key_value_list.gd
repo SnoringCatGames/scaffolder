@@ -64,6 +64,7 @@ func update_list() -> void:
             continue
         
         var item: ControlRow = item_config.item_class.new(Sc.levels.session)
+        item.is_in_hud = true
         item.font_size = font_size
         var hud_key_value_box_scene: PackedScene = \
                 Sc.gui.hud_manifest.hud_key_value_box_scene if \

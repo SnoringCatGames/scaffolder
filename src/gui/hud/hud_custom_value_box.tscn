@@ -26,10 +26,10 @@ script = ExtResource( 2 )
 style = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_left = 8.0
-margin_top = 2.0
-margin_right = 264.0
-margin_bottom = 50.0
+margin_left = 3.5
+margin_top = 3.5
+margin_right = 259.5
+margin_bottom = 51.5
 rect_min_size = Vector2( 256, 48 )
 mouse_filter = 2
 custom_constants/separation = 0

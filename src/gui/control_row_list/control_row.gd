@@ -28,6 +28,7 @@ var description: String
 var is_control_on_right_side: bool
 var renders_label: bool
 var enabled := true
+var is_in_hud := false
 
 
 func _init(
