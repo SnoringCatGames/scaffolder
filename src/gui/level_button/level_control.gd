@@ -1,6 +1,6 @@
 tool
 class_name LevelControl, \
-"res://addons/scaffolder/assets/images/editor_icons/scaffolder_node.png"
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_node_cyan.png"
 extends Area2D
 ## -   This bypasses Godot's normal Control logic, and re-implements mouse/touch
 ##     behavior from scratch.
