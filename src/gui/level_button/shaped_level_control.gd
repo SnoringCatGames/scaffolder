@@ -1,6 +1,6 @@
 tool
 class_name ShapedLevelControl, \
-"res://addons/scaffolder/assets/images/editor_icons/scaffolder_node_cyan.png"
+"res://addons/scaffolder/assets/images/editor_icons/scaffolder_node.png"
 extends LevelControl
 
 

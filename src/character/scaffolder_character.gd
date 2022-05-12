@@ -222,6 +222,7 @@ func _destroy() -> void:
         animator._destroy()
     if is_instance_valid(_pointer_detector):
         _pointer_detector._destroy()
+    Sc.annotators.destroy_character_annotator(self)
     if !is_queued_for_deletion():
         queue_free()
 
