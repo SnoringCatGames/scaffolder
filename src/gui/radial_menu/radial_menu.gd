@@ -21,6 +21,8 @@ const _SPRITE_MODULATION_BUTTON_SCENE := preload(
 
 var metadata
 
+var is_transitioning_open := true
+
 # Array<RadialMenuItem>
 var _items := []
 
@@ -147,6 +149,7 @@ func _close(
 
 
 func _transition_open() -> void:
+    is_transitioning_open = true
     _openness_tween.stop_all()
     _openness_tween.interpolate_method(
             self,
@@ -161,6 +164,7 @@ func _transition_open() -> void:
 
 
 func _transition_closed() -> void:
+    is_transitioning_open = true
     _openness_tween.stop_all()
     _openness_tween.interpolate_method(
             self,
@@ -197,7 +201,7 @@ func update_item_control(item: RadialMenuItem) -> void:
 func set_label(
         text: String,
         disabled_message: String) -> void:
-    _label.visible = text != ""
+    _label.visible = text != "" and !is_transitioning_open
     _label.text = text
     _label.disablement_explanation = disabled_message
 
@@ -227,3 +231,5 @@ func _interpolate_openness(progress: float) -> void:
 func _on_menu_tween_completed() -> void:
     if _destroyed:
         _destroy()
+    is_transitioning_open = false
+    set_label(_label.text, _label.disablement_explanation)
