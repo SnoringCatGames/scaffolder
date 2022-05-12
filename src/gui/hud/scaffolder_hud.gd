@@ -117,7 +117,7 @@ func open_radial_menu(
     return _radial_menu
 
 
-func clase_radial_menu() -> void:
+func close_radial_menu() -> void:
     if is_instance_valid(_radial_menu):
         _radial_menu.close()
         _previous_radial_menu = _radial_menu
