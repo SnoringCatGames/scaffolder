@@ -263,7 +263,6 @@ func _update_character_spawn_state(
 
 func remove_character(character: ScaffolderCharacter) -> void:
     characters[character.character_name].erase(character)
-    Sc.annotators.destroy_character_annotator(character)
     character._destroy()
 
 
