@@ -1,6 +1,6 @@
 tool
 class_name LevelButton, \
-"res://addons/scaffolder/assets/images/editor_icons/generic_button.png"
+"res://addons/scaffolder/assets/images/editor_icons/level_button.png"
 extends ShapedLevelControl
 ## -   This button bypasses Godot's normal Control logic, and re-implements
 ##     button behavior from scratch.
