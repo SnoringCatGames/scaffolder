@@ -1,6 +1,6 @@
 tool
 class_name SpriteModulationButton, \
-"res://addons/scaffolder/assets/images/editor_icons/scaffolder_texture_button.png"
+"res://addons/scaffolder/assets/images/editor_icons/sprite_modulation_button.png"
 extends LevelButton
 
 
