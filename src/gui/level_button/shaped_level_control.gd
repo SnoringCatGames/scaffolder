@@ -85,4 +85,4 @@ func _set_shape_offset(value: Vector2) -> void:
 
 
 func get_center_in_screen_space() -> Vector2:
-    return _shape.get_global_transform_with_canvas().origin
+    return Sc.utils.get_screen_position_of_node_in_level(_shape)
