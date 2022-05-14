@@ -41,7 +41,7 @@ func _unhandled_input(event: InputEvent) -> void:
     #       touch events for those.
     if event is InputEventScreenTouch:
         _latest_touch_screen_position = event.position
-        _latest_touch_level_position = Sc.utils.get_level_touch_position(event)
+        _latest_touch_level_position = Sc.utils.get_level_position_for_screen_event(event)
         if event.pressed:
             _on_level_touch_down()
         else:
@@ -49,7 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
     elif event is InputEventScreenDrag or \
             event is InputEventMouseMotion:
         _latest_touch_screen_position = event.position
-        _latest_touch_level_position = Sc.utils.get_level_touch_position(event)
+        _latest_touch_level_position = Sc.utils.get_level_position_for_screen_event(event)
         _throttled_on_level_touch_moved.call_func()
 
 

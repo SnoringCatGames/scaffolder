@@ -346,8 +346,7 @@ func clear_children(node: Node) -> void:
         child.queue_free()
 
 
-# FIXME: LEFT OFF HERE: -------------------- RENAME.
-static func get_level_touch_position(input_event: InputEvent) -> Vector2:
+static func get_level_position_for_screen_event(input_event: InputEvent) -> Vector2:
     return transform_screen_position_to_level_position(input_event.position)
 
 

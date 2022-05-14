@@ -145,7 +145,7 @@ func _unhandled_input(event: InputEvent) -> void:
                     event.button_index == BUTTON_WHEEL_UP else \
                     _target_controller_zoom * Sc.camera.camera_zoom_speed_multiplier
             var cursor_level_position: Vector2 = \
-                    Sc.utils.get_level_touch_position(event)
+                    Sc.utils.get_level_position_for_screen_event(event)
             _zoom_to_position(zoom, cursor_level_position)
 
 

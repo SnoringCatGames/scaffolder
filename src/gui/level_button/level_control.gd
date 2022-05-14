@@ -133,7 +133,7 @@ func _on_input_event(
 #        event_type = "MOUSE_UP   "
 #        is_touch_up = true
 #        screen_position = event.position
-#        level_position = Sc.utils.get_level_touch_position(event)
+#        level_position = Sc.utils.get_level_position_for_screen_event(event)
 #
 #    # Mouse-down: Position pre-selection.
 #    elif event is InputEventMouseButton and \
@@ -142,7 +142,7 @@ func _on_input_event(
 #        event_type = "MOUSE_DOWN "
 #        is_touch_down = true
 #        screen_position = event.position
-#        level_position = Sc.utils.get_level_touch_position(event)
+#        level_position = Sc.utils.get_level_position_for_screen_event(event)
 #
 #    # Mouse-move: Position pre-selection.
 #    elif event is InputEventMouseMotion and \
@@ -150,7 +150,7 @@ func _on_input_event(
 #        event_type = "MOUSE_DRAG "
 #        is_touch_drag = true
 #        screen_position = event.position
-#        level_position = Sc.utils.get_level_touch_position(event)
+#        level_position = Sc.utils.get_level_position_for_screen_event(event)
     
     # Touch-up: Position selection.
     if event is InputEventScreenTouch and \
@@ -158,7 +158,7 @@ func _on_input_event(
         event_type = "TOUCH_UP   "
         is_touch_up = true
         screen_position = event.position
-        level_position = Sc.utils.get_level_touch_position(event)
+        level_position = Sc.utils.get_level_position_for_screen_event(event)
         
     # Touch-down: Position pre-selection.
     elif event is InputEventScreenTouch and \
@@ -166,14 +166,14 @@ func _on_input_event(
         event_type = "TOUCH_DOWN "
         is_touch_down = true
         screen_position = event.position
-        level_position = Sc.utils.get_level_touch_position(event)
+        level_position = Sc.utils.get_level_position_for_screen_event(event)
         
     # Touch-move: Position pre-selection.
     elif event is InputEventScreenDrag:
         event_type = "TOUCH_DRAG "
         is_touch_drag = true
         screen_position = event.position
-        level_position = Sc.utils.get_level_touch_position(event)
+        level_position = Sc.utils.get_level_position_for_screen_event(event)
     
 #    if level_position != Vector2.INF:
 #        var position_string: String = \
