@@ -17,8 +17,6 @@ func _ready() -> void:
         self.style = ScaffolderPanelContainer.PanelStyle.TRANSPARENT
     
     Sc.gui.add_gui_to_scale(self)
-    
-    _on_gui_scale_changed()
 
 
 func _destroy() -> void:
@@ -28,6 +26,13 @@ func _destroy() -> void:
 
 
 func _on_gui_scale_changed() -> bool:
+    call_deferred("_deferred_on_gui_scale_changed")
+    return false
+
+
+func _deferred_on_gui_scale_changed() -> bool:
+    self.visible = !boxes.empty()
+    
     var separation: float = HudKeyValueBox.get_separation() * Sc.gui.scale
     
     $VBoxContainer.add_constant_override("separation", separation)
@@ -38,6 +43,11 @@ func _on_gui_scale_changed() -> bool:
         self.content_margin_bottom_override = 4.0
     else:
         rect_position = Vector2(separation, separation)
+    
+    if !boxes.empty():
+        $VBoxContainer.rect_size = boxes[0].rect_size
+    
+    rect_size = $VBoxContainer.rect_size
     
     return false
 
@@ -87,3 +97,5 @@ func update_list() -> void:
                 $VBoxContainer, Sc.gui.SCAFFOLDER_H_SEPARATOR)
             separator.size_override = Vector2(0.0, 0.2)
             separator.modulate = Sc.palette.get_color("separator")
+    
+    _on_gui_scale_changed()
