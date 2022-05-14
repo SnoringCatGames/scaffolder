@@ -346,15 +346,22 @@ func clear_children(node: Node) -> void:
         child.queue_free()
 
 
+# FIXME: LEFT OFF HERE: -------------------- RENAME.
 static func get_level_touch_position(input_event: InputEvent) -> Vector2:
-    return Sc.level.make_input_local(input_event).position
+    return transform_screen_position_to_level_position(input_event.position)
 
 
 static func transform_screen_position_to_level_position(
         screen_position: Vector2) -> Vector2:
-    return (Sc.level.get_canvas_transform() * Sc.level.get_global_transform()) \
-            .affine_inverse() \
-            .xform(screen_position)
+    return (Sc.level.get_canvas_transform() * \
+            Sc.level.get_global_transform()) \
+        .affine_inverse() \
+        .xform(screen_position - Sc.nav.current_screen.rect_position)
+
+
+static func get_screen_position_of_node_in_level(node: CanvasItem) -> Vector2:
+    return node.get_global_transform_with_canvas().origin + \
+        Sc.nav.current_screen.rect_position
 
 
 func add_overlay_to_current_scene(node: Node) -> void:

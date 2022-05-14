@@ -96,7 +96,7 @@ func get_center_in_level_space() -> Vector2:
 
 
 func get_center_in_screen_space() -> Vector2:
-    return get_global_transform_with_canvas().origin
+    return Sc.utils.get_screen_position_of_node_in_level(self)
 
 
 func _update_interaction_mode(attempted_interaction_mode: int) -> void:

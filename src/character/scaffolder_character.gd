@@ -793,7 +793,7 @@ func _update_pointer_detector() -> void:
 
 
 func get_position_in_screen_space() -> Vector2:
-    return get_global_transform_with_canvas().origin
+    return Sc.utils.get_screen_position_of_node_in_level(self)
 
 
 func _get_navigation_annotation_color() -> ColorConfig:
