@@ -164,6 +164,14 @@ func get_viewport_diagonal_inches() -> float:
     return get_viewport_size_inches().length()
 
 
+func pixels_to_inches(pixels: float) -> float:
+    return pixels / get_viewport_ppi()
+
+
+func inches_to_pixels(inches: float) -> float:
+    return inches * get_viewport_ppi()
+
+
 func get_viewport_safe_area() -> Rect2:
     var os_safe_area := OS.get_window_safe_area()
     return Rect2(
