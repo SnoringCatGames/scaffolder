@@ -132,7 +132,7 @@ func _unhandled_input(event: InputEvent) -> void:
         was_latest_touch_part_of_multi_touch = false
         event_type = "MOUSE_UP   "
         pointer_up_screen_position = event.position
-        pointer_up_level_position = Sc.utils.get_level_touch_position(event)
+        pointer_up_level_position = Sc.utils.get_level_position_for_screen_event(event)
         _clear_touch_buffer(0)
         
     # Mouse-down: Position pre-selection.
@@ -144,7 +144,7 @@ func _unhandled_input(event: InputEvent) -> void:
         _latest_drag_event = event
         is_touch_down = true
         pointer_drag_screen_position = event.position
-        pointer_drag_level_position = Sc.utils.get_level_touch_position(event)
+        pointer_drag_level_position = Sc.utils.get_level_position_for_screen_event(event)
         touch = _add_touch_to_buffer(
                 0,
                 pointer_drag_screen_position,
@@ -157,7 +157,7 @@ func _unhandled_input(event: InputEvent) -> void:
         event_type = "MOUSE_DRAG "
         _latest_drag_event = event
         pointer_drag_screen_position = event.position
-        pointer_drag_level_position = Sc.utils.get_level_touch_position(event)
+        pointer_drag_level_position = Sc.utils.get_level_position_for_screen_event(event)
         touch = _add_touch_to_buffer(
                 0,
                 pointer_drag_screen_position,
@@ -168,7 +168,7 @@ func _unhandled_input(event: InputEvent) -> void:
             !event.pressed:
         event_type = "TOUCH_UP   "
         pointer_up_screen_position = event.position
-        pointer_up_level_position = Sc.utils.get_level_touch_position(event)
+        pointer_up_level_position = Sc.utils.get_level_position_for_screen_event(event)
         _clear_touch_buffer(event.index)
         
     # Touch-down: Position pre-selection.
@@ -181,7 +181,7 @@ func _unhandled_input(event: InputEvent) -> void:
         _latest_drag_event = event
         is_touch_down = true
         pointer_drag_screen_position = event.position
-        pointer_drag_level_position = Sc.utils.get_level_touch_position(event)
+        pointer_drag_level_position = Sc.utils.get_level_position_for_screen_event(event)
         touch = _add_touch_to_buffer(
                 event.index,
                 pointer_drag_screen_position,
@@ -197,7 +197,7 @@ func _unhandled_input(event: InputEvent) -> void:
         event_type = "TOUCH_DRAG "
         _latest_drag_event = event
         pointer_drag_screen_position = event.position
-        pointer_drag_level_position = Sc.utils.get_level_touch_position(event)
+        pointer_drag_level_position = Sc.utils.get_level_position_for_screen_event(event)
         touch = _add_touch_to_buffer(
                 event.index,
                 pointer_drag_screen_position,
@@ -457,7 +457,7 @@ func _get_current_pinch_angle_speed() -> float:
 
 
 func _get_current_drag_level_position_with_current_camera_pan() -> Vector2:
-    return Sc.utils.get_level_touch_position(_latest_drag_event)
+    return Sc.utils.get_level_position_for_screen_event(_latest_drag_event)
 
 
 func _get_has_corresponding_touch_down() -> bool:
