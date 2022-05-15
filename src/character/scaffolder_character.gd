@@ -22,6 +22,8 @@ export(int, LAYERS_2D_PHYSICS) var collision_detection_layers := 0
 export var detects_pointer := true setget _set_detects_pointer
 
 export var pointer_screen_radius := 40.0 setget _set_pointer_screen_radius
+export var pointer_distance_squared_offset_for_selection_priority := 40.0 \
+    setget _set_pointer_distance_squared_offset_for_selection_priority
 
 # --- Colors ---
 
@@ -759,6 +761,11 @@ func _set_pointer_screen_radius(value: float) -> void:
     _update_pointer_detector()
 
 
+func _set_pointer_distance_squared_offset_for_selection_priority(value: float) -> void:
+    pointer_distance_squared_offset_for_selection_priority = value
+    _update_pointer_detector()
+
+
 func _update_pointer_detector() -> void:
     if detects_pointer:
         if !is_instance_valid(_pointer_detector):
@@ -786,6 +793,8 @@ func _update_pointer_detector() -> void:
             detector_shape.shape.radius = 8.0
         
         _pointer_detector.screen_radius = pointer_screen_radius
+        _pointer_detector.distance_squared_offset_for_selection_priority = \
+            pointer_distance_squared_offset_for_selection_priority
     else:
         if is_instance_valid(_pointer_detector):
             _pointer_detector._destroy()

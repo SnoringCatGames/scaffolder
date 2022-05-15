@@ -35,6 +35,9 @@ export var is_focused := false setget _set_is_focused
 
 export var screen_radius := 16.0 setget _set_screen_radius
 
+export var distance_squared_offset_for_selection_priority := 0.0 \
+    setget _set_distance_squared_offset_for_selection_priority
+
 export var mouse_filter := Control.MOUSE_FILTER_STOP
 
 export var is_desaturatable := false setget _set_is_desaturatable
@@ -80,6 +83,10 @@ func _set_is_focused(value: bool) -> void:
 
 func _set_screen_radius(value: float) -> void:
     screen_radius = value
+
+
+func _set_distance_squared_offset_for_selection_priority(value: float) -> void:
+    distance_squared_offset_for_selection_priority = value
 
 
 func _set_is_desaturatable(value: bool) -> void:
