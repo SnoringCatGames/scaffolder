@@ -216,6 +216,10 @@ func scale_delta(duration: float) -> float:
     return duration * get_combined_scale()
 
 
+func get_scaled_time_step() -> float:
+    return PHYSICS_TIME_STEP * get_combined_scale()
+
+
 func _set_time_scale(value: float) -> void:
     time_scale = value
     _app_time.time_scale = get_combined_scale()
