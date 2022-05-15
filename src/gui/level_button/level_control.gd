@@ -55,7 +55,7 @@ func _ready() -> void:
     self.connect("mouse_entered", self, "_on_touch_entered_unfiltered")
     self.connect("mouse_exited", self, "_on_touch_exited_unfiltered")
     self.connect("input_event", self, "_on_input_event")
-    self.collision_layer = Sc.gui.GUI_COLLISION_LAYER
+    self.collision_layer |= Sc.gui.GUI_COLLISION_LAYER
     self.monitoring = false
     self.monitorable = false
     self.input_pickable = true
