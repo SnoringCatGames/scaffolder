@@ -169,7 +169,8 @@ func _digest_touches() -> void:
                 !_included_exclusively_controls.has(current_control):
             continue
         var current_distance_squared: float = event[1].distance_squared_to(
-                current_control.get_center_in_level_space())
+                current_control.get_center_in_level_space()) - \
+            current_control.distance_squared_offset_for_selection_priority
         if current_distance_squared < closest_distance_squared:
             closest_control = current_control
             closest_distance_squared = current_distance_squared
@@ -270,7 +271,8 @@ func _update_hovered_control() -> void:
                 continue
             var current_distance_squared: float = \
                     _latest_touch_level_position.distance_squared_to(
-                        control.get_center_in_level_space())
+                        control.get_center_in_level_space()) - \
+                    control.distance_squared_offset_for_selection_priority
             if current_distance_squared < closest_distance_squared:
                 closest_valid_control = control
                 closest_distance_squared = current_distance_squared
@@ -318,7 +320,8 @@ func _get_closest_control_within_screen_space_radius() -> LevelControl:
             continue
         var current_distance_squared: float = \
                 _latest_touch_screen_position.distance_squared_to(
-                    control.get_center_in_screen_space())
+                    control.get_center_in_screen_space()) - \
+                control.distance_squared_offset_for_selection_priority
         if current_distance_squared < closest_distance_squared and \
                 current_distance_squared < \
                     control.screen_radius * control.screen_radius * \
