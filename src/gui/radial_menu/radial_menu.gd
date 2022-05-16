@@ -194,10 +194,6 @@ func _transition_position(
     _position_tween.start()
 
 
-func update_item_control(item: RadialMenuItem) -> void:
-    item._control.is_disabled = item.disabled_message != ""
-
-
 func set_label(
         text: String,
         disabled_message: String) -> void:
