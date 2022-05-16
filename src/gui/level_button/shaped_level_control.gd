@@ -15,6 +15,8 @@ export var shape_offset := Vector2.ZERO \
 
 var _shape: CollisionShape2D
 
+var half_width_height: Vector2
+
 
 func _ready() -> void:
     _set_up_shape()
@@ -44,6 +46,9 @@ func _update_shape() -> void:
         _shape.shape.radius = shape_circle_radius
     
     _shape.position = shape_offset
+    
+    half_width_height = \
+        Sc.geometry.calculate_half_width_height(_shape.shape, false)
 
 
 func _set_shape_is_rectangular(value: bool) -> void:
@@ -86,3 +91,7 @@ func _set_shape_offset(value: Vector2) -> void:
 
 func get_center_in_screen_space() -> Vector2:
     return Sc.utils.get_screen_position_of_node_in_level(_shape)
+
+
+func get_bounds() -> Rect2:
+    return Rect2(position - half_width_height, half_width_height * 2.0)
