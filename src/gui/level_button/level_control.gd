@@ -72,8 +72,10 @@ func _destroy() -> void:
 
 
 func _set_is_disabled(value: bool) -> void:
+    var was_disabled := is_disabled
     is_disabled = value
-    _update_interaction_mode(InteractionMode.DISABLED)
+    if is_disabled and !was_disabled:
+        _update_interaction_mode(InteractionMode.DISABLED)
 
 
 func _set_is_focused(value: bool) -> void:
