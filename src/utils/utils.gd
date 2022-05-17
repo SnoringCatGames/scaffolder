@@ -1114,23 +1114,26 @@ static func get_type_string(type: int) -> String:
             return ""
 
 
-static func get_direct_property_map(object: Reference) -> Dictionary:
+static func get_direct_property_map(
+        object: Object,
+        parent_type) -> Dictionary:
     # -   The problem with get_property_list() is that it also includes all of
     #     the ancestor class properties.
     # -   To get around this, we get all of the ancestor class properties--
     #     without any of the subclass's direct properties--here, so that we can
     #     filter them out later.
     # -   For this to work, the object must extend Reference directly.
-    var reference_property_list := Reference.new().get_property_list()
-    var reference_property_map := {}
-    for property_config in reference_property_list:
-        reference_property_map[property_config.name] = property_config
+    
+    var parent_property_list: Array = parent_type.new().get_property_list()
+    var parent_property_map := {}
+    for property_config in parent_property_list:
+        parent_property_map[property_config.name] = property_config
     
     var property_map := {}
     
     var property_list := object.get_property_list()
     for property_config in property_list:
-        if reference_property_map.has(property_config.name) or \
+        if parent_property_map.has(property_config.name) or \
                 property_config.name == "Script Variables":
             continue
         property_map[property_config.name] = object.get(property_config.name)
@@ -1139,7 +1142,7 @@ static func get_direct_property_map(object: Reference) -> Dictionary:
 
 
 static func get_direct_color_properties(object: Reference) -> Dictionary:
-    var property_map := get_direct_property_map(object)
+    var property_map := get_direct_property_map(object, Reference)
     for key in property_map.keys():
         if !property_map[key] is Color and \
                 !property_map[key] is ColorConfig:
@@ -1148,7 +1151,7 @@ static func get_direct_color_properties(object: Reference) -> Dictionary:
 
 
 static func get_direct_non_color_properties(object: Reference) -> Dictionary:
-    var property_map := get_direct_property_map(object)
+    var property_map := get_direct_property_map(object, Reference)
     for key in property_map.keys():
         if property_map[key] is Color or \
                 property_map[key] is ColorConfig:
