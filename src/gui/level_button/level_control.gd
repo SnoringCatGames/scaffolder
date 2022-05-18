@@ -43,6 +43,7 @@ export var mouse_filter := Control.MOUSE_FILTER_STOP
 export var is_desaturatable := false setget _set_is_desaturatable
 
 var interaction_mode: int = InteractionMode.NORMAL
+var attempted_interaction_mode: int = InteractionMode.NORMAL
 
 var _was_touch_down_in_this_control := false
 var _was_touch_up_a_full_press := false
@@ -74,8 +75,8 @@ func _destroy() -> void:
 func _set_is_disabled(value: bool) -> void:
     var was_disabled := is_disabled
     is_disabled = value
-    if is_disabled and !was_disabled:
-        _update_interaction_mode(InteractionMode.DISABLED)
+    if is_disabled != was_disabled:
+        _update_interaction_mode()
 
 
 func _set_is_focused(value: bool) -> void:
@@ -108,7 +109,13 @@ func get_center_in_screen_space() -> Vector2:
     return Sc.utils.get_screen_position_of_node_in_level(self)
 
 
-func _update_interaction_mode(attempted_interaction_mode: int) -> void:
+func _update_interaction_mode(
+        attempted_interaction_mode := InteractionMode.UNKNOWN) -> void:
+    if attempted_interaction_mode == InteractionMode.UNKNOWN:
+        attempted_interaction_mode = self.attempted_interaction_mode
+    else:
+        self.attempted_interaction_mode = attempted_interaction_mode
+    
     var previous_interaction_mode := interaction_mode
     
     if is_disabled:
