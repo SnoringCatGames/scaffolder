@@ -161,3 +161,8 @@ func _set_alpha_multiplier(value: float) -> void:
 func _set_saturation(value: float) -> void:
     saturation = value
     _update_modulation()
+
+
+func _set_is_disabled(value: bool) -> void:
+    ._set_is_disabled(value)
+    _update_modulation()
