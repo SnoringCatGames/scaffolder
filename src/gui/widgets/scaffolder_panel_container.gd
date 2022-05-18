@@ -12,19 +12,73 @@ enum PanelStyle {
     HUD,
     SIMPLE_TRANSPARENT_BLACK,
 }
+const _PANEL_STYLE_HINT_STRING := (
+    "Transparent:0," +
+    "Overlay:1," +
+    "Notification:2," +
+    "Header:3," +
+    "Hud:4," +
+    "Simple Transparent Black:5"
+)
 
-export(PanelStyle) var style := PanelStyle.TRANSPARENT setget _set_style
-export var is_unique := false setget _set_is_unique
-export var content_margin_left_override := -1 setget \
+var style: int = PanelStyle.TRANSPARENT setget _set_style
+var color_override: ColorConfig = null setget _set_color_override
+var is_unique := false setget _set_is_unique
+var content_margin_left_override := -1 setget \
         _set_content_margin_left_override
-export var content_margin_top_override := -1 setget \
+var content_margin_top_override := -1 setget \
         _set_content_margin_top_override
-export var content_margin_right_override := -1 setget \
+var content_margin_right_override := -1 setget \
         _set_content_margin_right_override
-export var content_margin_bottom_override := -1 setget \
+var content_margin_bottom_override := -1 setget \
         _set_content_margin_bottom_override
 
 var _stylebox: StyleBox
+
+const _PROPERTY_LIST_ADDENDUM := [
+    {
+        name = "style",
+        type = TYPE_INT,
+        hint = PROPERTY_HINT_ENUM,
+        usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+        hint_string = _PANEL_STYLE_HINT_STRING,
+    },
+    {
+        name = "color_override",
+        type = TYPE_OBJECT,
+        usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+        hint = ScaffolderPropertyHint.PROPERTY_HINT_COLOR_CONFIG,
+    },
+    {
+        name = "is_unique",
+        type = TYPE_BOOL,
+        usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+    },
+    {
+        name = "content_margin_left_override",
+        type = TYPE_INT,
+        usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+    },
+    {
+        name = "content_margin_top_override",
+        type = TYPE_INT,
+        usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+    },
+    {
+        name = "content_margin_right_override",
+        type = TYPE_INT,
+        usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+    },
+    {
+        name = "content_margin_bottom_override",
+        type = TYPE_INT,
+        usage = Utils.PROPERTY_USAGE_EXPORTED_ITEM,
+    },
+]
+
+
+func _get_property_list() -> Array:
+    return _PROPERTY_LIST_ADDENDUM
 
 
 func _enter_tree() -> void:
@@ -49,6 +103,10 @@ func _set_style(value: int) -> void:
             is_instance_valid(_stylebox):
         return
     
+    _update_style()
+
+
+func _update_style() -> void:
     _clear_style()
     
     match style:
@@ -69,10 +127,21 @@ func _set_style(value: int) -> void:
             _stylebox = null
     
     if is_instance_valid(_stylebox):
-        if is_unique:
+        if is_unique or color_override != null:
             _stylebox = Sc.styles.create_stylebox_scalable(_stylebox, true)
+            if color_override != null and _stylebox is StyleBoxFlat:
+                _stylebox.bg_color = color_override.sample()
+    
+    _update_content_margin()
     
     add_stylebox_override("panel", _stylebox)
+
+
+func _set_color_override(value: ColorConfig) -> void:
+    color_override = value
+    if color_override != null:
+        _set_is_unique(true)
+    _update_style()
 
 
 func _set_is_unique(value: bool) -> void:
@@ -80,7 +149,7 @@ func _set_is_unique(value: bool) -> void:
     is_unique = value
     if is_unique == was_unique:
         return
-    _set_style(style)
+    _update_style()
 
 
 func _set_content_margin_left_override(value: int) -> void:
