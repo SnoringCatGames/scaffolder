@@ -435,7 +435,8 @@ func on_unpause() -> void:
 
 
 func _show_welcome_panel() -> void:
-    if !Sc.gui.is_welcome_panel_shown:
+    if !Sc.gui.is_welcome_panel_shown or \
+            !Sc.gui.does_app_contain_welcome_panel:
         return
     assert(Sc.gui.welcome_panel == null)
     Sc.gui.welcome_panel = Sc.utils.add_scene(
