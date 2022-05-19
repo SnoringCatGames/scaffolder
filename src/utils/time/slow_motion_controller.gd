@@ -133,6 +133,8 @@ func set_slow_motion_enabled(value: bool) -> void:
             0.0,
             TimeType.PLAY_PHYSICS)
     
+    Sc.gui.hud.fade(is_enabled)
+    
     _tween.start()
     
     # Update music.

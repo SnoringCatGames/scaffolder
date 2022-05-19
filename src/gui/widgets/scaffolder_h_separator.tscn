@@ -11,8 +11,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1021.0
 margin_bottom = -764.0
+mouse_filter = 2
 custom_styles/separator = SubResource( 1 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
