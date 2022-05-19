@@ -27,6 +27,8 @@ var radial_menu_item_disabled_color_modulate: ColorConfig
 
 var is_key_value_list_consolidated: bool
 
+var fadable_container: Node2D
+
 var hud_key_value_list: HudKeyValueList
 
 var _previous_radial_menu: RadialMenu
@@ -35,7 +37,7 @@ var _radial_menu: RadialMenu
 # Dictionary<CanvasItem, ScaffolderTween>
 var _fade_tweens := {}
 
-var _is_faded_in := true
+var _is_faded_out := false
 
 
 func _ready() -> void:
@@ -79,15 +81,18 @@ func _ready() -> void:
             is_hud_key_value_list_shown = true
             break
     
+    fadable_container = Node2D.new()
+    add_child(fadable_container)
+    
     if is_hud_key_value_list_shown:
         hud_key_value_list = Sc.utils.add_scene(
-                self,
+                fadable_container,
                 Sc.gui.hud_manifest.hud_key_value_list_scene,
                 true,
                 true)
         _set_up_fade_tween_for_region_mouse_over(hud_key_value_list)
     
-    _fade_tweens[self] = ScaffolderTween.new(self)
+    _fade_tweens[fadable_container] = ScaffolderTween.new(self)
 
 
 func open_radial_menu(
@@ -171,16 +176,16 @@ func _trigger_fade_transition(
     tween.start()
 
 
-func fade(fading_in: bool) -> void:
-    if fading_in == _is_faded_in:
+func fade(fading_out: bool) -> void:
+    if fading_out == _is_faded_out:
         # No change.
         return
-    _is_faded_in = fading_in
+    _is_faded_out = fading_out
     var end_opacity := \
-            1.0 if \
-            fading_in else \
-            _HUD_FADE_OUT_OPACITY
-    _trigger_fade_transition(self, end_opacity, _HUD_FADE_DURATION)
+            _HUD_FADE_OUT_OPACITY if \
+            fading_out else \
+            1.0
+    _trigger_fade_transition(fadable_container, end_opacity, _HUD_FADE_DURATION)
 
 
 func _destroy() -> void:

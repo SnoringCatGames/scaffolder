@@ -98,4 +98,8 @@ func update_list() -> void:
             separator.size_override = Vector2(0.0, 0.2)
             separator.modulate = Sc.palette.get_color("separator")
     
+    Sc.utils.set_mouse_filter_recursively(
+        self,
+        Control.MOUSE_FILTER_IGNORE)
+    
     _on_gui_scale_changed()

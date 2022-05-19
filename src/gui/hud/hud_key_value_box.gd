@@ -20,6 +20,8 @@ func _ready() -> void:
     else:
         self.style = ScaffolderPanelContainer.PanelStyle.HUD
     
+    self.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    
     _on_gui_scale_changed()
 
 

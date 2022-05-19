@@ -4,7 +4,8 @@ extends HudKeyValueBox
 
 
 func _ready() -> void:
-    $HBoxContainer/HBoxContainer.add_child(item.create_control())
+    var control := item.create_control()
+    $HBoxContainer/HBoxContainer.add_child(control)
 
 
 func _on_gui_scale_changed() -> bool:

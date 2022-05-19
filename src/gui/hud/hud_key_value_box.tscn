@@ -26,6 +26,12 @@ size_flags_vertical = 0
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
 style = 4
+color_override = null
+is_unique = false
+content_margin_left_override = -1
+content_margin_top_override = -1
+content_margin_right_override = -1
+content_margin_bottom_override = -1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 3.5
