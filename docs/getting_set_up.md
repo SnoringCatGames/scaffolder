@@ -90,7 +90,7 @@ So I at least try to describe here why things are likely so broken, and possible
 
 Also, it might be easiest to start by cloning whatever game repo is my latest, and making changes to it.
 
-> NOTE: Any of my game repo's other than my latest one will likely be broken because of recent framework changes! Since these docs will inevitably become out-of-date, the safest thing is to check my recent GitHub activity.
+> NOTE: Any of my game repos other than my latest one will likely be broken because of recent framework changes! Since these docs will inevitably become out-of-date, the safest thing is to check my recent GitHub activity.
 
 In general, another thing to try is enabling one autoload at a time, then re-opening Godot. Since the AutoLoads are only instatiated in-editor when the editor first opens, enabling one AutoLoad won't fix another dependent AutoLoad.
 
