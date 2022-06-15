@@ -4,23 +4,23 @@ extends Node2D
 
 
 var _SCAFFOLDER_CHARACTER_SUB_ANNOTATORS := [
-    AnnotatorType.CHARACTER,
-    AnnotatorType.CHARACTER_POSITION,
-    AnnotatorType.RECENT_MOVEMENT,
+    ScaffolderAnnotatorTypes.CHARACTER,
+    ScaffolderAnnotatorTypes.CHARACTER_POSITION,
+    ScaffolderAnnotatorTypes.RECENT_MOVEMENT,
 ]
 
 var _SCAFFOLDER_LEVEL_SPECIFIC_ANNOTATORS := [
-    AnnotatorType.RULER,
-    AnnotatorType.LEVEL,
+    ScaffolderAnnotatorTypes.RULER,
+    ScaffolderAnnotatorTypes.LEVEL,
 ]
 
-# Dictionary<AnnotatorType, bool>
-const _SCAFFOLDER_DEFAULT_ENABLEMENT := {
-    AnnotatorType.RULER: false,
-    AnnotatorType.LEVEL: true,
-    AnnotatorType.CHARACTER: true,
-    AnnotatorType.CHARACTER_POSITION: false,
-    AnnotatorType.RECENT_MOVEMENT: true,
+# Dictionary<ScaffolderAnnotatorTypes, bool>
+var _SCAFFOLDER_DEFAULT_ENABLEMENT := {
+    ScaffolderAnnotatorTypes.RULER: false,
+    ScaffolderAnnotatorTypes.LEVEL: true,
+    ScaffolderAnnotatorTypes.CHARACTER: true,
+    ScaffolderAnnotatorTypes.CHARACTER_POSITION: false,
+    ScaffolderAnnotatorTypes.RECENT_MOVEMENT: true,
 }
 
 # NOTE: This only stores non-Color/ColorConfig values.
@@ -94,7 +94,7 @@ func _ready() -> void:
     
     for annotator_type in default_enablement:
         var is_enabled: bool = Sc.save_state.get_setting(
-                AnnotatorType.get_settings_key(annotator_type),
+                ScaffolderAnnotatorTypes.get_settings_key(annotator_type),
                 default_enablement[annotator_type])
         set_annotator_enabled(
                 annotator_type,
@@ -156,7 +156,7 @@ func get_character_annotator(
 
 
 func set_annotator_enabled(
-        annotator_type: int,
+        annotator_type: String,
         is_enabled: bool) -> void:
     if is_annotator_enabled(annotator_type) == is_enabled:
         # Do nothing. The annotator is already correct.
@@ -180,20 +180,20 @@ func set_annotator_enabled(
     _annotator_enablement[annotator_type] = is_enabled
 
 
-func is_annotator_enabled(annotator_type: int) -> bool:
+func is_annotator_enabled(annotator_type: String) -> bool:
     if !_annotator_enablement.has(annotator_type):
         _annotator_enablement[annotator_type] = false
     return _annotator_enablement[annotator_type]
 
 
-func _create_annotator(annotator_type: int) -> void:
+func _create_annotator(annotator_type: String) -> void:
     assert(!is_annotator_enabled(annotator_type))
     match annotator_type:
-        AnnotatorType.RULER:
+        ScaffolderAnnotatorTypes.RULER:
             if Sc.level != null:
                 ruler_annotator = RulerAnnotator.new()
                 ruler_layer.add_child(ruler_annotator)
-        AnnotatorType.LEVEL:
+        ScaffolderAnnotatorTypes.LEVEL:
             if Sc.level != null:
                 Sc.level.set_tilemap_visibility(true)
                 Sc.level.set_background_visibility(true)
@@ -201,14 +201,14 @@ func _create_annotator(annotator_type: int) -> void:
             Sc.logger.error("ScaffolderAnnotators._create_annotator")
 
 
-func _destroy_annotator(annotator_type: int) -> void:
+func _destroy_annotator(annotator_type: String) -> void:
     assert(is_annotator_enabled(annotator_type))
     match annotator_type:
-        AnnotatorType.RULER:
+        ScaffolderAnnotatorTypes.RULER:
             if ruler_annotator != null:
                 ruler_annotator.queue_free()
                 ruler_annotator = null
-        AnnotatorType.LEVEL:
+        ScaffolderAnnotatorTypes.LEVEL:
             if Sc.level != null:
                 Sc.level.set_tilemap_visibility(false)
                 Sc.level.set_background_visibility(false)

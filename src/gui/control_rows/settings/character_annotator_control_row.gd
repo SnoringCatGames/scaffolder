@@ -5,8 +5,8 @@ extends CheckboxControlRow
 const LABEL := "Char. sprites"
 const DESCRIPTION := ""
 
-var annotator_type := AnnotatorType.CHARACTER
-var settings_key := AnnotatorType.get_settings_key(annotator_type)
+var annotator_type := ScaffolderAnnotatorTypes.CHARACTER
+var settings_key := ScaffolderAnnotatorTypes.get_settings_key(annotator_type)
 
 
 func _init(__ = null).(

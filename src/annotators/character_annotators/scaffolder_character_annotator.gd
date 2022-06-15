@@ -21,7 +21,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func set_annotator_enabled(
-        annotator_type: int,
+        annotator_type: String,
         is_enabled: bool) -> void:
     if is_annotator_enabled(annotator_type) == is_enabled:
         # Do nothing. The annotator is already correct.
@@ -33,29 +33,29 @@ func set_annotator_enabled(
         _destroy_annotator(annotator_type)
 
 
-func is_annotator_enabled(annotator_type: int) -> bool:
+func is_annotator_enabled(annotator_type: String) -> bool:
     match annotator_type:
-        AnnotatorType.CHARACTER:
+        ScaffolderAnnotatorTypes.CHARACTER:
             return character.get_is_sprite_visible()
-        AnnotatorType.CHARACTER_POSITION:
+        ScaffolderAnnotatorTypes.CHARACTER_POSITION:
             return is_instance_valid(position_annotator)
-        AnnotatorType.RECENT_MOVEMENT:
+        ScaffolderAnnotatorTypes.RECENT_MOVEMENT:
             return is_instance_valid(recent_movement_annotator)
         _:
             Sc.logger.error("ScaffolderCharacterAnnotator.is_annotator_enabled")
             return false
 
 
-func _create_annotator(annotator_type: int) -> void:
+func _create_annotator(annotator_type: String) -> void:
     assert(!is_annotator_enabled(annotator_type))
     match annotator_type:
-        AnnotatorType.CHARACTER:
+        ScaffolderAnnotatorTypes.CHARACTER:
             character.set_is_sprite_visible(true)
-        AnnotatorType.CHARACTER_POSITION:
+        ScaffolderAnnotatorTypes.CHARACTER_POSITION:
             position_annotator = \
                     ScaffolderCharacterPositionAnnotator.new(character)
             add_child(position_annotator)
-        AnnotatorType.RECENT_MOVEMENT:
+        ScaffolderAnnotatorTypes.RECENT_MOVEMENT:
             recent_movement_annotator = \
                     ScaffolderCharacterRecentMovementAnnotator.new(character)
             add_child(recent_movement_annotator)
@@ -63,15 +63,15 @@ func _create_annotator(annotator_type: int) -> void:
             Sc.logger.error("ScaffolderCharacterAnnotator._create_annotator")
 
 
-func _destroy_annotator(annotator_type: int) -> void:
+func _destroy_annotator(annotator_type: String) -> void:
     assert(is_annotator_enabled(annotator_type))
     match annotator_type:
-        AnnotatorType.CHARACTER:
+        ScaffolderAnnotatorTypes.CHARACTER:
             character.set_is_sprite_visible(false)
-        AnnotatorType.CHARACTER_POSITION:
+        ScaffolderAnnotatorTypes.CHARACTER_POSITION:
             position_annotator.queue_free()
             position_annotator = null
-        AnnotatorType.RECENT_MOVEMENT:
+        ScaffolderAnnotatorTypes.RECENT_MOVEMENT:
             recent_movement_annotator.queue_free()
             recent_movement_annotator = null
         _:
