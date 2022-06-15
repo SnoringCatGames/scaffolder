@@ -197,6 +197,7 @@ func quit(
     Sc.audio.stop_music()
     Sc.levels.session._update_for_level_end(has_finished)
     _record_suggested_next_level()
+    Sc.slow_motion.is_enabled = false
     if immediately:
         if !Sc.levels.session.is_restarting:
             Sc.nav.open("game_over", ScreenTransition.FANCY)
