@@ -146,6 +146,10 @@ func _digest_touches() -> void:
     assert(_is_digest_scheduled)
     _is_digest_scheduled = false
     
+    if Sc.levels.session.is_ended:
+        # Ignore touches that happen after the level has ended.
+        return
+    
     if _events_in_current_frame.empty():
         # This happens on control-local touch_enter/touch_exit, since the
         # corresponding level-global event is throttled.
