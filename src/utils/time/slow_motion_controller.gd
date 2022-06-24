@@ -191,6 +191,25 @@ func _set_time_scale(value: float) -> void:
             Sc.logger.error("SlowMotionController._set_time_scale")
 
 
+func set_time_scale_for_node(node: Node) -> void:
+    if node.has_method("match_rate_to_time_scale"):
+        node.match_rate_to_time_scale()
+    elif node is AnimatedSprite:
+        if !node.has_meta("non_slow_motion_speed_scale"):
+            node.set_meta("non_slow_motion_speed_scale", node.speed_scale)
+        node.speed_scale = \
+                node.get_meta("non_slow_motion_speed_scale") * \
+                Sc.time.time_scale
+    elif node is AnimationPlayer:
+        if !node.has_meta("non_slow_motion_speed_scale"):
+            node.set_meta("non_slow_motion_speed_scale", node.playback_speed)
+        node.playback_speed = \
+                node.get_meta("non_slow_motion_speed_scale") * \
+                Sc.time.time_scale
+    else:
+        Sc.logger.error("SlowMotionController._set_time_scale")
+
+
 func _on_music_transition_complete(is_active: bool) -> void:
     is_transitioning = false
 
@@ -201,6 +220,7 @@ func get_is_enabled_or_transitioning() -> bool:
 
 func add_animator(animator: Node2D) -> void:
     _slow_motionable_animators.push_back(animator)
+    set_time_scale_for_node(animator)
 
 
 func remove_animator(animator: Node2D) -> void:
