@@ -26,14 +26,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2"
-     inkscape:cx="162"
+     inkscape:cx="161.75"
      inkscape:cy="158.5"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1010"
-     inkscape:window-x="-1926"
+     inkscape:window-x="-6"
      inkscape:window-y="-6"
      inkscape:window-maximized="1"
      units="px"
@@ -330,9 +330,9 @@
     <g
        id="g6058-7"
        transform="translate(72.122683,-0.97461857)"
-       inkscape:export-xdpi="192.00002"
-       inkscape:export-ydpi="192.00002"
-       inkscape:export-filename="C:\Users\lsl\surfacer_icon_128.png">
+       inkscape:export-xdpi="768"
+       inkscape:export-ydpi="768"
+       inkscape:export-filename="C:\Users\lsl\surfacer.png">
       <rect
          y="299.31671"
          x="8.7838134e-07"
@@ -392,9 +392,9 @@
     <g
        id="g6047-9"
        transform="translate(72.122683,-1.2457753)"
-       inkscape:export-xdpi="192"
-       inkscape:export-ydpi="192"
-       inkscape:export-filename="C:\Users\lsl\scaffolder_icon_128.png">
+       inkscape:export-xdpi="768"
+       inkscape:export-ydpi="768"
+       inkscape:export-filename="C:\Users\lsl\scaffolder.png">
       <rect
          y="280.70325"
          x="1.0327774e-06"
@@ -675,8 +675,8 @@
        id="g49270-1"
        transform="translate(72.122683,-0.70842398)"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\device_icons\surface_tiler.png"
-       inkscape:export-xdpi="192.00002"
-       inkscape:export-ydpi="192.00002">
+       inkscape:export-xdpi="768"
+       inkscape:export-ydpi="768">
       <rect
          y="336.81976"
          x="1.0327774e-06"
@@ -716,8 +716,8 @@
        id="g49274-6"
        transform="translate(72.122683,-0.74150093)"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\device_icons\gooier.png"
-       inkscape:export-xdpi="192.00002"
-       inkscape:export-ydpi="192.00002">
+       inkscape:export-xdpi="768"
+       inkscape:export-ydpi="768">
       <rect
          y="355.73746"
          x="1.0327774e-06"
@@ -739,8 +739,8 @@
        id="g49263-2"
        transform="translate(72.122683,-0.67535914)"
        inkscape:export-filename="C:\Users\lsl\Repositories\exampler\addons\scaffolder\assets\images\device_icons\surface_parser.png"
-       inkscape:export-xdpi="192.00002"
-       inkscape:export-ydpi="192.00002">
+       inkscape:export-xdpi="768.00018"
+       inkscape:export-ydpi="768.00018">
       <rect
          y="317.90207"
          x="1.0327774e-06"
