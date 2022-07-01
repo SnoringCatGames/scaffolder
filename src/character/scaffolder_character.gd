@@ -138,6 +138,7 @@ var velocity := Vector2.ZERO
 var start_position := Vector2.INF
 var previous_position := Vector2.INF
 var did_move_last_frame := false
+var stationary_frames_count := 0
 
 var collider := RotatedShape.new()
 var collision_shape: CollisionShape2D
@@ -382,6 +383,10 @@ func _physics_process(delta: float) -> void:
     _on_physics_process(delta)
     did_move_last_frame = !Sc.geometry.are_points_equal_with_epsilon(
             previous_position, position, 0.00001)
+    if did_move_last_frame:
+        stationary_frames_count = 0
+    else:
+        stationary_frames_count += 1
     
     distance_travelled += position.distance_to(previous_position)
 
