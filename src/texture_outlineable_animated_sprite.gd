@@ -124,7 +124,7 @@ func set_frame(value: int) -> void:
 
 
 func set_frames(value: SpriteFrames) -> void:
-    .set_frames(value)
+    set_sprite_frames(value)
     _update_inner_sprite()
     property_list_changed_notify()
 
