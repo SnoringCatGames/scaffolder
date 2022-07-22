@@ -348,10 +348,15 @@ func _set_window_debug_size_and_position() -> void:
             OS.window_fullscreen = true
             OS.window_borderless = true
         else:
-            OS.window_size = Sc.gui.debug_window_size
+            var screen_size := OS.get_screen_size()
+            var window_size: Vector2
+            window_size.x = \
+                min(Sc.gui.debug_window_size.x, screen_size.x)
+            window_size.y = \
+                min(Sc.gui.debug_window_size.y, screen_size.y)
+            OS.window_size = window_size
             # Center the window.
-            OS.window_position = \
-                    (OS.get_screen_size() - Sc.gui.debug_window_size) / 2.0
+            OS.window_position = (screen_size - window_size) / 2.0
         
         # Show the game window on the other monitor, rather than over-top the
         # editor.
