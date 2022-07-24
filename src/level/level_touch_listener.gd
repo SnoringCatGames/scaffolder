@@ -97,6 +97,10 @@ var _touch_index_to_touch_buffer := {}
 
 var _touch_handled_time := -INF
 
+var _was_single_touch_down := false
+var _was_single_touch_moved := false
+var _was_single_touch_released := false
+
 
 func _init() -> void:
     assert(Sc.gui.is_player_interaction_enabled)
@@ -255,6 +259,31 @@ func _unhandled_input(event: InputEvent) -> void:
         pass
 
 
+func _on_level_controls_digested_touches() -> void:
+    if !get_is_current_touch_handled():
+        if _was_single_touch_down:
+            emit_signal(
+                "single_unhandled_touch_down",
+                touch_down_screen_position,
+                touch_down_level_position)
+        if _was_single_touch_moved:
+            emit_signal(
+                "single_unhandled_touch_dragged",
+                latest_drag_screen_position,
+                latest_drag_level_position,
+                _get_has_corresponding_touch_down())
+        if _was_single_touch_released:
+            emit_signal(
+                "single_unhandled_touch_released",
+                release_screen_position,
+                release_level_position,
+                _get_has_corresponding_touch_down())
+    
+    _was_single_touch_down = false
+    _was_single_touch_moved = false
+    _was_single_touch_released = false
+
+
 func _on_single_touch_down(touch: Touch) -> void:
     touch_down_screen_position = touch.screen_position
     latest_drag_screen_position = touch.screen_position
@@ -267,11 +296,11 @@ func _on_single_touch_down(touch: Touch) -> void:
     current_pinch_screen_distance = INF
     current_pinch_angle = INF
     current_pinch_center_level_position = Vector2.INF
+    _was_single_touch_down = true
     emit_signal(
             "single_touch_down",
             touch.screen_position,
             touch.level_position)
-    call_deferred("call_deferred", "_check_for_unhandled_single_touch_down")
 
 
 func _on_single_touch_moved(touch: Touch) -> void:
@@ -283,12 +312,12 @@ func _on_single_touch_moved(touch: Touch) -> void:
     current_pinch_screen_distance = INF
     current_pinch_angle = INF
     current_pinch_center_level_position = Vector2.INF
+    _was_single_touch_moved = true
     emit_signal(
             "single_touch_dragged",
             touch.screen_position,
             touch.level_position,
             _get_has_corresponding_touch_down())
-    call_deferred("call_deferred", "_check_for_unhandled_single_touch_dragged")
 
 
 func _on_single_touch_released(
@@ -303,38 +332,12 @@ func _on_single_touch_released(
     current_pinch_screen_distance = INF
     current_pinch_angle = INF
     current_pinch_center_level_position = Vector2.INF
+    _was_single_touch_released = true
     emit_signal(
             "single_touch_released",
             pointer_screen_position,
             pointer_level_position,
             _get_has_corresponding_touch_down())
-    call_deferred("call_deferred", "_check_for_unhandled_single_touch_released")
-
-
-func _check_for_unhandled_single_touch_down() -> void:
-    if !get_is_current_touch_handled():
-        emit_signal(
-                "single_unhandled_touch_down",
-                touch_down_screen_position,
-                touch_down_level_position)
-
-
-func _check_for_unhandled_single_touch_dragged() -> void:
-    if !get_is_current_touch_handled():
-        emit_signal(
-                "single_unhandled_touch_dragged",
-                latest_drag_screen_position,
-                latest_drag_level_position,
-                _get_has_corresponding_touch_down())
-
-
-func _check_for_unhandled_single_touch_released() -> void:
-    if !get_is_current_touch_handled():
-        emit_signal(
-                "single_unhandled_touch_released",
-                release_screen_position,
-                release_level_position,
-                _get_has_corresponding_touch_down())
 
 
 func _on_pinch_second_touch_down(touch: Touch) -> void:
