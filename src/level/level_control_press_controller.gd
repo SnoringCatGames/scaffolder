@@ -21,6 +21,8 @@ var _included_exclusively_controls := {}
 
 var are_touches_disabled := false
 
+var _global_touch_listener: ShapedLevelControl
+
 var _hovered_control: LevelControl
 
 var _is_digest_scheduled := false
@@ -32,7 +34,37 @@ var _throttled_on_level_touch_moved: FuncRef = Sc.time.throttle(
         self, "_on_level_touch_moved_throttled", 0.1, true)
 
 
+func _ready() -> void:
+    call_deferred("_initialize_global_touch_listener")
+
+
+func _initialize_global_touch_listener() -> void:
+    _global_touch_listener = ShapedLevelControl.new()
+    _global_touch_listener.screen_radius = 1000000.0
+    _global_touch_listener.shape_circle_radius = 1000000.0 * Sc.gui.scale
+    _global_touch_listener.connect(
+        "mouse_entered", self, "_on_touch_entered_unfiltered")
+    _global_touch_listener.connect(
+        "mouse_exited", self, "_on_touch_exited_unfiltered")
+    _global_touch_listener.connect(
+        "input_event", self, "_on_input_event")
+    Sc.canvas_layers.layers.top.add_child(_global_touch_listener)
+    exclude_control(_global_touch_listener)
+
+
+func _on_touch_entered_unfiltered() -> void:
+    _trigger_digest()
+func _on_touch_exited_unfiltered() -> void:
+    _trigger_digest()
+func _on_input_event(
+        viewport: Node,
+        event: InputEvent,
+        shape_idx: int) -> void:
+    _trigger_digest()
+
+
 func _destroy() -> void:
+    Sc.canvas_layers.layers.top.remove_child(_pointer_detector)
     queue_free()
 
 
@@ -41,7 +73,8 @@ func _unhandled_input(event: InputEvent) -> void:
     #       touch events for those.
     if event is InputEventScreenTouch:
         _latest_touch_screen_position = event.position
-        _latest_touch_level_position = Sc.utils.get_level_position_for_screen_event(event)
+        _latest_touch_level_position = \
+            Sc.utils.get_level_position_for_screen_event(event)
         if event.pressed:
             _on_level_touch_down()
         else:
@@ -49,7 +82,8 @@ func _unhandled_input(event: InputEvent) -> void:
     elif event is InputEventScreenDrag or \
             event is InputEventMouseMotion:
         _latest_touch_screen_position = event.position
-        _latest_touch_level_position = Sc.utils.get_level_position_for_screen_event(event)
+        _latest_touch_level_position = \
+            Sc.utils.get_level_position_for_screen_event(event)
         _throttled_on_level_touch_moved.call_func()
 
 
@@ -113,19 +147,16 @@ func register_touch_event(
         level_position,
         control,
     ])
-    _trigger_digest()
 
 
 func register_touch_entered(control: LevelControl) -> void:
     _hovered_controls[control] = true
     _update_cursor()
-    _trigger_digest()
 
 
 func register_touch_exited(control: LevelControl) -> void:
     _hovered_controls.erase(control)
     _update_cursor()
-    _trigger_digest()
 
 
 func _update_cursor() -> void:
@@ -139,10 +170,10 @@ func _update_cursor() -> void:
 func _trigger_digest() -> void:
     if !_is_digest_scheduled:
         _is_digest_scheduled = true
-        call_deferred("_digest_touches")
+        call_deferred("_deferred_digest_touches")
 
 
-func _digest_touches() -> void:
+func _deferred_digest_touches() -> void:
     assert(_is_digest_scheduled)
     _is_digest_scheduled = false
     
@@ -255,6 +286,8 @@ func _digest_touches() -> void:
                 Sc.logger.error("LevelControlPressController._digest_touches")
     
     _events_in_current_frame.clear()
+    
+    Sc.level.touch_listener._on_level_controls_digested_touches()
 
 
 func _update_hovered_control() -> void:
