@@ -64,7 +64,7 @@ func _on_input_event(
 
 
 func _destroy() -> void:
-    Sc.canvas_layers.layers.top.remove_child(_pointer_detector)
+    Sc.canvas_layers.layers.top.remove_child(_global_touch_listener)
     queue_free()
 
 
