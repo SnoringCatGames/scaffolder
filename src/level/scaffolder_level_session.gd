@@ -80,6 +80,8 @@ func reset(id: String) -> void:
     _is_new_longest_time = false
     _pre_pause_music_name = ""
     _pre_pause_music_position = INF
+    if Engine.editor_hint:
+        return
     config = Sc.levels.get_level_config(id)
     _update_high_score()
     _update_fastest_time()
