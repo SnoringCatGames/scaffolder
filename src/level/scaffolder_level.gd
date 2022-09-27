@@ -40,6 +40,8 @@ var _configuration_warning := ""
 
 
 func _init() -> void:
+    if Engine.editor_hint:
+        return
     self.touch_listener = LevelTouchListener.new()
     Sc.canvas_layers.layers.top.add_child(touch_listener)
     self.level_control_press_controller = LevelControlPressController.new()
