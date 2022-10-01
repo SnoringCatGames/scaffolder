@@ -28,4 +28,10 @@ func _get_focused_button() -> ScaffolderButton:
 
 
 func _on_StartGameButton_pressed() -> void:
-    Sc.nav.open("level_select")
+    if Sc.levels.get_level_ids().size() == 1:
+        Sc.nav.open(
+            "loading",
+            ScreenTransition.DEFAULT,
+            {level_id = Sc.levels.get_level_ids()[0]})
+    else:
+        Sc.nav.open("level_select")
