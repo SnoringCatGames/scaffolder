@@ -99,7 +99,13 @@ func _get_items() -> Array:
 
 func _on_SelectLevelButton_pressed() -> void:
     Sc.audio.play_music(Sc.audio_manifest.main_menu_music)
-    Sc.nav.open("level_select")
+    if Sc.levels.get_level_ids().size() == 1:
+        Sc.nav.open(
+            "loading",
+            ScreenTransition.DEFAULT,
+            {level_id = Sc.levels.get_level_ids()[0]})
+    else:
+        Sc.nav.open("level_select")
 
 
 func _on_HomeButton_pressed() -> void:

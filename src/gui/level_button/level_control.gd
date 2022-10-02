@@ -213,18 +213,24 @@ func _on_input_event(
 
 
 func _on_touch_entered_unfiltered() -> void:
+    if !is_instance_valid(Sc.level):
+        return
 #    Sc.logger.print("LevelControl._on_touch_entered_unfiltered")
     _was_touch_down_in_this_control = false
     Sc.level.level_control_press_controller.register_touch_entered(self)
 
 
 func _on_touch_exited_unfiltered() -> void:
+    if !is_instance_valid(Sc.level):
+        return
 #    Sc.logger.print("LevelControl._on_touch_exited_unfiltered")
     _was_touch_down_in_this_control = false
     Sc.level.level_control_press_controller.register_touch_exited(self)
 
 
 func _on_touch_down_unfiltered(level_position: Vector2) -> void:
+    if !is_instance_valid(Sc.level):
+        return
     Sc.level.level_control_press_controller.register_touch_event(
             TouchType.TOUCH_DOWN,
             level_position,
@@ -233,6 +239,8 @@ func _on_touch_down_unfiltered(level_position: Vector2) -> void:
 
 
 func _on_touch_up_unfiltered(level_position: Vector2) -> void:
+    if !is_instance_valid(Sc.level):
+        return
     _was_touch_up_a_full_press = _was_touch_down_in_this_control
     Sc.level.level_control_press_controller.register_touch_event(
             TouchType.TOUCH_UP,
@@ -242,6 +250,8 @@ func _on_touch_up_unfiltered(level_position: Vector2) -> void:
 
 
 func _on_full_pressed_unfiltered(level_position: Vector2) -> void:
+    if !is_instance_valid(Sc.level):
+        return
     pass
 
 
