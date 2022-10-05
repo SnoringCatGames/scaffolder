@@ -225,6 +225,8 @@ func _show_reduced_frame_rate_notification() -> void:
 
 
 func _show_reduced_frame_rate_notification_throttled() -> void:
+    if !Sc.metadata.debug:
+        return
     var toast_data := NotificationData.new(
-            "Frame rates are reduced\nwhen showing annotations.")
+            "Framerates are reduced\nwhen showing annotations.")
     Sc.notify.show_toast(toast_data)

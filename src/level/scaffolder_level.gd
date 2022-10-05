@@ -99,6 +99,7 @@ func _on_started() -> void:
     Sc.levels.session._level_start_play_time_scaled = start_time_scaled
     Sc.levels.session._level_start_play_time_unscaled = start_time_unscaled
     Sc.logger.print("Level started:               %8.3f" % start_time_unscaled)
+    camera.print_current_state()
 
 
 func _add_default_player_character() -> bool:

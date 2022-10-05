@@ -244,6 +244,7 @@ func _notification(notification: int) -> void:
     if notification == MainLoop.NOTIFICATION_WM_FOCUS_OUT and \
             is_instance_valid(Sc.nav) and \
             is_instance_valid(Sc.level) and \
+            Sc.nav.get_current_screen_name() == "game" and \
             Sc.metadata.pauses_on_focus_out:
         Sc.level.pause()
 
