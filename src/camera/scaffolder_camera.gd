@@ -367,18 +367,8 @@ func _update_offset_and_zoom(
     var old_offset := offset
     var old_zoom := zoom.x
     
-    var new_zoom: float = \
-            Sc.camera.manual_zoom * \
-            _camera_swap_zoom * \
-            _controller_zoom * \
-            _misc_zoom * \
-            _extra_zoom * \
-            Sc.camera.gui_camera_zoom_factor / Sc.gui.scale
-    var new_offset: Vector2 = \
-            Sc.camera.manual_offset + \
-            _camera_swap_offset + \
-            _controller_offset + \
-            _misc_offset
+    var new_zoom := _get_current_raw_zoom()
+    var new_offset := _get_current_raw_offset()
     
 #    Sc.logger.print((
 #        "CameraController._update_offset_and_zoom:" +
@@ -420,6 +410,22 @@ func _update_offset_and_zoom(
             Sc.camera.emit_signal("zoomed")
 
 
+func _get_current_raw_zoom() -> float:
+    return Sc.camera.manual_zoom * \
+        _camera_swap_zoom * \
+        _controller_zoom * \
+        _misc_zoom * \
+        _extra_zoom * \
+        Sc.camera.gui_camera_zoom_factor / Sc.gui.scale
+
+
+func _get_current_raw_offset() -> Vector2:
+    return Sc.camera.manual_offset + \
+        _camera_swap_offset + \
+        _controller_offset + \
+        _misc_offset
+
+
 func _interpolate_controller_offset_and_zoom(offset_and_zoom: Vector3) -> void:
     _controller_offset = Vector2(offset_and_zoom.x, offset_and_zoom.y)
     _controller_zoom = offset_and_zoom.z
@@ -457,3 +463,12 @@ func _set_extra_zoom(zoom: float) -> void:
             (Sc.camera.gui_camera_zoom_factor / Sc.gui.scale)
     _extra_zoom = clamp(zoom, 0.0001, max_extra_zoom)
     _update_offset_and_zoom()
+
+
+func print_current_state() -> void:
+    Sc.logger.print(
+        "Camera: zoom=%s, offset=%s, Sc.gui.scale=%s" % [
+            _get_current_raw_zoom(),
+            Sc.utils.get_vector_string(_get_current_raw_offset()),
+            Sc.gui.scale,
+        ])
