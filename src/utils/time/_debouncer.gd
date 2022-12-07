@@ -40,6 +40,7 @@ func on_call() -> void:
             !is_callback_scheduled and \
             current_call_time > last_call_time + interval:
         _trigger_callback()
+        return
     
     Sc.time.clear_timeout(last_timeout_id)
     last_timeout_id = Sc.time.set_timeout(
@@ -57,6 +58,7 @@ func cancel() -> void:
 
 
 func _trigger_callback() -> void:
+    Sc.time.clear_timeout(last_timeout_id)
     last_call_time = time_tracker.get(elapsed_time_key)
     is_callback_scheduled = false
     if callback.is_valid():
