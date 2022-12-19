@@ -1,6 +1,16 @@
 tool
 class_name ScreenNavigator
 extends Node
+## Some notes on how this screen system:
+## -   This maintains a stack of all the open screens.
+##     -   This lets the user then move "back" to a previous screen.
+## -   This assumes that you never want a given screen type to appear more than
+##     once in the stack.
+##     -   This assumption is enforced by instead moving "back" to the previous
+##         instance of the target screen on the stack if you try to navigate to
+##         a new instance of an already open screen.
+##     -   Moving back to this screen actually closes all other screens on the
+##         stack that come after the target screen.
 
 
 signal splash_finished
@@ -284,7 +294,7 @@ func _set_screen_is_open(
                 next_screen_container,
                 transition_type,
                 transition_params,
-                is_open or next_screen_was_already_shown)
+                is_open and !next_screen_was_already_shown)
 
 
 func splash() -> void:
