@@ -3,8 +3,6 @@ class_name ScaffolderShell
 extends Container
 
 
-const HUD_SCENE := preload("res://addons/scaffolder2/src/ui/hud/hud.tscn")
-
 var _canvas_layers: Dictionary[String, CanvasLayer]
 
 
@@ -17,7 +15,10 @@ func _enter_tree() -> void:
 
     if (not S.utils.is_running_in_isolated_scene_mode()
             or get_tree().get_current_scene() is ScaffolderLevel):
-        var hud := HUD_SCENE.instantiate()
+        var super_hud := S.manifest.super_hud_scene.instantiate()
+        add_to_canvas_layer("super_hud", super_hud)
+
+        var hud := S.manifest.hud_scene.instantiate()
         add_to_canvas_layer("hud", hud)
 
 

@@ -7,6 +7,7 @@ extends PanelContainer
 
 
 func _ready() -> void:
+    S.logs_display = self
     S.settings.property_changed.connect(_on_property_changed)
     var show_logs: bool = S.settings.get("show_logs")
     _on_property_changed("show_logs", show_logs, show_logs)

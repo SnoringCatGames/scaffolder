@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cyeui10ssuvpw" path="res://addons/scaffolder2/src/ui/widgets/settings_row/checkbox_settings_row.gd" id="1_ubqyx"]
 [ext_resource type="Script" uid="uid://bgp2ve8pv0jny" path="res://addons/scaffolder2/src/ui/widgets/settings_row/settings_row.gd" id="2_pyq1a"]
 [ext_resource type="PackedScene" uid="uid://bu3fd6mxubjj3" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_check_box.tscn" id="3_hccmo"]
-[ext_resource type="Script" path="res://scaffolder/src/ui/widgets/scaffolder_check_box.gd" id="4_xcq1w"]
+[ext_resource type="Script" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_check_box.gd" id="4_xcq1w"]
 
 [node name="CheckboxSettingsRow" type="HBoxContainer"]
 custom_minimum_size = Vector2(0, 50)

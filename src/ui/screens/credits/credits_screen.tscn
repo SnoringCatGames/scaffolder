@@ -6,8 +6,8 @@
 [ext_resource type="FontFile" uid="uid://lbxktcs3l63k" path="res://addons/scaffolder2/assets/fonts/Roboto/Roboto-Bold.ttf" id="4_1bnol"]
 [ext_resource type="Script" uid="uid://bd3h5ejvvhpxo" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_link_button.gd" id="4_ydbyg"]
 [ext_resource type="PackedScene" uid="uid://cxufkavj6vxo3" path="res://addons/scaffolder2/src/ui/widgets/close_button.tscn" id="5_nyg0c"]
-[ext_resource type="Script" path="res://scaffolder/src/ui/widgets/close_button.gd" id="7_lnl6p"]
-[ext_resource type="Script" path="res://scaffolder/src/ui/widgets/scaffolder_button.gd" id="8_rnift"]
+[ext_resource type="Script" path="res://addons/scaffolder2/src/ui/widgets/close_button.gd" id="7_lnl6p"]
+[ext_resource type="Script" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_button.gd" id="8_rnift"]
 
 [node name="CreditsScreen" type="PanelContainer"]
 anchors_preset = 15

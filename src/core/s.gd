@@ -18,9 +18,6 @@ signal level_loaded
 signal level_started
 signal level_ended
 
-# FIXME: Register this with manifest (under an _internal_ group).
-const SCAFFOLDER_SHELL_SCENE := preload("res://addons/scaffolder2/src/core/scaffolder_shell.tscn")
-
 var manifest: ScaffolderManifest
 
 var log: ScaffolderLog
@@ -36,6 +33,7 @@ var session: ScaffolderGameSession
 var level: ScaffolderLevel
 var super_hud: ScaffolderSuperHud
 var hud: ScaffolderHud
+var logs_display: ScaffolderLogsDisplay
 var player: Node
 
 
@@ -80,7 +78,7 @@ func set_up(manifest: ScaffolderManifest) -> void:
     session = ScaffolderGameSession.new()
 
     # Inject the ScaffolderShell into the scene root.
-    var shell := SCAFFOLDER_SHELL_SCENE.instantiate()
+    var shell := S.manifest.shell_scene.instantiate()
     get_tree().get_current_scene().add_child(shell)
 
     _on_loaded()

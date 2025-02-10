@@ -569,7 +569,11 @@ func check_whether_sub_classes_are_tools(object: Object) -> bool:
 func is_running_in_isolated_scene_mode() -> bool:
     var main_scene: String = ProjectSettings.get_setting("application/run/main_scene")
     var root_scene := get_tree().get_current_scene().scene_file_path
-    return root_scene != main_scene
+    if root_scene == main_scene:
+        return false
+    var main_scene_path := ResourceUID.get_id_path(ResourceUID.text_to_id(main_scene))
+    return root_scene != main_scene_path
+
 
 
 static func get_type_string(type: int) -> String:

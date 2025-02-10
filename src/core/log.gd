@@ -23,7 +23,7 @@ func print(message = "", print_to_console := true) -> void:
     _print_queue.push(message)
 
     if is_instance_valid(S) and is_instance_valid(S.super_hud):
-        S.super_hud.add_log(message, MAX_LOG_COUNT)
+        S.logs_display.add_log(message, MAX_LOG_COUNT)
 
     if print_to_console:
         print(message)

@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://bpc7dvcqlnfon" path="res://addons/scaffolder2/src/ui/screens/screen.gd" id="2_qaqnv"]
 [ext_resource type="PackedScene" uid="uid://cncbapiuueajh" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_header.tscn" id="3_83sfv"]
 [ext_resource type="PackedScene" uid="uid://cxufkavj6vxo3" path="res://addons/scaffolder2/src/ui/widgets/close_button.tscn" id="4_gfqfo"]
-[ext_resource type="Script" path="res://scaffolder/src/ui/widgets/close_button.gd" id="5_3qc65"]
+[ext_resource type="Script" path="res://addons/scaffolder2/src/ui/widgets/close_button.gd" id="5_3qc65"]
 [ext_resource type="PackedScene" uid="uid://bt0tqy0i2sf0j" path="res://addons/scaffolder2/src/ui/widgets/top_bar.tscn" id="5_gfqfo"]
-[ext_resource type="Script" path="res://scaffolder/src/ui/widgets/scaffolder_button.gd" id="6_bwxar"]
-[ext_resource type="Script" path="res://scaffolder/src/ui/widgets/top_bar.gd" id="8_qrm62"]
+[ext_resource type="Script" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_button.gd" id="6_bwxar"]
+[ext_resource type="Script" path="res://addons/scaffolder2/src/ui/widgets/top_bar.gd" id="8_qrm62"]
 
 [node name="PauseScreen" type="PanelContainer"]
 anchors_preset = 15
