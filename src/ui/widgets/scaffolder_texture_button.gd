@@ -1,5 +1,5 @@
 @tool
-@icon("res://icons/ScaffolderTextureButton.svg")
+@icon("res://addons/scaffolder2/assets/editor_icons/ScaffolderTextureButton.svg")
 class_name ScaffolderTextureButton
 extends TextureButton
 

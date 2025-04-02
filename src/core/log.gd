@@ -4,7 +4,7 @@ extends Node
 
 const MAX_LOG_COUNT := 200
 
-var logs_early_bootstrap_events := false
+var logs_early_bootstrap_events := true
 
 var _print_queue := CircularBuffer.new(MAX_LOG_COUNT)
 

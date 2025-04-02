@@ -1,13 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cfb2gmm7xhvgn"]
+[gd_scene load_steps=6 format=3 uid="uid://cfb2gmm7xhvgn"]
 
 [ext_resource type="Script" uid="uid://dbkefobdmwgw3" path="res://addons/scaffolder2/src/ui/screens/credits/credits_screen.gd" id="1_o8oc3"]
-[ext_resource type="Script" uid="uid://bpc7dvcqlnfon" path="res://addons/scaffolder2/src/ui/screens/screen.gd" id="2_81t8e"]
 [ext_resource type="PackedScene" uid="uid://cncbapiuueajh" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_header.tscn" id="3_q0r67"]
 [ext_resource type="FontFile" uid="uid://lbxktcs3l63k" path="res://addons/scaffolder2/assets/fonts/Roboto/Roboto-Bold.ttf" id="4_1bnol"]
 [ext_resource type="Script" uid="uid://bd3h5ejvvhpxo" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_link_button.gd" id="4_ydbyg"]
 [ext_resource type="PackedScene" uid="uid://cxufkavj6vxo3" path="res://addons/scaffolder2/src/ui/widgets/close_button.tscn" id="5_nyg0c"]
-[ext_resource type="Script" path="res://addons/scaffolder2/src/ui/widgets/close_button.gd" id="7_lnl6p"]
-[ext_resource type="Script" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_button.gd" id="8_rnift"]
 
 [node name="CreditsScreen" type="PanelContainer"]
 anchors_preset = 15
@@ -16,7 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o8oc3")
-metadata/_custom_type_script = ExtResource("2_81t8e")
+metadata/_custom_type_script = "uid://bpc7dvcqlnfon"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 2
@@ -54,7 +51,7 @@ size_flags_vertical = 4
 text = "https://levi.dev"
 uri = "https://levi.dev"
 script = ExtResource("4_ydbyg")
-metadata/_custom_type_script = ExtResource("4_ydbyg")
+metadata/_custom_type_script = "uid://bd3h5ejvvhpxo"
 
 [node name="Spacer2" type="Control" parent="CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 64)
@@ -62,7 +59,6 @@ layout_mode = 2
 
 [node name="CloseButton" parent="CenterContainer/VBoxContainer" instance=ExtResource("5_nyg0c")]
 layout_mode = 2
-script = ExtResource("7_lnl6p")
-metadata/_custom_type_script = ExtResource("8_rnift")
+metadata/_custom_type_script = "uid://iivvuovt83vh"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

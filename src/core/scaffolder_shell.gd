@@ -1,4 +1,4 @@
-@icon("res://icons/ScaffolderNode.svg")
+@icon("res://addons/scaffolder2/assets/editor_icons/ScaffolderNode.svg")
 class_name ScaffolderShell
 extends Container
 

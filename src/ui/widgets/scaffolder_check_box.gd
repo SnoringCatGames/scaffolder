@@ -1,4 +1,4 @@
-@icon("res://icons/ScaffolderCheckBox.svg")
+@icon("res://addons/scaffolder2/assets/editor_icons/ScaffolderCheckBox.svg")
 class_name ScaffolderCheckBox
 extends CheckBox
 

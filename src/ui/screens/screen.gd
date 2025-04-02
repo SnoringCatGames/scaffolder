@@ -1,4 +1,4 @@
-@icon("res://icons/ScaffolderScreen.svg")
+@icon("res://addons/scaffolder2/assets/editor_icons/ScaffolderScreen.svg")
 class_name ScaffolderScreen
 extends PanelContainer
 
