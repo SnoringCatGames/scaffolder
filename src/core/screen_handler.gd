@@ -2,7 +2,7 @@ class_name ScaffolderScreenHandler
 extends Node
 
 
-# FIXME: Redo screen handling.
+# TODO: Redo screen handling.
 
 
 var _screen_stack: Array[ActiveScreen] = []

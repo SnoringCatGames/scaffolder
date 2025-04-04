@@ -10,7 +10,7 @@ signal property_changed(name: String, new_value: Variant, old_value: Variant)
 @export var show_logs := false
 
 const USER_SETTINGS_PATH := "user://user_settings.tres"
-# FIXME: Replace this with a reference from Manifest.
+# TODO: Replace this with a reference from Manifest.
 const DEFAULT_SETTINGS_PATH := "res://addons/scaffolder2/src/config/default_settings.tres"
 
 var _throttled_save: Callable
@@ -21,7 +21,7 @@ func set_up() -> void:
 
 
 func get_settings_properties() -> Array:
-    # FIXME: Move this to a utility function.
+    # TODO: Move this to a utility function.
     return get_property_list().filter(func(property: Dictionary):
         # - PROPERTY_USAGE_SCRIPT_VARIABLE filters properties of this script.
         # - PROPERTY_USAGE_EDITOR filters @export properties.

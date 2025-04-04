@@ -2,7 +2,7 @@ class_name CircularBuffer
 extends RefCounted
 
 
-# FIXME: Move this to C++.
+# TODO: Move this to C++.
 
 
 var _buffer := []

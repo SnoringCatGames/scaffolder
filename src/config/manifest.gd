@@ -37,7 +37,7 @@ extends Resource
     ScaffolderCanvasLayerConfig.new("game", Node.ProcessMode.PROCESS_MODE_PAUSABLE),
 ]
 
-# FIXME: Move the required hard-coded values to a separate const, and assign that const here.
+# TODO: Move the required hard-coded values to a separate const, and assign that const here.
 #      - Then, in on-change or on-load, ensure that every required hard-coded value is present and wasn't removed by the user.
 #      - Do the same for canvas_layers.
 #      - Do the same for screens.
@@ -51,13 +51,13 @@ extends Resource
     widget_click = preload("res://addons/scaffolder2/assets/sfx/menu_click.tres"),
 }
 
-# FIXME: Incorporate Godot's new built-in Time time-scale into ScaffolderTime.
+# TODO: Incorporate Godot's new built-in Time time-scale into ScaffolderTime.
 @export_range(0.5, 5.0, 0.1) var debug_time_scale := 1.0
 
 @export var render_debug_annotations := false
 
 @export_group("Logging")
-# FIXME: Use these.
+# TODO: Use these.
 @export var log_surfacer_events := false
 @export var log_surfacer_events_verbose := false
 @export var log_scaffolder_events := false

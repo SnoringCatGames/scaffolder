@@ -74,7 +74,7 @@ func set_up(manifest: ScaffolderManifest) -> void:
     for entry in set_up_modules:
         _set_up_module(entry)
 
-    # FIXME: Instantiate a Script that was registered with Manifest.
+    # TODO: Instantiate a Script that was registered with Manifest.
     session = ScaffolderGameSession.new()
 
     # Inject the ScaffolderShell into the scene root.

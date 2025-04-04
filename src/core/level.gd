@@ -3,7 +3,7 @@ class_name ScaffolderLevel
 extends Node2D
 
 
-# FIXME: Move this to to Manifest.
+# TODO: Move this to to Manifest.
 const GAME_OVER_SCREEN_DELAY := 2.0
 
 var has_started := false
