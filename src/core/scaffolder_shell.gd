@@ -65,7 +65,7 @@ func _unhandled_input(event: InputEvent) -> void:
                             "Toggled HUD visibility: %s" %
                             ("visible" if S.hud.visible else "hidden"))
                 KEY_ESCAPE:
-                    if is_instance_valid(S.level):
+                    if is_instance_valid(S.level) and S.manifest.pauses_on_focus_out:
                         S.level.pause()
                 _:
                     pass
