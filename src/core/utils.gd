@@ -230,9 +230,6 @@ func add_overlay_to_current_scene(node: Node) -> void:
     get_tree().get_current_scene().add_child(node)
 
 
-# TODO: Replace this with better built-in EaseType/TransType easing support
-#       when it's ready
-#       (https://github.com/godotengine/godot-proposals/issues/36).
 static func ease_name_to_param(name: String) -> float:
     match name:
         "linear":
