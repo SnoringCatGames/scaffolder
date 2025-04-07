@@ -57,7 +57,8 @@ func _unhandled_input(event: InputEvent) -> void:
         if event is InputEventKey:
             match event.physical_keycode:
                 KEY_P:
-                    S.utils.take_screenshot()
+                    if S.manifest.is_screenshot_hotkey_enabled:
+                        S.utils.take_screenshot()
                 KEY_O:
                     if is_instance_valid(S.hud):
                         S.hud.visible = not S.hud.visible
