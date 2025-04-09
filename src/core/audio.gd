@@ -27,6 +27,12 @@ func _ready() -> void:
         add_child(player)
         sfx_players[name] = player
 
+    if S.manifest.mute_music:
+        var index := AudioServer.get_bus_index(MUSIC_BUS_NAME)
+        if not S.utils.ensure(index >= 0):
+            return
+        AudioServer.set_bus_mute(index, S.manifest.mute_music)
+
 
 func set_up() -> void:
     S.settings.property_changed.connect(_on_property_changed)

@@ -7,6 +7,8 @@ extends Resource
 @export var dev_mode := true
 @export var skip_main_menu_in_dev_mode := false
 
+@export var full_screen := false
+@export var mute_music := false
 @export var pauses_on_focus_out := true
 @export var is_screenshot_hotkey_enabled := true
 

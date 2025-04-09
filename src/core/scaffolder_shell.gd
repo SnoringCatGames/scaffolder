@@ -32,6 +32,9 @@ func _ready() -> void:
 
     S.screens.open(S.manifest.initial_screen)
 
+    if S.manifest.full_screen:
+        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
 
 func _notification(notification: int) -> void:
     match notification:
