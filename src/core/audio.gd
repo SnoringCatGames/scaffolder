@@ -15,10 +15,10 @@ func _init() -> void:
 func _ready() -> void:
     S.utils.ensure(
         AudioServer.get_bus_index(SFX_BUS_NAME) >= 0,
-        "Scaffolder expects an audio bus of name %s." % SFX_BUS_NAME)
+        "ScaffolderOld expects an audio bus of name %s." % SFX_BUS_NAME)
     S.utils.ensure(
         AudioServer.get_bus_index(MUSIC_BUS_NAME) >= 0,
-        "Scaffolder expects an audio bus of name %s." % MUSIC_BUS_NAME)
+        "ScaffolderOld expects an audio bus of name %s." % MUSIC_BUS_NAME)
 
     for name in S.manifest.sfxs:
         var player := AudioStreamPlayer.new()
