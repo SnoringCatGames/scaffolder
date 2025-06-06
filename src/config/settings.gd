@@ -1,4 +1,4 @@
-class_name ScaffolderSettings
+class_name ScaffolderSettingsOld
 extends Resource
 
 

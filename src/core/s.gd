@@ -18,12 +18,10 @@ signal level_loaded
 signal level_started
 signal level_ended
 
-var manifest: ScaffolderManifest
-
 var log: ScaffolderLog
 var utils: ScaffolderUtils
 var time: ScaffolderTime
-var settings: ScaffolderSettings
+var settings: ScaffolderSettingsOld
 var audio: ScaffolderAudio
 var screens: ScaffolderScreenHandler
 var shell: ScaffolderShell
@@ -38,7 +36,7 @@ var player: Node
 
 
 # NOTE: Call this as early as possible from your main class.
-func set_up(manifest: ScaffolderManifest) -> void:
+func set_up(manifest: ScaffolderSettings) -> void:
     self.manifest = manifest
 
     var node_modules := [
@@ -53,8 +51,8 @@ func set_up(manifest: ScaffolderManifest) -> void:
         _instantiate_attach_and_record_module(entry[0], entry[1])
 
     # Load the user's custom settings if they exist, otherwise, load the default settings.
-    if ResourceLoader.exists(ScaffolderSettings.USER_SETTINGS_PATH):
-        settings = load(ScaffolderSettings.USER_SETTINGS_PATH)
+    if ResourceLoader.exists(SnoreCore.get_user_settings_path()):
+        settings = load(SnoreCore.get_user_settings_path())
         if is_instance_valid(settings):
             S.log.print("Loaded player's previous settings")
         else:
