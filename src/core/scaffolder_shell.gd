@@ -15,10 +15,10 @@ func _enter_tree() -> void:
 
     if (not S.utils.is_running_in_isolated_scene_mode()
             or get_tree().get_current_scene() is ScaffolderLevel):
-        var super_hud := S.manifest.super_hud_scene.instantiate()
+        var super_hud := S.scaffolder_settings.adv_super_hud_scene.instantiate()
         add_to_canvas_layer("super_hud", super_hud)
 
-        var hud := S.manifest.hud_scene.instantiate()
+        var hud := S.scaffolder_settings.hud_scene.instantiate()
         add_to_canvas_layer("hud", hud)
 
 
@@ -30,9 +30,9 @@ func _ready() -> void:
 
     await get_tree().process_frame
 
-    S.screens.open(S.manifest.initial_screen)
+    S.screens.open(S.scaffolder_settings.initial_screen)
 
-    if S.manifest.full_screen:
+    if S.scaffolder_settings.full_screen:
         DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 
@@ -49,18 +49,18 @@ func _notification(notification: int) -> void:
         NOTIFICATION_WM_CLOSE_REQUEST:
             close_app()
         NOTIFICATION_WM_WINDOW_FOCUS_OUT:
-            if is_instance_valid(S.level) and S.manifest.pauses_on_focus_out:
+            if is_instance_valid(S.level) and S.scaffolder_settings.pauses_on_focus_out:
                 S.level.pause()
         _:
             pass
 
 
 func _unhandled_input(event: InputEvent) -> void:
-    if S.manifest.dev_mode:
+    if S.scaffolder_settings.dev_mode:
         if event is InputEventKey:
             match event.physical_keycode:
                 KEY_P:
-                    if S.manifest.is_screenshot_hotkey_enabled:
+                    if S.scaffolder_settings.is_screenshot_hotkey_enabled:
                         S.utils.take_screenshot()
                 KEY_O:
                     if is_instance_valid(S.hud):
@@ -69,7 +69,7 @@ func _unhandled_input(event: InputEvent) -> void:
                             "Toggled HUD visibility: %s" %
                             ("visible" if S.hud.visible else "hidden"))
                 KEY_ESCAPE:
-                    if is_instance_valid(S.level) and S.manifest.pauses_on_focus_out:
+                    if is_instance_valid(S.level) and S.scaffolder_settings.pauses_on_focus_out:
                         S.level.pause()
                 _:
                     pass
@@ -83,9 +83,9 @@ func close_app() -> void:
 
 
 func _create_canvas_layers() -> void:
-    var layer_count := S.manifest.canvas_layers.size()
+    var layer_count := S.snore_core_settings.canvas_layers.size()
     for index in range(layer_count):
-        var config := S.manifest.canvas_layers[index]
+        var config := S.snore_core_settings.canvas_layers[index]
         var z_index := layer_count - index
         var canvas_layer := CanvasLayer.new()
         canvas_layer.name = config.name

@@ -18,6 +18,12 @@ signal level_loaded
 signal level_started
 signal level_ended
 
+var snore_core: SnoreCore
+var snore_core_settings: SnoreCoreMainSettings
+
+var scaffolder: Scaffolder
+var scaffolder_settings: ScaffolderSettings
+
 var log: ScaffolderLog
 var utils: ScaffolderUtils
 var time: ScaffolderTime
@@ -37,6 +43,11 @@ var player: Node
 
 # NOTE: Call this as early as possible from your main class.
 func set_up(manifest: ScaffolderSettings) -> void:
+    S.snore_core = SnoreCore.get_module("SnoreCore")
+    S.scaffolder = SnoreCore.get_module("Scaffolder")
+    S.snore_core_settings = snore_core.get_settings()
+    S.scaffolder_settings = scaffolder.get_settings()
+
     self.manifest = manifest
 
     var node_modules := [
@@ -51,14 +62,14 @@ func set_up(manifest: ScaffolderSettings) -> void:
         _instantiate_attach_and_record_module(entry[0], entry[1])
 
     # Load the user's custom settings if they exist, otherwise, load the default settings.
-    if ResourceLoader.exists(SnoreCore.get_user_settings_path()):
-        settings = load(SnoreCore.get_user_settings_path())
+    if ResourceLoader.exists(S.snore_core.get_user_settings_path()):
+        settings = load(S.snore_core.get_user_settings_path())
         if is_instance_valid(settings):
             S.log.print("Loaded player's previous settings")
         else:
             S.log.warning("An error occurred loading the player's previous settings")
     if not is_instance_valid(settings):
-        settings = load(ScaffolderSettings.DEFAULT_SETTINGS_PATH)
+        settings = load(ScaffolderSettingsOld.DEFAULT_SETTINGS_PATH)
         S.log.print("Loaded default settings")
 
     var set_up_modules := [
@@ -76,7 +87,7 @@ func set_up(manifest: ScaffolderSettings) -> void:
     session = ScaffolderGameSession.new()
 
     # Inject the ScaffolderShell into the scene root.
-    var shell := S.manifest.shell_scene.instantiate()
+    var shell := S.scaffolder_settings.adv_shell_scene.instantiate()
     get_tree().get_current_scene().add_child(shell)
 
     _on_loaded()

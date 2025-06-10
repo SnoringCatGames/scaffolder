@@ -19,7 +19,7 @@ var screen_state := ScreenState.CLOSED:
 
 func _ready() -> void:
     process_mode = Node.PROCESS_MODE_ALWAYS
-    theme = S.manifest.main_theme
+    theme = S.scaffolder_settings.main_theme
 
 
 func _set_screen_state(state: ScreenState) -> void:

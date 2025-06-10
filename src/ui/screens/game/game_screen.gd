@@ -18,9 +18,9 @@ func _ready() -> void:
 
     # TODO: Configure different levels?
     var level_scene = (
-        S.manifest.dev_mode_level
-        if S.manifest.dev_mode
-        else S.manifest.main_level
+        S.scaffolder_settings.dev_mode_level
+        if S.scaffolder_settings.dev_mode
+        else S.scaffolder_settings.main_level
     )
     start(level_scene)
 
