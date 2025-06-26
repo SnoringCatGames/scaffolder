@@ -13,6 +13,10 @@ _Opinionated scaffolding and utilities for games in Godot._
 
 --------
 
+**UPDATE**: Development is currently underway to rerelease this as a GDExtension, and with support for pathfinding in dynamic levels.
+
+--------
+
 > **NOTE:** _Consider this a **pre-alpha** release._
 > -   This framework still has many rough edges, is still changing a lot, and is possibly a lot more inflexible than you would want (it makes a lot of assumptions about how you've structured your app).
 > -   See the [Still not working?](./docs/getting_set_up.md#still-not-working) docs for more context into how difficult this may be for you to use.
