@@ -6,4 +6,4 @@ extends MarginContainer
 func _ready() -> void:
     S.super_hud = self
 
-    self.visible = S.scaffolder_settings.get("show_hud")
+    self.visible = S.scaffolder_settings.flag_show_hud

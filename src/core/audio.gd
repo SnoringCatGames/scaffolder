@@ -27,7 +27,7 @@ func _ready() -> void:
         add_child(player)
         sfx_players[name] = player
 
-    if S.scaffolder_settings.mute_music:
+    if S.scaffolder_settings.flag_mute_music:
         var index := AudioServer.get_bus_index(MUSIC_BUS_NAME)
         if not S.utils.ensure(index >= 0):
             return

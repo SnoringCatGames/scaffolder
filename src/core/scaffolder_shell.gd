@@ -32,7 +32,7 @@ func _ready() -> void:
 
     S.screens.open(S.scaffolder_settings.initial_screen)
 
-    if S.scaffolder_settings.full_screen:
+    if S.scaffolder_settings.flag_full_screen:
         DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 
@@ -49,7 +49,7 @@ func _notification(notification: int) -> void:
         NOTIFICATION_WM_CLOSE_REQUEST:
             close_app()
         NOTIFICATION_WM_WINDOW_FOCUS_OUT:
-            if is_instance_valid(S.level) and S.scaffolder_settings.pauses_on_focus_out:
+            if is_instance_valid(S.level) and S.scaffolder_settings.flag_pauses_on_focus_out:
                 S.level.pause()
         _:
             pass
@@ -60,7 +60,7 @@ func _unhandled_input(event: InputEvent) -> void:
         if event is InputEventKey:
             match event.physical_keycode:
                 KEY_P:
-                    if S.scaffolder_settings.is_screenshot_hotkey_enabled:
+                    if S.scaffolder_settings.flag_is_screenshot_hotkey_enabled:
                         S.utils.take_screenshot()
                 KEY_O:
                     if is_instance_valid(S.hud):

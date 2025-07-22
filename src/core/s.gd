@@ -48,8 +48,6 @@ func set_up(manifest: ScaffolderSettings) -> void:
     S.snore_core_settings = snore_core.get_settings()
     S.scaffolder_settings = scaffolder.get_settings()
 
-    self.manifest = manifest
-
     var node_modules := [
         ["log", ScaffolderLog],
         ["utils", ScaffolderUtils],
