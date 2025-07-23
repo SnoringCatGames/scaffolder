@@ -26,5 +26,5 @@ G="*res://src/demo_globals.gd"
 
 [native_extensions]
 
-paths=["res://bin/snore_core.gdextension"]
-paths=["res://bin/scaffolder.gdextension"]
+paths=["res://addons/snore_core/bin/snore_core.gdextension"]
+paths=["res://addons/surfacer/bin/scaffolder.gdextension"]
