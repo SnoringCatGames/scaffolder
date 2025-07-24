@@ -3,7 +3,7 @@ import os
 import sys
 
 from snore_core.build_utils import (
-    create_submodule_addons_symlink,
+    create_submodule_addons_symlinks,
     default_addon_dir_name as snore_core_addon_dir_name,
     post_setup as post_setup_snore_core,
     pre_setup as pre_setup_snore_core,
@@ -45,4 +45,5 @@ post_setup_snore_core(
     Default,
 )
 
-create_submodule_addons_symlink(snore_core_addon_dir_name)
+create_submodule_addons_symlinks(snore_core_addon_dir_name, False)
+create_submodule_addons_symlinks(scaffolder_addon_dir_name, True)
