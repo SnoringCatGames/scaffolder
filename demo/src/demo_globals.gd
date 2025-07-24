@@ -12,8 +12,5 @@ var snore_core_settings: SnoreCoreMainSettings
 var scaffolder: Scaffolder
 var scaffolder_settings: ScaffolderSettings
 
-var surfacer: Surfacer
-var surfacer_settings: SurfacerSettings
-
 var main: DemoMain
 var level: DemoLevel

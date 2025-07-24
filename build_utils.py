@@ -2,25 +2,24 @@ import glob
 import os
 import sys
 
-from snore_core.methods import print_error
+from snore_core.build_utils import print_error
 
 
-def set_up(env: object, cpp_paths: list[str], sources: list[str], addon_dir_name="scaffolder/", is_setup_for_self = False) -> None:
-    if not os.path.isdir('snore_core'):
+default_lib_name = "Scaffolder"
+default_addon_dir_name = "scaffolder"
+
+
+def set_up(
+    env: object,
+    cpp_paths: list[str],
+    sources: list[str],
+    scaffolder_addon_dir_name: str,
+    is_setup_for_self=False,
+) -> None:
+    if not os.path.isdir("snore_core"):
         print_error("snore_core must be a submodule of the root repository.")
         sys.exit(1)
 
-    if is_setup_for_self:
-        cpp_paths.extend([
-            "src/",
-        ])
-        sources.extend(
-            glob.glob("src/**/*.cpp", recursive=True)
-        )
-    else:
-        cpp_paths.extend([
-            addon_dir_name + "/src/",
-        ])
-        sources.extend(
-            glob.glob(addon_dir_name + "/src/scaffolder/**/*.cpp", recursive=True)
-        )
+    src_path = is_setup_for_self and "src/" or scaffolder_addon_dir_name + "/src/"
+    cpp_paths.extend([src_path])
+    sources.extend(glob.glob(src_path + "**/*.cpp", recursive=True))
