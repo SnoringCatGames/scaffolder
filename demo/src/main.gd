@@ -26,7 +26,3 @@ func _on_snore_core_set_up_finished() -> void:
 
     # FIXME: Port Scaffolder logic and get this running.
     #S.set_up(G.scaffolder_settings)
-
-
-func _on_gd_example_position_changed(node: Object, new_pos: Vector2) -> void:
-    print("The position of " + node.get_class() + " is now " + str(new_pos))
