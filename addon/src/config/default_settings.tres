@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Settings" load_steps=2 format=3 uid="uid://bnmo2q4ssxhtb"]
 
-[ext_resource type="Script" uid="uid://brtvhj1ukyb5l" path="res://addons/scaffolder2/src/config/settings.gd" id="1_wjfq4"]
+[ext_resource type="Script" uid="uid://brtvhj1ukyb5l" path="res://addons/scaffolder/src/config/settings.gd" id="1_wjfq4"]
 
 [resource]
 script = ExtResource("1_wjfq4")

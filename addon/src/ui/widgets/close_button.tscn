@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cxufkavj6vxo3"]
 
-[ext_resource type="Script" uid="uid://312avdu7s8mb" path="res://addons/scaffolder2/src/ui/widgets/close_button.gd" id="1_cicp3"]
-[ext_resource type="Script" uid="uid://iivvuovt83vh" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_button.gd" id="2_1bd7q"]
+[ext_resource type="Script" uid="uid://312avdu7s8mb" path="res://addons/scaffolder/src/ui/widgets/close_button.gd" id="1_cicp3"]
+[ext_resource type="Script" uid="uid://iivvuovt83vh" path="res://addons/scaffolder/src/ui/widgets/scaffolder_button.gd" id="2_1bd7q"]
 
 [node name="CloseButton" type="Button"]
 custom_minimum_size = Vector2(150, 50)

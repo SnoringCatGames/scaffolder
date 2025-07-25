@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://cn5n2vl7vmqeg"]
 
-[ext_resource type="Script" uid="uid://c6d0ukylg7pwq" path="res://addons/scaffolder2/src/ui/screens/settings/settings_screen.gd" id="1_hrw35"]
-[ext_resource type="PackedScene" uid="uid://ca0m2myf065ep" path="res://addons/scaffolder2/src/ui/widgets/settings_row/checkbox_settings_row.tscn" id="2_5v06f"]
-[ext_resource type="PackedScene" uid="uid://cncbapiuueajh" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_header.tscn" id="2_fawyf"]
-[ext_resource type="Script" uid="uid://bpc7dvcqlnfon" path="res://addons/scaffolder2/src/ui/screens/screen.gd" id="2_hbrsy"]
-[ext_resource type="PackedScene" uid="uid://b7otnhjg4qhfw" path="res://addons/scaffolder2/src/ui/widgets/settings_row/slider_settings_row.tscn" id="3_yyact"]
-[ext_resource type="PackedScene" uid="uid://cxufkavj6vxo3" path="res://addons/scaffolder2/src/ui/widgets/close_button.tscn" id="4_hbrsy"]
-[ext_resource type="Script" path="res://addons/scaffolder2/src/ui/widgets/close_button.gd" id="7_vyh1p"]
-[ext_resource type="Script" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_button.gd" id="8_sh4ki"]
+[ext_resource type="Script" uid="uid://c6d0ukylg7pwq" path="res://addons/scaffolder/src/ui/screens/settings/settings_screen.gd" id="1_hrw35"]
+[ext_resource type="PackedScene" uid="uid://ca0m2myf065ep" path="res://addons/scaffolder/src/ui/widgets/settings_row/checkbox_settings_row.tscn" id="2_5v06f"]
+[ext_resource type="PackedScene" uid="uid://cncbapiuueajh" path="res://addons/scaffolder/src/ui/widgets/scaffolder_header.tscn" id="2_fawyf"]
+[ext_resource type="Script" uid="uid://bpc7dvcqlnfon" path="res://addons/scaffolder/src/ui/screens/screen.gd" id="2_hbrsy"]
+[ext_resource type="PackedScene" uid="uid://b7otnhjg4qhfw" path="res://addons/scaffolder/src/ui/widgets/settings_row/slider_settings_row.tscn" id="3_yyact"]
+[ext_resource type="PackedScene" uid="uid://cxufkavj6vxo3" path="res://addons/scaffolder/src/ui/widgets/close_button.tscn" id="4_hbrsy"]
+[ext_resource type="Script" path="res://addons/scaffolder/src/ui/widgets/close_button.gd" id="7_vyh1p"]
+[ext_resource type="Script" path="res://addons/scaffolder/src/ui/widgets/scaffolder_button.gd" id="8_sh4ki"]
 
 [node name="SettingsScreen" type="PanelContainer"]
 anchors_preset = 15

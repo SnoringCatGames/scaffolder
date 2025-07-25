@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://erse75q1yb6i"]
 
-[ext_resource type="Script" uid="uid://8pwuvbp8f8n5" path="res://addons/scaffolder2/src/ui/hud/logs_display.gd" id="1_r73j3"]
-[ext_resource type="LabelSettings" uid="uid://b86pq3kk5mmcb" path="res://addons/scaffolder2/src/ui/hud/log_label_settings.tres" id="2_4eq64"]
+[ext_resource type="Script" uid="uid://8pwuvbp8f8n5" path="res://addons/scaffolder/src/ui/hud/logs_display.gd" id="1_r73j3"]
+[ext_resource type="LabelSettings" uid="uid://b86pq3kk5mmcb" path="res://addons/scaffolder/src/ui/hud/log_label_settings.tres" id="2_4eq64"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r73j3"]
 bg_color = Color(0, 0, 0, 0.360784)

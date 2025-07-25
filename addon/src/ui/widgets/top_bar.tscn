@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bt0tqy0i2sf0j"]
 
-[ext_resource type="Script" uid="uid://cp5clichq860i" path="res://addons/scaffolder2/src/ui/widgets/top_bar.gd" id="1_vakm5"]
-[ext_resource type="PackedScene" uid="uid://b1xl7km0tvbi6" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_texture_button.tscn" id="2_k8w21"]
-[ext_resource type="Texture2D" uid="uid://d0cl04clpwy5t" path="res://addons/scaffolder2/assets/icons/help.png" id="3_2dvok"]
-[ext_resource type="Texture2D" uid="uid://bj7nga3w608bi" path="res://addons/scaffolder2/assets/icons/settings.png" id="4_tq0yo"]
+[ext_resource type="Script" uid="uid://cp5clichq860i" path="res://addons/scaffolder/src/ui/widgets/top_bar.gd" id="1_vakm5"]
+[ext_resource type="PackedScene" uid="uid://b1xl7km0tvbi6" path="res://addons/scaffolder/src/ui/widgets/scaffolder_texture_button.tscn" id="2_k8w21"]
+[ext_resource type="Texture2D" uid="uid://d0cl04clpwy5t" path="res://addons/scaffolder/assets/icons/help.png" id="3_2dvok"]
+[ext_resource type="Texture2D" uid="uid://bj7nga3w608bi" path="res://addons/scaffolder/assets/icons/settings.png" id="4_tq0yo"]
 
 [node name="TopBar" type="MarginContainer"]
 anchors_preset = 10

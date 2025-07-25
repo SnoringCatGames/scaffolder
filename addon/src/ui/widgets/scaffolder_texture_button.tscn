@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b1xl7km0tvbi6"]
 
-[ext_resource type="Script" uid="uid://ch7gydcveddu4" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_texture_button.gd" id="1_d8qny"]
+[ext_resource type="Script" uid="uid://ch7gydcveddu4" path="res://addons/scaffolder/src/ui/widgets/scaffolder_texture_button.gd" id="1_d8qny"]
 
 [node name="ClickTextureButton" type="TextureButton"]
 anchors_preset = 15

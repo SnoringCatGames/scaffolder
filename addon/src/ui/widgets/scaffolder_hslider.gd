@@ -1,4 +1,4 @@
-@icon("res://addons/scaffolder2/assets/editor_icons/ScaffolderHSlider.svg")
+@icon("res://addons/scaffolder/assets/editor_icons/ScaffolderHSlider.svg")
 class_name ScaffolderHSlider
 extends HSlider
 

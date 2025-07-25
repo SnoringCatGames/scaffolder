@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://cfb2gmm7xhvgn"]
 
-[ext_resource type="Script" uid="uid://dbkefobdmwgw3" path="res://addons/scaffolder2/src/ui/screens/credits/credits_screen.gd" id="1_o8oc3"]
-[ext_resource type="PackedScene" uid="uid://cncbapiuueajh" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_header.tscn" id="3_q0r67"]
-[ext_resource type="FontFile" uid="uid://lbxktcs3l63k" path="res://addons/scaffolder2/assets/fonts/Roboto/Roboto-Bold.ttf" id="4_1bnol"]
-[ext_resource type="Script" uid="uid://bd3h5ejvvhpxo" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_link_button.gd" id="4_ydbyg"]
-[ext_resource type="PackedScene" uid="uid://cxufkavj6vxo3" path="res://addons/scaffolder2/src/ui/widgets/close_button.tscn" id="5_nyg0c"]
+[ext_resource type="Script" uid="uid://dbkefobdmwgw3" path="res://addons/scaffolder/src/ui/screens/credits/credits_screen.gd" id="1_o8oc3"]
+[ext_resource type="PackedScene" uid="uid://cncbapiuueajh" path="res://addons/scaffolder/src/ui/widgets/scaffolder_header.tscn" id="3_q0r67"]
+[ext_resource type="FontFile" uid="uid://lbxktcs3l63k" path="res://addons/scaffolder/assets/fonts/Roboto/Roboto-Bold.ttf" id="4_1bnol"]
+[ext_resource type="Script" uid="uid://bd3h5ejvvhpxo" path="res://addons/scaffolder/src/ui/widgets/scaffolder_link_button.gd" id="4_ydbyg"]
+[ext_resource type="PackedScene" uid="uid://cxufkavj6vxo3" path="res://addons/scaffolder/src/ui/widgets/close_button.tscn" id="5_nyg0c"]
 
 [node name="CreditsScreen" type="PanelContainer"]
 anchors_preset = 15

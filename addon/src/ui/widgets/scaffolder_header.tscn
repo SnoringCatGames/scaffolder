@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cncbapiuueajh"]
 
-[ext_resource type="LabelSettings" uid="uid://db6q4u28t21ub" path="res://addons/scaffolder2/src/ui/widgets/header_label_settings.tres" id="1_hle2t"]
+[ext_resource type="LabelSettings" uid="uid://db6q4u28t21ub" path="res://addons/scaffolder/src/ui/widgets/header_label_settings.tres" id="1_hle2t"]
 
 [node name="Header" type="Label"]
 anchors_preset = 15

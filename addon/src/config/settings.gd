@@ -11,7 +11,7 @@ signal property_changed(name: String, new_value: Variant, old_value: Variant)
 
 const USER_SETTINGS_PATH := "user://user_settings.tres"
 # TODO: Replace this with a reference from Manifest.
-const DEFAULT_SETTINGS_PATH := "res://addons/scaffolder2/src/config/default_settings.tres"
+const DEFAULT_SETTINGS_PATH := "res://addons/scaffolder/src/config/default_settings.tres"
 
 var _throttled_save: Callable
 

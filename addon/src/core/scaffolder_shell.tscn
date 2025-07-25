@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cabuqalxveq14"]
 
-[ext_resource type="Script" uid="uid://dtjpaieqs4dx2" path="res://addons/scaffolder2/src/core/scaffolder_shell.gd" id="1_vjd0h"]
+[ext_resource type="Script" uid="uid://dtjpaieqs4dx2" path="res://addons/scaffolder/src/core/scaffolder_shell.gd" id="1_vjd0h"]
 
 [node name="ScaffolderShell" type="Container"]
 anchors_preset = 15

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dcisa6xson4x6"]
 
-[ext_resource type="Script" uid="uid://iivvuovt83vh" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_button.gd" id="1_dwpei"]
+[ext_resource type="Script" uid="uid://iivvuovt83vh" path="res://addons/scaffolder/src/ui/widgets/scaffolder_button.gd" id="1_dwpei"]
 
 [node name="ClickButton" type="Button"]
 anchors_preset = 15

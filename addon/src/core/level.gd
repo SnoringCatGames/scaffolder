@@ -1,4 +1,4 @@
-@icon("res://addons/scaffolder2/assets/editor_icons/ScaffolderNode.svg")
+@icon("res://addons/scaffolder/assets/editor_icons/ScaffolderNode.svg")
 class_name ScaffolderLevel
 extends Node2D
 

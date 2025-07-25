@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://blwby8enw3e2c"]
 
-[ext_resource type="Script" uid="uid://lpmpeu53enf4" path="res://addons/scaffolder2/src/ui/screens/game/game_screen.gd" id="1_gqhyb"]
-[ext_resource type="Script" uid="uid://bpc7dvcqlnfon" path="res://addons/scaffolder2/src/ui/screens/screen.gd" id="2_ibojm"]
+[ext_resource type="Script" uid="uid://lpmpeu53enf4" path="res://addons/scaffolder/src/ui/screens/game/game_screen.gd" id="1_gqhyb"]
+[ext_resource type="Script" uid="uid://bpc7dvcqlnfon" path="res://addons/scaffolder/src/ui/screens/screen.gd" id="2_ibojm"]
 
 [node name="GameScreen" type="PanelContainer"]
 offset_right = 1152.0

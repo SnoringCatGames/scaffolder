@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bxmph3ye6mk0i"]
 
-[ext_resource type="Script" uid="uid://crukvq11tqu1a" path="res://addons/scaffolder2/src/ui/screens/main_menu/main_menu_screen.gd" id="1_1x3k1"]
-[ext_resource type="Script" uid="uid://bpc7dvcqlnfon" path="res://addons/scaffolder2/src/ui/screens/screen.gd" id="2_0uste"]
-[ext_resource type="PackedScene" uid="uid://cncbapiuueajh" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_header.tscn" id="3_e405j"]
-[ext_resource type="PackedScene" uid="uid://bt0tqy0i2sf0j" path="res://addons/scaffolder2/src/ui/widgets/top_bar.tscn" id="4_mgqcp"]
+[ext_resource type="Script" uid="uid://crukvq11tqu1a" path="res://addons/scaffolder/src/ui/screens/main_menu/main_menu_screen.gd" id="1_1x3k1"]
+[ext_resource type="Script" uid="uid://bpc7dvcqlnfon" path="res://addons/scaffolder/src/ui/screens/screen.gd" id="2_0uste"]
+[ext_resource type="PackedScene" uid="uid://cncbapiuueajh" path="res://addons/scaffolder/src/ui/widgets/scaffolder_header.tscn" id="3_e405j"]
+[ext_resource type="PackedScene" uid="uid://bt0tqy0i2sf0j" path="res://addons/scaffolder/src/ui/widgets/top_bar.tscn" id="4_mgqcp"]
 
 [node name="MainMenuScreen" type="PanelContainer"]
 anchors_preset = 15

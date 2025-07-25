@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cttwbnovsef3h"]
 
-[ext_resource type="Script" uid="uid://cwa5hl8jqotxg" path="res://addons/scaffolder2/src/ui/hud/super_hud.gd" id="1_geidd"]
-[ext_resource type="PackedScene" uid="uid://erse75q1yb6i" path="res://addons/scaffolder2/src/ui/hud/logs_display.tscn" id="2_f577i"]
+[ext_resource type="Script" uid="uid://cwa5hl8jqotxg" path="res://addons/scaffolder/src/ui/hud/super_hud.gd" id="1_geidd"]
+[ext_resource type="PackedScene" uid="uid://erse75q1yb6i" path="res://addons/scaffolder/src/ui/hud/logs_display.tscn" id="2_f577i"]
 
 [node name="SuperHud" type="MarginContainer"]
 anchors_preset = 15

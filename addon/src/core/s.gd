@@ -60,8 +60,8 @@ func set_up(manifest: ScaffolderSettings) -> void:
         _instantiate_attach_and_record_module(entry[0], entry[1])
 
     # Load the user's custom settings if they exist, otherwise, load the default settings.
-    if ResourceLoader.exists(S.snore_core.get_user_settings_path()):
-        settings = load(S.snore_core.get_user_settings_path())
+    if ResourceLoader.exists(S.snore_core_settings.get_user_settings_path()):
+        settings = load(S.snore_core_settings.get_user_settings_path())
         if is_instance_valid(settings):
             S.log.print("Loaded player's previous settings")
         else:

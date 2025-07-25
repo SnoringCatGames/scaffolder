@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://1t038urjp73n"]
 
-[ext_resource type="Script" uid="uid://cm68p8ixbp1t8" path="res://addons/scaffolder2/src/ui/screens/game_over/game_over_screen.gd" id="1_bko5b"]
-[ext_resource type="Script" uid="uid://bpc7dvcqlnfon" path="res://addons/scaffolder2/src/ui/screens/screen.gd" id="2_klv2i"]
-[ext_resource type="PackedScene" uid="uid://cncbapiuueajh" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_header.tscn" id="3_u2unf"]
-[ext_resource type="PackedScene" uid="uid://dcisa6xson4x6" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_button.tscn" id="4_mnaib"]
-[ext_resource type="Script" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_button.gd" id="5_t0crg"]
-[ext_resource type="PackedScene" uid="uid://bt0tqy0i2sf0j" path="res://addons/scaffolder2/src/ui/widgets/top_bar.tscn" id="5_v4snt"]
-[ext_resource type="Script" path="res://addons/scaffolder2/src/ui/widgets/top_bar.gd" id="7_c263r"]
+[ext_resource type="Script" uid="uid://cm68p8ixbp1t8" path="res://addons/scaffolder/src/ui/screens/game_over/game_over_screen.gd" id="1_bko5b"]
+[ext_resource type="Script" uid="uid://bpc7dvcqlnfon" path="res://addons/scaffolder/src/ui/screens/screen.gd" id="2_klv2i"]
+[ext_resource type="PackedScene" uid="uid://cncbapiuueajh" path="res://addons/scaffolder/src/ui/widgets/scaffolder_header.tscn" id="3_u2unf"]
+[ext_resource type="PackedScene" uid="uid://dcisa6xson4x6" path="res://addons/scaffolder/src/ui/widgets/scaffolder_button.tscn" id="4_mnaib"]
+[ext_resource type="Script" path="res://addons/scaffolder/src/ui/widgets/scaffolder_button.gd" id="5_t0crg"]
+[ext_resource type="PackedScene" uid="uid://bt0tqy0i2sf0j" path="res://addons/scaffolder/src/ui/widgets/top_bar.tscn" id="5_v4snt"]
+[ext_resource type="Script" path="res://addons/scaffolder/src/ui/widgets/top_bar.gd" id="7_c263r"]
 
 [node name="GameOverScreen" type="PanelContainer"]
 anchors_preset = 15

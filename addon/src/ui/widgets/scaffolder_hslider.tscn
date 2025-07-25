@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://j6doeyqld36j"]
 
-[ext_resource type="Script" uid="uid://duynsav2hht8t" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_hslider.gd" id="1_saeko"]
+[ext_resource type="Script" uid="uid://duynsav2hht8t" path="res://addons/scaffolder/src/ui/widgets/scaffolder_hslider.gd" id="1_saeko"]
 
 [node name="ClickHSlider" type="HSlider"]
 anchors_preset = 15

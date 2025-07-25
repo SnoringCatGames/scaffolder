@@ -1,4 +1,4 @@
-@icon("res://addons/scaffolder2/assets/editor_icons/ScaffolderButton.svg")
+@icon("res://addons/scaffolder/assets/editor_icons/ScaffolderButton.svg")
 class_name ScaffolderOptionButton
 extends OptionButton
 

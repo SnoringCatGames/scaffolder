@@ -1,3 +1,15 @@
-[gd_resource type="ScaffolderSettings" format=3 uid="uid://majbbkc1bvpb"]
+[gd_resource type="ScaffolderSettings" load_steps=6 format=3 uid="uid://majbbkc1bvpb"]
+
+[ext_resource type="PackedScene" uid="uid://cfrdnhuypky8j" path="res://src/demo_level.tscn" id="1_kwngq"]
+[ext_resource type="PackedScene" uid="uid://cabuqalxveq14" path="res://addons/scaffolder/src/core/scaffolder_shell.tscn" id="1_t31ve"]
+[ext_resource type="PackedScene" uid="uid://c4f1lg22805p6" path="res://addons/scaffolder/src/ui/hud/hud.tscn" id="2_85yf7"]
+[ext_resource type="PackedScene" uid="uid://cttwbnovsef3h" path="res://addons/scaffolder/src/ui/hud/super_hud.tscn" id="2_v7vks"]
+[ext_resource type="Theme" uid="uid://hl6s28bp2b5m" path="res://src/main_theme.tres" id="3_t31ve"]
 
 [resource]
+main_theme = ExtResource("3_t31ve")
+dev_mode_level = ExtResource("1_kwngq")
+main_level = ExtResource("1_kwngq")
+hud_scene = ExtResource("2_85yf7")
+adv_super_hud_scene = ExtResource("2_v7vks")
+adv_shell_scene = ExtResource("1_t31ve")

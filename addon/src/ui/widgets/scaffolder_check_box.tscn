@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bu3fd6mxubjj3"]
 
-[ext_resource type="Script" uid="uid://cvhb12a44d4fh" path="res://addons/scaffolder2/src/ui/widgets/scaffolder_check_box.gd" id="1_ej806"]
+[ext_resource type="Script" uid="uid://cvhb12a44d4fh" path="res://addons/scaffolder/src/ui/widgets/scaffolder_check_box.gd" id="1_ej806"]
 
 [node name="ClickCheckBox" type="CheckBox"]
 anchors_preset = 15
