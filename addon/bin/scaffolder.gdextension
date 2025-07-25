@@ -27,5 +27,6 @@ android.release.arm64 = "res://addons/scaffolder/bin/android/Scaffolder.android.
 
 [icons]
 
+; FIXME
 ; TODO: Add other icons.
 GDExample = "res://addons/scaffolder/addons/scaffolder2/assets/editor_icons/ScaffolderNode.svg"
