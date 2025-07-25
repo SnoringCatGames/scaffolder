@@ -1,0 +1,7 @@
+#ifndef REGISTER_SCAFFOLDER_GDEXTENSION_TYPES_H
+#define REGISTER_SCAFFOLDER_GDEXTENSION_TYPES_H
+
+void initialize_scaffolder_gdextension_types();
+void uninitialize_scaffolder_gdextension_types();
+
+#endif // REGISTER_SCAFFOLDER_GDEXTENSION_TYPES_H
