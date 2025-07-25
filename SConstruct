@@ -52,6 +52,7 @@ post_setup_snore_core(
     sources,
     scaffolder_lib_name,
     scaffolder_addon_dir_name,
+    True,
     Default,
 )
 
