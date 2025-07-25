@@ -13,6 +13,25 @@
       ],
     },
     {
+      "label": "buildAssetLibRelease",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        // For now, we only publish template_debug versions of the extension.
+        "buildDebug"
+      ],
+      "group": "build",
+      "type": "shell",
+      "command": "scons",
+      "args": [
+        // Skip the normal build process, and just zip the current build.
+        "sc_zip=yes",
+      ],
+      "problemMatcher": "$msCompile",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
       "label": "buildDebug",
       "dependsOrder": "sequence",
       "dependsOn": [

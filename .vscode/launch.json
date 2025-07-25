@@ -97,6 +97,21 @@
             "preLaunchTask": "buildAll"
         },
         {
+            "name": "Build Asset Lib Release",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "cmd.exe",
+            "args": [
+                "/c",
+                "echo Zip Zap!"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "console": "integratedTerminal",
+            "preLaunchTask": "buildAssetLibRelease"
+        },
+        {
             "name": "Attach to Godot Editor",
             "type": "cppvsdbg",
             "request": "attach",
