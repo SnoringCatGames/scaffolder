@@ -12,10 +12,9 @@ namespace godot {
 
 class ScaffolderSettings : public SnoreCoreSettings {
 	GDCLASS(ScaffolderSettings, SnoreCoreSettings)
+	SC_SETTINGS_CLASS_DECLARATION(ScaffolderSettings)
 
 public:
-	static Ref<ScaffolderSettings> get();
-
 	ScaffolderSettings() = default;
 	~ScaffolderSettings() = default;
 
@@ -92,6 +91,13 @@ public:
 		shell_scene = p_scene;
 	}
 
+	float get_game_over_screen_delay_sec() const {
+		return game_over_screen_delay_sec;
+	}
+	void set_game_over_screen_delay_sec(float p_value) {
+		game_over_screen_delay_sec = p_value;
+	}
+
 	String get_initial_screen() const;
 	Ref<PackedScene> get_screen_scene(const String &p_name) const;
 	bool has_screen_scene(const String &p_name) const;
@@ -121,6 +127,8 @@ private:
 
 	Ref<PackedScene> super_hud_scene;
 	Ref<PackedScene> shell_scene;
+
+	float game_over_screen_delay_sec = 2.0f;
 };
 
 } // namespace godot

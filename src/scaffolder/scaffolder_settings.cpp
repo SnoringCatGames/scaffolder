@@ -1,6 +1,8 @@
 #include "scaffolder/scaffolder_settings.h"
 
 #include "scaffolder/scaffolder_module.h"
+#include "scaffolder/screen.h"
+#include "scaffolder/screen_name.h"
 #include "snore_core/internal/registration_utils.h"
 #include "snore_core/snore_core_main_settings.h"
 
@@ -11,80 +13,39 @@ using namespace godot;
 // TODO: Update the demo settings to use the default values from the old
 // manifest.gd.
 
+SC_SETTINGS_CLASS_DEFINITION(ScaffolderSettings, Scaffolder)
+
+String ScaffolderSettings::get_initial_screen() const {
+	if (SnoreCoreMainSettings::get()->get_dev_mode() &&
+		skip_main_menu_in_dev_mode) {
+		return ScreenName::game();
+	} else {
+		return ScreenName::main_menu();
+	}
+}
+
+Ref<PackedScene> ScaffolderSettings::get_screen_scene(
+		const String &p_name) const {
+	if (screens.has(p_name)) {
+		return screens[p_name];
+	}
+	return Ref<PackedScene>();
+}
+
+bool ScaffolderSettings::has_screen_scene(const String &p_name) const {
+	return screens.has(p_name);
+}
+
 void ScaffolderSettings::_bind_methods() {
-	ADD_GROUP("Flags", "flag_");
-
 	ClassDB::bind_method(
-			D_METHOD("get_god_mode"), &ScaffolderSettings::get_god_mode);
+			D_METHOD("get_initial_screen"),
+			&ScaffolderSettings::get_initial_screen);
 	ClassDB::bind_method(
-			D_METHOD("set_god_mode", "p_value"),
-			&ScaffolderSettings::set_god_mode);
-	ADD_PROPERTY(
-			EXPORTED_PROPERTY_INFO(Variant::BOOL, "flag_god_mode"),
-			"set_god_mode", "get_god_mode");
-
+			D_METHOD("get_screen_scene", "p_name"),
+			&ScaffolderSettings::get_screen_scene);
 	ClassDB::bind_method(
-			D_METHOD("get_skip_main_menu_in_dev_mode"),
-			&ScaffolderSettings::get_skip_main_menu_in_dev_mode);
-	ClassDB::bind_method(
-			D_METHOD("set_skip_main_menu_in_dev_mode", "p_value"),
-			&ScaffolderSettings::set_skip_main_menu_in_dev_mode);
-	ADD_PROPERTY(
-			EXPORTED_PROPERTY_INFO(
-					Variant::BOOL, "flag_skip_main_menu_in_dev_mode"),
-			"set_skip_main_menu_in_dev_mode", "get_skip_main_menu_in_dev_mode");
-
-	ClassDB::bind_method(
-			D_METHOD("get_full_screen"), &ScaffolderSettings::get_full_screen);
-	ClassDB::bind_method(
-			D_METHOD("set_full_screen", "p_value"),
-			&ScaffolderSettings::set_full_screen);
-	ADD_PROPERTY(
-			EXPORTED_PROPERTY_INFO(Variant::BOOL, "flag_full_screen"),
-			"set_full_screen", "get_full_screen");
-
-	ClassDB::bind_method(
-			D_METHOD("get_mute_music"), &ScaffolderSettings::get_mute_music);
-	ClassDB::bind_method(
-			D_METHOD("set_mute_music", "p_value"),
-			&ScaffolderSettings::set_mute_music);
-	ADD_PROPERTY(
-			EXPORTED_PROPERTY_INFO(Variant::BOOL, "flag_mute_music"),
-			"set_mute_music", "get_mute_music");
-
-	ClassDB::bind_method(
-			D_METHOD("get_pauses_on_focus_out"),
-			&ScaffolderSettings::get_pauses_on_focus_out);
-	ClassDB::bind_method(
-			D_METHOD("set_pauses_on_focus_out", "p_value"),
-			&ScaffolderSettings::set_pauses_on_focus_out);
-	ADD_PROPERTY(
-			EXPORTED_PROPERTY_INFO(Variant::BOOL, "flag_pauses_on_focus_out"),
-			"set_pauses_on_focus_out", "get_pauses_on_focus_out");
-
-	ClassDB::bind_method(
-			D_METHOD("get_is_screenshot_hotkey_enabled"),
-			&ScaffolderSettings::get_is_screenshot_hotkey_enabled);
-	ClassDB::bind_method(
-			D_METHOD("set_is_screenshot_hotkey_enabled", "p_value"),
-			&ScaffolderSettings::set_is_screenshot_hotkey_enabled);
-	ADD_PROPERTY(
-			EXPORTED_PROPERTY_INFO(
-					Variant::BOOL, "flag_is_screenshot_hotkey_enabled"),
-			"set_is_screenshot_hotkey_enabled",
-			"get_is_screenshot_hotkey_enabled");
-
-	ClassDB::bind_method(
-			D_METHOD("get_show_hud"), &ScaffolderSettings::get_show_hud);
-	ClassDB::bind_method(
-			D_METHOD("set_show_hud", "p_value"),
-			&ScaffolderSettings::set_show_hud);
-	ADD_PROPERTY(
-			EXPORTED_PROPERTY_INFO(Variant::BOOL, "flag_show_hud"),
-			"set_show_hud", "get_show_hud");
-
-	// End subgroup Logging.
-	// End group Flags.
+			D_METHOD("has_screen_scene", "p_name"),
+			&ScaffolderSettings::has_screen_scene);
 
 	ClassDB::bind_method(
 			D_METHOD("get_main_theme"), &ScaffolderSettings::get_main_theme);
@@ -159,6 +120,68 @@ void ScaffolderSettings::_bind_methods() {
 					"0.5,5.0,0.1"),
 			"set_debug_time_scale", "get_debug_time_scale");
 
+	ADD_GROUP("Flags", "");
+	ClassDB::bind_method(
+			D_METHOD("get_god_mode"), &ScaffolderSettings::get_god_mode);
+	ClassDB::bind_method(
+			D_METHOD("set_god_mode", "p_value"),
+			&ScaffolderSettings::set_god_mode);
+	ADD_PROPERTY(
+			EXPORTED_PROPERTY_INFO(Variant::BOOL, "god_mode"), "set_god_mode",
+			"get_god_mode");
+	ClassDB::bind_method(
+			D_METHOD("get_skip_main_menu_in_dev_mode"),
+			&ScaffolderSettings::get_skip_main_menu_in_dev_mode);
+	ClassDB::bind_method(
+			D_METHOD("set_skip_main_menu_in_dev_mode", "p_value"),
+			&ScaffolderSettings::set_skip_main_menu_in_dev_mode);
+	ADD_PROPERTY(
+			EXPORTED_PROPERTY_INFO(Variant::BOOL, "skip_main_menu_in_dev_mode"),
+			"set_skip_main_menu_in_dev_mode", "get_skip_main_menu_in_dev_mode");
+	ClassDB::bind_method(
+			D_METHOD("get_full_screen"), &ScaffolderSettings::get_full_screen);
+	ClassDB::bind_method(
+			D_METHOD("set_full_screen", "p_value"),
+			&ScaffolderSettings::set_full_screen);
+	ADD_PROPERTY(
+			EXPORTED_PROPERTY_INFO(Variant::BOOL, "full_screen"),
+			"set_full_screen", "get_full_screen");
+	ClassDB::bind_method(
+			D_METHOD("get_mute_music"), &ScaffolderSettings::get_mute_music);
+	ClassDB::bind_method(
+			D_METHOD("set_mute_music", "p_value"),
+			&ScaffolderSettings::set_mute_music);
+	ADD_PROPERTY(
+			EXPORTED_PROPERTY_INFO(Variant::BOOL, "mute_music"),
+			"set_mute_music", "get_mute_music");
+	ClassDB::bind_method(
+			D_METHOD("get_pauses_on_focus_out"),
+			&ScaffolderSettings::get_pauses_on_focus_out);
+	ClassDB::bind_method(
+			D_METHOD("set_pauses_on_focus_out", "p_value"),
+			&ScaffolderSettings::set_pauses_on_focus_out);
+	ADD_PROPERTY(
+			EXPORTED_PROPERTY_INFO(Variant::BOOL, "pauses_on_focus_out"),
+			"set_pauses_on_focus_out", "get_pauses_on_focus_out");
+	ClassDB::bind_method(
+			D_METHOD("get_is_screenshot_hotkey_enabled"),
+			&ScaffolderSettings::get_is_screenshot_hotkey_enabled);
+	ClassDB::bind_method(
+			D_METHOD("set_is_screenshot_hotkey_enabled", "p_value"),
+			&ScaffolderSettings::set_is_screenshot_hotkey_enabled);
+	ADD_PROPERTY(
+			EXPORTED_PROPERTY_INFO(
+					Variant::BOOL, "is_screenshot_hotkey_enabled"),
+			"set_is_screenshot_hotkey_enabled",
+			"get_is_screenshot_hotkey_enabled");
+	ClassDB::bind_method(
+			D_METHOD("get_show_hud"), &ScaffolderSettings::get_show_hud);
+	ClassDB::bind_method(
+			D_METHOD("set_show_hud", "p_value"),
+			&ScaffolderSettings::set_show_hud);
+	ADD_PROPERTY(
+			EXPORTED_PROPERTY_INFO(Variant::BOOL, "show_hud"), "set_show_hud",
+			"get_show_hud");
 	ClassDB::bind_method(
 			D_METHOD("get_render_debug_annotations"),
 			&ScaffolderSettings::get_render_debug_annotations);
@@ -168,9 +191,9 @@ void ScaffolderSettings::_bind_methods() {
 	ADD_PROPERTY(
 			EXPORTED_PROPERTY_INFO(Variant::BOOL, "render_debug_annotations"),
 			"set_render_debug_annotations", "get_render_debug_annotations");
+	// END GROUP "Flags"
 
-	ADD_GROUP("Advanced", "adv_");
-
+	ADD_GROUP("Advanced", "");
 	ClassDB::bind_method(
 			D_METHOD("get_super_hud_scene"),
 			&ScaffolderSettings::get_super_hud_scene);
@@ -179,10 +202,9 @@ void ScaffolderSettings::_bind_methods() {
 			&ScaffolderSettings::set_super_hud_scene);
 	ADD_PROPERTY(
 			EXPORTED_PROPERTY_INFO_WITH_HINT(
-					Variant::OBJECT, "adv_super_hud_scene",
+					Variant::OBJECT, "super_hud_scene",
 					PROPERTY_HINT_RESOURCE_TYPE, "PackedScene"),
 			"set_super_hud_scene", "get_super_hud_scene");
-
 	ClassDB::bind_method(
 			D_METHOD("get_shell_scene"), &ScaffolderSettings::get_shell_scene);
 	ClassDB::bind_method(
@@ -190,52 +212,17 @@ void ScaffolderSettings::_bind_methods() {
 			&ScaffolderSettings::set_shell_scene);
 	ADD_PROPERTY(
 			EXPORTED_PROPERTY_INFO_WITH_HINT(
-					Variant::OBJECT, "adv_shell_scene",
-					PROPERTY_HINT_RESOURCE_TYPE, "PackedScene"),
+					Variant::OBJECT, "shell_scene", PROPERTY_HINT_RESOURCE_TYPE,
+					"PackedScene"),
 			"set_shell_scene", "get_shell_scene");
-
 	ClassDB::bind_method(
-			D_METHOD("get_initial_screen"),
-			&ScaffolderSettings::get_initial_screen);
+			D_METHOD("get_game_over_screen_delay_sec"),
+			&ScaffolderSettings::get_game_over_screen_delay_sec);
 	ClassDB::bind_method(
-			D_METHOD("get_screen_scene", "p_name"),
-			&ScaffolderSettings::get_screen_scene);
-	ClassDB::bind_method(
-			D_METHOD("has_screen_scene", "p_name"),
-			&ScaffolderSettings::has_screen_scene);
-}
-
-Ref<ScaffolderSettings> ScaffolderSettings::get() {
-	Scaffolder *scaffolder = Scaffolder::get();
-	if (!ENSURE(scaffolder, "Scaffolder is not initialized.")) {
-		return Ref<ScaffolderSettings>();
-	}
-	Ref<ScaffolderSettings> settings = scaffolder->get_settings();
-	if (!ENSURE(settings.is_valid(),
-				"SnoreCore.set_up has not been called with "
-				"ScaffolderSettings.")) {
-		return Ref<ScaffolderSettings>();
-	}
-	return settings;
-}
-
-String ScaffolderSettings::get_initial_screen() const {
-	if (SnoreCoreMainSettings::get()->get_dev_mode() &&
-		skip_main_menu_in_dev_mode) {
-		return "game";
-	} else {
-		return "main_menu";
-	}
-}
-
-Ref<PackedScene> ScaffolderSettings::get_screen_scene(
-		const String &p_name) const {
-	if (screens.has(p_name)) {
-		return screens[p_name];
-	}
-	return Ref<PackedScene>();
-}
-
-bool ScaffolderSettings::has_screen_scene(const String &p_name) const {
-	return screens.has(p_name);
+			D_METHOD("set_game_over_screen_delay_sec", "p_delay_sec"),
+			&ScaffolderSettings::set_game_over_screen_delay_sec);
+	ADD_PROPERTY(
+			EXPORTED_PROPERTY_INFO(
+					Variant::FLOAT, "game_over_screen_delay_sec"),
+			"set_game_over_screen_delay_sec", "get_game_over_screen_delay_sec");
 }

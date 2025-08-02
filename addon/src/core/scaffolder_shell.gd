@@ -2,24 +2,11 @@
 class_name ScaffolderShell
 extends Container
 
-
-var _canvas_layers: Dictionary[String, CanvasLayer]
+# FIXME: LEFT OFF HERE: FINISH PORTING ---------------------------------------
 
 
 func _init() -> void:
     S.log.on_global_init(self, "ScaffolderShell")
-
-
-func _enter_tree() -> void:
-    _create_canvas_layers()
-
-    if (not S.utils.is_running_in_isolated_scene_mode()
-            or get_tree().get_current_scene() is ScaffolderLevel):
-        var super_hud := S.scaffolder_settings.adv_super_hud_scene.instantiate()
-        add_to_canvas_layer("super_hud", super_hud)
-
-        var hud := S.scaffolder_settings.hud_scene.instantiate()
-        add_to_canvas_layer("hud", hud)
 
 
 func _ready() -> void:
@@ -80,34 +67,3 @@ func close_app() -> void:
         S.utils.open_screenshot_folder()
     S.log.print("Shell.close_app")
     get_tree().call_deferred("quit")
-
-
-func _create_canvas_layers() -> void:
-    var layer_count := S.snore_core_settings.canvas_layers.size()
-    for index in range(layer_count):
-        var config := S.snore_core_settings.canvas_layers[index]
-        var z_index := layer_count - index
-        var canvas_layer := CanvasLayer.new()
-        canvas_layer.name = config.name
-        canvas_layer.process_mode = config.process_mode
-        canvas_layer.layer = z_index
-        add_child(canvas_layer)
-        _canvas_layers[config.name] = canvas_layer
-
-
-func add_to_canvas_layer(layer_name: String, node: Node) -> void:
-    if not S.utils.ensure(
-            _canvas_layers.has(layer_name),
-            "ScaffolderShell.add_to_canvas_layer: Invalid CanvasLayer name: %s" %
-                layer_name):
-        return
-    _canvas_layers[layer_name].add_child(node)
-
-
-func remove_from_canvas_layer(layer_name: String, node: Node) -> void:
-    if not S.utils.ensure(
-            _canvas_layers.has(layer_name),
-            "ScaffolderShell.remove_from_canvas_layer: Invalid CanvasLayer name: %s" %
-                layer_name):
-        return
-    _canvas_layers[layer_name].remove_child(node)

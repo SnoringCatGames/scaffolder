@@ -28,5 +28,5 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="ScaffolderLogsDisplay" parent="LogsContainer" instance=ExtResource("2_f577i")]
+[node name="LoggersDisplay" parent="LogsContainer" instance=ExtResource("2_f577i")]
 layout_mode = 2

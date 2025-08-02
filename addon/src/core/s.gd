@@ -24,20 +24,20 @@ var snore_core_settings: SnoreCoreMainSettings
 var scaffolder: Scaffolder
 var scaffolder_settings: ScaffolderSettings
 
-var log: ScaffolderLog
-var utils: ScaffolderUtils
+var log: Logger
+var utils: SnoreCoreUtils
 var time: ScaffolderTime
 var settings: ScaffolderSettingsOld
 var audio: ScaffolderAudio
-var screens: ScaffolderScreenHandler
+var screens: ScreenHandler
 var shell: ScaffolderShell
 var game_screen: ScaffolderGameScreen
-var session: ScaffolderGameSession
+var session: GameSession
 
 var level: ScaffolderLevel
 var super_hud: ScaffolderSuperHud
 var hud: ScaffolderHud
-var logs_display: ScaffolderLogsDisplay
+var logs_display: LoggersDisplay
 var player: Node
 
 
@@ -49,11 +49,11 @@ func set_up(manifest: ScaffolderSettings) -> void:
     S.scaffolder_settings = scaffolder.get_settings()
 
     var node_modules := [
-        ["log", ScaffolderLog],
-        ["utils", ScaffolderUtils],
+        ["log", Logger],
+        ["utils", SnoreCoreUtils],
         ["time", ScaffolderTime],
         ["audio", ScaffolderAudio],
-        ["screens", ScaffolderScreenHandler],
+        ["screens", ScreenHandler],
     ]
 
     for entry in node_modules:
@@ -82,7 +82,7 @@ func set_up(manifest: ScaffolderSettings) -> void:
         _set_up_module(entry)
 
     # TODO: Instantiate a Script that was registered with Manifest.
-    session = ScaffolderGameSession.new()
+    session = GameSession.new()
 
     # Inject the ScaffolderShell into the scene root.
     var shell := S.scaffolder_settings.adv_shell_scene.instantiate()

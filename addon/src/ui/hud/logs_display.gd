@@ -1,6 +1,9 @@
 @icon("res://addons/scaffolder/assets/editor_icons/ScaffolderNode.svg")
-class_name ScaffolderLogsDisplay
+class_name LoggersDisplay
 extends PanelContainer
+
+
+# FIXME: LEFT OFF HERE: FINISH PORTING ---------------------------------------
 
 
 @export var label_settings: LabelSettings
