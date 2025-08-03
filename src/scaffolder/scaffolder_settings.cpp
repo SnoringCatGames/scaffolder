@@ -7,6 +7,7 @@
 #include "snore_core/snore_core_main_settings.h"
 
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/variant/string_name.hpp>
 
 using namespace godot;
 
@@ -15,7 +16,7 @@ using namespace godot;
 
 SC_SETTINGS_CLASS_DEFINITION(ScaffolderSettings, Scaffolder)
 
-String ScaffolderSettings::get_initial_screen() const {
+StringName ScaffolderSettings::get_initial_screen() const {
 	if (SnoreCoreMainSettings::get()->get_dev_mode() &&
 		skip_main_menu_in_dev_mode) {
 		return ScreenName::game();
@@ -25,14 +26,14 @@ String ScaffolderSettings::get_initial_screen() const {
 }
 
 Ref<PackedScene> ScaffolderSettings::get_screen_scene(
-		const String &p_name) const {
+		const StringName &p_name) const {
 	if (screens.has(p_name)) {
 		return screens[p_name];
 	}
 	return Ref<PackedScene>();
 }
 
-bool ScaffolderSettings::has_screen_scene(const String &p_name) const {
+bool ScaffolderSettings::has_screen_scene(const StringName &p_name) const {
 	return screens.has(p_name);
 }
 
@@ -164,17 +165,6 @@ void ScaffolderSettings::_bind_methods() {
 			EXPORTED_PROPERTY_INFO(Variant::BOOL, "pauses_on_focus_out"),
 			"set_pauses_on_focus_out", "get_pauses_on_focus_out");
 	ClassDB::bind_method(
-			D_METHOD("get_is_screenshot_hotkey_enabled"),
-			&ScaffolderSettings::get_is_screenshot_hotkey_enabled);
-	ClassDB::bind_method(
-			D_METHOD("set_is_screenshot_hotkey_enabled", "p_value"),
-			&ScaffolderSettings::set_is_screenshot_hotkey_enabled);
-	ADD_PROPERTY(
-			EXPORTED_PROPERTY_INFO(
-					Variant::BOOL, "is_screenshot_hotkey_enabled"),
-			"set_is_screenshot_hotkey_enabled",
-			"get_is_screenshot_hotkey_enabled");
-	ClassDB::bind_method(
 			D_METHOD("get_show_hud"), &ScaffolderSettings::get_show_hud);
 	ClassDB::bind_method(
 			D_METHOD("set_show_hud", "p_value"),
@@ -192,6 +182,47 @@ void ScaffolderSettings::_bind_methods() {
 			EXPORTED_PROPERTY_INFO(Variant::BOOL, "render_debug_annotations"),
 			"set_render_debug_annotations", "get_render_debug_annotations");
 	// END GROUP "Flags"
+
+	// TODO: Add PROPERTY_HINT_ENUM and hint strings for these hotkey enums.
+	ADD_GROUP("Hotkeys", "");
+	ClassDB::bind_method(
+			D_METHOD("get_screenshot_hotkey"),
+			&ScaffolderSettings::get_screenshot_hotkey);
+	ClassDB::bind_method(
+			D_METHOD("set_screenshot_hotkey", "p_value"),
+			&ScaffolderSettings::set_screenshot_hotkey);
+	ADD_PROPERTY(
+			EXPORTED_PROPERTY_INFO(Variant::INT, "screenshot_hotkey"),
+			"set_screenshot_hotkey", "get_screenshot_hotkey");
+	ClassDB::bind_method(
+			D_METHOD("get_toggle_hud_visibility_hotkey"),
+			&ScaffolderSettings::get_toggle_hud_visibility_hotkey);
+	ClassDB::bind_method(
+			D_METHOD("set_toggle_hud_visibility_hotkey", "p_value"),
+			&ScaffolderSettings::set_toggle_hud_visibility_hotkey);
+	ADD_PROPERTY(
+			EXPORTED_PROPERTY_INFO(
+					Variant::INT, "toggle_hud_visibility_hotkey"),
+			"set_toggle_hud_visibility_hotkey",
+			"get_toggle_hud_visibility_hotkey");
+	ClassDB::bind_method(
+			D_METHOD("get_pause_hotkey"),
+			&ScaffolderSettings::get_pause_hotkey);
+	ClassDB::bind_method(
+			D_METHOD("set_pause_hotkey", "p_value"),
+			&ScaffolderSettings::set_pause_hotkey);
+	ADD_PROPERTY(
+			EXPORTED_PROPERTY_INFO(Variant::INT, "pause_hotkey"),
+			"set_pause_hotkey", "get_pause_hotkey");
+	ClassDB::bind_method(
+			D_METHOD("get_quit_hotkey"), &ScaffolderSettings::get_quit_hotkey);
+	ClassDB::bind_method(
+			D_METHOD("set_quit_hotkey", "p_value"),
+			&ScaffolderSettings::set_quit_hotkey);
+	ADD_PROPERTY(
+			EXPORTED_PROPERTY_INFO(Variant::INT, "quit_hotkey"),
+			"set_quit_hotkey", "get_quit_hotkey");
+	// END GROUP "Hotkeys"
 
 	ADD_GROUP("Advanced", "");
 	ClassDB::bind_method(

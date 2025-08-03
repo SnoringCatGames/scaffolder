@@ -33,7 +33,7 @@ void ScaffolderAudio::_ready() {
 
 	Array sfx_names = sfxs.keys();
 	for (int i = 0; i < sfx_names.size(); ++i) {
-		String name = sfx_names[i];
+		StringName name = sfx_names[i];
 		AudioStreamPlayer *player = memnew(AudioStreamPlayer);
 		player->set_stream(sfxs[name]);
 		player->set_bus(SFX_BUS_NAME);
@@ -69,7 +69,7 @@ void ScaffolderAudio::set_up() {
 	property_names.append("sfx_volume");
 
 	for (int i = 0; i < property_names.size(); ++i) {
-		String property_name = property_names[i];
+		StringName property_name = property_names[i];
 		// Note: This would need the settings system to be ported
 		// Variant value = scaffolder->get_settings()->get(property_name);
 		// _on_property_changed(property_name, value, value);
@@ -79,7 +79,7 @@ void ScaffolderAudio::set_up() {
 void ScaffolderAudio::reset() {}
 
 void ScaffolderAudio::_on_property_changed(
-		const String &p_name,
+		const StringName &p_name,
 		const Variant &p_new_value,
 		const Variant &p_old_value) {
 	if (p_name == "music_volume") {
@@ -114,7 +114,7 @@ void ScaffolderAudio::set_sfx_volume(float p_volume_db) {
 	audio_server->set_bus_volume_db(index, p_volume_db);
 }
 
-void ScaffolderAudio::play_sfx(const String &p_name) {
+void ScaffolderAudio::play_sfx(const StringName &p_name) {
 	if (!ENSURE(sfx_players.has(p_name),
 				vformat("SFX player not found: %s", p_name))) {
 		return;

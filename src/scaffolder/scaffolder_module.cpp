@@ -9,6 +9,7 @@
 #include "scaffolder/screen.h"
 #include "scaffolder/screen_handler.h"
 #include "snore_core/internal/snore_core_module_utils.h"
+#include "snore_core/snore_core_main_module.h"
 
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/core/class_db.hpp>
@@ -67,18 +68,26 @@ std::vector<SnoreCoreSubmodule *> Scaffolder::instantiate_submodules() {
 	return {
 		memnew(ScreenHandler),
 		memnew(ScaffolderAudio),
-		memnew(ScaffolderShell),
 	};
 }
 
 void Scaffolder::set_up() {
 	// TODO: Do any initialization that depends on runtime settings settings.
+
+	shell = instantiate_ref<ScaffolderShell>();
+	SnoreCore::get()->add_utility_node(shell.ptr(), ScaffolderShell::name);
+
 	on_set_up_finished();
 }
 
 void Scaffolder::reset() {
 	// TODO: Clear state.
 	// TODO: Cancel any in-progress set_up operations.
+
+	if (is_instance_valid(shell)) {
+		shell->queue_free();
+		shell.unref();
+	}
 }
 
 void Scaffolder::on_level_loaded(Ref<ScaffolderLevel> p_level) {
@@ -94,6 +103,10 @@ void Scaffolder::on_level_ended(Ref<ScaffolderLevel> p_level) {
 	emit_signal("level_ended", p_level);
 }
 
+Ref<ScaffolderShell> Scaffolder::get_shell() const { return shell; }
+
+void Scaffolder::set_shell(Ref<ScaffolderShell> p_shell) { shell = p_shell; }
+
 Ref<ScaffolderLevel> Scaffolder::get_level() const { return level; }
 
 void Scaffolder::set_level(Ref<ScaffolderLevel> p_level) { level = p_level; }
@@ -104,6 +117,14 @@ void Scaffolder::set_session(Ref<GameSession> p_session) {
 	session = p_session;
 }
 
+Ref<Node> Scaffolder::get_super_hud() const { return super_hud; }
+void Scaffolder::set_super_hud(Ref<Node> p_super_hud) {
+	super_hud = p_super_hud;
+}
+
+Ref<Node> Scaffolder::get_hud() const { return hud; }
+void Scaffolder::set_hud(Ref<Node> p_hud) { hud = p_hud; }
+
 void Scaffolder::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_settings"), &Scaffolder::get_settings);
 
@@ -111,6 +132,22 @@ void Scaffolder::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_level"), &Scaffolder::set_level);
 	ADD_PROPERTY(
 			PropertyInfo(Variant::OBJECT, "level"), "set_level", "get_level");
+
+	ClassDB::bind_method(D_METHOD("get_session"), &Scaffolder::get_session);
+	ClassDB::bind_method(D_METHOD("set_session"), &Scaffolder::set_session);
+	ADD_PROPERTY(
+			PropertyInfo(Variant::OBJECT, "session"), "set_session",
+			"get_session");
+
+	ClassDB::bind_method(D_METHOD("get_super_hud"), &Scaffolder::get_super_hud);
+	ClassDB::bind_method(D_METHOD("set_super_hud"), &Scaffolder::set_super_hud);
+	ADD_PROPERTY(
+			PropertyInfo(Variant::OBJECT, "super_hud"), "set_super_hud",
+			"get_super_hud");
+
+	ClassDB::bind_method(D_METHOD("get_hud"), &Scaffolder::get_hud);
+	ClassDB::bind_method(D_METHOD("set_hud"), &Scaffolder::set_hud);
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "hud"), "set_hud", "get_hud");
 
 	ADD_SIGNAL(
 			MethodInfo("level_loaded"), PropertyInfo(Variant::OBJECT, "level"));

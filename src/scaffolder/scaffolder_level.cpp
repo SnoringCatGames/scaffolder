@@ -3,6 +3,7 @@
 #include "scaffolder/game_session.h"
 #include "scaffolder/scaffolder_module.h"
 #include "scaffolder/screen.h"
+#include "scaffolder/screen_handler.h"
 #include "scaffolder/screen_name.h"
 #include "snore_core/snore_core_utils.h"
 #include "snore_core/time/snore_core_time.h"
@@ -40,19 +41,17 @@ void ScaffolderLevel::start() {
 }
 
 void ScaffolderLevel::pause() {
-	// FIXME: LEFT OFF HERE: Handle screen management when screens module is
-	// available.
-	// if S.screens.is_top_screen(ScreenName::game()):
-	//     S.screens.open("pause")
+	if (ScreenHandler::get()->is_top_screen(ScreenName::game())) {
+		ScreenHandler::get()->open(ScreenName::pause());
+	}
 
 	get_tree()->set_pause(true);
 }
 
 void ScaffolderLevel::unpause() {
-	// FIXME: LEFT OFF HERE: Handle screen management when screens module is
-	// available.
-	// if not S.screens.is_top_screen(ScreenName::game()):
-	//     S.screens.close_screens_above(ScreenName::game())
+	if (!ScreenHandler::get()->is_top_screen(ScreenName::game())) {
+		ScreenHandler::get()->close_screens_above(ScreenName::game());
+	}
 
 	get_tree()->set_pause(false);
 }
@@ -74,10 +73,8 @@ void ScaffolderLevel::game_over(bool p_success) {
 }
 
 void ScaffolderLevel::show_game_over_screen() {
-	// FIXME: LEFT OFF HERE: Handle screen management when screens module is
-	// available.
-	// S.screens.open(ScreenName::game_over())
-	// S.screens.close(ScreenName::game())
+	ScreenHandler::get()->open(ScreenName::game_over());
+	ScreenHandler::get()->close(ScreenName::game());
 }
 
 void ScaffolderLevel::_bind_methods() {

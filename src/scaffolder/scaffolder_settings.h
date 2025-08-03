@@ -10,6 +10,8 @@
 
 namespace godot {
 
+class StringName;
+
 class ScaffolderSettings : public SnoreCoreSettings {
 	GDCLASS(ScaffolderSettings, SnoreCoreSettings)
 	SC_SETTINGS_CLASS_DECLARATION(ScaffolderSettings)
@@ -39,12 +41,21 @@ public:
 		pauses_on_focus_out = p_value;
 	}
 
-	bool get_is_screenshot_hotkey_enabled() const {
-		return is_screenshot_hotkey_enabled;
+	Key get_screenshot_hotkey() const { return screenshot_hotkey; }
+	void set_screenshot_hotkey(Key p_value) { screenshot_hotkey = p_value; }
+
+	Key get_toggle_hud_visibility_hotkey() const {
+		return toggle_hud_visibility_hotkey;
 	}
-	void set_is_screenshot_hotkey_enabled(bool p_value) {
-		is_screenshot_hotkey_enabled = p_value;
+	void set_toggle_hud_visibility_hotkey(Key p_value) {
+		toggle_hud_visibility_hotkey = p_value;
 	}
+
+	Key get_pause_hotkey() const { return pause_hotkey; }
+	void set_pause_hotkey(Key p_value) { pause_hotkey = p_value; }
+
+	Key get_quit_hotkey() const { return quit_hotkey; }
+	void set_quit_hotkey(Key p_value) { quit_hotkey = p_value; }
 
 	bool get_show_hud() const { return show_hud; }
 	void set_show_hud(bool p_value) { show_hud = p_value; }
@@ -98,9 +109,9 @@ public:
 		game_over_screen_delay_sec = p_value;
 	}
 
-	String get_initial_screen() const;
-	Ref<PackedScene> get_screen_scene(const String &p_name) const;
-	bool has_screen_scene(const String &p_name) const;
+	StringName get_initial_screen() const;
+	Ref<PackedScene> get_screen_scene(const StringName &p_name) const;
+	bool has_screen_scene(const StringName &p_name) const;
 
 protected:
 	static void _bind_methods();
@@ -111,8 +122,12 @@ private:
 	bool full_screen = false;
 	bool mute_music = false;
 	bool pauses_on_focus_out = true;
-	bool is_screenshot_hotkey_enabled = true;
 	bool show_hud = true;
+
+	Key screenshot_hotkey = KEY_P;
+	Key toggle_hud_visibility_hotkey = KEY_O;
+	Key pause_hotkey = KEY_ESCAPE;
+	Key quit_hotkey = KEY_NONE;
 
 	Ref<Theme> main_theme;
 	Ref<PackedScene> dev_mode_level;

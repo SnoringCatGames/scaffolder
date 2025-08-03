@@ -68,8 +68,7 @@ void ScreenHandler::open(const StringName &p_screen_name) {
 	}
 
 	// Open the new screen.
-	ScaffolderShell::get()->add_to_canvas_layer(
-			screen->get_canvas_layer(), screen);
+	ScaffolderShell::get()->add_to_layer(screen->get_canvas_layer(), screen);
 	screen_stack.push_back(stack_entry);
 	screen->set_screen_state(ScaffolderScreen::TOP);
 

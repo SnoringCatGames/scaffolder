@@ -36,7 +36,7 @@ public:
 
 	void set_sfx_volume(float p_volume_db);
 
-	void play_sfx(const String &p_name);
+	void play_sfx(const StringName &p_name);
 
 protected:
 	static void _bind_methods();
@@ -45,7 +45,7 @@ private:
 	Dictionary sfx_players;
 
 	void _on_property_changed(
-			const String &p_name,
+			const StringName &p_name,
 			const Variant &p_new_value,
 			const Variant &p_old_value);
 };
