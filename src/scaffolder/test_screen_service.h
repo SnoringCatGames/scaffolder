@@ -1,9 +1,9 @@
-#ifndef TEST_SCREEN_HANDLER_H
-#define TEST_SCREEN_HANDLER_H
+#ifndef TEST_SCREEN_SERVICE_H
+#define TEST_SCREEN_SERVICE_H
 
 #ifdef SC_TESTS_ENABLED
 
-#include "scaffolder/screen_handler.h"
+#include "scaffolder/screen_service.h"
 
 #include "scaffolder/active_screen.h"
 #include "scaffolder/screen.h"
@@ -14,22 +14,22 @@
 
 namespace godot {
 
-class ScreenHandlerTest : public SnoreCoreTest {
+class ScreenServiceTest : public SnoreCoreTest {
 protected:
-	void BeforeEach() override { screen_handler.instantiate(); }
+	void BeforeEach() override { screen_service.instantiate(); }
 
-	Ref<ScreenHandler> screen_handler;
+	Ref<ScreenService> screen_service;
 };
 
-TEST_F(ScreenHandlerTest, CloseNonExistentScreen) {
-	bool result = screen_handler->close("nonexistent_screen");
+TEST_F(ScreenServiceTest, CloseNonExistentScreen) {
+	bool result = screen_service->close("nonexistent_screen");
 	EXPECT_FALSE(result);
 }
 
-TEST_F(ScreenHandlerTest, CloseScreensAboveNonExistent) {
+TEST_F(ScreenServiceTest, CloseScreensAboveNonExistent) {
 	// This should handle gracefully when target screen doesn't exist.
 	// The method should log an error but not crash.
-	screen_handler->close_screens_above("nonexistent_screen");
+	screen_service->close_screens_above("nonexistent_screen");
 	// If we reach here without crashing, the test passes.
 	EXPECT_TRUE(true);
 }
@@ -40,4 +40,4 @@ TEST_F(ScreenHandlerTest, CloseScreensAboveNonExistent) {
 
 #endif // SC_TESTS_ENABLED
 
-#endif // TEST_SCREEN_HANDLER_H
+#endif // TEST_SCREEN_SERVICE_H

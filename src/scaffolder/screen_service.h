@@ -1,5 +1,5 @@
-#ifndef SCREEN_HANDLER_H
-#define SCREEN_HANDLER_H
+#ifndef SCREEN_SERVICE_H
+#define SCREEN_SERVICE_H
 
 #include "scaffolder/active_screen.h"
 #include "scaffolder/scaffolder_module.h"
@@ -13,13 +13,13 @@ namespace godot {
 class StringName;
 class Variant;
 
-class ScreenHandler : public SnoreCoreSubmodule {
-	GDCLASS(ScreenHandler, SnoreCoreSubmodule)
-	SC_SUBMODULE_CLASS(ScreenHandler, Scaffolder)
+class ScreenService : public SnoreCoreSubmodule {
+	GDCLASS(ScreenService, SnoreCoreSubmodule)
+	SC_SUBMODULE_CLASS(ScreenService, Scaffolder)
 
 public:
-	ScreenHandler() = default;
-	virtual ~ScreenHandler() = default;
+	ScreenService() = default;
+	virtual ~ScreenService() = default;
 
 	// Opens a screen and adds it to the top of the screen stack.
 	void open(const StringName &p_screen_name);
@@ -55,4 +55,4 @@ private:
 
 } //namespace godot
 
-#endif // SCREEN_HANDLER_H
+#endif // SCREEN_SERVICE_H

@@ -1,7 +1,7 @@
 #include "scaffolder/screen.h"
 
 #include "scaffolder/scaffolder_settings.h"
-#include "snore_core/logger.h"
+#include "snore_core/log_service.h"
 
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/core/class_db.hpp>

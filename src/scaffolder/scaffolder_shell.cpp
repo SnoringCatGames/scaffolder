@@ -2,11 +2,11 @@
 
 #include "scaffolder/scaffolder_level.h"
 #include "scaffolder/scaffolder_module.h"
-#include "scaffolder/screen_handler.h"
 #include "scaffolder/screen_name.h"
+#include "scaffolder/screen_service.h"
 #include "snore_core/internal/debug_utils.h"
 #include "snore_core/internal/ref_utils.h"
-#include "snore_core/logger.h"
+#include "snore_core/log_service.h"
 #include "snore_core/snore_core_main_settings.h"
 #include "snore_core/snore_core_utils.h"
 
@@ -22,7 +22,7 @@ Ref<ScaffolderShell> ScaffolderShell::get() {
 }
 
 void ScaffolderShell::_ready() {
-	Logger::get()->report_submodule_initialized(name);
+	LogService::get()->report_submodule_initialized(name);
 
 	// Make the container fill the screen.
 	set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
@@ -33,7 +33,7 @@ void ScaffolderShell::_ready() {
 }
 
 void ScaffolderShell::deferred_ready() {
-	ScreenHandler::get()->open(ScaffolderSettings::get()->get_initial_screen());
+	ScreenService::get()->open(ScaffolderSettings::get()->get_initial_screen());
 
 	if (ScaffolderSettings::get()->get_full_screen()) {
 		DisplayServer::get_singleton()->window_set_mode(
@@ -97,15 +97,15 @@ void ScaffolderShell::_unhandled_input(const Ref<InputEvent> &p_event) {
 void ScaffolderShell::_notification(int p_notification) {
 	switch (p_notification) {
 		case NOTIFICATION_WM_GO_BACK_REQUEST: {
-			if (ScreenHandler::get()->is_top_screen(ScreenName::main_menu())) {
+			if (ScreenService::get()->is_top_screen(ScreenName::main_menu())) {
 				// Handle the Android back button to navigate within the app
 				// instead of quitting the app.
 				close_app();
-			} else if (!ScreenHandler::get()->is_top_screen(
+			} else if (!ScreenService::get()->is_top_screen(
 							   ScreenName::game())) {
 				// Close the current screen if it's not game_screen.
-				ScreenHandler::get()->close(
-						ScreenHandler::get()->get_top_screen());
+				ScreenService::get()->close(
+						ScreenService::get()->get_top_screen());
 			}
 			break;
 		}

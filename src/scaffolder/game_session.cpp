@@ -1,6 +1,6 @@
 #include "scaffolder/game_session.h"
 
-#include "snore_core/time/snore_core_time.h"
+#include "snore_core/time/time_service.h"
 
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
@@ -16,17 +16,17 @@ void GameSession::reset() {
 
 void GameSession::start() {
 	reset();
-	start_time = SnoreCoreTime::play_time();
+	start_time = TimeService::play_time();
 }
 
-void GameSession::end() { end_time = SnoreCoreTime::play_time(); }
+void GameSession::end() { end_time = TimeService::play_time(); }
 
 float GameSession::get_play_time() const {
 	if (start_time > 0) {
 		if (end_time > 0) {
 			return end_time - start_time;
 		} else {
-			return SnoreCoreTime::play_time() - start_time;
+			return TimeService::play_time() - start_time;
 		}
 	} else {
 		return 0.0;

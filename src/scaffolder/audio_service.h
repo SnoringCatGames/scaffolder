@@ -1,5 +1,5 @@
-#ifndef SCAFFOLDER_AUDIO_H
-#define SCAFFOLDER_AUDIO_H
+#ifndef AUDIO_SERVICE_H
+#define AUDIO_SERVICE_H
 
 #include "scaffolder/scaffolder_module.h"
 #include "snore_core/snore_core_submodule.h"
@@ -17,20 +17,20 @@ namespace godot {
 // Audio manager for the Scaffolder framework.
 // - Handles SFX and music volume control, manages audio stream players,
 // and provides audio bus management functionality.
-class ScaffolderAudio : public SnoreCoreSubmoduleWithNode {
-	GDCLASS(ScaffolderAudio, SnoreCoreSubmoduleWithNode)
+class AudioService : public SnoreCoreSubmoduleWithNode {
+	GDCLASS(AudioService, SnoreCoreSubmoduleWithNode)
 	SC_SUBMODULE_WITH_NODE_CLASS(
-			ScaffolderAudio,
+			AudioService,
 			Scaffolder,
-			"ScaffolderAudioProxy",
+			"AudioServiceProxy",
 			Node)
 
 public:
 	static const constexpr char *SFX_BUS_NAME = "SFX";
 	static const constexpr char *MUSIC_BUS_NAME = "Music";
 
-	ScaffolderAudio() = default;
-	~ScaffolderAudio() = default;
+	AudioService() = default;
+	~AudioService() = default;
 
 	void set_music_volume(float p_volume_db);
 
@@ -52,4 +52,4 @@ private:
 
 } // namespace godot
 
-#endif // SCAFFOLDER_AUDIO_H
+#endif // AUDIO_SERVICE_H

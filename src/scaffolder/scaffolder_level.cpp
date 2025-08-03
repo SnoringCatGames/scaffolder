@@ -3,10 +3,10 @@
 #include "scaffolder/game_session.h"
 #include "scaffolder/scaffolder_module.h"
 #include "scaffolder/screen.h"
-#include "scaffolder/screen_handler.h"
 #include "scaffolder/screen_name.h"
+#include "scaffolder/screen_service.h"
 #include "snore_core/snore_core_utils.h"
-#include "snore_core/time/snore_core_time.h"
+#include "snore_core/time/time_service.h"
 
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/scene_tree_timer.hpp>
@@ -41,16 +41,16 @@ void ScaffolderLevel::start() {
 }
 
 void ScaffolderLevel::pause() {
-	if (ScreenHandler::get()->is_top_screen(ScreenName::game())) {
-		ScreenHandler::get()->open(ScreenName::pause());
+	if (ScreenService::get()->is_top_screen(ScreenName::game())) {
+		ScreenService::get()->open(ScreenName::pause());
 	}
 
 	get_tree()->set_pause(true);
 }
 
 void ScaffolderLevel::unpause() {
-	if (!ScreenHandler::get()->is_top_screen(ScreenName::game())) {
-		ScreenHandler::get()->close_screens_above(ScreenName::game());
+	if (!ScreenService::get()->is_top_screen(ScreenName::game())) {
+		ScreenService::get()->close_screens_above(ScreenName::game());
 	}
 
 	get_tree()->set_pause(false);
@@ -67,14 +67,14 @@ void ScaffolderLevel::game_over(bool p_success) {
 
 	Scaffolder::get()->on_level_ended(this);
 
-	SnoreCoreTime::get()->set_timeout(
+	TimeService::get()->set_timeout(
 			Callable(this, "show_game_over_screen"),
 			ScaffolderSettings::get()->get_game_over_screen_delay_sec());
 }
 
 void ScaffolderLevel::show_game_over_screen() {
-	ScreenHandler::get()->open(ScreenName::game_over());
-	ScreenHandler::get()->close(ScreenName::game());
+	ScreenService::get()->open(ScreenName::game_over());
+	ScreenService::get()->close(ScreenName::game());
 }
 
 void ScaffolderLevel::_bind_methods() {

@@ -1,8 +1,8 @@
-#include "scaffolder_audio.h"
+#include "audio_service.h"
 
 #include "scaffolder/scaffolder_module.h"
 #include "snore_core/internal/debug_utils.h"
-#include "snore_core/logger.h"
+#include "snore_core/log_service.h"
 
 #include <godot_cpp/classes/audio_server.hpp>
 #include <godot_cpp/classes/audio_stream_player.hpp>
@@ -13,7 +13,7 @@ using namespace godot;
 
 // FIXME: LEFT OFF HERE: FINISH PORTING ---------------------------------------
 
-void ScaffolderAudio::_ready() {
+void AudioService::_ready() {
 	Node::_ready();
 
 	AudioServer *audio_server = AudioServer::get_singleton();
@@ -55,13 +55,13 @@ void ScaffolderAudio::_ready() {
 	}
 }
 
-void ScaffolderAudio::set_up() {
+void AudioService::set_up() {
 	Scaffolder *scaffolder = Scaffolder::get();
 	// Note: In the original GDScript, this connects to
 	// S.settings.property_changed This would need to be implemented when
 	// settings system is ported
 	// scaffolder->get_settings()->connect("property_changed", callable_mp(this,
-	// &ScaffolderAudio::_on_property_changed));
+	// &AudioService::_on_property_changed));
 
 	// Initialize volumes from current settings.
 	PackedStringArray property_names;
@@ -76,9 +76,9 @@ void ScaffolderAudio::set_up() {
 	}
 }
 
-void ScaffolderAudio::reset() {}
+void AudioService::reset() {}
 
-void ScaffolderAudio::_on_property_changed(
+void AudioService::_on_property_changed(
 		const StringName &p_name,
 		const Variant &p_new_value,
 		const Variant &p_old_value) {
@@ -96,7 +96,7 @@ void ScaffolderAudio::_on_property_changed(
 	// Default case: Do nothing.
 }
 
-void ScaffolderAudio::set_music_volume(float p_volume_db) {
+void AudioService::set_music_volume(float p_volume_db) {
 	AudioServer *audio_server = AudioServer::get_singleton();
 	int32_t index = audio_server->get_bus_index(MUSIC_BUS_NAME);
 	if (!ENSURE(index >= 0, "Failed to get music bus index")) {
@@ -105,7 +105,7 @@ void ScaffolderAudio::set_music_volume(float p_volume_db) {
 	audio_server->set_bus_volume_db(index, p_volume_db);
 }
 
-void ScaffolderAudio::set_sfx_volume(float p_volume_db) {
+void AudioService::set_sfx_volume(float p_volume_db) {
 	AudioServer *audio_server = AudioServer::get_singleton();
 	int32_t index = audio_server->get_bus_index(SFX_BUS_NAME);
 	if (!ENSURE(index >= 0, "Failed to get SFX bus index")) {
@@ -114,7 +114,7 @@ void ScaffolderAudio::set_sfx_volume(float p_volume_db) {
 	audio_server->set_bus_volume_db(index, p_volume_db);
 }
 
-void ScaffolderAudio::play_sfx(const StringName &p_name) {
+void AudioService::play_sfx(const StringName &p_name) {
 	if (!ENSURE(sfx_players.has(p_name),
 				vformat("SFX player not found: %s", p_name))) {
 		return;
@@ -131,17 +131,16 @@ void ScaffolderAudio::play_sfx(const StringName &p_name) {
 	}
 }
 
-void ScaffolderAudio::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("set_up"), &ScaffolderAudio::set_up);
+void AudioService::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_up"), &AudioService::set_up);
 	ClassDB::bind_method(
 			D_METHOD("set_music_volume", "volume_db"),
-			&ScaffolderAudio::set_music_volume);
+			&AudioService::set_music_volume);
 	ClassDB::bind_method(
 			D_METHOD("set_sfx_volume", "volume_db"),
-			&ScaffolderAudio::set_sfx_volume);
-	ClassDB::bind_method(
-			D_METHOD("play_sfx", "name"), &ScaffolderAudio::play_sfx);
+			&AudioService::set_sfx_volume);
+	ClassDB::bind_method(D_METHOD("play_sfx", "name"), &AudioService::play_sfx);
 	ClassDB::bind_method(
 			D_METHOD("_on_property_changed", "name", "new_value", "old_value"),
-			&ScaffolderAudio::_on_property_changed);
+			&AudioService::_on_property_changed);
 }

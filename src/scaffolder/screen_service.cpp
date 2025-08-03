@@ -1,10 +1,10 @@
-#include "scaffolder/screen_handler.h"
+#include "scaffolder/screen_service.h"
 
 #include "scaffolder/scaffolder_level.h"
 #include "scaffolder/scaffolder_shell.h"
 #include "scaffolder/screen_name.h"
 #include "snore_core/internal/debug_utils.h"
-#include "snore_core/logger.h"
+#include "snore_core/log_service.h"
 #include "snore_core/snore_core_utils.h"
 
 #include <godot_cpp/classes/packed_scene.hpp>
@@ -14,11 +14,11 @@
 
 using namespace godot;
 
-void ScreenHandler::set_up() {}
+void ScreenService::set_up() {}
 
-void ScreenHandler::reset() {}
+void ScreenService::reset() {}
 
-void ScreenHandler::open(const StringName &p_screen_name) {
+void ScreenService::open(const StringName &p_screen_name) {
 	if (SnoreCoreUtils::is_running_in_isolated_scene_mode()) {
 		Log::warning(
 				"Screens not opened in isolated-scene mode: %s", p_screen_name);
@@ -81,7 +81,7 @@ void ScreenHandler::open(const StringName &p_screen_name) {
 	}
 }
 
-void ScreenHandler::close_screens_above(const StringName &p_screen_name) {
+void ScreenService::close_screens_above(const StringName &p_screen_name) {
 	const Ref<ActiveScreen> target_screen =
 			get_active_screen_by_name(p_screen_name);
 	if (!ENSURE(target_screen.is_valid(),
@@ -98,7 +98,7 @@ void ScreenHandler::close_screens_above(const StringName &p_screen_name) {
 	}
 }
 
-void ScreenHandler::move_screen_to_top(const StringName &p_screen_name) {
+void ScreenService::move_screen_to_top(const StringName &p_screen_name) {
 	Ref<ActiveScreen> previous_screen = get_top_screen();
 	if (!ENSURE(previous_screen.is_valid(), "No previous screen found")) {
 		return;
@@ -116,10 +116,10 @@ void ScreenHandler::move_screen_to_top(const StringName &p_screen_name) {
 	next_screen->get_screen()->set_screen_state(ScaffolderScreen::TOP);
 }
 
-bool ScreenHandler::close(const Variant &p_screen_node_or_name) {
+bool ScreenService::close(const Variant &p_screen_node_or_name) {
 	const String display_text =
 			SnoreCoreUtils::get_display_name(p_screen_node_or_name);
-	Log::print("ScreenHandler.close( %s )", display_text);
+	Log::print("ScreenService.close( %s )", display_text);
 
 	// Get the screen entry to close.
 	Ref<ActiveScreen> screen_entry;
@@ -163,19 +163,19 @@ bool ScreenHandler::close(const Variant &p_screen_node_or_name) {
 	return true;
 }
 
-Ref<ActiveScreen> ScreenHandler::get_top_screen() {
+Ref<ActiveScreen> ScreenService::get_top_screen() {
 	if (screen_stack.empty()) {
 		return Ref<ActiveScreen>();
 	}
 	return screen_stack.back();
 }
 
-bool ScreenHandler::is_top_screen(const StringName &p_screen_name) {
+bool ScreenService::is_top_screen(const StringName &p_screen_name) {
 	Ref<ActiveScreen> top_screen = get_top_screen();
 	return top_screen.is_valid() && top_screen->get_name() == p_screen_name;
 }
 
-Ref<ActiveScreen> ScreenHandler::get_active_screen_by_name(
+Ref<ActiveScreen> ScreenService::get_active_screen_by_name(
 		const StringName &p_name) {
 	for (int i = 0; i < screen_stack.size(); i++) {
 		Ref<ActiveScreen> entry = screen_stack[i];
@@ -186,7 +186,7 @@ Ref<ActiveScreen> ScreenHandler::get_active_screen_by_name(
 	return Ref<ActiveScreen>();
 }
 
-Ref<ActiveScreen> ScreenHandler::get_active_screen_by_node(
+Ref<ActiveScreen> ScreenService::get_active_screen_by_node(
 		const ScaffolderScreen *p_screen) {
 	for (int i = 0; i < screen_stack.size(); i++) {
 		Ref<ActiveScreen> entry = screen_stack[i];
@@ -197,7 +197,7 @@ Ref<ActiveScreen> ScreenHandler::get_active_screen_by_node(
 	return Ref<ActiveScreen>();
 }
 
-bool ScreenHandler::is_a_pausing_screen_above_level() {
+bool ScreenService::is_a_pausing_screen_above_level() {
 	const Ref<ActiveScreen> game_screen =
 			get_active_screen_by_name(ScreenName::game());
 
@@ -221,16 +221,16 @@ bool ScreenHandler::is_a_pausing_screen_above_level() {
 	return false;
 }
 
-void ScreenHandler::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("open", "screen_name"), &ScreenHandler::open);
+void ScreenService::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("open", "screen_name"), &ScreenService::open);
 	ClassDB::bind_method(
 			D_METHOD("close_screens_above", "screen_name"),
-			&ScreenHandler::close_screens_above);
+			&ScreenService::close_screens_above);
 	ClassDB::bind_method(
-			D_METHOD("close", "screen_node_or_name"), &ScreenHandler::close);
+			D_METHOD("close", "screen_node_or_name"), &ScreenService::close);
 	ClassDB::bind_method(
-			D_METHOD("get_top_screen"), &ScreenHandler::get_top_screen);
+			D_METHOD("get_top_screen"), &ScreenService::get_top_screen);
 	ClassDB::bind_method(
 			D_METHOD("is_top_screen", "screen_name"),
-			&ScreenHandler::is_top_screen);
+			&ScreenService::is_top_screen);
 }

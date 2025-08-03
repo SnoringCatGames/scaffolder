@@ -1,29 +1,31 @@
 #include "scaffolder/scaffolder_module.h"
 
 #include "scaffolder/active_screen.h"
+#include "scaffolder/audio_service.h"
 #include "scaffolder/game_session.h"
-#include "scaffolder/scaffolder_audio.h"
 #include "scaffolder/scaffolder_level.h"
 #include "scaffolder/scaffolder_settings.h"
 #include "scaffolder/scaffolder_shell.h"
 #include "scaffolder/screen.h"
-#include "scaffolder/screen_handler.h"
+#include "scaffolder/screen_service.h"
+#include "snore_core/canvas_layer_service.h"
 #include "snore_core/internal/snore_core_module_utils.h"
 #include "snore_core/snore_core_main_module.h"
+#include "snore_core/snore_core_utils.h"
 
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/core/class_db.hpp>
 
 #ifdef SC_TESTS_ENABLED
 #include "scaffolder/test_active_screen.h"
+#include "scaffolder/test_audio_service.h"
 #include "scaffolder/test_game_session.h"
-#include "scaffolder/test_scaffolder_audio.h"
 #include "scaffolder/test_scaffolder_level.h"
 #include "scaffolder/test_scaffolder_module.h"
 #include "scaffolder/test_scaffolder_settings.h"
 #include "scaffolder/test_scaffolder_shell.h"
 #include "scaffolder/test_screen.h"
-#include "scaffolder/test_screen_handler.h"
+#include "scaffolder/test_screen_service.h"
 #endif // SC_TESTS_ENABLED
 
 using namespace godot;
@@ -46,10 +48,10 @@ void Scaffolder::register_gdextension_types(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(ScaffolderSettings);
 	GDREGISTER_CLASS(ActiveScreen);
 	GDREGISTER_CLASS(GameSession);
-	GDREGISTER_CLASS(ScaffolderAudio);
+	GDREGISTER_CLASS(AudioService);
 	GDREGISTER_CLASS(ScaffolderLevel);
 	GDREGISTER_CLASS(ScaffolderScreen);
-	GDREGISTER_CLASS(ScreenHandler);
+	GDREGISTER_CLASS(ScreenService);
 	GDREGISTER_CLASS(ScaffolderShell);
 
 	REGISTER_SNORE_CORE_ROOT_MODULE(Scaffolder);
@@ -66,16 +68,32 @@ void Scaffolder::unregister_gdextension_types(
 
 std::vector<SnoreCoreSubmodule *> Scaffolder::instantiate_submodules() {
 	return {
-		memnew(ScreenHandler),
-		memnew(ScaffolderAudio),
+		memnew(ScreenService),
+		memnew(AudioService),
 	};
 }
 
 void Scaffolder::set_up() {
 	// TODO: Do any initialization that depends on runtime settings settings.
 
+	// Create the shell.
 	shell = instantiate_ref<ScaffolderShell>();
 	SnoreCore::get()->add_utility_node(shell.ptr(), ScaffolderShell::name);
+
+	// Create the HUDs.
+	if (!SnoreCoreUtils::is_running_in_isolated_scene_mode() ||
+		Object::cast_to<ScaffolderLevel>(
+				SnoreCore::get()->get_scene_tree()->get_current_scene())) {
+		Node *super_hud =
+				ScaffolderSettings::get()->get_super_hud_scene()->instantiate();
+		CanvasLayerService::get()->add_to_layer(
+				CanvasLayerName::super_hud(), super_hud);
+		Scaffolder::get()->set_super_hud(super_hud);
+
+		Node *hud = ScaffolderSettings::get()->get_hud_scene()->instantiate();
+		CanvasLayerService::get()->add_to_layer(CanvasLayerName::hud(), hud);
+		Scaffolder::get()->set_hud(hud);
+	}
 
 	on_set_up_finished();
 }
