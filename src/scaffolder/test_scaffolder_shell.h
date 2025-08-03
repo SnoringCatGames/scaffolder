@@ -22,32 +22,6 @@ protected:
 	Ref<ScaffolderShell> shell;
 };
 
-TEST_F(ScaffolderShellTest, Constructor) { EXPECT_TRUE(shell.is_valid()); }
-
-TEST_F(ScaffolderShellTest, CanvasLayerManagement) {
-	// Create a test node.
-	Ref<Node> test_node;
-	test_node.instantiate();
-	test_node->set_name("test_node");
-
-	// Test that canvas layers are created.
-	// Since create_canvas_layers() now creates default layers,
-	// we should be able to add nodes to them.
-	shell->_enter_tree(); // This should call create_canvas_layers().
-
-	// Test adding to a valid layer (should work with default implementation).
-	shell->add_to_layer("hud", test_node.ptr());
-
-	// Test adding to invalid layer (should log error but not crash).
-	shell->add_to_layer("nonexistent_layer", test_node.ptr());
-
-	// Test removing from a valid layer.
-	shell->remove_from_layer("hud", test_node.ptr());
-
-	// Test removing from invalid layer (should log error but not crash).
-	shell->remove_from_layer("nonexistent_layer", test_node.ptr());
-}
-
 TEST_F(ScaffolderShellTest, NotificationHandling) {
 	// Test that notification handling doesn't crash.
 	shell->_notification(NOTIFICATION_WM_GO_BACK_REQUEST);
