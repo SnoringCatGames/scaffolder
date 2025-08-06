@@ -1,10 +1,12 @@
 #include "scaffolder/scaffolder_level.h"
 
+#include "scaffolder/audio_service.h"
 #include "scaffolder/game_session.h"
 #include "scaffolder/scaffolder_module.h"
 #include "scaffolder/screen.h"
 #include "scaffolder/screen_name.h"
 #include "scaffolder/screen_service.h"
+#include "scaffolder/sfx_name.h"
 #include "snore_core/snore_core_utils.h"
 #include "snore_core/time/time_service.h"
 
@@ -36,8 +38,7 @@ void ScaffolderLevel::start() {
 
 	Scaffolder::get()->on_level_started(this);
 
-	// FIXME: LEFT OFF HERE: Play SFX when audio module is available.
-	// S.audio.play_sfx("level_start")
+	AudioService::get()->play_sfx(SfxName::level_start());
 }
 
 void ScaffolderLevel::pause() {
@@ -66,6 +67,10 @@ void ScaffolderLevel::game_over(bool p_success) {
 	has_ended = true;
 
 	Scaffolder::get()->on_level_ended(this);
+
+	const StringName &sfx_name = p_success ? SfxName::game_over_success()
+										   : SfxName::game_over_failure();
+	AudioService::get()->play_sfx(sfx_name);
 
 	TimeService::get()->set_timeout(
 			Callable(this, "show_game_over_screen"),

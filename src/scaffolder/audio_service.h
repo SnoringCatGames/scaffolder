@@ -33,6 +33,8 @@ public:
 	void set_music_volume(float p_volume_db);
 	void set_sfx_volume(float p_volume_db);
 
+	// -   Plays the SFX non-positionally.
+	// -   SFXs are registered in the app settings.
 	void play_sfx(const StringName &p_name);
 
 protected:

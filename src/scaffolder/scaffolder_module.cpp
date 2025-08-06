@@ -9,6 +9,7 @@
 #include "scaffolder/scaffolder_shell.h"
 #include "scaffolder/screen.h"
 #include "scaffolder/screen_service.h"
+#include "scaffolder/sfx_name.h"
 #include "snore_core/canvas_layer_service.h"
 #include "snore_core/internal/snore_core_module_utils.h"
 #include "snore_core/snore_core_main_module.h"
@@ -101,6 +102,8 @@ void Scaffolder::set_up() {
 		CanvasLayerService::get()->add_to_layer(CanvasLayerName::hud(), hud);
 		Scaffolder::get()->set_hud(hud);
 	}
+
+	AudioService::get()->play_sfx(SfxName::app_start());
 
 	on_set_up_finished();
 }
