@@ -8,8 +8,8 @@
 
 namespace godot {
 
+class CanvasItem;
 class GameSession;
-class Node;
 class ScaffolderLevel;
 class ScaffolderShell;
 
@@ -34,11 +34,11 @@ public:
 	Ref<GameSession> get_session() const;
 	void set_session(Ref<GameSession> p_session);
 
-	Ref<Node> get_super_hud() const;
-	void set_super_hud(Ref<Node> p_super_hud);
+	Ref<CanvasItem> get_super_hud() const;
+	void set_super_hud(Ref<CanvasItem> p_super_hud);
 
-	Ref<Node> get_hud() const;
-	void set_hud(Ref<Node> p_hud);
+	Ref<CanvasItem> get_hud() const;
+	void set_hud(Ref<CanvasItem> p_hud);
 
 protected:
 	static void _bind_methods();
@@ -49,8 +49,8 @@ private:
 	Ref<ScaffolderShell> shell;
 	Ref<ScaffolderLevel> level;
 	Ref<GameSession> session;
-	Ref<Node> super_hud;
-	Ref<Node> hud;
+	Ref<CanvasItem> super_hud;
+	Ref<CanvasItem> hud;
 };
 
 } //namespace godot

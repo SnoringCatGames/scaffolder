@@ -10,6 +10,7 @@
 #include "snore_core/snore_core_main_settings.h"
 #include "snore_core/snore_core_utils.h"
 
+#include <godot_cpp/classes/canvas_item.hpp>
 #include <godot_cpp/classes/display_server.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 
@@ -65,20 +66,19 @@ void ScaffolderShell::_unhandled_input(const Ref<InputEvent> &p_event) {
 	}
 
 	if (key == settings->get_toggle_hud_visibility_hotkey()) {
-		Ref<Node> hud = scaffolder->get_hud();
-		Ref<Node> super_hud = scaffolder->get_super_hud();
-		// FIXME: LEFT OFF HERE: Lookup how to set visibility.
+		Ref<CanvasItem> hud = scaffolder->get_hud();
+		Ref<CanvasItem> super_hud = scaffolder->get_super_hud();
 		if (is_instance_valid(hud)) {
-			hud->visible = !hud->visible;
+			hud->set_visible(!hud->is_visible());
 			Log::print(
 					"Toggled HUD visibility: %s",
-					(hud->visible ? "visible" : "hidden"));
+					(hud->is_visible() ? "visible" : "hidden"));
 		}
 		if (is_instance_valid(super_hud)) {
-			super_hud->visible = !super_hud->visible;
+			super_hud->set_visible(!super_hud->is_visible());
 			Log::print(
 					"Toggled SuperHUD visibility: %s",
-					(super_hud->visible ? "visible" : "hidden"));
+					(super_hud->is_visible() ? "visible" : "hidden"));
 		}
 	}
 

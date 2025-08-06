@@ -3,6 +3,7 @@
 #include "scaffolder/active_screen.h"
 #include "scaffolder/audio_service.h"
 #include "scaffolder/game_session.h"
+#include "scaffolder/in_game_settings.h"
 #include "scaffolder/scaffolder_level.h"
 #include "scaffolder/scaffolder_settings.h"
 #include "scaffolder/scaffolder_shell.h"
@@ -13,6 +14,7 @@
 #include "snore_core/snore_core_main_module.h"
 #include "snore_core/snore_core_utils.h"
 
+#include <godot_cpp/classes/canvas_item.hpp>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/core/class_db.hpp>
 
@@ -20,6 +22,7 @@
 #include "scaffolder/test_active_screen.h"
 #include "scaffolder/test_audio_service.h"
 #include "scaffolder/test_game_session.h"
+#include "scaffolder/test_in_game_settings.h"
 #include "scaffolder/test_scaffolder_level.h"
 #include "scaffolder/test_scaffolder_module.h"
 #include "scaffolder/test_scaffolder_settings.h"
@@ -46,6 +49,7 @@ void Scaffolder::register_gdextension_types(ModuleInitializationLevel p_level) {
 
 	GDREGISTER_CLASS(Scaffolder);
 	GDREGISTER_CLASS(ScaffolderSettings);
+	GDREGISTER_CLASS(InGameSettings);
 	GDREGISTER_CLASS(ActiveScreen);
 	GDREGISTER_CLASS(GameSession);
 	GDREGISTER_CLASS(AudioService);
@@ -84,13 +88,16 @@ void Scaffolder::set_up() {
 	if (!SnoreCoreUtils::is_running_in_isolated_scene_mode() ||
 		Object::cast_to<ScaffolderLevel>(
 				SnoreCore::get()->get_scene_tree()->get_current_scene())) {
-		Node *super_hud =
-				ScaffolderSettings::get()->get_super_hud_scene()->instantiate();
+		CanvasItem *super_hud =
+				Object::cast_to<CanvasItem>(ScaffolderSettings::get()
+													->get_super_hud_scene()
+													->instantiate());
 		CanvasLayerService::get()->add_to_layer(
 				CanvasLayerName::super_hud(), super_hud);
 		Scaffolder::get()->set_super_hud(super_hud);
 
-		Node *hud = ScaffolderSettings::get()->get_hud_scene()->instantiate();
+		CanvasItem *hud = Object::cast_to<CanvasItem>(
+				ScaffolderSettings::get()->get_hud_scene()->instantiate());
 		CanvasLayerService::get()->add_to_layer(CanvasLayerName::hud(), hud);
 		Scaffolder::get()->set_hud(hud);
 	}
@@ -135,13 +142,13 @@ void Scaffolder::set_session(Ref<GameSession> p_session) {
 	session = p_session;
 }
 
-Ref<Node> Scaffolder::get_super_hud() const { return super_hud; }
-void Scaffolder::set_super_hud(Ref<Node> p_super_hud) {
+Ref<CanvasItem> Scaffolder::get_super_hud() const { return super_hud; }
+void Scaffolder::set_super_hud(Ref<CanvasItem> p_super_hud) {
 	super_hud = p_super_hud;
 }
 
-Ref<Node> Scaffolder::get_hud() const { return hud; }
-void Scaffolder::set_hud(Ref<Node> p_hud) { hud = p_hud; }
+Ref<CanvasItem> Scaffolder::get_hud() const { return hud; }
+void Scaffolder::set_hud(Ref<CanvasItem> p_hud) { hud = p_hud; }
 
 void Scaffolder::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_settings"), &Scaffolder::get_settings);

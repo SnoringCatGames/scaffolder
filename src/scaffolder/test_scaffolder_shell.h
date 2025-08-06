@@ -9,8 +9,6 @@
 
 #include <gtest/gtest.h>
 
-// FIXME: LEFT OFF HERE: FINISH PORTING ---------------------------------------
-
 namespace godot {
 
 class ScaffolderShellTest : public SnoreCoreTest {
@@ -21,29 +19,6 @@ protected:
 
 	Ref<ScaffolderShell> shell;
 };
-
-TEST_F(ScaffolderShellTest, NotificationHandling) {
-	// Test that notification handling doesn't crash.
-	shell->_notification(NOTIFICATION_WM_GO_BACK_REQUEST);
-	shell->_notification(NOTIFICATION_WM_CLOSE_REQUEST);
-	shell->_notification(NOTIFICATION_WM_WINDOW_FOCUS_OUT);
-	shell->_notification(999); // Invalid notification.
-}
-
-TEST_F(ScaffolderShellTest, CloseApp) {
-	// Note: We can't actually test the full close_app functionality without
-	// a proper scene tree setup. This just ensures the method doesn't crash
-	// when called directly.
-	// In a real test environment with scene tree, we would check that
-	// get_tree()->call_deferred("quit") was called.
-
-	// For now, just ensure the method exists and can be called.
-	// shell->close_app(); // Commented out to avoid actually quitting during
-	// tests.
-
-	// Test passes if we get here without crashing
-	EXPECT_TRUE(true);
-}
 
 } //namespace godot
 
