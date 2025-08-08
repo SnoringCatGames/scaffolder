@@ -6,6 +6,7 @@
 #include "snore_core/log_service.h"
 
 #include <godot_cpp/classes/audio_server.hpp>
+#include <godot_cpp/classes/audio_stream.hpp>
 #include <godot_cpp/classes/audio_stream_player.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/dictionary.hpp>
@@ -118,7 +119,7 @@ void AudioService::play_sfx(const StringName &p_name) {
 	if (player_variant.get_type() == Variant::OBJECT) {
 		AudioStreamPlayer *player =
 				Object::cast_to<AudioStreamPlayer>(player_variant);
-		if (is_instance_valid(player)) {
+		if (is_valid(player)) {
 			player->play();
 		}
 	}

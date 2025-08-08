@@ -38,20 +38,20 @@ void ScaffolderLevel::start() {
 
 	Scaffolder::get()->on_level_started(this);
 
-	AudioService::get()->play_sfx(SfxName::level_start());
+	AudioService::get()->play_sfx(SfxName::level_start);
 }
 
 void ScaffolderLevel::pause() {
-	if (ScreenService::get()->is_top_screen(ScreenName::game())) {
-		ScreenService::get()->open(ScreenName::pause());
+	if (ScreenService::get()->is_top_screen(ScreenName::game)) {
+		ScreenService::get()->open(ScreenName::pause);
 	}
 
 	get_tree()->set_pause(true);
 }
 
 void ScaffolderLevel::unpause() {
-	if (!ScreenService::get()->is_top_screen(ScreenName::game())) {
-		ScreenService::get()->close_screens_above(ScreenName::game());
+	if (!ScreenService::get()->is_top_screen(ScreenName::game)) {
+		ScreenService::get()->close_screens_above(ScreenName::game);
 	}
 
 	get_tree()->set_pause(false);
@@ -68,8 +68,8 @@ void ScaffolderLevel::game_over(bool p_success) {
 
 	Scaffolder::get()->on_level_ended(this);
 
-	const StringName &sfx_name = p_success ? SfxName::game_over_success()
-										   : SfxName::game_over_failure();
+	const StringName &sfx_name =
+			p_success ? SfxName::game_over_success : SfxName::game_over_failure;
 	AudioService::get()->play_sfx(sfx_name);
 
 	TimeService::get()->set_timeout(
@@ -78,8 +78,8 @@ void ScaffolderLevel::game_over(bool p_success) {
 }
 
 void ScaffolderLevel::show_game_over_screen() {
-	ScreenService::get()->open(ScreenName::game_over());
-	ScreenService::get()->close(ScreenName::game());
+	ScreenService::get()->open(ScreenName::game_over);
+	ScreenService::get()->close(ScreenName::game);
 }
 
 void ScaffolderLevel::_bind_methods() {

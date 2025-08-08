@@ -1,8 +1,8 @@
 #include "scaffolder/screen_service.h"
 
 #include "scaffolder/scaffolder_level.h"
-#include "scaffolder/scaffolder_shell.h"
 #include "scaffolder/screen_name.h"
+#include "snore_core/canvas_layer_service.h"
 #include "snore_core/internal/debug_utils.h"
 #include "snore_core/log_service.h"
 #include "snore_core/snore_core_utils.h"
@@ -25,7 +25,7 @@ void ScreenService::open(const StringName &p_screen_name) {
 		return;
 	}
 
-	const ScaffolderSettings *settings = ScaffolderSettings::get();
+	const Ref<ScaffolderSettings> settings = ScaffolderSettings::get();
 	if (!ENSURE(settings->has_screen_scene(p_screen_name),
 				vformat("Invalid screen_name: %s", p_screen_name))) {
 		return;
@@ -33,13 +33,13 @@ void ScreenService::open(const StringName &p_screen_name) {
 
 	const Ref<ActiveScreen> previous_screen = get_top_screen();
 
-	if (previous_screen.is_valid() &&
+	if (is_valid(previous_screen) &&
 		previous_screen->get_name() == p_screen_name) {
 		Log::print("Screen already open: %s", p_screen_name);
 		return;
 	}
 
-	if (get_active_screen_by_name(p_screen_name).is_valid()) {
+	if (is_valid(get_active_screen_by_name(p_screen_name))) {
 		Log::print(
 				"Moving preexisting screen to the top, rather than "
 				"creating a new instance: %s",
@@ -63,19 +63,19 @@ void ScreenService::open(const StringName &p_screen_name) {
 			set_up_ref<ActiveScreen>(p_screen_name, screen);
 
 	// Update the screen-state of the old screen.
-	if (previous_screen.is_valid()) {
+	if (is_valid(previous_screen)) {
 		previous_screen->get_screen()->set_screen_state(ScaffolderScreen::OPEN);
 	}
 
 	// Open the new screen.
-	ScaffolderShell::get()->add_to_layer(screen->get_canvas_layer(), screen);
+	CanvasLayerService::get()->add_to_layer(screen->get_canvas_layer(), screen);
 	screen_stack.push_back(stack_entry);
 	screen->set_screen_state(ScaffolderScreen::TOP);
 
 	if (is_a_pausing_screen_above_level()) {
 		// Pause the level when a screen is opened above it.
-		Ref<ScaffolderLevel> level = Scaffolder::get()->get_level();
-		if (level.is_valid()) {
+		ScaffolderLevel *level = Scaffolder::get()->get_level();
+		if (is_valid(level)) {
 			level->pause();
 		}
 	}
@@ -84,7 +84,7 @@ void ScreenService::open(const StringName &p_screen_name) {
 void ScreenService::close_screens_above(const StringName &p_screen_name) {
 	const Ref<ActiveScreen> target_screen =
 			get_active_screen_by_name(p_screen_name);
-	if (!ENSURE(target_screen.is_valid(),
+	if (!ENSURE(is_valid(target_screen),
 				vformat("close_screens_above called for a screen that isn't "
 						"actually open: %s",
 						p_screen_name))) {
@@ -92,7 +92,7 @@ void ScreenService::close_screens_above(const StringName &p_screen_name) {
 	}
 
 	Ref<ActiveScreen> top_screen = get_top_screen();
-	while (top_screen.is_valid() && top_screen->get_name() != p_screen_name) {
+	while (is_valid(top_screen) && top_screen->get_name() != p_screen_name) {
 		close(top_screen->get_name());
 		top_screen = get_top_screen();
 	}
@@ -100,7 +100,7 @@ void ScreenService::close_screens_above(const StringName &p_screen_name) {
 
 void ScreenService::move_screen_to_top(const StringName &p_screen_name) {
 	Ref<ActiveScreen> previous_screen = get_top_screen();
-	if (!ENSURE(previous_screen.is_valid(), "No previous screen found")) {
+	if (!ENSURE(is_valid(previous_screen), "No previous screen found")) {
 		return;
 	}
 	previous_screen->get_screen()->set_screen_state(ScaffolderScreen::OPEN);
@@ -131,7 +131,7 @@ bool ScreenService::close(const Variant &p_screen_node_or_name) {
 		screen_entry = get_active_screen_by_node(screen_node);
 	}
 
-	if (!screen_entry.is_valid()) {
+	if (!is_valid(screen_entry)) {
 		Log::print("Screen not open: %s", display_text);
 		return false;
 	}
@@ -146,16 +146,16 @@ bool ScreenService::close(const Variant &p_screen_node_or_name) {
 
 	// Update the screen-state of the new top screen.
 	Ref<ActiveScreen> top_screen = get_top_screen();
-	if (top_screen.is_valid() &&
+	if (is_valid(top_screen) &&
 		top_screen->get_screen()->get_screen_state() != ScaffolderScreen::TOP) {
 		top_screen->get_screen()->set_screen_state(ScaffolderScreen::TOP);
 	}
 
 	// Possibly unpause the level.
 	if (!is_a_pausing_screen_above_level() &&
-		screen_entry->get_name() != ScreenName::game()) {
-		Ref<ScaffolderLevel> level = Scaffolder::get()->get_level();
-		if (level.is_valid()) {
+		screen_entry->get_name() != ScreenName::game) {
+		ScaffolderLevel *level = Scaffolder::get()->get_level();
+		if (is_valid(level)) {
 			level->unpause();
 		}
 	}
@@ -172,14 +172,14 @@ Ref<ActiveScreen> ScreenService::get_top_screen() {
 
 bool ScreenService::is_top_screen(const StringName &p_screen_name) {
 	Ref<ActiveScreen> top_screen = get_top_screen();
-	return top_screen.is_valid() && top_screen->get_name() == p_screen_name;
+	return is_valid(top_screen) && top_screen->get_name() == p_screen_name;
 }
 
 Ref<ActiveScreen> ScreenService::get_active_screen_by_name(
 		const StringName &p_name) {
 	for (int i = 0; i < screen_stack.size(); i++) {
 		Ref<ActiveScreen> entry = screen_stack[i];
-		if (entry.is_valid() && entry->get_name() == p_name) {
+		if (is_valid(entry) && entry->get_name() == p_name) {
 			return entry;
 		}
 	}
@@ -190,7 +190,7 @@ Ref<ActiveScreen> ScreenService::get_active_screen_by_node(
 		const ScaffolderScreen *p_screen) {
 	for (int i = 0; i < screen_stack.size(); i++) {
 		Ref<ActiveScreen> entry = screen_stack[i];
-		if (entry.is_valid() && entry->get_screen() == p_screen) {
+		if (is_valid(entry) && entry->get_screen() == p_screen) {
 			return entry;
 		}
 	}
@@ -199,9 +199,9 @@ Ref<ActiveScreen> ScreenService::get_active_screen_by_node(
 
 bool ScreenService::is_a_pausing_screen_above_level() {
 	const Ref<ActiveScreen> game_screen =
-			get_active_screen_by_name(ScreenName::game());
+			get_active_screen_by_name(ScreenName::game);
 
-	if (!game_screen.is_valid()) {
+	if (!is_valid(game_screen)) {
 		return false;
 	}
 
@@ -211,7 +211,7 @@ bool ScreenService::is_a_pausing_screen_above_level() {
 	int index = game_screen_index + 1;
 	while (screen_stack.size() > index) {
 		const Ref<ActiveScreen> entry = screen_stack[index];
-		if (entry.is_valid() &&
+		if (is_valid(entry) &&
 			entry->get_screen()->get_pauses_game_when_open()) {
 			return true;
 		}

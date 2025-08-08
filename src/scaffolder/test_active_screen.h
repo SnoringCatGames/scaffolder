@@ -17,11 +17,16 @@ class ActiveScreenTest : public SnoreCoreTest {
 protected:
 	void BeforeEach() override {
 		active_screen.instantiate();
-		screen.instantiate();
+		screen = memnew(ScaffolderScreen);
+	}
+
+	void AfterEach() override {
+		active_screen.unref();
+		memdelete(screen);
 	}
 
 	Ref<ActiveScreen> active_screen;
-	Ref<ScaffolderScreen> screen;
+	ScaffolderScreen *screen;
 };
 
 } //namespace godot

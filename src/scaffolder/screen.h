@@ -39,7 +39,7 @@ protected:
 	static void _bind_methods();
 
 private:
-	StringName canvas_layer = CanvasLayerName::screens();
+	StringName canvas_layer = CanvasLayerName::screens;
 	bool pauses_game_when_open = true;
 	ScreenState screen_state = CLOSED;
 };

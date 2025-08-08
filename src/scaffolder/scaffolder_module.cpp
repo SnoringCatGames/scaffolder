@@ -82,8 +82,8 @@ void Scaffolder::set_up() {
 	// TODO: Do any initialization that depends on runtime settings settings.
 
 	// Create the shell.
-	shell = instantiate_ref<ScaffolderShell>();
-	SnoreCore::get()->add_utility_node(shell.ptr(), ScaffolderShell::name);
+	shell = memnew(ScaffolderShell);
+	SnoreCore::get()->add_utility_node(shell, ScaffolderShell::name);
 
 	// Create the HUDs.
 	if (!SnoreCoreUtils::is_running_in_isolated_scene_mode() ||
@@ -94,16 +94,16 @@ void Scaffolder::set_up() {
 													->get_super_hud_scene()
 													->instantiate());
 		CanvasLayerService::get()->add_to_layer(
-				CanvasLayerName::super_hud(), super_hud);
+				CanvasLayerName::super_hud, super_hud);
 		Scaffolder::get()->set_super_hud(super_hud);
 
 		CanvasItem *hud = Object::cast_to<CanvasItem>(
 				ScaffolderSettings::get()->get_hud_scene()->instantiate());
-		CanvasLayerService::get()->add_to_layer(CanvasLayerName::hud(), hud);
+		CanvasLayerService::get()->add_to_layer(CanvasLayerName::hud, hud);
 		Scaffolder::get()->set_hud(hud);
 	}
 
-	AudioService::get()->play_sfx(SfxName::app_start());
+	AudioService::get()->play_sfx(SfxName::app_start);
 
 	on_set_up_finished();
 }
@@ -112,32 +112,32 @@ void Scaffolder::reset() {
 	// TODO: Clear state.
 	// TODO: Cancel any in-progress set_up operations.
 
-	if (is_instance_valid(shell)) {
+	if (is_valid(shell)) {
 		shell->queue_free();
-		shell.unref();
+		shell = nullptr;
 	}
 }
 
-void Scaffolder::on_level_loaded(Ref<ScaffolderLevel> p_level) {
+void Scaffolder::on_level_loaded(ScaffolderLevel *p_level) {
 	level = p_level;
 	emit_signal("level_loaded", p_level);
 }
 
-void Scaffolder::on_level_started(Ref<ScaffolderLevel> p_level) {
+void Scaffolder::on_level_started(ScaffolderLevel *p_level) {
 	emit_signal("level_started", p_level);
 }
 
-void Scaffolder::on_level_ended(Ref<ScaffolderLevel> p_level) {
+void Scaffolder::on_level_ended(ScaffolderLevel *p_level) {
 	emit_signal("level_ended", p_level);
 }
 
-Ref<ScaffolderShell> Scaffolder::get_shell() const { return shell; }
+ScaffolderShell *Scaffolder::get_shell() const { return shell; }
 
-void Scaffolder::set_shell(Ref<ScaffolderShell> p_shell) { shell = p_shell; }
+void Scaffolder::set_shell(ScaffolderShell *p_shell) { shell = p_shell; }
 
-Ref<ScaffolderLevel> Scaffolder::get_level() const { return level; }
+ScaffolderLevel *Scaffolder::get_level() const { return level; }
 
-void Scaffolder::set_level(Ref<ScaffolderLevel> p_level) { level = p_level; }
+void Scaffolder::set_level(ScaffolderLevel *p_level) { level = p_level; }
 
 Ref<GameSession> Scaffolder::get_session() const { return session; }
 
@@ -145,13 +145,13 @@ void Scaffolder::set_session(Ref<GameSession> p_session) {
 	session = p_session;
 }
 
-Ref<CanvasItem> Scaffolder::get_super_hud() const { return super_hud; }
-void Scaffolder::set_super_hud(Ref<CanvasItem> p_super_hud) {
+CanvasItem *Scaffolder::get_super_hud() const { return super_hud; }
+void Scaffolder::set_super_hud(CanvasItem *p_super_hud) {
 	super_hud = p_super_hud;
 }
 
-Ref<CanvasItem> Scaffolder::get_hud() const { return hud; }
-void Scaffolder::set_hud(Ref<CanvasItem> p_hud) { hud = p_hud; }
+CanvasItem *Scaffolder::get_hud() const { return hud; }
+void Scaffolder::set_hud(CanvasItem *p_hud) { hud = p_hud; }
 
 void Scaffolder::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_settings"), &Scaffolder::get_settings);
@@ -178,10 +178,9 @@ void Scaffolder::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "hud"), "set_hud", "get_hud");
 
 	ADD_SIGNAL(
-			MethodInfo("level_loaded"), PropertyInfo(Variant::OBJECT, "level"));
+			MethodInfo("level_loaded", PropertyInfo(Variant::OBJECT, "level")));
+	ADD_SIGNAL(MethodInfo(
+			"level_started", PropertyInfo(Variant::OBJECT, "level")));
 	ADD_SIGNAL(
-			MethodInfo("level_started"),
-			PropertyInfo(Variant::OBJECT, "level"));
-	ADD_SIGNAL(
-			MethodInfo("level_ended"), PropertyInfo(Variant::OBJECT, "level"));
+			MethodInfo("level_ended", PropertyInfo(Variant::OBJECT, "level")));
 }

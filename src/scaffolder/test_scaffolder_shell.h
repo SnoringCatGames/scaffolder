@@ -13,11 +13,11 @@ namespace godot {
 
 class ScaffolderShellTest : public SnoreCoreTest {
 protected:
-	void BeforeEach() override { shell.instantiate(); }
+	void BeforeEach() override { shell = memnew(ScaffolderShell); }
 
-	void AfterEach() override { shell.unref(); }
+	void AfterEach() override { memdelete(shell); }
 
-	Ref<ScaffolderShell> shell;
+	ScaffolderShell *shell;
 };
 
 } //namespace godot

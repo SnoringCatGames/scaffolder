@@ -21,24 +21,24 @@ public:
 	static void register_gdextension_types(ModuleInitializationLevel p_level);
 	static void unregister_gdextension_types(ModuleInitializationLevel p_level);
 
-	void on_level_loaded(Ref<ScaffolderLevel> p_level);
-	void on_level_started(Ref<ScaffolderLevel> p_level);
-	void on_level_ended(Ref<ScaffolderLevel> p_level);
+	void on_level_loaded(ScaffolderLevel *p_level);
+	void on_level_started(ScaffolderLevel *p_level);
+	void on_level_ended(ScaffolderLevel *p_level);
 
-	Ref<ScaffolderShell> get_shell() const;
-	void set_shell(Ref<ScaffolderShell> p_shell);
+	ScaffolderShell *get_shell() const;
+	void set_shell(ScaffolderShell *p_shell);
 
-	Ref<ScaffolderLevel> get_level() const;
-	void set_level(Ref<ScaffolderLevel> p_level);
+	ScaffolderLevel *get_level() const;
+	void set_level(ScaffolderLevel *p_level);
 
 	Ref<GameSession> get_session() const;
 	void set_session(Ref<GameSession> p_session);
 
-	Ref<CanvasItem> get_super_hud() const;
-	void set_super_hud(Ref<CanvasItem> p_super_hud);
+	CanvasItem *get_super_hud() const;
+	void set_super_hud(CanvasItem *p_super_hud);
 
-	Ref<CanvasItem> get_hud() const;
-	void set_hud(Ref<CanvasItem> p_hud);
+	CanvasItem *get_hud() const;
+	void set_hud(CanvasItem *p_hud);
 
 protected:
 	static void _bind_methods();
@@ -46,11 +46,11 @@ protected:
 private:
 	static bool are_types_registered;
 
-	Ref<ScaffolderShell> shell;
-	Ref<ScaffolderLevel> level;
+	ScaffolderShell *shell;
+	ScaffolderLevel *level;
 	Ref<GameSession> session;
-	Ref<CanvasItem> super_hud;
-	Ref<CanvasItem> hud;
+	CanvasItem *super_hud;
+	CanvasItem *hud;
 };
 
 } //namespace godot

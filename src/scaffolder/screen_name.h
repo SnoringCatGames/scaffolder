@@ -3,16 +3,7 @@
 
 #include <godot_cpp/variant/string_name.hpp>
 
-#define SCREEN_NAME(m_name)                                                    \
-	namespace Internal {                                                       \
-	static const constexpr char *m_name##_screen_name = #m_name;               \
-	} /*namespace Internal*/                                                   \
-                                                                               \
-	const StringName &m_name() {                                               \
-		static const StringName string_name =                                  \
-				StringName(Internal::m_name##_screen_name);                    \
-		return string_name;                                                    \
-	}
+#define SCREEN_NAME(m_name) const StringName m_name = #m_name;
 
 namespace godot {
 namespace ScreenName {

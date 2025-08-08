@@ -16,9 +16,10 @@ namespace godot {
 
 class ScreenServiceTest : public SnoreCoreTest {
 protected:
-	void BeforeEach() override { screen_service.instantiate(); }
+	void BeforeEach() override { screen_service = memnew(ScreenService); }
+	void AfterEach() override { memdelete(screen_service); }
 
-	Ref<ScreenService> screen_service;
+	ScreenService *screen_service;
 };
 
 TEST_F(ScreenServiceTest, CloseNonExistentScreen) {

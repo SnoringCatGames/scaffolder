@@ -13,7 +13,7 @@ class ScaffolderShell : public Container {
 public:
 	static const constexpr char *name = "ScaffolderShell";
 
-	static Ref<ScaffolderShell> get();
+	static ScaffolderShell *get();
 
 	ScaffolderShell() = default;
 	virtual ~ScaffolderShell() = default;

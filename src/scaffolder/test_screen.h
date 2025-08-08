@@ -14,21 +14,23 @@ namespace godot {
 
 class ScaffolderScreenTest : public SnoreCoreTest {
 protected:
-	void BeforeEach() override { screen.instantiate(); }
+	void BeforeEach() override { screen = memnew(ScaffolderScreen); }
 
-	Ref<ScaffolderScreen> screen;
+	void AfterEach() override { memdelete(screen); }
+
+	ScaffolderScreen *screen;
 };
 
 TEST_F(ScaffolderScreenTest, Constructor) {
-	EXPECT_TRUE(screen.is_valid());
-	EXPECT_EQ(screen->get_canvas_layer(), "screens");
+	EXPECT_TRUE(is_valid(screen));
+	EXPECT_STRING_EQ(screen->get_canvas_layer(), "screens");
 	EXPECT_TRUE(screen->get_pauses_game_when_open());
 	EXPECT_EQ(screen->get_screen_state(), ScaffolderScreen::CLOSED);
 }
 
 TEST_F(ScaffolderScreenTest, CanvasLayerProperty) {
 	screen->set_canvas_layer("test_layer");
-	EXPECT_EQ(screen->get_canvas_layer(), "test_layer");
+	EXPECT_STRING_EQ(screen->get_canvas_layer(), "test_layer");
 }
 
 TEST_F(ScaffolderScreenTest, PausesGameWhenOpenProperty) {

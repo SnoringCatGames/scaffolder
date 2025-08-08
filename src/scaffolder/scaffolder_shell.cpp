@@ -18,7 +18,7 @@ using namespace godot;
 
 // TODO: Make sure all of this logic is overridable from GDSCript.
 
-Ref<ScaffolderShell> ScaffolderShell::get() {
+ScaffolderShell *ScaffolderShell::get() {
 	return Scaffolder::get()->get_shell();
 }
 
@@ -49,7 +49,7 @@ void ScaffolderShell::_unhandled_input(const Ref<InputEvent> &p_event) {
 
 	Ref<InputEventKey> key_event =
 			Object::cast_to<InputEventKey>(p_event.ptr());
-	if (!key_event.is_valid()) {
+	if (!is_valid(key_event)) {
 		return;
 	}
 
@@ -59,22 +59,22 @@ void ScaffolderShell::_unhandled_input(const Ref<InputEvent> &p_event) {
 	}
 
 	Scaffolder *scaffolder = Scaffolder::get();
-	const ScaffolderSettings *settings = ScaffolderSettings::get();
+	const Ref<ScaffolderSettings> settings = ScaffolderSettings::get();
 
 	if (key == settings->get_screenshot_hotkey()) {
 		SnoreCoreUtils::take_screenshot();
 	}
 
 	if (key == settings->get_toggle_hud_visibility_hotkey()) {
-		Ref<CanvasItem> hud = scaffolder->get_hud();
-		Ref<CanvasItem> super_hud = scaffolder->get_super_hud();
-		if (is_instance_valid(hud)) {
+		CanvasItem *hud = scaffolder->get_hud();
+		CanvasItem *super_hud = scaffolder->get_super_hud();
+		if (is_valid(hud)) {
 			hud->set_visible(!hud->is_visible());
 			Log::print(
 					"Toggled HUD visibility: %s",
 					(hud->is_visible() ? "visible" : "hidden"));
 		}
-		if (is_instance_valid(super_hud)) {
+		if (is_valid(super_hud)) {
 			super_hud->set_visible(!super_hud->is_visible());
 			Log::print(
 					"Toggled SuperHUD visibility: %s",
@@ -83,7 +83,7 @@ void ScaffolderShell::_unhandled_input(const Ref<InputEvent> &p_event) {
 	}
 
 	if (key == settings->get_pause_hotkey()) {
-		if (is_instance_valid(scaffolder->get_level()) &&
+		if (is_valid(scaffolder->get_level()) &&
 			settings->get_pauses_on_focus_out()) {
 			scaffolder->get_level()->pause();
 		}
@@ -97,12 +97,11 @@ void ScaffolderShell::_unhandled_input(const Ref<InputEvent> &p_event) {
 void ScaffolderShell::_notification(int p_notification) {
 	switch (p_notification) {
 		case NOTIFICATION_WM_GO_BACK_REQUEST: {
-			if (ScreenService::get()->is_top_screen(ScreenName::main_menu())) {
+			if (ScreenService::get()->is_top_screen(ScreenName::main_menu)) {
 				// Handle the Android back button to navigate within the app
 				// instead of quitting the app.
 				close_app();
-			} else if (!ScreenService::get()->is_top_screen(
-							   ScreenName::game())) {
+			} else if (!ScreenService::get()->is_top_screen(ScreenName::game)) {
 				// Close the current screen if it's not game_screen.
 				ScreenService::get()->close(
 						ScreenService::get()->get_top_screen());
@@ -114,8 +113,8 @@ void ScaffolderShell::_notification(int p_notification) {
 			break;
 		}
 		case NOTIFICATION_WM_WINDOW_FOCUS_OUT: {
-			Ref<ScaffolderLevel> level = Scaffolder::get()->get_level();
-			if (is_instance_valid(level) &&
+			ScaffolderLevel *level = Scaffolder::get()->get_level();
+			if (is_valid(level) &&
 				ScaffolderSettings::get()->get_pauses_on_focus_out()) {
 				level->pause();
 			}

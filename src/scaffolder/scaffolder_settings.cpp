@@ -12,16 +12,16 @@
 using namespace godot;
 
 // TODO: Update the demo settings to use the default values from the old
-// manifest.gd.
+//       manifest.gd.
 
-SC_SETTINGS_CLASS_DEFINITION(ScaffolderSettings, Scaffolder)
+SC_SETTINGS_CLASS_DEFINITION_ON_MODULE(ScaffolderSettings, Scaffolder)
 
 StringName ScaffolderSettings::get_initial_screen() const {
 	if (SnoreCoreMainSettings::get()->get_dev_mode() &&
 		skip_main_menu_in_dev_mode) {
-		return ScreenName::game();
+		return ScreenName::game;
 	} else {
-		return ScreenName::main_menu();
+		return ScreenName::main_menu;
 	}
 }
 

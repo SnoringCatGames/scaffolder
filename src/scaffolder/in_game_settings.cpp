@@ -108,7 +108,7 @@ void InGameSettings::_bind_methods() {
 			&InGameSettings::set_show_logs);
 	ADD_PROPERTY(
 			PropertyInfo(Variant::BOOL, "show_logs"), "set_show_logs",
-			"get_show_logs", PROPERTY_USAGE_EXPORTED_ITEM);
+			"get_show_logs");
 
 	ADD_SIGNAL(MethodInfo(
 			"property_changed", PropertyInfo(Variant::STRING_NAME, "name"),
