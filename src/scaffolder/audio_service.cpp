@@ -18,8 +18,8 @@
 
 using namespace godot;
 
-const StringName sfx_bus_name = "SFX";
-const StringName music_bus_name = "Music";
+const StringName AudioService::sfx_bus_name = "SFX";
+const StringName AudioService::music_bus_name = "Music";
 
 void AudioService::set_up() {
 	AudioServer *audio_server = AudioServer::get_singleton();
