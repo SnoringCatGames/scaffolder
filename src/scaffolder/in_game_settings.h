@@ -2,6 +2,7 @@
 #define IN_GAME_SETTINGS_H
 
 #include "scaffolder/scaffolder_module.h"
+#include "snore_core/internal/registration_utils.h"
 #include "snore_core/snore_core_submodule.h"
 
 #include <godot_cpp/core/binder_common.hpp>
@@ -19,12 +20,14 @@ class InGameSettings : public SnoreCoreSubmodule {
 	SC_SUBMODULE_CLASS(InGameSettings, Scaffolder)
 
 public:
-	static const StringName user_settings_path;
-	static const StringName default_settings_path;
+	STATIC_STRING_NAME(user_settings_path, "user://user_settings.tres")
+	STATIC_STRING_NAME(
+			default_settings_path,
+			"res://addons/scaffolder2/src/config/default_settings.tres")
 
-	static const StringName sfx_volume_property_name;
-	static const StringName music_volume_property_name;
-	static const StringName show_logs_property_name;
+	STATIC_STRING_NAME(sfx_volume_property_name, "sfx_volume")
+	STATIC_STRING_NAME(music_volume_property_name, "music_volume")
+	STATIC_STRING_NAME(show_logs_property_name, "show_logs")
 
 	InGameSettings() = default;
 	~InGameSettings() = default;

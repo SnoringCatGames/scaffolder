@@ -81,6 +81,8 @@ std::vector<SnoreCoreSubmodule *> Scaffolder::instantiate_submodules() {
 void Scaffolder::set_up() {
 	// TODO: Do any initialization that depends on runtime settings settings.
 
+	const ScaffolderSettings *settings = ScaffolderSettings::get();
+
 	// Create the shell.
 	shell = memnew(ScaffolderShell);
 	SnoreCore::get()->add_utility_node(shell, ScaffolderShell::name);
@@ -89,21 +91,21 @@ void Scaffolder::set_up() {
 	if (!SnoreCoreUtils::is_running_in_isolated_scene_mode() ||
 		Object::cast_to<ScaffolderLevel>(
 				SnoreCore::get()->get_scene_tree()->get_current_scene())) {
-		CanvasItem *super_hud =
-				Object::cast_to<CanvasItem>(ScaffolderSettings::get()
-													->get_super_hud_scene()
-													->instantiate());
+		CanvasItem *super_hud = Object::cast_to<CanvasItem>(
+				settings->get_super_hud_scene()->instantiate());
+		super_hud->set_visible(settings->get_show_hud());
 		CanvasLayerService::get()->add_to_layer(
-				CanvasLayerName::super_hud, super_hud);
+				CanvasLayerName::super_hud(), super_hud);
 		Scaffolder::get()->set_super_hud(super_hud);
 
 		CanvasItem *hud = Object::cast_to<CanvasItem>(
-				ScaffolderSettings::get()->get_hud_scene()->instantiate());
-		CanvasLayerService::get()->add_to_layer(CanvasLayerName::hud, hud);
+				settings->get_hud_scene()->instantiate());
+		hud->set_visible(settings->get_show_hud());
+		CanvasLayerService::get()->add_to_layer(CanvasLayerName::hud(), hud);
 		Scaffolder::get()->set_hud(hud);
 	}
 
-	AudioService::get()->play_sfx(SfxName::app_start);
+	AudioService::get()->play_sfx(SfxName::app_start());
 
 	on_set_up_finished();
 }

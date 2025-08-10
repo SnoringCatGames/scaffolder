@@ -153,7 +153,7 @@ bool ScreenService::close(const Variant &p_screen_node_or_name) {
 
 	// Possibly unpause the level.
 	if (!is_a_pausing_screen_above_level() &&
-		screen_entry->get_name() != ScreenName::game) {
+		screen_entry->get_name() != ScreenName::game()) {
 		ScaffolderLevel *level = Scaffolder::get()->get_level();
 		if (is_valid(level)) {
 			level->unpause();
@@ -199,7 +199,7 @@ Ref<ActiveScreen> ScreenService::get_active_screen_by_node(
 
 bool ScreenService::is_a_pausing_screen_above_level() {
 	const Ref<ActiveScreen> game_screen =
-			get_active_screen_by_name(ScreenName::game);
+			get_active_screen_by_name(ScreenName::game());
 
 	if (!is_valid(game_screen)) {
 		return false;

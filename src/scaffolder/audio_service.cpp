@@ -18,19 +18,16 @@
 
 using namespace godot;
 
-const StringName AudioService::sfx_bus_name = "SFX";
-const StringName AudioService::music_bus_name = "Music";
-
 void AudioService::set_up() {
 	AudioServer *audio_server = AudioServer::get_singleton();
 
 	// Verify that required audio buses exist.
-	ENSURE(audio_server->get_bus_index(sfx_bus_name) >= 0,
+	ENSURE(audio_server->get_bus_index(sfx_bus_name()) >= 0,
 		   vformat("Scaffolder expects an audio bus of name \"%s\".",
-				   sfx_bus_name));
-	ENSURE(audio_server->get_bus_index(music_bus_name) >= 0,
+				   sfx_bus_name()));
+	ENSURE(audio_server->get_bus_index(music_bus_name()) >= 0,
 		   vformat("Scaffolder expects an audio bus of name \"%s\".",
-				   music_bus_name));
+				   music_bus_name()));
 
 	// Create SFX players for each registered sound effect.
 	const Dictionary sfxs = ScaffolderSettings::get()->get_sfxs();
@@ -39,14 +36,14 @@ void AudioService::set_up() {
 		const StringName name = sfx_names[i];
 		AudioStreamPlayer *player = memnew(AudioStreamPlayer);
 		player->set_stream(sfxs[name]);
-		player->set_bus(sfx_bus_name);
+		player->set_bus(sfx_bus_name());
 		node->add_child(player);
 		sfx_players[name] = player;
 	}
 
 	// Handle music muting if configured.
 	if (ScaffolderSettings::get()->get_mute_music()) {
-		const int32_t index = audio_server->get_bus_index(music_bus_name);
+		const int32_t index = audio_server->get_bus_index(music_bus_name());
 		if (!ENSURE(index >= 0, "Failed to get music bus index")) {
 			return;
 		}
@@ -76,12 +73,12 @@ void AudioService::on_property_changed(
 		const StringName &p_name,
 		const Variant &p_new_value,
 		const Variant &p_old_value) {
-	if (p_name == InGameSettings::music_volume_property_name) {
+	if (p_name == InGameSettings::music_volume_property_name()) {
 		// p_new_value is [0,1].
 		float linear_value = p_new_value;
 		float db_value = UtilityFunctions::linear_to_db(linear_value);
 		set_music_volume(db_value);
-	} else if (p_name == InGameSettings::sfx_volume_property_name) {
+	} else if (p_name == InGameSettings::sfx_volume_property_name()) {
 		// p_new_value is [0,1].
 		float linear_value = p_new_value;
 		float db_value = UtilityFunctions::linear_to_db(linear_value);
@@ -92,7 +89,7 @@ void AudioService::on_property_changed(
 
 void AudioService::set_music_volume(float p_volume_db) {
 	AudioServer *audio_server = AudioServer::get_singleton();
-	const int32_t index = audio_server->get_bus_index(music_bus_name);
+	const int32_t index = audio_server->get_bus_index(music_bus_name());
 	if (!ENSURE(index >= 0, "Failed to get music bus index")) {
 		return;
 	}
@@ -101,7 +98,7 @@ void AudioService::set_music_volume(float p_volume_db) {
 
 void AudioService::set_sfx_volume(float p_volume_db) {
 	AudioServer *audio_server = AudioServer::get_singleton();
-	const int32_t index = audio_server->get_bus_index(sfx_bus_name);
+	const int32_t index = audio_server->get_bus_index(sfx_bus_name());
 	if (!ENSURE(index >= 0, "Failed to get SFX bus index")) {
 		return;
 	}

@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://cttwbnovsef3h"]
 
-[ext_resource type="Script" uid="uid://cwa5hl8jqotxg" path="res://addons/scaffolder/src/ui/hud/super_hud.gd" id="1_geidd"]
-[ext_resource type="PackedScene" uid="uid://erse75q1yb6i" path="res://addons/scaffolder/src/ui/hud/logs_display.tscn" id="2_f577i"]
+[ext_resource type="Script" uid="uid://cwa5hl8jqotxg" path="res://addons/scaffolder/src/ui/hud/default_super_hud.gd" id="1_lh3as"]
+[ext_resource type="PackedScene" uid="uid://erse75q1yb6i" path="res://addons/scaffolder/src/ui/hud/logs_display.tscn" id="2_3w8po"]
 
-[node name="SuperHud" type="MarginContainer"]
+[node name="DefaultSuperHud" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,7 +14,7 @@ theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
-script = ExtResource("1_geidd")
+script = ExtResource("1_lh3as")
 
 [node name="LogsContainer" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
@@ -28,5 +28,5 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="LoggersDisplay" parent="LogsContainer" instance=ExtResource("2_f577i")]
+[node name="LoggersDisplay" parent="LogsContainer" instance=ExtResource("2_3w8po")]
 layout_mode = 2

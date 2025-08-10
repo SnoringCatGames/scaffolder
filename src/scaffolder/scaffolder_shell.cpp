@@ -68,14 +68,15 @@ void ScaffolderShell::_unhandled_input(const Ref<InputEvent> &p_event) {
 	if (key == settings->get_toggle_hud_visibility_hotkey()) {
 		CanvasItem *hud = scaffolder->get_hud();
 		CanvasItem *super_hud = scaffolder->get_super_hud();
+		const bool is_visible = is_valid(hud) && !hud->is_visible();
 		if (is_valid(hud)) {
-			hud->set_visible(!hud->is_visible());
+			hud->set_visible(is_visible);
 			Log::print(
 					"Toggled HUD visibility: %s",
 					(hud->is_visible() ? "visible" : "hidden"));
 		}
 		if (is_valid(super_hud)) {
-			super_hud->set_visible(!super_hud->is_visible());
+			super_hud->set_visible(is_visible);
 			Log::print(
 					"Toggled SuperHUD visibility: %s",
 					(super_hud->is_visible() ? "visible" : "hidden"));
@@ -97,11 +98,12 @@ void ScaffolderShell::_unhandled_input(const Ref<InputEvent> &p_event) {
 void ScaffolderShell::_notification(int p_notification) {
 	switch (p_notification) {
 		case NOTIFICATION_WM_GO_BACK_REQUEST: {
-			if (ScreenService::get()->is_top_screen(ScreenName::main_menu)) {
+			if (ScreenService::get()->is_top_screen(ScreenName::main_menu())) {
 				// Handle the Android back button to navigate within the app
 				// instead of quitting the app.
 				close_app();
-			} else if (!ScreenService::get()->is_top_screen(ScreenName::game)) {
+			} else if (!ScreenService::get()->is_top_screen(
+							   ScreenName::game())) {
 				// Close the current screen if it's not game_screen.
 				ScreenService::get()->close(
 						ScreenService::get()->get_top_screen());

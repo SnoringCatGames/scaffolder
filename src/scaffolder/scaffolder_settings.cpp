@@ -19,9 +19,9 @@ SC_SETTINGS_CLASS_DEFINITION_ON_MODULE(ScaffolderSettings, Scaffolder)
 StringName ScaffolderSettings::get_initial_screen() const {
 	if (SnoreCoreMainSettings::get()->get_dev_mode() &&
 		skip_main_menu_in_dev_mode) {
-		return ScreenName::game;
+		return ScreenName::game();
 	} else {
-		return ScreenName::main_menu;
+		return ScreenName::main_menu();
 	}
 }
 
@@ -236,16 +236,6 @@ void ScaffolderSettings::_bind_methods() {
 					Variant::OBJECT, "super_hud_scene",
 					PROPERTY_HINT_RESOURCE_TYPE, "PackedScene"),
 			"set_super_hud_scene", "get_super_hud_scene");
-	ClassDB::bind_method(
-			D_METHOD("get_shell_scene"), &ScaffolderSettings::get_shell_scene);
-	ClassDB::bind_method(
-			D_METHOD("set_shell_scene", "p_scene"),
-			&ScaffolderSettings::set_shell_scene);
-	ADD_PROPERTY(
-			EXPORTED_PROPERTY_INFO_WITH_HINT(
-					Variant::OBJECT, "shell_scene", PROPERTY_HINT_RESOURCE_TYPE,
-					"PackedScene"),
-			"set_shell_scene", "get_shell_scene");
 	ClassDB::bind_method(
 			D_METHOD("get_game_over_screen_delay_sec"),
 			&ScaffolderSettings::get_game_over_screen_delay_sec);

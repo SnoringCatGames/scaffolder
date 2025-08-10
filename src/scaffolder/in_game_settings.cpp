@@ -15,15 +15,6 @@
 
 using namespace godot;
 
-const StringName InGameSettings::user_settings_path =
-		"user://user_settings.tres";
-const StringName InGameSettings::default_settings_path =
-		"res://addons/scaffolder2/src/config/default_settings.tres";
-
-const StringName InGameSettings::sfx_volume_property_name = "sfx_volume";
-const StringName InGameSettings::music_volume_property_name = "music_volume";
-const StringName InGameSettings::show_logs_property_name = "show_logs";
-
 void InGameSettings::set_up() {
 	throttled_save = TimeService::get()->throttle(
 			callable_mp(this, &InGameSettings::save_throttled), 0.3f, false);
@@ -67,7 +58,7 @@ void InGameSettings::update_property(
 void InGameSettings::save_throttled() {
 	Log::print("Player settings saved");
 	const Error result = ResourceSaver::get_singleton()->save(
-			Ref<Resource>(this), user_settings_path);
+			Ref<Resource>(this), user_settings_path());
 	ENSURE(result == OK, "Failed to save user settings");
 }
 

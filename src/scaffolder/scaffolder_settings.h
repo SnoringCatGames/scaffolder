@@ -97,11 +97,6 @@ public:
 		super_hud_scene = p_scene;
 	}
 
-	Ref<PackedScene> get_shell_scene() const { return shell_scene; }
-	void set_shell_scene(const Ref<PackedScene> &p_scene) {
-		shell_scene = p_scene;
-	}
-
 	float get_game_over_screen_delay_sec() const {
 		return game_over_screen_delay_sec;
 	}
@@ -141,7 +136,6 @@ private:
 	bool render_debug_annotations = false;
 
 	Ref<PackedScene> super_hud_scene;
-	Ref<PackedScene> shell_scene;
 
 	float game_over_screen_delay_sec = 2.0f;
 };

@@ -2,6 +2,7 @@
 #define AUDIO_SERVICE_H
 
 #include "scaffolder/scaffolder_module.h"
+#include "snore_core/internal/registration_utils.h"
 #include "snore_core/snore_core_submodule.h"
 
 #include <godot_cpp/classes/node.hpp>
@@ -24,8 +25,8 @@ class AudioService : public SnoreCoreSubmoduleWithNode {
 			Node)
 
 public:
-	static const StringName sfx_bus_name;
-	static const StringName music_bus_name;
+	STATIC_STRING_NAME(sfx_bus_name, "SFX")
+	STATIC_STRING_NAME(music_bus_name, "Music")
 
 	AudioService() = default;
 	~AudioService() = default;
