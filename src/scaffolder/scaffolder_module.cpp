@@ -17,6 +17,8 @@
 
 #include <godot_cpp/classes/canvas_item.hpp>
 #include <godot_cpp/classes/engine.hpp>
+#include <godot_cpp/classes/packed_scene.hpp>
+#include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/core/class_db.hpp>
 
 #ifdef SC_TESTS_ENABLED
@@ -73,6 +75,7 @@ void Scaffolder::unregister_gdextension_types(
 
 std::vector<SnoreCoreSubmodule *> Scaffolder::instantiate_submodules() {
 	return {
+		memnew(InGameSettings),
 		memnew(ScreenService),
 		memnew(AudioService),
 	};
@@ -81,25 +84,41 @@ std::vector<SnoreCoreSubmodule *> Scaffolder::instantiate_submodules() {
 void Scaffolder::set_up() {
 	// TODO: Do any initialization that depends on runtime settings settings.
 
-	const ScaffolderSettings *settings = ScaffolderSettings::get();
+	const Ref<ScaffolderSettings> settings = ScaffolderSettings::get();
 
 	// Create the shell.
 	shell = memnew(ScaffolderShell);
 	SnoreCore::get()->add_utility_node(shell, ScaffolderShell::name);
 
+	ResourceLoader *loader = ResourceLoader::get_singleton();
+	if (!ENSURE_SIMPLE(loader)) {
+		return;
+	}
+
 	// Create the HUDs.
 	if (!SnoreCoreUtils::is_running_in_isolated_scene_mode() ||
 		Object::cast_to<ScaffolderLevel>(
 				SnoreCore::get()->get_scene_tree()->get_current_scene())) {
-		CanvasItem *super_hud = Object::cast_to<CanvasItem>(
-				settings->get_super_hud_scene()->instantiate());
+		const Ref<PackedScene> custom_super_hud_scene =
+				settings->get_super_hud_scene();
+		const Ref<PackedScene> super_hud_scene =
+				custom_super_hud_scene.is_valid()
+				? custom_super_hud_scene
+				: loader->load(default_super_hud_scene_path);
+
+		CanvasItem *super_hud =
+				Object::cast_to<CanvasItem>(super_hud_scene->instantiate());
 		super_hud->set_visible(settings->get_show_hud());
 		CanvasLayerService::get()->add_to_layer(
 				CanvasLayerName::super_hud(), super_hud);
 		Scaffolder::get()->set_super_hud(super_hud);
 
-		CanvasItem *hud = Object::cast_to<CanvasItem>(
-				settings->get_hud_scene()->instantiate());
+		const Ref<PackedScene> custom_hud_scene = settings->get_hud_scene();
+		const Ref<PackedScene> hud_scene = custom_hud_scene.is_valid()
+				? custom_hud_scene
+				: loader->load(default_hud_scene_path);
+
+		CanvasItem *hud = Object::cast_to<CanvasItem>(hud_scene->instantiate());
 		hud->set_visible(settings->get_show_hud());
 		CanvasLayerService::get()->add_to_layer(CanvasLayerName::hud(), hud);
 		Scaffolder::get()->set_hud(hud);
@@ -116,8 +135,8 @@ void Scaffolder::reset() {
 
 	if (is_valid(shell)) {
 		shell->queue_free();
-		shell = nullptr;
 	}
+	shell = nullptr;
 }
 
 void Scaffolder::on_level_loaded(ScaffolderLevel *p_level) {

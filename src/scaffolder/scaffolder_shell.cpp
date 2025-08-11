@@ -23,7 +23,7 @@ ScaffolderShell *ScaffolderShell::get() {
 }
 
 void ScaffolderShell::_ready() {
-	LogService::get()->report_submodule_initialized(name);
+	LogService::report_submodule_initialized(name);
 
 	// Make the container fill the screen.
 	set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);

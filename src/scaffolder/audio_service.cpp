@@ -29,6 +29,12 @@ void AudioService::set_up() {
 		   vformat("Scaffolder expects an audio bus of name \"%s\".",
 				   music_bus_name()));
 
+	// FIXME: LEFT OFF HERE: ACTUAL ------------------
+	// - Set up default sfx here, just like I did for huds in
+	// ScaffolderModule::set_up.
+	// - Then also do the same thing for screens.
+	// - Then do the same for CanvasLayers?
+
 	// Create SFX players for each registered sound effect.
 	const Dictionary sfxs = ScaffolderSettings::get()->get_sfxs();
 	const Array sfx_names = sfxs.keys();

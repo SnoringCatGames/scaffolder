@@ -18,6 +18,11 @@ class Scaffolder : public SnoreCoreRootModule<ScaffolderSettings> {
 	SC_ROOT_MODULE_CLASS(Scaffolder, ScaffolderSettings)
 
 public:
+	static const constexpr char *default_hud_scene_path =
+			"res://addons/scaffolder/src/ui/hud/default_hud.tscn";
+	static const constexpr char *default_super_hud_scene_path =
+			"res://addons/scaffolder/src/ui/hud/default_super_hud.tscn";
+
 	static void register_gdextension_types(ModuleInitializationLevel p_level);
 	static void unregister_gdextension_types(ModuleInitializationLevel p_level);
 
