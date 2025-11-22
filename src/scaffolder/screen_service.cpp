@@ -8,13 +8,51 @@
 #include "snore_core/snore_core_utils.h"
 
 #include <godot_cpp/classes/packed_scene.hpp>
+#include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/string_name.hpp>
 #include <godot_cpp/variant/variant.hpp>
 
+#include <unordered_map>
+
 using namespace godot;
 
-void ScreenService::set_up() {}
+// FIXME(levilindsey): Implement these screens.
+const std::unordered_map<std::string, std::string>
+		ScreenService::default_screens = {
+			{ "about", "res://src/ui/screens/about_screen.tscn" },
+			{ "developer_splash",
+			  "res://src/ui/screens/developer_splash_screen.tscn" },
+			{ "game", "res://src/ui/screens/game_screen.tscn" },
+			{ "godot_splash", "res://src/ui/screens/godot_splash_screen.tscn" },
+			{ "main_menu", "res://src/ui/screens/main_menu_screen.tscn" },
+			{ "pause", "res://src/ui/screens/pause_screen.tscn" },
+			{ "scaffolder_loading",
+			  "res://src/ui/screens/scaffolder_loading_screen.tscn" },
+			{ "settings", "res://src/ui/screens/settings_screen.tscn" },
+			{ "third_party_licenses",
+			  "res://src/ui/screens/third_party_licenses_screen.tscn" },
+		};
+
+void ScreenService::set_up() {
+	// Register each app-settings-defined screen.
+	const Dictionary screens = ScaffolderSettings::get()->get_screens();
+	const Array screen_names = screens.keys();
+	for (int i = 0; i < screen_names.size(); ++i) {
+		const StringName name = screen_names[i];
+		registered_screens[name] = screens[name];
+	}
+
+	// Add defaults for any missing screens.
+	for (const std::pair<std::string, std::string> &screen : default_screens) {
+		const StringName name = StringName(screen.first.c_str());
+		if (registered_screens.find(name) != registered_screens.end()) {
+			// This screen was defined in the app settings.
+			continue;
+		}
+		registered_screens[name] = screens[name];
+	}
+}
 
 void ScreenService::reset() {}
 
@@ -25,11 +63,8 @@ void ScreenService::open(const StringName &p_screen_name) {
 		return;
 	}
 
-	const Ref<ScaffolderSettings> settings = ScaffolderSettings::get();
-	if (!ENSURE(settings->has_screen_scene(p_screen_name),
-				vformat("Invalid screen_name: %s", p_screen_name))) {
-		return;
-	}
+	// FIXME(levilindsey):
+	// registered_screens
 
 	const Ref<ActiveScreen> previous_screen = get_top_screen();
 
@@ -51,8 +86,8 @@ void ScreenService::open(const StringName &p_screen_name) {
 	Log::print("Opening screen: %s", p_screen_name);
 
 	// Prepare the new screen.
-	const Ref<PackedScene> scene = settings->get_screen_scene(p_screen_name);
-	ScaffolderScreen *screen =
+	const Ref<PackedScene> scene = registered_screens[p_screen_name];
+	Ref<ScaffolderScreen> screen =
 			Object::cast_to<ScaffolderScreen>(scene->instantiate());
 	if (!ENSURE(screen,
 				vformat("Failed to instantiate screen: %s", p_screen_name))) {
