@@ -46,9 +46,6 @@ void AudioService::set_up() {
 		return;
 	}
 
-	// FIXME: LEFT OFF HERE: ACTUAL ------------------
-	// - Then do the same for CanvasLayers?
-
 	// Create SFX players for each registered sound effect.
 	const Dictionary sfxs = ScaffolderSettings::get()->get_sfxs();
 	const Array sfx_names = sfxs.keys();
