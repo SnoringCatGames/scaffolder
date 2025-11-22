@@ -63,8 +63,11 @@ void ScreenService::open(const StringName &p_screen_name) {
 		return;
 	}
 
-	// FIXME(levilindsey):
-	// registered_screens
+	if (!ENSURE(registered_screens.find(p_screen_name) !=
+						registered_screens.end(),
+				vformat("Invalid screen_name: %s", p_screen_name))) {
+		return;
+	}
 
 	const Ref<ActiveScreen> previous_screen = get_top_screen();
 
@@ -87,7 +90,7 @@ void ScreenService::open(const StringName &p_screen_name) {
 
 	// Prepare the new screen.
 	const Ref<PackedScene> scene = registered_screens[p_screen_name];
-	Ref<ScaffolderScreen> screen =
+	ScaffolderScreen *screen =
 			Object::cast_to<ScaffolderScreen>(scene->instantiate());
 	if (!ENSURE(screen,
 				vformat("Failed to instantiate screen: %s", p_screen_name))) {

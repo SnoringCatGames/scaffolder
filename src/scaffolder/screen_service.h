@@ -18,6 +18,8 @@ class ScreenService : public SnoreCoreSubmodule {
 	SC_SUBMODULE_CLASS(ScreenService, Scaffolder)
 
 public:
+	static const std::unordered_map<std::string, std::string> default_screens;
+
 	ScreenService() = default;
 	virtual ~ScreenService() = default;
 
@@ -42,6 +44,8 @@ protected:
 
 private:
 	std::vector<Ref<ActiveScreen>> screen_stack;
+
+	std::unordered_map<StringName, Ref<PackedScene>> registered_screens;
 
 	void move_screen_to_top(const StringName &p_screen_name);
 

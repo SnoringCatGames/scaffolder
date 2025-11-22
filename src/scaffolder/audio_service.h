@@ -7,6 +7,8 @@
 
 #include <godot_cpp/classes/node.hpp>
 
+#include <unordered_map>
+
 namespace godot {
 
 class AudioStreamPlayer;
@@ -25,6 +27,8 @@ class AudioService : public SnoreCoreSubmoduleWithNode {
 			Node)
 
 public:
+	static const std::unordered_map<std::string, std::string> default_sfxs;
+
 	STATIC_STRING_NAME(sfx_bus_name, "SFX")
 	STATIC_STRING_NAME(music_bus_name, "Music")
 
@@ -43,6 +47,10 @@ protected:
 
 private:
 	std::unordered_map<StringName, AudioStreamPlayer *> sfx_players;
+
+	void add_audio_stream_player(
+			const StringName p_name,
+			Ref<AudioStream> p_stream);
 
 	void on_property_changed(
 			const StringName &p_name,
