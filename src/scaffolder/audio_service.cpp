@@ -27,6 +27,7 @@ const std::unordered_map<std::string, std::string>
 			{ "menu_select", "res://assets/sfx/menu_select.wav" },
 			{ "menu_select_fancy", "res://assets/sfx/menu_select_fancy.wav" },
 			{ "single_cat_snore", "res://assets/sfx/single_cat_snore.wav" },
+			{ "app_start", "res://assets/sfx/single_cat_snore.wav" },
 			{ "walk", "res://assets/sfx/walk.wav" },
 		};
 

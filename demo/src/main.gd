@@ -2,7 +2,7 @@ class_name DemoMain
 extends Node
 
 
-# FIXME: LEFT OFF HERE: Implement manifests. ------------------------------
+# FIXME: LEFT OFF HERE: Implement manifests. -------------------------------
 @export var snore_core_settings: SnoreCoreMainSettings
 @export var scaffolder_settings: ScaffolderSettings
 

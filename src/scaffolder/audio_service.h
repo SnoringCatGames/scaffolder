@@ -6,11 +6,13 @@
 #include "snore_core/snore_core_submodule.h"
 
 #include <godot_cpp/classes/node.hpp>
+#include <godot_cpp/classes/ref.hpp>
 
 #include <unordered_map>
 
 namespace godot {
 
+class AudioStream;
 class AudioStreamPlayer;
 class StringName;
 class Variant;

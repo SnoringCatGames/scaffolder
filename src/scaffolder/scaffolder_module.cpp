@@ -82,7 +82,7 @@ std::vector<SnoreCoreSubmodule *> Scaffolder::instantiate_submodules() {
 }
 
 void Scaffolder::set_up() {
-	// TODO: Do any initialization that depends on runtime settings settings.
+	// TODO: Do any initialization that depends on runtime settings.
 
 	const Ref<ScaffolderSettings> settings = ScaffolderSettings::get();
 
@@ -123,8 +123,6 @@ void Scaffolder::set_up() {
 		CanvasLayerService::get()->add_to_layer(CanvasLayerName::hud(), hud);
 		Scaffolder::get()->set_hud(hud);
 	}
-
-	AudioService::get()->play_sfx(SfxName::app_start());
 
 	on_set_up_finished();
 }
