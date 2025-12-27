@@ -28,11 +28,12 @@ TEST_F(ScreenServiceTest, CloseNonExistentScreen) {
 }
 
 TEST_F(ScreenServiceTest, CloseScreensAboveNonExistent) {
+	DISABLE_ENSURE_BREAKPOINTS();
 	// This should handle gracefully when target screen doesn't exist.
 	// The method should log an error but not crash.
 	screen_service->close_screens_above("nonexistent_screen");
-	// If we reach here without crashing, the test passes.
-	EXPECT_TRUE(true);
+	EXPECT_ENSURE_WITH_SUBSTRING(
+			"called for a screen that isn't actually open");
 }
 
 // FIXME: Add tests with mocks.
