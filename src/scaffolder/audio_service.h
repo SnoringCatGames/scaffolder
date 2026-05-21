@@ -3,6 +3,7 @@
 
 #include "scaffolder/scaffolder_module.h"
 #include "snore_core/internal/registration_utils.h"
+#include "snore_core/internal/std_hash.h"
 #include "snore_core/snore_core_submodule.h"
 
 #include <godot_cpp/classes/node.hpp>

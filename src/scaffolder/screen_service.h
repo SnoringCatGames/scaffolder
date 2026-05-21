@@ -4,6 +4,7 @@
 #include "scaffolder/active_screen.h"
 #include "scaffolder/scaffolder_module.h"
 #include "scaffolder/screen.h"
+#include "snore_core/internal/std_hash.h"
 #include "snore_core/snore_core_submodule.h"
 
 #include <vector>
