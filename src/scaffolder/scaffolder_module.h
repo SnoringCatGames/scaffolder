@@ -1,6 +1,7 @@
 #ifndef SCAFFOLDER_MODULE_H
 #define SCAFFOLDER_MODULE_H
 
+#include "scaffolder/game_session.h"
 #include "scaffolder/scaffolder_settings.h"
 #include "snore_core/snore_core_root_module.h"
 
@@ -9,7 +10,6 @@
 namespace godot {
 
 class CanvasItem;
-class GameSession;
 class ScaffolderLevel;
 class ScaffolderShell;
 
