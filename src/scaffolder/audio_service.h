@@ -3,11 +3,11 @@
 
 #include "scaffolder/scaffolder_module.h"
 #include "snore_core/internal/registration_utils.h"
-#include "snore_core/internal/std_hash.h"
 #include "snore_core/snore_core_submodule.h"
 
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/classes/ref.hpp>
+#include <godot_cpp/templates/hash_map.hpp>
 
 #include <unordered_map>
 
@@ -49,7 +49,7 @@ protected:
 	static void _bind_methods();
 
 private:
-	std::unordered_map<StringName, AudioStreamPlayer *> sfx_players;
+	HashMap<StringName, AudioStreamPlayer *> sfx_players;
 
 	void add_audio_stream_player(
 			const StringName p_name,

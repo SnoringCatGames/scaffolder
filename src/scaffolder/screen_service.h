@@ -4,8 +4,9 @@
 #include "scaffolder/active_screen.h"
 #include "scaffolder/scaffolder_module.h"
 #include "scaffolder/screen.h"
-#include "snore_core/internal/std_hash.h"
 #include "snore_core/snore_core_submodule.h"
+
+#include <godot_cpp/templates/hash_map.hpp>
 
 #include <vector>
 
@@ -46,7 +47,7 @@ protected:
 private:
 	std::vector<Ref<ActiveScreen>> screen_stack;
 
-	std::unordered_map<StringName, Ref<PackedScene>> registered_screens;
+	HashMap<StringName, Ref<PackedScene>> registered_screens;
 
 	void move_screen_to_top(const StringName &p_screen_name);
 
