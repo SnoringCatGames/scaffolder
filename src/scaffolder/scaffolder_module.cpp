@@ -104,7 +104,8 @@ void Scaffolder::set_up() {
 		const Ref<PackedScene> super_hud_scene =
 				custom_super_hud_scene.is_valid()
 				? custom_super_hud_scene
-				: loader->load(default_super_hud_scene_path);
+				: Ref<PackedScene>(
+						  loader->load(default_super_hud_scene_path));
 
 		CanvasItem *super_hud =
 				Object::cast_to<CanvasItem>(super_hud_scene->instantiate());
@@ -116,7 +117,7 @@ void Scaffolder::set_up() {
 		const Ref<PackedScene> custom_hud_scene = settings->get_hud_scene();
 		const Ref<PackedScene> hud_scene = custom_hud_scene.is_valid()
 				? custom_hud_scene
-				: loader->load(default_hud_scene_path);
+				: Ref<PackedScene>(loader->load(default_hud_scene_path));
 
 		CanvasItem *hud = Object::cast_to<CanvasItem>(hud_scene->instantiate());
 		hud->set_visible(settings->get_show_hud());
