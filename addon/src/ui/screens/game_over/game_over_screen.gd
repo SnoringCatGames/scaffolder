@@ -7,7 +7,9 @@ extends ScaffolderScreen
 
 
 func _ready() -> void:
-    super ()
+    # TODO: Re-enable super() once C++ ScaffolderScreen exposes
+    # _ready via _bind_methods. See game_screen.gd for context.
+    pass
 
 
 func _on_play_button_pressed() -> void:

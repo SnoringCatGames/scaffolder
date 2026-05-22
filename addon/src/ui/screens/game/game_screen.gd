@@ -10,8 +10,10 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-    super()
-
+    # TODO: Re-enable super() once C++ ScaffolderScreen exposes
+    # _ready via _bind_methods. The GDScript parser rejects calls
+    # to virtual overrides on GDExtension parents that aren't
+    # bound, even though they exist at runtime.
     sub_viewport = %SubViewport
 
     await get_tree().process_frame

@@ -30,10 +30,13 @@ TypedArray<Dictionary> InGameSettings::get_settings_properties() {
 		Dictionary property = property_list[i];
 		const int usage = property["usage"];
 
-		// - PROPERTY_USAGE_SCRIPT_VARIABLE filters properties of this script.
-		// - PROPERTY_USAGE_EDITOR filters @export properties.
-		if ((usage & PROPERTY_USAGE_SCRIPT_VARIABLE) &&
-			(usage & PROPERTY_USAGE_EDITOR)) {
+		// PROPERTY_USAGE_EDITOR filters for properties exposed in the
+		// editor (i.e. ADD_PROPERTY entries from _bind_methods, the
+		// C++ equivalent of GDScript @export). The original GDScript
+		// also checked PROPERTY_USAGE_SCRIPT_VARIABLE to exclude
+		// inherited Object properties, but C++ ADD_PROPERTY doesn't
+		// set that flag, so it's not the right filter here.
+		if (usage & PROPERTY_USAGE_EDITOR) {
 			filtered_properties.push_back(property);
 		}
 	}

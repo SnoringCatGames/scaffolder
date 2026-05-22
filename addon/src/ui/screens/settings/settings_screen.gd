@@ -9,7 +9,8 @@ const SLIDER_WIDTH := 200
 
 
 func _ready() -> void:
-    super()
+    # TODO: Re-enable super() once C++ ScaffolderScreen exposes
+    # _ready via _bind_methods. See game_screen.gd for context.
     for property in S.settings.get_settings_properties():
         var row := _create_row(property)
         if row:

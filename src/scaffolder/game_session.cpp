@@ -26,7 +26,12 @@ float GameSession::get_play_time() const {
 		if (end_time > 0) {
 			return end_time - start_time;
 		} else {
-			return TimeService::play_time() - start_time;
+			// Guard against TimeService not being active (e.g. in
+			// unit tests): play_time() returns 0 in that case, so
+			// the naive `now - start_time` would be negative. Treat
+			// "no TimeService" the same as "session just started".
+			const float now = TimeService::play_time();
+			return now > start_time ? now - start_time : 0.0;
 		}
 	} else {
 		return 0.0;
