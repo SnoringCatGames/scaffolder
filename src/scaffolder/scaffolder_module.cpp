@@ -43,12 +43,29 @@ void Scaffolder::register_gdextension_types(ModuleInitializationLevel p_level) {
 		return;
 	}
 
-	// This method is idempotent, so we check here whether it has been called
-	// already.
+	// Intra-DLL re-entry guard: surf_scaf's chained registration calls
+	// Scaffolder's registrar; a downstream consumer that also calls
+	// Scaffolder::register_gdextension_types directly would otherwise
+	// re-enter.
 	if (are_types_registered) {
 		return;
 	}
 	are_types_registered = true;
+
+	// Cross-extension guard: if another loaded GDExtension already
+	// registered Scaffolder (e.g., a stray standalone
+	// scaffolder.gdextension alongside the surf_scaf bundle), skip the
+	// whole registration block instead of failing per-class with cryptic
+	// ClassDB collision errors. See bootstrapper HANDOVER Phase 2.1
+	// finding (a).
+	if (ClassDB::class_exists("Scaffolder")) {
+		WARN_PRINT(
+				"Scaffolder GDExtension classes are already registered "
+				"by another loaded extension; skipping duplicate "
+				"registration. Only one extension (surf_scaf, the "
+				"canonical bundle) should register Scaffolder classes.");
+		return;
+	}
 
 	GDREGISTER_CLASS(Scaffolder);
 	GDREGISTER_CLASS(ScaffolderSettings);
